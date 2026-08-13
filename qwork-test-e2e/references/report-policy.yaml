@@ -1,0 +1,82 @@
+contract_version: 2
+project: qwork
+
+report:
+  auto_generate_after_every_e2e_attempt: true
+  user_request_required: false
+  single_canonical_report_json: true
+  machine_result: report.json
+  human_report: report.html
+  format: self-contained-html
+  embed_sanitized_screenshots: true
+  report_is_evidence_not_terminal: true
+  fail_if_generation_fails: true
+  required_sections:
+    - plain-language-overview
+    - focused-vs-full-gate
+    - case-matrix
+    - visual-evidence
+    - defects-and-root-cause
+    - blockers-and-unexecuted
+    - cleanup-and-residual-risk
+    - release-gate-and-next-action
+    - collapsed-technical-details
+
+human_readability:
+  audience: product-and-business-first
+  require_plain_language_summary: true
+  required_summary_fields:
+    - what_was_tested
+    - what_was_not_tested
+    - result_reason
+    - user_impact
+    - next_step
+  answer_first:
+    - 这次检查了什么
+    - 这次没检查什么
+    - 能不能提测
+    - 为什么
+    - 对用户有什么影响
+    - 接下来怎么做
+  translate_machine_statuses: true
+  keep_raw_machine_values_in_collapsed_technical_details: true
+  forbid_unexplained_abbreviations_in_reader_sections: true
+
+visual_evidence:
+  required_for_ui_executors: true
+  executor_kinds:
+    - electron-cdp
+    - desktop-ui
+    - browser-ui
+    - ego-browser
+  checkpoints:
+    - entry
+    - major-state-transition
+    - before-and-after-important-mutation
+    - assertion-failure
+    - final-state
+  filename: <case-id>-<sequence>-<state>.png
+  require_case_and_state_mapping: true
+  require_sha256: true
+  ui_pass_requires_oracle_screenshot: true
+  screenshot_does_not_replace_durable_oracle: true
+
+privacy:
+  require_relative_paths: true
+  reject_artifact_outside_run_root: true
+  redact_secrets_and_personal_data: true
+  exclude_unrelated_windows_and_history: true
+  raw_artifacts_must_be_git_ignored: true
+  reject_unreferenced_visual_artifacts: true
+
+terminal_behavior:
+  render_on_repair_required: true
+  render_on_external_blocked: true
+  repair_report_does_not_allow_final_response: true
+  final_report_requires_cleanup_result: true
+
+readiness:
+  report_delivery: ready
+  report_evaluator_coupling: missing
+  release_gate_planner_and_evaluator: missing
+  overall: partial
