@@ -36,6 +36,7 @@ description: 维护 QWork 全产品私有 E2E 数据、需求 Coverage Map、Wor
 - 私有存储边界：`references/storage-contract.md`
 - 私有 Electron Case：`data/e2e/functional-contracts.spec.ts`
 - 私有 reference run 注册：`references/private-reference-runs.yaml`
+- 确定性 reference run 注册：`references/deterministic-reference-runs.yaml`
 
 引用一律使用 `skill://qwork-test-dataset/...`，不要把绝对路径写进 Case 或报告。
 
@@ -96,6 +97,10 @@ python3 .agents/skills/qwork-test-dataset/scripts/test_external_skill_node_resol
 
 python3 .agents/skills/qwork-test-dataset/scripts/test_private_reference_invalidation.py
 
+python3 .agents/skills/qwork-test-dataset/scripts/test_storage_reference_authority.py
+
+python3 .agents/skills/qwork-test-dataset/scripts/test_workbuddy_storage_batch.py
+
 python3 .agents/skills/qwork-test-dataset/scripts/test_validate_dataset_repo_binding.py
 
 node .agents/skills/qwork-test-dataset/scripts/test_private_case_authority.mjs
@@ -132,9 +137,21 @@ python3 .agents/skills/qwork-test-dataset/scripts/validate_dataset.py \
   --skill-root .agents/skills/qwork-test-dataset
 ~~~
 
-十九条命令必须全部退出 `0`。缺 Python `jsonschema` 时结构回退只用于快速反馈，AJV 校验仍是 schema v3 的权威本地校验。文档型 Case 还必须具备逐 Requirement 的 Given/When/Then、观测边界与反事实失败，且不得改变未实现 route 的 readiness。
+上述命令必须全部退出 `0`。缺 Python `jsonschema` 时结构回退只用于快速反馈，AJV 校验仍是 schema v3 的权威本地校验。文档型 Case 还必须具备逐 Requirement 的 Given/When/Then、观测边界与反事实失败，且不得改变未实现 route 的 readiness。
 
 存储 Case 另由 `scripts/validate_workbuddy_storage_case.py --case-id <exact-id>` 只读回放。它要求 Case 中每个 `WORKBUDDY-STORAGE:*` 原子在处置 manifest 中唯一存在；只有决策为 `resolved` 且实现为 `verified` 或 `not-required` 才通过。`pending` 必须输出原子级 `next_action`，不得转成 skip、known gap 或 UI PASS。
+
+多个存储 Case 只能通过 `scripts/run_workbuddy_storage_batch.py` 的显式 `--case-id` 或 JSON `--case-file` 选择；runner 不提供隐式全选。输出必须位于本 Skill 的 Git ignored `data/runs/<run-id>/`，每个坐标调用前先写 `state.json` WAL，再逐 Case 保存原始 verifier 结果、stdout/stderr、SHA-256、统一 `report.json`、离线 `report.html` 与 `promotion-candidates.json`。Case 契约失败可以继续记录其他独立坐标；source、hash、state、evidence 或 verifier 协议错误必须立即停批。`--resume` 只复用 hash 完整的 `pass/fail` 坐标；任何 `running`、未知状态、pending-but-has-evidence、run/contract/Case 集漂移都要求人工证据审计，禁止重复执行。
+
+~~~bash
+python3 .agents/skills/qwork-test-dataset/scripts/run_workbuddy_storage_batch.py \
+  --skill-root .agents/skills/qwork-test-dataset \
+  --output .agents/skills/qwork-test-dataset/data/runs/<unique-run-id> \
+  --case-id <exact-case-id> \
+  --case-id <another-exact-case-id>
+~~~
+
+批次成功只证明显式选择的确定性 Case；报告必须保持 `full_suite_conclusion=未运行` 与 `final_response_allowed=false`。`promotion-candidates.json` 只是待审核的注册片段，不能自动修改 tracked `references/deterministic-reference-runs.yaml`。审核每个 Case 的原子集合、report/verifier/disposition hash、实现 revision 与时间后，才可登记并重建 Dataset；同类 Case 不继承通过结论。
 
 ### 5. 私有 Electron Case 与 reference run
 
