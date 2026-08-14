@@ -233,16 +233,62 @@ sources:
           - /sidebar/toolbar/order/2
           - /sidebar/toolbar/radius
           - /source/brandPolicy
-    gap_pointers:
-      - /coverage/requiredBeforePlatformCompletion/0
-      - /coverage/requiredBeforePlatformCompletion/1
-      - /coverage/requiredBeforePlatformCompletion/2
-      - /coverage/requiredBeforePlatformCompletion/3
-      - /coverage/requiredBeforePlatformCompletion/4
-      - /sidebar/collapsed/darwinFullscreenToggleX
-    gap_reasons:
-      platform_matrix: required light/dark Windows and DPI states remain not_evaluated
-      current_head_drift: the mapped macOS fullscreen geometry Case was removed from current develop and must be restored or replaced before this pointer can be claimed
+      - target:
+          case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-46E19955
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+          title: WB-UI-PIXEL-DARWIN-001 @darwin | 浅深主题与三档视口逐状态对比 WorkBuddy Golden
+          spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+        proof:
+          value_flow: the Case selects the exact darwin light and dark frame coordinates from platform-oracle-matrix.json
+          comparison: six named sidebar states at 1681x1084 are individually hash-preserved and compared to approved WorkBuddy frames
+          fail_closed: a missing baseline root or any frame diff remains a hard Case failure
+        covered_pointers:
+          - /coverage/requiredBeforePlatformCompletion/0
+          - /coverage/requiredBeforePlatformCompletion/1
+      - target:
+          case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-ECFFE76E
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+          title: WB-UI-PIXEL-WIN32-001 @win32-100 | 100% DPI 浅深主题与三档视口逐状态对比 WorkBuddy Golden
+          spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+        proof:
+          value_flow: the Case is registered only for win32 and requires the actual display scale to equal 100 percent
+          comparison: the complete light and dark sidebar state sets are compared frame by frame
+          fail_closed: platform mismatch, DPI drift, missing Golden or excess pixel diff all fail the Case
+        covered_pointers:
+          - /coverage/requiredBeforePlatformCompletion/2
+          - /coverage/requiredBeforePlatformCompletion/3
+      - target:
+          case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-0C994430
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+          title: WB-UI-PIXEL-WIN32-002 @win32-125 | 125% DPI 浅深主题逐状态对比 WorkBuddy Golden
+          spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+        proof:
+          value_flow: the Case is registered only for win32 and requires the actual display scale to equal 125 percent
+          comparison: both theme state sets are compared against their separately approved WorkBuddy frames
+          fail_closed: one missing or mismatched frame keeps the complete state set not_evaluated
+        covered_pointers:
+          - /coverage/requiredBeforePlatformCompletion/4
+      - target:
+          case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-8470D022
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+          title: WB-UI-PLATFORM-DARWIN-001 @darwin | 原生全屏、快捷键与标题栏逐字段匹配 WorkBuddy
+          spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+        proof:
+          value_flow: the Case reads the sidebar and shell Oracles before entering native macOS full screen
+          comparison: the collapsed toggle x coordinate is hard-compared after the real full-screen transition
+          fail_closed: a non-darwin runner cannot skip this Case and instead fails its platform contract
+        covered_pointers:
+          - /sidebar/collapsed/darwinFullscreenToggleX
+    gap_pointers: []
+    gap_reasons: {}
   WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-3-5-SHELL-HOME:
     source_locator: git:12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1:e2e/oracles/workbuddy-5.3.5-shell-home.json
     mappings:
@@ -384,33 +430,101 @@ sources:
           - /shared/scenePill/radius
           - /shared/scenePill/width
           - /source/brandPolicy
-    gap_pointers:
-      - /coverage/requiredBeforePixelCompletion/0
-      - /coverage/requiredBeforePixelCompletion/1
-      - /coverage/requiredBeforePixelCompletion/2
-      - /coverage/requiredBeforePixelCompletion/3
-      - /coverage/requiredBeforePixelCompletion/4
-      - /coverage/requiredBeforePixelCompletion/5
-      - /coverage/requiredBeforePixelCompletion/6
-      - /coverage/requiredBeforePixelCompletion/7
-      - /platform/darwin/fullscreenCollapsedToggle/height
-      - /platform/darwin/fullscreenCollapsedToggle/width
-      - /platform/darwin/fullscreenCollapsedToggle/x
-      - /platform/darwin/fullscreenCollapsedToggle/y
-      - /platform/darwin/fullscreenExpandedToggle/height
-      - /platform/darwin/fullscreenExpandedToggle/width
-      - /platform/darwin/fullscreenExpandedToggle/x
-      - /platform/darwin/fullscreenExpandedToggle/y
-      - /platform/darwin/fullscreenTrafficLightOffset
-      - /platform/darwin/shortcutModifier
-      - /platform/darwin/titleBarStyle
-      - /platform/win32/pixelGoldenDpiPercent
-      - /platform/win32/shortcutModifier
-      - /platform/win32/showTrafficLightSafeArea
-      - /platform/win32/smokeDpiPercent
-      - /platform/win32/titleBarStyle
-    gap_reasons:
-      pixel_matrix: eight required cross-theme, cross-viewport and Windows DPI states do not yet have approved golden comparisons
-      platform_matrix: Windows and native macOS full-screen branches require platform-specific reference runs
-      current_head_drift: the shared shortcut and collapsed full-screen geometry Case was removed from current develop and must be restored or replaced before these pointers can be claimed
-      runtime_boundary: Electron titlebar construction parameters cannot be inferred from renderer pixels and remain separately source-bound
+      - target:
+          case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-46E19955
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+          title: WB-UI-PIXEL-DARWIN-001 @darwin | 浅深主题与三档视口逐状态对比 WorkBuddy Golden
+          spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          value_flow: all six darwin theme and viewport coordinates are selected from the frozen platform matrix
+          comparison: every QWork frame is dimension-checked and pixel-compared to its separately approved WorkBuddy frame
+          fail_closed: missing approved frame roots remain explicit Case failures and cannot be promoted from QWork actuals
+        covered_pointers:
+          - /coverage/requiredBeforePixelCompletion/0
+          - /coverage/requiredBeforePixelCompletion/1
+          - /coverage/requiredBeforePixelCompletion/2
+          - /coverage/requiredBeforePixelCompletion/3
+      - target:
+          case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-ECFFE76E
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+          title: WB-UI-PIXEL-WIN32-001 @win32-100 | 100% DPI 浅深主题与三档视口逐状态对比 WorkBuddy Golden
+          spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          value_flow: all six win32 100 percent theme and viewport coordinates are selected from the frozen platform matrix
+          comparison: the native DPI and each full-frame comparison are hard requirements
+          fail_closed: wrong platform, scale drift, absent Golden or pixel excess cannot be skipped
+        covered_pointers:
+          - /coverage/requiredBeforePixelCompletion/4
+          - /coverage/requiredBeforePixelCompletion/5
+          - /coverage/requiredBeforePixelCompletion/6
+      - target:
+          case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-0C994430
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+          title: WB-UI-PIXEL-WIN32-002 @win32-125 | 125% DPI 浅深主题逐状态对比 WorkBuddy Golden
+          spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          value_flow: both 125 percent theme coordinates are selected from the frozen platform matrix
+          comparison: the smoke coordinate is a real win32 frame set rather than a scaled macOS surrogate
+          fail_closed: missing approved frame roots preserve not_evaluated truth
+        covered_pointers:
+          - /coverage/requiredBeforePixelCompletion/7
+      - target:
+          case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-8470D022
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+          title: WB-UI-PLATFORM-DARWIN-001 @darwin | 原生全屏、快捷键与标题栏逐字段匹配 WorkBuddy
+          spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          value_flow: the native Case reads every mapped darwin value before exercising expanded, collapsed and shortcut transitions
+          comparison: exact geometry, traffic offset, native menu modifier and executed bundle titlebar construction are all asserted
+          fail_closed: the Case hard-fails outside darwin and retains three state screenshots
+        covered_pointers:
+          - /platform/darwin/fullscreenCollapsedToggle/height
+          - /platform/darwin/fullscreenCollapsedToggle/width
+          - /platform/darwin/fullscreenCollapsedToggle/x
+          - /platform/darwin/fullscreenCollapsedToggle/y
+          - /platform/darwin/fullscreenExpandedToggle/height
+          - /platform/darwin/fullscreenExpandedToggle/width
+          - /platform/darwin/fullscreenExpandedToggle/x
+          - /platform/darwin/fullscreenExpandedToggle/y
+          - /platform/darwin/fullscreenTrafficLightOffset
+          - /platform/darwin/shortcutModifier
+          - /platform/darwin/titleBarStyle
+      - target:
+          case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-13DC6F37
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+          title: WB-UI-PLATFORM-WIN32-001 @win32-100 | 100% DPI 标题栏、控制区与快捷键逐字段匹配 WorkBuddy
+          spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          value_flow: the native win32 Case reads the exact titlebar, shortcut, safe-area and 100 percent DPI fields
+          comparison: native controls, absent traffic-light area, scale factor and executed bundle titlebar construction all hard-fail on drift
+          fail_closed: the Case cannot run as a passing surrogate on macOS or Linux
+        covered_pointers:
+          - /platform/win32/pixelGoldenDpiPercent
+          - /platform/win32/shortcutModifier
+          - /platform/win32/showTrafficLightSafeArea
+          - /platform/win32/titleBarStyle
+      - target:
+          case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-053B3E4C
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+          title: WB-UI-PLATFORM-WIN32-002 @win32-125 | 125% DPI 冒烟保持标题栏与主题可用
+          spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          value_flow: the 125 percent native route reads the exact smoke DPI Oracle
+          comparison: the actual Windows display scale is asserted before light, dark and restored screenshots
+          fail_closed: a 100 percent or non-Windows environment cannot satisfy the Case
+        covered_pointers:
+          - /platform/win32/smokeDpiPercent
+    gap_pointers: []
+    gap_reasons: {}

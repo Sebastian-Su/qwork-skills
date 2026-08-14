@@ -1031,6 +1031,19 @@ def resolve_develop_e2e_execution(
     )
 
 
+def target_platforms_for_title(title: str) -> list[str]:
+    tagged = [
+        platform
+        for platform, marker in (
+            ("darwin", "@darwin"),
+            ("win32", "@win32"),
+            ("linux", "@linux"),
+        )
+        if marker in title.lower()
+    ]
+    return tagged or ["darwin", "win32", "linux"]
+
+
 def default_case(
     case_id: str,
     title: str,
@@ -1112,7 +1125,7 @@ def default_case(
             "contract_version": 1,
             "readiness": readiness,
             "route_id": route_id,
-            "target": {"kind": "installed-app", "platforms": ["darwin", "win32", "linux"], "artifact": ("skill://qwork-test-dataset/data/runs/<run-id>/app + Electron" if private_spec else "repo://out/main/index.js + Electron")},
+            "target": {"kind": "installed-app", "platforms": target_platforms_for_title(title), "artifact": ("skill://qwork-test-dataset/data/runs/<run-id>/app + Electron" if private_spec else "repo://out/main/index.js + Electron")},
             "authorization": {"required": is_live, "scopes": (["real external account/service/model route named by the source test"] if is_live else [])},
             "preflight": [
                 {"action": "resolve repo revision and dependency lock", "oracle": "revision and lock hashes are recorded"},
@@ -1559,6 +1572,26 @@ def main() -> int:
         ("repo://e2e/fixtures/fake-sidecar.mjs", repo / "e2e/fixtures/fake-sidecar.mjs"),
         ("repo://e2e/fixtures/workbuddy-ui.ts", repo / "e2e/fixtures/workbuddy-ui.ts"),
     ]
+    platform_oracle_supporting = [
+        ("skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts", skill_root / "data/e2e/fixtures/capture-electron-runtime.ts"),
+        ("skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts", skill_root / "data/e2e/fixtures/launch-isolated.ts"),
+        ("skill://qwork-test-dataset/references/platform-oracle-matrix.json", skill_root / "references/platform-oracle-matrix.json"),
+        ("skill://qwork-test-dataset/scripts/compare_visual_frame.py", skill_root / "scripts/compare_visual_frame.py"),
+        ("skill://qwork-test-dataset/scripts/private-case-authority.mjs", skill_root / "scripts/private-case-authority.mjs"),
+        ("skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs", skill_root / "scripts/run_private_playwright_case.mjs"),
+        ("skill://qwork-test-dataset/scripts/build_isolated_electron.mjs", skill_root / "scripts/build_isolated_electron.mjs"),
+        ("skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts", skill_root / "scripts/electron-isolated-build.config.ts"),
+        ("skill://qwork-test-dataset/scripts/playwright-private.config.ts", skill_root / "scripts/playwright-private.config.ts"),
+        ("skill://qwork-test-dataset/package.json", skill_root / "package.json"),
+        ("repo://e2e/fixtures/fake-sidecar.mjs", repo / "e2e/fixtures/fake-sidecar.mjs"),
+        ("repo://e2e/fixtures/workbuddy-ui.ts", repo / "e2e/fixtures/workbuddy-ui.ts"),
+        ("repo://e2e/oracles/workbuddy-5.3.5-sidebar-account.json", repo / "e2e/oracles/workbuddy-5.3.5-sidebar-account.json"),
+        ("repo://e2e/oracles/workbuddy-5.3.5-shell-home.json", repo / "e2e/oracles/workbuddy-5.3.5-shell-home.json"),
+    ]
+    platform_oracle_matrix_path = skill_root / "references/platform-oracle-matrix.json"
+    platform_oracle_matrix = json.loads(
+        platform_oracle_matrix_path.read_text(encoding="utf-8")
+    )
     for private_spec in private_e2e_specs:
         sources.append(
             make_source(
@@ -1605,6 +1638,8 @@ def main() -> int:
                 if private_spec["path"].name == "shell-home-oracle-completeness.spec.ts"
                 else automation_oracle_supporting
                 if private_spec["path"].name == "automation-oracle-gap-completeness.spec.ts"
+                else platform_oracle_supporting
+                if private_spec["path"].name == "platform-oracle-matrix.spec.ts"
                 else private_supporting
             )
             case["execution_contract"]["observability"]["source_contract"]["supporting_contracts"] = [
@@ -1616,6 +1651,101 @@ def main() -> int:
                 }
                 for locator, path in supporting_contracts
             ]
+            if private_spec["path"].name == "platform-oracle-matrix.spec.ts":
+                target_platform = case["execution_contract"]["target"]["platforms"]
+                if len(target_platform) != 1:
+                    raise ValueError(f"platform Oracle Case is not single-platform: {title}")
+                platform = target_platform[0]
+                case["verification"]["status_reason"] = (
+                    f"native {platform} reference run is pending"
+                )
+                case["execution_contract"]["blockers"] = [
+                    f"native {platform} reference environment and reference run pending",
+                    "case-level screenshot checkpoint audit pending",
+                ]
+                if "WB-UI-PIXEL-" in title:
+                    dpi = 125 if "@win32-125" in title else 100 if "@win32-100" in title else 200
+                    captures = [
+                        capture
+                        for capture in platform_oracle_matrix["captures"]
+                        if capture["platform"] == platform
+                        and int(capture["dpi_percent"]) == dpi
+                    ]
+                    if not captures:
+                        raise ValueError(f"platform Oracle Case has no captures: {title}")
+                    required_states = [
+                        "entry",
+                        *[
+                        f"{capture['id']}-{state}"
+                        for capture in captures
+                        for state in platform_oracle_matrix["state_sets"][capture["state_set"]]
+                        ],
+                        "final-state",
+                    ]
+                    case["ui_acceptance"] = {
+                        "viewport_profiles": [
+                            {
+                                "id": capture["id"],
+                                "width": int(capture["viewport"]["width"]),
+                                "height": int(capture["viewport"]["height"]),
+                                "dpr": float(capture["dpi_percent"]) / 100,
+                            }
+                            for capture in captures
+                        ],
+                        "required_screenshot_states": required_states,
+                    }
+                    case["evidence"] = [
+                        *required_states,
+                        "platform-pixel-matrix-result.json",
+                        "trace.zip",
+                    ]
+                    case["execution_contract"]["observability"]["artifacts"] = [
+                        "report.json",
+                        "platform-pixel-matrix-result.json",
+                        *required_states,
+                        "trace.zip",
+                    ]
+                    case["execution_contract"]["observability"]["oracle_contract"] = {
+                        "state": f"{platform}-{dpi}dpi-platform-pixel-matrix",
+                        "runner_sha256": f"sha256:{sha256_bytes((skill_root / 'scripts/run_private_playwright_case.mjs').read_bytes())}",
+                        "comparator_sha256": f"sha256:{sha256_bytes((skill_root / 'scripts/compare_visual_frame.py').read_bytes())}",
+                        "max_diff_ratio": float(platform_oracle_matrix["policy"]["max_diff_ratio"]),
+                        "geometry_tolerance_css_px": float(platform_oracle_matrix["policy"]["geometry_tolerance_css_px"]),
+                    }
+                    case["execution_contract"]["blockers"] = [
+                        "approved WorkBuddy baseline frame set is missing for every registered coordinate",
+                        *case["execution_contract"]["blockers"],
+                    ]
+                else:
+                    if platform == "darwin":
+                        runtime_profile = {
+                            "id": "darwin-fullscreen-native",
+                            "width": 1920,
+                            "height": 1080,
+                            "dpr": 2,
+                        }
+                    elif "@win32-125" in title:
+                        runtime_profile = {
+                            "id": "win32-1280x800-125pct",
+                            "width": 1280,
+                            "height": 800,
+                            "dpr": 1.25,
+                        }
+                    else:
+                        runtime_profile = {
+                            "id": "win32-1440x900-100pct",
+                            "width": 1440,
+                            "height": 900,
+                            "dpr": 1,
+                        }
+                    case["ui_acceptance"] = {
+                        "viewport_profiles": [runtime_profile],
+                        "required_screenshot_states": [
+                            "entry",
+                            "transition",
+                            "final-state",
+                        ],
+                    }
             register_case(case)
             source_atom_to_case[str(atom["atom_id"])] = case_id
             e2e_case_by_coordinate[(private_spec["locator"], title)] = case_id

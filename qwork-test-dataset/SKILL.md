@@ -166,7 +166,7 @@ Reference run 通过后，把唯一 Case ID、report 的 `skill://` URI、SHA-25
 
 ## 维护约束
 
-- Dataset 永远私有、Git ignored；禁止提交用户内容、凭据、Cookie、Token 或未脱敏标识。
+- Dataset 派生数据、快照、基线、证据与运行产物永远私有且 Git ignored；仅 `data/e2e/` 的脱敏测试源码可由私人 qwork-skills 仓库追踪。禁止提交用户内容、凭据、Cookie、Token 或未脱敏标识。
 - Case ID 与稳定路径不可随标题或版本目录漂移；版本放字段，不放逻辑身份路径。
 - 更新来源、Case、schema、route、runner 或 Oracle 后，旧计划和旧结果全部失效，必须重建并独立复测。
 - 新增 Case 必须同时更新 manifest、dataset index、suite index 和对应来源映射；验证器不允许孤儿或重复 ID。

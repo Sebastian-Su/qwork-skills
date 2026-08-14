@@ -76,13 +76,17 @@ for (const file of files) {
   }
   const sourceIds = new Set((value.sources ?? []).map((item) => item.source_id));
   const oracleContract = execution.observability?.oracle_contract;
-  if (sourceIds.has("WORKBUDDY-CDP-5-3-12-V4") && !oracleContract) {
-    errors.push(`${value.id}: current WorkBuddy CDP Case requires an oracle_contract`);
-  }
-  if (!sourceIds.has("WORKBUDDY-CDP-5-3-12-V4") && oracleContract != null) {
-    errors.push(`${value.id}: non-CDP Case must not invent an oracle_contract`);
-  }
   const spec = String(sourceContract?.spec ?? "");
+  const isCurrentCdpCase = sourceIds.has("WORKBUDDY-CDP-5-3-12-V4");
+  const isPlatformPixelCase =
+    spec === "skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts" &&
+    String(value.title ?? "").startsWith("WB-UI-PIXEL-");
+  if ((isCurrentCdpCase || isPlatformPixelCase) && !oracleContract) {
+    errors.push(`${value.id}: pixel-comparison Case requires an oracle_contract`);
+  }
+  if (!isCurrentCdpCase && !isPlatformPixelCase && oracleContract != null) {
+    errors.push(`${value.id}: non-pixel Case must not invent an oracle_contract`);
+  }
   const markedLive = String(execution.route_id ?? "").startsWith("qwork.playwright.") &&
     (spec.includes(".live.spec.ts") || spec.includes("-live.spec.ts") || spec.includes("auth-real-login") || spec === "e2e/real-expert-agent.spec.ts" || String(value.title ?? "").toLowerCase().includes("@live"));
   if (markedLive && execution.authorization?.required !== true) {

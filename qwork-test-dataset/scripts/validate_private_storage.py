@@ -78,29 +78,46 @@ def validate(repo: Path, skill_name: str, paths: list[Path]) -> dict[str, object
     data_root = skill_root / "data"
     if not data_root.is_dir():
         raise ValueError(f"private Dataset data root does not exist: {data_root}")
-    relative_data = data_root.relative_to(source_repo).as_posix()
-    data_ignored = run_git(source_repo, "check-ignore", "-q", "--no-index", "--", relative_data)
-    if data_ignored.returncode != 0:
-        raise ValueError(f"private Dataset data is not ignored by source repository: {relative_data}")
-    data_tracked = run_git(source_repo, "ls-files", "--", relative_data)
-    if data_tracked.returncode != 0:
-        raise RuntimeError(data_tracked.stderr.strip() or "source git ls-files failed")
-    tracked_data_files = [line for line in data_tracked.stdout.splitlines() if line]
-    if tracked_data_files:
-        raise ValueError(f"private Dataset data contains tracked files: {tracked_data_files}")
-    data_status = run_git(
-        source_repo,
-        "status",
-        "--short",
-        "--untracked-files=all",
-        "--",
-        relative_data,
+    tracked_fixture_root = data_root / "e2e"
+    if not tracked_fixture_root.is_dir():
+        raise ValueError(f"private Dataset E2E source root does not exist: {tracked_fixture_root}")
+    private_state_roots = sorted(
+        entry for entry in data_root.iterdir() if entry.name != "e2e"
     )
-    if data_status.returncode != 0:
-        raise RuntimeError(data_status.stderr.strip() or "source git status failed")
-    visible_data_status = [line for line in data_status.stdout.splitlines() if line]
-    if visible_data_status:
-        raise ValueError(f"private Dataset data appears in source git status: {visible_data_status}")
+    ignored_state_roots: list[str] = []
+    for state_root in private_state_roots:
+        relative_state = state_root.relative_to(source_repo).as_posix()
+        data_ignored = run_git(
+            source_repo, "check-ignore", "-q", "--no-index", "--", relative_state
+        )
+        if data_ignored.returncode != 0:
+            raise ValueError(
+                f"private Dataset mutable data is not ignored by source repository: {relative_state}"
+            )
+        data_tracked = run_git(source_repo, "ls-files", "--", relative_state)
+        if data_tracked.returncode != 0:
+            raise RuntimeError(data_tracked.stderr.strip() or "source git ls-files failed")
+        tracked_data_files = [line for line in data_tracked.stdout.splitlines() if line]
+        if tracked_data_files:
+            raise ValueError(
+                f"private Dataset mutable data contains tracked files: {tracked_data_files}"
+            )
+        data_status = run_git(
+            source_repo,
+            "status",
+            "--short",
+            "--untracked-files=all",
+            "--",
+            relative_state,
+        )
+        if data_status.returncode != 0:
+            raise RuntimeError(data_status.stderr.strip() or "source git status failed")
+        visible_data_status = [line for line in data_status.stdout.splitlines() if line]
+        if visible_data_status:
+            raise ValueError(
+                f"private Dataset mutable data appears in source git status: {visible_data_status}"
+            )
+        ignored_state_roots.append(relative_state)
 
     checked_paths = []
     for path in paths:
@@ -128,6 +145,8 @@ def validate(repo: Path, skill_name: str, paths: list[Path]) -> dict[str, object
         "git_ignored": True,
         "tracked_files": [],
         "git_status_entries": [],
+        "tracked_fixture_root": str(tracked_fixture_root),
+        "ignored_mutable_data_roots": ignored_state_roots,
         "data_git_ignored": True,
         "tracked_data_files": [],
         "data_git_status_entries": [],

@@ -1,4 +1,4 @@
-generated_at: '2026-08-14T06:23:40.725311+00:00'
+generated_at: '2026-08-14T06:52:41.887485+00:00'
 policy:
   case_to_route: one-to-one
   playwright_contract: test body SHA, line range, action and assertion count are mandatory
@@ -6,7 +6,7 @@ policy:
     storage uses an exact per-Case verifier; executable Oracle routes retain failing
     reference truth
   workbuddy_oracle: read-only Electron CDP only; never mutate account or product data
-route_count: 1297
+route_count: 1299
 routes:
   qwork.dataset.structured-oracle-source.qw-req-workbuddy-oracle-5-3-5-workbuddy-5-evidence-coverage-captured-2fa19e88:
     authorization:
@@ -21069,6 +21069,834 @@ routes:
       - darwin
       - win32
       - linux
+  qwork.private-playwright.platform-oracle-matrix-spec.053b3e4cfd:
+    authorization:
+      required: false
+      scopes: []
+    capability_id: skills
+    case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-053B3E4C
+    evidence:
+    - report.json
+    - entry.png
+    - transition.png
+    - final-state.png
+    fixtures:
+      cleanup: close app and remove temp home
+      isolation: no reuse of ~/.qwork, real account, or production data without explicit
+        Case authority
+      setup: case-owned temp home and deterministic fake sidecar unless live authority
+        is explicit
+    launch:
+      command_or_tool: node .agents/skills/qwork-test-dataset/scripts/run_private_playwright_case.mjs
+        --repo . --case-id QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-053B3E4C --case-title
+        "WB-UI-PLATFORM-WIN32-002 @win32-125 | 125% DPI 冒烟保持标题栏与主题可用"
+      failure_action: repair route or launcher; do not skip
+      strategy: command
+      success_oracle: Electron window and target surface are visible
+    navigation:
+      entrypoint: skills
+      failure_action: capture screenshot and DOM/IPC evidence, then repair locator
+      kind: ui-route
+      locator_strategy: accessible role/name first; project locator registry fallback
+      steps:
+      - action: readJson<ShellOracle>(path.resolve("e2e/oracles/workbuddy-5.3.5-shell-home.json"))
+      - action: path.resolve("e2e/oracles/workbuddy-5.3.5-shell-home.json")
+      - action: createTestHome("platform-win32-125-runtime")
+      - action: createWorkspace(home)
+      - action: openApp(home)
+      - action: app.firstWindow()
+      - action: 'setContentSize(app, page, { width: 1280, height: 800 })'
+      - action: attachUiState(page, testInfo, "entry")
+      - action: setTheme(page, "dark")
+      - action: attachUiState(page, testInfo, "transition")
+      - action: setTheme(page, "light")
+      - action: attachUiState(page, testInfo, "final-state")
+      success_oracle: all source-bound assertions pass
+    oracle_contract: null
+    readiness: partial
+    source_contract:
+      action_count: 0
+      assertion_count: 3
+      body_sha256: sha256:bee92ed92ce21e95e693989eb4499ec2e76ab1befd8f65f854ca8e908f836b51
+      execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+      line_end: 167
+      line_start: 146
+      spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+      spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+      supporting_contracts:
+      - path: skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6
+      - path: skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:75ea3197686d34faf9b138145ccc5050eac2bbaba31ea7aed1e3f4fdc63ddbd7
+      - path: skill://qwork-test-dataset/references/platform-oracle-matrix.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:75acdc32b37ab0fa3290fd2dca3fe2bc901da4240291abd85116b41acdd38f74
+      - path: skill://qwork-test-dataset/scripts/compare_visual_frame.py
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:b93d286da751fa1bbdb5c051e9670f0f74dbdb2f4541eca1d447f335b108f082
+      - path: skill://qwork-test-dataset/scripts/private-case-authority.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5
+      - path: skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7
+      - path: skill://qwork-test-dataset/scripts/build_isolated_electron.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:3634574afd74c3762e05b814b80d7bbc1aee08c8c782ebb1884a6b7df10db468
+      - path: skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba
+      - path: skill://qwork-test-dataset/scripts/playwright-private.config.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea
+      - path: skill://qwork-test-dataset/package.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390
+      - path: repo://e2e/fixtures/fake-sidecar.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:0255d59cf306b7dcf7285779ca6ed603b02fd5cd4863c91af5dda0fe69d97987
+      - path: repo://e2e/fixtures/workbuddy-ui.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:4458ee31d84e60d047334a9e26faef4a4415d79046fefd2b3f84bebeff1c2675
+      - path: repo://e2e/oracles/workbuddy-5.3.5-sidebar-account.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+      - path: repo://e2e/oracles/workbuddy-5.3.5-shell-home.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+      - path: e2e/oracles/workbuddy-5.3.5-shell-home.json
+        purpose: frozen structured WorkBuddy product Oracle governing the mapped pointers
+        revision: 12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1
+        sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+    target:
+      artifact: skill://qwork-test-dataset/data/runs/<run-id>/app + Electron
+      kind: installed-app
+      platforms:
+      - win32
+  qwork.private-playwright.platform-oracle-matrix-spec.0c994430dc:
+    authorization:
+      required: false
+      scopes: []
+    capability_id: skills
+    case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-0C994430
+    evidence:
+    - report.json
+    - platform-pixel-matrix-result.json
+    - entry
+    - win32-light-1280x800-125pct-smoke-shell-home
+    - win32-light-1280x800-125pct-smoke-sidebar-hover
+    - win32-light-1280x800-125pct-smoke-sidebar-collapsed
+    - win32-light-1280x800-125pct-smoke-search-dialog
+    - win32-light-1280x800-125pct-smoke-filter-popover
+    - win32-light-1280x800-125pct-smoke-account-menu
+    - win32-dark-1280x800-125pct-smoke-shell-home
+    - win32-dark-1280x800-125pct-smoke-sidebar-hover
+    - win32-dark-1280x800-125pct-smoke-sidebar-collapsed
+    - win32-dark-1280x800-125pct-smoke-search-dialog
+    - win32-dark-1280x800-125pct-smoke-filter-popover
+    - win32-dark-1280x800-125pct-smoke-account-menu
+    - final-state
+    - trace.zip
+    fixtures:
+      cleanup: close app and remove temp home
+      isolation: no reuse of ~/.qwork, real account, or production data without explicit
+        Case authority
+      setup: case-owned temp home and deterministic fake sidecar unless live authority
+        is explicit
+    launch:
+      command_or_tool: node .agents/skills/qwork-test-dataset/scripts/run_private_playwright_case.mjs
+        --repo . --case-id QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-0C994430 --case-title
+        "WB-UI-PIXEL-WIN32-002 @win32-125 | 125% DPI 浅深主题逐状态对比 WorkBuddy Golden"
+      failure_action: repair route or launcher; do not skip
+      strategy: command
+      success_oracle: Electron window and target surface are visible
+    navigation:
+      entrypoint: skills
+      failure_action: capture screenshot and DOM/IPC evidence, then repair locator
+      kind: ui-route
+      locator_strategy: accessible role/name first; project locator registry fallback
+      steps:
+      - action: runPixelMatrix("win32", new Set([125]), testInfo)
+      success_oracle: all source-bound assertions pass
+    oracle_contract:
+      comparator_sha256: sha256:b93d286da751fa1bbdb5c051e9670f0f74dbdb2f4541eca1d447f335b108f082
+      geometry_tolerance_css_px: 2.0
+      max_diff_ratio: 0.01
+      runner_sha256: sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7
+      state: win32-125dpi-platform-pixel-matrix
+    readiness: partial
+    source_contract:
+      action_count: 0
+      assertion_count: 1
+      body_sha256: sha256:3f8d55552cadedc27157604bcc21808536e384c0239684cda03666f3ba15a3c3
+      execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+      line_end: 182
+      line_start: 179
+      spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+      spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+      supporting_contracts:
+      - path: skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6
+      - path: skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:75ea3197686d34faf9b138145ccc5050eac2bbaba31ea7aed1e3f4fdc63ddbd7
+      - path: skill://qwork-test-dataset/references/platform-oracle-matrix.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:75acdc32b37ab0fa3290fd2dca3fe2bc901da4240291abd85116b41acdd38f74
+      - path: skill://qwork-test-dataset/scripts/compare_visual_frame.py
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:b93d286da751fa1bbdb5c051e9670f0f74dbdb2f4541eca1d447f335b108f082
+      - path: skill://qwork-test-dataset/scripts/private-case-authority.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5
+      - path: skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7
+      - path: skill://qwork-test-dataset/scripts/build_isolated_electron.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:3634574afd74c3762e05b814b80d7bbc1aee08c8c782ebb1884a6b7df10db468
+      - path: skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba
+      - path: skill://qwork-test-dataset/scripts/playwright-private.config.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea
+      - path: skill://qwork-test-dataset/package.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390
+      - path: repo://e2e/fixtures/fake-sidecar.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:0255d59cf306b7dcf7285779ca6ed603b02fd5cd4863c91af5dda0fe69d97987
+      - path: repo://e2e/fixtures/workbuddy-ui.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:4458ee31d84e60d047334a9e26faef4a4415d79046fefd2b3f84bebeff1c2675
+      - path: repo://e2e/oracles/workbuddy-5.3.5-sidebar-account.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+      - path: repo://e2e/oracles/workbuddy-5.3.5-shell-home.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+      - path: e2e/oracles/workbuddy-5.3.5-sidebar-account.json
+        purpose: frozen structured WorkBuddy product Oracle governing the mapped pointers
+        revision: 12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1
+        sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+      - path: e2e/oracles/workbuddy-5.3.5-shell-home.json
+        purpose: frozen structured WorkBuddy product Oracle governing the mapped pointers
+        revision: 12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1
+        sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+    target:
+      artifact: skill://qwork-test-dataset/data/runs/<run-id>/app + Electron
+      kind: installed-app
+      platforms:
+      - win32
+  qwork.private-playwright.platform-oracle-matrix-spec.13dc6f3775:
+    authorization:
+      required: false
+      scopes: []
+    capability_id: skills
+    case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-13DC6F37
+    evidence:
+    - report.json
+    - entry.png
+    - transition.png
+    - final-state.png
+    fixtures:
+      cleanup: close app and remove temp home
+      isolation: no reuse of ~/.qwork, real account, or production data without explicit
+        Case authority
+      setup: case-owned temp home and deterministic fake sidecar unless live authority
+        is explicit
+    launch:
+      command_or_tool: node .agents/skills/qwork-test-dataset/scripts/run_private_playwright_case.mjs
+        --repo . --case-id QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-13DC6F37 --case-title
+        "WB-UI-PLATFORM-WIN32-001 @win32-100 | 100% DPI 标题栏、控制区与快捷键逐字段匹配 WorkBuddy"
+      failure_action: repair route or launcher; do not skip
+      strategy: command
+      success_oracle: Electron window and target surface are visible
+    navigation:
+      entrypoint: skills
+      failure_action: capture screenshot and DOM/IPC evidence, then repair locator
+      kind: ui-route
+      locator_strategy: accessible role/name first; project locator registry fallback
+      steps:
+      - action: 'page.getByRole("button", { name: "收起侧栏", exact: true }).click()'
+      - action: page.keyboard.press(`${expected.shortcutModifier}+b`)
+      success_oracle: all source-bound assertions pass
+    oracle_contract: null
+    readiness: partial
+    source_contract:
+      action_count: 2
+      assertion_count: 8
+      body_sha256: sha256:17004bb0cc565df6c0ee3c1cb343164edc170d4a7975c31ea49c52fb36922c80
+      execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+      line_end: 144
+      line_start: 115
+      spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+      spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+      supporting_contracts:
+      - path: skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6
+      - path: skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:75ea3197686d34faf9b138145ccc5050eac2bbaba31ea7aed1e3f4fdc63ddbd7
+      - path: skill://qwork-test-dataset/references/platform-oracle-matrix.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:75acdc32b37ab0fa3290fd2dca3fe2bc901da4240291abd85116b41acdd38f74
+      - path: skill://qwork-test-dataset/scripts/compare_visual_frame.py
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:b93d286da751fa1bbdb5c051e9670f0f74dbdb2f4541eca1d447f335b108f082
+      - path: skill://qwork-test-dataset/scripts/private-case-authority.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5
+      - path: skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7
+      - path: skill://qwork-test-dataset/scripts/build_isolated_electron.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:3634574afd74c3762e05b814b80d7bbc1aee08c8c782ebb1884a6b7df10db468
+      - path: skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba
+      - path: skill://qwork-test-dataset/scripts/playwright-private.config.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea
+      - path: skill://qwork-test-dataset/package.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390
+      - path: repo://e2e/fixtures/fake-sidecar.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:0255d59cf306b7dcf7285779ca6ed603b02fd5cd4863c91af5dda0fe69d97987
+      - path: repo://e2e/fixtures/workbuddy-ui.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:4458ee31d84e60d047334a9e26faef4a4415d79046fefd2b3f84bebeff1c2675
+      - path: repo://e2e/oracles/workbuddy-5.3.5-sidebar-account.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+      - path: repo://e2e/oracles/workbuddy-5.3.5-shell-home.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+      - path: e2e/oracles/workbuddy-5.3.5-shell-home.json
+        purpose: frozen structured WorkBuddy product Oracle governing the mapped pointers
+        revision: 12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1
+        sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+    target:
+      artifact: skill://qwork-test-dataset/data/runs/<run-id>/app + Electron
+      kind: installed-app
+      platforms:
+      - win32
+  qwork.private-playwright.platform-oracle-matrix-spec.46e1995512:
+    authorization:
+      required: false
+      scopes: []
+    capability_id: skills
+    case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-46E19955
+    evidence:
+    - report.json
+    - platform-pixel-matrix-result.json
+    - entry
+    - darwin-light-1681x1084-shell-home
+    - darwin-light-1681x1084-sidebar-hover
+    - darwin-light-1681x1084-sidebar-collapsed
+    - darwin-light-1681x1084-search-dialog
+    - darwin-light-1681x1084-filter-popover
+    - darwin-light-1681x1084-account-menu
+    - darwin-dark-1681x1084-shell-home
+    - darwin-dark-1681x1084-sidebar-hover
+    - darwin-dark-1681x1084-sidebar-collapsed
+    - darwin-dark-1681x1084-search-dialog
+    - darwin-dark-1681x1084-filter-popover
+    - darwin-dark-1681x1084-account-menu
+    - darwin-light-1440x900-shell-home
+    - darwin-dark-1440x900-shell-home
+    - darwin-light-1280x800-shell-home
+    - darwin-dark-1280x800-shell-home
+    - final-state
+    - trace.zip
+    fixtures:
+      cleanup: close app and remove temp home
+      isolation: no reuse of ~/.qwork, real account, or production data without explicit
+        Case authority
+      setup: case-owned temp home and deterministic fake sidecar unless live authority
+        is explicit
+    launch:
+      command_or_tool: node .agents/skills/qwork-test-dataset/scripts/run_private_playwright_case.mjs
+        --repo . --case-id QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-46E19955 --case-title
+        "WB-UI-PIXEL-DARWIN-001 @darwin | 浅深主题与三档视口逐状态对比 WorkBuddy Golden"
+      failure_action: repair route or launcher; do not skip
+      strategy: command
+      success_oracle: Electron window and target surface are visible
+    navigation:
+      entrypoint: skills
+      failure_action: capture screenshot and DOM/IPC evidence, then repair locator
+      kind: ui-route
+      locator_strategy: accessible role/name first; project locator registry fallback
+      steps:
+      - action: runPixelMatrix("darwin", new Set([200]), testInfo)
+      success_oracle: all source-bound assertions pass
+    oracle_contract:
+      comparator_sha256: sha256:b93d286da751fa1bbdb5c051e9670f0f74dbdb2f4541eca1d447f335b108f082
+      geometry_tolerance_css_px: 2.0
+      max_diff_ratio: 0.01
+      runner_sha256: sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7
+      state: darwin-200dpi-platform-pixel-matrix
+    readiness: partial
+    source_contract:
+      action_count: 0
+      assertion_count: 1
+      body_sha256: sha256:4a42ce03bbfd9f48d272475c6f699af730d5844724fb366446416c850318ea26
+      execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+      line_end: 172
+      line_start: 169
+      spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+      spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+      supporting_contracts:
+      - path: skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6
+      - path: skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:75ea3197686d34faf9b138145ccc5050eac2bbaba31ea7aed1e3f4fdc63ddbd7
+      - path: skill://qwork-test-dataset/references/platform-oracle-matrix.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:75acdc32b37ab0fa3290fd2dca3fe2bc901da4240291abd85116b41acdd38f74
+      - path: skill://qwork-test-dataset/scripts/compare_visual_frame.py
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:b93d286da751fa1bbdb5c051e9670f0f74dbdb2f4541eca1d447f335b108f082
+      - path: skill://qwork-test-dataset/scripts/private-case-authority.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5
+      - path: skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7
+      - path: skill://qwork-test-dataset/scripts/build_isolated_electron.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:3634574afd74c3762e05b814b80d7bbc1aee08c8c782ebb1884a6b7df10db468
+      - path: skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba
+      - path: skill://qwork-test-dataset/scripts/playwright-private.config.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea
+      - path: skill://qwork-test-dataset/package.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390
+      - path: repo://e2e/fixtures/fake-sidecar.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:0255d59cf306b7dcf7285779ca6ed603b02fd5cd4863c91af5dda0fe69d97987
+      - path: repo://e2e/fixtures/workbuddy-ui.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:4458ee31d84e60d047334a9e26faef4a4415d79046fefd2b3f84bebeff1c2675
+      - path: repo://e2e/oracles/workbuddy-5.3.5-sidebar-account.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+      - path: repo://e2e/oracles/workbuddy-5.3.5-shell-home.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+      - path: e2e/oracles/workbuddy-5.3.5-sidebar-account.json
+        purpose: frozen structured WorkBuddy product Oracle governing the mapped pointers
+        revision: 12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1
+        sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+      - path: e2e/oracles/workbuddy-5.3.5-shell-home.json
+        purpose: frozen structured WorkBuddy product Oracle governing the mapped pointers
+        revision: 12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1
+        sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+    target:
+      artifact: skill://qwork-test-dataset/data/runs/<run-id>/app + Electron
+      kind: installed-app
+      platforms:
+      - darwin
+  qwork.private-playwright.platform-oracle-matrix-spec.8470d02289:
+    authorization:
+      required: false
+      scopes: []
+    capability_id: skills
+    case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-8470D022
+    evidence:
+    - report.json
+    - entry.png
+    - transition.png
+    - final-state.png
+    fixtures:
+      cleanup: close app and remove temp home
+      isolation: no reuse of ~/.qwork, real account, or production data without explicit
+        Case authority
+      setup: case-owned temp home and deterministic fake sidecar unless live authority
+        is explicit
+    launch:
+      command_or_tool: node .agents/skills/qwork-test-dataset/scripts/run_private_playwright_case.mjs
+        --repo . --case-id QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-8470D022 --case-title
+        "WB-UI-PLATFORM-DARWIN-001 @darwin | 原生全屏、快捷键与标题栏逐字段匹配 WorkBuddy"
+      failure_action: repair route or launcher; do not skip
+      strategy: command
+      success_oracle: Electron window and target surface are visible
+    navigation:
+      entrypoint: skills
+      failure_action: capture screenshot and DOM/IPC evidence, then repair locator
+      kind: ui-route
+      locator_strategy: accessible role/name first; project locator registry fallback
+      steps:
+      - action: 'page.getByRole("button", { name: "收起侧栏", exact: true }).click()'
+      success_oracle: all source-bound assertions pass
+    oracle_contract: null
+    readiness: partial
+    source_contract:
+      action_count: 1
+      assertion_count: 6
+      body_sha256: sha256:eb0bc93c23679a1bdf90295a8ba1ff5138d931f2dc1f4ecede1741cd592ee6e1
+      execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+      line_end: 113
+      line_start: 76
+      spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+      spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+      supporting_contracts:
+      - path: skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6
+      - path: skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:75ea3197686d34faf9b138145ccc5050eac2bbaba31ea7aed1e3f4fdc63ddbd7
+      - path: skill://qwork-test-dataset/references/platform-oracle-matrix.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:75acdc32b37ab0fa3290fd2dca3fe2bc901da4240291abd85116b41acdd38f74
+      - path: skill://qwork-test-dataset/scripts/compare_visual_frame.py
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:b93d286da751fa1bbdb5c051e9670f0f74dbdb2f4541eca1d447f335b108f082
+      - path: skill://qwork-test-dataset/scripts/private-case-authority.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5
+      - path: skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7
+      - path: skill://qwork-test-dataset/scripts/build_isolated_electron.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:3634574afd74c3762e05b814b80d7bbc1aee08c8c782ebb1884a6b7df10db468
+      - path: skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba
+      - path: skill://qwork-test-dataset/scripts/playwright-private.config.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea
+      - path: skill://qwork-test-dataset/package.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390
+      - path: repo://e2e/fixtures/fake-sidecar.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:0255d59cf306b7dcf7285779ca6ed603b02fd5cd4863c91af5dda0fe69d97987
+      - path: repo://e2e/fixtures/workbuddy-ui.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:4458ee31d84e60d047334a9e26faef4a4415d79046fefd2b3f84bebeff1c2675
+      - path: repo://e2e/oracles/workbuddy-5.3.5-sidebar-account.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+      - path: repo://e2e/oracles/workbuddy-5.3.5-shell-home.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+      - path: e2e/oracles/workbuddy-5.3.5-sidebar-account.json
+        purpose: frozen structured WorkBuddy product Oracle governing the mapped pointers
+        revision: 12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1
+        sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+      - path: e2e/oracles/workbuddy-5.3.5-shell-home.json
+        purpose: frozen structured WorkBuddy product Oracle governing the mapped pointers
+        revision: 12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1
+        sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+    target:
+      artifact: skill://qwork-test-dataset/data/runs/<run-id>/app + Electron
+      kind: installed-app
+      platforms:
+      - darwin
+  qwork.private-playwright.platform-oracle-matrix-spec.ecffe76e1e:
+    authorization:
+      required: false
+      scopes: []
+    capability_id: skills
+    case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-ECFFE76E
+    evidence:
+    - report.json
+    - platform-pixel-matrix-result.json
+    - entry
+    - win32-light-1681x1084-100pct-shell-home
+    - win32-light-1681x1084-100pct-sidebar-hover
+    - win32-light-1681x1084-100pct-sidebar-collapsed
+    - win32-light-1681x1084-100pct-search-dialog
+    - win32-light-1681x1084-100pct-filter-popover
+    - win32-light-1681x1084-100pct-account-menu
+    - win32-dark-1681x1084-100pct-shell-home
+    - win32-dark-1681x1084-100pct-sidebar-hover
+    - win32-dark-1681x1084-100pct-sidebar-collapsed
+    - win32-dark-1681x1084-100pct-search-dialog
+    - win32-dark-1681x1084-100pct-filter-popover
+    - win32-dark-1681x1084-100pct-account-menu
+    - win32-light-1440x900-100pct-shell-home
+    - win32-dark-1440x900-100pct-shell-home
+    - win32-light-1280x800-100pct-shell-home
+    - win32-dark-1280x800-100pct-shell-home
+    - final-state
+    - trace.zip
+    fixtures:
+      cleanup: close app and remove temp home
+      isolation: no reuse of ~/.qwork, real account, or production data without explicit
+        Case authority
+      setup: case-owned temp home and deterministic fake sidecar unless live authority
+        is explicit
+    launch:
+      command_or_tool: node .agents/skills/qwork-test-dataset/scripts/run_private_playwright_case.mjs
+        --repo . --case-id QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-ECFFE76E --case-title
+        "WB-UI-PIXEL-WIN32-001 @win32-100 | 100% DPI 浅深主题与三档视口逐状态对比 WorkBuddy Golden"
+      failure_action: repair route or launcher; do not skip
+      strategy: command
+      success_oracle: Electron window and target surface are visible
+    navigation:
+      entrypoint: skills
+      failure_action: capture screenshot and DOM/IPC evidence, then repair locator
+      kind: ui-route
+      locator_strategy: accessible role/name first; project locator registry fallback
+      steps:
+      - action: runPixelMatrix("win32", new Set([100]), testInfo)
+      success_oracle: all source-bound assertions pass
+    oracle_contract:
+      comparator_sha256: sha256:b93d286da751fa1bbdb5c051e9670f0f74dbdb2f4541eca1d447f335b108f082
+      geometry_tolerance_css_px: 2.0
+      max_diff_ratio: 0.01
+      runner_sha256: sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7
+      state: win32-100dpi-platform-pixel-matrix
+    readiness: partial
+    source_contract:
+      action_count: 0
+      assertion_count: 1
+      body_sha256: sha256:a9288eeb504624bec0220af09eb5e0ed1b722080c7a8fe5b3fc7dc15be6cefcf
+      execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+      line_end: 177
+      line_start: 174
+      spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
+      spec_sha256: sha256:d222b6e50f392105c3f426f5267bd461c59fcc947b5f2c3982312b2155d6f480
+      supporting_contracts:
+      - path: skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6
+      - path: skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:75ea3197686d34faf9b138145ccc5050eac2bbaba31ea7aed1e3f4fdc63ddbd7
+      - path: skill://qwork-test-dataset/references/platform-oracle-matrix.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:75acdc32b37ab0fa3290fd2dca3fe2bc901da4240291abd85116b41acdd38f74
+      - path: skill://qwork-test-dataset/scripts/compare_visual_frame.py
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:b93d286da751fa1bbdb5c051e9670f0f74dbdb2f4541eca1d447f335b108f082
+      - path: skill://qwork-test-dataset/scripts/private-case-authority.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5
+      - path: skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7
+      - path: skill://qwork-test-dataset/scripts/build_isolated_electron.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:3634574afd74c3762e05b814b80d7bbc1aee08c8c782ebb1884a6b7df10db468
+      - path: skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba
+      - path: skill://qwork-test-dataset/scripts/playwright-private.config.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea
+      - path: skill://qwork-test-dataset/package.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390
+      - path: repo://e2e/fixtures/fake-sidecar.mjs
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:0255d59cf306b7dcf7285779ca6ed603b02fd5cd4863c91af5dda0fe69d97987
+      - path: repo://e2e/fixtures/workbuddy-ui.ts
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:4458ee31d84e60d047334a9e26faef4a4415d79046fefd2b3f84bebeff1c2675
+      - path: repo://e2e/oracles/workbuddy-5.3.5-sidebar-account.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+      - path: repo://e2e/oracles/workbuddy-5.3.5-shell-home.json
+        purpose: private Electron launcher, runner, build configuration or deterministic
+          repository fixture
+        revision: c9227fe0f12073144f954f13634f77fbacd9c399
+        sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+      - path: e2e/oracles/workbuddy-5.3.5-sidebar-account.json
+        purpose: frozen structured WorkBuddy product Oracle governing the mapped pointers
+        revision: 12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1
+        sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+      - path: e2e/oracles/workbuddy-5.3.5-shell-home.json
+        purpose: frozen structured WorkBuddy product Oracle governing the mapped pointers
+        revision: 12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1
+        sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+    target:
+      artifact: skill://qwork-test-dataset/data/runs/<run-id>/app + Electron
+      kind: installed-app
+      platforms:
+      - win32
   qwork.private-playwright.shell-home-oracle-completeness-spec.cf6c2871ff:
     authorization:
       required: false
@@ -91242,288 +92070,6 @@ routes:
           18.3.1，macOS arm64） 产品定位 ：腾讯出品的桌面端 AI Agent 工作台，底层为 CodeBuddy CLI agent（
           codebuddy.ai ），对外品牌 WorkBuddy（ workbuddy.cn / workbuddy.ai ）。 本文档 = 一份到底
           ：从「这是什么产品 / 什么架构 / 怎么通信 / 业务'
-      - action: compare the pre-trigger and post-trigger evidence, reject unrelated
-          prior state, and preserve the per-Requirement causal verdict
-      success_oracle: every causal probe has one post-trigger observation, exact Requirement
-        verdict and counterfactual failure check
-    oracle_contract: null
-    readiness: partial
-    source_contract: null
-    target:
-      artifact: repo://out/main/index.js + Electron
-      kind: installed-app
-      platforms:
-      - darwin
-      - win32
-      - linux
-  qwork.requirement.workbuddy-oracle-5-3-5-workbuddy-5-3.coverage-7e1e9ca2cf:
-    authorization:
-      required: false
-      scopes: []
-    capability_id: shell-home
-    case_id: QW-REQ-WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-COVERAGE-7E1E9CA2
-    evidence:
-    - report.json
-    - entry.png
-    - transition.png
-    - final-state.png
-    fixtures:
-      cleanup: close app and remove temp home
-      isolation: no reuse of ~/.qwork, real account, or production data without explicit
-        Case authority
-      setup: case-owned temp home and deterministic fake sidecar unless live authority
-        is explicit
-    launch:
-      command_or_tool: null
-      failure_action: repair route or launcher; do not skip
-      strategy: manual-blocked
-      success_oracle: Electron window and target surface are visible
-    navigation:
-      entrypoint: shell-home
-      failure_action: capture screenshot and DOM/IPC evidence, then repair locator
-      kind: ui-route
-      locator_strategy: accessible role/name first; project locator registry fallback
-      steps:
-      - action: capture the pre-trigger baseline for shell-home at every source-bound
-          observation boundary
-      - action: perform the source-defined scenario trigger for WorkBuddy 5.3.5 shell-home
-          · coverage 结构化 Oracle exactly once; record the action, route and correlation
-          identity
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-8A5D728A00C884]
-          exactly: WorkBuddy structured Oracle /coverage/requiredBeforePixelCompletion/0
-          equals "darwin-light-1681x1084"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-A3D2091AF9AB13]
-          exactly: WorkBuddy structured Oracle /coverage/requiredBeforePixelCompletion/1
-          equals "darwin-dark-1681x1084"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-A21F8AA8F0CE03]
-          exactly: WorkBuddy structured Oracle /coverage/requiredBeforePixelCompletion/2
-          equals "darwin-light-dark-1440x900"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-67BEEC70210609]
-          exactly: WorkBuddy structured Oracle /coverage/requiredBeforePixelCompletion/3
-          equals "darwin-light-dark-1280x800"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-533C9360AC4E43]
-          exactly: WorkBuddy structured Oracle /coverage/requiredBeforePixelCompletion/4
-          equals "win32-light-dark-1681x1084-100pct"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-3927AD3B011743]
-          exactly: WorkBuddy structured Oracle /coverage/requiredBeforePixelCompletion/5
-          equals "win32-light-dark-1440x900-100pct"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-25B9571C5D6704]
-          exactly: WorkBuddy structured Oracle /coverage/requiredBeforePixelCompletion/6
-          equals "win32-light-dark-1280x800-100pct"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-34FC5EE53482C8]
-          exactly: WorkBuddy structured Oracle /coverage/requiredBeforePixelCompletion/7
-          equals "win32-light-dark-125pct-smoke"'
-      - action: compare the pre-trigger and post-trigger evidence, reject unrelated
-          prior state, and preserve the per-Requirement causal verdict
-      success_oracle: every causal probe has one post-trigger observation, exact Requirement
-        verdict and counterfactual failure check
-    oracle_contract: null
-    readiness: partial
-    source_contract: null
-    target:
-      artifact: repo://out/main/index.js + Electron
-      kind: installed-app
-      platforms:
-      - darwin
-      - win32
-      - linux
-  qwork.requirement.workbuddy-oracle-5-3-5-workbuddy-5-3.coverage-ca7af5c664:
-    authorization:
-      required: false
-      scopes: []
-    capability_id: shell-home
-    case_id: QW-REQ-WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-COVERAGE-CA7AF5C6
-    evidence:
-    - report.json
-    - entry.png
-    - transition.png
-    - final-state.png
-    fixtures:
-      cleanup: close app and remove temp home
-      isolation: no reuse of ~/.qwork, real account, or production data without explicit
-        Case authority
-      setup: case-owned temp home and deterministic fake sidecar unless live authority
-        is explicit
-    launch:
-      command_or_tool: null
-      failure_action: repair route or launcher; do not skip
-      strategy: manual-blocked
-      success_oracle: Electron window and target surface are visible
-    navigation:
-      entrypoint: shell-home
-      failure_action: capture screenshot and DOM/IPC evidence, then repair locator
-      kind: ui-route
-      locator_strategy: accessible role/name first; project locator registry fallback
-      steps:
-      - action: capture the pre-trigger baseline for shell-home at every source-bound
-          observation boundary
-      - action: perform the source-defined scenario trigger for WorkBuddy 5.3.5 shell-home
-          · coverage 结构化 Oracle exactly once; record the action, route and correlation
-          identity
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-B5D6542B2739C5]
-          exactly: WorkBuddy structured Oracle /coverage/requiredBeforePlatformCompletion/0
-          equals "darwin-light-all-states"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-F27289C34ACD5B]
-          exactly: WorkBuddy structured Oracle /coverage/requiredBeforePlatformCompletion/1
-          equals "darwin-dark-all-states"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-E44DD4315C76AF]
-          exactly: WorkBuddy structured Oracle /coverage/requiredBeforePlatformCompletion/2
-          equals "win32-light-all-states-100pct"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-3CDD17AA35BBE3]
-          exactly: WorkBuddy structured Oracle /coverage/requiredBeforePlatformCompletion/3
-          equals "win32-dark-all-states-100pct"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-8A3F98762B14FD]
-          exactly: WorkBuddy structured Oracle /coverage/requiredBeforePlatformCompletion/4
-          equals "win32-125pct-smoke"'
-      - action: compare the pre-trigger and post-trigger evidence, reject unrelated
-          prior state, and preserve the per-Requirement causal verdict
-      success_oracle: every causal probe has one post-trigger observation, exact Requirement
-        verdict and counterfactual failure check
-    oracle_contract: null
-    readiness: partial
-    source_contract: null
-    target:
-      artifact: repo://out/main/index.js + Electron
-      kind: installed-app
-      platforms:
-      - darwin
-      - win32
-      - linux
-  qwork.requirement.workbuddy-oracle-5-3-5-workbuddy-5-3.platform-6cd0d1c73a:
-    authorization:
-      required: false
-      scopes: []
-    capability_id: shell-home
-    case_id: QW-REQ-WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-PLATFORM-6CD0D1C7
-    evidence:
-    - report.json
-    - entry.png
-    - transition.png
-    - final-state.png
-    fixtures:
-      cleanup: close app and remove temp home
-      isolation: no reuse of ~/.qwork, real account, or production data without explicit
-        Case authority
-      setup: case-owned temp home and deterministic fake sidecar unless live authority
-        is explicit
-    launch:
-      command_or_tool: null
-      failure_action: repair route or launcher; do not skip
-      strategy: manual-blocked
-      success_oracle: Electron window and target surface are visible
-    navigation:
-      entrypoint: shell-home
-      failure_action: capture screenshot and DOM/IPC evidence, then repair locator
-      kind: ui-route
-      locator_strategy: accessible role/name first; project locator registry fallback
-      steps:
-      - action: capture the pre-trigger baseline for shell-home at every source-bound
-          observation boundary
-      - action: perform the source-defined scenario trigger for WorkBuddy 5.3.5 shell-home
-          · platform 结构化 Oracle exactly once; record the action, route and correlation
-          identity
-      - action: 'observe renderer CSS-pixel geometry at the declared viewport and
-          DPR after the trigger and assert [REQ-59F8EEEF7A0E3E] exactly: WorkBuddy
-          structured Oracle /platform/darwin/fullscreenCollapsedToggle/height equals
-          32'
-      - action: 'observe renderer CSS-pixel geometry at the declared viewport and
-          DPR after the trigger and assert [REQ-A9217E2F17FB18] exactly: WorkBuddy
-          structured Oracle /platform/darwin/fullscreenCollapsedToggle/width equals
-          32'
-      - action: 'observe renderer CSS-pixel geometry at the declared viewport and
-          DPR after the trigger and assert [REQ-C9E09D1D3EC1ED] exactly: WorkBuddy
-          structured Oracle /platform/darwin/fullscreenCollapsedToggle/x equals 16'
-      - action: 'observe renderer CSS-pixel geometry at the declared viewport and
-          DPR after the trigger and assert [REQ-2114BE1A774E76] exactly: WorkBuddy
-          structured Oracle /platform/darwin/fullscreenCollapsedToggle/y equals 12'
-      - action: 'observe renderer CSS-pixel geometry at the declared viewport and
-          DPR after the trigger and assert [REQ-39C51635A72F06] exactly: WorkBuddy
-          structured Oracle /platform/darwin/fullscreenExpandedToggle/height equals
-          32'
-      - action: 'observe renderer CSS-pixel geometry at the declared viewport and
-          DPR after the trigger and assert [REQ-F509C83AC5C579] exactly: WorkBuddy
-          structured Oracle /platform/darwin/fullscreenExpandedToggle/width equals
-          32'
-      - action: 'observe renderer CSS-pixel geometry at the declared viewport and
-          DPR after the trigger and assert [REQ-7293061E908FE8] exactly: WorkBuddy
-          structured Oracle /platform/darwin/fullscreenExpandedToggle/x equals 12'
-      - action: 'observe renderer CSS-pixel geometry at the declared viewport and
-          DPR after the trigger and assert [REQ-8522170BC01518] exactly: WorkBuddy
-          structured Oracle /platform/darwin/fullscreenExpandedToggle/y equals 12'
-      - action: 'observe renderer CSS-pixel geometry at the declared viewport and
-          DPR after the trigger and assert [REQ-04173FCEF34193] exactly: WorkBuddy
-          structured Oracle /platform/darwin/fullscreenTrafficLightOffset equals 0'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-8241A9D5F6ADDC]
-          exactly: WorkBuddy structured Oracle /platform/darwin/shortcutModifier equals
-          "Command"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-B8ADA7038A88AB]
-          exactly: WorkBuddy structured Oracle /platform/darwin/titleBarStyle equals
-          "hiddenInset"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-D4A34C26E026C9]
-          exactly: WorkBuddy structured Oracle /platform/win32/pixelGoldenDpiPercent
-          equals 100'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-4ECCE3E416CF2C]
-          exactly: WorkBuddy structured Oracle /platform/win32/shortcutModifier equals
-          "Ctrl"'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-8DF951F135986A]
-          exactly: WorkBuddy structured Oracle /platform/win32/showTrafficLightSafeArea
-          equals false'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-E34E06943B2DA6]
-          exactly: WorkBuddy structured Oracle /platform/win32/smokeDpiPercent equals
-          125'
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-6D305ED0811C9F]
-          exactly: WorkBuddy structured Oracle /platform/win32/titleBarStyle equals
-          "hidden"'
-      - action: compare the pre-trigger and post-trigger evidence, reject unrelated
-          prior state, and preserve the per-Requirement causal verdict
-      success_oracle: every causal probe has one post-trigger observation, exact Requirement
-        verdict and counterfactual failure check
-    oracle_contract: null
-    readiness: partial
-    source_contract: null
-    target:
-      artifact: repo://out/main/index.js + Electron
-      kind: installed-app
-      platforms:
-      - darwin
-      - win32
-      - linux
-  qwork.requirement.workbuddy-oracle-5-3-5-workbuddy-5-3.sidebar-6ab07e1644:
-    authorization:
-      required: false
-      scopes: []
-    capability_id: shell-home
-    case_id: QW-REQ-WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-SIDEBAR-6AB07E16
-    evidence:
-    - report.json
-    - entry.png
-    - transition.png
-    - final-state.png
-    fixtures:
-      cleanup: close app and remove temp home
-      isolation: no reuse of ~/.qwork, real account, or production data without explicit
-        Case authority
-      setup: case-owned temp home and deterministic fake sidecar unless live authority
-        is explicit
-    launch:
-      command_or_tool: null
-      failure_action: repair route or launcher; do not skip
-      strategy: manual-blocked
-      success_oracle: Electron window and target surface are visible
-    navigation:
-      entrypoint: shell-home
-      failure_action: capture screenshot and DOM/IPC evidence, then repair locator
-      kind: ui-route
-      locator_strategy: accessible role/name first; project locator registry fallback
-      steps:
-      - action: capture the pre-trigger baseline for shell-home at every source-bound
-          observation boundary
-      - action: perform the source-defined scenario trigger for WorkBuddy 5.3.5 shell-home
-          · sidebar 结构化 Oracle exactly once; record the action, route and correlation
-          identity
-      - action: 'observe renderer interaction state after the trigger and assert [REQ-A527644155D86B]
-          exactly: WorkBuddy structured Oracle /sidebar/collapsed/darwinFullscreenToggleX
-          equals 16'
       - action: compare the pre-trigger and post-trigger evidence, reject unrelated
           prior state, and preserve the per-Requirement causal verdict
       success_oracle: every causal probe has one post-trigger observation, exact Requirement

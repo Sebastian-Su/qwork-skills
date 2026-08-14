@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "policy": {
+    "max_diff_ratio": 0.01,
+    "geometry_tolerance_css_px": 2,
+    "missing_baseline": "fail",
+    "platform_mismatch": "fail",
+    "note": "A QWork screenshot can be actual evidence only. It cannot become a WorkBuddy baseline without an approved normative source."
+  },
+  "source_oracles": {
+    "sidebar_account": {
+      "path": "repo://e2e/oracles/workbuddy-5.3.5-sidebar-account.json",
+      "sha256": "sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804"
+    },
+    "shell_home": {
+      "path": "repo://e2e/oracles/workbuddy-5.3.5-shell-home.json",
+      "sha256": "sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da"
+    }
+  },
+  "requirements": [
+    { "pointer": "/coverage/requiredBeforePlatformCompletion/0", "source": "sidebar_account", "platform": "darwin", "matrix_id": "darwin-light-all-states", "evidence_kind": "pixel-matrix" },
+    { "pointer": "/coverage/requiredBeforePlatformCompletion/1", "source": "sidebar_account", "platform": "darwin", "matrix_id": "darwin-dark-all-states", "evidence_kind": "pixel-matrix" },
+    { "pointer": "/coverage/requiredBeforePlatformCompletion/2", "source": "sidebar_account", "platform": "win32", "matrix_id": "win32-light-all-states-100pct", "evidence_kind": "pixel-matrix" },
+    { "pointer": "/coverage/requiredBeforePlatformCompletion/3", "source": "sidebar_account", "platform": "win32", "matrix_id": "win32-dark-all-states-100pct", "evidence_kind": "pixel-matrix" },
+    { "pointer": "/coverage/requiredBeforePlatformCompletion/4", "source": "sidebar_account", "platform": "win32", "matrix_id": "win32-125pct-smoke", "evidence_kind": "pixel-matrix" },
+    { "pointer": "/sidebar/collapsed/darwinFullscreenToggleX", "source": "sidebar_account", "platform": "darwin", "matrix_id": "darwin-fullscreen-runtime", "evidence_kind": "native-runtime" },
+
+    { "pointer": "/coverage/requiredBeforePixelCompletion/0", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-light-1681x1084", "evidence_kind": "pixel-matrix" },
+    { "pointer": "/coverage/requiredBeforePixelCompletion/1", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-dark-1681x1084", "evidence_kind": "pixel-matrix" },
+    { "pointer": "/coverage/requiredBeforePixelCompletion/2", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-light-dark-1440x900", "evidence_kind": "pixel-matrix" },
+    { "pointer": "/coverage/requiredBeforePixelCompletion/3", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-light-dark-1280x800", "evidence_kind": "pixel-matrix" },
+    { "pointer": "/coverage/requiredBeforePixelCompletion/4", "source": "shell_home", "platform": "win32", "matrix_id": "win32-light-dark-1681x1084-100pct", "evidence_kind": "pixel-matrix" },
+    { "pointer": "/coverage/requiredBeforePixelCompletion/5", "source": "shell_home", "platform": "win32", "matrix_id": "win32-light-dark-1440x900-100pct", "evidence_kind": "pixel-matrix" },
+    { "pointer": "/coverage/requiredBeforePixelCompletion/6", "source": "shell_home", "platform": "win32", "matrix_id": "win32-light-dark-1280x800-100pct", "evidence_kind": "pixel-matrix" },
+    { "pointer": "/coverage/requiredBeforePixelCompletion/7", "source": "shell_home", "platform": "win32", "matrix_id": "win32-light-dark-125pct-smoke", "evidence_kind": "pixel-matrix" },
+
+    { "pointer": "/platform/darwin/fullscreenCollapsedToggle/height", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-fullscreen-runtime", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/darwin/fullscreenCollapsedToggle/width", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-fullscreen-runtime", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/darwin/fullscreenCollapsedToggle/x", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-fullscreen-runtime", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/darwin/fullscreenCollapsedToggle/y", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-fullscreen-runtime", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/darwin/fullscreenExpandedToggle/height", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-fullscreen-runtime", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/darwin/fullscreenExpandedToggle/width", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-fullscreen-runtime", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/darwin/fullscreenExpandedToggle/x", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-fullscreen-runtime", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/darwin/fullscreenExpandedToggle/y", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-fullscreen-runtime", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/darwin/fullscreenTrafficLightOffset", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-fullscreen-runtime", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/darwin/shortcutModifier", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-fullscreen-runtime", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/darwin/titleBarStyle", "source": "shell_home", "platform": "darwin", "matrix_id": "darwin-fullscreen-runtime", "evidence_kind": "native-runtime" },
+
+    { "pointer": "/platform/win32/pixelGoldenDpiPercent", "source": "shell_home", "platform": "win32", "matrix_id": "win32-runtime-100pct", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/win32/shortcutModifier", "source": "shell_home", "platform": "win32", "matrix_id": "win32-runtime-100pct", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/win32/showTrafficLightSafeArea", "source": "shell_home", "platform": "win32", "matrix_id": "win32-runtime-100pct", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/win32/smokeDpiPercent", "source": "shell_home", "platform": "win32", "matrix_id": "win32-runtime-125pct", "evidence_kind": "native-runtime" },
+    { "pointer": "/platform/win32/titleBarStyle", "source": "shell_home", "platform": "win32", "matrix_id": "win32-runtime-100pct", "evidence_kind": "native-runtime" }
+  ],
+  "state_sets": {
+    "shell-home": ["shell-home"],
+    "sidebar-all-states": ["shell-home", "sidebar-hover", "sidebar-collapsed", "search-dialog", "filter-popover", "account-menu"]
+  },
+  "captures": [
+    { "id": "darwin-light-1681x1084", "platform": "darwin", "theme": "light", "dpi_percent": 200, "viewport": { "width": 1681, "height": 1084 }, "state_set": "sidebar-all-states", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" },
+    { "id": "darwin-dark-1681x1084", "platform": "darwin", "theme": "dark", "dpi_percent": 200, "viewport": { "width": 1681, "height": 1084 }, "state_set": "sidebar-all-states", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" },
+    { "id": "darwin-light-1440x900", "platform": "darwin", "theme": "light", "dpi_percent": 200, "viewport": { "width": 1440, "height": 900 }, "state_set": "shell-home", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" },
+    { "id": "darwin-dark-1440x900", "platform": "darwin", "theme": "dark", "dpi_percent": 200, "viewport": { "width": 1440, "height": 900 }, "state_set": "shell-home", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" },
+    { "id": "darwin-light-1280x800", "platform": "darwin", "theme": "light", "dpi_percent": 200, "viewport": { "width": 1280, "height": 800 }, "state_set": "shell-home", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" },
+    { "id": "darwin-dark-1280x800", "platform": "darwin", "theme": "dark", "dpi_percent": 200, "viewport": { "width": 1280, "height": 800 }, "state_set": "shell-home", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" },
+    { "id": "win32-light-1681x1084-100pct", "platform": "win32", "theme": "light", "dpi_percent": 100, "viewport": { "width": 1681, "height": 1084 }, "state_set": "sidebar-all-states", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" },
+    { "id": "win32-dark-1681x1084-100pct", "platform": "win32", "theme": "dark", "dpi_percent": 100, "viewport": { "width": 1681, "height": 1084 }, "state_set": "sidebar-all-states", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" },
+    { "id": "win32-light-1440x900-100pct", "platform": "win32", "theme": "light", "dpi_percent": 100, "viewport": { "width": 1440, "height": 900 }, "state_set": "shell-home", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" },
+    { "id": "win32-dark-1440x900-100pct", "platform": "win32", "theme": "dark", "dpi_percent": 100, "viewport": { "width": 1440, "height": 900 }, "state_set": "shell-home", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" },
+    { "id": "win32-light-1280x800-100pct", "platform": "win32", "theme": "light", "dpi_percent": 100, "viewport": { "width": 1280, "height": 800 }, "state_set": "shell-home", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" },
+    { "id": "win32-dark-1280x800-100pct", "platform": "win32", "theme": "dark", "dpi_percent": 100, "viewport": { "width": 1280, "height": 800 }, "state_set": "shell-home", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" },
+    { "id": "win32-light-1280x800-125pct-smoke", "platform": "win32", "theme": "light", "dpi_percent": 125, "viewport": { "width": 1280, "height": 800 }, "state_set": "sidebar-all-states", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" },
+    { "id": "win32-dark-1280x800-125pct-smoke", "platform": "win32", "theme": "dark", "dpi_percent": 125, "viewport": { "width": 1280, "height": 800 }, "state_set": "sidebar-all-states", "baseline_root": null, "baseline_status": "missing-approved-workbuddy-frame-set" }
+  ]
+}
