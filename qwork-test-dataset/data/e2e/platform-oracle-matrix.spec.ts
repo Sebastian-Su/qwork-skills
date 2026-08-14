@@ -85,14 +85,48 @@ test("WB-UI-PLATFORM-DARWIN-001 @darwin | 原生全屏、快捷键与标题栏�
     ({ app } = await openApp(home));
     const page = await app.firstWindow();
     await setContentSize(app, page, { width: 1440, height: 900 });
+    await page.bringToFront();
+    await attachUiState(page, testInfo, "entry");
+    const nativeCapability = await app.evaluate(({ app: electronApp, BrowserWindow }) => {
+      const window = BrowserWindow.getAllWindows()[0];
+      electronApp.focus({ steal: true });
+      window?.show();
+      window?.focus();
+      return {
+        exists: Boolean(window),
+        visible: window?.isVisible() ?? false,
+        focused: window?.isFocused() ?? false,
+        fullScreenable: window?.isFullScreenable() ?? false,
+        resizable: window?.isResizable() ?? false,
+        maximizable: window?.isMaximizable() ?? false,
+        bounds: window?.getBounds() ?? null,
+      };
+    });
+    await testInfo.attach("native-fullscreen-capability.json", {
+      body: Buffer.from(`${JSON.stringify(nativeCapability, null, 2)}\n`),
+      contentType: "application/json",
+    });
+    expect(nativeCapability, "macOS native fullscreen preflight").toMatchObject({
+      exists: true,
+      visible: true,
+      fullScreenable: true,
+      resizable: true,
+    });
     await assertBuiltTitleBarStyle(expected.titleBarStyle);
     expect(await observedShortcutModifier(app), "/platform/darwin/shortcutModifier").toBe(expected.shortcutModifier);
 
-    await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0]?.setFullScreen(true));
-    await expect.poll(() => page.evaluate(() => window.workGui.window.getState())).toMatchObject({ isFullScreen: true });
+    const requestResult = await page.evaluate(() => window.workGui.system.setFullScreen(true));
+    await testInfo.attach("native-fullscreen-request.json", {
+      body: Buffer.from(`${JSON.stringify({ requestResult }, null, 2)}\n`),
+      contentType: "application/json",
+    });
+    await expect.poll(
+      () => page.evaluate(() => window.workGui.window.getState()),
+      { timeout: 15_000 },
+    ).toMatchObject({ isFullScreen: true });
     await compareToggle(page.getByRole("button", { name: "收起侧栏", exact: true }), expected.fullscreenExpandedToggle, "fullscreenExpandedToggle");
     await compareTrafficOffset(page, expected.fullscreenTrafficLightOffset);
-    await attachUiState(page, testInfo, "entry");
+    await attachUiState(page, testInfo, "transition");
 
     await page.getByRole("button", { name: "收起侧栏", exact: true }).click();
     const expand = page.getByRole("button", { name: "展开侧栏", exact: true });
@@ -101,7 +135,7 @@ test("WB-UI-PLATFORM-DARWIN-001 @darwin | 原生全屏、快捷键与标题栏�
     expect((await boxOf(expand)).x, "/sidebar/collapsed/darwinFullscreenToggleX").toBe(
       sidebar.sidebar.collapsed.darwinFullscreenToggleX,
     );
-    await attachUiState(page, testInfo, "transition");
+    await attachUiState(page, testInfo, "transition-collapsed");
 
     await triggerSidebarShortcut(app, page);
     await expect(page.getByRole("button", { name: "收起侧栏", exact: true })).toBeVisible();

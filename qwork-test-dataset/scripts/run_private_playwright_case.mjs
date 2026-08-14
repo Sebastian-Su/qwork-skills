@@ -86,10 +86,34 @@ const observed = collectTests(playwrightReport.suites || []);
 if (observed.length !== 1 || observed[0].title !== title) {
   throw new Error(`private Case must select exactly one test: ${JSON.stringify(observed)}`);
 }
-const screenshots = await artifacts(screenshotRoot, ".png", runRoot);
+const stateScreenshots = await artifacts(screenshotRoot, ".png", runRoot);
+const failureScreenshots = await artifacts(resultRoot, ".png", runRoot);
+const screenshots = [
+  ...stateScreenshots.map((item) => ({
+    ...item,
+    kind: "screenshot",
+    state: inferScreenshotState(item.path),
+    origin: "case-checkpoint",
+  })),
+  ...failureScreenshots.map((item) => ({
+    ...item,
+    kind: "screenshot",
+    state: "assertion-failure",
+    origin: "playwright-failure",
+  })),
+].sort((left, right) => left.path.localeCompare(right.path));
 const traces = await artifacts(resultRoot, "trace.zip", runRoot);
 const evidenceIntegrityErrors = [];
-if (screenshots.length < 3) evidenceIntegrityErrors.push(`private Case must produce at least three state screenshots, found ${screenshots.length}`);
+const testPassed = execution.code === 0 && observed[0].status === "expected";
+if (testPassed && stateScreenshots.length < 3) {
+  evidenceIntegrityErrors.push(`passing private Case must produce at least three state screenshots, found ${stateScreenshots.length}`);
+}
+if (!testPassed && stateScreenshots.length < 1) {
+  evidenceIntegrityErrors.push(`failed private Case must preserve at least one pre-failure state screenshot, found ${stateScreenshots.length}`);
+}
+if (!testPassed && failureScreenshots.length < 1) {
+  evidenceIntegrityErrors.push(`failed private Case must preserve an assertion-failure screenshot, found ${failureScreenshots.length}`);
+}
 if (traces.length !== 1) evidenceIntegrityErrors.push(`private Case must produce one Playwright trace, found ${traces.length}`);
 const buildManifest = JSON.parse(await fs.readFile(buildManifestPath, "utf8"));
 const specFile = observed[0].file;
@@ -194,6 +218,14 @@ async function artifacts(root, suffix, relativeTo) {
   }
   await visit(root);
   return values.sort((a, b) => a.path.localeCompare(b.path));
+}
+
+function inferScreenshotState(value) {
+  const filename = path.basename(value, path.extname(value));
+  for (const state of ["assertion-failure", "final-state", "transition-collapsed", "transition", "entry"]) {
+    if (filename.endsWith(`-${state}`) || filename.includes(`-${state}-`)) return state;
+  }
+  return filename;
 }
 
 function collectTests(suites, prefix = []) {

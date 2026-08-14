@@ -3159,7 +3159,11 @@ def main() -> int:
                 raise ValueError(f"private reference did not select one passing Case: {case['id']}")
             screenshots = report.get("evidence", {}).get("screenshots", [])
             for state in private_reference["required_screenshot_states"]:
-                if not any(state in str(item.get("path") or "") for item in screenshots):
+                if not any(
+                    state == str(item.get("state") or "")
+                    or state in str(item.get("path") or "")
+                    for item in screenshots
+                ):
                     raise ValueError(f"private reference screenshot is missing: {case['id']} {state}")
             traces = report.get("evidence", {}).get("traces", [])
             if len(traces) != 1:
@@ -3246,7 +3250,11 @@ def main() -> int:
                 raise ValueError(f"failed private reference did not select one failing Case: {case['id']}")
             screenshots = report.get("evidence", {}).get("screenshots", [])
             for state in failed_private_reference["required_screenshot_states"]:
-                if not any(state in str(item.get("path") or "") for item in screenshots):
+                if not any(
+                    state == str(item.get("state") or "")
+                    or state in str(item.get("path") or "")
+                    for item in screenshots
+                ):
                     raise ValueError(f"failed private reference screenshot is missing: {case['id']} {state}")
             traces = report.get("evidence", {}).get("traces", [])
             if len(traces) != 1:

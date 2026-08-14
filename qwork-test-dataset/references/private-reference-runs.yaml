@@ -8,7 +8,17 @@ current_authority:
   invalidated_reference_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
   reason: develop merge changed the implementation revision and shared Electron fixtures; no historical result is current evidence
 runs: {}
-failed_runs: {}
+failed_runs:
+  QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-8470D022:
+    run_id: platform-darwin-native-e74fa4c-c9227fe0-04
+    report: skill://qwork-test-dataset/data/runs/platform-darwin-native-e74fa4c-c9227fe0-04/report.json
+    report_sha256: sha256:a0584bdea702ee51e12fa3984f7151dfbccc46aa914ac4a6da9c2505abd4dfdb
+    classification: environment
+    failure_summary: macOS BrowserWindow 的 exists、visible、fullScreenable、resizable 与 maximizable 能力均为 true，但隔离 Electron 窗口未能获得原生前台焦点；QWork system.setFullScreen(true) 立即返回 false，15 秒内 window state 仍为非全屏。该结果证明当前自动化宿主无法完成原生全屏 reference，不把焦点限制误判为产品 UI 失败；主进程同步读取异步全屏状态的返回契约须另行修复。
+    next_action: 在可获得原生前台焦点的 macOS 宿主复跑同一 Case，并将 system.setFullScreen 的完成语义绑定 enter-full-screen 或 leave-full-screen 事件后再判定返回值。
+    required_screenshot_states:
+      - entry
+      - assertion-failure
 historical_runs:
   QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-72C1FB46:
     run_id: private-reference-migration-20260814-v1/QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-72C1FB46
