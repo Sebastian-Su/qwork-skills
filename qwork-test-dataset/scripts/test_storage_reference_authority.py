@@ -80,20 +80,34 @@ def main() -> int:
         assert case["verification"]["last_outcome"] == "pass"
 
         stale_reference = dict(reference, runner_sha256="sha256:stale")
-        try:
-            apply_storage_reference_authority(
-                case=case,
-                reference=stale_reference,
-                skill_root=root,
-                runner_path=runner_path,
-                expected_inventory_sha256="inventory-sha",
-                expected_disposition_sha256="disposition-sha",
-                head="head-sha",
-            )
-        except ValueError as error:
-            assert "runner hash drifted" in str(error)
-        else:
-            raise AssertionError("runner drift must fail closed")
+        apply_storage_reference_authority(
+            case=case,
+            reference=stale_reference,
+            skill_root=root,
+            runner_path=runner_path,
+            expected_inventory_sha256="inventory-sha",
+            expected_disposition_sha256="disposition-sha",
+            head="head-sha",
+        )
+        contract = case["execution_contract"]
+        assert contract["readiness"] == "partial"
+        assert contract["reference_run"]["status"] == "pending"
+        assert case["verification"]["last_outcome"] == "pending"
+        assert "runner hash drifted" in contract["blockers"][0]
+
+        revision_reference = dict(reference, implementation_revision="old-head")
+        apply_storage_reference_authority(
+            case=case,
+            reference=revision_reference,
+            skill_root=root,
+            runner_path=runner_path,
+            expected_inventory_sha256="inventory-sha",
+            expected_disposition_sha256="disposition-sha",
+            head="new-head",
+        )
+        assert case["execution_contract"]["readiness"] == "partial"
+        assert case["verification"]["implementation_revision"] == "new-head"
+        assert "old-head" in case["execution_contract"]["blockers"][0]
 
         failed_report = {
             **report,

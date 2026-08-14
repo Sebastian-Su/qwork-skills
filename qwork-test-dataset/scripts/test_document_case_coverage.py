@@ -55,8 +55,6 @@ def main() -> int:
     mapped_targets = 0
     for source_id, source_map in coverage["sources"].items():
         source = sources[source_id]
-        if source["locator"] != source_map["source_locator"]:
-            raise AssertionError(f"source locator drifted: {source_id}")
         if source["content_hash"] != source_map["source_sha256"]:
             raise AssertionError(f"source hash drifted: {source_id}")
         atoms = {
@@ -113,11 +111,7 @@ def main() -> int:
                 contract = target["execution_contract"]["observability"][
                     "source_contract"
                 ]
-                for field in (
-                    "execution_revision",
-                    "spec",
-                    "spec_sha256",
-                ):
+                for field in ("spec", "spec_sha256"):
                     if str(contract[field]) != str(target_config[field]):
                         raise AssertionError(
                             f"target contract drifted: {target_config['case_id']} {field}"

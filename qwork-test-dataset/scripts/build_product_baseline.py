@@ -170,6 +170,8 @@ TEST_SURFACE_DOMAINS: tuple[tuple[str, tuple[str, ...]], ...] = (
 
 DOC_DISPOSITIONS: tuple[tuple[str, str, str], ...] = (
     (r"^docs/commit-and-pr-guide\.md$|^docs/testing-guide\.md$", "release-governance", "Planner/runner policy, not a user-visible product requirement"),
+    (r"^docs/team-collaboration/", "release-governance", "Multi-contributor ownership, handoff and evidence policy binds delivery governance rather than end-user product behavior"),
+    (r"^docs/research/", "supporting-evidence", "Research evidence informs decisions but does not independently define approved product behavior"),
     (r"^docs/audits/", "supporting-evidence", "Audit evidence does not define product behavior by itself"),
     (r"^docs/superpowers/plans/", "implementation-context", "Implementation plans support traceability but do not supersede approved specs"),
     (r"^docs/qconnector/(?:README|TODO|plan|retrospective|test-inventory|qqmusic-skill)\.md$", "implementation-context", "Connector planning/inventory context is not the product contract"),
@@ -450,6 +452,32 @@ def discovered_source_disposition(path: str) -> tuple[str, str]:
     if path == "docs/settings.json":
         return "implementation-context", "Repository-local settings are implementation context, not user-visible product behavior"
     return "supporting-evidence", "Discovered source is retained in the closed-world ledger but is not independently normative"
+
+
+def load_git_snapshot(
+    snapshot: pathlib.Path,
+    *,
+    expected_revision: str,
+    expected_source_id: str,
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Load and hash-verify one immutable Git source snapshot."""
+    manifest = json.loads((snapshot / "manifest.json").read_text(encoding="utf-8"))
+    if str(manifest.get("revision")) != expected_revision:
+        raise ValueError(
+            f"{expected_source_id} snapshot revision does not match the requested revision"
+        )
+    if str(manifest.get("source_id")) != expected_source_id:
+        raise ValueError(f"unexpected Git snapshot source_id: {manifest.get('source_id')}")
+    inventory = json.loads((snapshot / "inventory.json").read_text(encoding="utf-8"))
+    normalized = json.dumps(
+        inventory, ensure_ascii=False, separators=(",", ":")
+    ).encode()
+    observed_inventory_sha256 = hashlib.sha256(normalized).hexdigest()
+    if observed_inventory_sha256 != str(manifest.get("inventory_sha256")):
+        raise ValueError(f"{expected_source_id} snapshot inventory hash mismatch")
+    if int(manifest.get("entry_count", -1)) != len(inventory):
+        raise ValueError(f"{expected_source_id} snapshot entry count mismatch")
+    return manifest, inventory
 
 
 GEOMETRY_SUFFIXES = (
@@ -1272,6 +1300,8 @@ def mark_private_reference_stale(
     reference: dict[str, Any],
     report: dict[str, Any],
     reason: str,
+    *,
+    current_head: str | None = None,
 ) -> None:
     """Retain historical evidence without treating it as current authority."""
 
@@ -1291,10 +1321,71 @@ def mark_private_reference_stale(
     case["verification"] = {
         "last_outcome": "pending",
         "environment_scope": contract["reference_run"]["environment"],
-        "implementation_revision": str(report["source"]["implementation_revision"]),
+        "implementation_revision": current_head or str(report["source"]["implementation_revision"]),
         "last_verified_at": str(report["finished_at"]),
         "status_reason": f"stale private reference {run_id}: {reason}",
     }
+
+
+def mark_deterministic_reference_stale(
+    *,
+    case: dict[str, Any],
+    reference: dict[str, Any],
+    current_head: str,
+    environment: str,
+    reason: str,
+) -> None:
+    """Retain a deterministic run as history while removing current authority."""
+
+    contract = case["execution_contract"]
+    run_id = str(reference["run_id"])
+    historical_revision = str(reference.get("implementation_revision") or "unknown")
+    contract["reference_run"] = {
+        "status": "pending",
+        "run_id": run_id,
+        "verified_at": str(reference.get("verified_at") or ""),
+        "environment": (
+            f"historical deterministic evidence for {historical_revision}; "
+            f"current target is {current_head}; {environment}"
+        ),
+    }
+    contract["readiness"] = "partial"
+    contract["blockers"] = [reason]
+    contract["observability"]["historical_reference"] = {
+        "run_id": run_id,
+        "implementation_revision": historical_revision,
+        "report": str(reference.get("report") or ""),
+        "report_sha256": str(reference.get("report_sha256") or ""),
+    }
+    contract["observability"].pop("reference_authority", None)
+    case["verification"] = {
+        "last_outcome": "pending",
+        "environment_scope": contract["reference_run"]["environment"],
+        "implementation_revision": current_head,
+        "last_verified_at": str(reference.get("verified_at") or ""),
+        "status_reason": f"stale deterministic reference {run_id}: {reason}",
+    }
+
+
+def storage_reference_drift_reason(
+    *,
+    reference: dict[str, Any],
+    runner_path: pathlib.Path,
+    expected_disposition_sha256: str,
+    head: str,
+) -> str | None:
+    historical_revision = str(reference.get("implementation_revision") or "")
+    if historical_revision != head:
+        return (
+            f"storage reference implementation revision drifted from "
+            f"{historical_revision or 'missing'} to {head}; rerun the exact Case"
+        )
+    actual_runner = f"sha256:{sha256_bytes(runner_path.read_bytes())}"
+    if str(reference.get("runner_sha256") or "") != actual_runner:
+        return "storage reference runner hash drifted; rerun the exact Case"
+    if str(reference.get("disposition_canonical_sha256") or "") != expected_disposition_sha256:
+        return "storage disposition authority drifted; rerun the exact Case"
+    return None
 
 
 def load_storage_reference_authority(
@@ -1393,15 +1484,43 @@ def apply_storage_reference_authority(
 ) -> None:
     """Promote one deterministic storage Case only from exact passing evidence."""
 
-    contract, report_ref, report, required_atoms, results = load_storage_reference_authority(
-        case=case,
+    drift_reason = storage_reference_drift_reason(
         reference=reference,
-        skill_root=skill_root,
         runner_path=runner_path,
-        expected_inventory_sha256=expected_inventory_sha256,
         expected_disposition_sha256=expected_disposition_sha256,
         head=head,
     )
+    if drift_reason:
+        mark_deterministic_reference_stale(
+            case=case,
+            reference=reference,
+            current_head=head,
+            environment=storage_reference_environment(),
+            reason=drift_reason,
+        )
+        return
+
+    try:
+        contract, report_ref, report, required_atoms, results = load_storage_reference_authority(
+            case=case,
+            reference=reference,
+            skill_root=skill_root,
+            runner_path=runner_path,
+            expected_inventory_sha256=expected_inventory_sha256,
+            expected_disposition_sha256=expected_disposition_sha256,
+            head=head,
+        )
+    except ValueError as error:
+        if "storage reference authority mismatch" not in str(error):
+            raise
+        mark_deterministic_reference_stale(
+            case=case,
+            reference=reference,
+            current_head=head,
+            environment=storage_reference_environment(),
+            reason="storage Case atom or source inventory authority drifted; rerun the exact Case",
+        )
+        return
     valid = (
         report.get("status") == "pass"
         and report.get("passed_atom_count") == len(required_atoms)
@@ -1448,15 +1567,43 @@ def apply_failed_storage_reference_authority(
 ) -> None:
     """Bind one exact storage failure without promoting the Case to ready."""
 
-    contract, report_ref, report, required_atoms, results = load_storage_reference_authority(
-        case=case,
+    drift_reason = storage_reference_drift_reason(
         reference=reference,
-        skill_root=skill_root,
         runner_path=runner_path,
-        expected_inventory_sha256=expected_inventory_sha256,
         expected_disposition_sha256=expected_disposition_sha256,
         head=head,
     )
+    if drift_reason:
+        mark_deterministic_reference_stale(
+            case=case,
+            reference=reference,
+            current_head=head,
+            environment=storage_reference_environment(),
+            reason=drift_reason,
+        )
+        return
+
+    try:
+        contract, report_ref, report, required_atoms, results = load_storage_reference_authority(
+            case=case,
+            reference=reference,
+            skill_root=skill_root,
+            runner_path=runner_path,
+            expected_inventory_sha256=expected_inventory_sha256,
+            expected_disposition_sha256=expected_disposition_sha256,
+            head=head,
+        )
+    except ValueError as error:
+        if "storage reference authority mismatch" not in str(error):
+            raise
+        mark_deterministic_reference_stale(
+            case=case,
+            reference=reference,
+            current_head=head,
+            environment=storage_reference_environment(),
+            reason="storage Case atom or source inventory authority drifted; rerun the exact Case",
+        )
+        return
     passed = sum(item.get("status") == "pass" for item in results)
     failed = sum(item.get("status") == "fail" for item in results)
     errors = report.get("errors")
@@ -1571,6 +1718,30 @@ def structured_source_reference_environment() -> str:
     return "read-only frozen Git blob and private Dataset atom ledger; no Electron or live user state opened"
 
 
+def structured_source_reference_drift_reason(
+    *,
+    reference: dict[str, Any],
+    runner_path: pathlib.Path,
+    expected_source_inventory_sha256: str,
+    head: str,
+) -> str | None:
+    historical_revision = str(reference.get("implementation_revision") or "")
+    if historical_revision != head:
+        return (
+            f"structured source reference implementation revision drifted from "
+            f"{historical_revision or 'missing'} to {head}; rerun the exact Case"
+        )
+    actual_runner = f"sha256:{sha256_bytes(runner_path.read_bytes())}"
+    if str(reference.get("runner_sha256") or "") != actual_runner:
+        return "structured source reference runner hash drifted; rerun the exact Case"
+    if (
+        str(reference.get("source_inventory_canonical_sha256") or "")
+        != expected_source_inventory_sha256
+    ):
+        return "structured source inventory authority drifted; rerun the exact Case"
+    return None
+
+
 def apply_structured_source_reference_authority(
     *,
     case: dict[str, Any],
@@ -1582,14 +1753,42 @@ def apply_structured_source_reference_authority(
 ) -> None:
     """Promote one structured source Case only from exact passing evidence."""
 
-    contract, report_ref, report, required_atoms, results = load_structured_source_reference_authority(
-        case=case,
+    drift_reason = structured_source_reference_drift_reason(
         reference=reference,
-        skill_root=skill_root,
         runner_path=runner_path,
         expected_source_inventory_sha256=expected_source_inventory_sha256,
         head=head,
     )
+    if drift_reason:
+        mark_deterministic_reference_stale(
+            case=case,
+            reference=reference,
+            current_head=head,
+            environment=structured_source_reference_environment(),
+            reason=drift_reason,
+        )
+        return
+
+    try:
+        contract, report_ref, report, required_atoms, results = load_structured_source_reference_authority(
+            case=case,
+            reference=reference,
+            skill_root=skill_root,
+            runner_path=runner_path,
+            expected_source_inventory_sha256=expected_source_inventory_sha256,
+            head=head,
+        )
+    except ValueError as error:
+        if "structured source reference authority mismatch" not in str(error):
+            raise
+        mark_deterministic_reference_stale(
+            case=case,
+            reference=reference,
+            current_head=head,
+            environment=structured_source_reference_environment(),
+            reason="structured source Case atom authority drifted; rerun the exact Case",
+        )
+        return
     valid = (
         report.get("status") == "pass"
         and report.get("passed_atom_count") == len(required_atoms)
@@ -1635,14 +1834,42 @@ def apply_failed_structured_source_reference_authority(
 ) -> None:
     """Bind one exact structured source failure without promoting the Case."""
 
-    contract, report_ref, report, required_atoms, results = load_structured_source_reference_authority(
-        case=case,
+    drift_reason = structured_source_reference_drift_reason(
         reference=reference,
-        skill_root=skill_root,
         runner_path=runner_path,
         expected_source_inventory_sha256=expected_source_inventory_sha256,
         head=head,
     )
+    if drift_reason:
+        mark_deterministic_reference_stale(
+            case=case,
+            reference=reference,
+            current_head=head,
+            environment=structured_source_reference_environment(),
+            reason=drift_reason,
+        )
+        return
+
+    try:
+        contract, report_ref, report, required_atoms, results = load_structured_source_reference_authority(
+            case=case,
+            reference=reference,
+            skill_root=skill_root,
+            runner_path=runner_path,
+            expected_source_inventory_sha256=expected_source_inventory_sha256,
+            head=head,
+        )
+    except ValueError as error:
+        if "structured source reference authority mismatch" not in str(error):
+            raise
+        mark_deterministic_reference_stale(
+            case=case,
+            reference=reference,
+            current_head=head,
+            environment=structured_source_reference_environment(),
+            reason="structured source Case atom authority drifted; rerun the exact Case",
+        )
+        return
     passed = sum(item.get("status") == "pass" for item in results)
     failed = sum(item.get("status") == "fail" for item in results)
     errors = report.get("errors")
@@ -1734,6 +1961,7 @@ def main() -> int:
     parser.add_argument("--visual-manifest", required=True)
     parser.add_argument("--cdp-snapshot", required=True)
     parser.add_argument("--develop-snapshot", required=True)
+    parser.add_argument("--head-snapshot", required=True)
     parser.add_argument(
         "--qwork-oracle-report",
         help="optional current-revision QWork-to-WorkBuddy Oracle report used to bind reference-run truth",
@@ -1772,6 +2000,12 @@ def main() -> int:
         (skill_root / "references/private-reference-runs.yaml").read_text(
             encoding="utf-8"
         )
+    )
+    private_reference_revision = str(
+        private_reference_runs.get("current_authority", {}).get(
+            "implementation_revision"
+        )
+        or ""
     )
     deterministic_reference_runs = yaml.safe_load(
         (skill_root / "references/deterministic-reference-runs.yaml").read_text(
@@ -1820,19 +2054,25 @@ def main() -> int:
         raise ValueError("private functional E2E source set is empty")
 
     develop_snapshot = pathlib.Path(args.develop_snapshot).resolve()
-    develop_snapshot_manifest = json.loads(
-        (develop_snapshot / "manifest.json").read_text(encoding="utf-8")
-    )
-    if str(develop_snapshot_manifest.get("revision")) != develop:
-        raise ValueError(
-            "develop snapshot revision does not match the requested develop revision"
-        )
-    develop_inventory = json.loads(
-        (develop_snapshot / "inventory.json").read_text(encoding="utf-8")
+    develop_snapshot_manifest, develop_inventory = load_git_snapshot(
+        develop_snapshot,
+        expected_revision=develop,
+        expected_source_id="qwork-develop",
     )
     develop_closed_world = {
         str(item["path"]): item
         for item in develop_inventory
+        if str(item.get("path", "")).startswith(("docs/", "e2e/"))
+    }
+    head_snapshot = pathlib.Path(args.head_snapshot).resolve()
+    head_snapshot_manifest, head_inventory = load_git_snapshot(
+        head_snapshot,
+        expected_revision=head,
+        expected_source_id="qwork-current-head",
+    )
+    head_closed_world = {
+        str(item["path"]): item
+        for item in head_inventory
         if str(item.get("path", "")).startswith(("docs/", "e2e/"))
     }
 
@@ -2358,6 +2598,52 @@ def main() -> int:
                     FACET_CATEGORIES[str(atom["facet"])],
                 )
 
+    # Close the entire current-HEAD docs/e2e inventory, including governance,
+    # research, fixtures and assets that are not promoted into product truth.
+    disposed_head_paths = {
+        str(item["path"])
+        for item in source_dispositions
+        if str(item["locator"]).startswith(f"git:{head}:")
+    }
+    for path in sorted(set(head_closed_world) - disposed_head_paths):
+        blob = run_git_blob(repo, head, path)
+        develop_blob = (
+            run_git_blob(repo, develop, path)
+            if path in develop_closed_world
+            else None
+        )
+        if develop_blob == blob:
+            disposition = "deduplicated-identical-to-develop"
+            disposition_reason = (
+                "Current HEAD source is byte-identical to the accepted develop source"
+            )
+        elif path.endswith(".md"):
+            disposition, disposition_reason = document_disposition(path)
+        else:
+            disposition, disposition_reason = discovered_source_disposition(path)
+        source_dispositions.append(
+            {
+                "locator": f"git:{head}:{path}",
+                "path": path,
+                "disposition": disposition,
+                "reason": disposition_reason,
+                "content_sha256": sha256_bytes(blob),
+                "blob_sha1": str(head_closed_world[path].get("blob_sha1") or ""),
+                "size": int(head_closed_world[path].get("size") or len(blob)),
+            }
+        )
+
+    head_ledger_paths = {
+        str(item["path"])
+        for item in source_dispositions
+        if str(item["locator"]).startswith(f"git:{head}:")
+    }
+    if head_ledger_paths != set(head_closed_world):
+        missing = sorted(set(head_closed_world) - head_ledger_paths)
+        extra = sorted(head_ledger_paths - set(head_closed_world))
+        raise ValueError(
+            f"HEAD docs/e2e ledger is not closed: missing={missing[:20]} extra={extra[:20]}"
+        )
     # User-approved WorkBuddy reverse-engineering document.
     lark_dir = pathlib.Path(args.lark_snapshot).resolve()
     lark_xml = (lark_dir / "document.xml").read_text(encoding="utf-8")
@@ -2916,10 +3202,9 @@ def main() -> int:
         accepted_source = source_by_id.get(str(document_source_id))
         if accepted_source is None:
             raise ValueError(f"document Coverage Map source is missing: {document_source_id}")
-        if (
-            str(accepted_source["locator"]) != str(source_coverage["source_locator"])
-            or str(accepted_source["content_hash"]) != str(source_coverage["source_sha256"])
-        ):
+        # Coverage authority is content-addressed. A revision-only locator
+        # change must not invalidate an unchanged reviewed document atom.
+        if str(accepted_source["content_hash"]) != str(source_coverage["source_sha256"]):
             raise ValueError(f"document Coverage Map source drifted: {document_source_id}")
         atoms_by_locator = {
             str(atom["locator"]): atom
@@ -2963,8 +3248,7 @@ def main() -> int:
                     raise ValueError(f"document Coverage Map target is missing: {target_id}")
                 source_contract = target["execution_contract"]["observability"]["source_contract"]
                 if (
-                    str(source_contract["execution_revision"]) != str(target_config["execution_revision"])
-                    or str(source_contract["spec"]) != str(target_config["spec"])
+                    str(source_contract["spec"]) != str(target_config["spec"])
                     or str(source_contract["spec_sha256"]) != str(target_config["spec_sha256"])
                     or str(target["title"]) != str(target_config["title"])
                 ):
@@ -3061,10 +3345,7 @@ def main() -> int:
             raise ValueError(
                 f"document disposition source is missing: {disposition_source_id}"
             )
-        if (
-            str(disposition_source["locator"]) != str(source_policy["source_locator"])
-            or str(disposition_source["content_hash"]) != str(source_policy["source_sha256"])
-        ):
+        if str(disposition_source["content_hash"]) != str(source_policy["source_sha256"]):
             raise ValueError(
                 f"document disposition source drifted: {disposition_source_id}"
             )
@@ -3165,8 +3446,7 @@ def main() -> int:
                 raise ValueError(f"structured Oracle target Case is missing: {target_id}")
             source_contract = target["execution_contract"]["observability"]["source_contract"]
             if (
-                str(source_contract["execution_revision"]) != str(target_config["execution_revision"])
-                or str(source_contract["spec"]) != str(target_config["spec"])
+                str(source_contract["spec"]) != str(target_config["spec"])
                 or str(source_contract["spec_sha256"]) != str(target_config["spec_sha256"])
                 or str(target["title"]) != str(target_config["title"])
             ):
@@ -3628,7 +3908,26 @@ def main() -> int:
         failed_private_reference = private_reference_runs.get("failed_runs", {}).get(str(case["id"]))
         if private_reference and failed_private_reference:
             raise ValueError(f"private Case cannot register both passing and failed authority: {case['id']}")
-        if private_reference:
+        if private_reference and private_reference_revision != head:
+            report_ref = str(private_reference["report"])
+            report_path = skill_root / report_ref.removeprefix("skill://qwork-test-dataset/")
+            if not report_path.is_file():
+                raise ValueError(f"stale private reference report is missing: {report_ref}")
+            report_hash = f"sha256:{sha256_bytes(report_path.read_bytes())}"
+            if report_hash != str(private_reference["report_sha256"]):
+                raise ValueError(f"stale private reference report hash drifted: {case['id']}")
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            mark_private_reference_stale(
+                case,
+                private_reference,
+                report,
+                (
+                    f"private reference implementation revision drifted from "
+                    f"{private_reference_revision or 'missing'} to {head}; rerun this exact Case"
+                ),
+                current_head=head,
+            )
+        elif private_reference:
             contract = case["execution_contract"]
             if not str(contract["route_id"]).startswith("qwork.private-playwright."):
                 raise ValueError(f"private reference targets a non-private route: {case['id']}")
@@ -3719,6 +4018,25 @@ def main() -> int:
                     report,
                     "private reference supporting authority drifted; rerun this exact Case with the current private runner",
                 )
+        elif failed_private_reference and private_reference_revision != head:
+            report_ref = str(failed_private_reference["report"])
+            report_path = skill_root / report_ref.removeprefix("skill://qwork-test-dataset/")
+            if not report_path.is_file():
+                raise ValueError(f"stale failed private reference report is missing: {report_ref}")
+            report_hash = f"sha256:{sha256_bytes(report_path.read_bytes())}"
+            if report_hash != str(failed_private_reference["report_sha256"]):
+                raise ValueError(f"stale failed private reference report hash drifted: {case['id']}")
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            mark_private_reference_stale(
+                case,
+                failed_private_reference,
+                report,
+                (
+                    f"failed private reference implementation revision drifted from "
+                    f"{private_reference_revision or 'missing'} to {head}; rerun this exact Case"
+                ),
+                current_head=head,
+            )
         elif failed_private_reference:
             contract = case["execution_contract"]
             if not str(contract["route_id"]).startswith("qwork.private-playwright."):
@@ -3911,7 +4229,7 @@ def main() -> int:
                 "json-pointer:/shared/composer/targetContainerHeight",
             ],
             "observed_contract": {
-                "locator": "git:19f210518dbad3768eb14a09baa5eea226016c7b:e2e/workbuddy-ui-shell-home.spec.ts#WB-UI-HOME-002",
+                "locator": f"git:{head}:e2e/workbuddy-ui-shell-home.spec.ts#WB-UI-HOME-002",
                 "surface_width": 800,
                 "surface_height": 178,
             },
@@ -3936,6 +4254,21 @@ def main() -> int:
                     if str(item["locator"]).startswith(f"git:{develop}:")
                 }
             ),
+        },
+        "head_closed_world": {
+            "source_id": str(head_snapshot_manifest["source_id"]),
+            "inventory_locator": f"skill://qwork-test-dataset/{(head_snapshot / 'inventory.json').relative_to(output.parent.parent).as_posix()}",
+            "inventory_sha256": f"sha256:{head_snapshot_manifest['inventory_sha256']}",
+            "docs_e2e_entry_count": len(head_closed_world),
+            "disposed_entry_count": len(
+                {
+                    str(item["path"])
+                    for item in source_dispositions
+                    if str(item["locator"]).startswith(f"git:{head}:")
+                }
+            ),
+            "freshness_status": str(head_snapshot_manifest.get("freshness_status")),
+            "freshness_blocker": head_snapshot_manifest.get("freshness_blocker"),
         },
         "geometry_policy": {"tolerance_css_px": 2, "source": "QWork project AGENTS.md"},
         "visual_policy": {"max_diff_ratio": 0.01, "dynamic_masks": "explicit-only"},
@@ -3981,6 +4314,21 @@ def main() -> int:
                     if str(item["locator"]).startswith(f"git:{develop}:")
                 }
             ),
+            "status": "closed",
+        },
+        "head_closed_world": {
+            "inventory_locator": f"skill://qwork-test-dataset/{(head_snapshot / 'inventory.json').relative_to(output.parent.parent).as_posix()}",
+            "inventory_sha256": f"sha256:{head_snapshot_manifest['inventory_sha256']}",
+            "expected_head_docs_e2e_paths": len(head_closed_world),
+            "disposed_head_docs_e2e_paths": len(
+                {
+                    str(item["path"])
+                    for item in source_dispositions
+                    if str(item["locator"]).startswith(f"git:{head}:")
+                }
+            ),
+            "freshness_status": str(head_snapshot_manifest.get("freshness_status")),
+            "freshness_blocker": head_snapshot_manifest.get("freshness_blocker"),
             "status": "closed",
         },
         "dispositions": sorted(source_dispositions, key=lambda item: (item["path"], item["locator"])),

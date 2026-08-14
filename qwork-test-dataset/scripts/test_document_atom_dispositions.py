@@ -34,8 +34,6 @@ def main() -> int:
     configured_atoms: dict[tuple[str, str], dict] = {}
     for source_id, source_policy in policy["sources"].items():
         source = sources[source_id]
-        if source["locator"] != source_policy["source_locator"]:
-            raise AssertionError(f"disposition source locator drifted: {source_id}")
         if source["content_hash"] != source_policy["source_sha256"]:
             raise AssertionError(f"disposition source hash drifted: {source_id}")
         atoms = {item["locator"]: item for item in source["inventory"]["atoms"]}

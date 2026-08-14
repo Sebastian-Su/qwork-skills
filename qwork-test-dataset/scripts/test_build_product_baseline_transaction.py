@@ -40,6 +40,8 @@ def main() -> int:
                 str(missing),
                 "--develop-snapshot",
                 str(missing),
+                "--head-snapshot",
+                str(missing),
             ],
             text=True,
             capture_output=True,

@@ -26,7 +26,13 @@ def main() -> int:
         "source": {"implementation_revision": "head-sha"},
     }
 
-    mark_private_reference_stale(case, reference, report, "runner hash changed")
+    mark_private_reference_stale(
+        case,
+        reference,
+        report,
+        "runner hash changed",
+        current_head="new-head-sha",
+    )
 
     contract = case["execution_contract"]
     assert contract["readiness"] == "partial"
@@ -34,6 +40,7 @@ def main() -> int:
     assert contract["reference_run"]["run_id"] == "old-run"
     assert contract["blockers"] == ["runner hash changed"]
     assert case["verification"]["last_outcome"] == "pending"
+    assert case["verification"]["implementation_revision"] == "new-head-sha"
     assert "stale private reference old-run" in case["verification"]["status_reason"]
     print("private reference invalidation test: PASS")
     return 0
