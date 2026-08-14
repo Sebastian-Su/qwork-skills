@@ -1,0 +1,437 @@
+schema_version: 1
+policy: >-
+  A structured WorkBuddy product pointer may reuse an existing QWork E2E Case only
+  when the frozen test reads that exact value, feeds it into a geometry/style/state
+  comparison, and the test fails closed on the aggregate structural result.
+sources:
+  WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-3-5-AUTOMATION:
+    source_locator: git:d324f1b6092763b74052a8fdd1ad0ac9ab8f6bd6:e2e/oracles/workbuddy-5.3.5-automation.json
+    mappings:
+      - target:
+          case_id: QW-E2E-AUTOMATION-ORACLE-SPEC-FC3C7038
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: e2e/automation-oracle.spec.ts
+          title: generates the WorkBuddy automation state, geometry, responsive and hash report
+          spec_sha256: sha256:96ac3dc36b272f32f011f21b1e185ab622b4f460da3afc3012036d355d656d22
+          oracle_sha256: sha256:585bac12f2710c7c6040ea3916db941565cae5b855a2fa7591588e406d36f084
+          helper: src/main/automations/AutomationOracleReport.ts
+          helper_sha256: sha256:f569de68eb0de625c8d97ff9824111ab92fc3803255db5e3a31768be98566c15
+        proof:
+          value_flow: WORKBUDDY_ORACLE exact field access in captureShell, captureToolbarBreakpoints or popupGeometryForState
+          comparison: namedCheck, propertyCheck, locatorStyleCheck or booleanCheck
+          completeness: requiredAutomationOracleChecks injects a failing check when a state-required assertion is absent
+          fail_closed: buildAutomationOracleReport requires every geometry/style check to pass and the Playwright test requires structuralPass on darwin
+          excluded_claim: pixelBaseline remains evidence-only and this mapping never claims pixel parity
+        covered_pointers:
+          - /desktop/contentInsetX
+          - /desktop/group/height
+          - /desktop/group/y
+          - /desktop/leftRailWidth
+          - /desktop/row/height
+          - /desktop/row/y
+          - /desktop/runGroup/height
+          - /desktop/runGroup/y
+          - /desktop/runsToolbar/height
+          - /desktop/runsToolbar/searchWidth
+          - /desktop/runsToolbar/width
+          - /desktop/runsToolbar/y
+          - /desktop/tabs/height
+          - /desktop/tabs/width
+          - /desktop/tabs/x
+          - /desktop/tabs/y
+          - /desktop/taskToolbar/height
+          - /desktop/taskToolbar/searchWidth
+          - /desktop/taskToolbar/width
+          - /desktop/taskToolbar/y
+          - /desktop/toolbarRightInset
+          - /editor/calendar/height
+          - /editor/calendar/width
+          - /editor/colors/cancelBackground
+          - /editor/colors/controlBackground
+          - /editor/colors/controlBorder
+          - /editor/colors/noticeBackground
+          - /editor/colors/noticeForeground
+          - /editor/colors/primaryBackground
+          - /editor/colors/primaryForeground
+          - /editor/colors/selectedBackground
+          - /editor/connector/height
+          - /editor/connector/y
+          - /editor/connectorDropdown/menuHeight
+          - /editor/connectorDropdown/rowHeight
+          - /editor/connectorDropdown/rowInset
+          - /editor/connectorDropdown/triggerGap
+          - /editor/contentInsetX
+          - /editor/monthdayDropdown/height
+          - /editor/monthdayDropdown/width
+          - /editor/nameInput/height
+          - /editor/nameInput/y
+          - /editor/notice/height
+          - /editor/notice/y
+          - /editor/prompt/height
+          - /editor/prompt/y
+          - /editor/scheduleTabs/height
+          - /editor/scheduleTabs/width
+          - /editor/scheduleTabs/xOffset
+          - /editor/scheduleTabs/y
+          - /editor/switch/height
+          - /editor/switch/width
+          - /editor/timeDropdown/height
+          - /editor/timeDropdown/width
+          - /editor/validity/height
+          - /editor/validity/y
+          - /editor/weekdayDropdown/height
+          - /editor/weekdayDropdown/width
+          - /responsiveToolbar/alwaysSingleLine
+          - /responsiveToolbar/compactButtonWidth
+          - /responsiveToolbar/compactMaxMainWidth
+          - /responsiveToolbar/compactSearchWidth
+          - /responsiveToolbar/fullMinMainWidth
+          - /responsiveToolbar/fullSearchWidth
+          - /templates/breadcrumbY
+          - /templates/cardHeight
+          - /templates/cardsTop
+          - /templates/columnGap
+          - /templates/columns
+          - /templates/contentInsetX
+          - /templates/rowGap
+      - target:
+          case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-784ABD65
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: skill://qwork-test-dataset/data/e2e/automation-oracle-gap-completeness.spec.ts
+          title: WB-UI-ORACLE-AUTOMATION-002 | 自动化 Chrome、响应断点、日程控件与激活颜色逐字段匹配 WorkBuddy
+          spec_sha256: sha256:ff40f18a15a8dd257dd5d73b1e1f5b8addff8ba21b2dc7fa5c2d2c4d169901a3
+          oracle_sha256: sha256:585bac12f2710c7c6040ea3916db941565cae5b855a2fa7591588e406d36f084
+        proof:
+          value_flow: the private Case reads all six exact frozen Oracle fields and drives their viewport, geometry and style comparisons
+          comparison: aggregate mismatch ledger records exact expected and actual values with directional popup placement
+          completeness: compact-to-fluid boundary, Chrome, schedule, active-control and selected-date states are all exercised
+          fail_closed: Playwright requires the complete mismatch ledger to equal an empty array
+          excluded_claim: pixelBaseline remains evidence-only and this mapping never claims cross-platform pixel parity
+        covered_pointers:
+          - /desktop/chromeHeight
+          - /editor/calendar/triggerGap
+          - /editor/colors/controlActiveBorder
+          - /editor/colors/selectedForeground
+          - /editor/scheduleControlHeight
+          - /responsiveToolbar/fluidMinMainWidth
+    gap_pointers: []
+    gap_reasons: {}
+  WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-3-5-SIDEBAR-ACCOUNT:
+    source_locator: git:d324f1b6092763b74052a8fdd1ad0ac9ab8f6bd6:e2e/oracles/workbuddy-5.3.5-sidebar-account.json
+    mappings:
+      - target:
+          case_id: QW-E2E-WORKBUDDY-UI-SIDEBAR-ACCOUNT-SPEC-F6086E87
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: e2e/workbuddy-ui-sidebar-account.spec.ts
+          title: WB-UI-SIDEBAR-TOOLS-001 | expanded toolbar geometry and platform-specific collapsed actions
+          spec_sha256: sha256:e7d02c8a7de60cc5e942e0bdca8179c3a4c280d7038941fbaa72487144ca4548
+          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+        proof:
+          comparison: expectBox and exact count/attribute assertions in the current-HEAD test body
+          excluded_claim: computedStyle values written only to metrics.json are not accepted
+        covered_pointers:
+          - /sidebar/expandedWidth
+          - /sidebar/toolbar/y
+          - /sidebar/toolbar/buttonSize
+          - /sidebar/toolbar/x/toggle
+          - /sidebar/toolbar/x/search
+          - /sidebar/toolbar/x/filter
+          - /sidebar/toolbar/dragRegion
+          - /sidebar/collapsed/hide/0
+          - /sidebar/collapsed/hide/1
+          - /sidebar/collapsed/darwinWindowedToggleX
+      - target:
+          case_id: QW-E2E-WORKBUDDY-UI-SIDEBAR-ACCOUNT-SPEC-79482557
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: e2e/workbuddy-ui-sidebar-account.spec.ts
+          title: WB-UI-SIDEBAR-TOOLS-002 | search and filter surfaces expose keyboard-complete behavior
+          spec_sha256: sha256:e7d02c8a7de60cc5e942e0bdca8179c3a4c280d7038941fbaa72487144ca4548
+          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+        proof:
+          comparison: expectBox hard-fails on exact search and filter width/height with the approved geometry tolerance
+          excluded_claim: radius/background/overlay and option completeness are not asserted
+        covered_pointers:
+          - /search/width
+          - /search/height
+          - /filter/width
+          - /filter/height
+      - target:
+          case_id: QW-E2E-WORKBUDDY-UI-SIDEBAR-ACCOUNT-SPEC-65308253
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: e2e/workbuddy-ui-sidebar-account.spec.ts
+          title: WB-UI-ACCOUNT-001 | compact account menu is 320px and preserves QWork actions
+          spec_sha256: sha256:e7d02c8a7de60cc5e942e0bdca8179c3a4c280d7038941fbaa72487144ca4548
+          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+        proof:
+          comparison: expectBox hard-fails on the 320px account menu width
+          excluded_claim: visible labels do not prove the complete ordered row contract
+        covered_pointers:
+          - /accountMenu/width
+      - target:
+          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-1C1C07DD
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: e2e/workbuddy-ui-shell-home.spec.ts
+          title: WB-UI-SIDEBAR-005/007/008 | 快捷键保持焦点且 macOS 全屏移除交通灯偏移
+          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+        proof:
+          comparison: full-screen Electron state plus poll and expectBox hard-fail on the 16px toggle x-coordinate
+          excluded_claim: platform matrices not executed by this darwin Case remain gaps
+        covered_pointers:
+          - /sidebar/collapsed/darwinFullscreenToggleX
+      - target:
+          case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-762BA0DA
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: skill://qwork-test-dataset/data/e2e/sidebar-account-oracle-completeness.spec.ts
+          title: WB-UI-ORACLE-SIDEBAR-001 | 侧栏工具、搜索、筛选与账户菜单逐字段匹配 WorkBuddy
+          spec_sha256: sha256:f1a360c318adbace582fd6add5d6e002ef07c83613ca8e52fbad88028dd5074c
+          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+        proof:
+          value_flow: the private test reads the frozen Oracle JSON and consumes every mapped value in geometry, style, order, limit or brand comparisons
+          comparison: all pointer-level mismatches are collected only after the entry, search, filter and account states have been exercised
+          fail_closed: one final hard equality requires the complete mismatch array to be empty and preserves all differences as a JSON attachment on failure
+          excluded_claim: the five required platform-completion coordinates remain gaps until their named platform/theme/DPI executions exist
+        covered_pointers:
+          - /accountMenu/anchorGap
+          - /accountMenu/darkBackground
+          - /accountMenu/darkShadow
+          - /accountMenu/headerHeight
+          - /accountMenu/maxHeight
+          - /accountMenu/padding
+          - /accountMenu/qworkRowOrder/0
+          - /accountMenu/qworkRowOrder/1
+          - /accountMenu/qworkRowOrder/10
+          - /accountMenu/qworkRowOrder/11
+          - /accountMenu/qworkRowOrder/12
+          - /accountMenu/qworkRowOrder/13
+          - /accountMenu/qworkRowOrder/2
+          - /accountMenu/qworkRowOrder/3
+          - /accountMenu/qworkRowOrder/4
+          - /accountMenu/qworkRowOrder/5
+          - /accountMenu/qworkRowOrder/6
+          - /accountMenu/qworkRowOrder/7
+          - /accountMenu/qworkRowOrder/8
+          - /accountMenu/qworkRowOrder/9
+          - /accountMenu/radius
+          - /accountMenu/rowHeightRange/0
+          - /accountMenu/rowHeightRange/1
+          - /accountMenu/viewportMargin
+          - /filter/anchor/x
+          - /filter/anchor/y
+          - /filter/darkBackground
+          - /filter/padding
+          - /filter/radius
+          - /filter/statusOptions/0
+          - /filter/statusOptions/1
+          - /filter/statusOptions/2
+          - /filter/statusOptions/3
+          - /filter/statusOptions/4
+          - /filter/statusOptions/5
+          - /filter/timeOptions/0
+          - /filter/timeOptions/1
+          - /filter/timeOptions/2
+          - /filter/timeOptions/3
+          - /search/darkBackground
+          - /search/emptyQueryLimit
+          - /search/overlay
+          - /search/radius
+          - /sidebar/toolbar/darkForeground
+          - /sidebar/toolbar/darkHoverBackground
+          - /sidebar/toolbar/defaultBackground
+          - /sidebar/toolbar/gap
+          - /sidebar/toolbar/iconSize
+          - /sidebar/toolbar/order/0
+          - /sidebar/toolbar/order/1
+          - /sidebar/toolbar/order/2
+          - /sidebar/toolbar/radius
+          - /source/brandPolicy
+    gap_pointers:
+      - /coverage/requiredBeforePlatformCompletion/0
+      - /coverage/requiredBeforePlatformCompletion/1
+      - /coverage/requiredBeforePlatformCompletion/2
+      - /coverage/requiredBeforePlatformCompletion/3
+      - /coverage/requiredBeforePlatformCompletion/4
+    gap_reasons:
+      platform_matrix: required light/dark Windows and DPI states remain not_evaluated
+  WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-3-5-SHELL-HOME:
+    source_locator: git:d324f1b6092763b74052a8fdd1ad0ac9ab8f6bd6:e2e/oracles/workbuddy-5.3.5-shell-home.json
+    mappings:
+      - target:
+          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-12A93229
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: e2e/workbuddy-ui-shell-home.spec.ts
+          title: WB-UI-SHELL-001 | 最大化 Shell、侧栏与主区盒模型完全对齐
+          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          comparison: expectBox and computedStyle hard-fail on the exact sidebar/new-task geometry and approved new-task style fields
+          excluded_claim: sidebar/main background values that differ from the WorkBuddy body Oracle are not accepted
+        covered_pointers:
+          - /shared/sidebarWidth
+          - /shared/sidebar/expandedWidth
+          - /shared/newTask/x
+          - /shared/newTask/y
+          - /shared/newTask/width
+          - /shared/newTask/height
+          - /shared/newTask/radius
+          - /shared/newTask/fontSize
+          - /shared/newTask/fontWeight
+          - /light/newTaskBackground
+      - target:
+          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-AC69DA50
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: e2e/workbuddy-ui-shell-home.spec.ts
+          title: WB-UI-SIDEBAR-001/002/004 | 收起后主区占满且隐藏导航不可交互，再展开恢复
+          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          comparison: poll, expectBox and computedStyle hard-fail on collapsed width, transition timing and the darwin windowed toggle box
+          excluded_claim: the traffic-light offset is protected indirectly but is not read and compared as an exact Oracle field
+        covered_pointers:
+          - /shared/sidebar/collapsedWidthDesktopLocal
+          - /shared/sidebar/transitionDurationMs
+          - /shared/sidebar/transitionTimingFunction
+          - /platform/darwin/windowedCollapsedToggle/x
+          - /platform/darwin/windowedCollapsedToggle/y
+          - /platform/darwin/windowedCollapsedToggle/width
+          - /platform/darwin/windowedCollapsedToggle/height
+      - target:
+          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-D95CD83C
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: e2e/workbuddy-ui-shell-home.spec.ts
+          title: WB-UI-SIDEBAR-009 | 用户收起选择跨重启保持并可由设置重置
+          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          comparison: the Case closes and reopens the real Electron app with the same isolated home, then proves persisted collapsed state and default-expanded reset
+        covered_pointers:
+          - /shared/sidebar/preferenceStorage
+          - /shared/sidebar/defaultExpanded
+      - target:
+          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-1C1C07DD
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: e2e/workbuddy-ui-shell-home.spec.ts
+          title: WB-UI-SIDEBAR-005/007/008 | 快捷键保持焦点且 macOS 全屏移除交通灯偏移
+          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          comparison: exact accelerator, native full-screen state, toggle box and CSS traffic-light offset are asserted by the current-HEAD Case
+          reference_run_boundary: current darwin reference attempt is environment_blocked because the isolated Electron window stayed hidden and could not enter a native Space
+          excluded_claim: mapping existence does not convert the failed reference attempt into PASS; Windows remains platform-not-evaluated
+        covered_pointers:
+          - /platform/darwin/shortcutModifier
+          - /platform/win32/shortcutModifier
+          - /platform/darwin/fullscreenTrafficLightOffset
+          - /platform/darwin/fullscreenCollapsedToggle/x
+          - /platform/darwin/fullscreenCollapsedToggle/y
+          - /platform/darwin/fullscreenCollapsedToggle/width
+          - /platform/darwin/fullscreenCollapsedToggle/height
+      - target:
+          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-5B5CA9E0
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: e2e/workbuddy-ui-shell-home.spec.ts
+          title: WB-UI-SHELL-003 | 平台窗口控制区与拖拽安全区对齐
+          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          comparison: platform branches hard-fail on darwin traffic-light safe-area/control absence and Windows control presence
+          excluded_claim: darwin execution cannot prove the Windows branch reference outcome
+        covered_pointers:
+          - /platform/darwin/showTrafficLightSafeArea
+          - /platform/darwin/showWindowsControls
+          - /platform/win32/showWindowsControls
+      - target:
+          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-4DB238ED
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: e2e/workbuddy-ui-shell-home.spec.ts
+          title: WB-UI-HOME-002 | 960×180 Composer、底栏和精确 placeholder 对齐
+          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          comparison: toHaveAttribute hard-fails on the exact frozen WorkBuddy placeholder
+          conflict: current HEAD hard-asserts an 800x178 surface while the normative WorkBuddy Oracle requires 960x180; dimensions remain explicit gaps
+        covered_pointers:
+          - /shared/composer/placeholder
+      - target:
+          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-750DBF3D
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: e2e/workbuddy-ui-shell-home.spec.ts
+          title: WB-UI-HOME-005 | 浅深主题与三档窗口保持首页框架
+          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          comparison: both shell surfaces are hard-compared to rgb(24,24,24) across all three current darwin dark viewports
+          excluded_claim: visible heading/textbox does not prove the remaining dark-theme typography and component colors
+        covered_pointers:
+          - /dark/bodyBackground
+      - target:
+          case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-CF6C2871
+          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          spec: skill://qwork-test-dataset/data/e2e/shell-home-oracle-completeness.spec.ts
+          title: WB-UI-ORACLE-SHELL-HOME-001 | Shell 首页主题、排版、场景与 Composer 逐字段匹配 WorkBuddy
+          spec_sha256: sha256:8bd3d3714d8ea51e3c3e63927e5938b04c131ad227f25b1d1f47f50ef48ee1d7
+          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+        proof:
+          value_flow: the private test reads every mapped value from the frozen Shell/Home Oracle before exercising light, collapsed and dark states
+          comparison: geometry, typography, theme, brand and Composer values become pointer-level mismatch records only after three screenshot checkpoints
+          fail_closed: one final hard equality requires the complete mismatch array to be empty and keeps the draft unsent, so no model request occurs
+          excluded_claim: cross-viewport pixel Golden, native fullscreen-expanded and Windows titlebar/DPI coordinates remain explicit gaps
+        covered_pointers:
+          - /dark/activeSceneBackground
+          - /dark/activeSceneColor
+          - /dark/bodyColor
+          - /dark/newTaskBackground
+          - /dark/newTaskColor
+          - /dark/titleColor
+          - /light/activeSceneBackground
+          - /light/activeSceneColor
+          - /light/bodyBackground
+          - /light/bodyColor
+          - /light/inactiveSceneColor
+          - /light/newTaskColor
+          - /light/quickActionBackground
+          - /light/quickActionShadow
+          - /light/titleColor
+          - /platform/darwin/windowedCollapsedTrafficLightOffset
+          - /shared/composer/editorMinHeight
+          - /shared/composer/fontSize
+          - /shared/composer/targetContainerHeight
+          - /shared/composer/targetContainerWidth
+          - /shared/homeTitle/fontFamily
+          - /shared/homeTitle/fontSize
+          - /shared/homeTitle/fontWeight
+          - /shared/homeTitle/height
+          - /shared/quickAction/fontSize
+          - /shared/quickAction/gap
+          - /shared/quickAction/height
+          - /shared/quickAction/horizontalPadding
+          - /shared/quickAction/radius
+          - /shared/scenePill/activeFontWeight
+          - /shared/scenePill/fontSize
+          - /shared/scenePill/height
+          - /shared/scenePill/inactiveFontWeight
+          - /shared/scenePill/radius
+          - /shared/scenePill/width
+          - /source/brandPolicy
+    gap_pointers:
+      - /coverage/requiredBeforePixelCompletion/0
+      - /coverage/requiredBeforePixelCompletion/1
+      - /coverage/requiredBeforePixelCompletion/2
+      - /coverage/requiredBeforePixelCompletion/3
+      - /coverage/requiredBeforePixelCompletion/4
+      - /coverage/requiredBeforePixelCompletion/5
+      - /coverage/requiredBeforePixelCompletion/6
+      - /coverage/requiredBeforePixelCompletion/7
+      - /platform/darwin/fullscreenExpandedToggle/height
+      - /platform/darwin/fullscreenExpandedToggle/width
+      - /platform/darwin/fullscreenExpandedToggle/x
+      - /platform/darwin/fullscreenExpandedToggle/y
+      - /platform/darwin/titleBarStyle
+      - /platform/win32/pixelGoldenDpiPercent
+      - /platform/win32/showTrafficLightSafeArea
+      - /platform/win32/smokeDpiPercent
+      - /platform/win32/titleBarStyle
+    gap_reasons:
+      pixel_matrix: eight required cross-theme, cross-viewport and Windows DPI states do not yet have approved golden comparisons
+      platform_matrix: Windows and native macOS full-screen branches require platform-specific reference runs
+      runtime_boundary: Electron titlebar construction parameters cannot be inferred from renderer pixels and remain separately source-bound

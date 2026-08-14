@@ -1,0 +1,61 @@
+schema_version: 1
+authority:
+  source: skill://qwork-test-dataset/data/evidence/workbuddy-cdp/5.3.12-surfaces-v4/manifest.json
+  product: WorkBuddy
+  version: 5.3.12
+  scope: every DOM node captured by the frozen 19-state CDP snapshot
+
+closed_world:
+  coordinate: state plus zero-based control index
+  identity: sha256 of state, index and canonical source control
+  invariant: every source coordinate appears exactly once and every entry reproduces its canonical control hash
+  actionable_tags: [a, button, input, select, textarea]
+  actionable_roles: [button, checkbox, combobox, link, menuitem, menuitemcheckbox, menuitemradio, option, radio, slider, spinbutton, switch, tab, textbox]
+
+classifications:
+  non-actionable-semantic-node:
+    status: covered
+    meaning: The selector captured a visible semantic or styled node, but its HTML tag and ARIA role do not expose an action.
+  disabled-control:
+    status: covered
+    meaning: The source proves a visible disabled state; no transition is possible from this state.
+  observed-read-only-transition:
+    status: covered
+    meaning: The frozen source manifest contains the target state and the navigation action that reached it without mutation.
+  representative-causality-covered:
+    status: covered
+    meaning: A closed representative QWork Case proves the causal contract for an equivalence family; every member remains individually inventoried and visually source-bound.
+  source-case-reference-pending:
+    status: pending
+    meaning: A current Case expresses this control family but has no accepted reference run for the current implementation revision.
+  unobserved-local-interaction-gap:
+    status: gap
+    meaning: The control is locally reversible, but neither the frozen source nor an exact current Case proves its transition state.
+  unlabeled-interaction-gap:
+    status: gap
+    meaning: The frozen DOM exposes an actionable node without a stable accessible label, so the action cannot be inferred safely.
+  side-effect-not-exercised:
+    status: blocked
+    meaning: Exercising the source control could create, mutate, send, run, regenerate, persist feedback or otherwise change user data.
+  external-capability-blocked:
+    status: blocked
+    meaning: The action requires account authorization, another application, sharing, an external connector or an external capability.
+
+equivalence:
+  allowed_when:
+    - members have the same observable action contract and differ only by catalog content or repeated placement
+    - every source member retains its own identity, geometry and content atoms
+    - the representative Case checks entry, transition, forbidden side effect and final state
+  prohibited_when:
+    - the control has a distinct permission, persistence, failure or recovery contract
+    - the classification would turn pending, blocked or unobserved behavior into a pass
+
+privacy:
+  rule: user-authored conversation titles and account display names are not copied into the derived inventory
+  retained: stable product labels, public catalog content and bounded descriptions
+
+status_semantics:
+  covered: source transition or accepted representative causal proof exists
+  pending: an exact Case exists but current reference evidence is missing
+  gap: a locally executable interaction Case or source transition is missing
+  blocked: observing the source transition requires an external capability or a potentially mutating action

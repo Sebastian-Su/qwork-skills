@@ -1,0 +1,161 @@
+contract_version: 1
+project: replace-with-project-id
+
+terminal_states:
+  success: test-ready
+  repair: repair-required
+  blocked: external-blocked
+
+impact_closure:
+  algorithm: least-fixed-point
+  require_explicit_base_and_head: true
+  require_all_changed_files: true
+  require_changed_file_hashes: true
+  require_all_related_repository_revisions: true
+  fail_on_unmapped_change: true
+  invalidate_on_change:
+    - product-code
+    - test-code
+    - case
+    - dataset
+    - benchmark
+    - suite
+    - fixture
+    - runner
+    - locator
+    - source
+    - skill
+
+scope_policy:
+  exhaustive_within_declared_impact: true
+  token_budget_may_reduce_scope: false
+  time_budget_may_reduce_scope: false
+  case_count_may_reduce_scope: false
+  cost_may_reduce_scope: false
+  allow_sampling_without_normative_approval: false
+
+required_result_kinds:
+  - changed-file
+  - source-atom
+  - source-requirement
+  - acceptance-category
+  - ui-gate
+  - capability
+  - risk
+  - case
+  - dataset-cohort
+  - suite
+  - route
+  - execution-target
+  - layer
+  - dimension
+
+layers:
+  - static-architecture-type-lint
+  - unit
+  - contract-api-event-protocol
+  - integration-persistence-external
+  - real-user-path-e2e
+  - regression
+  - golden-goodcase
+  - dataset-benchmark-evaluation
+  - performance-latency-cost-reliability
+
+dimensions:
+  - happy-path
+  - negative
+  - boundary
+  - empty-loading-error
+  - permission-security
+  - role-tenant-platform-environment-version
+  - retry-idempotency-concurrency-cancellation-refresh-recovery
+  - data-side-effect
+  - observability-correlation
+  - cleanup-isolation
+  - ui-api-event-persistence-seams
+  - ui-structure-content-state
+  - ui-geometry-visual-responsive
+  - ui-interaction-accessibility
+  - historical-badcase-goodcase
+  - agent-prompt-model-tool-variation
+  - quality-stability-latency-cost
+
+evidence:
+  require_plan_hash: true
+  require_current_implementation_revision: true
+  require_current_source_hashes: true
+  require_current_case_dataset_runner_hashes: true
+  require_machine_readable_result_per_item: true
+  require_artifact_hashes: true
+  require_cleanup_evidence: true
+  require_independent_fresh_context_rerun: true
+  require_automatic_human_report: true
+  require_report_artifact_hash: true
+  require_ui_oracle_screenshot_for_ui_pass: true
+
+source_acceptance:
+  require_complete_atom_inventory: true
+  fail_on_unmapped_source_atom: true
+  fail_on_uncovered_p0_p1_requirement: true
+  fail_on_unmapped_figma_facet: true
+  user_visible_requirement_requires_real_ui_route: true
+  require_exact_requirement_category_full_suite_indexes: true
+  required_selection_modes:
+    - requirement
+    - category
+    - full
+    - affected
+
+repair_loop:
+  repeat_until: test-ready-or-external-blocked
+  require_pre_fix_failure_evidence: true
+  require_minimal_root_cause_change: true
+  recompute_impact_after_every_change: true
+  rerun_all_required_items_after_every_change: true
+  maximum_iterations: null
+  forbidden_shortcuts:
+    - weaken-assertion
+    - rewrite-business-oracle-from-implementation
+    - accept-visual-baseline-without-approval
+    - delete-or-skip-test
+    - hide-failure
+    - unbounded-retry
+    - reuse-stale-result
+
+orchestration_lock:
+  require_continuation_checkpoint: true
+  required_checkpoint_fields:
+    - current_implementation_revision
+    - current_plan_hash
+    - first_trusted_failure
+    - repair_required_next_action
+    - cleanup_status
+    - independent_rerun_status
+    - final_response_allowed
+  require_nonempty_next_action_on_repair: true
+  final_response_allowed_when:
+    - current-revision-test-ready
+    - validated-external-blocked
+  final_response_forbidden_when:
+    - running
+    - repair-required
+    - cleanup-pending-or-failed
+    - independent-rerun-pending-or-failed
+    - process-yielded
+    - context-compacted
+  auto_resume_after_yield_or_compaction: true
+  report_is_evidence_not_terminal: true
+
+external_blockers:
+  - new-permission-or-credential
+  - unavailable-external-account-service-or-device
+  - paid-production-or-destructive-authorization
+  - irreversible-action-authorization
+  - unresolved-product-policy-figma-or-api-semantics
+
+never_external_blockers:
+  - local-config-or-service-startup
+  - product-or-test-code
+  - case-dataset-fixture
+  - runner-locator-skill
+  - evidence-format-or-missing-local-artifact

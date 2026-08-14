@@ -1,0 +1,741 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://example.invalid/e2e-case.schema.yaml
+title: Traceable E2E Case
+type: object
+additionalProperties: true
+required:
+  - schema_version
+  - id
+  - title
+  - kind
+  - priority
+  - lifecycle_status
+  - execution_type
+  - execution_mode
+  - coverage
+  - sources
+  - derived_requirements
+  - verification
+  - preconditions
+  - steps
+  - expected_outcomes
+  - forbidden_outcomes
+  - oracles
+  - cleanup
+  - evidence
+properties:
+  schema_version:
+    enum: [2, 3]
+  id:
+    type: string
+    minLength: 1
+  title:
+    type: string
+    minLength: 1
+  kind:
+    enum: [golden, regression, negative, edge, adversarial, environment-rule]
+  priority:
+    enum: [P0, P1, P2, P3]
+  lifecycle_status:
+    enum: [quarantine, active, archived]
+  execution_type:
+    enum: [desktop, web, cli, api, unit, integration, hybrid]
+  execution_mode:
+    enum:
+      - browser
+      - deterministic-replay
+      - real-process
+      - real-protocol
+      - installed-app
+      - diagnostic
+  owner:
+    type: string
+  tags:
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+  selection:
+    type: object
+    additionalProperties: false
+    required: [requirement_ids, categories, suite_ids]
+    properties:
+      requirement_ids:
+        type: array
+        minItems: 1
+        uniqueItems: true
+        items:
+          type: string
+          minLength: 1
+      categories:
+        type: array
+        minItems: 1
+        uniqueItems: true
+        items:
+          type: string
+          minLength: 1
+      suite_ids:
+        type: array
+        minItems: 1
+        uniqueItems: true
+        items:
+          type: string
+          minLength: 1
+  ui_acceptance:
+    type: object
+    additionalProperties: false
+    required: [viewport_profiles, required_screenshot_states]
+    properties:
+      viewport_profiles:
+        type: array
+        minItems: 1
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, width, height, dpr]
+          properties:
+            id:
+              type: string
+              minLength: 1
+            width:
+              type: number
+              exclusiveMinimum: 0
+            height:
+              type: number
+              exclusiveMinimum: 0
+            dpr:
+              type: number
+              exclusiveMinimum: 0
+            theme:
+              type: string
+      required_screenshot_states:
+        type: array
+        minItems: 2
+        uniqueItems: true
+        items:
+          type: string
+          minLength: 1
+        allOf:
+          - contains:
+              const: entry
+          - contains:
+              const: final-state
+  coverage:
+    type: object
+    additionalProperties: true
+    required: [capability_id, journey, states_covered, risk_ids]
+    properties:
+      capability_id:
+        type: string
+        minLength: 1
+      journey:
+        type: string
+        minLength: 1
+      states_covered:
+        type: array
+        minItems: 1
+        uniqueItems: true
+        items:
+          type: string
+      risk_ids:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+  sources:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: true
+      required:
+        - source_id
+        - type
+        - authority_kind
+        - authority_domain
+        - locator
+        - retrieved_at
+        - content_hash
+        - redaction_status
+      properties:
+        source_id:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          minLength: 1
+        authority_kind:
+          enum: [normative, evidence]
+        authority_domain:
+          type: string
+          minLength: 1
+        url:
+          type: string
+        stable_source_id:
+          type: string
+        locator:
+          type: string
+          minLength: 1
+        revision:
+          type: [string, "null"]
+        version:
+          type: [string, "null"]
+        approval_status:
+          enum: [approved, frozen, draft, unknown, not-applicable]
+        retrieved_at:
+          type: string
+          format: date-time
+        content_hash:
+          type: string
+          pattern: "^sha256:[0-9a-fA-F]{64}$"
+        scope:
+          type: string
+        environment:
+          type: string
+        release:
+          type: [string, number]
+        redaction_status:
+          enum: [redacted, minimized, not-required, pending]
+        supersedes:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        superseded_by:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        conflicts_with:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        supports:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        cannot_override:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+      anyOf:
+        - required: [url]
+        - required: [stable_source_id]
+  derived_requirements:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required:
+        - requirement_id
+        - rule
+        - authority_domain
+        - governing_sources
+        - supporting_sources
+        - conflicts
+        - resolution
+        - oracle
+      properties:
+        requirement_id:
+          type: string
+          minLength: 1
+        source_atom_ids:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+            minLength: 1
+        content_facets:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+            minLength: 1
+        acceptance_categories:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+            minLength: 1
+        surface:
+          type: string
+          minLength: 1
+        priority:
+          enum: [P0, P1, P2, P3]
+        rule:
+          type: string
+          minLength: 1
+        authority_domain:
+          type: string
+          minLength: 1
+        governing_sources:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+        supporting_sources:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        conflicts:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        resolution:
+          type: object
+          additionalProperties: false
+          required: [status, reason]
+          properties:
+            status:
+              enum: [resolved, pending, blocked]
+            reason:
+              type: string
+              minLength: 1
+        oracle:
+          type: string
+          minLength: 1
+  verification:
+    type: object
+    additionalProperties: true
+    required: [last_outcome, environment_scope, last_verified_at]
+    properties:
+      last_outcome:
+        enum:
+          - pass
+          - fail
+          - known_gap
+          - pending
+          - not_applicable
+          - environment_blocked
+      environment_scope:
+        type: string
+      implementation_revision:
+        type: [string, "null"]
+      last_verified_at:
+        type: [string, "null"]
+        format: date-time
+      status_reason:
+        type: [string, "null"]
+  preconditions:
+    type: object
+  steps:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      required: [action]
+      properties:
+        action:
+          type: string
+          minLength: 1
+  expected_outcomes:
+    type: array
+    minItems: 1
+  forbidden_outcomes:
+    type: array
+    minItems: 1
+  causal_probe_plan:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required:
+        - requirement_id
+        - oracle_type
+        - given
+        - when
+        - then
+        - observation_boundary
+        - failure_if
+      properties:
+        requirement_id:
+          type: string
+          minLength: 1
+        oracle_type:
+          type: string
+          minLength: 1
+        given:
+          type: string
+          minLength: 1
+        when:
+          type: string
+          minLength: 1
+        then:
+          type: string
+          minLength: 1
+        observation_boundary:
+          type: string
+          minLength: 1
+        failure_if:
+          type: string
+          minLength: 1
+  oracles:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      required: [requirement_id, type, assertion]
+      properties:
+        requirement_id:
+          type: string
+          minLength: 1
+        type:
+          enum: [return, file, event, api, database, ui, ui-structure, ui-geometry, ui-content, ui-state, ui-interaction, responsive, accessibility, network, console, log, trace, visual, aria, llm-judge]
+        assertion:
+          type: string
+          minLength: 1
+  cleanup:
+    type: [string, array, object]
+  evidence:
+    type: array
+    minItems: 1
+  dataset:
+    type: object
+  execution_contract:
+    type: object
+    additionalProperties: false
+    required:
+      - contract_version
+      - readiness
+      - route_id
+      - target
+      - authorization
+      - preflight
+      - launch
+      - navigation
+      - fixtures
+      - observability
+      - reference_run
+      - cleanup
+      - blockers
+    properties:
+      contract_version:
+        const: 1
+      readiness:
+        enum: [ready, partial, missing, stale, blocked, not_applicable]
+      route_id:
+        type: string
+        minLength: 1
+      target:
+        type: object
+        additionalProperties: false
+        required: [kind, platforms, artifact]
+        properties:
+          kind:
+            enum:
+              - installed-app
+              - browser-page
+              - cli
+              - api
+              - process
+              - protocol
+              - deterministic-runner
+              - not-applicable
+          platforms:
+            type: array
+            minItems: 1
+            uniqueItems: true
+            items:
+              type: string
+              minLength: 1
+          artifact:
+            type: string
+            minLength: 1
+      authorization:
+        type: object
+        additionalProperties: false
+        required: [required, scopes]
+        properties:
+          required:
+            type: boolean
+          scopes:
+            type: array
+            uniqueItems: true
+            items:
+              type: string
+              minLength: 1
+      preflight:
+        type: array
+        minItems: 1
+        items:
+          type: object
+          additionalProperties: false
+          required: [action, oracle]
+          properties:
+            action:
+              type: string
+              minLength: 1
+            oracle:
+              type: string
+              minLength: 1
+      launch:
+        type: object
+        additionalProperties: false
+        required: [strategy, command_or_tool, success_oracle, failure_action]
+        properties:
+          strategy:
+            enum: [command, tool, attach, external-runner, none, manual-blocked]
+          command_or_tool:
+            type: [string, "null"]
+          success_oracle:
+            type: string
+            minLength: 1
+          failure_action:
+            type: string
+            minLength: 1
+      navigation:
+        type: object
+        additionalProperties: false
+        required:
+          - kind
+          - entrypoint
+          - steps
+          - locator_strategy
+          - success_oracle
+          - failure_action
+        properties:
+          kind:
+            enum: [ui-route, api-call, cli-command, process-protocol, not-applicable]
+          entrypoint:
+            type: string
+            minLength: 1
+          steps:
+            type: array
+            items:
+              type: object
+              additionalProperties: false
+              required: [action]
+              properties:
+                action:
+                  type: string
+                  minLength: 1
+                locator:
+                  type: string
+          locator_strategy:
+            type: string
+            minLength: 1
+          success_oracle:
+            type: string
+            minLength: 1
+          failure_action:
+            type: string
+            minLength: 1
+      fixtures:
+        type: object
+        additionalProperties: false
+        required: [setup, isolation, cleanup]
+        properties:
+          setup:
+            type: [string, array, object]
+          isolation:
+            type: [string, array, object]
+          cleanup:
+            type: [string, array, object]
+      observability:
+        type: object
+        additionalProperties: false
+        required: [artifacts, correlation, failure_classification, source_contract]
+        properties:
+          artifacts:
+            type: array
+            minItems: 1
+            uniqueItems: true
+            items:
+              type: string
+              minLength: 1
+          correlation:
+            type: string
+            minLength: 1
+          failure_classification:
+            type: string
+            minLength: 1
+          source_contract:
+            oneOf:
+              - type: "null"
+              - type: object
+                additionalProperties: false
+                required: [spec, line_start, line_end, body_sha256, assertion_count, action_count, execution_revision, spec_sha256]
+                properties:
+                  spec:
+                    type: string
+                    pattern: ^(?:e2e/.+\.spec\.ts|skill://qwork-test-dataset/data/e2e/.+\.spec\.ts)$
+                  line_start:
+                    type: integer
+                    minimum: 1
+                  line_end:
+                    type: integer
+                    minimum: 1
+                  body_sha256:
+                    type: string
+                    pattern: ^sha256:[0-9a-f]{64}$
+                  execution_revision:
+                    type: string
+                    pattern: ^[0-9a-f]{40}$
+                  spec_sha256:
+                    type: string
+                    pattern: ^sha256:[0-9a-f]{64}$
+                  assertion_count:
+                    type: integer
+                    minimum: 1
+                  action_count:
+                    type: integer
+                    minimum: 0
+                  supporting_contracts:
+                    type: array
+                    uniqueItems: true
+                    items:
+                      type: object
+                      additionalProperties: false
+                      required: [path, revision, sha256, purpose]
+                      properties:
+                        path:
+                          type: string
+                          minLength: 1
+                        revision:
+                          type: string
+                          pattern: ^[0-9a-f]{40}$
+                        sha256:
+                          type: string
+                          pattern: ^sha256:[0-9a-f]{64}$
+                        purpose:
+                          type: string
+                          minLength: 1
+          oracle_contract:
+            oneOf:
+              - type: "null"
+              - type: object
+                additionalProperties: false
+                required:
+                  - state
+                  - runner_sha256
+                  - comparator_sha256
+                  - reference_report
+                  - reference_report_sha256
+                  - capture_manifest
+                  - capture_manifest_sha256
+                  - max_diff_ratio
+                  - geometry_tolerance_css_px
+                properties:
+                  state:
+                    type: string
+                    minLength: 1
+                  runner_sha256:
+                    type: string
+                    pattern: ^sha256:[0-9a-f]{64}$
+                  comparator_sha256:
+                    type: string
+                    pattern: ^sha256:[0-9a-f]{64}$
+                  reference_report:
+                    type: string
+                    pattern: ^skill://qwork-test-dataset/
+                  reference_report_sha256:
+                    type: string
+                    pattern: ^sha256:[0-9a-f]{64}$
+                  capture_manifest:
+                    type: string
+                    pattern: ^skill://qwork-test-dataset/
+                  capture_manifest_sha256:
+                    type: string
+                    pattern: ^sha256:[0-9a-f]{64}$
+                  max_diff_ratio:
+                    type: number
+                    minimum: 0
+                    maximum: 1
+                  geometry_tolerance_css_px:
+                    type: number
+                    minimum: 0
+      reference_run:
+        type: object
+        additionalProperties: false
+        required: [status, run_id, verified_at, environment]
+        properties:
+          status:
+            enum: [passed, failed, pending, blocked]
+          run_id:
+            type: [string, "null"]
+          verified_at:
+            type: [string, "null"]
+            format: date-time
+          environment:
+            type: string
+            minLength: 1
+      cleanup:
+        type: object
+        additionalProperties: false
+        required: [actions, success_oracle]
+        properties:
+          actions:
+            type: array
+            minItems: 1
+            items:
+              type: string
+              minLength: 1
+          success_oracle:
+            type: string
+            minLength: 1
+      blockers:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+          minLength: 1
+    allOf:
+      - if:
+          properties:
+            readiness:
+              const: ready
+          required: [readiness]
+        then:
+          properties:
+            blockers:
+              maxItems: 0
+            launch:
+              properties:
+                strategy:
+                  not:
+                    const: manual-blocked
+            reference_run:
+              properties:
+                status:
+                  const: passed
+                run_id:
+                  type: string
+                  minLength: 1
+                verified_at:
+                  type: string
+                  format: date-time
+      - if:
+          properties:
+            readiness:
+              const: blocked
+          required: [readiness]
+        then:
+          properties:
+            blockers:
+              minItems: 1
+allOf:
+  - if:
+      properties:
+        schema_version:
+          const: 3
+      required: [schema_version]
+    then:
+      required: [execution_contract, selection]
+  - if:
+      properties:
+        execution_type:
+          enum: [web, desktop]
+      required: [execution_type]
+    then:
+      required: [ui_acceptance]

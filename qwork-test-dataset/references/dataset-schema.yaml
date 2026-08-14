@@ -1,0 +1,63 @@
+schema_version: 1
+dataset:
+  name: product/regression
+  version: 2026-07-18.1
+  owner: module-owner
+  visibility: private
+  storage:
+    kind: project-skill
+    skill: example-test-dataset
+    path: data/datasets/regression.jsonl
+  created_at: 2026-07-18T16:00:00+08:00
+  source_policy: provenance-required
+  redaction_policy: pii-redacted
+  source_acceptance_manifest: data/datasets/source-acceptance.json
+  selection_modes: [requirement, category, affected, full]
+
+items:
+  - case_id: checkout.submit.001
+    case_version: 1
+    kind: regression
+    lifecycle_status: active
+    execution_mode: browser
+    source_requirement_ids: [PRD-ORDER-AC-03, FIGMA-CHECKOUT-NODE-128]
+    categories: [business, ui-interaction, ui-state]
+    suite_ids: [requirement:PRD-ORDER-AC-03, category:ui-interaction, full]
+    route_id: checkout.web
+    ui_acceptance:
+      viewport: {width: 1440, height: 900, dpr: 2}
+      required_screenshot_states: [entry, major-state-transition, final-state]
+      geometry_assets: []
+      visual_assets:
+        - locator: data/benchmarks/ui-visual/FIGMA-CHECKOUT/1440x900/checkout.png
+          sha256: sha256:0000000000000000000000000000000000000000000000000000000000000000
+    verification:
+      last_outcome: pass
+      environment_scope: staging
+      last_verified_at: 2026-07-18T16:05:00+08:00
+      status_reason: null
+    input:
+      fixture: in-stock-cart
+      action: submit-order
+    expected:
+      order_count: 1
+      payment_page_visible: true
+    source_refs:
+      - type: issue
+        id: BUG-123
+        url: https://source.example/BUG-123
+      - type: trace
+        id: trace-redacted
+        environment: production
+        release: abc123
+    graders:
+      - type: code
+        name: exact-order-count
+      - type: ui
+        name: payment-heading-visible
+    redaction:
+      status: complete
+      reviewed_at: 2026-07-18T16:05:00+08:00
+    history:
+      first_failed_release: abc123
+      fixed_release: def456
