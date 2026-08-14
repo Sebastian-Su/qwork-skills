@@ -151,7 +151,7 @@ python3 .agents/skills/qwork-test-dataset/scripts/run_workbuddy_storage_batch.py
   --case-id <another-exact-case-id>
 ~~~
 
-批次成功只证明显式选择的确定性 Case；报告必须保持 `full_suite_conclusion=未运行` 与 `final_response_allowed=false`。`promotion-candidates.json` 只是待审核的注册片段，不能自动修改 tracked `references/deterministic-reference-runs.yaml`。审核每个 Case 的原子集合、report/verifier/disposition hash、实现 revision 与时间后，才可登记并重建 Dataset；同类 Case 不继承通过结论。
+批次成功只证明显式选择的确定性 Case；报告必须保持 `full_suite_conclusion=未运行` 与 `final_response_allowed=false`。`promotion-candidates.json` 的 `storage_runs` 和 `failed_storage_runs` 都只是待审核注册片段，不能自动修改 tracked `references/deterministic-reference-runs.yaml`。审核每个 Case 的原子集合、report/verifier/disposition hash、实现 revision 与时间后，才可登记并重建 Dataset；同类 Case 不继承通过结论。通过证据只能生成 `ready/pass`；失败证据只能生成 `partial/fail` 和非空原子级 blocker，不能晋升 ready，也不能退回 `pending` 掩盖已执行事实。
 
 ### 5. 私有 Electron Case 与 reference run
 

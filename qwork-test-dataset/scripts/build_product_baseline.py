@@ -1297,7 +1297,7 @@ def mark_private_reference_stale(
     }
 
 
-def apply_storage_reference_authority(
+def load_storage_reference_authority(
     *,
     case: dict[str, Any],
     reference: dict[str, Any],
@@ -1306,8 +1306,8 @@ def apply_storage_reference_authority(
     expected_inventory_sha256: str,
     expected_disposition_sha256: str,
     head: str,
-) -> None:
-    """Promote one deterministic storage Case only from exact, current evidence."""
+) -> tuple[dict[str, Any], str, dict[str, Any], list[str], list[dict[str, Any]]]:
+    """Load common deterministic storage authority or fail closed on any drift."""
 
     contract = case["execution_contract"]
     if not str(contract["route_id"]).startswith("qwork.dataset.workbuddy-storage."):
@@ -1346,23 +1346,73 @@ def apply_storage_reference_authority(
         and report.get("source_inventory_sha256") == expected_inventory_sha256
         and report.get("disposition_canonical_sha256") == expected_disposition_sha256
         and reference.get("disposition_canonical_sha256") == expected_disposition_sha256
-        and report.get("status") == "pass"
         and report.get("required_atom_count") == len(required_atoms)
-        and report.get("passed_atom_count") == len(required_atoms)
-        and report.get("failed_atom_count") == 0
-        and report.get("errors") == []
         and isinstance(results, list)
+        and bool(required_atoms)
+        and all(value.startswith("WORKBUDDY-STORAGE:") for value in required_atoms)
         and len(result_atoms) == len(set(result_atoms))
         and sorted(result_atoms) == required_atoms
-        and all(item.get("status") == "pass" for item in results or [])
     )
     if not valid:
         raise ValueError(f"storage reference authority mismatch: {case['id']}")
+    return contract, report_ref, report, required_atoms, results
 
-    environment = (
+
+def storage_reference_environment() -> str:
+    return (
         "read-only frozen private Dataset inventory and dispositions; "
         "no live WorkBuddy or QWork state opened"
     )
+
+
+def storage_reference_observability(
+    *,
+    report_ref: str,
+    reference: dict[str, Any],
+    expected_disposition_sha256: str,
+    head: str,
+) -> dict[str, Any]:
+    return {
+        "report": report_ref,
+        "report_sha256": str(reference["report_sha256"]),
+        "runner_sha256": str(reference["runner_sha256"]),
+        "disposition_canonical_sha256": expected_disposition_sha256,
+        "implementation_revision": head,
+    }
+
+
+def apply_storage_reference_authority(
+    *,
+    case: dict[str, Any],
+    reference: dict[str, Any],
+    skill_root: pathlib.Path,
+    runner_path: pathlib.Path,
+    expected_inventory_sha256: str,
+    expected_disposition_sha256: str,
+    head: str,
+) -> None:
+    """Promote one deterministic storage Case only from exact passing evidence."""
+
+    contract, report_ref, report, required_atoms, results = load_storage_reference_authority(
+        case=case,
+        reference=reference,
+        skill_root=skill_root,
+        runner_path=runner_path,
+        expected_inventory_sha256=expected_inventory_sha256,
+        expected_disposition_sha256=expected_disposition_sha256,
+        head=head,
+    )
+    valid = (
+        report.get("status") == "pass"
+        and report.get("passed_atom_count") == len(required_atoms)
+        and report.get("failed_atom_count") == 0
+        and report.get("errors") == []
+        and all(item.get("status") == "pass" for item in results)
+    )
+    if not valid:
+        raise ValueError(f"passing storage reference authority mismatch: {case['id']}")
+
+    environment = storage_reference_environment()
     contract["reference_run"] = {
         "status": "passed",
         "run_id": str(reference["run_id"]),
@@ -1371,19 +1421,81 @@ def apply_storage_reference_authority(
     }
     contract["readiness"] = "ready"
     contract["blockers"] = []
-    contract["observability"]["reference_authority"] = {
-        "report": report_ref,
-        "report_sha256": str(reference["report_sha256"]),
-        "runner_sha256": str(reference["runner_sha256"]),
-        "disposition_canonical_sha256": expected_disposition_sha256,
-        "implementation_revision": head,
-    }
+    contract["observability"]["reference_authority"] = storage_reference_observability(
+        report_ref=report_ref,
+        reference=reference,
+        expected_disposition_sha256=expected_disposition_sha256,
+        head=head,
+    )
     case["verification"] = {
         "last_outcome": "pass",
         "environment_scope": environment,
         "implementation_revision": head,
         "last_verified_at": str(reference["verified_at"]),
         "status_reason": f"hash-verified deterministic storage run {reference['run_id']} passed",
+    }
+
+
+def apply_failed_storage_reference_authority(
+    *,
+    case: dict[str, Any],
+    reference: dict[str, Any],
+    skill_root: pathlib.Path,
+    runner_path: pathlib.Path,
+    expected_inventory_sha256: str,
+    expected_disposition_sha256: str,
+    head: str,
+) -> None:
+    """Bind one exact storage failure without promoting the Case to ready."""
+
+    contract, report_ref, report, required_atoms, results = load_storage_reference_authority(
+        case=case,
+        reference=reference,
+        skill_root=skill_root,
+        runner_path=runner_path,
+        expected_inventory_sha256=expected_inventory_sha256,
+        expected_disposition_sha256=expected_disposition_sha256,
+        head=head,
+    )
+    passed = sum(item.get("status") == "pass" for item in results)
+    failed = sum(item.get("status") == "fail" for item in results)
+    errors = report.get("errors")
+    failure_summary = str(reference["failure_summary"])
+    valid = (
+        report.get("status") == "fail"
+        and failed > 0
+        and passed + failed == len(required_atoms)
+        and report.get("passed_atom_count") == passed
+        and report.get("failed_atom_count") == failed
+        and isinstance(errors, list)
+        and bool(errors)
+        and failure_summary == str(errors[0])
+        and all(item.get("status") in {"pass", "fail"} for item in results)
+    )
+    if not valid:
+        raise ValueError(f"failed storage reference authority mismatch: {case['id']}")
+
+    environment = storage_reference_environment()
+    contract["reference_run"] = {
+        "status": "failed",
+        "run_id": str(reference["run_id"]),
+        "verified_at": str(reference["verified_at"]),
+        "environment": environment,
+    }
+    contract["readiness"] = "partial"
+    contract["blockers"] = [failure_summary]
+    contract["observability"]["reference_authority"] = storage_reference_observability(
+        report_ref=report_ref,
+        reference=reference,
+        expected_disposition_sha256=expected_disposition_sha256,
+        head=head,
+    )
+    case["verification"] = {
+        "last_outcome": "fail",
+        "environment_scope": environment,
+        "implementation_revision": head,
+        "last_verified_at": str(reference["verified_at"]),
+        "status_reason": f"hash-verified storage gap from {reference['run_id']}: {failure_summary}",
     }
 
 
@@ -3238,10 +3350,23 @@ def main() -> int:
                     "status_reason": "runner and fail-closed Oracle contract are bound; current reference run is pending",
                 }
         storage_reference = deterministic_reference_runs.get("storage_runs", {}).get(str(case["id"]))
+        failed_storage_reference = deterministic_reference_runs.get("failed_storage_runs", {}).get(str(case["id"]))
+        if storage_reference and failed_storage_reference:
+            raise ValueError(f"storage Case cannot register both passing and failed authority: {case['id']}")
         if storage_reference:
             apply_storage_reference_authority(
                 case=case,
                 reference=storage_reference,
+                skill_root=skill_root,
+                runner_path=skill_root / "scripts/validate_workbuddy_storage_case.py",
+                expected_inventory_sha256=str(storage_manifest["inventory_sha256"]),
+                expected_disposition_sha256=storage_disposition_canonical_sha256,
+                head=head,
+            )
+        elif failed_storage_reference:
+            apply_failed_storage_reference_authority(
+                case=case,
+                reference=failed_storage_reference,
                 skill_root=skill_root,
                 runner_path=skill_root / "scripts/validate_workbuddy_storage_case.py",
                 expected_inventory_sha256=str(storage_manifest["inventory_sha256"]),

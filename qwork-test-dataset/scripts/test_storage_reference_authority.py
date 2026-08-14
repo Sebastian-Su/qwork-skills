@@ -8,7 +8,10 @@ import json
 from pathlib import Path
 import tempfile
 
-from build_product_baseline import apply_storage_reference_authority
+from build_product_baseline import (
+    apply_failed_storage_reference_authority,
+    apply_storage_reference_authority,
+)
 
 
 def sha256(path: Path) -> str:
@@ -91,6 +94,39 @@ def main() -> int:
             assert "runner hash drifted" in str(error)
         else:
             raise AssertionError("runner drift must fail closed")
+
+        failed_report = {
+            **report,
+            "passed_atom_count": 1,
+            "failed_atom_count": 1,
+            "status": "fail",
+            "results": [
+                {"atom_id": "WORKBUDDY-STORAGE:A", "status": "pass"},
+                {"atom_id": "WORKBUDDY-STORAGE:B", "status": "fail"},
+            ],
+            "errors": ["WORKBUDDY-STORAGE:B: decision=pending implementation=pending"],
+        }
+        report_path.write_text(json.dumps(failed_report), encoding="utf-8")
+        failed_reference = {
+            **reference,
+            "run_id": "storage-failed-reference-1",
+            "report_sha256": sha256(report_path),
+            "failure_summary": failed_report["errors"][0],
+        }
+        apply_failed_storage_reference_authority(
+            case=case,
+            reference=failed_reference,
+            skill_root=root,
+            runner_path=runner_path,
+            expected_inventory_sha256="inventory-sha",
+            expected_disposition_sha256="disposition-sha",
+            head="head-sha",
+        )
+        contract = case["execution_contract"]
+        assert contract["readiness"] == "partial"
+        assert contract["reference_run"]["status"] == "failed"
+        assert contract["blockers"] == [failed_report["errors"][0]]
+        assert case["verification"]["last_outcome"] == "fail"
 
     print("storage reference authority test: PASS")
     return 0

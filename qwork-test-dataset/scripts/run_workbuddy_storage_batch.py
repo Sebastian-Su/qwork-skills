@@ -393,10 +393,11 @@ def main() -> int:
     atomic_write_json(output_root / "report.json", report)
     atomic_write_text(output_root / "report.html", render_report_html(report))
     candidates = {}
+    failed_candidates = {}
     for item in state["cases"]:
-        if item["status"] != "pass":
+        if item["status"] not in {"pass", "fail"}:
             continue
-        candidates[item["case_id"]] = {
+        candidate = {
             "run_id": f"{state['run_id']}/{item['case_id']}",
             "report": (
                 f"skill://qwork-test-dataset/{output_root.relative_to(skill_root).as_posix()}/"
@@ -408,11 +409,19 @@ def main() -> int:
             "implementation_revision": contract["implementation_revision"],
             "verified_at": item["finished_at"],
         }
+        if item["status"] == "pass":
+            candidates[item["case_id"]] = candidate
+        else:
+            failed_candidates[item["case_id"]] = {
+                **candidate,
+                "failure_summary": item["first_error"],
+            }
     atomic_write_json(output_root / "promotion-candidates.json", {
         "schema_version": 1,
         "run_id": state["run_id"],
         "contract_sha256": contract_sha256,
         "storage_runs": candidates,
+        "failed_storage_runs": failed_candidates,
     })
 
     if batch_fatal:
