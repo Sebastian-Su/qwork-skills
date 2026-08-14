@@ -9,6 +9,7 @@ import hashlib
 import json
 import pathlib
 import re
+import struct
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
@@ -23,6 +24,19 @@ def digest(path: pathlib.Path) -> str:
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):
             value.update(chunk)
     return value.hexdigest()
+
+
+def image_dimensions(path: pathlib.Path) -> tuple[int, int]:
+    """Read the downloaded image's physical pixels, never its Lark display box."""
+
+    with path.open("rb") as stream:
+        header = stream.read(24)
+    if len(header) < 24 or header[:8] != b"\x89PNG\r\n\x1a\n" or header[12:16] != b"IHDR":
+        raise ValueError(f"unsupported or invalid image payload: {path}")
+    width, height = struct.unpack(">II", header[16:24])
+    if width <= 0 or height <= 0:
+        raise ValueError(f"image has non-positive physical dimensions: {path}")
+    return width, height
 
 
 def classify(name: str) -> str:
@@ -89,6 +103,9 @@ def main() -> int:
         if completed.returncode != 0:
             print(completed.stderr or completed.stdout, file=sys.stderr)
             return completed.returncode
+        pixel_width, pixel_height = image_dimensions(output)
+        display_width = int(element.attrib["width"]) if element.attrib.get("width", "").isdigit() else None
+        display_height = int(element.attrib["height"]) if element.attrib.get("height", "").isdigit() else None
         records.append(
             {
                 "block_id": element.attrib.get("id"),
@@ -96,8 +113,10 @@ def main() -> int:
                 "original_name": original_name,
                 "stored_name": safe,
                 "authority_kind": authority,
-                "width": int(element.attrib["width"]) if element.attrib.get("width", "").isdigit() else None,
-                "height": int(element.attrib["height"]) if element.attrib.get("height", "").isdigit() else None,
+                "width": pixel_width,
+                "height": pixel_height,
+                "source_display_width": display_width,
+                "source_display_height": display_height,
                 "mime": element.attrib.get("mime"),
                 "caption": element.attrib.get("caption"),
                 "alt": element.attrib.get("alt"),

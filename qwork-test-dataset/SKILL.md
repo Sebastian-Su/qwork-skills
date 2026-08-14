@@ -57,6 +57,10 @@ description: 维护 QWork 全产品私有 E2E 数据、需求 Coverage Map、Wor
 
 不得把整篇文档映射成一个泛化 Case。冲突必须保留双方 source atom、优先级和 resolution；无法自动提取精确 UI target 时标为 blocked，不得猜测坐标或把当前实现当设计稿。
 
+飞书表格必须按完整数据行原子化，禁止把同一行的 token、值和用途拆成互不相干的 requirement。图片 `width/height` 取下载文件的物理像素；飞书排版框只保留为 `source_display_width/source_display_height`，不得当作截图 viewport。历史视觉图通过 `visual-frame-calibrations.yaml` 同时锁定 manifest hash、物理像素、CSS viewport 和 DPR。
+
+视觉验收分两层：完整页面/状态使用冻结截图 `visual` Oracle；来源明确给出 token、组件样式或状态配色时使用 `computed-style` Oracle。后者只表示精确样式规则已进入 Case，不表示已执行或已通过；没有当前 reference run 时 readiness 必须保持 `partial`。
+
 当一条文档原子显式列出多个验收 ID（例如 `WB-UI-TASK-001~008`）时，只能通过 `document-case-coverage-map.yaml` 联合绑定多个当前 HEAD Case。Map 必须锁定来源/原子/spec hash，完整展开 ID，并保证每个 ID 由唯一目标认领；它只证明执行路由存在，不继承文档中的历史 green 结论。
 
 文档元数据、章节引言、表头、历史结果快照、追溯链接和变更记录仍需保留在 source/requirement ledger，但只能通过 `document-atom-dispositions.yaml` 的来源 hash、原子 locator/hash 与 canonical 多来源闭包显式标记为 `not_applicable`。不得用标题关键字批量过滤，也不得把未实现的产品行为当作文档上下文移出 Case 闭世界。

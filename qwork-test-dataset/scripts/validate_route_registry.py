@@ -286,6 +286,15 @@ def main() -> int:
                     continue
                 if contract["launch"].get("strategy") != "command" or "--fail-on-diff" not in str(contract["launch"].get("command_or_tool")):
                     errors.append(f"WorkBuddy CDP route {route_id} is not fail-closed")
+                if contract["reference_run"].get("status") == "pending":
+                    for tool_key, tool_path in (
+                        ("runner_sha256", root / "scripts/run_qwork_workbuddy_oracle.mjs"),
+                        ("comparator_sha256", root / "scripts/compare_qwork_workbuddy_oracle.py"),
+                    ):
+                        actual = "sha256:" + __import__("hashlib").sha256(tool_path.read_bytes()).hexdigest()
+                        if oracle.get(tool_key) != actual:
+                            errors.append(f"WorkBuddy CDP route {route_id} {tool_key} drifted")
+                    continue
                 for ref_key, hash_key in (("reference_report", "reference_report_sha256"), ("capture_manifest", "capture_manifest_sha256")):
                     try:
                         artifact = resolve_skill_ref(root, str(oracle[ref_key]))

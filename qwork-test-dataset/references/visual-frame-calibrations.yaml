@@ -1,0 +1,49 @@
+schema_version: 1
+source_manifest: skill://qwork-test-dataset/data/benchmarks/ui-visual/workbuddy-feishu-revision-95/manifest.json
+source_manifest_sha256: sha256:9022a75d3b59a8ecfbfe40ea668793e9c064cc5547c36e69a528943e3cb223ac
+policy:
+  target: renderer-viewport
+  invariant: "physical_width = css_width * dpr and physical_height = css_height * dpr"
+  note: "Lark display-box dimensions are not screenshot pixels and cannot calibrate a visual Case."
+calibrations:
+  - calibration_id: workbuddy-5.3.8-home-large-retina
+    images:
+      - p01-home.png
+      - p02-assistant-session.png
+    physical_pixels: { width: 3580, height: 2392 }
+    css_viewport: { width: 1790, height: 1196, dpr: 2 }
+    evidence: "Downloaded PNG physical dimensions are 3580x2392; PNG density is 144 DPI and the exact integer renderer calibration is 1790x1196 at DPR 2."
+  - calibration_id: workbuddy-5.3.8-main-retina
+    images:
+      - p03-experts.png
+      - p04-skills.png
+      - p05-connectors.png
+      - p06-projects.png
+      - p07-automation.png
+      - p08-more-menu.png
+      - p09-inspiration.png
+      - p10-permission-mode.png
+      - t01-before-send.png
+      - t02-sent.png
+      - t03-executing.png
+      - t04-streaming.png
+      - t05-done.png
+      - t06-execution-detail.png
+      - u01-tool-executing.png
+      - u03-tool-call2.png
+      - u04-tool-expanded.png
+      - u05-tool-card-detail.png
+    physical_pixels: { width: 3362, height: 2168 }
+    css_viewport: { width: 1681, height: 1084, dpr: 2 }
+    evidence: "The frozen source document records the WorkBuddy macOS renderer viewport as 1681x1084; downloaded screenshots are exactly 3362x2168 physical pixels."
+  - calibration_id: workbuddy-5.3.8-expert-team-retina
+    images:
+      - workbuddy-expert-market.png
+      - workbuddy-expert-detail.png
+      - workbuddy-team-detail.png
+      - workbuddy-ask-user.png
+      - workbuddy-team-lead.png
+      - workbuddy-team-member.png
+    physical_pixels: { width: 3360, height: 2168 }
+    css_viewport: { width: 1680, height: 1084, dpr: 2 }
+    evidence: "Downloaded expert/team PNGs are 3360x2168 physical pixels and match the independently captured WorkBuddy 5.3.12 CDP renderer viewport 1680x1084 at DPR 2; the former 1200x774 values were Lark display boxes."

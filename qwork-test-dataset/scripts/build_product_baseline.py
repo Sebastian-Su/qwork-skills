@@ -60,6 +60,7 @@ UI_ORACLE_TYPES = {
     "responsive",
     "accessibility",
     "visual",
+    "computed-style",
     "aria",
 }
 
@@ -181,8 +182,34 @@ DATA_WORDS = ("存储", "持久", "数据库", "文件", "路径", "sqlite", "db
 INTERACTION_WORDS = ("点击", "打开", "关闭", "选择", "输入", "拖拽", "hover", "click", "navigate", "切换", "弹窗")
 VISUAL_WORDS = ("颜色", "字体", "圆角", "阴影", "渐变", "icon", "图标", "视觉", "截图", "color", "font", "radius")
 RESPONSIVE_WORDS = ("响应式", "断点", "viewport", "dpr", "缩放", "window size", "resize")
-ACCESSIBILITY_WORDS = ("aria", "无障碍", "键盘", "焦点", "role", "tab order")
+ACCESSIBILITY_WORDS = (
+    "aria",
+    "无障碍",
+    "键盘",
+    "焦点",
+    "role",
+    "tab order",
+    "accessible name",
+    "可访问名称",
+    "状态不只依赖颜色",
+    "状态不得仅以颜色",
+    "状态不能只依靠颜色",
+    "prefers-reduced-motion",
+)
 ERROR_WORDS = ("错误文案", "报错", "提示", "error message", "失败提示")
+EVIDENCE_WORDS = ("report.json", "report.html", "sha-256", "截图哈希", "trace")
+VISUAL_POLICY_WORDS = (
+    "像素差异率",
+    "差异像素比例",
+    "视觉门禁",
+    "视觉 golden",
+    "视觉测试",
+    "视觉快照",
+    "computed style",
+    "截图门禁",
+    "截图抖动",
+)
+STRUCTURE_WORDS = ("结构为", "图标位", "三段横排", "保留占位", "成员胶囊")
 
 
 def run_git(repo: pathlib.Path, *args: str, check: bool = True) -> str:
@@ -206,6 +233,55 @@ def sha256_text(value: str) -> str:
     return sha256_bytes(value.encode("utf-8"))
 
 
+def load_visual_calibrations(
+    skill_root: pathlib.Path,
+    visual_path: pathlib.Path,
+    visual_manifest: dict[str, Any],
+) -> dict[str, dict[str, Any]]:
+    policy_path = skill_root / "references/visual-frame-calibrations.yaml"
+    policy = yaml.safe_load(policy_path.read_text(encoding="utf-8"))
+    expected_locator = skill_ref(skill_root, visual_path)
+    if policy["source_manifest"] != expected_locator:
+        raise ValueError("visual calibration source locator drifted")
+    actual_manifest_sha = f"sha256:{sha256_bytes(visual_path.read_bytes())}"
+    if policy["source_manifest_sha256"] != actual_manifest_sha:
+        raise ValueError("visual calibration source manifest hash drifted")
+
+    images = {str(item["original_name"]): item for item in visual_manifest["images"]}
+    calibrations: dict[str, dict[str, Any]] = {}
+    for group in policy["calibrations"]:
+        physical = group["physical_pixels"]
+        viewport = group["css_viewport"]
+        if (
+            int(physical["width"]) != int(viewport["width"]) * int(viewport["dpr"])
+            or int(physical["height"]) != int(viewport["height"]) * int(viewport["dpr"])
+        ):
+            raise ValueError(f"visual calibration ratio is invalid: {group['calibration_id']}")
+        for image_name in group["images"]:
+            if image_name in calibrations:
+                raise ValueError(f"visual frame has duplicate calibration: {image_name}")
+            image = images.get(str(image_name))
+            if image is None:
+                raise ValueError(f"visual calibration names an unknown frame: {image_name}")
+            if (
+                int(image["width"]) != int(physical["width"])
+                or int(image["height"]) != int(physical["height"])
+            ):
+                raise ValueError(f"visual calibration physical pixels drifted: {image_name}")
+            calibrations[str(image_name)] = {
+                "calibration_id": str(group["calibration_id"]),
+                "target": str(policy["policy"]["target"]),
+                "physical_pixels": physical,
+                "viewport": viewport,
+                "evidence": str(group["evidence"]),
+            }
+    missing = sorted(set(images) - set(calibrations))
+    extra = sorted(set(calibrations) - set(images))
+    if missing or extra:
+        raise ValueError(f"visual calibration is not closed: missing={missing} extra={extra}")
+    return calibrations
+
+
 def skill_ref(skill_root: pathlib.Path, path: pathlib.Path) -> str:
     return f"skill://qwork-test-dataset/{path.resolve().relative_to(skill_root.resolve()).as_posix()}"
 
@@ -227,20 +303,36 @@ def classify(text: str, *, ui_hint: bool = False) -> str:
         return "responsive"
     if re.search(r"\b\d+(?:\.\d+)?\s*px\b|\d+\s*[×x]\s*\d+", lower):
         return "ui-geometry"
-    if any(word in lower for word in VISUAL_WORDS):
-        return "ui-visual"
     if any(word in lower for word in ERROR_WORDS):
         return "error-copy"
     if any(word in lower for word in PERMISSION_WORDS):
         return "role-permission"
+    if "完成" in lower and any(word in lower for word in ("失败", "取消", "中断", "等待")):
+        return "state-transition"
+    if any(word in lower for word in ("不复刻", "不硬编码", "写死", "不得复现")):
+        return "negative-rule"
     if any(word in lower for word in NEGATIVE_WORDS):
         return "negative-rule"
+    if any(word in lower for word in DATA_WORDS) or any(
+        word in lower for word in ("icon.svg", "icon.ico", "icon.icns", "generate-icons.py")
+    ):
+        return "data-side-effect"
     if any(word in lower for word in STATE_WORDS):
         return "state-transition"
-    if any(word in lower for word in DATA_WORDS):
-        return "data-side-effect"
     if any(word in lower for word in INTERACTION_WORDS):
         return "ui-interaction"
+    if any(word in lower for word in STRUCTURE_WORDS):
+        return "ui-structure"
+    screenshot_provenance = "截图" in lower and any(
+        word in lower
+        for word in ("证据", "基线", "来源", "目录", "采集", "归档", "哈希", "真机", "实机", "oracle", "提供")
+    )
+    if any(word in lower for word in EVIDENCE_WORDS) or screenshot_provenance:
+        return "evidence-provenance"
+    if any(word in lower for word in VISUAL_POLICY_WORDS):
+        return "non-functional"
+    if any(word in lower for word in VISUAL_WORDS):
+        return "ui-visual"
     return "ui-content" if ui_hint else "business-rule"
 
 
@@ -652,16 +744,38 @@ def lark_atoms(source_id: str, xml: str) -> list[dict[str, Any]]:
     atoms: list[dict[str, Any]] = []
     heading = "document"
     accepted = {"p", "li", "tr", "blockquote", "whiteboard"}
+    table_descendants = {
+        id(descendant)
+        for row in root.iter("tr")
+        for descendant in row.iter()
+        if descendant is not row
+    }
+    header_rows = {
+        id(row)
+        for table_head in root.iter("thead")
+        for row in table_head.iter("tr")
+    }
     for element in root.iter():
         if element.tag in {"h1", "h2", "h3", "h4", "h5", "h6"}:
             heading = normalized("".join(element.itertext())) or heading
             continue
         if element.tag not in accepted:
             continue
+        if id(element) in table_descendants or id(element) in header_rows:
+            continue
         # Only leaf-ish blocks; parent tables/lists would duplicate descendants.
         if element.tag in {"blockquote", "tr"} and any(child.tag in accepted for child in element.iter() if child is not element):
-            continue
-        text = normalized(" ".join(element.itertext()))
+            if element.tag != "tr":
+                continue
+        if element.tag == "tr":
+            cells = [
+                normalized(" ".join(cell.itertext()))
+                for cell in element
+                if cell.tag in {"td", "th"}
+            ]
+            text = " | ".join(value for value in cells if value)
+        else:
+            text = normalized(" ".join(element.itertext()))
         if len(text) < 8:
             continue
         block_id = element.attrib.get("id") or f"anon-{len(atoms) + 1}"
@@ -1700,10 +1814,13 @@ def main() -> int:
             FACET_CATEGORIES[str(atom["facet"])],
         )
 
-    # Frozen WorkBuddy images: visual requirements are covered; CSS geometry remains blocked until CDP measures viewport/DPR.
+    # Frozen WorkBuddy images: preserve physical pixels and bind them through the
+    # hash-locked CSS viewport/DPR calibration registry.
     visual_path = pathlib.Path(args.visual_manifest).resolve()
     visual_manifest = json.loads(visual_path.read_text(encoding="utf-8"))
-    fallback_visual = visual_manifest["images"][0]
+    visual_calibrations = load_visual_calibrations(
+        skill_root, visual_path, visual_manifest
+    )
     visual_atoms: list[dict[str, Any]] = []
     visual_meta: dict[str, dict[str, Any]] = {}
     cdp_meta: dict[str, dict[str, Any]] = {}
@@ -2020,14 +2137,22 @@ def main() -> int:
                     oracle = {"type": "visual", "source_atom_ids": [atom_id], "baseline": {"locator": f"skill://qwork-test-dataset/{baseline.relative_to(output.parent.parent).as_posix()}", "sha256": f"sha256:{record['screenshot_sha256']}"}, "viewport": record["viewport"], "comparison": {"max_diff_ratio": 0.01, "mask_regions": []}, "assertion": f"QWork state matches current WorkBuddy 5.3.12 CDP state {cdp['state']} at the frozen viewport and DPR"}
                 elif image:
                     baseline = visual_path.parent / str(image["path"])
-                    oracle = {"type": "visual", "source_atom_ids": [atom_id], "baseline": {"locator": f"skill://qwork-test-dataset/{baseline.relative_to(output.parent.parent).as_posix()}", "sha256": f"sha256:{image['sha256']}"}, "viewport": {"width": image["width"], "height": image["height"], "dpr": 1}, "comparison": {"max_diff_ratio": 0.01, "mask_regions": []}, "assertion": f"QWork surface matches frozen WorkBuddy baseline {image['original_name']} within approved 1% pixel threshold"}
+                    calibration = visual_calibrations[str(image["original_name"])]
+                    oracle = {"type": "visual", "source_atom_ids": [atom_id], "baseline": {"locator": f"skill://qwork-test-dataset/{baseline.relative_to(output.parent.parent).as_posix()}", "sha256": f"sha256:{image['sha256']}"}, "viewport": calibration["viewport"], "comparison": {"max_diff_ratio": 0.01, "mask_regions": []}, "assertion": f"QWork surface matches frozen WorkBuddy baseline {image['original_name']} at calibrated renderer viewport {calibration['viewport']['width']}x{calibration['viewport']['height']} CSS px and DPR {calibration['viewport']['dpr']} within approved 1% pixel threshold"}
                 else:
-                    # Style text without a page-specific frozen export remains traceable but not falsely green.
-                    coverage_status = "blocked"
-                    priority = "P2"
-                    status_reason = "source style atom is not bound to one unambiguous visual frame"
-                    fallback_baseline = visual_path.parent / str(fallback_visual["path"])
-                    oracle = {"type": "visual", "source_atom_ids": [atom_id], "baseline": {"locator": f"skill://qwork-test-dataset/{fallback_baseline.relative_to(output.parent.parent).as_posix()}", "sha256": f"sha256:{fallback_visual['sha256']}"}, "viewport": {"width": fallback_visual["width"], "height": fallback_visual["height"], "dpr": 1}, "comparison": {"max_diff_ratio": 0.01, "mask_regions": []}, "assertion": f"CDP must bind this style requirement to its exact WorkBuddy frame before visual comparison; the home frame is only a frozen source anchor"}
+                    # A source-level token or component style is independently testable as
+                    # computed style. It does not need an arbitrary screenshot frame: the
+                    # frozen frame Cases separately protect whole-surface pixel similarity.
+                    heading_match = re.search(r"(?:^|;)heading:([^;]+)", str(atom["locator"]))
+                    target = heading_match.group(1) if heading_match else str(atom["locator"])
+                    oracle = {
+                        "type": "computed-style",
+                        "source_atom_ids": [atom_id],
+                        "target": target,
+                        "expected_expression": str(atom["label"]),
+                        "source_sha256": str(atom["extracted_value_hash"]),
+                        "assertion": f"Computed style for source-defined target {target} satisfies the exact style contract: {atom['label']}",
+                    }
             elif facet == "ui-geometry":
                 image = visual_meta.get(atom_id)
                 cdp = cdp_meta.get(atom_id)
@@ -2035,10 +2160,25 @@ def main() -> int:
                     box = cdp["control"]["box"]
                     oracle = {"type": "ui-geometry", "source_atom_ids": [atom_id], "target": cdp["target"], "coordinate_space": "renderer CSS px", "viewport": cdp["record"]["viewport"], "tolerance_css_px": 2, "expected": {"x": box["x"], "y": box["y"], "width": box["width"], "height": box["height"]}, "relative": {}, "assertion": str(atom["label"])}
                 elif image:
-                    coverage_status = "blocked"
-                    priority = "P2"
-                    status_reason = "source image pixels are frozen, but CSS viewport/DPR and target node require current WorkBuddy CDP measurement"
-                    oracle = {"type": "ui-geometry", "source_atom_ids": [atom_id], "target": f"CDP target for {image['original_name']}", "coordinate_space": "source image pixels pending renderer CSS-px calibration", "viewport": {"width": image["width"], "height": image["height"], "dpr": 1}, "tolerance_css_px": 2, "expected": {"width": image["width"], "height": image["height"]}, "relative": {}, "assertion": f"CDP must calibrate the frozen {image['original_name']} image size to renderer CSS px before this geometry gate can become covered"}
+                    calibration = visual_calibrations[str(image["original_name"])]
+                    viewport = calibration["viewport"]
+                    oracle = {
+                        "type": "ui-geometry",
+                        "source_atom_ids": [atom_id],
+                        "target": calibration["target"],
+                        "coordinate_space": "renderer CSS px calibrated from frozen physical screenshot pixels",
+                        "viewport": viewport,
+                        "tolerance_css_px": 0,
+                        "expected": {"width": viewport["width"], "height": viewport["height"]},
+                        "relative": {},
+                        "capture": {
+                            "physical_width": calibration["physical_pixels"]["width"],
+                            "physical_height": calibration["physical_pixels"]["height"],
+                            "dpr": viewport["dpr"],
+                            "calibration_id": calibration["calibration_id"],
+                        },
+                        "assertion": f"Capture {image['original_name']} at renderer viewport {viewport['width']}x{viewport['height']} CSS px and DPR {viewport['dpr']}; physical output must be {calibration['physical_pixels']['width']}x{calibration['physical_pixels']['height']}: {calibration['evidence']}",
+                    }
                 else:
                     expected: dict[str, Any] = {}
                     relative: dict[str, Any] = {}
@@ -2744,7 +2884,7 @@ def main() -> int:
                 "last_verified_at": None,
                 "status_reason": "dedicated verifier implemented; reference run pending",
             }
-        if "WORKBUDDY-CDP-5-3-12-V4" in source_ids and qwork_oracle_report:
+        if "WORKBUDDY-CDP-5-3-12-V4" in source_ids:
             state_locators = {
                 match.group(1)
                 for item in case["sources"]
@@ -2753,12 +2893,6 @@ def main() -> int:
             if len(state_locators) != 1:
                 raise ValueError(f"{case['id']} does not bind exactly one WorkBuddy CDP state")
             state = next(iter(state_locators))
-            result = qwork_oracle_results[state]
-            report_ref = skill_ref(skill_root, qwork_oracle_report_path)
-            capture_ref = skill_ref(
-                skill_root,
-                qwork_oracle_report_path.parent.parent / "capture" / "capture-manifest.json",
-            )
             runner = skill_root / "scripts/run_qwork_workbuddy_oracle.mjs"
             comparator = skill_root / "scripts/compare_qwork_workbuddy_oracle.py"
             run_root = f"<run-root>/qwork-workbuddy/{stable_slug(state)}"
@@ -2795,36 +2929,63 @@ def main() -> int:
                 "state": state,
                 "runner_sha256": f"sha256:{sha256_bytes(runner.read_bytes())}",
                 "comparator_sha256": f"sha256:{sha256_bytes(comparator.read_bytes())}",
-                "reference_report": report_ref,
-                "reference_report_sha256": f"sha256:{sha256_bytes(qwork_oracle_report_path.read_bytes())}",
-                "capture_manifest": capture_ref,
-                "capture_manifest_sha256": f"sha256:{sha256_bytes((qwork_oracle_report_path.parent.parent / 'capture' / 'capture-manifest.json').read_bytes())}",
-                "max_diff_ratio": float(qwork_oracle_report["policy"]["max_diff_ratio"]),
-                "geometry_tolerance_css_px": float(qwork_oracle_report["policy"]["geometry_tolerance_css_px"]),
-            }
-            status = str(result["status"])
-            contract["reference_run"] = {
-                "status": "passed" if status == "pass" else "failed",
-                "run_id": "qwork-workbuddy-oracle-full-20260813",
-                "verified_at": str(qwork_oracle_report["generated_at"]),
-                "environment": str(qwork_oracle_capture["isolation"]),
-            }
-            failure_summary = "; ".join(str(value) for value in result.get("failures", []))
-            contract["readiness"] = "ready" if status == "pass" else "partial"
-            contract["blockers"] = [] if status == "pass" else [
-                f"current revision {qwork_oracle_capture['repo_revision']} fails {state}: {failure_summary}",
-            ]
-            case["verification"] = {
-                "last_outcome": "pass" if status == "pass" else "fail",
-                "environment_scope": str(qwork_oracle_capture["isolation"]),
-                "implementation_revision": str(qwork_oracle_capture["repo_revision"]),
-                "last_verified_at": str(qwork_oracle_report["generated_at"]),
-                "status_reason": "reference Oracle passed" if status == "pass" else failure_summary,
+                "max_diff_ratio": float(qwork_oracle_report["policy"]["max_diff_ratio"]) if qwork_oracle_report else 0.01,
+                "geometry_tolerance_css_px": float(qwork_oracle_report["policy"]["geometry_tolerance_css_px"]) if qwork_oracle_report else 2.0,
             }
             case["ui_acceptance"] = {
                 "viewport_profiles": [{"id": "workbuddy-darwin-1680x1084-dpr2", "width": 1680, "height": 1084, "dpr": 2}],
                 "required_screenshot_states": ["entry", "transition", "final-state"],
             }
+            if qwork_oracle_report:
+                if qwork_oracle_report_path is None or qwork_oracle_capture is None:
+                    raise ValueError("QWork Oracle report authority is incomplete")
+                result = qwork_oracle_results[state]
+                capture_manifest_path = (
+                    qwork_oracle_report_path.parent.parent / "capture" / "capture-manifest.json"
+                )
+                contract["observability"]["oracle_contract"].update({
+                    "reference_report": skill_ref(skill_root, qwork_oracle_report_path),
+                    "reference_report_sha256": f"sha256:{sha256_bytes(qwork_oracle_report_path.read_bytes())}",
+                    "capture_manifest": skill_ref(skill_root, capture_manifest_path),
+                    "capture_manifest_sha256": f"sha256:{sha256_bytes(capture_manifest_path.read_bytes())}",
+                })
+                status = str(result["status"])
+                contract["reference_run"] = {
+                    "status": "passed" if status == "pass" else "failed",
+                    "run_id": "qwork-workbuddy-oracle-full-20260813",
+                    "verified_at": str(qwork_oracle_report["generated_at"]),
+                    "environment": str(qwork_oracle_capture["isolation"]),
+                }
+                failure_summary = "; ".join(str(value) for value in result.get("failures", []))
+                contract["readiness"] = "ready" if status == "pass" else "partial"
+                contract["blockers"] = [] if status == "pass" else [
+                    f"current revision {qwork_oracle_capture['repo_revision']} fails {state}: {failure_summary}",
+                ]
+                case["verification"] = {
+                    "last_outcome": "pass" if status == "pass" else "fail",
+                    "environment_scope": str(qwork_oracle_capture["isolation"]),
+                    "implementation_revision": str(qwork_oracle_capture["repo_revision"]),
+                    "last_verified_at": str(qwork_oracle_report["generated_at"]),
+                    "status_reason": "reference Oracle passed" if status == "pass" else failure_summary,
+                }
+            else:
+                contract["reference_run"] = {
+                    "status": "pending",
+                    "run_id": None,
+                    "verified_at": None,
+                    "environment": "isolated QWork Electron Oracle run pending for the current implementation revision",
+                }
+                contract["readiness"] = "partial"
+                contract["blockers"] = [
+                    f"current implementation revision has no isolated QWork-to-WorkBuddy Oracle result for {state}"
+                ]
+                case["verification"] = {
+                    "last_outcome": "pending",
+                    "environment_scope": "isolated QWork Electron Oracle run not executed",
+                    "implementation_revision": head,
+                    "last_verified_at": None,
+                    "status_reason": "runner and fail-closed Oracle contract are bound; current reference run is pending",
+                }
         private_reference = private_reference_runs.get("runs", {}).get(str(case["id"]))
         failed_private_reference = private_reference_runs.get("failed_runs", {}).get(str(case["id"]))
         if private_reference and failed_private_reference:

@@ -286,6 +286,9 @@ def validate(data: dict[str, Any]) -> list[str]:
 
         if "ui-visual" in categories:
             visuals = [oracle for oracle in oracles if oracle.get("type") == "visual"]
+            computed_styles = [
+                oracle for oracle in oracles if oracle.get("type") == "computed-style"
+            ]
             for oracle in visuals:
                 baseline = as_dict(oracle.get("baseline"))
                 comparison = as_dict(oracle.get("comparison"))
@@ -299,8 +302,19 @@ def validate(data: dict[str, Any]) -> list[str]:
                     or not isinstance(comparison.get("mask_regions"), list)
                 ):
                     errors.append(f"ui-visual requirement {requirement_id} has incomplete visual oracle")
-            if not visuals:
-                errors.append(f"ui-visual requirement {requirement_id} lacks visual oracle")
+            for oracle in computed_styles:
+                if (
+                    not str(oracle.get("target") or "").strip()
+                    or not str(oracle.get("expected_expression") or "").strip()
+                    or not SHA256.match(str(oracle.get("source_sha256") or ""))
+                ):
+                    errors.append(
+                        f"ui-visual requirement {requirement_id} has incomplete computed-style oracle"
+                    )
+            if not visuals and not computed_styles:
+                errors.append(
+                    f"ui-visual requirement {requirement_id} lacks visual or computed-style oracle"
+                )
 
     for source_id, source in source_by_id.items():
         authority = str(source.get("authority_kind") or "")
