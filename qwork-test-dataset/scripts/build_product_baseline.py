@@ -1499,6 +1499,230 @@ def apply_failed_storage_reference_authority(
     }
 
 
+def load_structured_source_reference_authority(
+    *,
+    case: dict[str, Any],
+    reference: dict[str, Any],
+    skill_root: pathlib.Path,
+    runner_path: pathlib.Path,
+    expected_source_inventory_sha256: str,
+    head: str,
+) -> tuple[dict[str, Any], str, dict[str, Any], list[str], list[dict[str, Any]]]:
+    """Load one structured source reference or fail closed on any authority drift."""
+
+    contract = case["execution_contract"]
+    if not str(contract["route_id"]).startswith("qwork.dataset.structured-oracle-source."):
+        raise ValueError(f"structured source reference targets a different route: {case['id']}")
+    report_ref = str(reference["report"])
+    if report_ref.startswith("skill://qwork-test-dataset/"):
+        report_path = skill_root / report_ref.removeprefix("skill://qwork-test-dataset/")
+    else:
+        report_path = pathlib.Path(report_ref)
+    if not report_path.is_file():
+        raise ValueError(f"structured source reference report is missing: {report_ref}")
+    for label, path, expected in (
+        ("report", report_path, str(reference["report_sha256"])),
+        ("runner", runner_path, str(reference["runner_sha256"])),
+    ):
+        actual = f"sha256:{sha256_bytes(path.read_bytes())}"
+        if actual != expected:
+            raise ValueError(f"structured source reference {label} hash drifted: {case['id']}")
+    if str(reference["source_inventory_canonical_sha256"]) != expected_source_inventory_sha256:
+        raise ValueError(f"structured source inventory hash drifted: {case['id']}")
+    if str(reference["implementation_revision"]) != head:
+        raise ValueError(f"structured source implementation revision drifted: {case['id']}")
+
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    required_atoms = sorted({
+        str(atom_id)
+        for requirement in case.get("derived_requirements", [])
+        for atom_id in requirement.get("source_atom_ids", [])
+    })
+    source_ids = {value.split(":PTR:", 1)[0] for value in required_atoms if ":PTR:" in value}
+    bound_sources = [
+        source for source in case.get("sources", [])
+        if str(source.get("source_id")) in source_ids
+    ]
+    stable_locators = {str(source.get("stable_source_id") or "") for source in bound_sources}
+    results = report.get("results")
+    result_atoms = [str(item.get("atom_id") or "") for item in results or []]
+    valid = (
+        report.get("schema_version") == 1
+        and report.get("case_id") == case["id"]
+        and len(source_ids) == 1
+        and report.get("source_id") == next(iter(source_ids), None)
+        and len(stable_locators) == 1
+        and report.get("source_locator") == next(iter(stable_locators), None)
+        and isinstance(report.get("source_content_sha256"), str)
+        and str(report.get("source_content_sha256")).startswith("sha256:")
+        and report.get("required_atom_count") == len(required_atoms)
+        and isinstance(results, list)
+        and bool(required_atoms)
+        and all(value.startswith("WORKBUDDY-ORACLE-5-3-5-") and ":PTR:" in value for value in required_atoms)
+        and len(result_atoms) == len(set(result_atoms))
+        and sorted(result_atoms) == required_atoms
+    )
+    if not valid:
+        raise ValueError(f"structured source reference authority mismatch: {case['id']}")
+    return contract, report_ref, report, required_atoms, results
+
+
+def structured_source_reference_environment() -> str:
+    return "read-only frozen Git blob and private Dataset atom ledger; no Electron or live user state opened"
+
+
+def apply_structured_source_reference_authority(
+    *,
+    case: dict[str, Any],
+    reference: dict[str, Any],
+    skill_root: pathlib.Path,
+    runner_path: pathlib.Path,
+    expected_source_inventory_sha256: str,
+    head: str,
+) -> None:
+    """Promote one structured source Case only from exact passing evidence."""
+
+    contract, report_ref, report, required_atoms, results = load_structured_source_reference_authority(
+        case=case,
+        reference=reference,
+        skill_root=skill_root,
+        runner_path=runner_path,
+        expected_source_inventory_sha256=expected_source_inventory_sha256,
+        head=head,
+    )
+    valid = (
+        report.get("status") == "pass"
+        and report.get("passed_atom_count") == len(required_atoms)
+        and report.get("failed_atom_count") == 0
+        and report.get("errors") == []
+        and all(item.get("status") == "pass" for item in results)
+    )
+    if not valid:
+        raise ValueError(f"passing structured source reference authority mismatch: {case['id']}")
+    environment = structured_source_reference_environment()
+    contract["reference_run"] = {
+        "status": "passed",
+        "run_id": str(reference["run_id"]),
+        "verified_at": str(reference["verified_at"]),
+        "environment": environment,
+    }
+    contract["readiness"] = "ready"
+    contract["blockers"] = []
+    contract["observability"]["reference_authority"] = {
+        "report": report_ref,
+        "report_sha256": str(reference["report_sha256"]),
+        "runner_sha256": str(reference["runner_sha256"]),
+        "source_inventory_canonical_sha256": expected_source_inventory_sha256,
+        "implementation_revision": head,
+    }
+    case["verification"] = {
+        "last_outcome": "pass",
+        "environment_scope": environment,
+        "implementation_revision": head,
+        "last_verified_at": str(reference["verified_at"]),
+        "status_reason": f"hash-verified structured source run {reference['run_id']} passed",
+    }
+
+
+def apply_failed_structured_source_reference_authority(
+    *,
+    case: dict[str, Any],
+    reference: dict[str, Any],
+    skill_root: pathlib.Path,
+    runner_path: pathlib.Path,
+    expected_source_inventory_sha256: str,
+    head: str,
+) -> None:
+    """Bind one exact structured source failure without promoting the Case."""
+
+    contract, report_ref, report, required_atoms, results = load_structured_source_reference_authority(
+        case=case,
+        reference=reference,
+        skill_root=skill_root,
+        runner_path=runner_path,
+        expected_source_inventory_sha256=expected_source_inventory_sha256,
+        head=head,
+    )
+    passed = sum(item.get("status") == "pass" for item in results)
+    failed = sum(item.get("status") == "fail" for item in results)
+    errors = report.get("errors")
+    failure_summary = str(reference["failure_summary"])
+    valid = (
+        report.get("status") == "fail"
+        and failed > 0
+        and passed + failed == len(required_atoms)
+        and report.get("passed_atom_count") == passed
+        and report.get("failed_atom_count") == failed
+        and isinstance(errors, list)
+        and bool(errors)
+        and failure_summary == str(errors[0])
+        and all(item.get("status") in {"pass", "fail"} for item in results)
+    )
+    if not valid:
+        raise ValueError(f"failed structured source reference authority mismatch: {case['id']}")
+    environment = structured_source_reference_environment()
+    contract["reference_run"] = {
+        "status": "failed",
+        "run_id": str(reference["run_id"]),
+        "verified_at": str(reference["verified_at"]),
+        "environment": environment,
+    }
+    contract["readiness"] = "partial"
+    contract["blockers"] = [failure_summary]
+    contract["observability"]["reference_authority"] = {
+        "report": report_ref,
+        "report_sha256": str(reference["report_sha256"]),
+        "runner_sha256": str(reference["runner_sha256"]),
+        "source_inventory_canonical_sha256": expected_source_inventory_sha256,
+        "implementation_revision": head,
+    }
+    case["verification"] = {
+        "last_outcome": "fail",
+        "environment_scope": environment,
+        "implementation_revision": head,
+        "last_verified_at": str(reference["verified_at"]),
+        "status_reason": f"hash-verified structured source gap from {reference['run_id']}: {failure_summary}",
+    }
+
+
+def expand_deterministic_reference_batches(
+    registry: dict[str, Any], skill_root: pathlib.Path
+) -> None:
+    """Expand hash-bound ignored batch manifests into per-Case authority records."""
+
+    passing = registry.setdefault("structured_source_runs", {})
+    failed = registry.setdefault("failed_structured_source_runs", {})
+    for batch in registry.get("structured_source_batches", []):
+        manifest_ref = str(batch["manifest"])
+        prefix = "skill://qwork-test-dataset/"
+        if not manifest_ref.startswith(prefix):
+            raise ValueError("structured source batch manifest must use the Dataset Skill locator")
+        manifest_path = skill_root / manifest_ref.removeprefix(prefix)
+        if not manifest_path.is_file():
+            raise ValueError(f"structured source batch manifest is missing: {manifest_ref}")
+        manifest_hash = f"sha256:{sha256_bytes(manifest_path.read_bytes())}"
+        if manifest_hash != str(batch["manifest_sha256"]):
+            raise ValueError(f"structured source batch manifest hash drifted: {manifest_ref}")
+        payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+        valid = (
+            payload.get("schema_version") == 1
+            and payload.get("run_id") == batch.get("run_id")
+            and payload.get("contract_sha256") == batch.get("contract_sha256")
+            and isinstance(payload.get("structured_source_runs"), dict)
+            and isinstance(payload.get("failed_structured_source_runs"), dict)
+        )
+        if not valid:
+            raise ValueError(f"structured source batch authority mismatch: {manifest_ref}")
+        for destination, section in (
+            (passing, "structured_source_runs"),
+            (failed, "failed_structured_source_runs"),
+        ):
+            for case_id, reference in payload[section].items():
+                if case_id in destination:
+                    raise ValueError(f"duplicate structured source authority: {case_id}")
+                destination[case_id] = reference
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo", required=True)
@@ -1554,6 +1778,7 @@ def main() -> int:
             encoding="utf-8"
         )
     )
+    expand_deterministic_reference_batches(deterministic_reference_runs, skill_root)
 
     sources: list[dict[str, Any]] = []
     requirements: list[dict[str, Any]] = []
@@ -3065,6 +3290,10 @@ def main() -> int:
                 item for item in supporting if item not in existing_supporting
             )
 
+    structured_source_inventory_sha256 = "sha256:" + sha256_bytes(
+        json.dumps(sources, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+    )
+
     # Remove cases that were superseded by exact head variants only if they have no requirements.
     cases = {case_id: case for case_id, case in cases.items() if case["selection"]["requirement_ids"]}
     for case in cases.values():
@@ -3349,6 +3578,28 @@ def main() -> int:
                     "last_verified_at": None,
                     "status_reason": "runner and fail-closed Oracle contract are bound; current reference run is pending",
                 }
+        structured_reference = deterministic_reference_runs.get("structured_source_runs", {}).get(str(case["id"]))
+        failed_structured_reference = deterministic_reference_runs.get("failed_structured_source_runs", {}).get(str(case["id"]))
+        if structured_reference and failed_structured_reference:
+            raise ValueError(f"structured source Case cannot register both passing and failed authority: {case['id']}")
+        if structured_reference:
+            apply_structured_source_reference_authority(
+                case=case,
+                reference=structured_reference,
+                skill_root=skill_root,
+                runner_path=skill_root / "scripts/validate_structured_oracle_source_case.py",
+                expected_source_inventory_sha256=structured_source_inventory_sha256,
+                head=head,
+            )
+        elif failed_structured_reference:
+            apply_failed_structured_source_reference_authority(
+                case=case,
+                reference=failed_structured_reference,
+                skill_root=skill_root,
+                runner_path=skill_root / "scripts/validate_structured_oracle_source_case.py",
+                expected_source_inventory_sha256=structured_source_inventory_sha256,
+                head=head,
+            )
         storage_reference = deterministic_reference_runs.get("storage_runs", {}).get(str(case["id"]))
         failed_storage_reference = deterministic_reference_runs.get("failed_storage_runs", {}).get(str(case["id"]))
         if storage_reference and failed_storage_reference:

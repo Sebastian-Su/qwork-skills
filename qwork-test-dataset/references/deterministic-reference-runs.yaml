@@ -3,6 +3,13 @@ policy:
   acceptance: A deterministic reference is current authority only when the report, runner, generated disposition manifest, exact Case atom set, source inventory and implementation revision all match by hash or immutable identifier.
   failure_acceptance: A deterministic failure is current gap evidence only when the same authority matches, at least one exact Case atom fails, counts close exactly and the registered failure summary equals the first verifier error; it never makes a Case ready.
   invalidation: Any Case atom, source inventory, runner, disposition manifest, report or implementation revision change requires an exact rerun before the Case can be ready.
+structured_source_batches:
+  - run_id: private-reference-structured-source-c9227fe0-v1
+    manifest: skill://qwork-test-dataset/data/runs/private-reference-structured-source-c9227fe0-v1/promotion-candidates.json
+    manifest_sha256: sha256:3d9cc052afeaba8f683308ca3da917487ebe07c78e5ebe79611bd016b8ccc08a
+    contract_sha256: 1bc97d704922905ca8ff06b69d3cb321be9c95f7df55ef52be2cf771cb6ac484
+structured_source_runs: {}
+failed_structured_source_runs: {}
 storage_runs:
   QW-REQ-WORKBUDDY-STORAGE-LOCAL-DOMAIN-AUDIT-LOG-C8240E7A:
     run_id: private-reference-storage-negative-c9227fe0-v2/QW-REQ-WORKBUDDY-STORAGE-LOCAL-DOMAIN-AUDIT-LOG-C8240E7A

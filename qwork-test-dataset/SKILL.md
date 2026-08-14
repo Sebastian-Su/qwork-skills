@@ -101,6 +101,10 @@ python3 .agents/skills/qwork-test-dataset/scripts/test_storage_reference_authori
 
 python3 .agents/skills/qwork-test-dataset/scripts/test_workbuddy_storage_batch.py
 
+python3 .agents/skills/qwork-test-dataset/scripts/test_structured_source_reference_authority.py
+
+python3 .agents/skills/qwork-test-dataset/scripts/test_structured_source_batch.py
+
 python3 .agents/skills/qwork-test-dataset/scripts/test_validate_dataset_repo_binding.py
 
 node .agents/skills/qwork-test-dataset/scripts/test_private_case_authority.mjs
@@ -152,6 +156,16 @@ python3 .agents/skills/qwork-test-dataset/scripts/run_workbuddy_storage_batch.py
 ~~~
 
 批次成功只证明显式选择的确定性 Case；报告必须保持 `full_suite_conclusion=未运行` 与 `final_response_allowed=false`。`promotion-candidates.json` 的 `storage_runs` 和 `failed_storage_runs` 都只是待审核注册片段，不能自动修改 tracked `references/deterministic-reference-runs.yaml`。审核每个 Case 的原子集合、report/verifier/disposition hash、实现 revision 与时间后，才可登记并重建 Dataset；同类 Case 不继承通过结论。通过证据只能生成 `ready/pass`；失败证据只能生成 `partial/fail` 和非空原子级 blocker，不能晋升 ready，也不能退回 `pending` 掩盖已执行事实。
+
+结构化 WorkBuddy Oracle 来源 Case 使用 `scripts/run_structured_oracle_source_batch.py`，同样只接受显式 Case ID，并额外要求所有坐标绑定同一可读取的冻结 Git revision。它只核对 accepted source inventory、Git blob、JSON Pointer 与 canonical scalar hash，不启动 Electron。批次 manifest 必须连同自身 SHA-256 和 contract SHA-256 人工登记到 `deterministic-reference-runs.yaml`；编译器再展开逐 Case report/runner/source inventory authority。任一 manifest、source inventory、Case 原子、report、runner 或 revision 漂移都必须退回 `partial`。
+
+~~~bash
+python3 .agents/skills/qwork-test-dataset/scripts/run_structured_oracle_source_batch.py \
+  --repo . \
+  --skill-root .agents/skills/qwork-test-dataset \
+  --output .agents/skills/qwork-test-dataset/data/runs/<unique-run-id> \
+  --case-file <explicit-case-id-array.json>
+~~~
 
 ### 5. 私有 Electron Case 与 reference run
 
