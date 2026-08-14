@@ -59,6 +59,8 @@ description: 维护 QWork 全产品私有 E2E 数据、需求 Coverage Map、Wor
 
 当一条文档原子显式列出多个验收 ID（例如 `WB-UI-TASK-001~008`）时，只能通过 `document-case-coverage-map.yaml` 联合绑定多个当前 HEAD Case。Map 必须锁定来源/原子/spec hash，完整展开 ID，并保证每个 ID 由唯一目标认领；它只证明执行路由存在，不继承文档中的历史 green 结论。
 
+文档元数据、章节引言、表头、历史结果快照、追溯链接和变更记录仍需保留在 source/requirement ledger，但只能通过 `document-atom-dispositions.yaml` 的来源 hash、原子 locator/hash 与 canonical 多来源闭包显式标记为 `not_applicable`。不得用标题关键字批量过滤，也不得把未实现的产品行为当作文档上下文移出 Case 闭世界。
+
 ### 3. 选择数据
 
 - `requirement`：给定 requirement ID，选择所有保护它的 Case。
@@ -109,6 +111,9 @@ python3 .agents/skills/qwork-test-dataset/scripts/test_document_case_causal_cont
 python3 .agents/skills/qwork-test-dataset/scripts/test_document_case_coverage.py \
   --skill-root .agents/skills/qwork-test-dataset
 
+python3 .agents/skills/qwork-test-dataset/scripts/test_document_atom_dispositions.py \
+  --skill-root .agents/skills/qwork-test-dataset
+
 python3 .agents/skills/qwork-test-dataset/scripts/test_structured_oracle_coverage.py \
   --skill-root .agents/skills/qwork-test-dataset
 
@@ -123,7 +128,7 @@ python3 .agents/skills/qwork-test-dataset/scripts/validate_dataset.py \
   --skill-root .agents/skills/qwork-test-dataset
 ~~~
 
-十八条命令必须全部退出 `0`。缺 Python `jsonschema` 时结构回退只用于快速反馈，AJV 校验仍是 schema v3 的权威本地校验。文档型 Case 还必须具备逐 Requirement 的 Given/When/Then、观测边界与反事实失败，且不得改变未实现 route 的 readiness。
+十九条命令必须全部退出 `0`。缺 Python `jsonschema` 时结构回退只用于快速反馈，AJV 校验仍是 schema v3 的权威本地校验。文档型 Case 还必须具备逐 Requirement 的 Given/When/Then、观测边界与反事实失败，且不得改变未实现 route 的 readiness。
 
 存储 Case 另由 `scripts/validate_workbuddy_storage_case.py --case-id <exact-id>` 只读回放。它要求 Case 中每个 `WORKBUDDY-STORAGE:*` 原子在处置 manifest 中唯一存在；只有决策为 `resolved` 且实现为 `verified` 或 `not-required` 才通过。`pending` 必须输出原子级 `next_action`，不得转成 skip、known gap 或 UI PASS。
 

@@ -1210,6 +1210,11 @@ def main() -> int:
             encoding="utf-8"
         )
     )
+    document_atom_dispositions = yaml.safe_load(
+        (skill_root / "references/document-atom-dispositions.yaml").read_text(
+            encoding="utf-8"
+        )
+    )
     private_reference_runs = yaml.safe_load(
         (skill_root / "references/private-reference-runs.yaml").read_text(
             encoding="utf-8"
@@ -1706,9 +1711,10 @@ def main() -> int:
         image_id = stable_slug(str(image["original_name"])).upper()
         visual_atom_id = f"WORKBUDDY-VISUAL:{image_id}:visual"
         geometry_atom_id = f"WORKBUDDY-VISUAL:{image_id}:geometry"
+        image_size_hash = sha256_text(f"{image['width']}x{image['height']}")
         visual_atoms.extend([
             {"atom_id": visual_atom_id, "facet": "ui-visual", "locator": f"block:{image['block_id']};image:{image['original_name']}", "label": f"WorkBuddy visual state {image['original_name']}", "extracted_value_hash": f"sha256:{image['sha256']}"},
-            {"atom_id": geometry_atom_id, "facet": "ui-geometry", "locator": f"block:{image['block_id']};image:{image['original_name']}", "label": f"WorkBuddy source image pixel size {image['width']}x{image['height']} for {image['original_name']}", "extracted_value_hash": f"sha256:{sha256_text(f'{image['width']}x{image['height']}')}" , "measurement_kind": "size", "expected_width": image["width"], "expected_height": image["height"]},
+            {"atom_id": geometry_atom_id, "facet": "ui-geometry", "locator": f"block:{image['block_id']};image:{image['original_name']}", "label": f"WorkBuddy source image pixel size {image['width']}x{image['height']} for {image['original_name']}", "extracted_value_hash": f"sha256:{image_size_hash}", "measurement_kind": "size", "expected_width": image["width"], "expected_height": image["height"]},
         ])
         visual_meta[visual_atom_id] = image
         visual_meta[geometry_atom_id] = image
@@ -2313,6 +2319,104 @@ def main() -> int:
                     for item in source_case["oracles"]
                     if str(item["requirement_id"]) != requirement_id
                 ]
+
+    # A document also contains provenance that must remain attributable but is
+    # not a product behavior: metadata, section introductions, table headers,
+    # historical result snapshots, trace links and change logs. Remove those
+    # atoms from the executable Case closed world only through an exact,
+    # hash-locked disposition. Canonical requirements that merge develop and
+    # HEAD copies must be disposed in full; a partial match is a build error.
+    disposition_by_atom: dict[tuple[str, str], dict[str, Any]] = {}
+    for disposition_source_id, source_policy in document_atom_dispositions["sources"].items():
+        disposition_source = source_by_id.get(str(disposition_source_id))
+        if disposition_source is None:
+            raise ValueError(
+                f"document disposition source is missing: {disposition_source_id}"
+            )
+        if (
+            str(disposition_source["locator"]) != str(source_policy["source_locator"])
+            or str(disposition_source["content_hash"]) != str(source_policy["source_sha256"])
+        ):
+            raise ValueError(
+                f"document disposition source drifted: {disposition_source_id}"
+            )
+        atoms_by_locator = {
+            str(atom["locator"]): atom
+            for atom in disposition_source["inventory"]["atoms"]
+        }
+        for entry in source_policy["atoms"]:
+            locator = str(entry["atom_locator"])
+            key = (str(disposition_source_id), locator)
+            if key in disposition_by_atom:
+                raise ValueError(f"document atom disposition duplicated: {key}")
+            atom = atoms_by_locator.get(locator)
+            if atom is None or str(atom["extracted_value_hash"]) != str(entry["atom_sha256"]):
+                raise ValueError(f"document atom disposition drifted: {key}")
+            disposition_by_atom[key] = entry
+
+    disposed_requirement_ids: set[str] = set()
+    for requirement in requirements:
+        requirement_id = str(requirement["requirement_id"])
+        atom_keys = {
+            (str(item["source_id"]), str(item["locator"]))
+            for item in requirement["source_atoms"]
+        }
+        configured_keys = atom_keys & disposition_by_atom.keys()
+        if not configured_keys:
+            continue
+        if configured_keys != atom_keys:
+            raise ValueError(
+                f"canonical requirement is only partly disposed: {requirement_id}"
+            )
+        if requirement_id in mapped_document_requirements:
+            raise ValueError(
+                f"document requirement is both executable and disposed: {requirement_id}"
+            )
+        reasons = {
+            str(disposition_by_atom[key]["status_reason"])
+            for key in configured_keys
+        }
+        if len(reasons) != 1:
+            raise ValueError(
+                f"canonical document disposition reasons differ: {requirement_id}"
+            )
+        requirement["coverage_status"] = "not_applicable"
+        requirement["status_reason"] = next(iter(reasons))
+        requirement["case_ids"] = []
+        requirement["oracles"] = []
+        disposed_requirement_ids.add(requirement_id)
+
+        for case in cases.values():
+            if requirement_id not in set(map(str, case["selection"]["requirement_ids"])):
+                continue
+            case["selection"]["requirement_ids"] = [
+                value
+                for value in case["selection"]["requirement_ids"]
+                if str(value) != requirement_id
+            ]
+            case["derived_requirements"] = [
+                item
+                for item in case["derived_requirements"]
+                if str(item["requirement_id"]) != requirement_id
+            ]
+            case["oracles"] = [
+                item
+                for item in case["oracles"]
+                if str(item["requirement_id"]) != requirement_id
+            ]
+            case["sources"] = [
+                item
+                for item in case["sources"]
+                if (str(item["source_id"]), str(item["locator"])) not in atom_keys
+            ]
+
+    for empty_case_id in [
+        case_id
+        for case_id, case in cases.items()
+        if not case["derived_requirements"]
+        and case["execution_contract"]["launch"]["strategy"] == "manual-blocked"
+    ]:
+        del cases[empty_case_id]
 
     # A structured Oracle pointer can reuse an executable Case only through the
     # reviewed closed-world Coverage Map. The map binds each exact JSON Pointer

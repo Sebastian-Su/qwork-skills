@@ -5,14 +5,14 @@ policy: >-
   comparison, and the test fails closed on the aggregate structural result.
 sources:
   WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-3-5-AUTOMATION:
-    source_locator: git:d324f1b6092763b74052a8fdd1ad0ac9ab8f6bd6:e2e/oracles/workbuddy-5.3.5-automation.json
+    source_locator: git:12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1:e2e/oracles/workbuddy-5.3.5-automation.json
     mappings:
       - target:
           case_id: QW-E2E-AUTOMATION-ORACLE-SPEC-FC3C7038
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
           spec: e2e/automation-oracle.spec.ts
           title: generates the WorkBuddy automation state, geometry, responsive and hash report
-          spec_sha256: sha256:96ac3dc36b272f32f011f21b1e185ab622b4f460da3afc3012036d355d656d22
+          spec_sha256: sha256:ca479e03359d5997aee72c25554f5e0616c79155b9a06d6c1a0e0f6b172db298
           oracle_sha256: sha256:585bac12f2710c7c6040ea3916db941565cae5b855a2fa7591588e406d36f084
           helper: src/main/automations/AutomationOracleReport.ts
           helper_sha256: sha256:f569de68eb0de625c8d97ff9824111ab92fc3803255db5e3a31768be98566c15
@@ -96,7 +96,7 @@ sources:
           - /templates/rowGap
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-784ABD65
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
           spec: skill://qwork-test-dataset/data/e2e/automation-oracle-gap-completeness.spec.ts
           title: WB-UI-ORACLE-AUTOMATION-002 | 自动化 Chrome、响应断点、日程控件与激活颜色逐字段匹配 WorkBuddy
           spec_sha256: sha256:ff40f18a15a8dd257dd5d73b1e1f5b8addff8ba21b2dc7fa5c2d2c4d169901a3
@@ -117,14 +117,14 @@ sources:
     gap_pointers: []
     gap_reasons: {}
   WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-3-5-SIDEBAR-ACCOUNT:
-    source_locator: git:d324f1b6092763b74052a8fdd1ad0ac9ab8f6bd6:e2e/oracles/workbuddy-5.3.5-sidebar-account.json
+    source_locator: git:12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1:e2e/oracles/workbuddy-5.3.5-sidebar-account.json
     mappings:
       - target:
           case_id: QW-E2E-WORKBUDDY-UI-SIDEBAR-ACCOUNT-SPEC-F6086E87
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
           spec: e2e/workbuddy-ui-sidebar-account.spec.ts
           title: WB-UI-SIDEBAR-TOOLS-001 | expanded toolbar geometry and platform-specific collapsed actions
-          spec_sha256: sha256:e7d02c8a7de60cc5e942e0bdca8179c3a4c280d7038941fbaa72487144ca4548
+          spec_sha256: sha256:35acf355c5902f6539d99f54333f0832911a6359f603ef46aedbbfeb0d466107
           oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
         proof:
           comparison: expectBox and exact count/attribute assertions in the current-HEAD test body
@@ -142,10 +142,10 @@ sources:
           - /sidebar/collapsed/darwinWindowedToggleX
       - target:
           case_id: QW-E2E-WORKBUDDY-UI-SIDEBAR-ACCOUNT-SPEC-79482557
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
           spec: e2e/workbuddy-ui-sidebar-account.spec.ts
           title: WB-UI-SIDEBAR-TOOLS-002 | search and filter surfaces expose keyboard-complete behavior
-          spec_sha256: sha256:e7d02c8a7de60cc5e942e0bdca8179c3a4c280d7038941fbaa72487144ca4548
+          spec_sha256: sha256:35acf355c5902f6539d99f54333f0832911a6359f603ef46aedbbfeb0d466107
           oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
         proof:
           comparison: expectBox hard-fails on exact search and filter width/height with the approved geometry tolerance
@@ -157,10 +157,10 @@ sources:
           - /filter/height
       - target:
           case_id: QW-E2E-WORKBUDDY-UI-SIDEBAR-ACCOUNT-SPEC-65308253
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
           spec: e2e/workbuddy-ui-sidebar-account.spec.ts
           title: WB-UI-ACCOUNT-001 | compact account menu is 320px and preserves QWork actions
-          spec_sha256: sha256:e7d02c8a7de60cc5e942e0bdca8179c3a4c280d7038941fbaa72487144ca4548
+          spec_sha256: sha256:35acf355c5902f6539d99f54333f0832911a6359f603ef46aedbbfeb0d466107
           oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
         proof:
           comparison: expectBox hard-fails on the 320px account menu width
@@ -168,20 +168,8 @@ sources:
         covered_pointers:
           - /accountMenu/width
       - target:
-          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-1C1C07DD
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
-          spec: e2e/workbuddy-ui-shell-home.spec.ts
-          title: WB-UI-SIDEBAR-005/007/008 | 快捷键保持焦点且 macOS 全屏移除交通灯偏移
-          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
-          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
-        proof:
-          comparison: full-screen Electron state plus poll and expectBox hard-fail on the 16px toggle x-coordinate
-          excluded_claim: platform matrices not executed by this darwin Case remain gaps
-        covered_pointers:
-          - /sidebar/collapsed/darwinFullscreenToggleX
-      - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-762BA0DA
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
           spec: skill://qwork-test-dataset/data/e2e/sidebar-account-oracle-completeness.spec.ts
           title: WB-UI-ORACLE-SIDEBAR-001 | 侧栏工具、搜索、筛选与账户菜单逐字段匹配 WorkBuddy
           spec_sha256: sha256:f1a360c318adbace582fd6add5d6e002ef07c83613ca8e52fbad88028dd5074c
@@ -251,17 +239,19 @@ sources:
       - /coverage/requiredBeforePlatformCompletion/2
       - /coverage/requiredBeforePlatformCompletion/3
       - /coverage/requiredBeforePlatformCompletion/4
+      - /sidebar/collapsed/darwinFullscreenToggleX
     gap_reasons:
       platform_matrix: required light/dark Windows and DPI states remain not_evaluated
+      current_head_drift: the mapped macOS fullscreen geometry Case was removed from current develop and must be restored or replaced before this pointer can be claimed
   WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-3-5-SHELL-HOME:
-    source_locator: git:d324f1b6092763b74052a8fdd1ad0ac9ab8f6bd6:e2e/oracles/workbuddy-5.3.5-shell-home.json
+    source_locator: git:12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1:e2e/oracles/workbuddy-5.3.5-shell-home.json
     mappings:
       - target:
           case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-12A93229
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
           spec: e2e/workbuddy-ui-shell-home.spec.ts
           title: WB-UI-SHELL-001 | 最大化 Shell、侧栏与主区盒模型完全对齐
-          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          spec_sha256: sha256:42a8cb92c0d136c87ec7711a510ae832cdf5b8dfed909472f07b64fd5c281df8
           oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
         proof:
           comparison: expectBox and computedStyle hard-fail on the exact sidebar/new-task geometry and approved new-task style fields
@@ -279,10 +269,10 @@ sources:
           - /light/newTaskBackground
       - target:
           case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-AC69DA50
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
           spec: e2e/workbuddy-ui-shell-home.spec.ts
           title: WB-UI-SIDEBAR-001/002/004 | 收起后主区占满且隐藏导航不可交互，再展开恢复
-          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          spec_sha256: sha256:42a8cb92c0d136c87ec7711a510ae832cdf5b8dfed909472f07b64fd5c281df8
           oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
         proof:
           comparison: poll, expectBox and computedStyle hard-fail on collapsed width, transition timing and the darwin windowed toggle box
@@ -297,10 +287,10 @@ sources:
           - /platform/darwin/windowedCollapsedToggle/height
       - target:
           case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-D95CD83C
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
           spec: e2e/workbuddy-ui-shell-home.spec.ts
           title: WB-UI-SIDEBAR-009 | 用户收起选择跨重启保持并可由设置重置
-          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          spec_sha256: sha256:42a8cb92c0d136c87ec7711a510ae832cdf5b8dfed909472f07b64fd5c281df8
           oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
         proof:
           comparison: the Case closes and reopens the real Electron app with the same isolated home, then proves persisted collapsed state and default-expanded reset
@@ -308,30 +298,11 @@ sources:
           - /shared/sidebar/preferenceStorage
           - /shared/sidebar/defaultExpanded
       - target:
-          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-1C1C07DD
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
-          spec: e2e/workbuddy-ui-shell-home.spec.ts
-          title: WB-UI-SIDEBAR-005/007/008 | 快捷键保持焦点且 macOS 全屏移除交通灯偏移
-          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
-        proof:
-          comparison: exact accelerator, native full-screen state, toggle box and CSS traffic-light offset are asserted by the current-HEAD Case
-          reference_run_boundary: current darwin reference attempt is environment_blocked because the isolated Electron window stayed hidden and could not enter a native Space
-          excluded_claim: mapping existence does not convert the failed reference attempt into PASS; Windows remains platform-not-evaluated
-        covered_pointers:
-          - /platform/darwin/shortcutModifier
-          - /platform/win32/shortcutModifier
-          - /platform/darwin/fullscreenTrafficLightOffset
-          - /platform/darwin/fullscreenCollapsedToggle/x
-          - /platform/darwin/fullscreenCollapsedToggle/y
-          - /platform/darwin/fullscreenCollapsedToggle/width
-          - /platform/darwin/fullscreenCollapsedToggle/height
-      - target:
           case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-5B5CA9E0
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
           spec: e2e/workbuddy-ui-shell-home.spec.ts
           title: WB-UI-SHELL-003 | 平台窗口控制区与拖拽安全区对齐
-          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          spec_sha256: sha256:42a8cb92c0d136c87ec7711a510ae832cdf5b8dfed909472f07b64fd5c281df8
           oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
         proof:
           comparison: platform branches hard-fail on darwin traffic-light safe-area/control absence and Windows control presence
@@ -342,10 +313,10 @@ sources:
           - /platform/win32/showWindowsControls
       - target:
           case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-4DB238ED
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
           spec: e2e/workbuddy-ui-shell-home.spec.ts
           title: WB-UI-HOME-002 | 960×180 Composer、底栏和精确 placeholder 对齐
-          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          spec_sha256: sha256:42a8cb92c0d136c87ec7711a510ae832cdf5b8dfed909472f07b64fd5c281df8
           oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
         proof:
           comparison: toHaveAttribute hard-fails on the exact frozen WorkBuddy placeholder
@@ -354,10 +325,10 @@ sources:
           - /shared/composer/placeholder
       - target:
           case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-750DBF3D
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
           spec: e2e/workbuddy-ui-shell-home.spec.ts
           title: WB-UI-HOME-005 | 浅深主题与三档窗口保持首页框架
-          spec_sha256: sha256:e659f7659020475236bc5543c0527dae3e2dd721f5673c16d4172485975bb9d4
+          spec_sha256: sha256:42a8cb92c0d136c87ec7711a510ae832cdf5b8dfed909472f07b64fd5c281df8
           oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
         proof:
           comparison: both shell surfaces are hard-compared to rgb(24,24,24) across all three current darwin dark viewports
@@ -366,7 +337,7 @@ sources:
           - /dark/bodyBackground
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-CF6C2871
-          execution_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
           spec: skill://qwork-test-dataset/data/e2e/shell-home-oracle-completeness.spec.ts
           title: WB-UI-ORACLE-SHELL-HOME-001 | Shell 首页主题、排版、场景与 Composer 逐字段匹配 WorkBuddy
           spec_sha256: sha256:8bd3d3714d8ea51e3c3e63927e5938b04c131ad227f25b1d1f47f50ef48ee1d7
@@ -422,16 +393,24 @@ sources:
       - /coverage/requiredBeforePixelCompletion/5
       - /coverage/requiredBeforePixelCompletion/6
       - /coverage/requiredBeforePixelCompletion/7
+      - /platform/darwin/fullscreenCollapsedToggle/height
+      - /platform/darwin/fullscreenCollapsedToggle/width
+      - /platform/darwin/fullscreenCollapsedToggle/x
+      - /platform/darwin/fullscreenCollapsedToggle/y
       - /platform/darwin/fullscreenExpandedToggle/height
       - /platform/darwin/fullscreenExpandedToggle/width
       - /platform/darwin/fullscreenExpandedToggle/x
       - /platform/darwin/fullscreenExpandedToggle/y
+      - /platform/darwin/fullscreenTrafficLightOffset
+      - /platform/darwin/shortcutModifier
       - /platform/darwin/titleBarStyle
       - /platform/win32/pixelGoldenDpiPercent
+      - /platform/win32/shortcutModifier
       - /platform/win32/showTrafficLightSafeArea
       - /platform/win32/smokeDpiPercent
       - /platform/win32/titleBarStyle
     gap_reasons:
       pixel_matrix: eight required cross-theme, cross-viewport and Windows DPI states do not yet have approved golden comparisons
       platform_matrix: Windows and native macOS full-screen branches require platform-specific reference runs
+      current_head_drift: the shared shortcut and collapsed full-screen geometry Case was removed from current develop and must be restored or replaced before these pointers can be claimed
       runtime_boundary: Electron titlebar construction parameters cannot be inferred from renderer pixels and remain separately source-bound

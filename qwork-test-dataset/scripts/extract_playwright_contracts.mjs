@@ -8,6 +8,7 @@ const ts = requireFromProject("typescript");
 
 const path = process.argv[2] || "input.spec.ts";
 let input = "";
+process.stdin.setEncoding("utf8");
 for await (const chunk of process.stdin) input += chunk;
 const source = ts.createSourceFile(path, input, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
 const results = [];

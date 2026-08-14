@@ -3,7 +3,13 @@ policy:
   acceptance: A private Playwright reference run is trusted only when the report, source, implementation revision, unique selected test, required screenshots, trace, isolation and zero-live-call declarations all verify.
   failure_acceptance: A failed private Playwright reference proves a current product gap only when the same authority and artifact checks pass, the selected test is uniquely unexpected, and the report is explicitly registered below; it never makes a Case ready or contributes to a passing rate.
   invalidation: Any private spec, runner, Case ID, title, implementation revision or evidence hash change invalidates the reference run.
-runs:
+current_authority:
+  implementation_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+  invalidated_reference_revision: 19f210518dbad3768eb14a09baa5eea226016c7b
+  reason: develop merge changed the implementation revision and shared Electron fixtures; no historical result is current evidence
+runs: {}
+failed_runs: {}
+historical_runs:
   QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-72C1FB46:
     run_id: private-reference-migration-20260814-v1/QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-72C1FB46
     report: skill://qwork-test-dataset/data/runs/private-reference-migration-20260814-v1/QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-72C1FB46/report.json
@@ -132,7 +138,7 @@ runs:
       - entry-running-member-before-restart
       - transition-old-instance-interrupted-not-completed
       - final-old-and-new-instances-coexist-linked
-failed_runs:
+historical_failed_runs:
   QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-DDF919C7:
     run_id: private-reference-migration-20260814-v1/QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-DDF919C7
     report: skill://qwork-test-dataset/data/runs/private-reference-migration-20260814-v1/QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-DDF919C7/report.json
