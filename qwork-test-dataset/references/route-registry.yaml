@@ -1,4 +1,4 @@
-generated_at: '2026-08-14T07:16:44.755264+00:00'
+generated_at: '2026-08-14T07:20:48.451605+00:00'
 policy:
   case_to_route: one-to-one
   playwright_contract: test body SHA, line range, action and assertion count are mandatory
@@ -17936,9 +17936,12 @@ routes:
     case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-72C1FB46
     evidence:
     - report.json
-    - entry.png
-    - transition.png
-    - final-state.png
+    - build-manifest.json
+    - playwright-report.json
+    - entry screenshot
+    - transition screenshot
+    - final-state screenshot
+    - trace.zip
     fixtures:
       cleanup: close app and remove temp home
       isolation: no reuse of ~/.qwork, real account, or production data without explicit
@@ -17968,7 +17971,7 @@ routes:
           { name: "召唤游戏开发工作室", exact: true }) .click()'
       success_oracle: all source-bound assertions pass
     oracle_contract: null
-    readiness: partial
+    readiness: ready
     source_contract:
       action_count: 7
       assertion_count: 14
