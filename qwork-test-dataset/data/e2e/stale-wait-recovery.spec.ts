@@ -68,7 +68,7 @@ test("WB-RECOVERY-005 | 未完成专家历史重启后不伪造续跑且只派�
     await setContentSize(app, page);
     await expect(task(page)).toBeVisible();
     await task(page).click();
-    const messages = page.getByTestId("thread-message-list");
+    const messages = page.getByTestId("conversation-content");
     await expect(messages.getByText(hangingQuery, { exact: true })).toHaveCount(1);
     await attachUiState(page, testInfo, "transition-cold-history-after-restart");
     await attachUiState(page, testInfo, "failure-stale-wait-must-be-terminal");

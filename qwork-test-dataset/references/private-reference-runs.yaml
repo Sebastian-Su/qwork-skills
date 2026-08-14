@@ -16,6 +16,14 @@ runs:
       - entry-expert-sample-question
       - transition-sample-prefilled-expert-selected
       - final-team-replaces-expert-without-runtime
+  QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-5D07F14C:
+    run_id: private-reference-recovery-c9227fe0-v2
+    report: skill://qwork-test-dataset/data/runs/private-reference-recovery-c9227fe0-v2/report.json
+    report_sha256: sha256:4a751e528f8e7f254557e852123654deb76160302480cbe2ed39a3a7ccaff108
+    required_screenshot_states:
+      - entry-live-turn-waiting-before-restart
+      - transition-cold-history-idle-after-restart
+      - final-restored-session-continued-once
 failed_runs:
   QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-8470D022:
     run_id: platform-darwin-native-e74fa4c-c9227fe0-04
@@ -26,6 +34,27 @@ failed_runs:
     next_action: 在可获得原生前台焦点的 macOS 宿主复跑同一 Case，并将 system.setFullScreen 的完成语义绑定 enter-full-screen 或 leave-full-screen 事件后再判定返回值。
     required_screenshot_states:
       - entry
+      - assertion-failure
+  QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-C16DF454:
+    run_id: private-reference-team-events-c9227fe0-v1
+    report: skill://qwork-test-dataset/data/runs/private-reference-team-events-c9227fe0-v1/report.json
+    report_sha256: sha256:27596263c6fbb359c9f1d89a827666ab1d9dd43d4f69fab607b8e0d27fd0d062
+    classification: product
+    failure_summary: 两个成员 started、text 与 completed 事件及 Lead 总结均按冻结顺序出现，成员标题、团队、更新时间、模型和产出也正确显示；进入发布运营成员详情后仍出现可编辑 Composer，违反成员流只读且不可重试的 WorkBuddy 契约。
+    next_action: 修复成员详情路由，使成员转录只读且不挂载 Lead Composer；保留负责人路由的可编辑 Composer，并重跑同一 Case。
+    required_screenshot_states:
+      - entry-lead-registered-without-running-members
+      - transition-members-completed-before-lead-summary
+      - assertion-failure
+  QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-7FC6C14C:
+    run_id: private-reference-expert-artifact-c9227fe0-v1
+    report: skill://qwork-test-dataset/data/runs/private-reference-expert-artifact-c9227fe0-v1/report.json
+    report_sha256: sha256:b8a097daaed4eb2633b4635c8b44ba454e34ecdcafe5fb968e745b5c3c9815aa
+    classification: product
+    failure_summary: 无文件轮次没有伪造产物卡；随后真实 write_file 工具事件显示成功并写入 expert-output.html，但主内容区始终未出现对应产物卡，因此无法进入工件预览，工具结果到文件目录与 UI 产物索引的因果链未闭合。
+    next_action: 修复专家会话文件跟踪与产物索引投影，使受管工作区内真实成功写入的文件生成唯一产物卡并可打开预览，然后重跑同一 Case。
+    required_screenshot_states:
+      - entry-no-artifact-no-card
       - assertion-failure
 historical_runs:
   QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-72C1FB46:
