@@ -36,6 +36,20 @@ def main() -> int:
     source_manifest = load(source_root / "manifest.json")
 
     errors: list[str] = []
+    authority_keys = (
+        "policy_version",
+        "source_inventory_sha256",
+        "source_canonical_sha256",
+        "source_entry_count",
+        "source_atom_count",
+        "record_count",
+        "rules",
+        "counts",
+        "records",
+    )
+    disposition_authority = {key: manifest.get(key) for key in authority_keys}
+    if manifest.get("canonical_sha256") != canonical_sha256(disposition_authority):
+        errors.append("disposition canonical authority hash drifted")
     if manifest.get("source_inventory_sha256") != source_manifest.get("inventory_sha256"):
         errors.append("disposition source inventory hash drifted")
     if manifest.get("source_entry_count") != len(inventory):
@@ -90,6 +104,7 @@ def main() -> int:
         "schema_version": 1,
         "case_id": args.case_id,
         "source_inventory_sha256": manifest.get("source_inventory_sha256"),
+        "disposition_canonical_sha256": manifest.get("canonical_sha256"),
         "required_atom_count": len(required_atoms),
         "passed_atom_count": sum(item["status"] == "pass" for item in results),
         "failed_atom_count": sum(item["status"] == "fail" for item in results),

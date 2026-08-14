@@ -1297,6 +1297,96 @@ def mark_private_reference_stale(
     }
 
 
+def apply_storage_reference_authority(
+    *,
+    case: dict[str, Any],
+    reference: dict[str, Any],
+    skill_root: pathlib.Path,
+    runner_path: pathlib.Path,
+    expected_inventory_sha256: str,
+    expected_disposition_sha256: str,
+    head: str,
+) -> None:
+    """Promote one deterministic storage Case only from exact, current evidence."""
+
+    contract = case["execution_contract"]
+    if not str(contract["route_id"]).startswith("qwork.dataset.workbuddy-storage."):
+        raise ValueError(f"storage reference targets a non-storage route: {case['id']}")
+
+    report_ref = str(reference["report"])
+    if report_ref.startswith("skill://qwork-test-dataset/"):
+        report_path = skill_root / report_ref.removeprefix("skill://qwork-test-dataset/")
+    else:
+        report_path = pathlib.Path(report_ref)
+    if not report_path.is_file():
+        raise ValueError(f"storage reference report is missing: {report_ref}")
+
+    expected_hashes = {
+        "report": (report_path, str(reference["report_sha256"])),
+        "runner": (runner_path, str(reference["runner_sha256"])),
+    }
+    for label, (path, expected) in expected_hashes.items():
+        actual = f"sha256:{sha256_bytes(path.read_bytes())}"
+        if actual != expected:
+            raise ValueError(f"storage reference {label} hash drifted: {case['id']}")
+    if str(reference["implementation_revision"]) != head:
+        raise ValueError(f"storage reference implementation revision drifted: {case['id']}")
+
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    required_atoms = sorted({
+        str(atom_id)
+        for requirement in case.get("derived_requirements", [])
+        for atom_id in requirement.get("source_atom_ids", [])
+    })
+    results = report.get("results")
+    result_atoms = [str(item.get("atom_id") or "") for item in results or []]
+    valid = (
+        report.get("schema_version") == 1
+        and report.get("case_id") == case["id"]
+        and report.get("source_inventory_sha256") == expected_inventory_sha256
+        and report.get("disposition_canonical_sha256") == expected_disposition_sha256
+        and reference.get("disposition_canonical_sha256") == expected_disposition_sha256
+        and report.get("status") == "pass"
+        and report.get("required_atom_count") == len(required_atoms)
+        and report.get("passed_atom_count") == len(required_atoms)
+        and report.get("failed_atom_count") == 0
+        and report.get("errors") == []
+        and isinstance(results, list)
+        and len(result_atoms) == len(set(result_atoms))
+        and sorted(result_atoms) == required_atoms
+        and all(item.get("status") == "pass" for item in results or [])
+    )
+    if not valid:
+        raise ValueError(f"storage reference authority mismatch: {case['id']}")
+
+    environment = (
+        "read-only frozen private Dataset inventory and dispositions; "
+        "no live WorkBuddy or QWork state opened"
+    )
+    contract["reference_run"] = {
+        "status": "passed",
+        "run_id": str(reference["run_id"]),
+        "verified_at": str(reference["verified_at"]),
+        "environment": environment,
+    }
+    contract["readiness"] = "ready"
+    contract["blockers"] = []
+    contract["observability"]["reference_authority"] = {
+        "report": report_ref,
+        "report_sha256": str(reference["report_sha256"]),
+        "runner_sha256": str(reference["runner_sha256"]),
+        "disposition_canonical_sha256": expected_disposition_sha256,
+        "implementation_revision": head,
+    }
+    case["verification"] = {
+        "last_outcome": "pass",
+        "environment_scope": environment,
+        "implementation_revision": head,
+        "last_verified_at": str(reference["verified_at"]),
+        "status_reason": f"hash-verified deterministic storage run {reference['run_id']} passed",
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo", required=True)
@@ -1344,6 +1434,11 @@ def main() -> int:
     )
     private_reference_runs = yaml.safe_load(
         (skill_root / "references/private-reference-runs.yaml").read_text(
+            encoding="utf-8"
+        )
+    )
+    deterministic_reference_runs = yaml.safe_load(
+        (skill_root / "references/deterministic-reference-runs.yaml").read_text(
             encoding="utf-8"
         )
     )
@@ -2166,6 +2261,32 @@ def main() -> int:
     disposition_atom_ids = [str(item["atom_id"]) for item in storage_dispositions]
     if storage_atom_ids != set(disposition_atom_ids) or len(disposition_atom_ids) != len(set(disposition_atom_ids)):
         raise ValueError("WorkBuddy storage dispositions are not an exact one-to-one atom map")
+    storage_disposition_rules = {
+        "one_atom_one_disposition": True,
+        "silent_drop_forbidden": True,
+        "source_alias_in_identity_forbidden": True,
+        "live_roots_read_or_written": False,
+    }
+    storage_disposition_counts = {
+        "decision_status": dict(sorted({value: sum(item["decision_status"] == value for item in storage_dispositions) for value in {item["decision_status"] for item in storage_dispositions}}.items())),
+        "implementation_status": dict(sorted({value: sum(item["implementation_status"] == value for item in storage_dispositions) for value in {item["implementation_status"] for item in storage_dispositions}}.items())),
+        "treatment": dict(sorted({value: sum(item["treatment"] == value for item in storage_dispositions) for value in {item["treatment"] for item in storage_dispositions}}.items())),
+    }
+    storage_disposition_records = sorted(storage_dispositions, key=lambda item: item["atom_id"])
+    storage_disposition_authority = {
+        "policy_version": "qwork-workbuddy-storage-disposition/v1",
+        "source_inventory_sha256": str(storage_manifest["inventory_sha256"]),
+        "source_canonical_sha256": sha256_text(json.dumps(storage_inventory, ensure_ascii=False, sort_keys=True, separators=(",", ":"))),
+        "source_entry_count": len(storage_inventory),
+        "source_atom_count": len(storage_atoms),
+        "record_count": len(storage_dispositions),
+        "rules": storage_disposition_rules,
+        "counts": storage_disposition_counts,
+        "records": storage_disposition_records,
+    }
+    storage_disposition_canonical_sha256 = sha256_text(
+        json.dumps(storage_disposition_authority, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    )
 
     source_ids = [str(source["source_id"]) for source in sources]
     atom_ids = [str(atom["atom_id"]) for source in sources for atom in source["inventory"]["atoms"]]
@@ -3116,6 +3237,17 @@ def main() -> int:
                     "last_verified_at": None,
                     "status_reason": "runner and fail-closed Oracle contract are bound; current reference run is pending",
                 }
+        storage_reference = deterministic_reference_runs.get("storage_runs", {}).get(str(case["id"]))
+        if storage_reference:
+            apply_storage_reference_authority(
+                case=case,
+                reference=storage_reference,
+                skill_root=skill_root,
+                runner_path=skill_root / "scripts/validate_workbuddy_storage_case.py",
+                expected_inventory_sha256=str(storage_manifest["inventory_sha256"]),
+                expected_disposition_sha256=storage_disposition_canonical_sha256,
+                head=head,
+            )
         private_reference = private_reference_runs.get("runs", {}).get(str(case["id"]))
         failed_private_reference = private_reference_runs.get("failed_runs", {}).get(str(case["id"]))
         if private_reference and failed_private_reference:
@@ -3498,26 +3630,10 @@ def main() -> int:
     (output / "cohorts.json").write_text(json.dumps(cohorts, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     storage_disposition_manifest = {
         "schema_version": 1,
-        "policy_version": "qwork-workbuddy-storage-disposition/v1",
         "generated_at": created_at,
         "source_snapshot": f"skill://qwork-test-dataset/{storage_dir.relative_to(skill_root).as_posix()}",
-        "source_inventory_sha256": str(storage_manifest["inventory_sha256"]),
-        "source_canonical_sha256": sha256_text(json.dumps(storage_inventory, ensure_ascii=False, sort_keys=True, separators=(",", ":"))),
-        "source_entry_count": len(storage_inventory),
-        "source_atom_count": len(storage_atoms),
-        "record_count": len(storage_dispositions),
-        "rules": {
-            "one_atom_one_disposition": True,
-            "silent_drop_forbidden": True,
-            "source_alias_in_identity_forbidden": True,
-            "live_roots_read_or_written": False,
-        },
-        "counts": {
-            "decision_status": dict(sorted({value: sum(item["decision_status"] == value for item in storage_dispositions) for value in {item["decision_status"] for item in storage_dispositions}}.items())),
-            "implementation_status": dict(sorted({value: sum(item["implementation_status"] == value for item in storage_dispositions) for value in {item["implementation_status"] for item in storage_dispositions}}.items())),
-            "treatment": dict(sorted({value: sum(item["treatment"] == value for item in storage_dispositions) for value in {item["treatment"] for item in storage_dispositions}}.items())),
-        },
-        "records": sorted(storage_dispositions, key=lambda item: item["atom_id"]),
+        "canonical_sha256": storage_disposition_canonical_sha256,
+        **storage_disposition_authority,
     }
     (output / "workbuddy-storage-dispositions.json").write_text(
         json.dumps(storage_disposition_manifest, ensure_ascii=False, indent=2) + "\n",
