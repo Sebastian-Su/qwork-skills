@@ -1,7 +1,7 @@
 import { expect, test, type ElectronApplication } from "@playwright/test";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { attachUiState, setContentSize } from "../../../../../e2e/fixtures/workbuddy-ui";
+import { attachUiState, setContentSize } from "../../../../../e2e/fixtures/ui-contract";
 import { cleanup, createTestHome, createWorkspace, openApp } from "./fixtures/launch-tool-failure-isolated";
 
 type ToolEvent = { kind?: string; tool_id?: string; name?: string; status?: string; is_error?: boolean; output?: unknown };

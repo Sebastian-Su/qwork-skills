@@ -43,6 +43,8 @@ export async function openApp(
       QWORK_ENV: "test",
       NODE_ENV: "test",
       QWORK_AUTH_BYPASS: "1",
+      QWORK_E2E_BUILTIN_MARKETPLACE: "none",
+      QWORK_E2E_EMBEDDED_PYTHON: "0",
       QWORK_PROJECT_ACCESS_TOKEN: "private-e2e-token",
       QWORK_E2E_MODEL_CATALOG_JSON: JSON.stringify([
         { value: "z-ai/glm-5.2", label: "GLM-5.2" },

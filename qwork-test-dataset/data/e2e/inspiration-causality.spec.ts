@@ -5,7 +5,7 @@ import {
   attachUiState,
   boxOf,
   setContentSize,
-} from "../../../../../e2e/fixtures/workbuddy-ui";
+} from "../../../../../e2e/fixtures/ui-contract";
 import {
   cleanup,
   createTestHome,

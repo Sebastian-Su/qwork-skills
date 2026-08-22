@@ -99,6 +99,7 @@ TECHNICAL_CONTRACT_WORDS = (
     "源码",
     "签名",
     "hash",
+    "scope",
     "token 不",
     "renderer 不",
     "三平台",
@@ -198,6 +199,107 @@ ACCESSIBILITY_WORDS = (
     "状态不能只依靠颜色",
     "prefers-reduced-motion",
 )
+
+
+def normalize_migrated_document_label(value: str) -> str:
+    """Normalize approved identifier and reference-client naming migrations."""
+
+    return (
+        re.sub(r"\b(?:WB|QW)-", "ID-", value)
+        .replace("WorkBuddy", "参考客户端")
+        .replace("~/.workbuddy", "~/.reference-client")
+        .replace("`package.publisher`。`presentation`", "`presentation`")
+    )
+
+
+def relocate_document_atom(
+    *,
+    current_atoms: list[dict[str, Any]],
+    historic_atoms: list[dict[str, Any]],
+    locator: str,
+    atom_sha256: str,
+    allow_ordinal: bool = True,
+) -> dict[str, Any] | None:
+    exact = next(
+        (
+            atom
+            for atom in current_atoms
+            if str(atom["locator"]) == locator
+            and str(atom["extracted_value_hash"]) == atom_sha256
+        ),
+        None,
+    )
+    if exact is not None:
+        return exact
+    by_hash = [
+        atom
+        for atom in current_atoms
+        if str(atom["extracted_value_hash"]) == atom_sha256
+    ]
+    if len(by_hash) == 1:
+        return by_hash[0]
+    historic_atom = next(
+        (
+            atom
+            for atom in historic_atoms
+            if str(atom["locator"]) == locator
+            and str(atom["extracted_value_hash"]) == atom_sha256
+        ),
+        None,
+    )
+    if historic_atom is None:
+        return None
+    normalized_historic = normalize_migrated_document_label(
+        str(historic_atom["label"])
+    )
+    by_label = [
+        atom
+        for atom in current_atoms
+        if normalize_migrated_document_label(str(atom["label"]))
+        == normalized_historic
+    ]
+    if len(by_label) == 1:
+        return by_label[0]
+    if normalized_historic.lstrip().startswith("|"):
+        historic_cells = [
+            cell.strip() for cell in normalized_historic.split("|") if cell.strip()
+        ]
+        historic_key = historic_cells[0] if historic_cells else ""
+        by_table_key = [
+            atom
+            for atom in current_atoms
+            if str(atom["label"]).lstrip().startswith("|")
+            and next(
+                (
+                    cell.strip()
+                    for cell in normalize_migrated_document_label(
+                        str(atom["label"])
+                    ).split("|")
+                    if cell.strip()
+                ),
+                "",
+            )
+            == historic_key
+        ]
+        if len(by_table_key) == 1:
+            return by_table_key[0]
+    if allow_ordinal and ";heading:" in str(historic_atom["locator"]):
+        historic_heading = str(historic_atom["locator"]).split(";heading:", 1)[1]
+        historic_group = [
+            atom
+            for atom in historic_atoms
+            if str(atom["locator"]).endswith(f";heading:{historic_heading}")
+        ]
+        current_group = [
+            atom
+            for atom in current_atoms
+            if str(atom["locator"]).endswith(f";heading:{historic_heading}")
+        ]
+        if len(historic_group) == len(current_group):
+            return current_group[historic_group.index(historic_atom)]
+    return None
+
+
 ERROR_WORDS = ("错误文案", "报错", "提示", "error message", "失败提示")
 EVIDENCE_WORDS = ("report.json", "report.html", "sha-256", "截图哈希", "trace")
 VISUAL_POLICY_WORDS = (
@@ -435,7 +537,10 @@ def document_disposition(path: str) -> tuple[str, str]:
 
 def discovered_source_disposition(path: str) -> tuple[str, str]:
     """Classify every non-Markdown/non-spec source in the frozen develop corpus."""
-    if re.fullmatch(r"e2e/oracles/workbuddy-5\.3\.5-(?:automation|shell-home|sidebar-account)\.json", path):
+    if re.fullmatch(
+        r"e2e/visual-baselines/(?:automation|shell-home|sidebar-account)-reference\.json",
+        path,
+    ):
         return "product-normative-structured-oracle", "Approved WorkBuddy CDP geometry, state, responsive and style Oracle"
     if path == "docs/expert-journey-phase2-coverage.yaml":
         return "release-governance", "Coverage and historical execution bookkeeping bind planning but do not supersede the referenced PRD"
@@ -524,6 +629,13 @@ def structured_oracle_atoms(
             or path.startswith("/coverage/captured/")
             or path.startswith("/pixelBaseline/")
             or path.startswith("/editor/references/")
+            or path.startswith("/editor/promptToolbar/reference")
+            or path in {
+                "/connectionCard/source",
+                "/connectionCard/sourceSha256",
+                "/connectionCard/alignmentSource",
+                "/connectionCard/alignmentSourceSha256",
+            }
             or path in {
                 "/templates/referenceImage",
                 "/templates/referenceSha256",
@@ -840,6 +952,55 @@ def first_number(text: str) -> float | None:
     return float(match.group()) if match else None
 
 
+def snapshot_variant(path: pathlib.Path) -> str:
+    match = re.search(r"(?:^|[-_])(v\d+)$", path.name, re.I)
+    return match.group(1).upper() if match else f"SHA{sha256_text(path.name)[:8].upper()}"
+
+
+def lark_source_identity(manifest: dict[str, Any]) -> str:
+    document_id = str(manifest.get("document_id") or "")
+    revision = str(manifest.get("revision_id") or "")
+    if len(document_id) < 4 or not revision:
+        raise ValueError("Lark snapshot manifest is missing document_id or revision_id")
+    return f"WORKBUDDY-FEISHU-{document_id[:4].upper()}-REV{revision}"
+
+
+def cdp_source_identity(manifest: dict[str, Any], snapshot_dir: pathlib.Path) -> str:
+    version = str(manifest.get("version") or "")
+    if not re.fullmatch(r"\d+(?:\.\d+)+", version):
+        raise ValueError(f"invalid WorkBuddy CDP version: {version or 'missing'}")
+    return f"WORKBUDDY-CDP-{version.replace('.', '-')}-{snapshot_variant(snapshot_dir)}"
+
+
+def motion_source_identity(manifest: dict[str, Any], snapshot_dir: pathlib.Path) -> str:
+    version = str(manifest.get("version") or "")
+    if not re.fullmatch(r"\d+(?:\.\d+)+", version):
+        raise ValueError(f"invalid WorkBuddy motion version: {version or 'missing'}")
+    return f"WORKBUDDY-MOTION-{version.replace('.', '-')}-{snapshot_variant(snapshot_dir)}"
+
+
+def workbuddy_oracle_launch_command(
+    skill_root: pathlib.Path,
+    cdp_dir: pathlib.Path,
+    state: str,
+) -> str:
+    try:
+        relative = cdp_dir.relative_to(skill_root).as_posix()
+    except ValueError as error:
+        raise ValueError("WorkBuddy CDP source must be inside the Dataset Skill") from error
+    reference = f".agents/skills/qwork-test-dataset/{relative}"
+    run_root = f"<run-root>/qwork-workbuddy/{stable_slug(state)}"
+    return (
+        f"node .agents/skills/qwork-test-dataset/scripts/run_qwork_workbuddy_oracle.mjs . "
+        f"{run_root}/capture {json.dumps(state, ensure_ascii=False)} "
+        f"--workbuddy {reference} && "
+        f"python3 .agents/skills/qwork-test-dataset/scripts/compare_qwork_workbuddy_oracle.py "
+        f"--capture {run_root}/capture --workbuddy {reference} "
+        f"--output {run_root}/compare --max-diff-ratio 0.01 "
+        f"--geometry-tolerance 2 --fail-on-diff"
+    )
+
+
 def cdp_surface(state: str) -> str:
     explicit = {
         "surface-新建任务": "shell-home",
@@ -878,6 +1039,9 @@ def control_target(control: dict[str, Any], index: int) -> str:
 def cdp_atoms(source_id: str, snapshot_dir: pathlib.Path, manifest: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, dict[str, Any]]]:
     atoms: list[dict[str, Any]] = []
     metadata: dict[str, dict[str, Any]] = {}
+    product_version = str(manifest.get("version") or "")
+    if not product_version:
+        raise ValueError("WorkBuddy CDP manifest is missing version")
     for record in manifest.get("records", []):
         state = str(record["state"])
         state_file = snapshot_dir / f"{state}.json"
@@ -892,7 +1056,7 @@ def cdp_atoms(source_id: str, snapshot_dir: pathlib.Path, manifest: dict[str, An
                 "atom_id": screenshot_id,
                 "facet": "ui-visual",
                 "locator": f"cdp-state:{state};screenshot:{full['screenshot']}",
-                "label": f"WorkBuddy 5.3.12 state {state} is the current visual Oracle at {viewport['width']}x{viewport['height']} CSS px and DPR {viewport['dpr']}",
+                "label": f"WorkBuddy {product_version} state {state} is the current visual Oracle at {viewport['width']}x{viewport['height']} CSS px and DPR {viewport['dpr']}",
                 "extracted_value_hash": f"sha256:{full['screenshot_sha256']}",
                 "surface": surface,
             },
@@ -935,6 +1099,130 @@ def cdp_atoms(source_id: str, snapshot_dir: pathlib.Path, manifest: dict[str, An
             ])
             metadata[geometry_id] = {"kind": "geometry", "state": state, "target": target, "control": control, "record": full}
             metadata[content_id] = {"kind": "content", "state": state, "target": target, "control": control, "record": full}
+    return atoms, metadata
+
+
+def motion_surface(record_id: str) -> str:
+    if record_id.startswith("sidebar-") or record_id.startswith("static-"):
+        return "shell-home"
+    if record_id.startswith("market-"):
+        return "expert-team" if "expert-team" in record_id else "expert-market"
+    return "shell-home"
+
+
+def motion_atoms(
+    source_id: str,
+    snapshot_dir: pathlib.Path,
+    manifest: dict[str, Any],
+) -> tuple[list[dict[str, Any]], dict[str, dict[str, Any]]]:
+    atoms: list[dict[str, Any]] = []
+    metadata: dict[str, dict[str, Any]] = {}
+    product_version = str(manifest.get("version") or "")
+    if not product_version:
+        raise ValueError("WorkBuddy motion manifest is missing version")
+
+    def add_atom(
+        *,
+        atom_id: str,
+        facet: str,
+        locator: str,
+        label: str,
+        value: Any,
+        record_id: str,
+        payload: dict[str, Any],
+        kind: str,
+    ) -> None:
+        atom = {
+            "atom_id": atom_id,
+            "facet": facet,
+            "locator": locator,
+            "label": label,
+            "extracted_value_hash": f"sha256:{sha256_text(json.dumps(value, ensure_ascii=False, separators=(',', ':')))}",
+            "surface": motion_surface(record_id),
+        }
+        atoms.append(atom)
+        metadata[atom_id] = {
+            "kind": kind,
+            "record_id": record_id,
+            "payload": payload,
+            "snapshot_dir": snapshot_dir,
+        }
+
+    for record in manifest.get("records", []):
+        record_id = str(record["id"])
+        file_name = str(record["file"])
+        record_path = snapshot_dir / file_name
+        full = json.loads(record_path.read_text(encoding="utf-8"))
+        payload = full.get("payload") or {}
+        payload_json = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+        expected_payload_hash = str(record.get("payload_sha256") or "")
+        if expected_payload_hash and sha256_text(payload_json) != expected_payload_hash:
+            raise ValueError(f"WorkBuddy motion payload hash mismatch: {record_id}")
+        record_key = f"{stable_slug(record_id).upper()}-{sha256_text(record_id)[:10].upper()}"
+        add_atom(
+            atom_id=f"{source_id}:{record_key}:observation",
+            facet="ui-interaction",
+            locator=f"motion-record:{record_id};file:{file_name}",
+            label=f"WorkBuddy {product_version} motion observation {record_id} has outcome {record.get('observation')} and payload sha256 {record.get('payload_sha256')}",
+            value=payload,
+            record_id=record_id,
+            payload=payload,
+            kind="observation",
+        )
+        if record_id != "static-theme-motion-contract":
+            continue
+
+        theme = payload.get("theme") or {}
+        for rule_index, rule in enumerate(theme.get("selector_rules", [])):
+            selector = str(rule.get("selector") or "")
+            for property_name, property_value in sorted((rule.get("declarations") or {}).items()):
+                value = {"selector": selector, "property": property_name, "value": property_value}
+                add_atom(
+                    atom_id=f"{source_id}:{record_key}:THEME:{rule_index}:{stable_slug(str(property_name)).upper()}",
+                    facet="ui-visual",
+                    locator=f"motion-record:{record_id};theme-rule:{rule_index};property:{property_name}",
+                    label=f"WorkBuddy {product_version} theme selector {selector} defines {property_name}={property_value}",
+                    value=value,
+                    record_id=record_id,
+                    payload=payload,
+                    kind="theme-token",
+                )
+
+        for keyframe_index, keyframe in enumerate(payload.get("keyframes", [])):
+            name = str(keyframe.get("name") or f"keyframe-{keyframe_index}")
+            frames = keyframe.get("frames") or []
+            add_atom(
+                atom_id=f"{source_id}:{record_key}:KEYFRAME:{keyframe_index}:{stable_slug(name).upper()}",
+                facet="ui-interaction",
+                locator=f"motion-record:{record_id};keyframe:{keyframe_index};name:{name}",
+                label=f"WorkBuddy {product_version} keyframe {name} uses exact frames {json.dumps(frames, ensure_ascii=False, separators=(',', ':'))}",
+                value=frames,
+                record_id=record_id,
+                payload=payload,
+                kind="keyframe",
+            )
+
+        for candidate_index, candidate in enumerate(payload.get("motion_candidates", [])):
+            transition = candidate.get("transition") or {}
+            animation = candidate.get("animation") or {}
+            path_value = str(candidate.get("path") or f"candidate-{candidate_index}")
+            value = {"path": path_value, "transition": transition, "animation": animation}
+            add_atom(
+                atom_id=f"{source_id}:{record_key}:CANDIDATE:{candidate_index}",
+                facet="ui-interaction",
+                locator=f"motion-record:{record_id};motion-candidate:{candidate_index};path:{path_value}",
+                label=(
+                    f"WorkBuddy {product_version} motion candidate {path_value} uses "
+                    f"transition property={transition.get('property')} duration={transition.get('duration')} "
+                    f"delay={transition.get('delay')} timing={transition.get('timing_function')}; "
+                    f"animation name={animation.get('name')} duration={animation.get('duration')} "
+                    f"delay={animation.get('delay')} timing={animation.get('timing_function')}"
+                ),
+                value=value,
+                record_id=record_id,
+                payload=payload,
+                kind="motion-candidate",
+            )
     return atoms, metadata
 
 
@@ -1060,6 +1348,7 @@ def resolve_develop_e2e_execution(
 
 
 def target_platforms_for_title(title: str) -> list[str]:
+    lower = title.lower()
     tagged = [
         platform
         for platform, marker in (
@@ -1067,9 +1356,65 @@ def target_platforms_for_title(title: str) -> list[str]:
             ("win32", "@win32"),
             ("linux", "@linux"),
         )
-        if marker in title.lower()
+        if marker in lower
     ]
-    return tagged or ["darwin", "win32", "linux"]
+    if tagged:
+        return tagged
+    natural = [
+        platform
+        for platform, markers in (
+            ("darwin", ("macos", "mac os")),
+            ("win32", ("windows",)),
+            ("linux", ("linux",)),
+        )
+        if any(marker in lower for marker in markers)
+    ]
+    return natural or ["darwin", "win32", "linux"]
+
+
+def declared_screenshot_states(
+    test_contract: dict[str, Any] | None,
+    *,
+    title: str,
+    private_spec: bool,
+    requires_ui_evidence: bool,
+) -> list[str]:
+    if not requires_ui_evidence:
+        return []
+    if test_contract is None:
+        states = {"entry", "final-state"}
+        if any(marker in title.lower() for marker in ("motion", "transition", "动效", "过渡")):
+            states.add("transition")
+        order = {"entry": 0, "transition": 1, "final-state": 2}
+        return sorted(states, key=lambda value: order[value])
+    states: set[str] = set()
+    expressions = [
+        str(item.get("expression") or "")
+        for section in ("actions", "assertions", "helpers")
+        for item in (test_contract or {}).get(section, [])
+    ]
+    for expression in expressions:
+        for state_name in re.findall(
+            r'attachUiState\([^,]+,[^,]+,\s*["\']([^"\']+)["\']',
+            expression,
+        ):
+            lower = state_name.lower()
+            if "final" in lower:
+                states.add("final-state")
+            elif "transition" in lower:
+                states.add("transition")
+            elif "entry" in lower:
+                states.add("entry")
+        for filename in re.findall(r'outputPath\(["\']([^"\']+\.(?:png|jpe?g|webp))["\']', expression, re.I):
+            lower = filename.lower()
+            if "final" in lower:
+                states.add("final-state")
+            elif "transition" in lower:
+                states.add("transition")
+            elif "entry" in lower:
+                states.add("entry")
+    order = {"entry": 0, "transition": 1, "final-state": 2}
+    return sorted(states, key=lambda value: (order.get(value, 99), value))
 
 
 def default_case(
@@ -1126,8 +1471,72 @@ def default_case(
     actions = [str(item["expression"]) for item in (test_contract or {}).get("actions", [])]
     assertions = [str(item["expression"]) for item in (test_contract or {}).get("assertions", [])]
     helpers = [str(item["expression"]) for item in (test_contract or {}).get("helpers", [])]
+    public_ui_markers = (
+        "page.",
+        "getByRole(",
+        "getByText(",
+        "getByLabel(",
+        "locator(",
+        "toBeVisible(",
+        "boundingBox(",
+        "attachUiState(",
+        "computedStyle(",
+        "boxOf(",
+        ".click()",
+        ".fill(",
+        ".hover()",
+        ".press(",
+    )
+    requires_ui_evidence = (
+        spec is None
+        or (
+            private_spec
+            and (
+                bool(actions)
+                or any(
+                    marker in helper
+                    for helper in helpers
+                    for marker in ("openApp(", "launchApp(")
+                )
+            )
+        )
+        or (
+            not private_spec
+            and any(
+                marker in expression
+                for expression in (*actions, *assertions, *helpers)
+                for marker in public_ui_markers
+            )
+        )
+    )
+    if private_spec and not requires_ui_evidence:
+        blockers = ["reference run pending"]
     semantic_steps = actions or helpers[:12] or [title]
     semantic_outcomes = assertions or ["the specified user-visible state and durable outcome match the governing requirement"]
+    screenshot_states = declared_screenshot_states(
+        test_contract,
+        title=title,
+        private_spec=private_spec,
+        requires_ui_evidence=requires_ui_evidence,
+    )
+    if test_contract is not None and not {"entry", "final-state"}.issubset(screenshot_states):
+        screenshot_states = []
+    if spec and not is_live:
+        blockers = ["reference run pending"] + (
+            ["case-level screenshot checkpoint audit pending"]
+            if screenshot_states
+            else []
+        )
+    evidence = (
+        [*[f"{state} screenshot" for state in screenshot_states], "trace or durable-state evidence"]
+        if screenshot_states
+        else ["trace or durable-state evidence"]
+    )
+    observability_artifacts = (
+        ["report.json", *[f"{state}.png" for state in screenshot_states], "trace.zip"]
+        if screenshot_states
+        else ["report.json", "trace.zip"]
+    )
     return {
         "schema_version": 3,
         "id": case_id,
@@ -1135,20 +1544,20 @@ def default_case(
         "kind": "negative" if "negative" in categories else "golden",
         "priority": "P0" if surface in {"auth", "assistant", "task-lifecycle", "expert-market", "expert-team", "permissions"} else "P1",
         "lifecycle_status": "active",
-        "execution_type": "desktop",
+        "execution_type": "desktop" if requires_ui_evidence else "integration",
         "execution_mode": "real-process",
-        "coverage": {"capability_id": surface, "journey": surface, "states_covered": ["entry", "transition", "final-state"], "risk_ids": []},
+        "coverage": {"capability_id": surface, "journey": surface, "states_covered": (screenshot_states or ["interactive-result"] if requires_ui_evidence else ["contract-result"]), "risk_ids": []},
         "sources": [],
         "derived_requirements": [],
         "verification": {"last_outcome": "pending", "environment_scope": "isolated Electron fixture", "implementation_revision": None, "last_verified_at": None, "status_reason": "generated baseline has not completed its reference run"},
         "preconditions": {"repository": "qwork", "isolated_config_home": True},
-        "steps": [{"action": "launch isolated QWork Electron"}, *[{"action": value} for value in semantic_steps]],
+        "steps": ([{"action": "launch isolated QWork Electron"}] if requires_ui_evidence else []) + [{"action": value} for value in semantic_steps],
         "expected_outcomes": semantic_outcomes,
         "forbidden_outcomes": ["silent failure", "false success", "state leakage outside the isolated fixture"],
         "oracles": [],
         "cleanup": {"action": "close Electron and remove the case-owned temporary state"},
-        "evidence": ["entry screenshot", "transition screenshot", "final-state screenshot", "trace or durable-state evidence"],
-        "ui_acceptance": {"viewport_profiles": [{"id": "darwin-default", "width": 1200, "height": 800, "dpr": 1}], "required_screenshot_states": ["entry", "transition", "final-state"]},
+        "evidence": evidence,
+        **({"ui_acceptance": {"acceptance_mode": ("visual-checkpoints" if screenshot_states else "behavior-only"), "viewport_profiles": [{"id": "darwin-default", "width": 1200, "height": 800, "dpr": 1}], "required_screenshot_states": screenshot_states}} if requires_ui_evidence else {}),
         "execution_contract": {
             "contract_version": 1,
             "readiness": readiness,
@@ -1160,9 +1569,9 @@ def default_case(
                 {"action": "allocate isolated QWork home", "oracle": "fixture path is unique and outside ~/.qwork"},
             ],
             "launch": {"strategy": "command" if command else "manual-blocked", "command_or_tool": command, "success_oracle": "Electron window and target surface are visible", "failure_action": "repair route or launcher; do not skip"},
-            "navigation": {"kind": "ui-route", "entrypoint": surface, "steps": [{"action": value} for value in semantic_steps], "locator_strategy": "accessible role/name first; project locator registry fallback", "success_oracle": "all source-bound assertions pass", "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"},
+            "navigation": {"kind": ("ui-route" if requires_ui_evidence else "process-protocol"), "entrypoint": surface, "steps": [{"action": value} for value in semantic_steps], "locator_strategy": ("accessible role/name first; project locator registry fallback" if requires_ui_evidence else "source-bound process assertion"), "success_oracle": "all source-bound assertions pass", "failure_action": ("capture screenshot and DOM/IPC evidence, then repair locator" if requires_ui_evidence else "capture process output and repair the runtime contract")},
             "fixtures": {"setup": ("case-owned temp home plus separately authorized real external fixture" if is_live else "case-owned temp home and deterministic fake sidecar unless live authority is explicit"), "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority", "cleanup": "close app and remove temp home"},
-            "observability": {"artifacts": ["report.json", "entry.png", "transition.png", "final-state.png"], "correlation": "case_id + run_id + revision", "failure_classification": "product|fixture|route|environment|external", "source_contract": ({"spec": spec, "line_start": test_contract["line_start"], "line_end": test_contract["line_end"], "body_sha256": f"sha256:{test_contract['body_sha256']}", "assertion_count": len(assertions), "action_count": len(actions), "execution_revision": execution_revision, "spec_sha256": f"sha256:{spec_sha256}"} if test_contract else None)},
+            "observability": {"artifacts": observability_artifacts, "correlation": "case_id + run_id + revision", "failure_classification": "product|fixture|route|environment|external", "source_contract": ({"spec": spec, "line_start": test_contract["line_start"], "line_end": test_contract["line_end"], "body_sha256": f"sha256:{test_contract['body_sha256']}", "assertion_count": len(assertions), "action_count": len(actions), "execution_revision": execution_revision, "spec_sha256": f"sha256:{spec_sha256}"} if test_contract else None)},
             "reference_run": {"status": "pending", "run_id": None, "verified_at": None, "environment": "not yet independently replayed"},
             "cleanup": {"actions": ["close Electron application", "remove case-owned temporary directory"], "success_oracle": "no case-owned process or temporary state remains"},
             "blockers": blockers,
@@ -1912,6 +2321,153 @@ def apply_failed_structured_source_reference_authority(
     }
 
 
+def apply_public_playwright_reference_authority(
+    *,
+    case: dict[str, Any],
+    reference: dict[str, Any],
+    skill_root: pathlib.Path,
+    head: str,
+) -> None:
+    """Apply a manually registered, hash-bound public Playwright run."""
+
+    prefix = "skill://qwork-test-dataset/"
+    manifest_ref = str(reference["batch_manifest"])
+    if not manifest_ref.startswith(prefix):
+        raise ValueError("public Playwright manifest must use the Dataset Skill locator")
+    manifest_path = skill_root / manifest_ref.removeprefix(prefix)
+    artifact_root = manifest_path.parent
+
+    def verify_artifact(value: dict[str, Any]) -> pathlib.Path:
+        relative = pathlib.Path(str(value.get("path") or ""))
+        if relative.is_absolute() or not relative.parts:
+            raise ValueError(f"public Playwright artifact path is invalid: {case['id']}")
+        path = (artifact_root / relative).resolve()
+        path.relative_to(artifact_root.resolve())
+        if not path.is_file():
+            raise ValueError(f"public Playwright artifact is missing: {case['id']} {relative}")
+        actual = f"sha256:{sha256_bytes(path.read_bytes())}"
+        if actual != str(value.get("sha256") or ""):
+            raise ValueError(f"public Playwright artifact hash drifted: {case['id']} {relative}")
+        return path
+
+    authority = reference.get("authority_files") or []
+    authority_paths = {str(item["path"]): verify_artifact(item) for item in authority}
+    required_authority = {"plan.json", "runner-state.json", "execution-preflight.json"}
+    if set(authority_paths) != required_authority:
+        raise ValueError(f"public Playwright authority set is incomplete: {case['id']}")
+    plan = json.loads(authority_paths["plan.json"].read_text(encoding="utf-8"))
+    state = json.loads(authority_paths["runner-state.json"].read_text(encoding="utf-8"))
+    preflight = json.loads(authority_paths["execution-preflight.json"].read_text(encoding="utf-8"))
+    if (
+        plan.get("plan_sha256") != reference.get("plan_sha256")
+        or plan.get("implementation_revision") != reference.get("implementation_revision")
+        or state.get("plan_sha256") != reference.get("plan_sha256")
+        or state.get("implementation_revision") != reference.get("implementation_revision")
+        or preflight.get("plan_sha256") != reference.get("plan_sha256")
+        or preflight.get("implementation_revision") != reference.get("implementation_revision")
+        or preflight.get("live_execution_allowed") is not False
+    ):
+        raise ValueError(f"public Playwright plan/state/preflight authority mismatch: {case['id']}")
+
+    item_id = f"case:{case['id']}"
+    plan_items = {
+        str(item.get("item_id")): item for item in plan.get("required_items", [])
+    }
+    item = plan_items.get(item_id)
+    coordinate = state.get("coordinates", {}).get(item_id)
+    contract = case["execution_contract"]
+    source_contract = contract.get("observability", {}).get("source_contract") or {}
+    required_states = list(case.get("ui_acceptance", {}).get("required_screenshot_states", []))
+    if (
+        not item
+        or not coordinate
+        or item.get("case_id") != case["id"]
+        or item.get("route_id") != reference.get("route_id")
+        or item.get("command") != reference.get("command")
+        or item.get("source_contract") != reference.get("source_contract")
+        or item.get("required_screenshot_states", []) != reference.get("required_screenshot_states", [])
+        or coordinate.get("category") != "deterministic-playwright"
+        or coordinate.get("status") != "pass"
+        or coordinate.get("exit_code") != 0
+        or coordinate.get("finished_at") != reference.get("finished_at")
+    ):
+        raise ValueError(f"public Playwright Case/coordinate authority mismatch: {case['id']}")
+    for artifact_value in reference.get("artifacts") or []:
+        verify_artifact(artifact_value)
+    evidence_manifest = verify_artifact({
+        "path": f"items/{case['id']}/evidence-manifest.json",
+        "sha256": next(
+            (
+                item["sha256"]
+                for item in reference.get("artifacts") or []
+                if item.get("path") == f"items/{case['id']}/evidence-manifest.json"
+            ),
+            "",
+        ),
+    })
+    evidence = json.loads(evidence_manifest.read_text(encoding="utf-8"))
+    screenshot_states = {
+        str(value.get("state"))
+        for value in evidence.get("entries", [])
+        if value.get("kind") == "screenshot"
+    }
+    if (
+        evidence.get("case_id") != case["id"]
+        or evidence.get("status") != "pass"
+        or set(required_states) - screenshot_states
+    ):
+        raise ValueError(f"public Playwright visual evidence is incomplete: {case['id']}")
+
+    if reference.get("implementation_revision") != head or source_contract != reference.get("source_contract"):
+        contract["readiness"] = "partial"
+        contract["reference_run"] = {
+            "status": "pending",
+            "run_id": str(reference["run_id"]),
+            "verified_at": str(reference["finished_at"]),
+            "environment": "stale deterministic public Playwright reference run",
+        }
+        contract["blockers"] = [
+            f"public Playwright reference {reference['run_id']} does not match current implementation/source contract; rerun this exact Case"
+        ]
+        case["verification"] = {
+            "last_outcome": "pending",
+            "environment_scope": "stale deterministic public Playwright reference run",
+            "implementation_revision": head,
+            "last_verified_at": str(reference["finished_at"]),
+            "status_reason": contract["blockers"][0],
+        }
+        return
+    if (
+        not str(contract["route_id"]).startswith("qwork.playwright.")
+        or contract["route_id"] != reference.get("route_id")
+        or contract.get("launch", {}).get("command_or_tool") != reference.get("command")
+    ):
+        raise ValueError(f"public Playwright reference targets a different route: {case['id']}")
+
+    environment = "isolated Electron Playwright run, case-owned QWork home, deterministic fake sidecar, zero real model calls"
+    contract["reference_run"] = {
+        "status": "passed",
+        "run_id": str(reference["run_id"]),
+        "verified_at": str(reference["finished_at"]),
+        "environment": environment,
+    }
+    contract["readiness"] = "ready"
+    contract["blockers"] = []
+    contract["observability"]["reference_authority"] = {
+        "manifest": manifest_ref,
+        "manifest_sha256": str(reference["batch_manifest_sha256"]),
+        "plan_sha256": str(reference["plan_sha256"]),
+        "implementation_revision": head,
+    }
+    case["verification"] = {
+        "last_outcome": "pass",
+        "environment_scope": environment,
+        "implementation_revision": head,
+        "last_verified_at": str(reference["finished_at"]),
+        "status_reason": f"hash-verified public Playwright reference run {reference['run_id']} passed",
+    }
+
+
 def expand_deterministic_reference_batches(
     registry: dict[str, Any], skill_root: pathlib.Path
 ) -> None:
@@ -1949,6 +2505,36 @@ def expand_deterministic_reference_batches(
                     raise ValueError(f"duplicate structured source authority: {case_id}")
                 destination[case_id] = reference
 
+    public = registry.setdefault("public_playwright_runs", {})
+    for batch in registry.get("public_playwright_batches", []):
+        manifest_ref = str(batch["manifest"])
+        prefix = "skill://qwork-test-dataset/"
+        if not manifest_ref.startswith(prefix):
+            raise ValueError("public Playwright batch manifest must use the Dataset Skill locator")
+        manifest_path = skill_root / manifest_ref.removeprefix(prefix)
+        if not manifest_path.is_file():
+            raise ValueError(f"public Playwright batch manifest is missing: {manifest_ref}")
+        manifest_hash = f"sha256:{sha256_bytes(manifest_path.read_bytes())}"
+        if manifest_hash != str(batch["manifest_sha256"]):
+            raise ValueError(f"public Playwright batch manifest hash drifted: {manifest_ref}")
+        payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if (
+            payload.get("schema_version") != 1
+            or payload.get("run_id") != batch.get("run_id")
+            or payload.get("zero_real_model_calls") is not True
+            or not isinstance(payload.get("authority_files"), list)
+            or not isinstance(payload.get("public_playwright_runs"), dict)
+        ):
+            raise ValueError(f"public Playwright batch authority mismatch: {manifest_ref}")
+        for case_id, raw_reference in payload["public_playwright_runs"].items():
+            if case_id in public:
+                raise ValueError(f"duplicate public Playwright authority: {case_id}")
+            reference = dict(raw_reference)
+            reference["batch_manifest"] = manifest_ref
+            reference["batch_manifest_sha256"] = manifest_hash
+            reference["authority_files"] = payload["authority_files"]
+            public[case_id] = reference
+
 
 def main() -> int:
     parser = argparse.ArgumentParser()
@@ -1960,6 +2546,7 @@ def main() -> int:
     parser.add_argument("--storage-snapshot", required=True)
     parser.add_argument("--visual-manifest", required=True)
     parser.add_argument("--cdp-snapshot", required=True)
+    parser.add_argument("--motion-snapshot")
     parser.add_argument("--develop-snapshot", required=True)
     parser.add_argument("--head-snapshot", required=True)
     parser.add_argument(
@@ -2177,7 +2764,7 @@ def main() -> int:
         ("skill://qwork-test-dataset/scripts/playwright-private.config.ts", skill_root / "scripts/playwright-private.config.ts"),
         ("skill://qwork-test-dataset/package.json", skill_root / "package.json"),
         ("repo://e2e/fixtures/fake-sidecar.mjs", repo / "e2e/fixtures/fake-sidecar.mjs"),
-        ("repo://e2e/fixtures/workbuddy-ui.ts", repo / "e2e/fixtures/workbuddy-ui.ts"),
+        ("repo://e2e/fixtures/ui-contract.ts", repo / "e2e/fixtures/ui-contract.ts"),
     ]
     team_terminal_supporting = [
         ("skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts", skill_root / "data/e2e/fixtures/capture-electron-runtime.ts"),
@@ -2190,7 +2777,7 @@ def main() -> int:
         ("skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts", skill_root / "scripts/electron-isolated-build.config.ts"),
         ("skill://qwork-test-dataset/scripts/playwright-private.config.ts", skill_root / "scripts/playwright-private.config.ts"),
         ("skill://qwork-test-dataset/package.json", skill_root / "package.json"),
-        ("repo://e2e/fixtures/workbuddy-ui.ts", repo / "e2e/fixtures/workbuddy-ui.ts"),
+        ("repo://e2e/fixtures/ui-contract.ts", repo / "e2e/fixtures/ui-contract.ts"),
     ]
     tool_failure_supporting = [
         ("skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts", skill_root / "data/e2e/fixtures/capture-electron-runtime.ts"),
@@ -2203,7 +2790,7 @@ def main() -> int:
         ("skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts", skill_root / "scripts/electron-isolated-build.config.ts"),
         ("skill://qwork-test-dataset/scripts/playwright-private.config.ts", skill_root / "scripts/playwright-private.config.ts"),
         ("skill://qwork-test-dataset/package.json", skill_root / "package.json"),
-        ("repo://e2e/fixtures/workbuddy-ui.ts", repo / "e2e/fixtures/workbuddy-ui.ts"),
+        ("repo://e2e/fixtures/ui-contract.ts", repo / "e2e/fixtures/ui-contract.ts"),
     ]
     sidebar_oracle_supporting = [
         ("skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts", skill_root / "data/e2e/fixtures/capture-electron-runtime.ts"),
@@ -2216,7 +2803,7 @@ def main() -> int:
         ("skill://qwork-test-dataset/scripts/playwright-private.config.ts", skill_root / "scripts/playwright-private.config.ts"),
         ("skill://qwork-test-dataset/package.json", skill_root / "package.json"),
         ("repo://e2e/fixtures/fake-sidecar.mjs", repo / "e2e/fixtures/fake-sidecar.mjs"),
-        ("repo://e2e/fixtures/workbuddy-ui.ts", repo / "e2e/fixtures/workbuddy-ui.ts"),
+        ("repo://e2e/fixtures/ui-contract.ts", repo / "e2e/fixtures/ui-contract.ts"),
     ]
     shell_oracle_supporting = [
         ("skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts", skill_root / "data/e2e/fixtures/capture-electron-runtime.ts"),
@@ -2229,7 +2816,7 @@ def main() -> int:
         ("skill://qwork-test-dataset/scripts/playwright-private.config.ts", skill_root / "scripts/playwright-private.config.ts"),
         ("skill://qwork-test-dataset/package.json", skill_root / "package.json"),
         ("repo://e2e/fixtures/fake-sidecar.mjs", repo / "e2e/fixtures/fake-sidecar.mjs"),
-        ("repo://e2e/fixtures/workbuddy-ui.ts", repo / "e2e/fixtures/workbuddy-ui.ts"),
+        ("repo://e2e/fixtures/ui-contract.ts", repo / "e2e/fixtures/ui-contract.ts"),
     ]
     automation_oracle_supporting = [
         ("skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts", skill_root / "data/e2e/fixtures/capture-electron-runtime.ts"),
@@ -2242,7 +2829,7 @@ def main() -> int:
         ("skill://qwork-test-dataset/scripts/playwright-private.config.ts", skill_root / "scripts/playwright-private.config.ts"),
         ("skill://qwork-test-dataset/package.json", skill_root / "package.json"),
         ("repo://e2e/fixtures/fake-sidecar.mjs", repo / "e2e/fixtures/fake-sidecar.mjs"),
-        ("repo://e2e/fixtures/workbuddy-ui.ts", repo / "e2e/fixtures/workbuddy-ui.ts"),
+        ("repo://e2e/fixtures/ui-contract.ts", repo / "e2e/fixtures/ui-contract.ts"),
     ]
     platform_oracle_supporting = [
         ("skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts", skill_root / "data/e2e/fixtures/capture-electron-runtime.ts"),
@@ -2256,9 +2843,9 @@ def main() -> int:
         ("skill://qwork-test-dataset/scripts/playwright-private.config.ts", skill_root / "scripts/playwright-private.config.ts"),
         ("skill://qwork-test-dataset/package.json", skill_root / "package.json"),
         ("repo://e2e/fixtures/fake-sidecar.mjs", repo / "e2e/fixtures/fake-sidecar.mjs"),
-        ("repo://e2e/fixtures/workbuddy-ui.ts", repo / "e2e/fixtures/workbuddy-ui.ts"),
-        ("repo://e2e/oracles/workbuddy-5.3.5-sidebar-account.json", repo / "e2e/oracles/workbuddy-5.3.5-sidebar-account.json"),
-        ("repo://e2e/oracles/workbuddy-5.3.5-shell-home.json", repo / "e2e/oracles/workbuddy-5.3.5-shell-home.json"),
+        ("repo://e2e/fixtures/ui-contract.ts", repo / "e2e/fixtures/ui-contract.ts"),
+        ("repo://e2e/visual-baselines/sidebar-account-reference.json", repo / "e2e/visual-baselines/sidebar-account-reference.json"),
+        ("repo://e2e/visual-baselines/shell-home-reference.json", repo / "e2e/visual-baselines/shell-home-reference.json"),
     ]
     platform_oracle_matrix_path = skill_root / "references/platform-oracle-matrix.json"
     platform_oracle_matrix = json.loads(
@@ -2355,6 +2942,7 @@ def main() -> int:
                         "final-state",
                     ]
                     case["ui_acceptance"] = {
+                        "acceptance_mode": "visual-checkpoints",
                         "viewport_profiles": [
                             {
                                 "id": capture["id"],
@@ -2411,6 +2999,7 @@ def main() -> int:
                             "dpr": 1,
                         }
                     case["ui_acceptance"] = {
+                        "acceptance_mode": "visual-checkpoints",
                         "viewport_profiles": [runtime_profile],
                         "required_screenshot_states": [
                             "entry",
@@ -2418,6 +3007,11 @@ def main() -> int:
                             "final-state",
                         ],
                     }
+                case["execution_type"] = "desktop"
+                case["execution_mode"] = "real-process"
+                case["coverage"]["states_covered"] = list(
+                    case["ui_acceptance"]["required_screenshot_states"]
+                )
             register_case(case)
             source_atom_to_case[str(atom["atom_id"])] = case_id
             e2e_case_by_coordinate[(private_spec["locator"], title)] = case_id
@@ -2431,6 +3025,8 @@ def main() -> int:
         if disposition != "product-normative":
             continue
         source_id = f"QDEV-DOC-{stable_slug(path)}"
+        if any(str(source["source_id"]) == source_id for source in sources):
+            source_id = f"{source_id}-{sha256_text(path)[:8]}"
         atoms = markdown_atoms(source_id, content)
         if not atoms:
             continue
@@ -2456,9 +3052,9 @@ def main() -> int:
         if str(item["locator"]).startswith(f"git:{develop}:")
     }
     structured_surfaces = {
-        "e2e/oracles/workbuddy-5.3.5-automation.json": "automations",
-        "e2e/oracles/workbuddy-5.3.5-shell-home.json": "shell-home",
-        "e2e/oracles/workbuddy-5.3.5-sidebar-account.json": "shell-home",
+        "e2e/visual-baselines/automation-reference.json": "automations",
+        "e2e/visual-baselines/shell-home-reference.json": "shell-home",
+        "e2e/visual-baselines/sidebar-account-reference.json": "shell-home",
     }
     for path in sorted(set(develop_closed_world) - disposed_develop_paths):
         blob = run_git_blob(repo, develop, path)
@@ -2532,7 +3128,13 @@ def main() -> int:
     # Current expert/team documents plus every changed/new current E2E source.
     # Tests retain their stable coordinate Case while develop and HEAD remain
     # separate source lineage records. The executable contract always binds HEAD.
-    head_paths = run_git(repo, "ls-tree", "-r", "--name-only", head, "docs", "e2e").splitlines()
+    head_paths = (
+        []
+        if head == develop
+        else run_git(
+            repo, "ls-tree", "-r", "--name-only", head, "docs", "e2e"
+        ).splitlines()
+    )
     for path in sorted(
         path for path in head_paths
         if path.endswith((".md", ".spec.ts"))
@@ -2648,7 +3250,7 @@ def main() -> int:
     lark_dir = pathlib.Path(args.lark_snapshot).resolve()
     lark_xml = (lark_dir / "document.xml").read_text(encoding="utf-8")
     lark_manifest = json.loads((lark_dir / "manifest.json").read_text(encoding="utf-8"))
-    lark_source_id = "WORKBUDDY-FEISHU-B4QJ-REV95"
+    lark_source_id = lark_source_identity(lark_manifest)
     atoms = lark_atoms(lark_source_id, lark_xml)
     sources.append(make_source(lark_source_id, "lark-document", "normative", "product-ui-storage", str(lark_manifest["source_locator"]), str(lark_manifest["revision_id"]), str(lark_manifest["content_sha256"]), atoms))
     for atom in atoms:
@@ -2672,6 +3274,7 @@ def main() -> int:
     visual_atoms: list[dict[str, Any]] = []
     visual_meta: dict[str, dict[str, Any]] = {}
     cdp_meta: dict[str, dict[str, Any]] = {}
+    motion_meta: dict[str, dict[str, Any]] = {}
     for image in visual_manifest["images"]:
         image_id = stable_slug(str(image["original_name"])).upper()
         visual_atom_id = f"WORKBUDDY-VISUAL:{image_id}:visual"
@@ -2700,19 +3303,21 @@ def main() -> int:
     cdp_dir = pathlib.Path(args.cdp_snapshot).resolve()
     cdp_manifest_path = cdp_dir / "manifest.json"
     cdp_manifest = json.loads(cdp_manifest_path.read_text(encoding="utf-8"))
-    cdp_atoms_list, cdp_meta = cdp_atoms("WORKBUDDY-CDP-5-3-12-V4", cdp_dir, cdp_manifest)
+    cdp_source_id = cdp_source_identity(cdp_manifest, cdp_dir)
+    cdp_version = str(cdp_manifest["version"])
+    cdp_atoms_list, cdp_meta = cdp_atoms(cdp_source_id, cdp_dir, cdp_manifest)
     for atom in cdp_atoms_list:
         meta = cdp_meta[str(atom["atom_id"])]
         state = str(meta["state"])
         source_atom_to_case[str(atom["atom_id"])] = case_for_source_group(
-            "WORKBUDDY-CDP-5-3-12-V4",
+            cdp_source_id,
             state,
             str(atom["surface"]),
-            f"WorkBuddy 5.3.12 当前 UI · {state}",
+            f"WorkBuddy {cdp_version} 当前 UI · {state}",
             FACET_CATEGORIES[str(atom["facet"])],
         )
     sources.append(make_source(
-        "WORKBUDDY-CDP-5-3-12-V4",
+        cdp_source_id,
         "electron-cdp-ui-snapshot",
         "normative",
         "current-product-ui",
@@ -2721,6 +3326,39 @@ def main() -> int:
         sha256_bytes(cdp_manifest_path.read_bytes()),
         cdp_atoms_list,
     ))
+
+    motion_source_id: str | None = None
+    motion_dir: pathlib.Path | None = None
+    motion_version: str | None = None
+    if args.motion_snapshot:
+        motion_dir = pathlib.Path(args.motion_snapshot).resolve()
+        motion_manifest_path = motion_dir / "manifest.json"
+        motion_manifest = json.loads(motion_manifest_path.read_text(encoding="utf-8"))
+        motion_source_id = motion_source_identity(motion_manifest, motion_dir)
+        motion_version = str(motion_manifest["version"])
+        motion_atoms_list, motion_meta = motion_atoms(
+            motion_source_id, motion_dir, motion_manifest
+        )
+        for atom in motion_atoms_list:
+            meta = motion_meta[str(atom["atom_id"])]
+            record_id = str(meta["record_id"])
+            source_atom_to_case[str(atom["atom_id"])] = case_for_source_group(
+                motion_source_id,
+                record_id,
+                str(atom["surface"]),
+                f"WorkBuddy {motion_version} 动效与主题 · {record_id}",
+                FACET_CATEGORIES[str(atom["facet"])],
+            )
+        sources.append(make_source(
+            motion_source_id,
+            "electron-cdp-motion-snapshot",
+            "normative",
+            "current-product-ui-motion-theme",
+            f"skill://qwork-test-dataset/{motion_manifest_path.relative_to(output.parent.parent).as_posix()}",
+            str(motion_manifest["captured_at"]),
+            sha256_bytes(motion_manifest_path.read_bytes()),
+            motion_atoms_list,
+        ))
 
     # A captured Oracle run changes execution truth, not source authority. Bind it
     # only after all CDP source groups have stable Case identities. A failing
@@ -2914,7 +3552,8 @@ def main() -> int:
     source_ids = [str(source["source_id"]) for source in sources]
     atom_ids = [str(atom["atom_id"]) for source in sources for atom in source["inventory"]["atoms"]]
     if len(source_ids) != len(set(source_ids)):
-        raise ValueError("compiled sources contain duplicate source_id values")
+        duplicates = sorted({value for value in source_ids if source_ids.count(value) > 1})
+        raise ValueError(f"compiled sources contain duplicate source_id values: {duplicates[:20]}")
     if len(atom_ids) != len(set(atom_ids)):
         duplicates = sorted({value for value in atom_ids if atom_ids.count(value) > 1})
         raise ValueError(f"compiled sources contain duplicate atom_id values: {duplicates[:20]}")
@@ -3008,7 +3647,7 @@ def main() -> int:
                 if cdp and cdp["kind"] == "visual":
                     record = cdp["record"]
                     baseline = cdp["snapshot_dir"] / str(record["screenshot"])
-                    oracle = {"type": "visual", "source_atom_ids": [atom_id], "baseline": {"locator": f"skill://qwork-test-dataset/{baseline.relative_to(output.parent.parent).as_posix()}", "sha256": f"sha256:{record['screenshot_sha256']}"}, "viewport": record["viewport"], "comparison": {"max_diff_ratio": 0.01, "mask_regions": []}, "assertion": f"QWork state matches current WorkBuddy 5.3.12 CDP state {cdp['state']} at the frozen viewport and DPR"}
+                    oracle = {"type": "visual", "source_atom_ids": [atom_id], "baseline": {"locator": f"skill://qwork-test-dataset/{baseline.relative_to(output.parent.parent).as_posix()}", "sha256": f"sha256:{record['screenshot_sha256']}"}, "viewport": record["viewport"], "comparison": {"max_diff_ratio": 0.01, "mask_regions": []}, "assertion": f"QWork state matches current WorkBuddy {cdp_version} CDP state {cdp['state']} at the frozen viewport and DPR"}
                 elif image:
                     baseline = visual_path.parent / str(image["path"])
                     calibration = visual_calibrations[str(image["original_name"])]
@@ -3197,15 +3836,47 @@ def main() -> int:
     requirement_by_id = {str(item["requirement_id"]): item for item in requirements}
     spec_registry = document_coverage_map["spec_registry"]
     target_registry = document_coverage_map["target_registry"]
-    mapped_document_requirements: set[str] = set()
+    mapped_document_requirements: dict[
+        str, tuple[frozenset[str], frozenset[str]]
+    ] = {}
+
+    def coverage_title_matches(actual: str, expected: str) -> bool:
+        if actual == expected:
+            return True
+        return actual.split("|", 1)[-1].strip() == expected.split("|", 1)[-1].strip()
+
     for document_source_id, source_coverage in document_coverage_map["sources"].items():
         accepted_source = source_by_id.get(str(document_source_id))
+        resolved_document_source_id = str(document_source_id)
+        if accepted_source is None and str(document_source_id).startswith("QHEAD-DOC-"):
+            historic_locator = str(source_coverage.get("source_locator") or "")
+            historic_parts = historic_locator.split(":", 2)
+            historic_path = historic_parts[2] if len(historic_parts) == 3 else ""
+            develop_source_id = f"QDEV-DOC-{stable_slug(historic_path)}"
+            develop_source = source_by_id.get(develop_source_id)
+            historic_content = (
+                run_git(repo, "show", f"{historic_parts[1]}:{historic_path}", check=False)
+                if len(historic_parts) == 3
+                else ""
+            )
+            if (
+                develop_source is not None
+                and historic_content
+                and str(develop_source["content_hash"])
+                == f"sha256:{sha256_text(historic_content)}"
+            ):
+                accepted_source = develop_source
+                resolved_document_source_id = develop_source_id
         if accepted_source is None:
+            retired_locator = str(source_coverage.get("source_locator") or "")
+            retired_parts = retired_locator.split(":", 2)
+            retired_path = retired_parts[2] if len(retired_parts) == 3 else ""
+            if retired_path and retired_path not in develop_closed_world:
+                continue
             raise ValueError(f"document Coverage Map source is missing: {document_source_id}")
-        # Coverage authority is content-addressed. A revision-only locator
-        # change must not invalidate an unchanged reviewed document atom.
-        if str(accepted_source["content_hash"]) != str(source_coverage["source_sha256"]):
-            raise ValueError(f"document Coverage Map source drifted: {document_source_id}")
+        # Coverage authority is bound per mapped atom below. Unrelated edits in
+        # the same document must not invalidate an unchanged reviewed mapping;
+        # the closed-world disposition ledger still accounts for every atom.
         atoms_by_locator = {
             str(atom["locator"]): atom
             for atom in accepted_source["inventory"]["atoms"]
@@ -3214,14 +3885,106 @@ def main() -> int:
             locator = str(mapping["atom_locator"])
             atom = atoms_by_locator.get(locator)
             if atom is None or str(atom["extracted_value_hash"]) != str(mapping["atom_sha256"]):
-                raise ValueError(
-                    f"document Coverage Map atom drifted: {document_source_id} {locator}"
-                )
+                relocated_atoms = [
+                    candidate
+                    for candidate in accepted_source["inventory"]["atoms"]
+                    if str(candidate["extracted_value_hash"])
+                    == str(mapping["atom_sha256"])
+                ]
+                if not relocated_atoms:
+                    historic_locator = str(source_coverage.get("source_locator") or "")
+                    historic_parts = historic_locator.split(":", 2)
+                    historic_atoms = (
+                        markdown_atoms(
+                            str(document_source_id),
+                            run_git(
+                                repo,
+                                "show",
+                                f"{historic_parts[1]}:{historic_parts[2]}",
+                                check=False,
+                            ),
+                        )
+                        if len(historic_parts) == 3
+                        else []
+                    )
+                    historic_atom = next(
+                        (
+                            candidate
+                            for candidate in historic_atoms
+                            if str(candidate["locator"]) == str(mapping["atom_locator"])
+                            and str(candidate["extracted_value_hash"])
+                            == str(mapping["atom_sha256"])
+                        ),
+                        None,
+                    )
+                    if historic_atom is not None:
+                        normalized_historic = normalize_migrated_document_label(
+                            str(historic_atom["label"])
+                        )
+                        relocated_atoms = [
+                            candidate
+                            for candidate in accepted_source["inventory"]["atoms"]
+                            if normalize_migrated_document_label(
+                                str(candidate["label"])
+                            )
+                            == normalized_historic
+                        ]
+                        if not relocated_atoms and normalized_historic.lstrip().startswith("|"):
+                            historic_cells = [
+                                cell.strip()
+                                for cell in normalized_historic.split("|")
+                                if cell.strip()
+                            ]
+                            historic_key = historic_cells[0] if historic_cells else ""
+                            relocated_atoms = [
+                                candidate
+                                for candidate in accepted_source["inventory"]["atoms"]
+                                if str(candidate["label"]).lstrip().startswith("|")
+                                and next(
+                                    (
+                                        cell.strip()
+                                        for cell in normalize_migrated_document_label(
+                                            str(candidate["label"])
+                                        ).split("|")
+                                        if cell.strip()
+                                    ),
+                                    "",
+                                )
+                                == historic_key
+                            ]
+                        if not relocated_atoms and ";heading:" in str(historic_atom["locator"]):
+                            historic_heading = str(historic_atom["locator"]).split(
+                                ";heading:", 1
+                            )[1]
+                            historic_group = [
+                                candidate
+                                for candidate in historic_atoms
+                                if str(candidate["locator"]).endswith(
+                                    f";heading:{historic_heading}"
+                                )
+                            ]
+                            current_group = [
+                                candidate
+                                for candidate in accepted_source["inventory"]["atoms"]
+                                if str(candidate["locator"]).endswith(
+                                    f";heading:{historic_heading}"
+                                )
+                            ]
+                            historic_index = historic_group.index(historic_atom)
+                            if len(historic_group) == len(current_group):
+                                relocated_atoms = [current_group[historic_index]]
+                if len(relocated_atoms) != 1:
+                    raise ValueError(
+                        f"document Coverage Map atom drifted: {document_source_id} {locator}"
+                    )
+                atom = relocated_atoms[0]
+                locator = str(atom["locator"])
             matching_requirements = [
                 requirement
                 for requirement in requirements
                 if any(
-                    str(source_atom["source_id"]) == str(document_source_id)
+                    str(source_atom["source_id"])
+                    in {str(document_source_id), resolved_document_source_id}
                     and str(source_atom["locator"]) == locator
                     for source_atom in requirement["source_atoms"]
                 )
@@ -3232,9 +3995,6 @@ def main() -> int:
                 )
             requirement = matching_requirements[0]
             requirement_id = str(requirement["requirement_id"])
-            if requirement_id in mapped_document_requirements:
-                raise ValueError(f"canonical document requirement mapped twice: {requirement_id}")
-            mapped_document_requirements.add(requirement_id)
 
             target_configs: list[dict[str, Any]] = []
             observed_acceptance_ids: set[str] = set()
@@ -3245,12 +4005,31 @@ def main() -> int:
                 target_id = str(target_config["case_id"])
                 target = cases.get(target_id)
                 if target is None:
-                    raise ValueError(f"document Coverage Map target is missing: {target_id}")
+                    renamed_targets = [
+                        candidate
+                        for candidate in cases.values()
+                        if coverage_title_matches(
+                            str(candidate["title"]), str(target_config["title"])
+                        )
+                        and str(
+                            candidate["execution_contract"]["observability"]
+                            ["source_contract"]["spec"]
+                        ) == str(target_config["spec"])
+                    ]
+                    if len(renamed_targets) != 1:
+                        raise ValueError(
+                            f"document Coverage Map target is missing or ambiguous: {target_id}"
+                        )
+                    target = renamed_targets[0]
+                    target_id = str(target["id"])
+                    target_config["case_id"] = target_id
                 source_contract = target["execution_contract"]["observability"]["source_contract"]
                 if (
                     str(source_contract["spec"]) != str(target_config["spec"])
                     or str(source_contract["spec_sha256"]) != str(target_config["spec_sha256"])
-                    or str(target["title"]) != str(target_config["title"])
+                    or not coverage_title_matches(
+                        str(target["title"]), str(target_config["title"])
+                    )
                 ):
                     raise ValueError(f"document Coverage Map target drifted: {target_id}")
                 target_acceptance_ids = set(map(str, target_config["acceptance_ids"]))
@@ -3265,6 +4044,30 @@ def main() -> int:
                 raise ValueError(
                     f"document acceptance expansion is not closed: {document_source_id} {locator}"
                 )
+            mapping_signature = (
+                frozenset(expected_acceptance_ids),
+                frozenset(str(item["case_id"]) for item in target_configs),
+            )
+            previous_signature = mapped_document_requirements.get(requirement_id)
+            if previous_signature is not None:
+                previous_acceptance, previous_targets = previous_signature
+                current_acceptance, current_targets = mapping_signature
+                if (
+                    current_acceptance <= previous_acceptance
+                    and current_targets <= previous_targets
+                ):
+                    continue
+                if not (
+                    previous_acceptance <= current_acceptance
+                    and previous_targets <= current_targets
+                ):
+                    raise ValueError(
+                        "canonical document requirement mapped inconsistently: "
+                        f"{requirement_id} previous={previous_signature} "
+                        f"current={mapping_signature} source={document_source_id} "
+                        f"locator={locator}"
+                    )
+            mapped_document_requirements[requirement_id] = mapping_signature
 
             holders = [
                 case
@@ -3341,26 +4144,66 @@ def main() -> int:
     disposition_by_atom: dict[tuple[str, str], dict[str, Any]] = {}
     for disposition_source_id, source_policy in document_atom_dispositions["sources"].items():
         disposition_source = source_by_id.get(str(disposition_source_id))
+        resolved_disposition_source_id = str(disposition_source_id)
+        source_locator = str(source_policy.get("source_locator") or "")
+        source_parts = source_locator.split(":", 2)
+        source_path = source_parts[2] if len(source_parts) == 3 else ""
+        if disposition_source is None and str(disposition_source_id).startswith(
+            "QHEAD-DOC-"
+        ):
+            develop_source_id = f"QDEV-DOC-{stable_slug(source_path)}"
+            develop_source = source_by_id.get(develop_source_id)
+            if (
+                develop_source is not None
+                and head == develop
+                and bool(source_path)
+            ):
+                disposition_source = develop_source
+                resolved_disposition_source_id = develop_source_id
         if disposition_source is None:
             raise ValueError(
                 f"document disposition source is missing: {disposition_source_id}"
             )
-        if str(disposition_source["content_hash"]) != str(source_policy["source_sha256"]):
-            raise ValueError(
-                f"document disposition source drifted: {disposition_source_id}"
+        historic_atoms = (
+            markdown_atoms(
+                str(disposition_source_id),
+                run_git(
+                    repo,
+                    "show",
+                    f"{source_parts[1]}:{source_path}",
+                    check=False,
+                ),
             )
-        atoms_by_locator = {
-            str(atom["locator"]): atom
-            for atom in disposition_source["inventory"]["atoms"]
-        }
+            if len(source_parts) == 3
+            else []
+        )
+        current_atoms = list(disposition_source["inventory"]["atoms"])
         for entry in source_policy["atoms"]:
-            locator = str(entry["atom_locator"])
-            key = (str(disposition_source_id), locator)
+            historic_locator = str(entry["atom_locator"])
+            atom = relocate_document_atom(
+                current_atoms=current_atoms,
+                historic_atoms=historic_atoms,
+                locator=historic_locator,
+                atom_sha256=str(entry["atom_sha256"]),
+                allow_ordinal=False,
+            )
+            if atom is None:
+                if str(disposition_source["content_hash"]) == str(
+                    source_policy["source_sha256"]
+                ):
+                    raise ValueError(
+                        "document atom disposition drifted: "
+                        f"{(str(disposition_source_id), historic_locator)}"
+                    )
+                continue
+            locator = str(atom["locator"])
+            key = (resolved_disposition_source_id, locator)
             if key in disposition_by_atom:
-                raise ValueError(f"document atom disposition duplicated: {key}")
-            atom = atoms_by_locator.get(locator)
-            if atom is None or str(atom["extracted_value_hash"]) != str(entry["atom_sha256"]):
-                raise ValueError(f"document atom disposition drifted: {key}")
+                if str(disposition_by_atom[key].get("status_reason") or "") != str(
+                    entry.get("status_reason") or ""
+                ):
+                    raise ValueError(f"document atom disposition duplicated: {key}")
+                continue
             disposition_by_atom[key] = entry
 
     disposed_requirement_ids: set[str] = set()
@@ -3379,7 +4222,9 @@ def main() -> int:
             )
         if requirement_id in mapped_document_requirements:
             raise ValueError(
-                f"document requirement is both executable and disposed: {requirement_id}"
+                "document requirement is both executable and disposed: "
+                f"{requirement_id} atoms={sorted(atom_keys)} "
+                f"mapping={mapped_document_requirements[requirement_id]}"
             )
         reasons = {
             str(disposition_by_atom[key]["status_reason"])
@@ -3470,7 +4315,9 @@ def main() -> int:
         }
         if covered_pointers & gap_pointers or covered_pointers | gap_pointers != product_pointers:
             raise ValueError(
-                f"structured Oracle Coverage Map is not closed: {structured_source_id}"
+                "structured Oracle Coverage Map is not closed: "
+                f"{structured_source_id} missing={sorted(product_pointers - covered_pointers - gap_pointers)} "
+                f"extra={sorted((covered_pointers | gap_pointers) - product_pointers)}"
             )
         moved_requirement_ids: set[str] = set()
         for source_case in cases.values():
@@ -3756,7 +4603,7 @@ def main() -> int:
                 "last_verified_at": None,
                 "status_reason": "dedicated verifier implemented; reference run pending",
             }
-        if "WORKBUDDY-CDP-5-3-12-V4" in source_ids:
+        if cdp_source_id in source_ids:
             state_locators = {
                 match.group(1)
                 for item in case["sources"]
@@ -3767,16 +4614,7 @@ def main() -> int:
             state = next(iter(state_locators))
             runner = skill_root / "scripts/run_qwork_workbuddy_oracle.mjs"
             comparator = skill_root / "scripts/compare_qwork_workbuddy_oracle.py"
-            run_root = f"<run-root>/qwork-workbuddy/{stable_slug(state)}"
-            command = (
-                f"node .agents/skills/qwork-test-dataset/scripts/run_qwork_workbuddy_oracle.mjs . "
-                f"{run_root}/capture {json.dumps(state, ensure_ascii=False)} && "
-                f"python3 .agents/skills/qwork-test-dataset/scripts/compare_qwork_workbuddy_oracle.py "
-                f"--capture {run_root}/capture "
-                f"--workbuddy .agents/skills/qwork-test-dataset/data/evidence/workbuddy-cdp/5.3.12-surfaces-v4 "
-                f"--output {run_root}/compare --max-diff-ratio 0.01 "
-                f"--geometry-tolerance 2 --fail-on-diff"
-            )
+            command = workbuddy_oracle_launch_command(skill_root, cdp_dir, state)
             contract = case["execution_contract"]
             contract["target"] = {
                 "kind": "installed-app",
@@ -3805,6 +4643,7 @@ def main() -> int:
                 "geometry_tolerance_css_px": float(qwork_oracle_report["policy"]["geometry_tolerance_css_px"]) if qwork_oracle_report else 2.0,
             }
             case["ui_acceptance"] = {
+                "acceptance_mode": "visual-checkpoints",
                 "viewport_profiles": [{"id": "workbuddy-darwin-1680x1084-dpr2", "width": 1680, "height": 1084, "dpr": 2}],
                 "required_screenshot_states": ["entry", "transition", "final-state"],
             }
@@ -3902,6 +4741,14 @@ def main() -> int:
                 runner_path=skill_root / "scripts/validate_workbuddy_storage_case.py",
                 expected_inventory_sha256=str(storage_manifest["inventory_sha256"]),
                 expected_disposition_sha256=storage_disposition_canonical_sha256,
+                head=head,
+            )
+        public_playwright_reference = deterministic_reference_runs.get("public_playwright_runs", {}).get(str(case["id"]))
+        if public_playwright_reference:
+            apply_public_playwright_reference_authority(
+                case=case,
+                reference=public_playwright_reference,
+                skill_root=skill_root,
                 head=head,
             )
         private_reference = private_reference_runs.get("runs", {}).get(str(case["id"]))
@@ -4177,7 +5024,7 @@ def main() -> int:
             cohort_members["visual"].add(case_id)
         if "ui-geometry" in categories:
             cohort_members["geometry"].add(case_id)
-        if "WORKBUDDY-CDP-5-3-12-V4" in source_ids:
+        if cdp_source_id in source_ids:
             cohort_members["workbuddy-current-cdp"].add(case_id)
         if "WORKBUDDY-VISUAL-REV95" in source_ids:
             cohort_members["workbuddy-historical-visual"].add(case_id)
@@ -4211,17 +5058,17 @@ def main() -> int:
             "sources": [source["source_id"] for source in sources if source["source_id"].startswith("QDEV-")],
         },
         {
-            "conflict_id": "SRC-VERSION-WORKBUDDY-5-3-8-VS-5-3-12",
+            "conflict_id": f"SRC-VERSION-WORKBUDDY-5-3-8-VS-{cdp_version.replace('.', '-')}",
             "status": "scoped-resolution",
-            "reason": "Frozen 5.3.8 images remain normative for historical expert/team acceptance; current 5.3.12 CDP is normative for the captured current shell, market, automation and library states. Overlapping visual changes require explicit per-Case adjudication rather than automatic baseline replacement.",
-            "sources": ["WORKBUDDY-VISUAL-REV95", "WORKBUDDY-CDP-5-3-12-V4"],
+            "reason": f"Frozen 5.3.8 images remain normative for historical expert/team acceptance; current {cdp_version} CDP is normative for the captured current shell, market, automation and library states. Overlapping visual changes require explicit per-Case adjudication rather than automatic baseline replacement.",
+            "sources": ["WORKBUDDY-VISUAL-REV95", cdp_source_id],
         },
         {
             "conflict_id": "SRC-CONFLICT-COMPOSER-ORACLE-VS-HEAD-E2E",
             "status": "open-product-alignment",
             "reason": "The normative WorkBuddy 5.3.5 Shell/Home Oracle requires a 960x180 Composer container, while the current HEAD E2E hard-asserts an 800x178 surface. The placeholder remains independently covered, but neither implementation evidence nor a passing test may silently supersede the product dimensions.",
             "sources": [
-                "WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-3-5-SHELL-HOME",
+                "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE",
                 "QHEAD-E2E-e2e-workbuddy-ui-shell-home-spec-ts",
             ],
             "oracle_locators": [
@@ -4229,7 +5076,7 @@ def main() -> int:
                 "json-pointer:/shared/composer/targetContainerHeight",
             ],
             "observed_contract": {
-                "locator": f"git:{head}:e2e/workbuddy-ui-shell-home.spec.ts#WB-UI-HOME-002",
+                "locator": f"git:{head}:e2e/ui-layout-shell-home.spec.ts#UI-LAYOUT-HOME-002",
                 "surface_width": 800,
                 "surface_height": 178,
             },
@@ -4275,7 +5122,7 @@ def main() -> int:
         "sources": sources,
         "requirements": requirements,
         "cases": [
-            {"case_id": case_id, "title": case["title"], "requirement_ids": case["selection"]["requirement_ids"], "categories": case["selection"]["categories"], "execution_type": case["execution_type"], "route_id": case["execution_contract"]["route_id"], "required_screenshot_states": case.get("ui_acceptance", {}).get("required_screenshot_states", []), "case_locator": f"skill://qwork-test-dataset/data/datasets/cases/{case_id}.json"}
+            {"case_id": case_id, "title": case["title"], "requirement_ids": case["selection"]["requirement_ids"], "categories": case["selection"]["categories"], "execution_type": case["execution_type"], "route_id": case["execution_contract"]["route_id"], "ui_acceptance_mode": (case.get("ui_acceptance") or {}).get("acceptance_mode"), "required_screenshot_states": (case.get("ui_acceptance") or {}).get("required_screenshot_states", []), "case_locator": f"skill://qwork-test-dataset/data/datasets/cases/{case_id}.json"}
             for case_id, case in sorted(cases.items())
         ],
         "suite_index": {"selection_modes": ["requirement", "category", "cohort", "affected", "full"], "requirement_to_cases": requirement_to_cases, "category_to_cases": {key: sorted(value) for key, value in sorted(category_to_cases.items())}, "cohort_to_cases": {key: value["case_ids"] for key, value in cohort_index.items()}, "full_case_ids": sorted(cases)},

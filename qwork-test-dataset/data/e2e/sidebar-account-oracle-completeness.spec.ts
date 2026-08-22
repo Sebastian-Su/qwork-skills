@@ -6,7 +6,7 @@ import {
   boxOf,
   computedStyle,
   setContentSize,
-} from "../../../../../e2e/fixtures/workbuddy-ui";
+} from "../../../../../e2e/fixtures/ui-contract";
 import {
   cleanup,
   createTestHome,
@@ -70,7 +70,7 @@ type Mismatch = { pointer: string; expected: unknown; actual: unknown };
 
 test("WB-UI-ORACLE-SIDEBAR-001 | 侧栏工具、搜索、筛选与账户菜单逐字段匹配 WorkBuddy", async ({}, testInfo) => {
   const oracle = JSON.parse(
-    await fs.readFile(path.join(repo, "e2e/oracles/workbuddy-5.3.5-sidebar-account.json"), "utf8"),
+    await fs.readFile(path.join(repo, "e2e/visual-baselines/sidebar-account-reference.json"), "utf8"),
   ) as Oracle;
   const home = await createTestHome("sidebar-account-oracle");
   await createWorkspace(home);

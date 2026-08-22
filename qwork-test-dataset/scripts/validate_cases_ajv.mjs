@@ -2,15 +2,24 @@ import fs from "node:fs";
 import path from "node:path";
 import { requireFromProject } from "./project-require.mjs";
 
-const Ajv = requireFromProject("ajv");
+const Ajv2020 = requireFromProject("ajv/dist/2020").default;
 const YAML = requireFromProject("yaml");
 
 const root = path.resolve(process.argv[2] ?? ".agents/skills/qwork-test-dataset");
 const schema = YAML.parse(fs.readFileSync(path.join(root, "references/case-schema.yaml"), "utf8"));
-// Ajv 6 supports draft-07 semantics. Remove only the draft-2020 meta declaration;
-// all project keywords used here are compatible or independently checked below.
-delete schema.$schema;
-const ajv = new Ajv({ allErrors: true, jsonPointers: true, schemaId: "auto", unknownFormats: "ignore" });
+const ajv = new Ajv2020({
+  allErrors: true,
+  strict: true,
+  strictRequired: false,
+  strictTypes: false,
+  allowUnionTypes: true,
+});
+ajv.addFormat("date-time", {
+  type: "string",
+  validate: (value) =>
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value) &&
+    !Number.isNaN(Date.parse(value)),
+});
 let validate;
 try {
   validate = ajv.compile(schema);
@@ -24,7 +33,7 @@ const errors = [];
 for (const file of files) {
   const value = JSON.parse(fs.readFileSync(path.join(caseDir, file), "utf8"));
   if (!validate(value)) {
-    for (const error of validate.errors ?? []) errors.push(`${value.id ?? file}${error.dataPath}: ${error.message}`);
+    for (const error of validate.errors ?? []) errors.push(`${value.id ?? file}${error.instancePath ?? ""}: ${error.message}`);
   }
   if (value.schema_version !== 3) errors.push(`${value.id}: schema_version must be 3`);
   const execution = value.execution_contract ?? {};
@@ -77,7 +86,9 @@ for (const file of files) {
   const sourceIds = new Set((value.sources ?? []).map((item) => item.source_id));
   const oracleContract = execution.observability?.oracle_contract;
   const spec = String(sourceContract?.spec ?? "");
-  const isCurrentCdpCase = sourceIds.has("WORKBUDDY-CDP-5-3-12-V4");
+  const isCurrentCdpCase = [...sourceIds].some((sourceId) =>
+    /^WORKBUDDY-CDP-\d+(?:-\d+)+-V\d+$/.test(String(sourceId)),
+  );
   const isPlatformPixelCase =
     spec === "skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts" &&
     String(value.title ?? "").startsWith("WB-UI-PIXEL-");
@@ -101,4 +112,4 @@ if (errors.length) {
   for (const error of errors.slice(0, 300)) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log(JSON.stringify({ status: "ok", case_count: files.length, validator: "ajv-6.15.0+execution-v3" }));
+console.log(JSON.stringify({ status: "ok", case_count: files.length, validator: "ajv-8-draft-2020-12+execution-v3" }));

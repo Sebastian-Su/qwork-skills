@@ -45,8 +45,8 @@ def main() -> int:
             f"platform matrix must contain exactly 30 unique source pointers, got {len(requirements)}/{len(coordinates)}"
         )
 
-    sidebar = git_json(repo, "develop", "e2e/oracles/workbuddy-5.3.5-sidebar-account.json")
-    shell = git_json(repo, "develop", "e2e/oracles/workbuddy-5.3.5-shell-home.json")
+    sidebar = git_json(repo, "develop", "e2e/visual-baselines/sidebar-account-reference.json")
+    shell = git_json(repo, "develop", "e2e/visual-baselines/shell-home-reference.json")
     expected: set[tuple[str, str]] = {
         *(('sidebar_account', f'/coverage/requiredBeforePlatformCompletion/{index}') for index, _ in enumerate(sidebar['coverage']['requiredBeforePlatformCompletion'])),
         ('sidebar_account', '/sidebar/collapsed/darwinFullscreenToggleX'),
@@ -95,6 +95,10 @@ def main() -> int:
         raise AssertionError("@darwin Case did not compile to a Darwin-only route")
     if builder.target_platforms_for_title("Case @win32-125") != ["win32"]:
         raise AssertionError("@win32 Case did not compile to a Windows-only route")
+    if builder.target_platforms_for_title("keeps the existing Windows chrome contract") != ["win32"]:
+        raise AssertionError("natural Windows Case title did not compile to a Windows-only route")
+    if builder.target_platforms_for_title("supported macOS sizes") != ["darwin"]:
+        raise AssertionError("natural macOS Case title did not compile to a Darwin-only route")
     if builder.target_platforms_for_title("untagged Case") != ["darwin", "win32", "linux"]:
         raise AssertionError("untagged Case lost the default platform matrix")
 

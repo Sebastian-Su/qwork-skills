@@ -4,23 +4,23 @@ policy: >-
   when the frozen test reads that exact value, feeds it into a geometry/style/state
   comparison, and the test fails closed on the aggregate structural result.
 sources:
-  WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-3-5-AUTOMATION:
-    source_locator: git:12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1:e2e/oracles/workbuddy-5.3.5-automation.json
+  WORKBUDDY-ORACLE-5-3-5-AUTOMATION-REFERENCE:
+    source_locator: git:a964f69a7c1aa01a06e6567d681dd040c797e797:e2e/visual-baselines/automation-reference.json
     mappings:
       - target:
-          case_id: QW-E2E-AUTOMATION-ORACLE-SPEC-FC3C7038
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
-          spec: e2e/automation-oracle.spec.ts
-          title: generates the WorkBuddy automation state, geometry, responsive and hash report
-          spec_sha256: sha256:ca479e03359d5997aee72c25554f5e0616c79155b9a06d6c1a0e0f6b172db298
-          oracle_sha256: sha256:585bac12f2710c7c6040ea3916db941565cae5b855a2fa7591588e406d36f084
-          helper: src/main/automations/AutomationOracleReport.ts
-          helper_sha256: sha256:f569de68eb0de625c8d97ff9824111ab92fc3803255db5e3a31768be98566c15
+          case_id: QW-E2E-AUTOMATION-VISUAL-CONTRACT-SPEC-D0EE9C4F
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
+          spec: e2e/automation-visual-contract.spec.ts
+          title: generates the QWork automation state, geometry, responsive and hash report
+          spec_sha256: sha256:b27b7430bba7d762a1415227910e8eaf926bd36cc30e8e3f3edad4e11d0ecd1a
+          oracle_sha256: sha256:b108a9e8cd8057a0497986c1d7ab314ceaa9f9218b368cb3e2ae2e4a4b26456a
+          helper: src/main/automations/AutomationVisualContractReport.ts
+          helper_sha256: sha256:9a7b8821f54434f87c050f0615f17d1aef2c595c7f5c6f32080a81c51f697d8f
         proof:
-          value_flow: WORKBUDDY_ORACLE exact field access in captureShell, captureToolbarBreakpoints or popupGeometryForState
-          comparison: namedCheck, propertyCheck, locatorStyleCheck or booleanCheck
-          completeness: requiredAutomationOracleChecks injects a failing check when a state-required assertion is absent
-          fail_closed: buildAutomationOracleReport requires every geometry/style check to pass and the Playwright test requires structuralPass on darwin
+          value_flow: AUTOMATION_REFERENCE exact field access in captureShell, captureToolbarBreakpoints or popupGeometryForState
+          comparison: compareAutomationGeometry, compareAutomationStyle or explicit boolean assertions
+          completeness: requiredAutomationVisualContractChecks injects a failing check when a state-required assertion is absent
+          fail_closed: buildAutomationVisualContractReport requires every geometry/style check to pass and the Playwright test requires structuralPass on darwin
           excluded_claim: pixelBaseline remains evidence-only and this mapping never claims pixel parity
         covered_pointers:
           - /desktop/contentInsetX
@@ -57,8 +57,10 @@ sources:
           - /editor/connector/height
           - /editor/connector/y
           - /editor/connectorDropdown/menuHeight
+          - /editor/connectorDropdown/matchTriggerWidth
           - /editor/connectorDropdown/rowHeight
           - /editor/connectorDropdown/rowInset
+          - /editor/connectorDropdown/rowRightInset
           - /editor/connectorDropdown/triggerGap
           - /editor/contentInsetX
           - /editor/monthdayDropdown/height
@@ -69,6 +71,15 @@ sources:
           - /editor/notice/y
           - /editor/prompt/height
           - /editor/prompt/y
+          - /editor/promptToolbar/expertMenu/height
+          - /editor/promptToolbar/expertMenu/width
+          - /editor/promptToolbar/height
+          - /editor/promptToolbar/modelMenu/height
+          - /editor/promptToolbar/modelMenu/width
+          - /editor/promptToolbar/permissionMenu/height
+          - /editor/promptToolbar/permissionMenu/width
+          - /editor/promptToolbar/skillMenu/height
+          - /editor/promptToolbar/skillMenu/width
           - /editor/scheduleTabs/height
           - /editor/scheduleTabs/width
           - /editor/scheduleTabs/xOffset
@@ -96,11 +107,11 @@ sources:
           - /templates/rowGap
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-784ABD65
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
           spec: skill://qwork-test-dataset/data/e2e/automation-oracle-gap-completeness.spec.ts
           title: WB-UI-ORACLE-AUTOMATION-002 | 自动化 Chrome、响应断点、日程控件与激活颜色逐字段匹配 WorkBuddy
-          spec_sha256: sha256:ff40f18a15a8dd257dd5d73b1e1f5b8addff8ba21b2dc7fa5c2d2c4d169901a3
-          oracle_sha256: sha256:585bac12f2710c7c6040ea3916db941565cae5b855a2fa7591588e406d36f084
+          spec_sha256: sha256:76c7fcedf917de7f157da45db96751fdcade487541898a505060fc53450f3b39
+          oracle_sha256: sha256:b108a9e8cd8057a0497986c1d7ab314ceaa9f9218b368cb3e2ae2e4a4b26456a
         proof:
           value_flow: the private Case reads all six exact frozen Oracle fields and drives their viewport, geometry and style comparisons
           comparison: aggregate mismatch ledger records exact expected and actual values with directional popup placement
@@ -116,16 +127,16 @@ sources:
           - /responsiveToolbar/fluidMinMainWidth
     gap_pointers: []
     gap_reasons: {}
-  WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-3-5-SIDEBAR-ACCOUNT:
-    source_locator: git:12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1:e2e/oracles/workbuddy-5.3.5-sidebar-account.json
+  WORKBUDDY-ORACLE-5-3-5-SIDEBAR-ACCOUNT-REFERENCE:
+    source_locator: git:a964f69a7c1aa01a06e6567d681dd040c797e797:e2e/visual-baselines/sidebar-account-reference.json
     mappings:
       - target:
-          case_id: QW-E2E-WORKBUDDY-UI-SIDEBAR-ACCOUNT-SPEC-F6086E87
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
-          spec: e2e/workbuddy-ui-sidebar-account.spec.ts
-          title: WB-UI-SIDEBAR-TOOLS-001 | expanded toolbar geometry and platform-specific collapsed actions
-          spec_sha256: sha256:35acf355c5902f6539d99f54333f0832911a6359f603ef46aedbbfeb0d466107
-          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+          case_id: QW-E2E-UI-JOURNEY-SIDEBAR-ACCOUNT-SPEC-5DAB7A97
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
+          spec: e2e/ui-journey-sidebar-account.spec.ts
+          title: UI-JOURNEY-SIDEBAR-TOOLS-001 | expanded toolbar geometry and platform-specific collapsed actions
+          spec_sha256: sha256:047431073ce7b9ab48e52418d325e4db86a1ea0d15b882f6f7d4eff7b9d17a29
+          oracle_sha256: sha256:b05bb01c09ad5d2b8150cad491cd7d260e371625abb83471d2d8cb0afb1661c9
         proof:
           comparison: expectBox and exact count/attribute assertions in the current-HEAD test body
           excluded_claim: computedStyle values written only to metrics.json are not accepted
@@ -141,12 +152,12 @@ sources:
           - /sidebar/collapsed/hide/1
           - /sidebar/collapsed/darwinWindowedToggleX
       - target:
-          case_id: QW-E2E-WORKBUDDY-UI-SIDEBAR-ACCOUNT-SPEC-79482557
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
-          spec: e2e/workbuddy-ui-sidebar-account.spec.ts
-          title: WB-UI-SIDEBAR-TOOLS-002 | search and filter surfaces expose keyboard-complete behavior
-          spec_sha256: sha256:35acf355c5902f6539d99f54333f0832911a6359f603ef46aedbbfeb0d466107
-          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+          case_id: QW-E2E-UI-JOURNEY-SIDEBAR-ACCOUNT-SPEC-6BFC6BBC
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
+          spec: e2e/ui-journey-sidebar-account.spec.ts
+          title: UI-JOURNEY-SIDEBAR-TOOLS-002 | search and filter surfaces expose keyboard-complete behavior
+          spec_sha256: sha256:047431073ce7b9ab48e52418d325e4db86a1ea0d15b882f6f7d4eff7b9d17a29
+          oracle_sha256: sha256:b05bb01c09ad5d2b8150cad491cd7d260e371625abb83471d2d8cb0afb1661c9
         proof:
           comparison: expectBox hard-fails on exact search and filter width/height with the approved geometry tolerance
           excluded_claim: radius/background/overlay and option completeness are not asserted
@@ -156,24 +167,57 @@ sources:
           - /filter/width
           - /filter/height
       - target:
-          case_id: QW-E2E-WORKBUDDY-UI-SIDEBAR-ACCOUNT-SPEC-65308253
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
-          spec: e2e/workbuddy-ui-sidebar-account.spec.ts
-          title: WB-UI-ACCOUNT-001 | compact account menu is 320px and preserves QWork actions
-          spec_sha256: sha256:35acf355c5902f6539d99f54333f0832911a6359f603ef46aedbbfeb0d466107
-          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+          case_id: QW-E2E-UI-JOURNEY-SIDEBAR-ACCOUNT-SPEC-C43AD151
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
+          spec: e2e/ui-journey-sidebar-account.spec.ts
+          title: UI-JOURNEY-ACCOUNT-001 | compact account menu is 320px and preserves QWork actions
+          spec_sha256: sha256:047431073ce7b9ab48e52418d325e4db86a1ea0d15b882f6f7d4eff7b9d17a29
+          oracle_sha256: sha256:b05bb01c09ad5d2b8150cad491cd7d260e371625abb83471d2d8cb0afb1661c9
         proof:
           comparison: expectBox hard-fails on the 320px account menu width
           excluded_claim: visible labels do not prove the complete ordered row contract
         covered_pointers:
           - /accountMenu/width
       - target:
+          case_id: QW-E2E-UI-JOURNEY-SIDEBAR-ACCOUNT-SPEC-D902F746
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
+          spec: e2e/ui-journey-sidebar-account.spec.ts
+          title: UI-JOURNEY-SIDEBAR-FOOTER-001 | connection click toggles the pixel-aligned QWork card
+          spec_sha256: sha256:047431073ce7b9ab48e52418d325e4db86a1ea0d15b882f6f7d4eff7b9d17a29
+          oracle_sha256: sha256:b05bb01c09ad5d2b8150cad491cd7d260e371625abb83471d2d8cb0afb1661c9
+        proof:
+          value_flow: the test reads every observable connectionCard value from the frozen Oracle and uses it in interaction, geometry, style, label or viewport assertions
+          comparison: click-toggle states, light and dark frames, exact channel labels, panel geometry, typography and minimum-viewport bounds all hard-fail on mismatch
+          fail_closed: Playwright must complete the full toggle and responsive journey without softening a missing channel, surface or style value
+          excluded_claim: provenance filenames and their hashes remain evidence-only and do not describe QWork runtime behavior
+        covered_pointers:
+          - /connectionCard/actionHeight
+          - /connectionCard/activation
+          - /connectionCard/anchorGap
+          - /connectionCard/bodyFontSize
+          - /connectionCard/bodyLineHeight
+          - /connectionCard/borderWidth
+          - /connectionCard/channelHeight
+          - /connectionCard/contentWidth
+          - /connectionCard/geometryTolerance
+          - /connectionCard/horizontalAnchorOffset
+          - /connectionCard/iconSize
+          - /connectionCard/radius
+          - /connectionCard/requiredChannels/0
+          - /connectionCard/requiredChannels/1
+          - /connectionCard/requiredChannels/2
+          - /connectionCard/surfaceWidth
+          - /connectionCard/titleFontSize
+          - /connectionCard/titleLineHeight
+          - /connectionCard/triggerSize
+          - /connectionCard/viewportMargin
+      - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-762BA0DA
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
           spec: skill://qwork-test-dataset/data/e2e/sidebar-account-oracle-completeness.spec.ts
           title: WB-UI-ORACLE-SIDEBAR-001 | 侧栏工具、搜索、筛选与账户菜单逐字段匹配 WorkBuddy
-          spec_sha256: sha256:f1a360c318adbace582fd6add5d6e002ef07c83613ca8e52fbad88028dd5074c
-          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+          spec_sha256: sha256:b4c70efbb89ba0ad288f1d9c85817134ea49005c6c6c2d10e57f6cf784a512b7
+          oracle_sha256: sha256:b05bb01c09ad5d2b8150cad491cd7d260e371625abb83471d2d8cb0afb1661c9
         proof:
           value_flow: the private test reads the frozen Oracle JSON and consumes every mapped value in geometry, style, order, limit or brand comparisons
           comparison: all pointer-level mismatches are collected only after the entry, search, filter and account states have been exercised
@@ -235,11 +279,11 @@ sources:
           - /source/brandPolicy
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-46E19955
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
           spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
           title: WB-UI-PIXEL-DARWIN-001 @darwin | 浅深主题与三档视口逐状态对比 WorkBuddy Golden
-          spec_sha256: sha256:106be251ccfc672a5b1352c1a736a9b9f2ae8aa8a1626167dde4ea5f33656404
-          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+          spec_sha256: sha256:4aba2a0d2ff2afc3fa9e3aab7fb66b4a6b53a4c0564fbe4f3c19fe7d56c0d661
+          oracle_sha256: sha256:b05bb01c09ad5d2b8150cad491cd7d260e371625abb83471d2d8cb0afb1661c9
         proof:
           value_flow: the Case selects the exact darwin light and dark frame coordinates from platform-oracle-matrix.json
           comparison: six named sidebar states at 1681x1084 are individually hash-preserved and compared to approved WorkBuddy frames
@@ -249,11 +293,11 @@ sources:
           - /coverage/requiredBeforePlatformCompletion/1
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-ECFFE76E
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
           spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
           title: WB-UI-PIXEL-WIN32-001 @win32-100 | 100% DPI 浅深主题与三档视口逐状态对比 WorkBuddy Golden
-          spec_sha256: sha256:106be251ccfc672a5b1352c1a736a9b9f2ae8aa8a1626167dde4ea5f33656404
-          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+          spec_sha256: sha256:4aba2a0d2ff2afc3fa9e3aab7fb66b4a6b53a4c0564fbe4f3c19fe7d56c0d661
+          oracle_sha256: sha256:b05bb01c09ad5d2b8150cad491cd7d260e371625abb83471d2d8cb0afb1661c9
         proof:
           value_flow: the Case is registered only for win32 and requires the actual display scale to equal 100 percent
           comparison: the complete light and dark sidebar state sets are compared frame by frame
@@ -263,11 +307,11 @@ sources:
           - /coverage/requiredBeforePlatformCompletion/3
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-0C994430
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
           spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
           title: WB-UI-PIXEL-WIN32-002 @win32-125 | 125% DPI 浅深主题逐状态对比 WorkBuddy Golden
-          spec_sha256: sha256:106be251ccfc672a5b1352c1a736a9b9f2ae8aa8a1626167dde4ea5f33656404
-          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+          spec_sha256: sha256:4aba2a0d2ff2afc3fa9e3aab7fb66b4a6b53a4c0564fbe4f3c19fe7d56c0d661
+          oracle_sha256: sha256:b05bb01c09ad5d2b8150cad491cd7d260e371625abb83471d2d8cb0afb1661c9
         proof:
           value_flow: the Case is registered only for win32 and requires the actual display scale to equal 125 percent
           comparison: both theme state sets are compared against their separately approved WorkBuddy frames
@@ -276,11 +320,11 @@ sources:
           - /coverage/requiredBeforePlatformCompletion/4
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-8470D022
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
           spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
           title: WB-UI-PLATFORM-DARWIN-001 @darwin | 原生全屏、快捷键与标题栏逐字段匹配 WorkBuddy
-          spec_sha256: sha256:106be251ccfc672a5b1352c1a736a9b9f2ae8aa8a1626167dde4ea5f33656404
-          oracle_sha256: sha256:436227e60a57932e8f158b79afecefe7932d28494a517db4aa21e2fceb2b6804
+          spec_sha256: sha256:4aba2a0d2ff2afc3fa9e3aab7fb66b4a6b53a4c0564fbe4f3c19fe7d56c0d661
+          oracle_sha256: sha256:b05bb01c09ad5d2b8150cad491cd7d260e371625abb83471d2d8cb0afb1661c9
         proof:
           value_flow: the Case reads the sidebar and shell Oracles before entering native macOS full screen
           comparison: the collapsed toggle x coordinate is hard-compared after the real full-screen transition
@@ -289,16 +333,16 @@ sources:
           - /sidebar/collapsed/darwinFullscreenToggleX
     gap_pointers: []
     gap_reasons: {}
-  WORKBUDDY-ORACLE-5-3-5-WORKBUDDY-5-3-5-SHELL-HOME:
-    source_locator: git:12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1:e2e/oracles/workbuddy-5.3.5-shell-home.json
+  WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE:
+    source_locator: git:a964f69a7c1aa01a06e6567d681dd040c797e797:e2e/visual-baselines/shell-home-reference.json
     mappings:
       - target:
-          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-12A93229
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
-          spec: e2e/workbuddy-ui-shell-home.spec.ts
-          title: WB-UI-SHELL-001 | 最大化 Shell、侧栏与主区盒模型完全对齐
-          spec_sha256: sha256:42a8cb92c0d136c87ec7711a510ae832cdf5b8dfed909472f07b64fd5c281df8
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+          case_id: QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-D4DEE81B
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
+          spec: e2e/ui-layout-shell-home.spec.ts
+          title: UI-LAYOUT-SHELL-001 | 最大化 Shell、侧栏与主区盒模型完全对齐
+          spec_sha256: sha256:178edf5bd7ee72c94282ee866680110da9802652684099416e69e530836213e8
+          oracle_sha256: sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e
         proof:
           comparison: expectBox and computedStyle hard-fail on the exact sidebar/new-task geometry and approved new-task style fields
           excluded_claim: sidebar/main background values that differ from the WorkBuddy body Oracle are not accepted
@@ -314,12 +358,12 @@ sources:
           - /shared/newTask/fontWeight
           - /light/newTaskBackground
       - target:
-          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-AC69DA50
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
-          spec: e2e/workbuddy-ui-shell-home.spec.ts
-          title: WB-UI-SIDEBAR-001/002/004 | 收起后主区占满且隐藏导航不可交互，再展开恢复
-          spec_sha256: sha256:42a8cb92c0d136c87ec7711a510ae832cdf5b8dfed909472f07b64fd5c281df8
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+          case_id: QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-48230AF7
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
+          spec: e2e/ui-layout-shell-home.spec.ts
+          title: UI-LAYOUT-SIDEBAR-001/002/004 | 收起后主区占满且隐藏导航不可交互，再展开恢复
+          spec_sha256: sha256:178edf5bd7ee72c94282ee866680110da9802652684099416e69e530836213e8
+          oracle_sha256: sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e
         proof:
           comparison: poll, expectBox and computedStyle hard-fail on collapsed width, transition timing and the darwin windowed toggle box
           excluded_claim: the traffic-light offset is protected indirectly but is not read and compared as an exact Oracle field
@@ -332,24 +376,24 @@ sources:
           - /platform/darwin/windowedCollapsedToggle/width
           - /platform/darwin/windowedCollapsedToggle/height
       - target:
-          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-D95CD83C
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
-          spec: e2e/workbuddy-ui-shell-home.spec.ts
-          title: WB-UI-SIDEBAR-009 | 用户收起选择跨重启保持并可由设置重置
-          spec_sha256: sha256:42a8cb92c0d136c87ec7711a510ae832cdf5b8dfed909472f07b64fd5c281df8
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+          case_id: QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-BD678365
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
+          spec: e2e/ui-layout-shell-home.spec.ts
+          title: UI-LAYOUT-SIDEBAR-009 | 用户收起选择跨重启保持并可由设置重置
+          spec_sha256: sha256:178edf5bd7ee72c94282ee866680110da9802652684099416e69e530836213e8
+          oracle_sha256: sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e
         proof:
           comparison: the Case closes and reopens the real Electron app with the same isolated home, then proves persisted collapsed state and default-expanded reset
         covered_pointers:
           - /shared/sidebar/preferenceStorage
           - /shared/sidebar/defaultExpanded
       - target:
-          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-5B5CA9E0
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
-          spec: e2e/workbuddy-ui-shell-home.spec.ts
-          title: WB-UI-SHELL-003 | 平台窗口控制区与拖拽安全区对齐
-          spec_sha256: sha256:42a8cb92c0d136c87ec7711a510ae832cdf5b8dfed909472f07b64fd5c281df8
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+          case_id: QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-E656BB6D
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
+          spec: e2e/ui-layout-shell-home.spec.ts
+          title: UI-LAYOUT-SHELL-003 | 平台窗口控制区与拖拽安全区对齐
+          spec_sha256: sha256:178edf5bd7ee72c94282ee866680110da9802652684099416e69e530836213e8
+          oracle_sha256: sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e
         proof:
           comparison: platform branches hard-fail on darwin traffic-light safe-area/control absence and Windows control presence
           excluded_claim: darwin execution cannot prove the Windows branch reference outcome
@@ -358,24 +402,24 @@ sources:
           - /platform/darwin/showWindowsControls
           - /platform/win32/showWindowsControls
       - target:
-          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-4DB238ED
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
-          spec: e2e/workbuddy-ui-shell-home.spec.ts
-          title: WB-UI-HOME-002 | 960×180 Composer、底栏和精确 placeholder 对齐
-          spec_sha256: sha256:42a8cb92c0d136c87ec7711a510ae832cdf5b8dfed909472f07b64fd5c281df8
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+          case_id: QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-52FDFD76
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
+          spec: e2e/ui-layout-shell-home.spec.ts
+          title: UI-LAYOUT-HOME-002 | 960×180 Composer、底栏和精确 placeholder 对齐
+          spec_sha256: sha256:178edf5bd7ee72c94282ee866680110da9802652684099416e69e530836213e8
+          oracle_sha256: sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e
         proof:
           comparison: toHaveAttribute hard-fails on the exact frozen WorkBuddy placeholder
           conflict: current HEAD hard-asserts an 800x178 surface while the normative WorkBuddy Oracle requires 960x180; dimensions remain explicit gaps
         covered_pointers:
           - /shared/composer/placeholder
       - target:
-          case_id: QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-750DBF3D
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
-          spec: e2e/workbuddy-ui-shell-home.spec.ts
-          title: WB-UI-HOME-005 | 浅深主题与三档窗口保持首页框架
-          spec_sha256: sha256:42a8cb92c0d136c87ec7711a510ae832cdf5b8dfed909472f07b64fd5c281df8
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+          case_id: QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-44A9BA11
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
+          spec: e2e/ui-layout-shell-home.spec.ts
+          title: UI-LAYOUT-HOME-005 | 浅深主题与三档窗口保持首页框架
+          spec_sha256: sha256:178edf5bd7ee72c94282ee866680110da9802652684099416e69e530836213e8
+          oracle_sha256: sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e
         proof:
           comparison: both shell surfaces are hard-compared to rgb(24,24,24) across all three current darwin dark viewports
           excluded_claim: visible heading/textbox does not prove the remaining dark-theme typography and component colors
@@ -383,11 +427,11 @@ sources:
           - /dark/bodyBackground
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-CF6C2871
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
           spec: skill://qwork-test-dataset/data/e2e/shell-home-oracle-completeness.spec.ts
           title: WB-UI-ORACLE-SHELL-HOME-001 | Shell 首页主题、排版、场景与 Composer 逐字段匹配 WorkBuddy
-          spec_sha256: sha256:8bd3d3714d8ea51e3c3e63927e5938b04c131ad227f25b1d1f47f50ef48ee1d7
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+          spec_sha256: sha256:9e29d893afd7aafc16e01d7cfce65edfa56bed1e63d587fb17c39bc456a18f4f
+          oracle_sha256: sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e
         proof:
           value_flow: the private test reads every mapped value from the frozen Shell/Home Oracle before exercising light, collapsed and dark states
           comparison: geometry, typography, theme, brand and Composer values become pointer-level mismatch records only after three screenshot checkpoints
@@ -432,11 +476,11 @@ sources:
           - /source/brandPolicy
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-46E19955
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
           spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
           title: WB-UI-PIXEL-DARWIN-001 @darwin | 浅深主题与三档视口逐状态对比 WorkBuddy Golden
-          spec_sha256: sha256:106be251ccfc672a5b1352c1a736a9b9f2ae8aa8a1626167dde4ea5f33656404
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+          spec_sha256: sha256:4aba2a0d2ff2afc3fa9e3aab7fb66b4a6b53a4c0564fbe4f3c19fe7d56c0d661
+          oracle_sha256: sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e
         proof:
           value_flow: all six darwin theme and viewport coordinates are selected from the frozen platform matrix
           comparison: every QWork frame is dimension-checked and pixel-compared to its separately approved WorkBuddy frame
@@ -448,11 +492,11 @@ sources:
           - /coverage/requiredBeforePixelCompletion/3
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-ECFFE76E
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
           spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
           title: WB-UI-PIXEL-WIN32-001 @win32-100 | 100% DPI 浅深主题与三档视口逐状态对比 WorkBuddy Golden
-          spec_sha256: sha256:106be251ccfc672a5b1352c1a736a9b9f2ae8aa8a1626167dde4ea5f33656404
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+          spec_sha256: sha256:4aba2a0d2ff2afc3fa9e3aab7fb66b4a6b53a4c0564fbe4f3c19fe7d56c0d661
+          oracle_sha256: sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e
         proof:
           value_flow: all six win32 100 percent theme and viewport coordinates are selected from the frozen platform matrix
           comparison: the native DPI and each full-frame comparison are hard requirements
@@ -463,11 +507,11 @@ sources:
           - /coverage/requiredBeforePixelCompletion/6
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-0C994430
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
           spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
           title: WB-UI-PIXEL-WIN32-002 @win32-125 | 125% DPI 浅深主题逐状态对比 WorkBuddy Golden
-          spec_sha256: sha256:106be251ccfc672a5b1352c1a736a9b9f2ae8aa8a1626167dde4ea5f33656404
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+          spec_sha256: sha256:4aba2a0d2ff2afc3fa9e3aab7fb66b4a6b53a4c0564fbe4f3c19fe7d56c0d661
+          oracle_sha256: sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e
         proof:
           value_flow: both 125 percent theme coordinates are selected from the frozen platform matrix
           comparison: the smoke coordinate is a real win32 frame set rather than a scaled macOS surrogate
@@ -476,11 +520,11 @@ sources:
           - /coverage/requiredBeforePixelCompletion/7
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-8470D022
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
           spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
           title: WB-UI-PLATFORM-DARWIN-001 @darwin | 原生全屏、快捷键与标题栏逐字段匹配 WorkBuddy
-          spec_sha256: sha256:106be251ccfc672a5b1352c1a736a9b9f2ae8aa8a1626167dde4ea5f33656404
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+          spec_sha256: sha256:4aba2a0d2ff2afc3fa9e3aab7fb66b4a6b53a4c0564fbe4f3c19fe7d56c0d661
+          oracle_sha256: sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e
         proof:
           value_flow: the native Case reads every mapped darwin value before exercising expanded, collapsed and shortcut transitions
           comparison: exact geometry, traffic offset, native menu modifier and executed bundle titlebar construction are all asserted
@@ -499,11 +543,11 @@ sources:
           - /platform/darwin/titleBarStyle
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-13DC6F37
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
           spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
           title: WB-UI-PLATFORM-WIN32-001 @win32-100 | 100% DPI 标题栏、控制区与快捷键逐字段匹配 WorkBuddy
-          spec_sha256: sha256:106be251ccfc672a5b1352c1a736a9b9f2ae8aa8a1626167dde4ea5f33656404
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+          spec_sha256: sha256:4aba2a0d2ff2afc3fa9e3aab7fb66b4a6b53a4c0564fbe4f3c19fe7d56c0d661
+          oracle_sha256: sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e
         proof:
           value_flow: the native win32 Case reads the exact titlebar, shortcut, safe-area and 100 percent DPI fields
           comparison: native controls, absent traffic-light area, scale factor and executed bundle titlebar construction all hard-fail on drift
@@ -515,16 +559,24 @@ sources:
           - /platform/win32/titleBarStyle
       - target:
           case_id: QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-053B3E4C
-          execution_revision: c9227fe0f12073144f954f13634f77fbacd9c399
+          execution_revision: a964f69a7c1aa01a06e6567d681dd040c797e797
           spec: skill://qwork-test-dataset/data/e2e/platform-oracle-matrix.spec.ts
           title: WB-UI-PLATFORM-WIN32-002 @win32-125 | 125% DPI 冒烟保持标题栏与主题可用
-          spec_sha256: sha256:106be251ccfc672a5b1352c1a736a9b9f2ae8aa8a1626167dde4ea5f33656404
-          oracle_sha256: sha256:ebc961f0e2a5a8b1868aff599aab73bc68b5e4591819ec8dd51a8abd3759e8da
+          spec_sha256: sha256:4aba2a0d2ff2afc3fa9e3aab7fb66b4a6b53a4c0564fbe4f3c19fe7d56c0d661
+          oracle_sha256: sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e
         proof:
           value_flow: the 125 percent native route reads the exact smoke DPI Oracle
           comparison: the actual Windows display scale is asserted before light, dark and restored screenshots
           fail_closed: a 100 percent or non-Windows environment cannot satisfy the Case
         covered_pointers:
           - /platform/win32/smokeDpiPercent
-    gap_pointers: []
-    gap_reasons: {}
+    gap_pointers:
+      - /shared/brand/gapToNewTask
+      - /shared/brand/lineBoxBottom
+      - /shared/brand/lineBoxHeight
+      - /shared/brand/lineBoxY
+    gap_reasons:
+      /shared/brand/gapToNewTask: current executable routes do not hard-assert this approved brand geometry field
+      /shared/brand/lineBoxBottom: current executable routes do not hard-assert this approved brand geometry field
+      /shared/brand/lineBoxHeight: current executable routes do not hard-assert this approved brand geometry field
+      /shared/brand/lineBoxY: current executable routes do not hard-assert this approved brand geometry field

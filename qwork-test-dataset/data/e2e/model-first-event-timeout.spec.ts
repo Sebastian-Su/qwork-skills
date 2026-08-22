@@ -2,7 +2,7 @@ import { expect, test, type ElectronApplication } from "@playwright/test";
 import {
   attachUiState,
   setContentSize,
-} from "../../../../../e2e/fixtures/workbuddy-ui";
+} from "../../../../../e2e/fixtures/ui-contract";
 import {
   cleanup,
   createTestHome,
@@ -43,6 +43,7 @@ test("WB-RECOVERY-006 | 模型首事件超时必须结束等待并提供可重�
     await expect(page.getByRole("button", { name: "停止", exact: true })).toHaveCount(0);
     await expect(page.getByRole("button", { name: "重试", exact: true })).toBeVisible();
     await expect(composer).toBeEnabled();
+    await attachUiState(page, testInfo, "final-timeout-is-terminal-and-retryable");
   } finally {
     await cleanup(app, home);
   }

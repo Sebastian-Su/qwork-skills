@@ -15,7 +15,7 @@ import {
   boxOf,
   computedStyle,
   setContentSize,
-} from "../../../../../e2e/fixtures/workbuddy-ui";
+} from "../../../../../e2e/fixtures/ui-contract";
 import {
   cleanup,
   createTestHome,
@@ -75,8 +75,8 @@ type MatrixFailure = {
 
 test("WB-UI-PLATFORM-DARWIN-001 @darwin | 原生全屏、快捷键与标题栏逐字段匹配 WorkBuddy", async ({}, testInfo) => {
   expect(process.platform, "this Case must run on its registered native platform").toBe("darwin");
-  const shell = await readJson<ShellOracle>(path.resolve("e2e/oracles/workbuddy-5.3.5-shell-home.json"));
-  const sidebar = await readJson<SidebarOracle>(path.resolve("e2e/oracles/workbuddy-5.3.5-sidebar-account.json"));
+  const shell = await readJson<ShellOracle>(path.resolve("e2e/visual-baselines/shell-home-reference.json"));
+  const sidebar = await readJson<SidebarOracle>(path.resolve("e2e/visual-baselines/sidebar-account-reference.json"));
   const expected = shell.platform.darwin;
   const home = await createTestHome("platform-darwin-runtime");
   await createWorkspace(home);
@@ -148,7 +148,7 @@ test("WB-UI-PLATFORM-DARWIN-001 @darwin | 原生全屏、快捷键与标题栏�
 
 test("WB-UI-PLATFORM-WIN32-001 @win32-100 | 100% DPI 标题栏、控制区与快捷键逐字段匹配 WorkBuddy", async ({}, testInfo) => {
   expect(process.platform, "this Case must run on its registered native platform").toBe("win32");
-  const shell = await readJson<ShellOracle>(path.resolve("e2e/oracles/workbuddy-5.3.5-shell-home.json"));
+  const shell = await readJson<ShellOracle>(path.resolve("e2e/visual-baselines/shell-home-reference.json"));
   const expected = shell.platform.win32;
   const home = await createTestHome("platform-win32-100-runtime");
   await createWorkspace(home);
@@ -179,7 +179,7 @@ test("WB-UI-PLATFORM-WIN32-001 @win32-100 | 100% DPI 标题栏、控制区与快
 
 test("WB-UI-PLATFORM-WIN32-002 @win32-125 | 125% DPI 冒烟保持标题栏与主题可用", async ({}, testInfo) => {
   expect(process.platform, "this Case must run on its registered native platform").toBe("win32");
-  const shell = await readJson<ShellOracle>(path.resolve("e2e/oracles/workbuddy-5.3.5-shell-home.json"));
+  const shell = await readJson<ShellOracle>(path.resolve("e2e/visual-baselines/shell-home-reference.json"));
   const expected = shell.platform.win32;
   const home = await createTestHome("platform-win32-125-runtime");
   await createWorkspace(home);

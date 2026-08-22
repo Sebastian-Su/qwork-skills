@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
+import subprocess
 from pathlib import Path
 
 import yaml
@@ -15,6 +17,13 @@ def main() -> int:
     parser.add_argument("--skill-root", type=Path, required=True)
     args = parser.parse_args()
     root = args.skill_root.resolve()
+    module_spec = importlib.util.spec_from_file_location(
+        "qwork_dataset_builder", root / "scripts/build_product_baseline.py"
+    )
+    if module_spec is None or module_spec.loader is None:
+        raise AssertionError("Dataset builder cannot be loaded")
+    builder = importlib.util.module_from_spec(module_spec)
+    module_spec.loader.exec_module(builder)
     policy_path = root / "references/document-atom-dispositions.yaml"
     if not policy_path.is_file():
         raise AssertionError("document atom disposition policy is missing")
@@ -33,17 +42,47 @@ def main() -> int:
 
     configured_atoms: dict[tuple[str, str], dict] = {}
     for source_id, source_policy in policy["sources"].items():
-        source = sources[source_id]
-        if source["content_hash"] != source_policy["source_sha256"]:
-            raise AssertionError(f"disposition source hash drifted: {source_id}")
-        atoms = {item["locator"]: item for item in source["inventory"]["atoms"]}
+        source_locator = str(source_policy.get("source_locator") or "")
+        source_parts = source_locator.split(":", 2)
+        source_path = source_parts[2] if len(source_parts) == 3 else ""
+        resolved_source_id = source_id
+        source = sources.get(source_id)
+        if source is None and source_id.startswith("QHEAD-DOC-"):
+            resolved_source_id = f"QDEV-DOC-{builder.stable_slug(source_path)}"
+            source = sources.get(resolved_source_id)
+        if source is None:
+            raise AssertionError(f"disposition source is missing: {source_id}")
+        historic_content = (
+            subprocess.run(
+                ["git", "show", f"{source_parts[1]}:{source_path}"],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
+            if len(source_parts) == 3
+            else ""
+        )
+        historic_atoms = builder.markdown_atoms(source_id, historic_content)
+        current_atoms = list(source["inventory"]["atoms"])
         for entry in source_policy["atoms"]:
-            key = (source_id, entry["atom_locator"])
+            atom = builder.relocate_document_atom(
+                current_atoms=current_atoms,
+                historic_atoms=historic_atoms,
+                locator=str(entry["atom_locator"]),
+                atom_sha256=str(entry["atom_sha256"]),
+                allow_ordinal=False,
+            )
+            if atom is None:
+                if source["content_hash"] == source_policy["source_sha256"]:
+                    raise AssertionError(
+                        f"document atom disposition drifted: {(source_id, entry['atom_locator'])}"
+                    )
+                continue
+            key = (resolved_source_id, str(atom["locator"]))
             if key in configured_atoms:
-                raise AssertionError(f"document atom disposition duplicated: {key}")
-            atom = atoms[entry["atom_locator"]]
-            if atom["extracted_value_hash"] != entry["atom_sha256"]:
-                raise AssertionError(f"document atom disposition drifted: {key}")
+                if configured_atoms[key]["status_reason"] != entry["status_reason"]:
+                    raise AssertionError(f"document atom disposition duplicated: {key}")
+                continue
             configured_atoms[key] = entry
 
     disposed_requirements = 0

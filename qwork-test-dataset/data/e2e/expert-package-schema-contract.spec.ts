@@ -4,6 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { installBundledExpertPackages } from "../../../../../src/main/experts/bundledExpertPackages";
 import { parseExpertPackageManifest } from "../../../../../src/main/experts/expertPackages";
+import { attachUiState } from "../../../../../e2e/fixtures/ui-contract";
 import { cleanup, createTestHome, createWorkspace, openApp } from "./fixtures/launch-isolated";
 import { validExpertManifest, writeExpertPackage } from "./fixtures/expert-package";
 
@@ -75,7 +76,7 @@ test("PKG-SCHEMA-003 | 资源路径留在包根且模型策略只允许四个抽
   }))).toThrow(/supported model profile/i);
 });
 
-test("PKG-PRESENTATION-001 | author 缺失时 UI 回退 publisher 且 presentation 不改变权限", async () => {
+test("PKG-PRESENTATION-001 | author 缺失时 UI 回退 publisher 且 presentation 不改变权限", async ({}, testInfo) => {
   const home = await createTestHome("expert-author-fallback");
   await createWorkspace(home);
   const installPath = path.join(home, "plugins", "marketplaces", "experts", "plugins", "author-fallback");
@@ -96,9 +97,17 @@ test("PKG-PRESENTATION-001 | author 缺失时 UI 回退 publisher 且 presentati
   try {
     const opened = await openApp(home);
     app = opened.app;
+    await attachUiState(opened.page, testInfo, "entry");
+    await opened.page.getByRole("button", { name: "专家·技能·连接器", exact: true }).click();
+    const card = opened.page.getByRole("listitem").filter({ hasText: "作者回退专家" });
+    await expect(card).toBeVisible();
+    await attachUiState(opened.page, testInfo, "transition");
+    await expect(card).toContainText("可信发布方");
+    await attachUiState(opened.page, testInfo, "final-state");
     const experts = await opened.page.evaluate(() => window.workGui.experts.list());
     const expert = experts.find((item) => item.key === "author-fallback@experts");
-    expect(expert).toMatchObject({ publisher: "可信发布方", author: undefined });
+    expect(expert).toMatchObject({ publisher: "可信发布方" });
+    expect(expert).not.toHaveProperty("author");
     expect(parseExpertPackageManifest(manifest)).toMatchObject({
       guardrails: { workspace: "session", permissionCeiling: "session" },
       capabilities: { skills: [], plugins: [], tools: [] },

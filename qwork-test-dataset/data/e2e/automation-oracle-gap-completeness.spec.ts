@@ -6,7 +6,7 @@ import {
   boxOf,
   computedStyle,
   setContentSize,
-} from "../../../../../e2e/fixtures/workbuddy-ui";
+} from "../../../../../e2e/fixtures/ui-contract";
 import {
   cleanup,
   createTestHome,
@@ -43,7 +43,7 @@ const V2_ENV = {
 
 test("WB-UI-ORACLE-AUTOMATION-002 | 自动化 Chrome、响应断点、日程控件与激活颜色逐字段匹配 WorkBuddy", async ({}, testInfo) => {
   const oracle = JSON.parse(
-    await fs.readFile(path.join(repo, "e2e/oracles/workbuddy-5.3.5-automation.json"), "utf8"),
+    await fs.readFile(path.join(repo, "e2e/visual-baselines/automation-reference.json"), "utf8"),
   ) as Oracle;
   const home = await createTestHome("automation-oracle-gaps");
   await createWorkspace(home);

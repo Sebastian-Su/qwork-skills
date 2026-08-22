@@ -4,7 +4,7 @@ import path from "node:path";
 import {
   attachUiState,
   setContentSize,
-} from "../../../../../e2e/fixtures/workbuddy-ui";
+} from "../../../../../e2e/fixtures/ui-contract";
 import {
   cleanup,
   createTestHome,
@@ -28,6 +28,7 @@ test("WB-HISTORY-001 + WB-RECOVERY-004 | 重启后的标题消息与历史均不
     let page;
     ({ app, page } = await openApp(home, { E2E_SIDECAR_CONTROL_LOG: sidecarLog }));
     await setContentSize(app, page);
+    await attachUiState(page, testInfo, "entry-home-before-expert-navigation");
     await page.getByRole("button", { name: "专家·技能·连接器", exact: true }).click();
     await page.getByRole("button", { name: /高级开发工程师.*从证据出发/ }).click();
     await page

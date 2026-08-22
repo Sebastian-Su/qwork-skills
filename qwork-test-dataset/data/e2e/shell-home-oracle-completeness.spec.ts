@@ -7,7 +7,7 @@ import {
   computedStyle,
   setContentSize,
   startDraft,
-} from "../../../../../e2e/fixtures/workbuddy-ui";
+} from "../../../../../e2e/fixtures/ui-contract";
 import {
   cleanup,
   createTestHome,
@@ -46,7 +46,7 @@ type Mismatch = { pointer: string; expected: unknown; actual: unknown };
 
 test("WB-UI-ORACLE-SHELL-HOME-001 | Shell 首页主题、排版、场景与 Composer 逐字段匹配 WorkBuddy", async ({}, testInfo) => {
   const oracle = JSON.parse(
-    await fs.readFile(path.join(repo, "e2e/oracles/workbuddy-5.3.5-shell-home.json"), "utf8"),
+    await fs.readFile(path.join(repo, "e2e/visual-baselines/shell-home-reference.json"), "utf8"),
   ) as Oracle;
   const home = await createTestHome("shell-home-oracle");
   await createWorkspace(home);

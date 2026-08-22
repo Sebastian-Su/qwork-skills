@@ -1,7 +1,7 @@
 import { expect, test, type ElectronApplication } from "@playwright/test";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { attachUiState, setContentSize, summonGameStudio } from "../../../../../e2e/fixtures/workbuddy-ui";
+import { attachUiState, setContentSize, summonGameStudio } from "../../../../../e2e/fixtures/ui-contract";
 import { cleanup, createTestHome, createWorkspace, openApp } from "./fixtures/launch-isolated";
 
 test("WB-RECOVERY-002/003 | 重启将 running 成员转为 interrupted 且重试新实例关联旧实例", async ({}, testInfo) => {

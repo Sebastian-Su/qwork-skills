@@ -65,7 +65,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--skill-root", type=pathlib.Path, required=True)
     parser.add_argument(
         "--snapshot",
-        default="data/evidence/workbuddy-cdp/5.3.12-surfaces-v4",
+        default="data/evidence/workbuddy-cdp/5.3.14-surfaces-v2",
     )
     parser.add_argument(
         "--inventory",
@@ -86,11 +86,12 @@ def main() -> int:
     manifest_bytes = manifest_path.read_bytes()
     manifest = json.loads(manifest_bytes)
     inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+    snapshot_uri = f"skill://qwork-test-dataset/{args.snapshot.strip('/')}"
 
     if inventory.get("schema_version") != 1:
         fail("inventory schema_version must be 1")
     authority = inventory.get("authority") or {}
-    if authority.get("source") != "skill://qwork-test-dataset/data/evidence/workbuddy-cdp/5.3.12-surfaces-v4/manifest.json":
+    if authority.get("source") != f"{snapshot_uri}/manifest.json":
         fail("inventory authority must use the stable Skill URI")
     if authority.get("manifest_sha256") != f"sha256:{sha256_bytes(manifest_bytes)}":
         fail("inventory manifest hash drifted")

@@ -32,8 +32,8 @@ const files = [
   ["skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts", path.join(scriptRoot, "electron-isolated-build.config.ts")],
   ["skill://qwork-test-dataset/scripts/playwright-private.config.ts", path.join(scriptRoot, "playwright-private.config.ts")],
   ["repo://e2e/fixtures/fake-sidecar.mjs", path.join(repo, "e2e/fixtures/fake-sidecar.mjs")],
-  ["repo://e2e/fixtures/workbuddy-ui.ts", path.join(repo, "e2e/fixtures/workbuddy-ui.ts")],
-  ["e2e/oracles/workbuddy-5.3.5-sidebar-account.json", path.join(repo, "e2e/oracles/workbuddy-5.3.5-sidebar-account.json")],
+  ["repo://e2e/fixtures/ui-contract.ts", path.join(repo, "e2e/fixtures/ui-contract.ts")],
+  ["e2e/visual-baselines/sidebar-account-reference.json", path.join(repo, "e2e/visual-baselines/sidebar-account-reference.json")],
 ];
 report.authority.files = await Promise.all(files.map(async ([locator, file]) => ({
   locator,

@@ -20,31 +20,31 @@ ACTIONABLE_ROLES = {
 
 CASES = {
     "sidebar_oracle": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-762BA0DA",
-    "sidebar_collapse": "QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-AC69DA50",
-    "sidebar_search_filter": "QW-E2E-WORKBUDDY-UI-SIDEBAR-ACCOUNT-SPEC-79482557",
-    "sidebar_history": "QW-E2E-WORKBUDDY-UI-SIDEBAR-ACCOUNT-SPEC-468685A0",
-    "sidebar_footer": "QW-E2E-WORKBUDDY-UI-SIDEBAR-ACCOUNT-SPEC-E57EACC3",
-    "account": "QW-E2E-WORKBUDDY-UI-SIDEBAR-ACCOUNT-SPEC-65308253",
-    "home": "QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-8B110266",
-    "composer": "QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-1DA67787",
-    "permission": "QW-E2E-WORKBUDDY-UI-SHELL-HOME-SPEC-302EEFEB",
-    "task_waiting": "QW-E2E-WORKBUDDY-UI-TASK-LIFECYCLE-SPEC-9F8C297A",
-    "task_done": "QW-E2E-WORKBUDDY-UI-TASK-LIFECYCLE-SPEC-F38DF4EF",
-    "task_artifact": "QW-E2E-WORKBUDDY-UI-TASK-LIFECYCLE-SPEC-D18AD426",
-    "project": "QW-E2E-WORKBUDDY-UI-SECONDARY-SURFACES-SPEC-202B80D1",
-    "market_top": "QW-E2E-WORKBUDDY-UI-EXPERT-MARKET-SPEC-D7B0D3B0".replace("D7B0D3B0", "D7B0A0A3"),
-    "market_scene": "QW-E2E-WORKBUDDY-UI-EXPERT-MARKET-SPEC-4EF6D5F7",
-    "market_filter": "QW-E2E-WORKBUDDY-UI-EXPERT-MARKET-SPEC-EEFE2AAD",
-    "market_card": "QW-E2E-WORKBUDDY-UI-EXPERT-MARKET-SPEC-9261BDB5",
-    "market_detail": "QW-E2E-WORKBUDDY-UI-EXPERT-MARKET-SPEC-851C90EE",
+    "sidebar_collapse": "QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-48230AF7",
+    "sidebar_search_filter": "QW-E2E-UI-JOURNEY-SIDEBAR-ACCOUNT-SPEC-6BFC6BBC",
+    "sidebar_history": "QW-E2E-UI-JOURNEY-SIDEBAR-ACCOUNT-SPEC-10B2C20A",
+    "sidebar_footer": "QW-E2E-UI-JOURNEY-SIDEBAR-ACCOUNT-SPEC-D902F746",
+    "account": "QW-E2E-UI-JOURNEY-SIDEBAR-ACCOUNT-SPEC-C43AD151",
+    "home": "QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-AFF15030",
+    "composer": "QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-01670D4E",
+    "permission": "QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-C528DC9E",
+    "task_waiting": "QW-E2E-UI-JOURNEY-TASK-LIFECYCLE-SPEC-2CDE4AA8",
+    "task_done": "QW-E2E-UI-JOURNEY-TASK-LIFECYCLE-SPEC-C8015AE3",
+    "task_artifact": "QW-E2E-UI-JOURNEY-TASK-LIFECYCLE-SPEC-77EA17F5",
+    "project": "QW-E2E-UI-JOURNEY-SECONDARY-SURFACES-SPEC-61A2B17F",
+    "market_top": "QW-E2E-UI-JOURNEY-EXPERT-MARKET-SPEC-F6F1C4ED",
+    "market_scene": "QW-E2E-UI-JOURNEY-EXPERT-MARKET-SPEC-B0863473",
+    "market_filter": "QW-E2E-UI-JOURNEY-EXPERT-MARKET-SPEC-2F29967C",
+    "market_card": "QW-E2E-UI-JOURNEY-EXPERT-MARKET-SPEC-191F76C8",
+    "market_detail": "QW-E2E-UI-JOURNEY-EXPERT-MARKET-SPEC-2A9F86FC",
     "expert_summon": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-DDF919C7",
     "team_summon": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-16EA4BFF",
-    "team_detail": "QW-E2E-WORKBUDDY-UI-EXPERT-MARKET-SPEC-BEE8EBF6",
-    "skill_market": "QW-E2E-WORKBUDDY-UI-SECONDARY-SURFACES-SPEC-C1C4260B",
-    "connector_market": "QW-E2E-WORKBUDDY-UI-EXPERT-MARKET-SPEC-F9F9F72A",
-    "automation": "QW-E2E-WORKBUDDY-UI-SECONDARY-SURFACES-SPEC-A29A17D6",
+    "team_detail": "QW-E2E-UI-JOURNEY-EXPERT-MARKET-SPEC-62FC83D2",
+    "skill_market": "QW-E2E-UI-JOURNEY-SECONDARY-SURFACES-SPEC-0D6AE10E",
+    "connector_market": "QW-E2E-UI-JOURNEY-SECONDARY-SURFACES-SPEC-FBF49ACD",
+    "automation": "QW-E2E-UI-JOURNEY-SECONDARY-SURFACES-SPEC-61E7AB5B",
     "automation_oracle": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-784ABD65",
-    "library": "QW-E2E-WORKBUDDY-UI-SECONDARY-SURFACES-SPEC-4CABD81F",
+    "library": "QW-E2E-UI-JOURNEY-SECONDARY-SURFACES-SPEC-B163B51E",
 }
 
 GLOBAL_NAV = {"新建任务", "助理", "项目", "专家·技能·连接器", "自动化", "资料库", "更多 应用·灵感"}
@@ -132,11 +132,15 @@ def inferred_unlabeled(
         return "library-back", [CASES["library"]]
     if state == "surface-专家-技能-连接器" and x == 248.5 and width == 144:
         return "market-more-menu-item", [CASES["market_top"]]
+    if state == "surface-market-技能" and 134 <= y <= 136 and 25 <= width <= 27:
+        return "skill-market-card", [CASES["skill_market"]]
     if state == "surface-新建任务":
         if x == 1232 and y == 433:
             return "home-quick-scene-carousel", [CASES["home"]]
         if x == 614 and y == 567:
             return "composer-product-entry", [CASES["composer"]]
+        if role == "button" and 1043 <= x <= 1045 and y == 567:
+            return "composer-control", [CASES["composer"]]
         if role == "button" and x == 1326 and y == 567:
             return "composer-send", [CASES["composer"]]
     if state == "surface-助理":
@@ -146,7 +150,9 @@ def inferred_unlabeled(
             return "assistant-header-action", [CASES["task_done"]]
         if y < 0 and x in {1352.1953125, 1384.1953125}:
             return "offscreen-message-control", [CASES["task_done"]]
-        if y == 1002 and x in {693.921875, 1079.984375, 1362.1953125}:
+        if y == 1002 and (
+            692 <= x <= 695 or x in {1079.984375, 1362.1953125}
+        ):
             return "assistant-composer-control", [CASES["composer"]]
     return None
 
@@ -187,7 +193,7 @@ def classify(
     if label in {"消息中心", "产物", "概览", "进入全屏", "收起右栏", "关闭"}:
         key = "task_artifact" if label in {"产物", "收起右栏"} else "sidebar_footer" if label == "消息中心" else "task_done"
         return pending("global-shell-action", [CASES[key]], "Execute and register the exact shell transition for this control family.")
-    if label == "WorkBuddy v5.3.12":
+    if re.fullmatch(r"WorkBuddy v\d+(?:\.\d+)+", label):
         return pending("product-version-link", [CASES["home"]], "Verify the QWork product identity/version affordance and its non-destructive destination in an isolated shell Case.")
     if account_identity(control, label):
         return pending("account-profile", [CASES["account"]], "Run the account menu Case against the current revision after repairing its Oracle mismatch.")
@@ -265,7 +271,7 @@ def classify(
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--skill-root", type=pathlib.Path, required=True)
-    parser.add_argument("--snapshot", default="data/evidence/workbuddy-cdp/5.3.12-surfaces-v4")
+    parser.add_argument("--snapshot", default="data/evidence/workbuddy-cdp/5.3.14-surfaces-v2")
     parser.add_argument("--output", default="data/datasets/workbuddy-interaction-inventory.json")
     return parser.parse_args()
 
@@ -277,14 +283,19 @@ def main() -> int:
     manifest_path = snapshot / "manifest.json"
     manifest_bytes = manifest_path.read_bytes()
     manifest = json.loads(manifest_bytes)
+    product_version = str(manifest.get("version") or "")
+    if not product_version:
+        raise ValueError("WorkBuddy CDP manifest is missing version")
+    title_prefix = f"WorkBuddy {product_version} 当前 UI · "
+    snapshot_uri = f"skill://qwork-test-dataset/{args.snapshot.strip('/')}"
     policy_path = root / "references/workbuddy-interaction-classification-policy.yaml"
 
     case_by_state: dict[str, str] = {}
     for path in (root / "data/datasets/cases").glob("*.json"):
         case = json.loads(path.read_text(encoding="utf-8"))
         title = str(case.get("title") or "")
-        if title.startswith("WorkBuddy 5.3.12 当前 UI · "):
-            case_by_state[title.removeprefix("WorkBuddy 5.3.12 当前 UI · ")] = str(case["id"])
+        if title.startswith(title_prefix):
+            case_by_state[title.removeprefix(title_prefix)] = str(case["id"])
     states = [str(record["state"]) for record in manifest.get("records", [])]
     if set(states) != set(case_by_state):
         raise ValueError("every frozen CDP state must have one exact source Case before interaction derivation")
@@ -316,7 +327,7 @@ def main() -> int:
                 "control_id": f"WBC-{fingerprint[:16].upper()}",
                 "state": state,
                 "index": index,
-                "source_locator": f"skill://qwork-test-dataset/data/evidence/workbuddy-cdp/5.3.12-surfaces-v4/{state}.json#/controls/{index}",
+                "source_locator": f"{snapshot_uri}/{state}.json#/controls/{index}",
                 "control_sha256": f"sha256:{canonical_hash(control)}",
                 "tag": control.get("tag"),
                 "role": control.get("role"),
@@ -339,7 +350,7 @@ def main() -> int:
     result = {
         "schema_version": 1,
         "authority": {
-            "source": "skill://qwork-test-dataset/data/evidence/workbuddy-cdp/5.3.12-surfaces-v4/manifest.json",
+            "source": f"{snapshot_uri}/manifest.json",
             "manifest_sha256": f"sha256:{sha256_bytes(manifest_bytes)}",
             "product": manifest.get("product"),
             "version": manifest.get("version"),

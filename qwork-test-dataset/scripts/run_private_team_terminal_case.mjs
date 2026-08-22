@@ -36,7 +36,7 @@ if (result.code !== 0) {
     ["skill://qwork-test-dataset/scripts/build_isolated_electron.mjs", path.join(scriptRoot, "build_isolated_electron.mjs")],
     ["skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts", path.join(scriptRoot, "electron-isolated-build.config.ts")],
     ["skill://qwork-test-dataset/scripts/playwright-private.config.ts", path.join(scriptRoot, "playwright-private.config.ts")],
-    ["repo://e2e/fixtures/workbuddy-ui.ts", path.join(path.resolve(values.repo || process.cwd()), "e2e/fixtures/workbuddy-ui.ts")],
+    ["repo://e2e/fixtures/ui-contract.ts", path.join(path.resolve(values.repo || process.cwd()), "e2e/fixtures/ui-contract.ts")],
   ];
   report.deterministic_sidecar = "skill://qwork-test-dataset/data/e2e/fixtures/team-terminal-sidecar.mjs";
   report.authority.files = await Promise.all(authorityFiles.map(async ([locator, file]) => ({

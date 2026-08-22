@@ -10,10 +10,19 @@ const args = process.argv.slice(2);
 if (args.length > 1 || args.some((arg) => arg.startsWith("-"))) {
   throw new Error("usage: node capture_workbuddy_surfaces.mjs [output-directory]; configure the endpoint with WORKBUDDY_CDP_URL");
 }
-const outputRoot = path.resolve(args[0] ?? ".agents/skills/qwork-test-dataset/data/evidence/workbuddy-cdp/5.3.12-surfaces");
-await fs.mkdir(outputRoot, { recursive: true });
 const version = await fetch(`${endpoint}/json/version`).then((response) => response.json());
-if (!String(version["User-Agent"] ?? "").includes("WorkBuddy/5.3.12")) throw new Error("unexpected WorkBuddy CDP target");
+const userAgent = String(version["User-Agent"] ?? "");
+const versionMatch = userAgent.match(/\bWorkBuddy\/([^\s]+)/);
+if (!versionMatch) throw new Error(`unexpected WorkBuddy target: ${userAgent || "unknown"}`);
+const productVersion = versionMatch[1];
+const expectedVersion = process.env.WORKBUDDY_EXPECTED_VERSION;
+if (expectedVersion && productVersion !== expectedVersion) {
+  throw new Error(`unexpected WorkBuddy version: ${productVersion} != ${expectedVersion}`);
+}
+const outputRoot = path.resolve(
+  args[0] ?? `.agents/skills/qwork-test-dataset/data/evidence/workbuddy-cdp/${productVersion}-surfaces`,
+);
+await fs.mkdir(outputRoot, { recursive: true });
 const browser = await chromium.connectOverCDP(endpoint);
 const page = browser.contexts().flatMap((context) => context.pages()).find((candidate) => candidate.url().startsWith("file:"));
 if (!page) throw new Error("WorkBuddy renderer target is unavailable");
@@ -82,14 +91,15 @@ for (const label of topTabs) {
         : pageTab;
       if (!(await control.isVisible().catch(() => false))) continue;
       await control.click();
-      await page.waitForTimeout(400);
+      if (sublabel === "专家") await waitForExpertMarketReady();
+      else await page.waitForTimeout(400);
       records.push(await capture(`surface-market-${slug(sublabel)}`, { kind: "market-tab", label: sublabel }));
       if (sublabel === "专家") {
         for (const secondary of ["专家", "专家团"]) {
-          const secondaryControl = page.getByText(secondary, { exact: true }).filter({ visible: true }).last();
+          const secondaryControl = page.getByRole("tab", { name: secondary, exact: true }).last();
           if (!(await secondaryControl.isVisible().catch(() => false))) continue;
           await secondaryControl.click();
-          await page.waitForTimeout(350);
+          await waitForExpertCardsReady();
           records.push(await capture(`surface-market-${slug(secondary)}-list`, { kind: "expert-type", label: secondary }));
         }
       }
@@ -119,13 +129,26 @@ for (const label of topTabs) {
   }
 }
 
+async function waitForExpertMarketReady() {
+  await Promise.race([
+    page.getByRole("tab", { name: "专家团", exact: true }).last().waitFor({ state: "visible", timeout: 6000 }),
+    page.locator('button[aria-label^="召唤"]').first().waitFor({ state: "visible", timeout: 6000 }),
+  ]).catch(() => {});
+  await page.waitForTimeout(250);
+}
+
+async function waitForExpertCardsReady() {
+  await page.locator('button[aria-label^="召唤"]').first().waitFor({ state: "visible", timeout: 6000 }).catch(() => {});
+  await page.waitForTimeout(250);
+}
+
 await fs.writeFile(path.join(outputRoot, "manifest.json"), `${JSON.stringify({
   schema_version: 1,
   product: "WorkBuddy",
-  version: "5.3.12",
+  version: productVersion,
   authority_kind: "current-product-evidence",
   captured_at: new Date().toISOString(),
-  user_agent: version["User-Agent"],
+  user_agent: userAgent,
   mutation_policy: "navigation and read-only tabs only; no create/install/connect/delete/send/run/auth mutation",
   state_count: records.length,
   records,

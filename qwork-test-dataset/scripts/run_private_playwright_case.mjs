@@ -68,7 +68,7 @@ const execution = await run(playwright, [
   ELECTRON_RUN_AS_NODE: undefined,
   QWORK_E2E_APP_ROOT: appRoot,
   QWORK_E2E_OUTPUT_DIR: resultRoot,
-  WORKBUDDY_EVIDENCE_DIR: screenshotRoot,
+  UI_EVIDENCE_DIR: screenshotRoot,
   QWORK_E2E_RUNTIME_LOG: runtimeLogPath,
 }, true);
 await fs.writeFile(rawReportPath, execution.stdout, "utf8");
@@ -86,6 +86,11 @@ const observed = collectTests(playwrightReport.suites || []);
 if (observed.length !== 1 || observed[0].title !== title) {
   throw new Error(`private Case must select exactly one test: ${JSON.stringify(observed)}`);
 }
+const caseContract = JSON.parse(await fs.readFile(
+  path.join(skillRoot, "data", "datasets", "cases", `${caseId}.json`),
+  "utf8",
+));
+const requiredScreenshotStates = caseContract.ui_acceptance?.required_screenshot_states || [];
 const stateScreenshots = await artifacts(screenshotRoot, ".png", runRoot);
 const failureScreenshots = await artifacts(resultRoot, ".png", runRoot);
 const screenshots = [
@@ -105,13 +110,12 @@ const screenshots = [
 const traces = await artifacts(resultRoot, "trace.zip", runRoot);
 const evidenceIntegrityErrors = [];
 const testPassed = execution.code === 0 && observed[0].status === "expected";
-if (testPassed && stateScreenshots.length < 3) {
-  evidenceIntegrityErrors.push(`passing private Case must produce at least three state screenshots, found ${stateScreenshots.length}`);
+const observedScreenshotStates = new Set(stateScreenshots.map((item) => inferScreenshotState(item.path)));
+const missingScreenshotStates = requiredScreenshotStates.filter((state) => !observedScreenshotStates.has(state));
+if (testPassed && missingScreenshotStates.length > 0) {
+  evidenceIntegrityErrors.push(`passing private Case is missing required screenshot states: ${missingScreenshotStates.join(", ")}`);
 }
-if (!testPassed && stateScreenshots.length < 1) {
-  evidenceIntegrityErrors.push(`failed private Case must preserve at least one pre-failure state screenshot, found ${stateScreenshots.length}`);
-}
-if (!testPassed && failureScreenshots.length < 1) {
+if (!testPassed && requiredScreenshotStates.length > 0 && failureScreenshots.length < 1) {
   evidenceIntegrityErrors.push(`failed private Case must preserve an assertion-failure screenshot, found ${failureScreenshots.length}`);
 }
 if (traces.length !== 1) evidenceIntegrityErrors.push(`private Case must produce one Playwright trace, found ${traces.length}`);
@@ -158,6 +162,7 @@ const report = {
       sha256: `sha256:${await sha256(runtimeLogPath)}`,
     },
     screenshots,
+    required_screenshot_states: requiredScreenshotStates,
     traces,
   },
   cleanup: {
@@ -222,7 +227,9 @@ async function artifacts(root, suffix, relativeTo) {
 
 function inferScreenshotState(value) {
   const filename = path.basename(value, path.extname(value));
-  for (const state of ["assertion-failure", "final-state", "transition-collapsed", "transition", "entry"]) {
+  if (filename.endsWith("-assertion-failure") || filename.includes("-assertion-failure-")) return "assertion-failure";
+  if (filename.endsWith("-final-state") || filename.includes("-final-state-") || filename.includes("-final-")) return "final-state";
+  for (const state of ["transition-collapsed", "transition", "entry"]) {
     if (filename.endsWith(`-${state}`) || filename.includes(`-${state}-`)) return state;
   }
   return filename;

@@ -8,10 +8,7 @@ import json
 from pathlib import Path
 
 
-REAL_PROVIDER_CASE_IDS = {
-    "QW-E2E-REAL-EXPERT-AGENT-SPEC-11602AAB",
-    "QW-E2E-REAL-EXPERT-AGENT-SPEC-A481C263",
-}
+REAL_PROVIDER_SPEC = "e2e/real-expert-agent.spec.ts"
 
 
 def main() -> int:
@@ -19,13 +16,24 @@ def main() -> int:
     parser.add_argument("--skill-root", type=Path, required=True)
     args = parser.parse_args()
     case_dir = args.skill_root.resolve() / "data/datasets/cases"
-    cases = {
-        case["id"]: case
+    cases = [
+        case
         for path in case_dir.glob("*.json")
         for case in [json.loads(path.read_text(encoding="utf-8"))]
-    }
-    for case_id in sorted(REAL_PROVIDER_CASE_IDS):
-        case = cases[case_id]
+        if (
+            ((case.get("execution_contract") or {}).get("observability") or {})
+            .get("source_contract")
+            or {}
+        )
+        .get("spec")
+            == REAL_PROVIDER_SPEC
+    ]
+    if len(cases) != 2:
+        raise AssertionError(
+            f"expected exactly 2 real-provider Cases from {REAL_PROVIDER_SPEC}, found {len(cases)}"
+        )
+    for case in sorted(cases, key=lambda item: item["id"]):
+        case_id = case["id"]
         contract = case["execution_contract"]
         authorization = contract["authorization"]
         if authorization.get("required") is not True:
@@ -37,7 +45,7 @@ def main() -> int:
         setup = str(contract["fixtures"].get("setup") or "")
         if "separately authorized real external fixture" not in setup:
             raise AssertionError(f"real-provider Case fixture is not fail-closed: {case_id}")
-    print(f"real-provider authorization gate: {len(REAL_PROVIDER_CASE_IDS)} Cases")
+    print(f"real-provider authorization gate: {len(cases)} Cases")
     return 0
 
 

@@ -10,12 +10,21 @@ const args = process.argv.slice(2);
 if (args.length > 1 || args.some((arg) => arg.startsWith("-"))) {
   throw new Error("usage: node inspect_workbuddy_cdp.mjs [output-directory]; configure the endpoint with WORKBUDDY_CDP_URL");
 }
-const outputRoot = path.resolve(args[0] ?? ".agents/skills/qwork-test-dataset/data/evidence/workbuddy-cdp/5.3.12");
-await fs.mkdir(outputRoot, { recursive: true });
 const version = await fetch(`${endpoint}/json/version`).then((response) => response.json());
-if (!String(version["User-Agent"] ?? "").includes("WorkBuddy/5.3.12")) {
+const userAgent = String(version["User-Agent"] ?? "");
+const versionMatch = userAgent.match(/\bWorkBuddy\/([^\s]+)/);
+if (!versionMatch) {
   throw new Error(`unexpected WorkBuddy target: ${version["User-Agent"] ?? "unknown"}`);
 }
+const productVersion = versionMatch[1];
+const expectedVersion = process.env.WORKBUDDY_EXPECTED_VERSION;
+if (expectedVersion && productVersion !== expectedVersion) {
+  throw new Error(`unexpected WorkBuddy version: ${productVersion} != ${expectedVersion}`);
+}
+const outputRoot = path.resolve(
+  args[0] ?? `.agents/skills/qwork-test-dataset/data/evidence/workbuddy-cdp/${productVersion}`,
+);
+await fs.mkdir(outputRoot, { recursive: true });
 const browser = await chromium.connectOverCDP(endpoint);
 const page = browser.contexts().flatMap((context) => context.pages()).find((candidate) => candidate.url().startsWith("file:"));
 if (!page) throw new Error("WorkBuddy renderer target is missing");
@@ -159,11 +168,11 @@ for (const [state, pattern] of navLabels) {
 const manifest = {
   schema_version: 1,
   product: "WorkBuddy",
-  version: "5.3.12",
+  version: productVersion,
   authority_kind: "current-product-evidence",
   captured_at: new Date().toISOString(),
   cdp_endpoint: "127.0.0.1 loopback (port intentionally not authoritative)",
-  user_agent: version["User-Agent"],
+  user_agent: userAgent,
   mutation_policy: "navigation, tabs, menus, expand/collapse only; no create/install/connect/delete/send/run/auth mutation",
   state_count: records.length,
   records: records.map(({ controls, landmarks, ...record }) => ({ ...record, control_count: controls.length, landmark_count: landmarks.length })),

@@ -41,6 +41,7 @@ await run(path.join(repo, "node_modules/.bin/electron-vite"), [
 
 await fs.symlink(path.join(repo, "node_modules"), path.join(appRoot, "node_modules"));
 await fs.symlink(path.join(repo, "resources"), path.join(appRoot, "resources"));
+await fs.symlink(path.join(repo, "build"), path.join(appRoot, "build"));
 const sourcePackage = JSON.parse(
   await fs.readFile(path.join(repo, "package.json"), "utf8"),
 );
@@ -71,6 +72,10 @@ const manifest = {
     app_root_is_private_dataset_run: true,
     real_qwork_home_reused: false,
     real_provider_allowed: false,
+  },
+  runtime_assets: {
+    build: path.join(repo, "build"),
+    resources: path.join(repo, "resources"),
   },
 };
 await fs.writeFile(

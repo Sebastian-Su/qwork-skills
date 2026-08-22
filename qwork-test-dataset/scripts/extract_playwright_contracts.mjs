@@ -31,6 +31,7 @@ function testKind(node) {
   return parts.join(".");
 }
 function literalText(node) {
+  if (!node) return null;
   return ts.isStringLiteralLike(node) || ts.isNoSubstitutionTemplateLiteral(node) ? node.text : null;
 }
 function compact(node, limit = 420) {

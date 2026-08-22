@@ -52,6 +52,13 @@ def main() -> int:
         if actual != expected:
             raise AssertionError(f"classify({text!r})={actual!r}, expected {expected!r}")
 
+    registry_atom = {
+        "facet": "business-rule",
+        "label": "<package>@<marketplace> 按 scope 区分安装记录数组，读取用户级 scope: user 记录",
+    }
+    if builder.atom_requires_ui({"type": "git-document"}, registry_atom):
+        raise AssertionError("registry scope contract was misclassified as a user-visible UI requirement")
+
     xml = """
     <h2 id="tokens">Design tokens</h2>
     <table id="token-table">

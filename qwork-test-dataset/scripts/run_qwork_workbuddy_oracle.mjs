@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** Capture isolated QWork states corresponding to the frozen WorkBuddy 5.3.12 UI Oracle. */
+/** Capture isolated QWork states corresponding to an explicitly frozen WorkBuddy UI Oracle. */
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import os from "node:os";
@@ -9,12 +9,17 @@ import { requireFromProject } from "./project-require.mjs";
 
 const { _electron: electron } = requireFromProject("@playwright/test");
 
-const [repoArg, outputArg, requestedState] = process.argv.slice(2);
-if (!repoArg || !outputArg) throw new Error("usage: run_qwork_workbuddy_oracle.mjs <repo> <output> [state]");
+const [repoArg, outputArg, requestedState, ...options] = process.argv.slice(2);
+const workbuddyOption = options.indexOf("--workbuddy");
+const workbuddyArg = workbuddyOption >= 0 ? options[workbuddyOption + 1] : undefined;
+if (!repoArg || !outputArg || !requestedState || !workbuddyArg) {
+  throw new Error(
+    "usage: run_qwork_workbuddy_oracle.mjs <repo> <output> <state> --workbuddy <frozen-source>",
+  );
+}
 const repo = path.resolve(repoArg);
 const output = path.resolve(outputArg);
-const skillRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
-const workbuddyRoot = path.join(skillRoot, "data/evidence/workbuddy-cdp/5.3.12-surfaces-v4");
+const workbuddyRoot = path.resolve(workbuddyArg);
 const wbManifest = JSON.parse(await fs.readFile(path.join(workbuddyRoot, "manifest.json"), "utf8"));
 const records = requestedState ? wbManifest.records.filter((item) => item.state === requestedState) : wbManifest.records;
 if (!records.length) throw new Error(`unknown WorkBuddy state: ${requestedState}`);
@@ -69,7 +74,7 @@ try {
 const manifest = {
   schema_version: 1,
   product: "QWork",
-  compared_product: "WorkBuddy 5.3.12",
+  compared_product: `WorkBuddy ${wbManifest.version}`,
   captured_at: new Date().toISOString(),
   repo_revision: (await import("node:child_process")).execFileSync("git", ["rev-parse", "HEAD"], { cwd: repo, encoding: "utf8" }).trim(),
   isolation: "temporary ZIQDO_CONFIG_HOME + deterministic fake sidecar; zero model calls",

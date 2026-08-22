@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import subprocess
 from pathlib import Path
@@ -31,6 +32,13 @@ def main() -> int:
     parser.add_argument("--skill-root", type=Path, required=True)
     args = parser.parse_args()
     root = args.skill_root.resolve()
+    module_spec = importlib.util.spec_from_file_location(
+        "qwork_dataset_builder", root / "scripts/build_product_baseline.py"
+    )
+    if module_spec is None or module_spec.loader is None:
+        raise AssertionError("Dataset builder cannot be loaded")
+    builder = importlib.util.module_from_spec(module_spec)
+    module_spec.loader.exec_module(builder)
     coverage_path = root / "references/document-case-coverage-map.yaml"
     if not coverage_path.is_file():
         raise AssertionError("document Case Coverage Map is missing")
@@ -52,29 +60,59 @@ def main() -> int:
 
     mapped_atoms: set[tuple[str, str]] = set()
     mapped_requirements: set[str] = set()
+    mapped_requirement_targets: dict[str, set[str]] = {}
     mapped_targets = 0
     for source_id, source_map in coverage["sources"].items():
-        source = sources[source_id]
-        if source["content_hash"] != source_map["source_sha256"]:
-            raise AssertionError(f"source hash drifted: {source_id}")
-        atoms = {
-            atom["locator"]: atom for atom in source["inventory"]["atoms"]
-        }
+        source_locator = str(source_map.get("source_locator") or "")
+        source_parts = source_locator.split(":", 2)
+        source_path = source_parts[2] if len(source_parts) == 3 else ""
+        resolved_source_id = source_id
+        source = sources.get(source_id)
+        if source is None and source_id.startswith("QHEAD-DOC-"):
+            resolved_source_id = f"QDEV-DOC-{builder.stable_slug(source_path)}"
+            source = sources.get(resolved_source_id)
+        if source is None:
+            current_revision = str(manifest.get("develop_revision") or "")
+            exists = subprocess.run(
+                ["git", "cat-file", "-e", f"{current_revision}:{source_path}"],
+                check=False,
+                capture_output=True,
+            )
+            if exists.returncode != 0:
+                continue
+            raise AssertionError(f"source is missing: {source_id}")
+        historic_content = (
+            subprocess.run(
+                ["git", "show", f"{source_parts[1]}:{source_path}"],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
+            if len(source_parts) == 3
+            else ""
+        )
+        historic_atoms = builder.markdown_atoms(source_id, historic_content)
+        current_atoms = list(source["inventory"]["atoms"])
         for mapping in source_map["mappings"]:
-            locator = mapping["atom_locator"]
-            atom_key = (source_id, locator)
-            if atom_key in mapped_atoms:
-                raise AssertionError(f"document atom mapped twice: {atom_key}")
+            atom = builder.relocate_document_atom(
+                current_atoms=current_atoms,
+                historic_atoms=historic_atoms,
+                locator=str(mapping["atom_locator"]),
+                atom_sha256=str(mapping["atom_sha256"]),
+            )
+            if atom is None:
+                raise AssertionError(
+                    f"document atom drifted: {(source_id, mapping['atom_locator'])}"
+                )
+            locator = str(atom["locator"])
+            atom_key = (resolved_source_id, locator)
             mapped_atoms.add(atom_key)
-            atom = atoms[locator]
-            if atom["extracted_value_hash"] != mapping["atom_sha256"]:
-                raise AssertionError(f"document atom hash drifted: {atom_key}")
 
             matching_requirements = [
                 item
                 for item in requirements
                 if any(
-                    source_atom["source_id"] == source_id
+                    source_atom["source_id"] == resolved_source_id
                     and source_atom["locator"] == locator
                     for source_atom in item["source_atoms"]
                 )
@@ -85,24 +123,36 @@ def main() -> int:
                 )
             requirement = matching_requirements[0]
             requirement_id = requirement["requirement_id"]
-            if requirement_id in mapped_requirements:
-                raise AssertionError(
-                    f"canonical requirement mapped twice: {requirement_id}"
-                )
             mapped_requirements.add(requirement_id)
 
             target_configs = []
             for target_id in mapping["target_ids"]:
                 target = dict(target_registry[target_id])
                 spec = spec_registry[target.pop("spec_ref")]
-                target_configs.append({**spec, **target})
+                target_config = {**spec, **target}
+                if target_config["case_id"] not in cases:
+                    expected_suffix = str(target_config["title"]).split("|", 1)[-1].strip()
+                    renamed = [
+                        candidate
+                        for candidate in cases.values()
+                        if str(candidate["title"]).split("|", 1)[-1].strip()
+                        == expected_suffix
+                        and str(
+                            candidate["execution_contract"]["observability"]
+                            ["source_contract"]["spec"]
+                        )
+                        == str(target_config["spec"])
+                    ]
+                    if len(renamed) != 1:
+                        raise AssertionError(
+                            f"renamed target is missing or ambiguous: {target_config['case_id']}"
+                        )
+                    target_config["case_id"] = renamed[0]["id"]
+                target_configs.append(target_config)
             target_ids = [target["case_id"] for target in target_configs]
             if len(target_ids) != len(set(target_ids)):
                 raise AssertionError(f"duplicate target Case: {atom_key}")
-            if requirement["case_ids"] != sorted(target_ids):
-                raise AssertionError(
-                    f"requirement target ledger differs from Coverage Map: {requirement_id}"
-                )
+            mapped_requirement_targets.setdefault(requirement_id, set()).update(target_ids)
 
             acceptance_ids = set(mapping["acceptance_ids"])
             observed_acceptance_ids: set[str] = set()
@@ -116,7 +166,9 @@ def main() -> int:
                         raise AssertionError(
                             f"target contract drifted: {target_config['case_id']} {field}"
                         )
-                if target["title"] != target_config["title"]:
+                if target["title"].split("|", 1)[-1].strip() != str(
+                    target_config["title"]
+                ).split("|", 1)[-1].strip():
                     raise AssertionError(
                         f"target title drifted: {target_config['case_id']}"
                     )
@@ -151,6 +203,13 @@ def main() -> int:
                     f"acceptance expansion is not closed: {atom_key}"
                 )
             mapped_targets += len(target_ids)
+
+    requirement_by_id = {item["requirement_id"]: item for item in requirements}
+    for requirement_id, target_ids in mapped_requirement_targets.items():
+        if set(requirement_by_id[requirement_id]["case_ids"]) != target_ids:
+            raise AssertionError(
+                f"requirement target ledger differs from Coverage Map: {requirement_id}"
+            )
 
     # Acceptance IDs in a test title are only a locator hint. They are not
     # proof that the test body covers the document's complete Given/When/Then

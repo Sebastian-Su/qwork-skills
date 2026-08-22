@@ -3,7 +3,7 @@ import {
   attachUiState,
   setContentSize,
   summonGameStudio,
-} from "../../../../../e2e/fixtures/workbuddy-ui";
+} from "../../../../../e2e/fixtures/ui-contract";
 import {
   cleanup,
   createTestHome,
@@ -126,6 +126,7 @@ test("WB-TEAM-008 | Lead 总结必须晚于所需成员完成事件", async ({},
       expect(completedIndex).toBeGreaterThanOrEqual(0);
       expect(summaryIndex, JSON.stringify(events)).toBeGreaterThan(completedIndex);
     }
+    await attachUiState(page, testInfo, "final-lead-summary-after-required-members");
   } finally {
     await cleanup(app, home);
   }

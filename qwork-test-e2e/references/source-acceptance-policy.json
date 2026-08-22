@@ -1,0 +1,43 @@
+{
+  "contract_version": 1,
+  "project": "replace-with-project-id",
+  "canonical_manifest": "skill://replace-with-dataset-skill/data/datasets/source-acceptance.json",
+  "source_inventory": {
+    "require_complete_atom_extraction_for_normative_sources": true,
+    "require_atom_level_locator_facet_and_value_hash": true,
+    "require_atom_to_oracle_traceability": true,
+    "fail_on_unmapped_source_atom": true,
+    "fail_on_stale_source_revision_or_hash": true,
+    "deduplicate_semantics_without_dropping_source_refs": true
+  },
+  "prd_compilation": {
+    "acceptance_criterion_requires_positive_case": true,
+    "forbidden_validation_permission_error_recovery_requires_negative_or_edge_case": true,
+    "user_visible_requirement_requires_real_ui_case": true,
+    "agent_internal_or_unit_only_does_not_satisfy_user_visible_requirement": true,
+    "require_durable_oracle_for_declared_side_effect": true
+  },
+  "figma_compilation": {
+    "frozen_revision_is_normative_for_ui": true,
+    "facets_expand_acceptance_categories": true,
+    "geometry_requires_viewport_dpr_coordinate_space_target_and_tolerance": true,
+    "geometry_expectation_shape_follows_atom_measurement_kind": true,
+    "default_geometry_tolerance_css_px": 1,
+    "visual_baseline_must_be_frozen_figma_export_or_approved_golden": true,
+    "visual_threshold_requires_project_policy_or_approval": true,
+    "prototype_interaction_requires_real_ui_route_and_state_checkpoints": true,
+    "coordinates_are_oracles_not_primary_click_locators": true
+  },
+  "suite_selection": {
+    "required_modes": ["requirement", "category", "full", "affected"],
+    "require_exact_requirement_to_cases_index": true,
+    "require_exact_category_to_cases_index": true,
+    "full_suite_contains_every_active_case": true
+  },
+  "release_gate": {
+    "unmapped_source_atoms_must_equal": 0,
+    "uncovered_p0_p1_must_equal": 0,
+    "orphan_cases_must_equal": 0,
+    "source_acceptance_validation_failure": "repair-required"
+  }
+}

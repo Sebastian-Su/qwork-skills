@@ -6,7 +6,7 @@ import {
   resolveExpertConcurrency,
   teamRuntimeContract,
 } from "../../../../../src/main/experts/concurrencyPolicy";
-import { setContentSize, summonGameStudio } from "../../../../../e2e/fixtures/workbuddy-ui";
+import { setContentSize, summonGameStudio } from "../../../../../e2e/fixtures/ui-contract";
 import { cleanup, createTestHome, createWorkspace, openApp } from "./fixtures/launch-isolated";
 
 test("TEAM-CONCURRENCY-001 | 默认 5 普通 1-20 高级 21-100 且本机资源不独占模型并发决策", async () => {

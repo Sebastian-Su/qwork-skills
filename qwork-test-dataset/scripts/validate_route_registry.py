@@ -279,7 +279,19 @@ def main() -> int:
                     errors.append(f"structured source verifier route {route_id} command drifted")
                 if case.get("execution_type") != "integration" or case.get("ui_acceptance") is not None:
                     errors.append(f"structured source verifier route {route_id} must be non-UI integration")
-            elif "WORKBUDDY-CDP-5-3-12-V4" in source_ids:
+            elif any(
+                re.fullmatch(r"WORKBUDDY-CDP-\d+(?:-\d+)+-V\d+", source_id)
+                for source_id in source_ids
+            ):
+                cdp_source_ids = {
+                    source_id
+                    for source_id in source_ids
+                    if re.fullmatch(r"WORKBUDDY-CDP-\d+(?:-\d+)+-V\d+", source_id)
+                }
+                if source_ids != cdp_source_ids or len(cdp_source_ids) != 1:
+                    errors.append(
+                        f"WorkBuddy CDP route {route_id} must bind one source-exclusive CDP snapshot"
+                    )
                 oracle = contract["observability"].get("oracle_contract")
                 if not isinstance(oracle, dict):
                     errors.append(f"WorkBuddy CDP route {route_id} has no Oracle contract")

@@ -32,6 +32,8 @@ STATUS_LABELS = {
     "skipped": "本次未执行",
     "pending": "还没验证",
     "not_applicable": "本次不需要检查",
+    "not-run": "本次尚未执行",
+    "runner-gap": "缺少本地自动执行器",
 }
 
 SCREENSHOT_STATE_LABELS = {
@@ -74,6 +76,8 @@ def status_class(value: Any) -> str:
     if status in PASS:
         return "pass"
     if status in FAIL:
+        return "fail"
+    if status == "runner-gap":
         return "fail"
     if status in BLOCKED:
         return "blocked"
@@ -154,6 +158,8 @@ def validate_cases(report: dict[str, Any], root: Path) -> list[dict[str, Any]]:
         "known_gap",
         "pending",
         "not_applicable",
+        "not-run",
+        "runner-gap",
     }
     for case in cases:
         case_id = str(case.get("id") or "unknown")
@@ -162,9 +168,25 @@ def validate_cases(report: dict[str, Any], root: Path) -> list[dict[str, Any]]:
             raise ValueError(f"case {case_id} has unsupported status: {status}")
         evidence = [mapping(entry) for entry in items(case.get("evidence"))]
         screenshots = [entry for entry in evidence if str(entry.get("kind", "")).lower() == "screenshot"]
+        private_screenshot_attestations = [
+            entry for entry in evidence
+            if str(entry.get("kind", "")).lower() == "private-screenshot-attestation"
+        ]
         is_ui = bool(case.get("ui")) or str(case.get("executor", "")).lower() in UI_EXECUTORS
         ui_attempted = bool(case.get("ui_attempted")) or bool(screenshots)
         screenshot_states: set[str] = set()
+        for entry in private_screenshot_attestations:
+            state = str(entry.get("state") or "").strip()
+            digest = str(entry.get("sha256") or "").removeprefix("sha256:").lower()
+            if not state or not entry.get("caption") or len(digest) != 64 or any(
+                value not in "0123456789abcdef" for value in digest
+            ):
+                raise ValueError(
+                    f"private screenshot attestation for case {case_id} requires state, caption, and sha256"
+                )
+            if entry.get("path"):
+                raise ValueError(f"private screenshot attestation for case {case_id} must not expose a raw path")
+            screenshot_states.add(state)
         for entry in evidence:
             path_value = entry.get("path")
             if path_value:
@@ -179,21 +201,26 @@ def validate_cases(report: dict[str, Any], root: Path) -> list[dict[str, Any]]:
                         raise ValueError(f"screenshot hash mismatch for case {case_id}: {path_value}")
                     screenshot_states.add(state)
         required_value = case.get("required_screenshot_states")
-        if is_ui and ui_attempted:
-            if not isinstance(required_value, list) or not required_value:
-                raise ValueError(f"attempted UI case {case_id} must declare required_screenshot_states")
-            required_states = {str(value).strip() for value in required_value if str(value).strip()}
+        if is_ui and ui_attempted and not isinstance(required_value, list):
+            raise ValueError(f"attempted UI case {case_id} must declare required_screenshot_states")
+        required_states = {
+            str(value).strip() for value in items(required_value) if str(value).strip()
+        }
+        declared_gaps = {
+            str(value).strip() for value in items(case.get("visual_evidence_gap")) if str(value).strip()
+        }
+        allow_declared_repair_gap = report.get("gate_status") == "repair-required"
+        if is_ui and ui_attempted and required_states:
             if "entry" not in required_states:
                 raise ValueError(f"attempted UI case {case_id} required_screenshot_states must include entry")
             missing_states = required_states - screenshot_states
-            if missing_states:
+            if missing_states and not (
+                allow_declared_repair_gap and missing_states <= declared_gaps
+            ):
                 raise ValueError(
                     f"attempted UI case {case_id} is missing screenshots for: " + ", ".join(sorted(missing_states))
                 )
-        if is_ui and status in PASS:
-            if not isinstance(required_value, list) or not required_value:
-                raise ValueError(f"UI case {case_id} must declare required_screenshot_states before PASS")
-            required_states = {str(value).strip() for value in required_value if str(value).strip()}
+        if is_ui and status in PASS and required_states:
             universal_states = {"entry", "final-state"}
             if not universal_states.issubset(required_states):
                 raise ValueError(f"UI case {case_id} required_screenshot_states must include entry and final-state")
@@ -202,7 +229,13 @@ def validate_cases(report: dict[str, Any], root: Path) -> list[dict[str, Any]]:
                 raise ValueError(
                     f"UI case {case_id} cannot PASS without screenshots for: " + ", ".join(sorted(missing_states))
                 )
-        if is_ui and status in FAIL and "assertion-failure" not in screenshot_states:
+        if (
+            is_ui
+            and status in FAIL
+            and required_states
+            and "assertion-failure" not in screenshot_states
+            and not (allow_declared_repair_gap and "assertion-failure" in declared_gaps)
+        ):
             raise ValueError(f"failed UI case {case_id} requires assertion-failure screenshot")
     return cases
 
