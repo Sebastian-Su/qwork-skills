@@ -124,15 +124,35 @@ function contentText(content) {
 
 function visibleText(content) {
   const raw = contentText(content);
-  const invocation = raw.match(
+  // Mirror the authoritative fake-sidecar visiblePromptText: strip the trailing
+  // connector-invocation envelope first, then the skill-invocation, then the
+  // personalization / global-memory / team-runtime envelopes. Missing any of
+  // these left QWork's private envelopes wrapping the trigger word, so the
+  // literal "__E2E_TEAM_TERMINAL_MATRIX__" never matched and the sidecar fell
+  // back to a generic echo (bug WB-TEAM-007 fixture gap).
+  let visible = raw
+    .replace(
+      /\s*<qwork_selected_connector_invocation\s+connectors="[^"]*"\s*>[\s\S]*?<\/qwork_selected_connector_invocation>\s*$/,
+      "",
+    )
+    .trim();
+  const invocation = visible.match(
     /\s*<qwork_selected_skill_invocation\s+primary="([^"]+)"\s+skills="[^"]*"\s*>[\s\S]*?<\/qwork_selected_skill_invocation>\s*$/,
   );
-  let visible = invocation ? raw.replace(invocation[0], "").trim() : raw;
   if (invocation) {
+    visible = visible.replace(invocation[0], "").trim();
     const prefix = `$${invocation[1]} `;
     if (visible.startsWith(prefix)) visible = visible.slice(prefix.length);
   }
   return visible
+    .replace(
+      /<!-- qwork:personalization:start -->[\s\S]*?<!-- qwork:personalization:end -->\s*/gi,
+      "",
+    )
+    .replace(
+      /<!-- qwork:global-memory:start -->[\s\S]*?<!-- qwork:global-memory:end -->\s*/gi,
+      "",
+    )
     .replace(/<qwork_team_runtime\b[^>]*>[\s\S]*?<\/qwork_team_runtime>\s*/gi, "")
     .trim();
 }

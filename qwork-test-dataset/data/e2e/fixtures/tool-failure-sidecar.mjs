@@ -76,13 +76,36 @@ function contentText(content) {
 
 function visibleText(content) {
   const raw = contentText(content);
-  const invocation = raw.match(/\s*<qwork_selected_skill_invocation\s+primary="([^"]+)"\s+skills="[^"]*"\s*>[\s\S]*?<\/qwork_selected_skill_invocation>\s*$/);
-  let visible = invocation ? raw.replace(invocation[0], "").trim() : raw;
+  // Mirror the authoritative fake-sidecar visiblePromptText: strip connector,
+  // skill, personalization, global-memory and team-runtime envelopes. Missing
+  // the first three left QWork's private envelopes wrapping the trigger word,
+  // so "__E2E_TOOL_FAILURE__" never matched and no tool_call/tool_result was
+  // emitted (bug WB-EXEC-005 fixture gap).
+  let visible = raw
+    .replace(
+      /\s*<qwork_selected_connector_invocation\s+connectors="[^"]*"\s*>[\s\S]*?<\/qwork_selected_connector_invocation>\s*$/,
+      "",
+    )
+    .trim();
+  const invocation = visible.match(
+    /\s*<qwork_selected_skill_invocation\s+primary="([^"]+)"\s+skills="[^"]*"\s*>[\s\S]*?<\/qwork_selected_skill_invocation>\s*$/,
+  );
   if (invocation) {
+    visible = visible.replace(invocation[0], "").trim();
     const prefix = `$${invocation[1]} `;
     if (visible.startsWith(prefix)) visible = visible.slice(prefix.length);
   }
-  return visible.replace(/<qwork_team_runtime\b[^>]*>[\s\S]*?<\/qwork_team_runtime>\s*/gi, "").trim();
+  return visible
+    .replace(
+      /<!-- qwork:personalization:start -->[\s\S]*?<!-- qwork:personalization:end -->\s*/gi,
+      "",
+    )
+    .replace(
+      /<!-- qwork:global-memory:start -->[\s\S]*?<!-- qwork:global-memory:end -->\s*/gi,
+      "",
+    )
+    .replace(/<qwork_team_runtime\b[^>]*>[\s\S]*?<\/qwork_team_runtime>\s*/gi, "")
+    .trim();
 }
 
 function append(sessionId, role, text) {

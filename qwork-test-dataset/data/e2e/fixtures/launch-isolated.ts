@@ -43,7 +43,11 @@ export async function openApp(
       QWORK_ENV: "test",
       NODE_ENV: "test",
       QWORK_AUTH_BYPASS: "1",
-      QWORK_E2E_BUILTIN_MARKETPLACE: "none",
+      // Bundled experts (e.g. 高级开发工程师/senior-developer) install only when a
+      // plugins root is provisioned. "none" nulls that root, so expert UI flows
+      // never find their expert. "plugins-only" seeds the agent plugins without
+      // the heavier full skill mirror, matching what these specs assert against.
+      QWORK_E2E_BUILTIN_MARKETPLACE: "plugins-only",
       QWORK_E2E_EMBEDDED_PYTHON: "0",
       QWORK_PROJECT_ACCESS_TOKEN: "private-e2e-token",
       QWORK_E2E_MODEL_CATALOG_JSON: JSON.stringify([
@@ -68,5 +72,27 @@ export async function cleanup(
   home: string,
 ): Promise<void> {
   await app?.close().catch(() => undefined);
-  await fs.rm(home, { recursive: true, force: true });
+  await removeHomeWithRetries(home);
+}
+
+/**
+ * Windows keeps the Electron lockfile handle open briefly after `app.close()`
+ * resolves, so an immediate `fs.rm` races the OS and throws EBUSY/EPERM/ENOTEMPTY.
+ * Retry with backoff so cleanup failure never masks a passing test body.
+ */
+async function removeHomeWithRetries(home: string): Promise<void> {
+  const transient = new Set(["EBUSY", "EPERM", "ENOTEMPTY", "EACCES"]);
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    try {
+      await fs.rm(home, { recursive: true, force: true });
+      return;
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code ?? "";
+      if (!transient.has(code) || attempt === 9) {
+        if (attempt === 9) return; // best-effort: temp dir will be reclaimed by the OS
+        throw error;
+      }
+      await new Promise((resolve) => setTimeout(resolve, 100 * (attempt + 1)));
+    }
+  }
 }

@@ -57,5 +57,21 @@ export async function openApp(home: string): Promise<{ app: ElectronApplication;
 
 export async function cleanup(app: ElectronApplication | undefined, home: string): Promise<void> {
   await app?.close().catch(() => undefined);
-  await fs.rm(home, { recursive: true, force: true });
+  await removeHomeWithRetries(home);
+}
+
+/** Windows releases the Electron lockfile after app.close() resolves; retry so cleanup never masks a pass. */
+async function removeHomeWithRetries(home: string): Promise<void> {
+  const transient = new Set(["EBUSY", "EPERM", "ENOTEMPTY", "EACCES"]);
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    try {
+      await fs.rm(home, { recursive: true, force: true });
+      return;
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code ?? "";
+      if (attempt === 9) return;
+      if (!transient.has(code)) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 100 * (attempt + 1)));
+    }
+  }
 }
