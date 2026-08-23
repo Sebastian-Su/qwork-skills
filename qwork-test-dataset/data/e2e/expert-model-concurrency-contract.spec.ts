@@ -87,6 +87,9 @@ test("TEAM-CONCURRENCY-004 | 取消父任务级联终止未完成子任务且成
     const composer = await summonGameStudio(opened.page);
     await composer.fill("__E2E_HANG__");
     await composer.press("Enter");
+    await expect
+      .poll(() => opened.page.evaluate(() => window.workGui.sessions.list()))
+      .not.toHaveLength(0);
     const sessions = await opened.page.evaluate(() => window.workGui.sessions.list());
     const sessionId = String(sessions[0]?.session_id ?? "");
     expect(sessionId).not.toBe("");

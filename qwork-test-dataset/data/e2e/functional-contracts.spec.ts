@@ -33,7 +33,7 @@ test("WB-EXEC-001 + WB-RECOVERY-001 | 专家等待态可停止且恢复输入", 
     await expect(page.getByRole("group", { name: "当前执行专家" })).toContainText("高级开发工程师");
     await expect(page.getByText("等待模型响应", { exact: true })).toBeVisible();
     await expect(composer).toBeDisabled();
-    const stop = page.getByRole("button", { name: "停止", exact: true });
+    const stop = page.getByRole("button", { name: "停止生成", exact: true });
     await expect(stop).toBeVisible();
     await attachUiState(page, testInfo, "transition-waiting");
     await stop.click();

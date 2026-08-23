@@ -92,6 +92,9 @@ test("TEAM-SESSION-DELETE-001 | 删除会话清理专家选择与 Team Projectio
     const composer = opened.page.getByPlaceholder(/今天帮你做些什么/);
     await composer.fill("创建待删除会话");
     await composer.press("Enter");
+    await expect
+      .poll(() => opened.page.evaluate(() => window.workGui.sessions.list()))
+      .not.toHaveLength(0);
     const sessions = await opened.page.evaluate(() => window.workGui.sessions.list());
     const sessionId = String(sessions[0]?.session_id ?? "");
     expect(sessionId).not.toBe("");

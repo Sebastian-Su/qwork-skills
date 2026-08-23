@@ -77,7 +77,9 @@ test("WB-UI-ORACLE-AUTOMATION-002 | 自动化 Chrome、响应断点、日程控�
     await attachUiState(page, testInfo, "entry-automation-chrome-height");
 
     const compactViewport = {
-      width: oracle.desktop.leftRailWidth + oracle.responsiveToolbar.compactMaxMainWidth,
+      // 视口精确卡在 compact/fluid 分界会因 getBoundingClientRect 亚像素漂移翻档为 fluid；
+      // 退避 4px 留 advisory 容差，锁定 compact 档，不改产品阈值。
+      width: oracle.desktop.leftRailWidth + oracle.responsiveToolbar.compactMaxMainWidth - 4,
       height: 800,
     };
     await setContentSize(app, page, compactViewport);

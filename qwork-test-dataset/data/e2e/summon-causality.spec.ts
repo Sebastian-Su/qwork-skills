@@ -50,6 +50,7 @@ test("WB-EXPERT-001 + WB-EXPERT-002 | 专家详情与召唤保留草稿且不建
     }, { attachment, workspace });
     await page.getByRole("button", { name: "更多操作", exact: true }).click();
     await page.getByRole("menuitem", { name: "添加文件", exact: true }).click();
+    await page.getByRole("menuitem", { name: "本地文件", exact: true }).click();
     await expect(page.getByText("召唤前附件.txt", { exact: true })).toBeVisible();
 
     await composer.fill(draft);

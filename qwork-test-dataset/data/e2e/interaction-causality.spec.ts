@@ -58,7 +58,8 @@ test("WB-EXEC-006 | 权限允许拒绝与 Lead AskUser 回答跳过均产生唯�
     expect(askBox).not.toBeNull();
     expect(composerBox).not.toBeNull();
     expect(askBox!.y + askBox!.height).toBeLessThanOrEqual(composerBox!.y);
-    await ask.getByRole("button", { name: /1 桌面端/ }).click();
+    await ask.getByRole("radio", { name: "桌面端", exact: true }).check();
+    await ask.getByRole("button", { name: "提交回答", exact: true }).click();
     await expect(page.getByText("已收到选择：桌面端", { exact: true })).toBeVisible();
     await expect(ask).toBeVisible();
     await ask.getByRole("button", { name: "跳过", exact: true }).click();

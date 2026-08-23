@@ -31,7 +31,7 @@ test("WB-RECOVERY-006 | 模型首事件超时必须结束等待并提供可重�
     await attachUiState(page, testInfo, "entry-expert-ready-before-timeout-probe");
     await composer.press("Enter");
     await expect(page.getByText("等待模型响应", { exact: true })).toBeVisible();
-    await expect(page.getByRole("button", { name: "停止", exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "停止生成", exact: true })).toBeVisible();
     await attachUiState(page, testInfo, "transition-model-request-has-no-first-event");
 
     // The deterministic sidecar deliberately never emits thinking/tool/text,
@@ -40,7 +40,7 @@ test("WB-RECOVERY-006 | 模型首事件超时必须结束等待并提供可重�
     await page.waitForTimeout(10_000);
     await attachUiState(page, testInfo, "failure-first-event-timeout-still-waiting");
     await expect(page.getByText("等待模型响应", { exact: true })).toHaveCount(0);
-    await expect(page.getByRole("button", { name: "停止", exact: true })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "停止生成", exact: true })).toHaveCount(0);
     await expect(page.getByRole("button", { name: "重试", exact: true })).toBeVisible();
     await expect(composer).toBeEnabled();
     await attachUiState(page, testInfo, "final-timeout-is-terminal-and-retryable");

@@ -38,7 +38,8 @@ test("WB-TEAM-009 | AskUser 只投影到 Lead 且 answer/skip 各回执一次", 
     await expect(page.getByRole("button", { name: /游戏开发工作室.*负责人/ })).toBeVisible();
     await expect(page.getByRole("button", { name: /发布运营|质量保障/ })).toHaveCount(0);
     await attachUiState(page, testInfo, "transition-lead-owned-question-visible");
-    await ask.getByRole("button", { name: /1 桌面端/ }).click();
+    await ask.getByRole("radio", { name: "桌面端", exact: true }).check();
+    await ask.getByRole("button", { name: "提交回答", exact: true }).click();
     await expect(page.getByText("已收到选择：桌面端", { exact: true })).toBeVisible();
     await expect(ask).toBeVisible();
     await ask.getByRole("button", { name: "跳过", exact: true }).click();

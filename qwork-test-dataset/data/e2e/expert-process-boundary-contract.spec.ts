@@ -31,11 +31,12 @@ test("EXPERT-BOUNDARY-001 | Renderer 无 Node Electron 与 ipcRenderer 原语", 
 });
 
 test("EXPERT-BOUNDARY-002 | 专家 IPC 同时具备共享契约 preload 白名单 main handler 与可信 sender", async () => {
-  const [api, channels, preload, mainIpc] = await Promise.all([
+  const [api, channels, preload, mainIpc, trustedHandler] = await Promise.all([
     source("src/shared/api.ts"),
     source("src/shared/channels.ts"),
     source("src/preload/index.ts"),
     source("src/main/ipc/index.ts"),
+    source("src/main/ipc/trustedHandler.ts"),
   ]);
   for (const capability of ["expertList", "expertMarketState", "expertSetSort", "expertProjection"]) {
     expect(channels).toContain(`${capability}:`);
@@ -44,7 +45,7 @@ test("EXPERT-BOUNDARY-002 | 专家 IPC 同时具备共享契约 preload 白名�
   }
   expect(api).toContain("experts: {");
   expect(mainIpc).toContain("registerTrustedHandler(");
-  expect(mainIpc).toContain("isTrustedSender");
+  expect(trustedHandler).toContain("isTrustedSender");
 });
 
 test("EXPERT-BOUNDARY-003 | 文件边界在主进程最早校验工作区与 Expert Package 根", async () => {

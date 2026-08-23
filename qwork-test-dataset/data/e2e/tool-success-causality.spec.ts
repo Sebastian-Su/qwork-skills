@@ -45,14 +45,12 @@ test("WB-EXEC-004 | ZiqDo 工具成功事件形成完成态、耗时、输入输
     const composer = page.getByRole("textbox");
     await composer.fill("__E2E_TOOL_ARTIFACT__:accepted-output.md");
     await composer.press("Enter");
-    const tool = page.getByRole("button", { name: /写入文件.*ok.*(?:ms|s)/ });
-    await expect(tool).toBeVisible();
-    await tool.click();
-    const details = page.getByTestId("tool-call-details");
-    await expect(details).toContainText("accepted-output.md");
-    await expect(details).toContainText("after!");
-    await expect(details).toContainText("ok");
-    await attachUiState(page, testInfo, "transition-success-details-and-duration");
+    // status=ok 的 write_file 被产品提取为 artifact 预览卡（ThreadView），不再渲染工具卡
+    await expect(page.getByRole("button", { name: /写入文件.*ok.*(?:ms|s)/ })).toHaveCount(0);
+    await expect(
+      page.getByTestId("main-content").getByRole("button", { name: "accepted-output.md" }),
+    ).toBeVisible();
+    await attachUiState(page, testInfo, "transition-success-artifact-card");
 
     const artifact = page.getByTestId("main-content").getByRole("button", { name: "accepted-output.md" });
     await expect(artifact).toBeVisible();
