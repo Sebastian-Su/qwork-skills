@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { requireFromProject } from "./project-require.mjs";
+import { bindWorkBuddyRuntimeIdentity, calibrateWorkBuddyViewport } from "./workbuddy-runtime-identity.mjs";
 
 const { chromium } = requireFromProject("playwright");
 
@@ -26,17 +27,25 @@ await fs.mkdir(outputRoot, { recursive: true });
 const browser = await chromium.connectOverCDP(endpoint);
 const page = browser.contexts().flatMap((context) => context.pages()).find((candidate) => candidate.url().startsWith("file:"));
 if (!page) throw new Error("WorkBuddy renderer target is unavailable");
+const runtimeIdentity = await bindWorkBuddyRuntimeIdentity({
+  bundleManifestPath: process.env.WORKBUDDY_BUNDLE_MANIFEST,
+  productVersion,
+  rendererUrl: page.url(),
+});
+const viewportCalibration = await calibrateWorkBuddyViewport(page, process.env.WORKBUDDY_VIEWPORT);
 page.setDefaultTimeout(5000);
 await page.bringToFront();
 await dismissReadOnlyOverlays();
 
-const topTabs = ["新建任务", "助理", "项目", "专家·技能·连接器", "自动化", "资料库", "更多 应用·灵感"];
+const topTabs = productVersion === "5.3.8"
+  ? ["新建任务", "助理", "项目", "专家·技能·连接器", "自动化", "更多 资料库·灵感"]
+  : ["新建任务", "助理", "项目", "专家·技能·连接器", "自动化", "资料库", "更多 应用·灵感"];
 const records = [];
 
-async function ensureExpandedSidebar() {
+async function ensureExpandedSidebar(targetLabel) {
   await dismissReadOnlyOverlays();
-  const tabs = page.getByRole("tab");
-  if ((await tabs.count()) >= 7) return;
+  const targetTab = page.getByRole("tab", { name: targetLabel, exact: true });
+  if (await targetTab.isVisible().catch(() => false)) return;
   const expand = page.getByRole("button", { name: /展开侧边栏|显示侧边栏/ }).first();
   if (await expand.isVisible().catch(() => false)) {
     await expand.click();
@@ -74,7 +83,7 @@ async function dismissReadOnlyOverlays() {
 }
 
 for (const label of topTabs) {
-  await ensureExpandedSidebar();
+  await ensureExpandedSidebar(label);
   const tab = page.getByRole("tab", { name: label, exact: true });
   if (!(await tab.isVisible().catch(() => false))) throw new Error(`top navigation tab missing: ${label}`);
   await tab.click();
@@ -114,7 +123,7 @@ for (const label of topTabs) {
       records.push(await capture(`surface-automation-${slug(sublabel)}`, { kind: "automation-tab", label: sublabel }));
     }
   }
-  if (label === "资料库" || label === "更多 应用·灵感") {
+  if (label === "资料库" || label === "更多 应用·灵感" || label === "更多 资料库·灵感") {
     const safeLabels = ["我的文件", "我的邮箱", "腾讯文档", "ima知识库", "乐享知识库", "灵感"];
     for (const sublabel of safeLabels) {
       const control = page.getByText(sublabel, { exact: true }).filter({ visible: true }).last();
@@ -149,10 +158,13 @@ await fs.writeFile(path.join(outputRoot, "manifest.json"), `${JSON.stringify({
   authority_kind: "current-product-evidence",
   captured_at: new Date().toISOString(),
   user_agent: userAgent,
+  runtime_identity: runtimeIdentity,
+  viewport_calibration: viewportCalibration.calibration,
   mutation_policy: "navigation and read-only tabs only; no create/install/connect/delete/send/run/auth mutation",
   state_count: records.length,
   records,
 }, null, 2)}\n`);
+await viewportCalibration.restore();
 await browser.close();
 console.log(JSON.stringify({ status: "ok", outputRoot, stateCount: records.length, states: records.map((record) => record.state) }));
 

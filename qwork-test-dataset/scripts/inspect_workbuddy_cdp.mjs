@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { requireFromProject } from "./project-require.mjs";
+import { bindWorkBuddyRuntimeIdentity } from "./workbuddy-runtime-identity.mjs";
 
 const { chromium } = requireFromProject("playwright");
 
@@ -28,6 +29,11 @@ await fs.mkdir(outputRoot, { recursive: true });
 const browser = await chromium.connectOverCDP(endpoint);
 const page = browser.contexts().flatMap((context) => context.pages()).find((candidate) => candidate.url().startsWith("file:"));
 if (!page) throw new Error("WorkBuddy renderer target is missing");
+const runtimeIdentity = await bindWorkBuddyRuntimeIdentity({
+  bundleManifestPath: process.env.WORKBUDDY_BUNDLE_MANIFEST,
+  productVersion,
+  rendererUrl: page.url(),
+});
 await page.bringToFront();
 await page.waitForLoadState("domcontentloaded");
 await page.waitForTimeout(500);
@@ -173,6 +179,7 @@ const manifest = {
   captured_at: new Date().toISOString(),
   cdp_endpoint: "127.0.0.1 loopback (port intentionally not authoritative)",
   user_agent: userAgent,
+  runtime_identity: runtimeIdentity,
   mutation_policy: "navigation, tabs, menus, expand/collapse only; no create/install/connect/delete/send/run/auth mutation",
   state_count: records.length,
   records: records.map(({ controls, landmarks, ...record }) => ({ ...record, control_count: controls.length, landmark_count: landmarks.length })),

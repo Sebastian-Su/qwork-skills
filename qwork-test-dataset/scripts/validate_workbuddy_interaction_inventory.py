@@ -65,7 +65,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--skill-root", type=pathlib.Path, required=True)
     parser.add_argument(
         "--snapshot",
-        default="data/evidence/workbuddy-cdp/5.3.14-surfaces-v2",
+        default="data/evidence/workbuddy-cdp/5.3.8-surfaces-v3",
     )
     parser.add_argument(
         "--inventory",

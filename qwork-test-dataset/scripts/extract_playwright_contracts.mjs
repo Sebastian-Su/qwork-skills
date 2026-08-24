@@ -34,6 +34,44 @@ function literalText(node) {
   if (!node) return null;
   return ts.isStringLiteralLike(node) || ts.isNoSubstitutionTemplateLiteral(node) ? node.text : null;
 }
+function expandedTitles(node) {
+  if (!node) return [];
+  const literal = literalText(node);
+  if (literal !== null) return [literal];
+  if (!ts.isTemplateExpression(node)) return [];
+  const variables = new Set();
+  for (const span of node.templateSpans) {
+    const expression = span.expression;
+    if (ts.isIdentifier(expression)) variables.add(expression.text);
+    else if (ts.isCallExpression(expression)
+      && ts.isPropertyAccessExpression(expression.expression)
+      && expression.expression.name.text === "toUpperCase"
+      && ts.isIdentifier(expression.expression.expression)) {
+      variables.add(expression.expression.expression.text);
+    } else return [];
+  }
+  if (variables.size !== 1) return [];
+  const variable = [...variables][0];
+  let parent = node.parent;
+  while (parent && !ts.isForOfStatement(parent)) parent = parent.parent;
+  if (!parent || !ts.isVariableDeclarationList(parent.initializer)) return [];
+  const declaration = parent.initializer.declarations[0];
+  if (!declaration || !ts.isIdentifier(declaration.name) || declaration.name.text !== variable) return [];
+  let valuesExpression = parent.expression;
+  while (ts.isAsExpression(valuesExpression) || ts.isParenthesizedExpression(valuesExpression)) valuesExpression = valuesExpression.expression;
+  if (!ts.isArrayLiteralExpression(valuesExpression)) return [];
+  const values = valuesExpression.elements.map(literalText);
+  if (values.some((value) => value === null)) return [];
+  return values.map((value) => {
+    let title = node.head.text;
+    for (const span of node.templateSpans) {
+      const upper = ts.isCallExpression(span.expression);
+      title += upper ? value.toUpperCase() : value;
+      title += span.literal.text;
+    }
+    return title;
+  });
+}
 function compact(node, limit = 420) {
   const value = node.getText(source).replace(/\s+/g, " ").trim();
   return value.length > limit ? `${value.slice(0, limit - 1)}…` : value;
@@ -54,10 +92,10 @@ function classifyCall(node) {
   return "helper";
 }
 function contractFor(node, kind) {
-  const title = literalText(node.arguments[0]);
-  if (!title) return null;
+  const titles = expandedTitles(node.arguments[0]);
+  if (!titles.length) return [];
   const callback = node.arguments.find((arg, index) => index > 0 && (ts.isArrowFunction(arg) || ts.isFunctionExpression(arg)));
-  if (!callback) return null;
+  if (!callback) return [];
   const events = [];
   function visitBody(candidate) {
     if (ts.isCallExpression(candidate)) {
@@ -73,19 +111,19 @@ function contractFor(node, kind) {
   visitBody(callback.body);
   const start = source.getLineAndCharacterOfPosition(node.getStart(source)).line + 1;
   const end = source.getLineAndCharacterOfPosition(node.getEnd()).line + 1;
-  return {
-    title, kind, line_start: start, line_end: end,
+  const base = {
+    kind, line_start: start, line_end: end,
     body_sha256: crypto.createHash("sha256").update(callback.body.getText(source)).digest("hex"),
     actions: events.filter((event) => event.kind === "action"),
     assertions: events.filter((event) => event.kind === "assertion"),
     helpers: events.filter((event) => event.kind === "helper"),
   };
+  return titles.map((title) => ({ title, ...base }));
 }
 function visit(node) {
   const kind = testKind(node);
   if (kind) {
-    const contract = contractFor(node, kind);
-    if (contract) results.push(contract);
+    results.push(...contractFor(node, kind));
   }
   ts.forEachChild(node, visit);
 }

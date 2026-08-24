@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { requireFromProject } from "./project-require.mjs";
+import { bindWorkBuddyRuntimeIdentity, calibrateWorkBuddyViewport } from "./workbuddy-runtime-identity.mjs";
 
 const { chromium } = requireFromProject("playwright");
 
@@ -26,6 +27,12 @@ await fs.mkdir(outputRoot, { recursive: false });
 const browser = await chromium.connectOverCDP(endpoint);
 const page = browser.contexts().flatMap((context) => context.pages()).find((candidate) => candidate.url().startsWith("file:"));
 if (!page) throw new Error("WorkBuddy renderer target is unavailable");
+const runtimeIdentity = await bindWorkBuddyRuntimeIdentity({
+  bundleManifestPath: process.env.WORKBUDDY_BUNDLE_MANIFEST,
+  productVersion,
+  rendererUrl: page.url(),
+});
+const viewportCalibration = await calibrateWorkBuddyViewport(page, process.env.WORKBUDDY_VIEWPORT);
 page.setDefaultTimeout(7000);
 await page.bringToFront();
 
@@ -40,6 +47,7 @@ try {
   await captureMarketTransitions();
 } finally {
   await restoreState();
+  await viewportCalibration.restore();
   await browser.close();
 }
 
@@ -51,6 +59,8 @@ const manifest = {
   authority_domains: ["ui-motion", "ui-theme", "ui-interaction", "ui-geometry"],
   captured_at: new Date().toISOString(),
   user_agent: userAgent,
+  runtime_identity: runtimeIdentity,
+  viewport_calibration: viewportCalibration.calibration,
   viewport: await readViewportFromRecords(records),
   mutation_policy: "transient navigation, hover, tab and sidebar interactions only; original top navigation and sidebar expansion are restored; no create/install/connect/delete/send/run/auth mutation",
   clean_room_rule: "Only observable styles, timings, geometry, hashes and product behavior may become QWork contracts; WorkBuddy implementation and asset bytes must not be copied.",
@@ -258,7 +268,7 @@ async function captureMarketTransitions() {
   for (const label of ["技能", "连接器", "专家"]) {
     const tab = page.getByRole("tab", { name: label, exact: true }).last();
     if (!(await tab.isVisible().catch(() => false))) {
-      await writeRecord(`market-tab-${label}`, "not-evaluated", { reason: "tab is not visible in 5.3.14" });
+      await writeRecord(`market-tab-${label}`, "not-evaluated", { reason: `tab is not visible in ${productVersion}` });
       continue;
     }
     const frames = await clickAndSample(tab, `market-tab-${label}`);

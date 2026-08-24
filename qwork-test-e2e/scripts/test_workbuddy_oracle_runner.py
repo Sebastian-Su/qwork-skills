@@ -22,17 +22,17 @@ def main() -> int:
     command = (
         "node .agents/skills/qwork-test-dataset/scripts/run_qwork_workbuddy_oracle.mjs "
         ". <run-root>/qwork-workbuddy/surface-market/capture surface-market-技能 "
-        "--workbuddy .agents/skills/qwork-test-dataset/data/evidence/workbuddy-cdp/5.3.14-surfaces-v2 && "
+        "--workbuddy .agents/skills/qwork-test-dataset/data/evidence/workbuddy-cdp/5.3.8-surfaces-v3 && "
         "python3 .agents/skills/qwork-test-dataset/scripts/compare_qwork_workbuddy_oracle.py "
         "--capture <run-root>/qwork-workbuddy/surface-market/capture "
-        "--workbuddy .agents/skills/qwork-test-dataset/data/evidence/workbuddy-cdp/5.3.14-surfaces-v2 "
+        "--workbuddy .agents/skills/qwork-test-dataset/data/evidence/workbuddy-cdp/5.3.8-surfaces-v3 "
         "--output <run-root>/qwork-workbuddy/surface-market/compare "
         "--max-diff-ratio 0.01 --geometry-tolerance 2 --fail-on-diff"
     )
     binding = runner.workbuddy_oracle_binding(
-        {"WORKBUDDY-CDP-5-3-14-V2"}, command
+        {"WORKBUDDY-CDP-5-3-8-V3"}, command
     )
-    assert binding == "data/evidence/workbuddy-cdp/5.3.14-surfaces-v2"
+    assert binding == "data/evidence/workbuddy-cdp/5.3.8-surfaces-v3"
     try:
         runner.workbuddy_oracle_binding(
             {"WORKBUDDY-CDP-5-3-12-V4"}, command

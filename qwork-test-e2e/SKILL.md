@@ -20,6 +20,7 @@ description: QWork Electron 客户端的完整项目 E2E 编排与发布门禁�
 ~~~yaml
 source_acceptance_manifest: skill://qwork-test-dataset/data/datasets/source-acceptance.json
 dataset_manifest: skill://qwork-test-dataset/data/datasets/dataset.json
+workbuddy_target_baseline: skill://qwork-test-dataset/references/workbuddy-target-baseline.yaml
 selection_modes: [requirement, category, affected, full]
 release_gate_policy: references/release-gate-policy.yaml
 release_gate_contract: references/release-gate-contract.md

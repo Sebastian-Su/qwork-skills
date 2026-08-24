@@ -972,6 +972,42 @@ def cdp_source_identity(manifest: dict[str, Any], snapshot_dir: pathlib.Path) ->
     return f"WORKBUDDY-CDP-{version.replace('.', '-')}-{snapshot_variant(snapshot_dir)}"
 
 
+def validate_cdp_runtime_identity(
+    cdp_manifest: dict[str, Any],
+    bundle_manifest: dict[str, Any],
+    bundle_manifest_path: pathlib.Path,
+) -> None:
+    version = str(cdp_manifest.get("version") or "")
+    bundle_version = str(bundle_manifest.get("product", {}).get("version") or "")
+    runtime = cdp_manifest.get("runtime_identity")
+    if not isinstance(runtime, dict):
+        raise ValueError("WorkBuddy CDP snapshot is missing runtime_identity")
+    if (
+        bundle_manifest.get("schema_version") != 1
+        or bundle_manifest.get("product", {}).get("name") != "WorkBuddy"
+        or version != bundle_version
+    ):
+        raise ValueError("WorkBuddy CDP and bundle manifest identities do not match")
+    app_asar = bundle_manifest.get("app_asar", {})
+    integrity = app_asar.get("integrity", {})
+    expected = {
+        "bundle_manifest_sha256": sha256_bytes(bundle_manifest_path.read_bytes()),
+        "bundle_identifier": str(bundle_manifest.get("bundle", {}).get("identifier") or ""),
+        "bundle_version": bundle_version,
+        "app_asar_sha256": str(app_asar.get("sha256") or ""),
+        "app_asar_integrity_sha256": str(integrity.get("hash") or ""),
+        "renderer_entry_path": f"{app_asar.get('source_locator')}/renderer/index.html",
+        "renderer_authority": "bundle-app-asar",
+    }
+    drift = {
+        key: {"expected": value, "actual": runtime.get(key)}
+        for key, value in expected.items()
+        if runtime.get(key) != value
+    }
+    if drift:
+        raise ValueError(f"WorkBuddy CDP runtime identity drifted: {drift}")
+
+
 def motion_source_identity(manifest: dict[str, Any], snapshot_dir: pathlib.Path) -> str:
     version = str(manifest.get("version") or "")
     if not re.fullmatch(r"\d+(?:\.\d+)+", version):
@@ -1017,6 +1053,8 @@ def cdp_surface(state: str) -> str:
         "surface-automation-运行记录": "automations",
         "surface-资料库": "library",
         "surface-更多-应用-灵感": "library",
+        "surface-更多-资料库-灵感": "library",
+        "surface-library-我的文件": "library",
         "surface-library-我的邮箱": "library",
         "surface-library-腾讯文档": "library",
         "surface-library-ima知识库": "library",
@@ -1253,9 +1291,10 @@ def extract_playwright_contracts(path: str, content: str) -> dict[str, dict[str,
 def test_atoms(source_id: str, path: str, content: str) -> list[dict[str, Any]]:
     atoms: list[dict[str, Any]] = []
     contracts = extract_playwright_contracts(path, content)
-    for match in TEST_PATTERN.finditer(content):
-        title = normalized(match.group(2))
-        line = content.count("\n", 0, match.start()) + 1
+    for title, contract in sorted(
+        contracts.items(), key=lambda item: (int(item[1]["line_start"]), item[0])
+    ):
+        line = int(contract["line_start"])
         facet = "negative-rule" if any(word in title.lower() for word in NEGATIVE_WORDS) else "acceptance-criterion"
         atom = {
                 "atom_id": f"{source_id}:L{line}:{sha256_text(title)[:10]}",
@@ -1264,14 +1303,8 @@ def test_atoms(source_id: str, path: str, content: str) -> list[dict[str, Any]]:
                 "label": title,
                 "extracted_value_hash": f"sha256:{sha256_text(title)}",
             }
-        contract = contracts.get(title)
-        if not contract:
-            raise ValueError(f"TypeScript AST could not bind test title in {path}: {title}")
         atom["test_contract"] = contract
         atoms.append(atom)
-    unmatched = sorted(set(contracts) - {str(atom["label"]) for atom in atoms})
-    if unmatched:
-        raise ValueError(f"regex/AST test inventory mismatch in {path}: {unmatched[:20]}")
     return atoms
 
 
@@ -2546,6 +2579,7 @@ def main() -> int:
     parser.add_argument("--storage-snapshot", required=True)
     parser.add_argument("--visual-manifest", required=True)
     parser.add_argument("--cdp-snapshot", required=True)
+    parser.add_argument("--bundle-manifest", required=True)
     parser.add_argument("--motion-snapshot")
     parser.add_argument("--develop-snapshot", required=True)
     parser.add_argument("--head-snapshot", required=True)
@@ -3303,8 +3337,15 @@ def main() -> int:
     cdp_dir = pathlib.Path(args.cdp_snapshot).resolve()
     cdp_manifest_path = cdp_dir / "manifest.json"
     cdp_manifest = json.loads(cdp_manifest_path.read_text(encoding="utf-8"))
+    bundle_manifest_path = pathlib.Path(args.bundle_manifest).resolve()
+    bundle_manifest = json.loads(bundle_manifest_path.read_text(encoding="utf-8"))
+    validate_cdp_runtime_identity(cdp_manifest, bundle_manifest, bundle_manifest_path)
     cdp_source_id = cdp_source_identity(cdp_manifest, cdp_dir)
     cdp_version = str(cdp_manifest["version"])
+    if cdp_version != "5.3.8":
+        raise ValueError(
+            f"approved WorkBuddy target is 5.3.8; refusing CDP baseline {cdp_version}"
+        )
     cdp_atoms_list, cdp_meta = cdp_atoms(cdp_source_id, cdp_dir, cdp_manifest)
     for atom in cdp_atoms_list:
         meta = cdp_meta[str(atom["atom_id"])]
@@ -3336,6 +3377,13 @@ def main() -> int:
         motion_manifest = json.loads(motion_manifest_path.read_text(encoding="utf-8"))
         motion_source_id = motion_source_identity(motion_manifest, motion_dir)
         motion_version = str(motion_manifest["version"])
+        validate_cdp_runtime_identity(
+            motion_manifest, bundle_manifest, bundle_manifest_path
+        )
+        if motion_version != cdp_version:
+            raise ValueError(
+                f"WorkBuddy motion/CDP version mismatch: {motion_version} != {cdp_version}"
+            )
         motion_atoms_list, motion_meta = motion_atoms(
             motion_source_id, motion_dir, motion_manifest
         )
@@ -5056,12 +5104,6 @@ def main() -> int:
             "status": "environment-blocked",
             "reason": "origin/develop could not be fetched through the current SSH proxy; local develop was captured but is not proven remote-current",
             "sources": [source["source_id"] for source in sources if source["source_id"].startswith("QDEV-")],
-        },
-        {
-            "conflict_id": f"SRC-VERSION-WORKBUDDY-5-3-8-VS-{cdp_version.replace('.', '-')}",
-            "status": "scoped-resolution",
-            "reason": f"Frozen 5.3.8 images remain normative for historical expert/team acceptance; current {cdp_version} CDP is normative for the captured current shell, market, automation and library states. Overlapping visual changes require explicit per-Case adjudication rather than automatic baseline replacement.",
-            "sources": ["WORKBUDDY-VISUAL-REV95", cdp_source_id],
         },
         {
             "conflict_id": "SRC-CONFLICT-COMPOSER-ORACLE-VS-HEAD-E2E",

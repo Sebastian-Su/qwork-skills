@@ -132,7 +132,7 @@ async function navigate(page, state, action) {
     await page.getByRole("tablist", { name: "自动化视图" }).getByRole("tab", { name: action.label, exact: true }).click();
     return;
   }
-  if (state === "surface-更多-应用-灵感") {
+  if (state === "surface-更多-应用-灵感" || state === "surface-更多-资料库-灵感") {
     await page.getByRole("button", { name: "更多", exact: true }).click();
     await page.getByRole("menu", { name: "更多" }).waitFor({ state: "visible" });
     return;

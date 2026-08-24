@@ -26,23 +26,73 @@ def main() -> int:
     builder = load_builder()
     if builder.lark_source_identity({"document_id": "OJkRduSQmoxIMtx6KIbcoMYDnRf", "revision_id": 6}) != "WORKBUDDY-FEISHU-OJKR-REV6":
         raise AssertionError("Lark source identity is not derived from document and revision")
-    if builder.cdp_source_identity({"version": "5.3.14"}, Path("5.3.14-surfaces-v2")) != "WORKBUDDY-CDP-5-3-14-V2":
+    if builder.cdp_source_identity({"version": "5.3.8"}, Path("5.3.8-surfaces-v3")) != "WORKBUDDY-CDP-5-3-8-V3":
         raise AssertionError("CDP source identity is not derived from product version and snapshot revision")
     if builder.motion_source_identity({"version": "5.3.14"}, Path("5.3.14-v1")) != "WORKBUDDY-MOTION-5-3-14-V1":
         raise AssertionError("motion source identity is not derived from product version and snapshot revision")
     command = builder.workbuddy_oracle_launch_command(
         Path("/skill"),
-        Path("/skill/data/evidence/workbuddy-cdp/5.3.14-surfaces-v2"),
+        Path("/skill/data/evidence/workbuddy-cdp/5.3.8-surfaces-v3"),
         "surface-market-技能",
     )
     expected_reference = (
         ".agents/skills/qwork-test-dataset/data/evidence/"
-        "workbuddy-cdp/5.3.14-surfaces-v2"
+        "workbuddy-cdp/5.3.8-surfaces-v3"
     )
     if command.count(expected_reference) != 2:
         raise AssertionError("capture and compare steps must bind the same current CDP source")
     if f'--workbuddy {expected_reference} &&' not in command:
         raise AssertionError("capture command does not receive the frozen WorkBuddy source")
+
+    with tempfile.TemporaryDirectory(prefix="workbuddy-runtime-identity-") as root:
+        root_path = Path(root)
+        bundle_manifest_path = root_path / "bundle-manifest.json"
+        bundle_manifest = {
+            "schema_version": 1,
+            "product": {"name": "WorkBuddy", "version": "5.3.8"},
+            "bundle": {
+                "identifier": "com.workbuddy.workbuddy",
+                "build_version": "5.3.8",
+            },
+            "app_asar": {
+                "source_locator": "/Volumes/WorkBuddy 5.3.8-arm64/WorkBuddy.app/Contents/Resources/app.asar",
+                "sha256": "a" * 64,
+                "integrity": {"algorithm": "SHA256", "hash": "b" * 64},
+            },
+        }
+        bundle_manifest_path.write_text(json.dumps(bundle_manifest), encoding="utf-8")
+        bundle_manifest_sha256 = builder.sha256_bytes(bundle_manifest_path.read_bytes())
+        cdp_manifest = {
+            "schema_version": 1,
+            "product": "WorkBuddy",
+            "version": "5.3.8",
+            "runtime_identity": {
+                "bundle_manifest_sha256": bundle_manifest_sha256,
+                "bundle_identifier": "com.workbuddy.workbuddy",
+                "bundle_version": "5.3.8",
+                "app_asar_sha256": "a" * 64,
+                "app_asar_integrity_sha256": "b" * 64,
+                "renderer_entry_path": "/Volumes/WorkBuddy 5.3.8-arm64/WorkBuddy.app/Contents/Resources/app.asar/renderer/index.html",
+                "renderer_authority": "bundle-app-asar",
+            },
+        }
+        builder.validate_cdp_runtime_identity(
+            cdp_manifest,
+            bundle_manifest,
+            bundle_manifest_path,
+        )
+        mismatched = json.loads(json.dumps(cdp_manifest))
+        mismatched["runtime_identity"]["app_asar_sha256"] = "c" * 64
+        try:
+            builder.validate_cdp_runtime_identity(
+                mismatched,
+                bundle_manifest,
+                bundle_manifest_path,
+            )
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("CDP runtime identity accepted a mismatched app.asar")
 
     with tempfile.TemporaryDirectory(prefix="workbuddy-motion-source-") as root:
         snapshot = Path(root)

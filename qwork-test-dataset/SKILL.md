@@ -33,6 +33,7 @@ description: 维护 QWork 全产品私有 E2E 数据、需求 Coverage Map、Wor
 - WorkBuddy 存储逐原子处置：`data/datasets/workbuddy-storage-dispositions.json`
 - WorkBuddy 逐控件交互闭世界：`data/datasets/workbuddy-interaction-inventory.json`
 - WorkBuddy 交互分类政策：`references/workbuddy-interaction-classification-policy.yaml`
+- WorkBuddy 目标版本契约：`references/workbuddy-target-baseline.yaml`
 - 私有存储边界：`references/storage-contract.md`
 - 私有 Electron Case：`data/e2e/functional-contracts.spec.ts`
 - 私有 reference run 注册：`references/private-reference-runs.yaml`
@@ -80,6 +81,8 @@ description: 维护 QWork 全产品私有 E2E 数据、需求 Coverage Map、Wor
 python3 .agents/skills/qwork-test-dataset/scripts/validate_private_storage.py \
   --repo . --skill qwork-test-dataset \
   --path .agents/skills/qwork-test-dataset/data/datasets/source-acceptance.json
+
+node .agents/skills/qwork-test-dataset/scripts/validate_workbuddy_target_baseline.mjs
 
 python3 .agents/skills/qwork-test-dataset/scripts/validate_source_acceptance.py \
   --repo . \
@@ -186,6 +189,8 @@ Reference run 通过后，把唯一 Case ID、report 的 `skill://` URI、SHA-25
 已稳定复现的产品缺口写入同文件的 `failed_runs`，同时记录 failure classification、完整摘要和失败状态截图。编译器对失败报告执行同等严格的身份、authority、artifact、trace、隔离与哈希检查，但只允许生成 `last_outcome=fail`、`reference_run=failed`、`readiness=partial` 和非空 repair blocker；失败证据不得进入 ready 或任何通过率。
 
 ## WorkBuddy Oracle
+
+当前唯一批准的复刻与发布验收目标是 WorkBuddy `5.3.8`。CDP UI、动效和安装包 manifest 必须同时绑定 `references/workbuddy-target-baseline.yaml` 中的版本、bundle ID、`app.asar` SHA-256 和 Electron integrity SHA-256；任何 `5.3.14` 快照仅保留为历史实验/evidence，禁止进入 normative baseline、Case PASS 或发布结论。
 
 通过 Electron CDP 采集时先读 `references/locator-registry.yaml` 与 `references/route-registry.yaml`。普通网页仍必须使用 Ego Lite；这里仅因目标是本地 Electron 且需要 renderer DOM/几何，才使用 `connectOverCDP`。禁止创建、安装、连接、授权、删除、发送、运行或修改账号；真实 `~/.workbuddy` 全程只读。
 

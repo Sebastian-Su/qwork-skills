@@ -254,7 +254,7 @@ def classify(
             return "side-effect-not-exercised", "blocked", "automation-mutation", [CASES["automation"]], "Exercise add/edit/save/run/delete with isolated schedule storage and a fake sidecar only."
         return pending("automation-template-or-control", [CASES["automation"], CASES["automation_oracle"]], "Run and register the automation template/editor/list/history interaction matrix.")
 
-    if state == "surface-资料库" or state.startswith("surface-library") or state == "surface-更多-应用-灵感":
+    if state == "surface-资料库" or state.startswith("surface-library") or state in {"surface-更多-应用-灵感", "surface-更多-资料库-灵感"}:
         if label == "Add to favorites" or label == "我的收藏":
             return "side-effect-not-exercised", "blocked", "inspiration-favorite", [], "Exercise favorite/unfavorite persistence in an isolated disposable WorkBuddy profile and add the QWork parity Case."
         if state == "surface-library-灵感":
@@ -271,7 +271,7 @@ def classify(
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--skill-root", type=pathlib.Path, required=True)
-    parser.add_argument("--snapshot", default="data/evidence/workbuddy-cdp/5.3.14-surfaces-v2")
+    parser.add_argument("--snapshot", default="data/evidence/workbuddy-cdp/5.3.8-surfaces-v3")
     parser.add_argument("--output", default="data/datasets/workbuddy-interaction-inventory.json")
     return parser.parse_args()
 
