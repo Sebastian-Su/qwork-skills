@@ -1,0 +1,85 @@
+schema_version: 1
+product: WorkBuddy
+version: 5.3.8
+captured_at: 2026-08-25
+platform: darwin-arm64
+viewport: {width: 1680, height: 1084, dpr: 2}
+runtime_identity:
+  bundle_identifier: com.workbuddy.workbuddy
+  app_asar_sha256: bd77f36656d19d58862614b24a62156505e17e31c6830c3c2e0381d1d5c7f0f1
+  electron_asar_integrity_sha256: c0fcf160c71c6e85cb3a72c1060517499e18ac78202ac0589715f435fb27e95a
+
+selection_contract:
+  path: user-menu -> 外观 -> 浅色|深色
+  modes_observed: [light, dark]
+  follow_system_control_observed: false
+  initial_mode: light
+  initial_follow_system: false
+  persisted_across_cold_restart: true
+  restored_to_initial_mode_after_capture: true
+
+dark_runtime_contract:
+  html_classes: [dark, cb-dark, vscode-dark]
+  body_classes: [dark, cb-dark, vscode-dark, agent-ui-theme, is-mac]
+  vscode_theme_name: IDE Night
+  vscode_theme_kind: vscode-dark
+  computed_color_scheme: dark
+  prefers_color_scheme_dark: false
+  body_background: rgb(24, 24, 24)
+  body_color: rgba(228, 228, 228, 0.92)
+  stored_theme:
+    theme: dark
+    followSystem: false
+    vsCodeThemeName: IDE Night
+    vsCodeThemeKind: vscode-dark
+
+evidence:
+  transition:
+    uri: skill://qwork-test-dataset/data/evidence/workbuddy-theme/5.3.8-darwin-dark-v1/transition/manifest.json
+    sha256: 27c66e23a420c5ff67ee5be46b1288b5cb2cf2369816b5c7e59447fdc8f4acd5
+    result: pass
+    frame_count: 11
+    note: first post-click screenshot resolved dark at about 98 ms; screenshot cost prevents treating this as the exact animation duration
+  dark_surfaces:
+    uri: skill://qwork-test-dataset/data/evidence/workbuddy-theme/5.3.8-darwin-dark-v1/surfaces/manifest.json
+    sha256: d708414af8284fc8df11d8e8adee12c6e0d374f241e49b6c992735fd9ae49c6d
+    result: captured-current-product-evidence
+    state_count: 19
+    per_record_theme_binding: true
+  cold_restart:
+    uri: skill://qwork-test-dataset/data/evidence/workbuddy-theme/5.3.8-darwin-dark-v1/restart/manifest.json
+    sha256: 7ab300b70a901f99f3e68ebec81824d457ece2df6b2c1bc5fb0ae7847787eab4
+    result: pass
+  restore:
+    uri: skill://qwork-test-dataset/data/evidence/workbuddy-theme/5.3.8-darwin-dark-v1/restore/manifest.json
+    sha256: b58f56933734572aa2f4c5785ae602185213f2639f2ad2f6dd3ccbd70edcdbcd
+    result: pass
+
+acceptance_status:
+  semantic_theme_contract: captured-and-runtime-bound
+  darwin_1680x1084_dark_state_set: candidate-reference
+  pixel_golden: not-approved
+  dynamic_state_masks: not-approved
+  darwin_other_viewports: not_evaluated
+  windows_coordinates: not_evaluated
+  release_conclusion: not_evaluated
+  reason: the 19 dark screenshots contain changing task, draft and activity content; they cannot become a pixel PASS until states and masks are calibrated and approved
+
+required_dark_walkthrough:
+  - manual light entry
+  - appearance menu with both modes
+  - light-to-dark transition
+  - all 19 approved product surfaces in resolved dark mode
+  - search and query inputs, including focused and non-empty states
+  - headings, labels, placeholders, disabled and selected states
+  - overlays, menus, dialogs, toasts and embedded previews
+  - cold restart persistence
+  - return to the user's initial theme
+  - platform, viewport and DPI coordinates from platform-oracle-matrix.json
+
+failure_rules:
+  - a query or text input using the light baseline background in resolved dark mode fails unless the WorkBuddy state explicitly approves it
+  - headings and normal text must meet contrast thresholds and exact computed-style Oracle when one exists
+  - a screenshot without resolved-theme metadata is evidence-incomplete
+  - static IDE Night selectors prove capability only, not product acceptance
+  - missing platform or viewport Golden is not_evaluated, never pass

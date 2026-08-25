@@ -36,6 +36,14 @@ const viewportCalibration = await calibrateWorkBuddyViewport(page, process.env.W
 page.setDefaultTimeout(5000);
 await page.bringToFront();
 await dismissReadOnlyOverlays();
+const expectedTheme = process.env.WORKBUDDY_EXPECTED_THEME;
+if (expectedTheme && !["light", "dark"].includes(expectedTheme)) {
+  throw new Error("WORKBUDDY_EXPECTED_THEME must be light or dark");
+}
+const entryTheme = await readResolvedTheme();
+if (expectedTheme && entryTheme.resolved_theme !== expectedTheme) {
+  throw new Error(`unexpected WorkBuddy theme: ${entryTheme.resolved_theme} != ${expectedTheme}`);
+}
 
 const topTabs = productVersion === "5.3.8"
   ? ["新建任务", "助理", "项目", "专家·技能·连接器", "自动化", "更多 资料库·灵感"]
@@ -160,6 +168,14 @@ await fs.writeFile(path.join(outputRoot, "manifest.json"), `${JSON.stringify({
   user_agent: userAgent,
   runtime_identity: runtimeIdentity,
   viewport_calibration: viewportCalibration.calibration,
+  theme_coverage: {
+    selection_mode: "manual",
+    available_modes: ["light", "dark"],
+    follow_system_control_observed: false,
+    expected_theme: expectedTheme ?? null,
+    entry: entryTheme,
+    per_record_binding: true,
+  },
   mutation_policy: "navigation and read-only tabs only; no create/install/connect/delete/send/run/auth mutation",
   state_count: records.length,
   records,
@@ -186,15 +202,38 @@ async function capture(state, action) {
       };
     };
     const controls = [...document.querySelectorAll("button,a,input,textarea,select,[contenteditable=true],[role=button],[role=tab],[role=menuitem],[role=menuitemradio],[aria-label],[title]")].filter(visible).map(summarize);
-    return { url: location.href, viewport: { width: innerWidth, height: innerHeight, dpr: devicePixelRatio }, bodyText: document.body.innerText.slice(0, 30000), controls, landmarks: [...document.querySelectorAll("header,nav,main,aside,section,dialog,[role=dialog],[role=navigation],[role=main],[role=toolbar],[role=menu]")].filter(visible).map(summarize) };
+    let storedTheme = null;
+    try { storedTheme = JSON.parse(localStorage.getItem("agent-ui-theme") || "null"); } catch {}
+    return { url: location.href, viewport: { width: innerWidth, height: innerHeight, dpr: devicePixelRatio }, bodyText: document.body.innerText.slice(0, 30000), controls, landmarks: [...document.querySelectorAll("header,nav,main,aside,section,dialog,[role=dialog],[role=navigation],[role=main],[role=toolbar],[role=menu]")].filter(visible).map(summarize), resolvedTheme: { html_class: document.documentElement.className, body_class: document.body.className, theme_name: document.body.getAttribute("data-vscode-theme-name"), theme_kind: document.body.getAttribute("data-vscode-theme-kind"), computed_color_scheme: getComputedStyle(document.documentElement).colorScheme, body_background: getComputedStyle(document.body).backgroundColor, body_color: getComputedStyle(document.body).color, stored_theme: storedTheme } };
   });
   const screenshot = `${state}.png`;
   const file = path.join(outputRoot, screenshot);
   await page.screenshot({ path: file, animations: "disabled" });
   const bytes = await fs.readFile(file);
-  const record = { state, action, url: inspection.url, viewport: inspection.viewport, body_text_sha256: hash(Buffer.from(inspection.bodyText)), screenshot, screenshot_sha256: hash(bytes), control_count: inspection.controls.length, landmark_count: inspection.landmarks.length };
+  if (expectedTheme && inspection.resolvedTheme.computed_color_scheme !== expectedTheme) {
+    throw new Error(`theme drifted while capturing ${state}: ${inspection.resolvedTheme.computed_color_scheme}`);
+  }
+  const record = { state, action, url: inspection.url, viewport: inspection.viewport, resolved_theme: inspection.resolvedTheme, body_text_sha256: hash(Buffer.from(inspection.bodyText)), screenshot, screenshot_sha256: hash(bytes), control_count: inspection.controls.length, landmark_count: inspection.landmarks.length };
   await fs.writeFile(path.join(outputRoot, `${state}.json`), `${JSON.stringify({ ...record, controls: inspection.controls, landmarks: inspection.landmarks }, null, 2)}\n`);
   return record;
+}
+
+async function readResolvedTheme() {
+  return page.evaluate(() => {
+    let storedTheme = null;
+    try { storedTheme = JSON.parse(localStorage.getItem("agent-ui-theme") || "null"); } catch {}
+    return {
+      resolved_theme: getComputedStyle(document.documentElement).colorScheme,
+      html_class: document.documentElement.className,
+      body_class: document.body.className,
+      theme_name: document.body.getAttribute("data-vscode-theme-name"),
+      theme_kind: document.body.getAttribute("data-vscode-theme-kind"),
+      prefers_dark: matchMedia("(prefers-color-scheme: dark)").matches,
+      body_background: getComputedStyle(document.body).backgroundColor,
+      body_color: getComputedStyle(document.body).color,
+      stored_theme: storedTheme,
+    };
+  });
 }
 
 function hash(value) { return crypto.createHash("sha256").update(value).digest("hex"); }

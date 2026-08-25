@@ -1,6 +1,6 @@
 ---
 name: qwork-test-e2e
-description: QWork Electron 客户端的完整项目 E2E 编排与发布门禁。用于功能回归、全量测试、WorkBuddy UI/存储对齐、专家/专家团真实旅程、Figma/截图像素验收、变更影响闭包、发布前检查和图文报告；绑定私有 qwork-test-dataset，生成不可静默缩减的 plan，只依据当前机器证据输出 test-ready、repair-required 或 external-blocked。
+description: QWork Electron 客户端的完整项目 E2E 编排与发布门禁。用于功能回归、全量测试、WorkBuddy 浅深主题/UI/存储对齐、专家/专家团真实旅程、Figma/截图像素验收、变更影响闭包、发布前检查和图文报告；绑定私有 qwork-test-dataset，生成不可静默缩减的 plan，只依据当前机器证据输出 test-ready、repair-required 或 external-blocked。
 ---
 
 # QWork Test E2E
@@ -21,6 +21,7 @@ description: QWork Electron 客户端的完整项目 E2E 编排与发布门禁�
 source_acceptance_manifest: skill://qwork-test-dataset/data/datasets/source-acceptance.json
 dataset_manifest: skill://qwork-test-dataset/data/datasets/dataset.json
 workbuddy_target_baseline: skill://qwork-test-dataset/references/workbuddy-target-baseline.yaml
+workbuddy_dark_theme_contract: skill://qwork-test-dataset/references/workbuddy-dark-theme-contract.yaml
 selection_modes: [requirement, category, affected, full]
 release_gate_policy: references/release-gate-policy.yaml
 release_gate_contract: references/release-gate-contract.md
@@ -32,6 +33,8 @@ screenshot_checkpoints: [entry, major-state-transition, before-and-after-importa
 执行前必须运行 `scripts/validate_source_acceptance.py`，并通过 Dataset Skill 的 `validate_source_dispositions.py` 与 `validate_route_registry.py`。任何 unmapped source atom、未覆盖 P0/P1 requirement、develop 文档/E2E 处置缺口、Case/route 不闭合、Playwright test body hash 漂移、错误 suite index 或用户可见需求没有真实 UI route 均为 `repair-required`。详细几何要求使用 `ui-geometry` Oracle：固定 viewport/DPR/坐标空间/target/容差；默认几何容差 `±2 CSS px`，像素阈值与 mask 必须来自批准基线。
 
 Full plan 还必须把 Dataset 的复合文档 Case 映射、结构化 WorkBuddy Oracle 映射、WorkBuddy 控件闭世界清单和真实 provider Case 授权边界列为独立 required gate。控件清单必须逐一绑定冻结 UI 状态与 DOM 坐标，并明确标记 covered、pending 或 blocked；仅有 Dataset tree hash 不足以向报告解释这些治理约束是否通过。
+
+产品声明支持浅深主题、变更命中颜色/token/input/heading/overlay 或用户要求暗黑走查时，plan 必须增加 `ui-theme-dark` 横切 cohort。执行前读 `references/dark-mode-ui-walkthrough.md`；它要求真实主题入口、逐页面 resolved-theme 绑定、query/input effective background、标题/正文/placeholder 对比度、overlay 状态、冷启动持久化和恢复原主题。WorkBuddy 5.3.8 没有观察到“跟随系统”控件，不得把 QWork 自有第三种模式冒充 WorkBuddy 对齐。
 
 ## 1. 构建影响闭包
 
@@ -73,6 +76,12 @@ python3 .agents/skills/qwork-test-e2e/scripts/run_release_gate_plan.py \
 
 Deterministic Electron 使用隔离临时目录和 `e2e/fixtures/fake-sidecar.mjs`，不得写成真实模型/线上服务通过。真实 sidecar、真实账号、外部服务、生产数据或付费模型需要独立授权与受限调用契约。
 
+### 暗黑模式 UI 走查
+
+暗黑门禁不能只验证 `html.dark` 或“元素可见”。每个选中 surface 都要在 resolved dark 下检查 query/search/input 的 empty、filled、focus、disabled 和首个非透明祖先背景，并检查 heading、正文、placeholder、图标的 computed foreground、effective background 与 contrast。当前已确认的首页黑标题、灵感页白色 query/黑色标题、项目技能选择器浅色 query 都必须以失败预期进入目标 Case；修复前不得因其他深色用例绿色而计为主题通过。
+
+WorkBuddy reference 与 QWork actual 必须来自相同 product state、viewport、DPR、字体与动态数据边界。动态任务、草稿、活动气泡先用稳定 fixture 或批准 mask；未经批准的 19 张深色 candidate 截图只能证明已采集，不能自举为 pixel PASS。切换后还要真实关闭/冷启动，检查持久化和首屏 light flash，最后恢复执行前主题。
+
 ## 3. 自动报告与证据
 
 每次 E2E attempt 在 cleanup 后自动从唯一 `report.json` 生成 `report.html`，无需用户提醒：
@@ -88,6 +97,8 @@ python3 .agents/skills/qwork-test-e2e/scripts/finalize_e2e_report.py \
 `plain_language_summary` 第一屏用口语回答测了什么、没测什么、能否提测、原因、用户影响和下一步；Case ID、route、executor、revision/hash、命令和路径放入折叠“技术明细”。报告不是终态。
 
 UI Case 按状态机保存关键截图。UI PASS 无当前 run 的入口/终态和全部声明 checkpoint 时必须是 `INCONCLUSIVE`；失败 UI Case 必须有 assertion-failure 截图。截图不能替代 IPC、事件、DB、文件或持久化证据。Finalizer 拒绝孤儿截图、越界路径、错误 hash、缺选中 Case 或 HTML 未嵌入全部图片；报告失败为 `repair-required`。
+
+暗黑差分按 `WorkBuddy reference -> QWork actual -> 可读差分 -> computed style/contrast -> 原始 hash` 展示。差分图在嵌入 HTML 前必须验证尺寸一致、非全透明、非空白且像素分布有效；空白状态差分图直接视为报告失败。白色控件只有在同一 WorkBuddy `state + element` 明确批准时才可例外，不能用全局阈值掩盖白色 query 输入框。
 
 ## 4. 机器判定
 

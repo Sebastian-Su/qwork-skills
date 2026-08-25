@@ -1,6 +1,6 @@
 ---
 name: qwork-test-dataset
-description: 维护 QWork 全产品私有 E2E 数据、需求 Coverage Map、WorkBuddy 只读产品 Oracle、像素基线和 ~/.workbuddy 存储契约。用于新增或审计 QWork 功能、从 develop 文档/E2E/历史专家资料生成 Case、选择受影响或全量套件、检查来源闭合与执行就绪，以及更新 WorkBuddy UI/存储快照。
+description: 维护 QWork 全产品私有 E2E 数据、需求 Coverage Map、WorkBuddy 只读产品 Oracle、浅深主题/像素基线和 ~/.workbuddy 存储契约。用于新增或审计 QWork 功能、从 develop 文档/E2E/历史专家资料生成 Case、选择受影响或全量套件、检查来源闭合与执行就绪，以及更新 WorkBuddy UI/主题/存储快照。
 ---
 
 # QWork Test Dataset
@@ -34,6 +34,7 @@ description: 维护 QWork 全产品私有 E2E 数据、需求 Coverage Map、Wor
 - WorkBuddy 逐控件交互闭世界：`data/datasets/workbuddy-interaction-inventory.json`
 - WorkBuddy 交互分类政策：`references/workbuddy-interaction-classification-policy.yaml`
 - WorkBuddy 目标版本契约：`references/workbuddy-target-baseline.yaml`
+- WorkBuddy 5.3.8 暗黑主题契约：`references/workbuddy-dark-theme-contract.yaml`
 - 私有存储边界：`references/storage-contract.md`
 - 私有 Electron Case：`data/e2e/functional-contracts.spec.ts`
 - 私有 reference run 注册：`references/private-reference-runs.yaml`
@@ -62,6 +63,8 @@ description: 维护 QWork 全产品私有 E2E 数据、需求 Coverage Map、Wor
 飞书表格必须按完整数据行原子化，禁止把同一行的 token、值和用途拆成互不相干的 requirement。图片 `width/height` 取下载文件的物理像素；飞书排版框只保留为 `source_display_width/source_display_height`，不得当作截图 viewport。历史视觉图通过 `visual-frame-calibrations.yaml` 同时锁定 manifest hash、物理像素、CSS viewport 和 DPR。
 
 视觉验收分两层：完整页面/状态使用冻结截图 `visual` Oracle；来源明确给出 token、组件样式或状态配色时使用 `computed-style` Oracle。后者只表示精确样式规则已进入 Case，不表示已执行或已通过；没有当前 reference run 时 readiness 必须保持 `partial`。
+
+主题不能只写在 Case 标签里。存在浅深主题时，来源必须记录选择入口、可选模式、resolved theme、根/body 属性、computed `color-scheme`、持久化状态、平台/viewport/DPR 和逐截图主题绑定。静态 `IDE Night` CSS 只能证明产品含有暗黑能力，不能证明运行态、全部页面或 QWork 已对齐。详细采集与 fail-closed 规则读 `references/workbuddy-dark-theme-contract.yaml`。
 
 当一条文档原子显式列出多个验收 ID（例如 `WB-UI-TASK-001~008`）时，只能通过 `document-case-coverage-map.yaml` 联合绑定多个当前 HEAD Case。Map 必须锁定来源/原子/spec hash，完整展开 ID，并保证每个 ID 由唯一目标认领；它只证明执行路由存在，不继承文档中的历史 green 结论。
 
@@ -195,6 +198,14 @@ Reference run 通过后，把唯一 Case ID、report 的 `skill://` URI、SHA-25
 通过 Electron CDP 采集时先读 `references/locator-registry.yaml` 与 `references/route-registry.yaml`。普通网页仍必须使用 Ego Lite；这里仅因目标是本地 Electron 且需要 renderer DOM/几何，才使用 `connectOverCDP`。禁止创建、安装、连接、授权、删除、发送、运行或修改账号；真实 `~/.workbuddy` 全程只读。
 
 视觉 Case 固定 viewport、DPR、字体与平台，保存入口、转移、终态和失败截图。结构/可访问性错误硬失败；几何默认容差 `±2 CSS px`；像素差采用经批准阈值并显式记录 mask，缺少平台 Golden 为 `not_evaluated`，不是 PASS。
+
+### 5.3.8 暗黑模式基线
+
+暗黑调研必须从真实 `用户菜单 -> 外观 -> 深色` 进入；5.3.8 实机只观察到 `浅色`、`深色`，没有“跟随系统”控件，禁止替它补造第三种模式。采集前后分别运行 `scripts/capture_workbuddy_theme_contract.mjs`，冷启动后用 `scripts/capture_workbuddy_theme_state.mjs` 绑定持久化证据；19 个页面用 `capture_workbuddy_surfaces.mjs` 并设置 `WORKBUDDY_EXPECTED_THEME=dark`，使每个 record 自带 resolved-theme 元数据。
+
+当前 darwin `1680×1084 @2` 已取得 19/19 深色运行态和冷启动证据；语义主题契约已绑定 5.3.8 runtime，但截图含动态任务、草稿和活动气泡，尚未批准 mask，因此 pixel Golden 与发布结论仍为 `not_evaluated`。不得把“截图已采集”写成“像素对齐通过”。
+
+暗黑 UI Case 至少逐项覆盖 query/search/input 的空、非空、focused、disabled，标题/正文/placeholder，菜单/弹窗/toast/内嵌预览，以及切换前、切换后、冷启动和恢复原主题。查询框沿用浅色背景或标题沿用黑色前景时，必须输出元素坐标与 computed style；只有 WorkBuddy 对应状态明确批准白色控件时才可例外。
 
 当前 WorkBuddy CDP Case 使用 `scripts/run_qwork_workbuddy_oracle.mjs` 启动隔离 QWork Electron，再由 `scripts/compare_qwork_workbuddy_oracle.py --fail-on-diff` 判定。报告生成成功不等于 Case 通过；任一导航、像素或语义几何失败都必须以非零退出码阻断。参考运行结果及 runner/report SHA 必须由 baseline 编译器写入 Case，不得手工改成绿色。
 
