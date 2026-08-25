@@ -1,11 +1,11 @@
 ---
 name: qwork-test-dataset
-description: 维护 QWork 全产品私有 E2E 数据、需求 Coverage Map、WorkBuddy 只读产品 Oracle、浅深主题/像素基线和 ~/.workbuddy 存储契约。用于新增或审计 QWork 功能、从 develop 文档/E2E/历史专家资料生成 Case、选择受影响或全量套件、检查来源闭合与执行就绪，以及更新 WorkBuddy UI/主题/存储快照。
+description: 维护 QWork 全产品项目测试集，包括 E2E 数据、需求 Coverage Map、WorkBuddy 只读产品 Oracle、浅深主题/像素基线和 ~/.workbuddy 存储契约。用于新增或审计 QWork 功能、从 develop 文档/E2E/历史专家资料生成 Case、选择受影响或全量套件、检查来源闭合与执行就绪，以及更新 WorkBuddy UI/主题/存储快照。
 ---
 
 # QWork Test Dataset
 
-本 Skill 是 QWork 私有全量 E2E 数据的唯一真实源。它保存最小化的权威来源快照、逐原子需求、schema v3 Case、WorkBuddy 视觉基线和执行索引；项目 E2E Skill 负责规划、运行和判定，不复制本 Skill 的产品知识。
+本 Skill 是 QWork 全产品测试集的唯一真实源。它保存最小化的权威来源快照、逐原子需求、schema v3 Case、WorkBuddy 视觉基线和执行索引；项目 E2E Skill 负责规划、运行和判定，不复制本 Skill 的产品知识。
 
 ## 判定顺序
 
@@ -35,9 +35,9 @@ description: 维护 QWork 全产品私有 E2E 数据、需求 Coverage Map、Wor
 - WorkBuddy 交互分类政策：`references/workbuddy-interaction-classification-policy.yaml`
 - WorkBuddy 目标版本契约：`references/workbuddy-target-baseline.yaml`
 - WorkBuddy 5.3.8 暗黑主题契约：`references/workbuddy-dark-theme-contract.yaml`
-- 私有存储边界：`references/storage-contract.md`
-- 私有 Electron Case：`data/e2e/functional-contracts.spec.ts`
-- 私有 reference run 注册：`references/private-reference-runs.yaml`
+- 存储边界：`references/storage-contract.md`
+- Electron Case：`data/e2e/functional-contracts.spec.ts`
+- reference run 注册：`references/private-reference-runs.yaml`
 - 确定性 reference run 注册：`references/deterministic-reference-runs.yaml`
 
 引用一律使用 `skill://qwork-test-dataset/...`，不要把绝对路径写进 Case 或报告。
@@ -48,7 +48,7 @@ description: 维护 QWork 全产品私有 E2E 数据、需求 Coverage Map、Wor
 
 来源进入 `data/sources/<source>/<revision-and-hash>/` 后才可派生。Git 来源必须记录 base/head 和 dirty 状态；飞书记录文档 revision 与正文 hash；`~/.workbuddy` 仅记录路径元数据、hash、计数和只读 SQLite schema；WorkBuddy UI 只允许导航、标签、菜单、展开/收起、截图和 DOM/几何检查。
 
-该 Skill 的唯一实体源位于私人 `qwork-skills` 仓库；QWork 项目中的 `.agents/.codex/.claude` 都只能是未追踪的相对软链接。`data/` 始终是本机私有数据，不进入任何 Git 索引。
+该 Skill 的唯一实体源位于专用 `qwork-skills` 仓库；QWork 项目中的 `.agents/.codex/.claude` 都只能是未追踪的相对软链接。`data/` 始终是本地数据，不进入任何 Git 索引。
 
 任何新来源都先按 `normative`、`evidence` 或 `context-only` 定权。当前 QWork 截图是 evidence，不能反向批准为视觉基线；用户指定的 WorkBuddy UI/数据是 normative Oracle。
 
@@ -173,7 +173,7 @@ python3 .agents/skills/qwork-test-dataset/scripts/run_structured_oracle_source_b
   --case-file <explicit-case-id-array.json>
 ~~~
 
-### 5. 私有 Electron Case 与 reference run
+### 5. 项目 Electron Case 与 reference run
 
 共享仓库已有 E2E 不足以直接证明规范原子时，把完整用户路径写入 `data/e2e/functional-contracts.spec.ts`。测试必须使用无障碍角色/名称定位，显式覆盖入口、转移、终态、禁止结果和 cleanup；不得用标题中的验收 ID 代替测试体证据。
 
@@ -213,7 +213,7 @@ Reference run 通过后，把唯一 Case ID、report 的 `skill://` URI、SHA-25
 
 ## 维护约束
 
-- Dataset 派生数据、快照、基线、证据与运行产物永远私有且 Git ignored；仅 `data/e2e/` 的脱敏测试源码可由私人 qwork-skills 仓库追踪。禁止提交用户内容、凭据、Cookie、Token 或未脱敏标识。
+- Dataset 派生数据、快照、基线、证据与运行产物始终保存在本地并由 Git ignored；仅 `data/e2e/` 的脱敏测试源码可由专用 qwork-skills 仓库追踪。禁止提交用户内容、凭据、Cookie、Token 或未脱敏标识。
 - Case ID 与稳定路径不可随标题或版本目录漂移；版本放字段，不放逻辑身份路径。
 - 更新来源、Case、schema、route、runner 或 Oracle 后，旧计划和旧结果全部失效，必须重建并独立复测。
 - 新增 Case 必须同时更新 manifest、dataset index、suite index 和对应来源映射；验证器不允许孤儿或重复 ID。
