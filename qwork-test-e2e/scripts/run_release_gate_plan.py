@@ -32,7 +32,7 @@ GATE_COMMANDS = {
     "gate:live-case-authorization": "python3 .agents/skills/qwork-test-dataset/scripts/test_live_case_authorization.py --skill-root .agents/skills/qwork-test-dataset",
     "gate:typecheck": "npm run typecheck",
     "gate:unit-integration": "npm test",
-    "gate:coverage": "npm run test:coverage",
+    "gate:coverage": "npm run test:coverage -- --coverage.thresholds.autoUpdate=false",
     "gate:electron-build": "npx electron-vite build",
 }
 LOCAL_CATEGORIES = {"gate", "dataset-verifier", "deterministic-playwright", "workbuddy-oracle"}

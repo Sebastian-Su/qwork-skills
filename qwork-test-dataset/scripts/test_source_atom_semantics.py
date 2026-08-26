@@ -33,6 +33,14 @@ def load_module(name: str):
 def main() -> int:
     builder = load_builder()
 
+    for title in (
+        "登录用户用自然语言生图后只看到保存到工作区的本地产物",
+        "生视频逐次授权并展示阶段，停止只终止本地等待",
+    ):
+        actual = builder.test_surface("e2e/built-in-media-generation.spec.ts", title)
+        if actual != "media-generation":
+            raise AssertionError(f"media generation E2E was classified as {actual!r}")
+
     examples = {
         "关键截图、report.json 和 SHA-256 必须归档": "evidence-provenance",
         "纯图标按钮必须具有稳定的中文 accessible name": "accessibility",

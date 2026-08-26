@@ -1,0 +1,352 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-BUILT-IN-MEDIA-GENERATION-SPEC-91DF4FCD",
+  "title": "生视频逐次授权并展示阶段，停止只终止本地等待",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "media-generation",
+    "journey": "media-generation",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QHEAD-E2E-e2e-built-in-media-generation-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:93283fefa96fe705465d9a500a9c7def7f93a296:e2e/built-in-media-generation.spec.ts",
+      "locator": "line:129;test:生视频逐次授权并展示阶段，停止只终止本地等待",
+      "revision": "93283fefa96fe705465d9a500a9c7def7f93a296",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-26T16:09:42.116737+00:00",
+      "content_hash": "sha256:91df4fcd01b74b5350352a384cdc5b2329d24917c0ffdc74a9a964eb7fb56f67",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-C2F5F9105AED42",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-built-in-media-generation-spec-ts:L129:91df4fcd01"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "media-generation",
+      "priority": "P1",
+      "rule": "生视频逐次授权并展示阶段，停止只终止本地等待",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-built-in-media-generation-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "生视频逐次授权并展示阶段，停止只终止本地等待"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+    },
+    {
+      "action": "composer.fill( \"请生成一个薄荷绿色 QWork 机器人挥手的视频，并保存到当前工作区\", )"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "approval.getByRole(\"button\", { name: \"允许\" }).click()"
+    },
+    {
+      "action": "composer.fill(\"请模拟生图额度不足\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page .getByRole(\"region\", { name: \"权限询问\" }) .getByRole(\"button\", { name: \"允许\" }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /已完成/ }).last().click()"
+    },
+    {
+      "action": "creditFailure.click()"
+    },
+    {
+      "action": "composer.fill(\"请模拟生视频上游失败\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page .getByRole(\"region\", { name: \"权限询问\" }) .getByRole(\"button\", { name: \"允许\" }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /已完成/ }).last().click()"
+    },
+    {
+      "action": "upstreamFailure.click()"
+    },
+    {
+      "action": "composer.fill( \"请生成一个薄荷绿色 QWork 机器人挥手的视频，并保存到当前工作区\", )"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page .getByRole(\"region\", { name: \"权限询问\" }) .getByRole(\"button\", { name: \"允许\" }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"停止\" }).click()"
+    },
+    {
+      "action": "cancelledTurn.click()"
+    },
+    {
+      "action": "cancelled.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect .poll(() => page.evaluate(() => window.workGui.auth.status().then((status) => status.loggedIn), ), ) .toBe(true)",
+    "expect(approval).toContainText(\"VideoGen\")",
+    "expect(page.getByText(\"已提交\", { exact: false })).toBeVisible()",
+    "expect(page.getByText(\"生成中\", { exact: false })).toBeVisible()",
+    "expect(page.getByText(\"保存到本地\", { exact: false })).toBeVisible()",
+    "expect.poll(async () => { try { return (await fs.stat(artifactPath)).size; } catch (error) { if ((error as NodeJS.ErrnoException).code === \"ENOENT\") return 0; throw error; } }).toBeGreaterThan(0)",
+    "expect( page.getByRole(\"button\", { name: \"打开产出物 QWork_robot.mp4\" }), ).toBeVisible()",
+    "expect(page.getByText(\"VideoGen\", { exact: true })).toHaveCount(0)",
+    "expect(creditFailure).toContainText(\"error\")",
+    "expect( page.locator(\"pre\").filter({ hasText: \"QWork Credits are insufficient\" }).last(), ).toBeVisible()",
+    "expect(upstreamFailure).toContainText(\"error\")",
+    "expect( page.locator(\"pre\").filter({ hasText: \"VideoGen failed with QWork code `upstream_failed`\", }).last(), ).toBeVisible()",
+    "expect(page.getByText(\"生成中\", { exact: false })).toBeVisible()",
+    "expect(cancelled).toContainText(\"cancelled\")",
+    "expect( page.locator(\"pre\").filter({ hasText: \"stopped waiting; the provider task was not cancelled\", }).last(), ).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-C2F5F9105AED42",
+      "type": "return",
+      "assertion": "生视频逐次授权并展示阶段，停止只终止本地等待"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-built-in-media-generation-spec-ts.91df4fcd01",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/built-in-media-generation.spec.ts -g \"生视频逐次授权并展示阶段，停止只终止本地等待\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "media-generation",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+        },
+        {
+          "action": "composer.fill( \"请生成一个薄荷绿色 QWork 机器人挥手的视频，并保存到当前工作区\", )"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "approval.getByRole(\"button\", { name: \"允许\" }).click()"
+        },
+        {
+          "action": "composer.fill(\"请模拟生图额度不足\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page .getByRole(\"region\", { name: \"权限询问\" }) .getByRole(\"button\", { name: \"允许\" }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /已完成/ }).last().click()"
+        },
+        {
+          "action": "creditFailure.click()"
+        },
+        {
+          "action": "composer.fill(\"请模拟生视频上游失败\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page .getByRole(\"region\", { name: \"权限询问\" }) .getByRole(\"button\", { name: \"允许\" }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /已完成/ }).last().click()"
+        },
+        {
+          "action": "upstreamFailure.click()"
+        },
+        {
+          "action": "composer.fill( \"请生成一个薄荷绿色 QWork 机器人挥手的视频，并保存到当前工作区\", )"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page .getByRole(\"region\", { name: \"权限询问\" }) .getByRole(\"button\", { name: \"允许\" }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"停止\" }).click()"
+        },
+        {
+          "action": "cancelledTurn.click()"
+        },
+        {
+          "action": "cancelled.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/built-in-media-generation.spec.ts",
+        "line_start": 129,
+        "line_end": 269,
+        "body_sha256": "sha256:a59b6011f2085efcf85e27a149f9bfdcc869a51b36637599b508edf90b37cb0a",
+        "assertion_count": 15,
+        "action_count": 22,
+        "execution_revision": "93283fefa96fe705465d9a500a9c7def7f93a296",
+        "spec_sha256": "sha256:7e203bd9cfb28cd7ac847fb1ef96a3feb7c1a62d433606154e501a27cfb1c57f"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-C2F5F9105AED42"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-C2F5F9105AED42"
+    ]
+  }
+}

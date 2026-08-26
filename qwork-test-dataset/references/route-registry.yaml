@@ -1,4 +1,4 @@
-generated_at: '2026-08-25T03:50:41.465038+00:00'
+generated_at: '2026-08-26T16:19:06.008139+00:00'
 policy:
   case_to_route: one-to-one
   playwright_contract: test body SHA, line range, action and assertion count are mandatory
@@ -6,7 +6,7 @@ policy:
     storage uses an exact per-Case verifier; executable Oracle routes retain failing
     reference truth
   workbuddy_oracle: read-only Electron CDP only; never mutate account or product data
-route_count: 2398
+route_count: 2400
 routes:
   qwork.dataset.structured-oracle-source.qw-req-workbuddy-oracle-5-3-5-automation-evidence-editor-prompttoolbar-e38b7c12:
     authorization:
@@ -7752,6 +7752,131 @@ routes:
       kind: installed-app
       platforms:
       - win32
+  qwork.playwright.e2e-built-in-media-generation-spec-ts.91df4fcd01:
+    authorization:
+      required: false
+      scopes: []
+    capability_id: media-generation
+    case_id: QW-E2E-BUILT-IN-MEDIA-GENERATION-SPEC-91DF4FCD
+    evidence:
+    - report.json
+    - trace.zip
+    fixtures:
+      cleanup: close app and remove temp home
+      isolation: no reuse of ~/.qwork, real account, or production data without explicit
+        Case authority
+      setup: case-owned temp home and deterministic fake sidecar unless live authority
+        is explicit
+    launch:
+      command_or_tool: npx playwright test e2e/built-in-media-generation.spec.ts -g
+        "生视频逐次授权并展示阶段，停止只终止本地等待"
+      failure_action: repair route or launcher; do not skip
+      strategy: command
+      success_oracle: Electron window and target surface are visible
+    navigation:
+      entrypoint: media-generation
+      failure_action: capture screenshot and DOM/IPC evidence, then repair locator
+      kind: ui-route
+      locator_strategy: accessible role/name first; project locator registry fallback
+      steps:
+      - action: 'page.getByRole("button", { name: "新建任务", exact: true }).click()'
+      - action: page.getByTitle("新建空间").click()
+      - action: 'page .getByRole("button", { name: path.basename(workspace), description:
+          uiPathDescription(workspace), exact: true, }) .click()'
+      - action: composer.fill( "请生成一个薄荷绿色 QWork 机器人挥手的视频，并保存到当前工作区", )
+      - action: composer.press("Enter")
+      - action: 'approval.getByRole("button", { name: "允许" }).click()'
+      - action: composer.fill("请模拟生图额度不足")
+      - action: composer.press("Enter")
+      - action: 'page .getByRole("region", { name: "权限询问" }) .getByRole("button", {
+          name: "允许" }) .click()'
+      - action: 'page.getByRole("button", { name: /已完成/ }).last().click()'
+      - action: creditFailure.click()
+      - action: composer.fill("请模拟生视频上游失败")
+      - action: composer.press("Enter")
+      - action: 'page .getByRole("region", { name: "权限询问" }) .getByRole("button", {
+          name: "允许" }) .click()'
+      - action: 'page.getByRole("button", { name: /已完成/ }).last().click()'
+      - action: upstreamFailure.click()
+      - action: composer.fill( "请生成一个薄荷绿色 QWork 机器人挥手的视频，并保存到当前工作区", )
+      - action: composer.press("Enter")
+      - action: 'page .getByRole("region", { name: "权限询问" }) .getByRole("button", {
+          name: "允许" }) .click()'
+      - action: 'page.getByRole("button", { name: "停止" }).click()'
+      - action: cancelledTurn.click()
+      - action: cancelled.click()
+      success_oracle: all source-bound assertions pass
+    oracle_contract: null
+    readiness: partial
+    source_contract:
+      action_count: 22
+      assertion_count: 15
+      body_sha256: sha256:a59b6011f2085efcf85e27a149f9bfdcc869a51b36637599b508edf90b37cb0a
+      execution_revision: 93283fefa96fe705465d9a500a9c7def7f93a296
+      line_end: 269
+      line_start: 129
+      spec: e2e/built-in-media-generation.spec.ts
+      spec_sha256: sha256:7e203bd9cfb28cd7ac847fb1ef96a3feb7c1a62d433606154e501a27cfb1c57f
+    target:
+      artifact: repo://out/main/index.js + Electron
+      kind: installed-app
+      platforms:
+      - darwin
+      - win32
+      - linux
+  qwork.playwright.e2e-built-in-media-generation-spec-ts.d975026d18:
+    authorization:
+      required: false
+      scopes: []
+    capability_id: media-generation
+    case_id: QW-E2E-BUILT-IN-MEDIA-GENERATION-SPEC-D975026D
+    evidence:
+    - report.json
+    - trace.zip
+    fixtures:
+      cleanup: close app and remove temp home
+      isolation: no reuse of ~/.qwork, real account, or production data without explicit
+        Case authority
+      setup: case-owned temp home and deterministic fake sidecar unless live authority
+        is explicit
+    launch:
+      command_or_tool: npx playwright test e2e/built-in-media-generation.spec.ts -g
+        "登录用户用自然语言生图后只看到保存到工作区的本地产物"
+      failure_action: repair route or launcher; do not skip
+      strategy: command
+      success_oracle: Electron window and target surface are visible
+    navigation:
+      entrypoint: media-generation
+      failure_action: capture screenshot and DOM/IPC evidence, then repair locator
+      kind: ui-route
+      locator_strategy: accessible role/name first; project locator registry fallback
+      steps:
+      - action: 'page.getByRole("button", { name: "新建任务", exact: true }).click()'
+      - action: page.getByTitle("新建空间").click()
+      - action: 'page .getByRole("button", { name: path.basename(workspace), description:
+          uiPathDescription(workspace), exact: true, }) .click()'
+      - action: composer.fill( "请生成一张薄荷绿色的 QWork 机器人图片，并保存到当前工作区", )
+      - action: composer.press("Enter")
+      - action: 'approval.getByRole("button", { name: "允许" }).click()'
+      success_oracle: all source-bound assertions pass
+    oracle_contract: null
+    readiness: partial
+    source_contract:
+      action_count: 6
+      assertion_count: 10
+      body_sha256: sha256:61134ed6536ac8c978dbcaf20d4f49201eb5c6bda47a94356975130880392a18
+      execution_revision: 93283fefa96fe705465d9a500a9c7def7f93a296
+      line_end: 127
+      line_start: 14
+      spec: e2e/built-in-media-generation.spec.ts
+      spec_sha256: sha256:7e203bd9cfb28cd7ac847fb1ef96a3feb7c1a62d433606154e501a27cfb1c57f
+    target:
+      artifact: repo://out/main/index.js + Electron
+      kind: installed-app
+      platforms:
+      - darwin
+      - win32
+      - linux
   qwork.playwright.e2e-builtin-marketplace-spec-ts.22f862700b:
     authorization:
       required: false

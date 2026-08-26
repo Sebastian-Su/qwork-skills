@@ -1,0 +1,251 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-BUILT-IN-MEDIA-GENERATION-SPEC-D975026D",
+  "title": "登录用户用自然语言生图后只看到保存到工作区的本地产物",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "media-generation",
+    "journey": "media-generation",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QHEAD-E2E-e2e-built-in-media-generation-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:93283fefa96fe705465d9a500a9c7def7f93a296:e2e/built-in-media-generation.spec.ts",
+      "locator": "line:14;test:登录用户用自然语言生图后只看到保存到工作区的本地产物",
+      "revision": "93283fefa96fe705465d9a500a9c7def7f93a296",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-26T16:09:42.116737+00:00",
+      "content_hash": "sha256:d975026d18a0d7e41db16d399566acb00466fa1b6f7f23ac32400ab0aa6ad832",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-C879B09125A693",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-built-in-media-generation-spec-ts:L14:d975026d18"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "media-generation",
+      "priority": "P1",
+      "rule": "登录用户用自然语言生图后只看到保存到工作区的本地产物",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-built-in-media-generation-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "登录用户用自然语言生图后只看到保存到工作区的本地产物"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+    },
+    {
+      "action": "composer.fill( \"请生成一张薄荷绿色的 QWork 机器人图片，并保存到当前工作区\", )"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "approval.getByRole(\"button\", { name: \"允许\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect .poll(() => page.evaluate(() => window.workGui.auth.status().then((status) => status.loggedIn), ), ) .toBe(true)",
+    "expect(approval).toContainText(\"允许后才会创建任务并扣费\")",
+    "expect(approval).toContainText(\"ImageGen\")",
+    "expect(page.getByText(\"生成中\", { exact: false })).toBeVisible()",
+    "expect .poll(async () => { return (await readControls()) .filter((message) => message.type === \"create_session\") .map((message) => message.qwork_api); }) .toContainEqual({ base_url: server.baseUrl, access_token: \"[REDACTED]\", })",
+    "expect .poll(async () => { try { return (await fs.stat(artifactPath)).size; } catch (error) { if ((error as NodeJS.ErrnoException).code === \"ENOENT\") return 0; throw error; } }) .toBeGreaterThan(0)",
+    "expect( page.getByRole(\"button\", { name: \"打开产出物 QWork_robot.png\" }), ).toBeVisible()",
+    "expect( page.getByRole(\"img\", { name: \"预览 QWork_robot.png\" }), ).toBeVisible()",
+    "expect(page.getByText(\"ImageGen\", { exact: true })).toHaveCount(0)",
+    "expect(await fs.readFile(controlLog, \"utf8\")).not.toMatch(/eyJ[a-zA-Z0-9_-]+\\./)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-C879B09125A693",
+      "type": "ui",
+      "assertion": "登录用户用自然语言生图后只看到保存到工作区的本地产物"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-built-in-media-generation-spec-ts.d975026d18",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/built-in-media-generation.spec.ts -g \"登录用户用自然语言生图后只看到保存到工作区的本地产物\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "media-generation",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+        },
+        {
+          "action": "composer.fill( \"请生成一张薄荷绿色的 QWork 机器人图片，并保存到当前工作区\", )"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "approval.getByRole(\"button\", { name: \"允许\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/built-in-media-generation.spec.ts",
+        "line_start": 14,
+        "line_end": 127,
+        "body_sha256": "sha256:61134ed6536ac8c978dbcaf20d4f49201eb5c6bda47a94356975130880392a18",
+        "assertion_count": 10,
+        "action_count": 6,
+        "execution_revision": "93283fefa96fe705465d9a500a9c7def7f93a296",
+        "spec_sha256": "sha256:7e203bd9cfb28cd7ac847fb1ef96a3feb7c1a62d433606154e501a27cfb1c57f"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-C879B09125A693"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-C879B09125A693"
+    ]
+  }
+}

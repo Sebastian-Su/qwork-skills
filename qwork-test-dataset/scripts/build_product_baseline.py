@@ -123,6 +123,15 @@ SURFACES = {
     "browser": ("browser", "浏览器", "cdp"),
     "terminal": ("terminal", "终端", "shell"),
     "models": ("model", "模型", "llm", "provider", "dashscope"),
+    "media-generation": (
+        "imagegen",
+        "videogen",
+        "media_progress",
+        "built-in-media-generation",
+        "生图",
+        "生视频",
+        "媒体生成",
+    ),
     "permissions": ("permission", "权限", "sandbox", "沙箱", "安全"),
     "settings": ("setting", "设置", "配置", "theme", "主题"),
     "im": ("im", "微信", "qq", "消息", "wecom"),
@@ -143,6 +152,7 @@ DOC_SURFACE_DOMAINS: tuple[tuple[str, tuple[str, ...]], ...] = (
 )
 
 TEST_SURFACE_DOMAINS: tuple[tuple[str, tuple[str, ...]], ...] = (
+    (r"^e2e/built-in-media-generation", ("media-generation",)),
     (r"^e2e/auth", ("auth", "window-runtime")),
     (r"^e2e/assistant", ("im", "assistant", "settings")),
     (r"^e2e/automation", ("automations", "persistence", "im")),

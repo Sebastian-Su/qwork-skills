@@ -38,6 +38,18 @@ def main() -> int:
         "src/main/e2eStartupPolicy.ts",
         "+ QWORK_E2E_MODEL_MENU_BUNDLED_SKILLS_ROOT",
     ) == "models"
+    assert builder.infer_surface(
+        "src/renderer/src/components/ToolCallCard.tsx",
+        "+ if (event.type === 'media_progress') renderMediaProgress(event)",
+    ) == "media-generation"
+    assert builder.infer_surface(
+        "src/main/sidecar/QWorkApiCredentialBroker.ts",
+        "+ export class QWorkApiCredentialBroker {}",
+    ) == "media-generation"
+    assert builder.infer_surface(
+        "src/shared/protocol.ts",
+        "+ qwork_api_credentials: true",
+    ) == "media-generation"
     assert builder.gate_only_item_ids("vitest.config.ts", "") == ["gate:coverage"]
     assert builder.gate_only_item_ids(
         "e2e/fixtures/launch.ts",
@@ -66,6 +78,35 @@ def main() -> int:
     )
     assert semantic == ["EXPERT-CONTEXT"]
     assert anchors == ["controlHasExpertIdentity", "session_start_additional_context"]
+    media_selected, media_excluded, media_noncausal = builder.infer_executable_capability_cases(
+        {
+            "IMAGEGEN": {
+                "coverage": {"capability_id": "media-generation"},
+                "execution_contract": {
+                    "launch": {"strategy": "command"},
+                    "observability": {"source_contract": {"action_count": 6}},
+                },
+            },
+            "VIDEOGEN": {
+                "coverage": {"capability_id": "media-generation"},
+                "execution_contract": {
+                    "launch": {"strategy": "command"},
+                    "observability": {"source_contract": {"action_count": 22}},
+                },
+            },
+            "UNRELATED-AUTH": {
+                "coverage": {"capability_id": "auth"},
+                "execution_contract": {
+                    "launch": {"strategy": "command"},
+                    "observability": {"source_contract": {"action_count": 3}},
+                },
+            },
+        },
+        "media-generation",
+    )
+    assert media_selected == ["IMAGEGEN", "VIDEOGEN"]
+    assert media_excluded == []
+    assert media_noncausal == []
     assert builder.case_requires_macos_native_fullscreen({
         "title": "macOS 原生全屏移除交通灯偏移",
         "execution_contract": {"observability": {"source_contract": {

@@ -127,6 +127,15 @@ def infer_surface(path: str, changed_content: str = "") -> str | None:
         "browser": ("browser",),
         "terminal": ("terminal", "pty"),
         "models": ("model", "llm", "provider", "auto", "max", "custom"),
+        "media-generation": (
+            "imagegen",
+            "videogen",
+            "media_progress",
+            "built-in-media-generation",
+            "qworkapicredentialbroker",
+            "qwork_api_credentials",
+            "product media",
+        ),
         "permissions": ("permission", "security", "sandbox"),
         "settings": ("setting", "config"),
         "im": ("im/", "wecom", "message"),
@@ -500,7 +509,7 @@ def main() -> int:
         result_item("gate:live-case-authorization", "authorization", "python3 .agents/skills/qwork-test-dataset/scripts/test_live_case_authorization.py --skill-root .agents/skills/qwork-test-dataset", "permission-security", ["permission-security", "role-tenant-platform-environment-version"]),
         result_item("gate:typecheck", "layer", "npm run typecheck", "static-architecture-type-lint", ["role-tenant-platform-environment-version"]),
         result_item("gate:unit-integration", "layer", "npm test", "unit", ["happy-path", "negative", "boundary", "empty-loading-error"]),
-        result_item("gate:coverage", "dimension", "npm run test:coverage", "regression", ["historical-badcase-goodcase"]),
+        result_item("gate:coverage", "dimension", "npm run test:coverage -- --coverage.thresholds.autoUpdate=false", "regression", ["historical-badcase-goodcase"]),
         result_item("gate:electron-build", "execution-target", "npx electron-vite build", "contract-api-event-protocol", ["ui-api-event-persistence-seams"]),
     ]
     has_qwork_server = qwork_server_available(repo)
