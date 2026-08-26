@@ -1,0 +1,250 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-OFFICIAL-BUSINESS-SPEC-63EF1E09",
+  "title": "connects Tencent Ads and 77ircloud with public API credentials instead of private CLIs",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-official-business-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-official-business.spec.ts",
+      "locator": "line:23;test:connects Tencent Ads and 77ircloud with public API credentials instead of private CLIs",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:63ef1e09aa0d0ce00746a2c129a3ef72e503fc2f8ad8db1d677dcfef09c7db59",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-F629673E466EA9",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-official-business-spec-ts:L23:63ef1e09aa"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "connects Tencent Ads and 77ircloud with public API credentials instead of private CLIs",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-official-business-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "connects Tencent Ads and 77ircloud with public API credentials instead of private CLIs"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "search.fill(item.name)"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: `${item.name}，未连接` }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "form.getByLabel(label).fill(value)"
+    },
+    {
+      "action": "form.getByRole(\"button\", { name: \"保存并连接\", exact: true }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(detail.getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible()",
+    "expect(bridgeText).not.toContain(\"ads-e2e-secret\")",
+    "expect(bridgeText).not.toContain(\"ircloud-e2e-user\")",
+    "expect(bridgeText).not.toContain(\"ircloud-e2e-password\")",
+    "expect(bridgeText).not.toContain(\"ircloud-e2e-client\")",
+    "expect(bridgeText).not.toContain(\"ircloud-e2e-secret\")",
+    "expect(bridge.mcpServers[item.id]).toMatchObject({ adapter: item.adapter })",
+    "expect(credentialText).toContain(value)",
+    "expect((await fs.stat(bridge.mcpServers[item.id].credentialsFile)).mode & 0o777).toBe(0o600)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-F629673E466EA9",
+      "type": "return",
+      "assertion": "connects Tencent Ads and 77ircloud with public API credentials instead of private CLIs"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-official-business-spec-ts.63ef1e09aa",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-official-business.spec.ts -g \"connects Tencent Ads and 77ircloud with public API credentials instead of private CLIs\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "search.fill(item.name)"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: `${item.name}，未连接` }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "form.getByLabel(label).fill(value)"
+        },
+        {
+          "action": "form.getByRole(\"button\", { name: \"保存并连接\", exact: true }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-official-business.spec.ts",
+        "line_start": 23,
+        "line_end": 89,
+        "body_sha256": "sha256:d360887795a2b6af4ac4ad2b5f9c2a81b6860bdb6af16f6ccb1d93222419ad80",
+        "assertion_count": 9,
+        "action_count": 6,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:7e2f534205cc78eed3be35cbdcb6b2f18c39b92353df771c6d3e6910a09868ec"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-F629673E466EA9"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-F629673E466EA9"
+    ]
+  }
+}

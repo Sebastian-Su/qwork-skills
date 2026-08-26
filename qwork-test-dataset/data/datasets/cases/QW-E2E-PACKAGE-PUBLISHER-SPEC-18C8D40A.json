@@ -1,0 +1,232 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PACKAGE-PUBLISHER-SPEC-18C8D40A",
+  "title": "the distributable Windows artifacts identify 360.cn as publisher",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-package-publisher-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/package-publisher.spec.ts",
+      "locator": "line:27;test:the distributable Windows artifacts identify 360.cn as publisher",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:18c8d40ac4fa4e82d08f26b64476bd4b0651101487c56c6de077c3c9469b60ba",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-487427DDB67544",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-package-publisher-spec-ts:L27:18c8d40ac4"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "the distributable Windows artifacts identify 360.cn as publisher",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-package-publisher-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "the distributable Windows artifacts identify 360.cn as publisher"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "JSON.parse( readFileSync(path.join(root, \"package.json\"), \"utf8\"), )"
+    },
+    {
+      "action": "readFileSync(path.join(root, \"package.json\"), \"utf8\")"
+    },
+    {
+      "action": "path.join(root, \"package.json\")"
+    },
+    {
+      "action": "path.join(root, \"release\", version)"
+    },
+    {
+      "action": "path.join(releaseDir, `QWork-${version}-win-x64.exe`)"
+    },
+    {
+      "action": "path.join(releaseDir, \"win-unpacked\", \"QWork.exe\")"
+    },
+    {
+      "action": "artifacts.every(existsSync)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(packageJson.author).toBe(\"360.cn\")",
+    "expect(artifacts.map(readWindowsCompanyName)).toEqual([\"360.cn\", \"360.cn\"])"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-487427DDB67544",
+      "type": "return",
+      "assertion": "the distributable Windows artifacts identify 360.cn as publisher"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-package-publisher-spec-ts.18c8d40ac4",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "win32"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/package-publisher.spec.ts -g \"the distributable Windows artifacts identify 360.cn as publisher\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "JSON.parse( readFileSync(path.join(root, \"package.json\"), \"utf8\"), )"
+        },
+        {
+          "action": "readFileSync(path.join(root, \"package.json\"), \"utf8\")"
+        },
+        {
+          "action": "path.join(root, \"package.json\")"
+        },
+        {
+          "action": "path.join(root, \"release\", version)"
+        },
+        {
+          "action": "path.join(releaseDir, `QWork-${version}-win-x64.exe`)"
+        },
+        {
+          "action": "path.join(releaseDir, \"win-unpacked\", \"QWork.exe\")"
+        },
+        {
+          "action": "artifacts.every(existsSync)"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/package-publisher.spec.ts",
+        "line_start": 27,
+        "line_end": 48,
+        "body_sha256": "sha256:3016ef4d892c29dc45cd69e037071fab453e1ecd9e048566dae3b6fc7b32fd9b",
+        "assertion_count": 2,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5f2a68b434f1f51fee6a4d18cec12fe33eeb955fa4a3e87e0978a652ca971239"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-487427DDB67544"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-487427DDB67544"
+    ]
+  }
+}

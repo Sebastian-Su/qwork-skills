@@ -1,0 +1,234 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-BUILTIN-MARKETPLACE-SPEC-22F86270",
+  "title": "startup materializes builtin skills but keeps them disabled by default",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-builtin-marketplace-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/builtin-marketplace.spec.ts",
+      "locator": "line:12;test:startup materializes builtin skills but keeps them disabled by default",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:22f862700bf6ccff4a692a99123c746cc723a2f910395aaa5728c7c6e523f834",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-2E4B09A2241258",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-builtin-marketplace-spec-ts:L12:22f862700b"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "startup materializes builtin skills but keeps them disabled by default",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-builtin-marketplace-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "startup materializes builtin skills but keeps them disabled by default"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"/\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect .poll(async () => { const registry = JSON.parse(await fs.readFile(registryPath, \"utf8\")); return registry.plugins[\"skill-skill-creator@qwork-builtin\"]?.[0]; }) .toEqual( expect.objectContaining({ scope: \"user\", version: expect.any(String), qworkSeedManaged: true, }), )",
+    "expect(marketplace.plugins.map((entry: { name?: string }) => entry.name)).not.toContain( retiredPluginName, )",
+    "expect(skill).toEqual(expect.objectContaining({ category: \"skill\" }))",
+    "expect(authorizedSkill).toEqual( expect.objectContaining({ category: \"skill\", version: \"authorized-528daec0df6e\", }), )",
+    "expect(fs.readFile(cacheSkill, \"utf8\")).resolves.toContain(\"# Skill Creator\")",
+    "expect(scanned.map((entry) => entry.id)).not.toEqual( expect.arrayContaining(retiredIds), )",
+    "expect(scannedSkill).toBeUndefined()",
+    "expect(option).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-2E4B09A2241258",
+      "type": "return",
+      "assertion": "startup materializes builtin skills but keeps them disabled by default"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-builtin-marketplace-spec-ts.22f862700b",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/builtin-marketplace.spec.ts -g \"startup materializes builtin skills but keeps them disabled by default\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"/\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/builtin-marketplace.spec.ts",
+        "line_start": 12,
+        "line_end": 102,
+        "body_sha256": "sha256:875f1070a83a3e2b03387521f4fca23e6f674907f3c8bc0dc3b47e645dfa6679",
+        "assertion_count": 8,
+        "action_count": 2,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:749b3d04f9bbecb2845517c8eefb9a3c653f065e491d9352b6cc716df2de371c"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending",
+      "case-level screenshot checkpoint audit pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-2E4B09A2241258"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-2E4B09A2241258"
+    ]
+  }
+}

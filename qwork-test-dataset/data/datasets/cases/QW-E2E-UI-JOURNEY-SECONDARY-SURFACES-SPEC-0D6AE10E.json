@@ -1,0 +1,246 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-JOURNEY-SECONDARY-SURFACES-SPEC-0D6AE10E",
+  "title": "UI-JOURNEY-MARKET-001 | 专家中心技能页显示当前能力边界",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-journey-secondary-surfaces-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-journey-secondary-surfaces.spec.ts",
+      "locator": "line:41;test:UI-JOURNEY-MARKET-001 | 专家中心技能页显示当前能力边界",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:0d6ae10ee99caea141bfb5b5f6d4a29525b07c6c8def7cfe40e6df976ed7463b",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-A819F454A9D0D2",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-journey-secondary-surfaces-spec-ts:L41:0d6ae10ee9"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "UI-JOURNEY-MARKET-001 | 专家中心技能页显示当前能力边界",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-journey-secondary-surfaces-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-JOURNEY-MARKET-001 | 专家中心技能页显示当前能力边界"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "skillHub.hover()"
+    }
+  ],
+  "expected_outcomes": [
+    "uiExpect.soft(page.getByText(\"暂无可用推荐技能\", { exact: true })).toBeVisible()",
+    "uiExpect.soft(page.getByRole(\"tab\", { name: tab, exact: true })).toBeVisible()",
+    "uiExpect.soft(page.getByRole(\"tablist\", { name: \"技能来源\" }).getByRole(\"tab\")).toHaveCount(3)",
+    "uiExpect.soft(page.getByRole(\"tab\", { name: \"本地与内置\", exact: true })).toHaveCount(0)",
+    "uiExpect.soft(page.getByRole(\"button\", { name: \"添加技能\", exact: true })).toBeVisible()",
+    "uiExpect.soft(page.getByRole(\"tab\", { name: \"技能\", exact: true })).toHaveAttribute(\"aria-selected\", \"true\")",
+    "expect((await boxOf(skillHub)).x - (await boxOf(recommended)).right).toBeCloseTo(20, 1)",
+    "expect(activeStyle).toEqual({ \"background-color\": \"rgba(0, 0, 0, 0)\", \"border-bottom-width\": \"0px\", \"border-radius\": \"0px\", color: \"rgb(0, 0, 0)\", \"font-family\": \"Arial\", \"font-size\": \"20px\", \"font-weight\": \"600\", \"line-height\": \"28px\", \"padding-bottom\": \"4px\", })",
+    "expect(await computedStyle(skillHub, [\"color\", \"font-weight\"])).toEqual({ color: \"rgba(0, 0, 0, 0.5)\", \"font-weight\": \"400\", })",
+    "expect.poll(async () => (await computedStyle(skillHub, [\"color\"])).color).toBe(\"rgba(0, 0, 0, 0.7)\")",
+    "uiExpect.soft(page.getByPlaceholder(/搜索技能/)).toBeVisible()",
+    "uiExpect.soft(page.getByRole(\"button\", { name: /我安装的 \\(\\d+\\)/ })).toBeVisible()",
+    "expect(await computedStyle(dragSurface, [\"-webkit-app-region\"])) .toEqual({ \"-webkit-app-region\": \"drag\" })",
+    "expect(toolbar).toHaveAttribute(\"data-main-content-toolbar\", \"true\")",
+    "expect(toolbarBox.y).toBeGreaterThanOrEqual(chromeBox.bottom)",
+    "expect(toolbarBox.x).toBeCloseTo(mainBox.x, 0)",
+    "expect(toolbarBox.width).toBeCloseTo(mainBox.width, 0)",
+    "expect(toolbar).toHaveAttribute(\"data-tauri-drag-region\")",
+    "expect(toolbar).not.toHaveAttribute(\"data-no-drag\")",
+    "expect(await computedStyle(toolbar, [\"-webkit-app-region\"])) .toEqual({ \"-webkit-app-region\": \"drag\" })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-A819F454A9D0D2",
+      "type": "ui",
+      "assertion": "UI-JOURNEY-MARKET-001 | 专家中心技能页显示当前能力边界"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-journey-secondary-surfaces-spec-ts.0d6ae10ee9",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-journey-secondary-surfaces.spec.ts -g \"UI-JOURNEY-MARKET-001 | 专家中心技能页显示当前能力边界\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "skillHub.hover()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-journey-secondary-surfaces.spec.ts",
+        "line_start": 41,
+        "line_end": 112,
+        "body_sha256": "sha256:de40b10009184586f6f6314ab4e3eaac465c256c0facd9b8a29e8da0ae42642b",
+        "assertion_count": 20,
+        "action_count": 2,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:1e821148ce17710ec14a9d139d59a30502f2f7af87d1b278b78201a6c81d07a1"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending",
+      "case-level screenshot checkpoint audit pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-A819F454A9D0D2"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-A819F454A9D0D2"
+    ]
+  }
+}

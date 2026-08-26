@@ -1,0 +1,236 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-OAUTH-ONBOARDING-SPEC-9CAB3050",
+  "title": "clicks all three blocked providers and fails before browser, credential, or MCP state",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-oauth-onboarding-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-oauth-onboarding.spec.ts",
+      "locator": "line:126;test:clicks all three blocked providers and fails before browser, credential, or MCP state",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:9cab3050ea295e767d41927603fbe89a4bfbaf7f56b21aa3f802be82f92e73be",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D3A699B9E0463A",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-oauth-onboarding-spec-ts:L126:9cab3050ea"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "clicks all three blocked providers and fails before browser, credential, or MCP state",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-oauth-onboarding-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "clicks all three blocked providers and fails before browser, credential, or MCP state"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "card.click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+    },
+    {
+      "action": "server.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(dialog.getByRole(\"alert\")).toContainText( /动态注册失败.*HTTP 400.*invalid_client_metadata.*allowlist/, )",
+    "expect(card).toBeVisible()",
+    "expect(registrations).toHaveLength(3)",
+    "expect(await readLines(authSink)).toEqual([])",
+    "expect(await readLines(mcpLog)).toEqual([])",
+    "expect(credentials).not.toContain(\"client is not in the provider allowlist\")",
+    "expect(credentials).not.toContain(\"client_id\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D3A699B9E0463A",
+      "type": "return",
+      "assertion": "clicks all three blocked providers and fails before browser, credential, or MCP state"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-oauth-onboarding-spec-ts.9cab3050ea",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-oauth-onboarding.spec.ts -g \"clicks all three blocked providers and fails before browser, credential, or MCP state\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "card.click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+        },
+        {
+          "action": "server.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-oauth-onboarding.spec.ts",
+        "line_start": 126,
+        "line_end": 205,
+        "body_sha256": "sha256:98f1dd39a61ed964d741749649b4961ed7c21a4fdc4721c7b00fb16cd8a4cee0",
+        "assertion_count": 7,
+        "action_count": 4,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:df522e436fdeb0f4bea2e3152b214f32b11f7a77319280bc14be105cd8c1b3e1"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-D3A699B9E0463A"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-D3A699B9E0463A"
+    ]
+  }
+}

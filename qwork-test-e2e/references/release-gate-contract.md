@@ -18,7 +18,7 @@ Evaluator 只允许三种终态：
 python3 .agents/skills/qwork-test-e2e/scripts/build_release_gate_plan.py \
   --repo . --base <base-sha> --head <head-sha> \
   --scope affected \
-  --output test-artifacts/e2e/<run-id>/plan.json
+  --output /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/plan.json
 ~~~
 
 Planner 使用 `least-fixed-point`（最小不动点）闭包，从显式 base/head、dirty tracked/untracked 和 `changed_file_hashes` 出发，映射：
@@ -37,7 +37,7 @@ Planner 固定实现、source、Case/Dataset、route、locator、runner 与 Skil
 
 preflight 必须保存运行所需环境能力。`gate:unit-integration`、`gate:coverage` 与 deterministic Playwright 依赖本机 `127.0.0.1` loopback bind；执行器须在任何坐标启动前用 ephemeral port 探测。能力不足时零执行拒绝并记为本地环境配方缺口，禁止把 `listen EPERM` 连锁失败归因于产品。
 
-每个 `required_items[]` 在唯一 `<run-root>/report.json` 的 `results[]` 有同 ID 结果。PASS 至少保存：
+每个 `required_items[]` 在唯一 `<run-root>/QWORK-E2E-REPORT.json` 的 `results[]` 有同 ID 结果。PASS 至少保存：
 
 - 当前 `implementation_revision`、`plan_sha256`；
 - runner/command、开始结束时间、exit code 或结构化 outcome；
@@ -53,8 +53,8 @@ UI Case 还要在 `cases[]` 和 `case_results[]` 同时存在，状态一致，�
 ~~~bash
 python3 .agents/skills/qwork-test-e2e/scripts/evaluate_release_gate.py \
   --repo . \
-  --plan test-artifacts/e2e/<run-id>/plan.json \
-  --run-root test-artifacts/e2e/<run-id>
+  --plan /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/plan.json \
+  --run-root /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>
 ~~~
 
 Evaluator 先运行 `validate_source_acceptance`，再调用 `finalize_e2e_report`。`auto_generate_after_every_e2e_attempt: true`；`single_canonical_report_json: true`；报告生成失败、孤儿截图、hash 漂移或 HTML 未嵌入全部截图一律 fail closed。`plain_language_summary` 用口语回答测了什么、没测什么、为什么、用户影响和下一步；原始机器字段进入折叠技术明细。

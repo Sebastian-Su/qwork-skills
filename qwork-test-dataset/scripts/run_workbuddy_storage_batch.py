@@ -15,6 +15,8 @@ import subprocess
 import sys
 from typing import Any
 
+from external_artifact_storage import validate_external_output_root
+
 
 CASE_ID_RE = re.compile(r"^[A-Za-z0-9._-]+$")
 AUTHORITY_KEYS = (
@@ -266,11 +268,12 @@ def main() -> int:
     args = parser.parse_args()
 
     skill_root = args.skill_root.resolve()
-    output_root = args.output.resolve()
-    approved_root = (skill_root / "data/runs").resolve()
-    ensure_within(output_root, approved_root, "batch output")
-    if output_root.parent != approved_root or not CASE_ID_RE.fullmatch(output_root.name):
-        raise ValueError("batch output must be one stable direct child of data/runs")
+    output_root = validate_external_output_root(
+        args.output,
+        protected_roots=[skill_root],
+    )
+    if not CASE_ID_RE.fullmatch(output_root.name):
+        raise ValueError("batch output must end in one stable run identifier")
     case_ids = load_case_ids(args)
 
     verifier = skill_root / "scripts/validate_workbuddy_storage_case.py"
@@ -390,8 +393,8 @@ def main() -> int:
             break
 
     report = build_report(state, case_authority)
-    atomic_write_json(output_root / "report.json", report)
-    atomic_write_text(output_root / "report.html", render_report_html(report))
+    atomic_write_json(output_root / "QWORK-E2E-REPORT.json", report)
+    atomic_write_text(output_root / "QWORK-E2E-REPORT.html", render_report_html(report))
     candidates = {}
     failed_candidates = {}
     for item in state["cases"]:

@@ -1,0 +1,284 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-MODEL-CATALOG-SESSION-RECOVERY-SPEC-65DCE38E",
+  "title": "keeps the authenticated shell through a transient deployment 401 and recovers models",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-model-catalog-session-recovery-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/model-catalog-session-recovery.spec.ts",
+      "locator": "line:7;test:keeps the authenticated shell through a transient deployment 401 and recovers models",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:65dce38e258fea57961b53c98740c6fc6e8aedb7b1fba1c6a676318ba725ce07",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-A6B66A3EC0A3EE",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-model-catalog-session-recovery-spec-ts:L7:65dce38e25"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "keeps the authenticated shell through a transient deployment 401 and recovers models",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-model-catalog-session-recovery-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps the authenticated shell through a transient deployment 401 and recovers models"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-18T17:48:15.072617+00:00",
+    "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "createTestHome(\"model-session-recovery\")"
+    },
+    {
+      "action": "startExpiringSessionServer(\"recover\")"
+    },
+    {
+      "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: cloud.baseUrl, QWORK_PROJECT_ACCESS_TOKEN: undefined, QWORK_AUTH_BYPASS: \"0\", QWORK_DEV_AUTO_LOGIN: \"1\", QWORK_E2E_MODEL_CATALOG_JSON: undefined, QWORK_E2E_AUTH_RECOVERY_DELAYS_MS: \"[0,1500]\", QWORK_ENV: \"test\", NODE_ENV: \"test\", })"
+    },
+    {
+      "action": "app.firstWindow()"
+    },
+    {
+      "action": "attachUiState(page, testInfo, \"transient-session-recovering\")"
+    },
+    {
+      "action": "String(error)"
+    },
+    {
+      "action": "JSON.stringify(cloud.diagnostics())"
+    },
+    {
+      "action": "cloud.diagnostics()"
+    },
+    {
+      "action": "page.getByTestId(\"composer-dock\")"
+    },
+    {
+      "action": "attachUiState(page, testInfo, \"transient-session-recovered\")"
+    },
+    {
+      "action": "attachUiState( await app.firstWindow(), testInfo, \"session-recovery-failure\", )"
+    },
+    {
+      "action": "app.firstWindow()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( page.getByRole(\"status\", { name: \"服务连接状态\" }), ).toContainText(\"服务暂时不可用，正在恢复\")",
+    "expect( page.getByRole(\"heading\", { name: \"Qwork Welcome\" }), ).toHaveCount(0)",
+    "expect.poll( () => cloud.modelRequests(), { timeout: 20_000 }, ).toBeGreaterThanOrEqual(2)",
+    "expect( dock.getByRole(\"button\", { name: \"GLM-5.2\", exact: true }), ).toBeVisible()",
+    "expect( page.getByRole(\"status\", { name: \"服务连接状态\" }), ).toHaveCount(0)",
+    "expect(cloud.modelRequests()).toBeLessThanOrEqual(3)",
+    "expect( page.getByRole(\"heading\", { name: \"Qwork Welcome\" }), ).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-A6B66A3EC0A3EE",
+      "type": "return",
+      "assertion": "keeps the authenticated shell through a transient deployment 401 and recovers models"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-model-catalog-session-recovery-spec-ts.65dce38e25",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/model-catalog-session-recovery.spec.ts -g \"keeps the authenticated shell through a transient deployment 401 and recovers models\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "createTestHome(\"model-session-recovery\")"
+        },
+        {
+          "action": "startExpiringSessionServer(\"recover\")"
+        },
+        {
+          "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: cloud.baseUrl, QWORK_PROJECT_ACCESS_TOKEN: undefined, QWORK_AUTH_BYPASS: \"0\", QWORK_DEV_AUTO_LOGIN: \"1\", QWORK_E2E_MODEL_CATALOG_JSON: undefined, QWORK_E2E_AUTH_RECOVERY_DELAYS_MS: \"[0,1500]\", QWORK_ENV: \"test\", NODE_ENV: \"test\", })"
+        },
+        {
+          "action": "app.firstWindow()"
+        },
+        {
+          "action": "attachUiState(page, testInfo, \"transient-session-recovering\")"
+        },
+        {
+          "action": "String(error)"
+        },
+        {
+          "action": "JSON.stringify(cloud.diagnostics())"
+        },
+        {
+          "action": "cloud.diagnostics()"
+        },
+        {
+          "action": "page.getByTestId(\"composer-dock\")"
+        },
+        {
+          "action": "attachUiState(page, testInfo, \"transient-session-recovered\")"
+        },
+        {
+          "action": "attachUiState( await app.firstWindow(), testInfo, \"session-recovery-failure\", )"
+        },
+        {
+          "action": "app.firstWindow()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/model-catalog-session-recovery.spec.ts",
+        "line_start": 7,
+        "line_end": 70,
+        "body_sha256": "sha256:7fad8902abdd5dde8dd91fe6a3fbbe929081af7f4f1d5cb7c6bbd4e294598ecf",
+        "assertion_count": 7,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:a182f8c663ae6fcc6fe91da3da9e62a2def80935f890cb54be2cd2d6e33d330d"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": "bug973549-public-reference-643446ff-v1",
+      "verified_at": "2026-08-18T17:48:15.072617+00:00",
+      "environment": "stale deterministic public Playwright reference run"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-A6B66A3EC0A3EE"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-A6B66A3EC0A3EE"
+    ]
+  }
+}

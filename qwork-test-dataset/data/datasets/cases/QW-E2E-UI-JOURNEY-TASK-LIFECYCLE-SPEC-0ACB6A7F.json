@@ -1,0 +1,256 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-JOURNEY-TASK-LIFECYCLE-SPEC-0ACB6A7F",
+  "title": "UI-JOURNEY-TASK-009 | @文件必须有提示词且发送后显示 WorkBuddy 文件气泡",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-journey-task-lifecycle-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-journey-task-lifecycle.spec.ts",
+      "locator": "line:258;test:UI-JOURNEY-TASK-009 | @文件必须有提示词且发送后显示 WorkBuddy 文件气泡",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:0acb6a7f8a3f2826e395c0e05e7348e4c260770adc16334cc709f237d9e11b8d",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-BA0C5EA35A02DC",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-journey-task-lifecycle-spec-ts:L258:0acb6a7f8a"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "UI-JOURNEY-TASK-009 | @文件必须有提示词且发送后显示 WorkBuddy 文件气泡",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-journey-task-lifecycle-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-JOURNEY-TASK-009 | @文件必须有提示词且发送后显示 WorkBuddy 文件气泡"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"选择工作空间\", exact: true }).click()"
+    },
+    {
+      "action": "workspacePicker.getByRole(\"button\", { name: path.basename(workspace), exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"@spec\")"
+    },
+    {
+      "action": "picker.getByRole(\"option\", { name: \"spec.md\", exact: true }).click()"
+    },
+    {
+      "action": "dock.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"请总结这个文件\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(picker).toBeVisible()",
+    "expect(dock.getByText(\"spec.md\", { exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"alert\")).toContainText(\"请先输入提示词，再发送文件\")",
+    "expect(dock.getByText(\"spec.md\", { exact: true })).toBeVisible()",
+    "expect(page.getByTestId(\"user-message-bubble\")).toHaveCount(0)",
+    "expect(bubble).toBeVisible()",
+    "expect(bubble.getByTestId(\"message-file-token\")).toContainText(\"spec.md\")",
+    "expect(bubble).toContainText(\"请总结这个文件\")",
+    "expect(bubble).not.toContainText(`@${path.join(workspace, \"spec.md\")}`)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-BA0C5EA35A02DC",
+      "type": "ui",
+      "assertion": "UI-JOURNEY-TASK-009 | @文件必须有提示词且发送后显示 WorkBuddy 文件气泡"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-journey-task-lifecycle-spec-ts.0acb6a7f8a",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-journey-task-lifecycle.spec.ts -g \"UI-JOURNEY-TASK-009 | @文件必须有提示词且发送后显示 WorkBuddy 文件气泡\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"选择工作空间\", exact: true }).click()"
+        },
+        {
+          "action": "workspacePicker.getByRole(\"button\", { name: path.basename(workspace), exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"@spec\")"
+        },
+        {
+          "action": "picker.getByRole(\"option\", { name: \"spec.md\", exact: true }).click()"
+        },
+        {
+          "action": "dock.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"请总结这个文件\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-journey-task-lifecycle.spec.ts",
+        "line_start": 258,
+        "line_end": 288,
+        "body_sha256": "sha256:4872d9f8fde71f46de03ddfdc3937db4b7c929985b33f6d3a9ee52d6ac95b162",
+        "assertion_count": 9,
+        "action_count": 7,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:4e2941efcf0f78e23541fae3b92351774bd96ceadaeae8249bcbf5a13098d53d"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-BA0C5EA35A02DC"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-BA0C5EA35A02DC"
+    ]
+  }
+}

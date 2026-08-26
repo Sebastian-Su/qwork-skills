@@ -1,0 +1,355 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-GITLAB-DELIVERY-STAN-13-491DF58B",
+  "title": "docs/gitlab-delivery-standard.md · 13. 例外怎么走 产品契约",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-gitlab-delivery-standard-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/gitlab-delivery-standard.md",
+      "locator": "line:395;heading:13. 例外怎么走",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:eb202efb917c345d5ce4d6dac4c0dd5a4388b21aae31ed3b02566a9c0b0811ca",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-gitlab-delivery-standard-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/gitlab-delivery-standard.md",
+      "locator": "line:398;heading:13. 例外怎么走",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:4a15dd0cc9ddd895b5dd83ae38c9665af01334bd02b1acb20e4b21999a4d434d",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-gitlab-delivery-standard-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/gitlab-delivery-standard.md",
+      "locator": "line:402;heading:13. 例外怎么走",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:31858a846e554920a37129addc70f2ed5890e5a6ae470d739445706f5995c9ca",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-527EF7C61845C5",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-gitlab-delivery-standard-md:L395:eb202efb91"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "紧急情况也不能直接 push `master` 或 `develop`。着急的时候人最容易出错，这条规则恰恰是为着急的 时候设的。真的很急，就走 `hotfix/*` 分支加快速审批，让两个人马上看，而不是绕过流程。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-gitlab-delivery-standard-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "紧急情况也不能直接 push `master` 或 `develop`。着急的时候人最容易出错，这条规则恰恰是为着急的 时候设的。真的很急，就走 `hotfix/*` 分支加快速审批，让两个人马上看，而不是绕过流程。"
+    },
+    {
+      "requirement_id": "REQ-355325771D317F",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-gitlab-delivery-standard-md:L398:4a15dd0cc9"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "确实需要跳过某项门禁时，必须由技术负责人书面同意，并且在 MR 里写清楚三件事：跳过了什么、为什么 现在必须跳、什么时候用什么方式补验。补验要落成一个有负责人和期限的 Issue，不能只写一句“后续 补上”。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-gitlab-delivery-standard-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "确实需要跳过某项门禁时，必须由技术负责人书面同意，并且在 MR 里写清楚三件事：跳过了什么、为什么 现在必须跳、什么时候用什么方式补验。补验要落成一个有负责人和期限的 Issue，不能只写一句“后续 补上”。"
+    },
+    {
+      "requirement_id": "REQ-38EEC51F601406",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-gitlab-delivery-standard-md:L402:31858a846e"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "违反分支保护、泄露密钥、或者绕过测试门禁的情况，一旦发现先停止相关发布，再复盘。复盘的目的是找 出是哪个环节本该拦住它却没拦住，然后把那个环节补上，不是找人认错。这周的三件事就是按这个方式 处理的：结论不是“大家要小心”，而是这份文档里的第 7 章。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-gitlab-delivery-standard-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "违反分支保护、泄露密钥、或者绕过测试门禁的情况，一旦发现先停止相关发布，再复盘。复盘的目的是找 出是哪个环节本该拦住它却没拦住，然后把那个环节补上，不是找人认错。这周的三件事就是按这个方式 处理的：结论不是“大家要小心”，而是这份文档里的第 7 章。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for shell-home at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/gitlab-delivery-standard.md · 13. 例外怎么走 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-527EF7C61845C5] exactly: 紧急情况也不能直接 push `master` 或 `develop`。着急的时候人最容易出错，这条规则恰恰是为着急的 时候设的。真的很急，就走 `hotfix/*` 分支加快速审批，让两个人马上看，而不是绕过流程。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-355325771D317F] exactly: 确实需要跳过某项门禁时，必须由技术负责人书面同意，并且在 MR 里写清楚三件事：跳过了什么、为什么 现在必须跳、什么时候用什么方式补验。补验要落成一个有负责人和期限的 Issue，不能只写一句“后续 补上”。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-38EEC51F601406] exactly: 违反分支保护、泄露密钥、或者绕过测试门禁的情况，一旦发现先停止相关发布，再复盘。复盘的目的是找 出是哪个环节本该拦住它却没拦住，然后把那个环节补上，不是找人认错。这周的三件事就是按这个方式 处理的：结论不是“大家要小心”，而是这份文档里的第 7 章。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "紧急情况也不能直接 push `master` 或 `develop`。着急的时候人最容易出错，这条规则恰恰是为着急的 时候设的。真的很急，就走 `hotfix/*` 分支加快速审批，让两个人马上看，而不是绕过流程。",
+    "确实需要跳过某项门禁时，必须由技术负责人书面同意，并且在 MR 里写清楚三件事：跳过了什么、为什么 现在必须跳、什么时候用什么方式补验。补验要落成一个有负责人和期限的 Issue，不能只写一句“后续 补上”。",
+    "违反分支保护、泄露密钥、或者绕过测试门禁的情况，一旦发现先停止相关发布，再复盘。复盘的目的是找 出是哪个环节本该拦住它却没拦住，然后把那个环节补上，不是找人认错。这周的三件事就是按这个方式 处理的：结论不是“大家要小心”，而是这份文档里的第 7 章。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-527EF7C61845C5]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 紧急情况也不能直接 push `master` 或 `develop`。着急的时候人最容易出错，这条规则恰恰是为着急的 时候设的。真的很急，就走 `hotfix/*` 分支加快速审批，让两个人马上看，而不是绕过流程。",
+    "FAIL [REQ-355325771D317F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 确实需要跳过某项门禁时，必须由技术负责人书面同意，并且在 MR 里写清楚三件事：跳过了什么、为什么 现在必须跳、什么时候用什么方式补验。补验要落成一个有负责人和期限的 Issue，不能只写一句“后续 补上”。",
+    "FAIL [REQ-38EEC51F601406]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 违反分支保护、泄露密钥、或者绕过测试门禁的情况，一旦发现先停止相关发布，再复盘。复盘的目的是找 出是哪个环节本该拦住它却没拦住，然后把那个环节补上，不是找人认错。这周的三件事就是按这个方式 处理的：结论不是“大家要小心”，而是这份文档里的第 7 章。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-527EF7C61845C5",
+      "type": "return",
+      "assertion": "紧急情况也不能直接 push `master` 或 `develop`。着急的时候人最容易出错，这条规则恰恰是为着急的 时候设的。真的很急，就走 `hotfix/*` 分支加快速审批，让两个人马上看，而不是绕过流程。"
+    },
+    {
+      "requirement_id": "REQ-355325771D317F",
+      "type": "return",
+      "assertion": "确实需要跳过某项门禁时，必须由技术负责人书面同意，并且在 MR 里写清楚三件事：跳过了什么、为什么 现在必须跳、什么时候用什么方式补验。补验要落成一个有负责人和期限的 Issue，不能只写一句“后续 补上”。"
+    },
+    {
+      "requirement_id": "REQ-38EEC51F601406",
+      "type": "return",
+      "assertion": "违反分支保护、泄露密钥、或者绕过测试门禁的情况，一旦发现先停止相关发布，再复盘。复盘的目的是找 出是哪个环节本该拦住它却没拦住，然后把那个环节补上，不是找人认错。这周的三件事就是按这个方式 处理的：结论不是“大家要小心”，而是这份文档里的第 7 章。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-gitlab-delivery-standa.13-491df58b74",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for shell-home at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/gitlab-delivery-standard.md · 13. 例外怎么走 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-527EF7C61845C5] exactly: 紧急情况也不能直接 push `master` 或 `develop`。着急的时候人最容易出错，这条规则恰恰是为着急的 时候设的。真的很急，就走 `hotfix/*` 分支加快速审批，让两个人马上看，而不是绕过流程。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-355325771D317F] exactly: 确实需要跳过某项门禁时，必须由技术负责人书面同意，并且在 MR 里写清楚三件事：跳过了什么、为什么 现在必须跳、什么时候用什么方式补验。补验要落成一个有负责人和期限的 Issue，不能只写一句“后续 补上”。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-38EEC51F601406] exactly: 违反分支保护、泄露密钥、或者绕过测试门禁的情况，一旦发现先停止相关发布，再复盘。复盘的目的是找 出是哪个环节本该拦住它却没拦住，然后把那个环节补上，不是找人认错。这周的三件事就是按这个方式 处理的：结论不是“大家要小心”，而是这份文档里的第 7 章。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-355325771D317F",
+      "REQ-38EEC51F601406",
+      "REQ-527EF7C61845C5"
+    ],
+    "categories": [
+      "business",
+      "negative"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:negative",
+      "full",
+      "requirement:REQ-355325771D317F",
+      "requirement:REQ-38EEC51F601406",
+      "requirement:REQ-527EF7C61845C5"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-527EF7C61845C5",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/gitlab-delivery-standard.md · 13. 例外怎么走 产品契约 exactly once and retain its correlation identity",
+      "then": "紧急情况也不能直接 push `master` 或 `develop`。着急的时候人最容易出错，这条规则恰恰是为着急的 时候设的。真的很急，就走 `hotfix/*` 分支加快速审批，让两个人马上看，而不是绕过流程。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-355325771D317F",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/gitlab-delivery-standard.md · 13. 例外怎么走 产品契约 exactly once and retain its correlation identity",
+      "then": "确实需要跳过某项门禁时，必须由技术负责人书面同意，并且在 MR 里写清楚三件事：跳过了什么、为什么 现在必须跳、什么时候用什么方式补验。补验要落成一个有负责人和期限的 Issue，不能只写一句“后续 补上”。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-38EEC51F601406",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/gitlab-delivery-standard.md · 13. 例外怎么走 产品契约 exactly once and retain its correlation identity",
+      "then": "违反分支保护、泄露密钥、或者绕过测试门禁的情况，一旦发现先停止相关发布，再复盘。复盘的目的是找 出是哪个环节本该拦住它却没拦住，然后把那个环节补上，不是找人认错。这周的三件事就是按这个方式 处理的：结论不是“大家要小心”，而是这份文档里的第 7 章。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

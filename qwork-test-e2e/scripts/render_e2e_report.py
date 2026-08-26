@@ -367,8 +367,8 @@ def render(report: dict[str, Any], root: Path) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input", required=True, type=Path, help="Normalized report.json")
-    parser.add_argument("--output", type=Path, help="Output report.html; defaults beside input")
+    parser.add_argument("--input", required=True, type=Path, help="Normalized QWORK-E2E-REPORT.json")
+    parser.add_argument("--output", type=Path, help="Output QWORK-E2E-REPORT.html; defaults beside input")
     parser.add_argument("--artifact-root", type=Path, help="Allowed root for all evidence paths")
     args = parser.parse_args()
 

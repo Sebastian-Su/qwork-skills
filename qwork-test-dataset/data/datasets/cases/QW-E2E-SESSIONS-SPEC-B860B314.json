@@ -1,0 +1,279 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SESSIONS-SPEC-B860B314",
+  "title": "creates concurrent sessions without selection temp-file collisions",
+  "kind": "negative",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-sessions-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/sessions.spec.ts",
+      "locator": "line:186;test:creates concurrent sessions without selection temp-file collisions",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:b860b314f95b9aa614767ba1a019aa8fceb47329e2144052f456cf378783f90e",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-B7A8EBF702F01B",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-sessions-spec-ts:L186:b860b314f9"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "creates concurrent sessions without selection temp-file collisions",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-sessions-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "creates concurrent sessions without selection temp-file collisions"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "createTestHome(\"sessions-concurrent-create\")"
+    },
+    {
+      "action": "createWorkspace(configHome)"
+    },
+    {
+      "action": "openApp(configHome)"
+    },
+    {
+      "action": "page.evaluate(async ({ cwd }) => Promise.all( Array.from({ length: 8 }, (_, index) => window.workGui.sessions.create({ cwd, title: `parallel-${index}`, origin: \"assistant\", selected_skills: [`skill-${index}`], }), ), ), { cwd: workspace })"
+    },
+    {
+      "action": "Promise.all( Array.from({ length: 8 }, (_, index) => window.workGui.sessions.create({ cwd, title: `parallel-${index}`, origin: \"assistant\", selected_skills: [`skill-${index}`], }), ), )"
+    },
+    {
+      "action": "Array.from({ length: 8 }, (_, index) => window.workGui.sessions.create({ cwd, title: `parallel-${index}`, origin: \"assistant\", selected_skills: [`skill-${index}`], }), )"
+    },
+    {
+      "action": "window.workGui.sessions.create({ cwd, title: `parallel-${index}`, origin: \"assistant\", selected_skills: [`skill-${index}`], })"
+    },
+    {
+      "action": "page.evaluate(async (ids) => Promise.all(ids.map((id) => window.workGui.sessions.getSelected(id))), created.map((item) => item.session_id))"
+    },
+    {
+      "action": "Promise.all(ids.map((id) => window.workGui.sessions.getSelected(id)))"
+    },
+    {
+      "action": "ids.map((id) => window.workGui.sessions.getSelected(id))"
+    },
+    {
+      "action": "window.workGui.sessions.getSelected(id)"
+    },
+    {
+      "action": "created.map((item) => item.session_id)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect .poll(() => page.evaluate(() => window.workGui.sessions.list())) .toHaveLength(8)",
+    "expect(selections.map((selection) => selection.skills)).toEqual( Array.from({ length: 8 }, (_, index) => [`skill-${index}`]), )"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-B7A8EBF702F01B",
+      "type": "return",
+      "assertion": "creates concurrent sessions without selection temp-file collisions"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-sessions-spec-ts.b860b314f9",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/sessions.spec.ts -g \"creates concurrent sessions without selection temp-file collisions\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "createTestHome(\"sessions-concurrent-create\")"
+        },
+        {
+          "action": "createWorkspace(configHome)"
+        },
+        {
+          "action": "openApp(configHome)"
+        },
+        {
+          "action": "page.evaluate(async ({ cwd }) => Promise.all( Array.from({ length: 8 }, (_, index) => window.workGui.sessions.create({ cwd, title: `parallel-${index}`, origin: \"assistant\", selected_skills: [`skill-${index}`], }), ), ), { cwd: workspace })"
+        },
+        {
+          "action": "Promise.all( Array.from({ length: 8 }, (_, index) => window.workGui.sessions.create({ cwd, title: `parallel-${index}`, origin: \"assistant\", selected_skills: [`skill-${index}`], }), ), )"
+        },
+        {
+          "action": "Array.from({ length: 8 }, (_, index) => window.workGui.sessions.create({ cwd, title: `parallel-${index}`, origin: \"assistant\", selected_skills: [`skill-${index}`], }), )"
+        },
+        {
+          "action": "window.workGui.sessions.create({ cwd, title: `parallel-${index}`, origin: \"assistant\", selected_skills: [`skill-${index}`], })"
+        },
+        {
+          "action": "page.evaluate(async (ids) => Promise.all(ids.map((id) => window.workGui.sessions.getSelected(id))), created.map((item) => item.session_id))"
+        },
+        {
+          "action": "Promise.all(ids.map((id) => window.workGui.sessions.getSelected(id)))"
+        },
+        {
+          "action": "ids.map((id) => window.workGui.sessions.getSelected(id))"
+        },
+        {
+          "action": "window.workGui.sessions.getSelected(id)"
+        },
+        {
+          "action": "created.map((item) => item.session_id)"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/sessions.spec.ts",
+        "line_start": 186,
+        "line_end": 220,
+        "body_sha256": "sha256:cebad56a645dc09b1634167bc7200d63a85374ac9b1795f90017192609ad8a88",
+        "assertion_count": 2,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:41dd039a98f53ede370586c48d27a7d192b67e384c2ddb6162971172e0b3b148"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B7A8EBF702F01B"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-B7A8EBF702F01B"
+    ]
+  }
+}

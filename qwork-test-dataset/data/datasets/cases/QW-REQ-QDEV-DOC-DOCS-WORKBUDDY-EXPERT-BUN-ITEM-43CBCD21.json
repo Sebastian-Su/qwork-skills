@@ -1,0 +1,291 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-WORKBUDDY-EXPERT-BUN-ITEM-43CBCD21",
+  "title": "docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 结论 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md",
+      "locator": "line:9;heading:结论",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:6b72473da4358afc059372849fe4e0e8f17d8fc4b3245a155788f8e6af6d6f28",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md",
+      "locator": "line:11;heading:结论",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:16cbffea03b062cf1abddaff5025f3a4b75819c6b2719f4808b3e8cbf3b0abc2",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-ACBB5C2C007DAF",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de:L9:6b72473da4"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "这些专家在技术上可以内置到 QWork 代码仓库或安装包，但不应把“技术上可内置”与“当前允许随产品分发”混为一谈。QWork 已经具备完整的内置专家启动链：打包前准备的 `plugins` 资源会被 Electron Builder 复制进应用，应用启动时由 `installBundledExpertPackages()` 安装或修复；QWork 自有核心专家使用 `~/.qwork/plugins/cache/qwork-builtin/<package>`，WorkBu",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "这些专家在技术上可以内置到 QWork 代码仓库或安装包，但不应把“技术上可内置”与“当前允许随产品分发”混为一谈。QWork 已经具备完整的内置专家启动链：打包前准备的 `plugins` 资源会被 Electron Builder 复制进应用，应用启动时由 `installBundledExpertPackages()` 安装或修复；QWork 自有核心专家使用 `~/.qwork/plugins/cache/qwork-builtin/<package>`，WorkBu"
+    },
+    {
+      "requirement_id": "REQ-4BC8F0952D9E7B",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de:L11:16cbffea03"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "因此，V0 的工程可行性很高。推荐形态不是把 361 个当前 local-use 包直接提交到普通 Git 历史，而是保留一个小型内置核心集，并把全量包放入私有、签名、可校验的专家制品库；开发构建可以通过私有制品预装全量，正式产品按内置核心集加首次使用下载运行。当前包继续保持 local-use、不可再分发，直到完成来源与许可审查。2026-08-14 已按这一边界完成第一步私有开发自验证实现，不能把该结果解释为已具备正式分发资格。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "因此，V0 的工程可行性很高。推荐形态不是把 361 个当前 local-use 包直接提交到普通 Git 历史，而是保留一个小型内置核心集，并把全量包放入私有、签名、可校验的专家制品库；开发构建可以通过私有制品预装全量，正式产品按内置核心集加首次使用下载运行。当前包继续保持 local-use、不可再分发，直到完成来源与许可审查。2026-08-14 已按这一边界完成第一步私有开发自验证实现，不能把该结果解释为已具备正式分发资格。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 结论 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-ACBB5C2C007DAF] exactly: 这些专家在技术上可以内置到 QWork 代码仓库或安装包，但不应把“技术上可内置”与“当前允许随产品分发”混为一谈。QWork 已经具备完整的内置专家启动链：打包前准备的 `plugins` 资源会被 Electron Builder 复制进应用，应用启动时由 `installBundledExpertPackages()` 安装或修复；QWork 自有核心专家使用 `~/.qwork/plugins/cache/qwork-builtin/<package>`，WorkBu"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-4BC8F0952D9E7B] exactly: 因此，V0 的工程可行性很高。推荐形态不是把 361 个当前 local-use 包直接提交到普通 Git 历史，而是保留一个小型内置核心集，并把全量包放入私有、签名、可校验的专家制品库；开发构建可以通过私有制品预装全量，正式产品按内置核心集加首次使用下载运行。当前包继续保持 local-use、不可再分发，直到完成来源与许可审查。2026-08-14 已按这一边界完成第一步私有开发自验证实现，不能把该结果解释为已具备正式分发资格。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "这些专家在技术上可以内置到 QWork 代码仓库或安装包，但不应把“技术上可内置”与“当前允许随产品分发”混为一谈。QWork 已经具备完整的内置专家启动链：打包前准备的 `plugins` 资源会被 Electron Builder 复制进应用，应用启动时由 `installBundledExpertPackages()` 安装或修复；QWork 自有核心专家使用 `~/.qwork/plugins/cache/qwork-builtin/<package>`，WorkBu",
+    "因此，V0 的工程可行性很高。推荐形态不是把 361 个当前 local-use 包直接提交到普通 Git 历史，而是保留一个小型内置核心集，并把全量包放入私有、签名、可校验的专家制品库；开发构建可以通过私有制品预装全量，正式产品按内置核心集加首次使用下载运行。当前包继续保持 local-use、不可再分发，直到完成来源与许可审查。2026-08-14 已按这一边界完成第一步私有开发自验证实现，不能把该结果解释为已具备正式分发资格。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-ACBB5C2C007DAF]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 这些专家在技术上可以内置到 QWork 代码仓库或安装包，但不应把“技术上可内置”与“当前允许随产品分发”混为一谈。QWork 已经具备完整的内置专家启动链：打包前准备的 `plugins` 资源会被 Electron Builder 复制进应用，应用启动时由 `installBundledExpertPackages()` 安装或修复；QWork 自有核心专家使用 `~/.qwork/plugins/cache/qwork-builtin/<package>`，WorkBu",
+    "FAIL [REQ-4BC8F0952D9E7B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 因此，V0 的工程可行性很高。推荐形态不是把 361 个当前 local-use 包直接提交到普通 Git 历史，而是保留一个小型内置核心集，并把全量包放入私有、签名、可校验的专家制品库；开发构建可以通过私有制品预装全量，正式产品按内置核心集加首次使用下载运行。当前包继续保持 local-use、不可再分发，直到完成来源与许可审查。2026-08-14 已按这一边界完成第一步私有开发自验证实现，不能把该结果解释为已具备正式分发资格。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-ACBB5C2C007DAF",
+      "type": "database",
+      "assertion": "这些专家在技术上可以内置到 QWork 代码仓库或安装包，但不应把“技术上可内置”与“当前允许随产品分发”混为一谈。QWork 已经具备完整的内置专家启动链：打包前准备的 `plugins` 资源会被 Electron Builder 复制进应用，应用启动时由 `installBundledExpertPackages()` 安装或修复；QWork 自有核心专家使用 `~/.qwork/plugins/cache/qwork-builtin/<package>`，WorkBu"
+    },
+    {
+      "requirement_id": "REQ-4BC8F0952D9E7B",
+      "type": "return",
+      "assertion": "因此，V0 的工程可行性很高。推荐形态不是把 361 个当前 local-use 包直接提交到普通 Git 历史，而是保留一个小型内置核心集，并把全量包放入私有、签名、可校验的专家制品库；开发构建可以通过私有制品预装全量，正式产品按内置核心集加首次使用下载运行。当前包继续保持 local-use、不可再分发，直到完成来源与许可审查。2026-08-14 已按这一边界完成第一步私有开发自验证实现，不能把该结果解释为已具备正式分发资格。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-workbuddy-expert-bundl.item-43cbcd2104",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 结论 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-ACBB5C2C007DAF] exactly: 这些专家在技术上可以内置到 QWork 代码仓库或安装包，但不应把“技术上可内置”与“当前允许随产品分发”混为一谈。QWork 已经具备完整的内置专家启动链：打包前准备的 `plugins` 资源会被 Electron Builder 复制进应用，应用启动时由 `installBundledExpertPackages()` 安装或修复；QWork 自有核心专家使用 `~/.qwork/plugins/cache/qwork-builtin/<package>`，WorkBu"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-4BC8F0952D9E7B] exactly: 因此，V0 的工程可行性很高。推荐形态不是把 361 个当前 local-use 包直接提交到普通 Git 历史，而是保留一个小型内置核心集，并把全量包放入私有、签名、可校验的专家制品库；开发构建可以通过私有制品预装全量，正式产品按内置核心集加首次使用下载运行。当前包继续保持 local-use、不可再分发，直到完成来源与许可审查。2026-08-14 已按这一边界完成第一步私有开发自验证实现，不能把该结果解释为已具备正式分发资格。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-4BC8F0952D9E7B",
+      "REQ-ACBB5C2C007DAF"
+    ],
+    "categories": [
+      "data",
+      "negative"
+    ],
+    "suite_ids": [
+      "category:data",
+      "category:negative",
+      "full",
+      "requirement:REQ-4BC8F0952D9E7B",
+      "requirement:REQ-ACBB5C2C007DAF"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-ACBB5C2C007DAF",
+      "oracle_type": "database",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 结论 产品契约 exactly once and retain its correlation identity",
+      "then": "这些专家在技术上可以内置到 QWork 代码仓库或安装包，但不应把“技术上可内置”与“当前允许随产品分发”混为一谈。QWork 已经具备完整的内置专家启动链：打包前准备的 `plugins` 资源会被 Electron Builder 复制进应用，应用启动时由 `installBundledExpertPackages()` 安装或修复；QWork 自有核心专家使用 `~/.qwork/plugins/cache/qwork-builtin/<package>`，WorkBu",
+      "observation_boundary": "case-owned durable database state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-4BC8F0952D9E7B",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 结论 产品契约 exactly once and retain its correlation identity",
+      "then": "因此，V0 的工程可行性很高。推荐形态不是把 361 个当前 local-use 包直接提交到普通 Git 历史，而是保留一个小型内置核心集，并把全量包放入私有、签名、可校验的专家制品库；开发构建可以通过私有制品预装全量，正式产品按内置核心集加首次使用下载运行。当前包继续保持 local-use、不可再分发，直到完成来源与许可审查。2026-08-14 已按这一边界完成第一步私有开发自验证实现，不能把该结果解释为已具备正式分发资格。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

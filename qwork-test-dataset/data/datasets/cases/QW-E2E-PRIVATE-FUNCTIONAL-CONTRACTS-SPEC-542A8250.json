@@ -1,0 +1,554 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-542A8250",
+  "title": "TEAM-PERMISSION-001 | Permission Ceiling 只能收窄且成员共享工作区与符号链接边界",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-team",
+    "journey": "expert-team",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QPRIVATE-E2E-expert-permission-session-contract-spec-ts",
+      "type": "private-dataset-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "skill://qwork-test-dataset/data/e2e/expert-permission-session-contract.spec.ts",
+      "locator": "line:11;test:TEAM-PERMISSION-001 | Permission Ceiling 只能收窄且成员共享工作区与符号链接边界",
+      "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:542a8250bde23f30a692fb6357d4510834fe9faebca330b3c9fcf5cbd5efca8a",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:86;heading:4. 本地目录与安装契约",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:e3cf9f2cf980ad56227562644b6619380e8463be1346c679fb6a283639b0ae10",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:145;heading:5. ZiqDo Expert Package v1",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:45e61b5d6fe0cc6c02dbc7809cad3e6bf787e0401c368235d4366cf1e3156646",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:218;heading:7.3 权限",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:840cfaf77945d4d7dafc03e584a59fdb45ee9ff100a2c2d1203b4adf0d3a90d2",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:219;heading:7.3 权限",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:de355acc2ac6278aade055be2acd1971ca2cedb5fe0c04687d261e5a8a0324c1",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:220;heading:7.3 权限",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:f789deea31c3093b9807d4a9ffc81461f7e933f9cd1afacb289a3e2e83bfc98d",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-F3FE43D7A64A51",
+      "source_atom_ids": [
+        "QPRIVATE-E2E-expert-permission-session-contract-spec-ts:L11:542a8250bd"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "TEAM-PERMISSION-001 | Permission Ceiling 只能收窄且成员共享工作区与符号链接边界",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QPRIVATE-E2E-expert-permission-session-contract-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "TEAM-PERMISSION-001 | Permission Ceiling 只能收窄且成员共享工作区与符号链接边界"
+    },
+    {
+      "requirement_id": "REQ-F5460085526A52",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L86:e3cf9f2cf9"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "安装前验证 Schema、版本、入口、成员 ID、路径穿越和符号链接逃逸。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "安装前验证 Schema、版本、入口、成员 ID、路径穿越和符号链接逃逸。"
+    },
+    {
+      "requirement_id": "REQ-8DA40F06248655",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L145:45e61b5d6f"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "`capabilities` 只声明需求，`guardrails` 只能收窄会话权限。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`capabilities` 只声明需求，`guardrails` 只能收窄会话权限。"
+    },
+    {
+      "requirement_id": "REQ-D96EFC8726E2FA",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L218:840cfaf779"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "permissions",
+      "priority": "P0",
+      "rule": "主会话权限是团队不可突破的 Permission Ceiling。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "主会话权限是团队不可突破的 Permission Ceiling。"
+    },
+    {
+      "requirement_id": "REQ-1B89FB2A7EB4EE",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L219:de355acc2a"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "成员可以收窄工具和目录，不能扩大权限。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "成员可以收窄工具和目录，不能扩大权限。"
+    },
+    {
+      "requirement_id": "REQ-DA19C707C5B540",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L220:f789deea31"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "所有成员共享工作区根目录和符号链接安全校验。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "所有成员共享工作区根目录和符号链接安全校验。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "fs.mkdtemp(path.join(os.tmpdir(), \"qwork-private-symlink-boundary-\"))"
+    },
+    {
+      "action": "path.join(os.tmpdir(), \"qwork-private-symlink-boundary-\")"
+    },
+    {
+      "action": "os.tmpdir()"
+    },
+    {
+      "action": "path.join(root, \"plugins\", \"marketplaces\", \"experts\", \"plugins\")"
+    },
+    {
+      "action": "path.join(root, \"outside\")"
+    },
+    {
+      "action": "fs.mkdir(canonicalRoot, { recursive: true })"
+    },
+    {
+      "action": "fs.mkdir(outside, { recursive: true })"
+    },
+    {
+      "action": "path.join(canonicalRoot, \"linked-expert\")"
+    },
+    {
+      "action": "fs.symlink(outside, linked, \"dir\")"
+    },
+    {
+      "action": "fs.rm(root, { recursive: true, force: true })"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(() => parseExpertPackageManifest(validExpertManifest(\"unsafe-permission\", { guardrails: { workspace: \"session\", permissionCeiling: \"full-access\" }, }))).toThrow(/permissionCeiling/i)",
+    "expect(() => parseExpertPackageManifest(validExpertManifest(\"unsafe-workspace\", { guardrails: { workspace: \"outside-session\", permissionCeiling: \"session\" }, }))).toThrow(/workspace/i)",
+    "expect(resolveCanonicalExpertInstallPath(root, \"linked-expert@experts\", linked)).rejects.toThrow(/non-canonical/i)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-F3FE43D7A64A51",
+      "type": "return",
+      "assertion": "TEAM-PERMISSION-001 | Permission Ceiling 只能收窄且成员共享工作区与符号链接边界"
+    },
+    {
+      "requirement_id": "REQ-F5460085526A52",
+      "type": "database",
+      "assertion": "安装前验证 Schema、版本、入口、成员 ID、路径穿越和符号链接逃逸。"
+    },
+    {
+      "requirement_id": "REQ-8DA40F06248655",
+      "type": "api",
+      "assertion": "`capabilities` 只声明需求，`guardrails` 只能收窄会话权限。"
+    },
+    {
+      "requirement_id": "REQ-D96EFC8726E2FA",
+      "type": "api",
+      "assertion": "主会话权限是团队不可突破的 Permission Ceiling。"
+    },
+    {
+      "requirement_id": "REQ-1B89FB2A7EB4EE",
+      "type": "api",
+      "assertion": "成员可以收窄工具和目录，不能扩大权限。"
+    },
+    {
+      "requirement_id": "REQ-DA19C707C5B540",
+      "type": "return",
+      "assertion": "所有成员共享工作区根目录和符号链接安全校验。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.private-playwright.expert-permission-session-contract-spec.542a8250bd",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "external-run://QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/app + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "node .agents/skills/qwork-test-dataset/scripts/run_private_playwright_case.mjs --repo . --case-id QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-542A8250 --case-title \"TEAM-PERMISSION-001 | Permission Ceiling 只能收窄且成员共享工作区与符号链接边界\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "expert-team",
+      "steps": [
+        {
+          "action": "fs.mkdtemp(path.join(os.tmpdir(), \"qwork-private-symlink-boundary-\"))"
+        },
+        {
+          "action": "path.join(os.tmpdir(), \"qwork-private-symlink-boundary-\")"
+        },
+        {
+          "action": "os.tmpdir()"
+        },
+        {
+          "action": "path.join(root, \"plugins\", \"marketplaces\", \"experts\", \"plugins\")"
+        },
+        {
+          "action": "path.join(root, \"outside\")"
+        },
+        {
+          "action": "fs.mkdir(canonicalRoot, { recursive: true })"
+        },
+        {
+          "action": "fs.mkdir(outside, { recursive: true })"
+        },
+        {
+          "action": "path.join(canonicalRoot, \"linked-expert\")"
+        },
+        {
+          "action": "fs.symlink(outside, linked, \"dir\")"
+        },
+        {
+          "action": "fs.rm(root, { recursive: true, force: true })"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "skill://qwork-test-dataset/data/e2e/expert-permission-session-contract.spec.ts",
+        "line_start": 11,
+        "line_end": 31,
+        "body_sha256": "sha256:f2de6d6d74ba8f70bf954c7b00416a35c9536c9cc255fb3c8ec76bcaeb9268d5",
+        "assertion_count": 3,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:96570690af12ac1acb46ed366de093c6ec135985d48bd9488f91ad2ff2b8d1f1",
+        "supporting_contracts": [
+          {
+            "path": "skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:5e1c055763fca3c508d0dd0813c974226be3cddb88bfcdeee1ef3912a113b0e0",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/private-case-authority.mjs",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:1a2611bfa8b6ffc2af213df6c626cffc8bdad43dd1ff25266c21d331a326ea40",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/build_isolated_electron.mjs",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:e67f3a26cf1d7b6350c7903f64ab5513db099cb77df38f738c95b6f117cd612f",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/playwright-private.config.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/package.json",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "repo://e2e/fixtures/fake-sidecar.mjs",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:8a4038d6acda523c6c489ea5814f8a6f271d872ac7b7dd6e94b67b092bb0fae3",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "repo://e2e/fixtures/ui-contract.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:65106efc3fdaea997c145b0f04203eca9989f34c39fb1178d094a107724b338c",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          }
+        ]
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-1B89FB2A7EB4EE",
+      "REQ-8DA40F06248655",
+      "REQ-D96EFC8726E2FA",
+      "REQ-DA19C707C5B540",
+      "REQ-F3FE43D7A64A51",
+      "REQ-F5460085526A52"
+    ],
+    "categories": [
+      "business",
+      "data",
+      "permission"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:data",
+      "category:permission",
+      "full",
+      "requirement:REQ-1B89FB2A7EB4EE",
+      "requirement:REQ-8DA40F06248655",
+      "requirement:REQ-D96EFC8726E2FA",
+      "requirement:REQ-DA19C707C5B540",
+      "requirement:REQ-F3FE43D7A64A51",
+      "requirement:REQ-F5460085526A52"
+    ]
+  }
+}

@@ -10,6 +10,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from external_artifact_storage import REPORT_HTML_NAME, REPORT_JSON_NAME, validate_external_run_root
+
 RENDERER_PATH = Path(__file__).with_name("render_e2e_report.py")
 RENDERER_SPEC = importlib.util.spec_from_file_location("project_e2e_report_renderer", RENDERER_PATH)
 if RENDERER_SPEC is None or RENDERER_SPEC.loader is None:
@@ -114,15 +116,19 @@ def finalize_report(
     artifact_root: Path,
     plan_path: Path | None = None,
 ) -> dict[str, Any]:
-    root = artifact_root.resolve()
+    skill_root = Path(__file__).resolve().parent.parent
+    root = validate_external_run_root(
+        artifact_root,
+        protected_roots=[skill_root],
+    )
     report_path = report_path.resolve()
     output_path = output_path.resolve()
-    if report_path != root / "report.json":
-        raise ValueError("canonical machine and human input must be <run-root>/report.json")
+    if report_path != root / REPORT_JSON_NAME:
+        raise ValueError(f"canonical machine and human input must be <run-root>/{REPORT_JSON_NAME}")
     try:
         output_path.relative_to(root)
     except ValueError as exc:
-        raise ValueError("report.html escapes run root") from exc
+        raise ValueError(f"{REPORT_HTML_NAME} escapes run root") from exc
 
     report = load_json(report_path)
     if plan_path is not None:

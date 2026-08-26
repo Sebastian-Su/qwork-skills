@@ -1,0 +1,483 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SKILL-HUB-SPEC-F2BCCCED",
+  "title": "installs Weather, opens an unsent trial, and completes a conversation",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-skill-hub-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/skill-hub.spec.ts",
+      "locator": "line:149;test:installs Weather, opens an unsent trial, and completes a conversation",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:f2bcccede3226f8e63992bf1bafbb8292e80e0a80c670ce128725ac658d4ada8",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-F3F2B1E4491EFF",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L149:f2bcccede3"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "installs Weather, opens an unsent trial, and completes a conversation",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-skill-hub-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "installs Weather, opens an unsent trial, and completes a conversation"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"SkillHub\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"生活服务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByPlaceholder(\"搜索技能\").fill(\"weather\")"
+    },
+    {
+      "action": "weatherCard.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看源码\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"安装\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看预览\" }).click()"
+    },
+    {
+      "action": "page.getByTestId(\"skill-hub-detail\").getByRole(\"button\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "catalogMore.click()"
+    },
+    {
+      "action": "catalogMenu.getByRole(\"menuitem\", { name: \"关闭\" }).click()"
+    },
+    {
+      "action": "catalogMore.click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"Weather 更多操作\" }).getByRole(\"menuitem\", { name: \"启用\" }).click()"
+    },
+    {
+      "action": "catalogMore.click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"Weather 更多操作\" }).getByRole(\"menuitem\", { name: \"关闭\" }).click()"
+    },
+    {
+      "action": "catalogMore.click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"Weather 更多操作\" }).getByRole(\"menuitem\", { name: \"启用\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /我安装的 \\(\\d+\\)/ }).click()"
+    },
+    {
+      "action": "installedSwitch.click()"
+    },
+    {
+      "action": "page.getByRole(\"switch\", { name: \"启用 Weather\" }).click()"
+    },
+    {
+      "action": "installedCard.getByTestId(\"installed-skill-description\").hover()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作 Weather\" }).click()"
+    },
+    {
+      "action": "installedMenu.getByRole(\"menuitem\", { name: \"去对话\" }).click()"
+    },
+    {
+      "action": "accountMenuButton.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"浅色\", exact: true }).click()"
+    },
+    {
+      "action": "accountMenuButton.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
+    },
+    {
+      "action": "accountMenuButton.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"浅色\", exact: true }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "composer.fill(\"查询北京天气\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /我安装的 \\(\\d+\\)/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作 Weather\" }).click()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"Weather 更多操作\" }) .getByRole(\"menuitem\", { name: \"去对话\" }) .click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"tab\", { name: \"SkillHub\", exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"tab\", { name: \"推荐\", exact: true })).toHaveAttribute( \"aria-selected\", \"true\", )",
+    "expect(page.getByText(\"公众号爆款封面设计\", { exact: true })).toHaveCount(0)",
+    "expect(page.getByRole(\"tab\", { name: \"办公效率\", exact: true })).toBeVisible()",
+    "expect(weatherCard).toBeVisible()",
+    "expect(page.getByRole(\"heading\", { name: \"Weather\", level: 1 })).toBeVisible()",
+    "expect(page.getByTestId(\"skill-detail-source\")).toContainText(/name:\\s*[\"']?Weather[\"']?/)",
+    "expect( page.getByRole(\"status\").filter({ hasText: \"「Weather」技能已安装，去试试\" }), ).toContainText(\"「Weather」技能已安装，去试试\")",
+    "expect.poll(async () => fs.readdir(path.join(configHome, \"skills\"))).toContain(\"weather__skillhub\")",
+    "expect(page.getByText(/description: weather/)).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"打开文件夹\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"卸载\", exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"检查并更新\" })).toHaveCount(0)",
+    "expect(page.getByTestId(\"skill-detail-metadata\")).toContainText(\"description\")",
+    "expect(page.getByTestId(\"skill-detail-preview\")).toContainText(\"Weather\")",
+    "expect(catalogMenu.getByRole(\"menuitem\", { name: \"关闭\" })).toBeVisible()",
+    "expect(catalogMenu.getByRole(\"menuitem\", { name: \"卸载\" })).toBeVisible()",
+    "expect(catalogMenu.getByText(\"编辑\", { exact: true })).toHaveCount(0)",
+    "expect(page.getByRole(\"status\").filter({ hasText: \"Weather 已关闭自动触发\" })).toHaveCount(1)",
+    "expect(page.getByTestId(\"skill-card-content\")).toHaveClass(/opacity-45/)",
+    "expect(page.getByRole(\"status\").filter({ hasText: \"Weather 已开启自动触发\" })).toHaveCount(1)",
+    "expect(page.getByTestId(\"skill-card-content\")).not.toHaveClass(/opacity-45/)",
+    "expect(autoTriggerToasts).toHaveText([ \"Weather 已关闭自动触发\", \"Weather 已开启自动触发\", \"Weather 已关闭自动触发\", ])",
+    "expect(page.getByTestId(\"skill-card-content\")).not.toHaveClass(/opacity-45/)",
+    "expect(page.getByRole(\"heading\", { name: \"我安装的\", level: 1 })).toBeVisible()",
+    "expect(page.getByPlaceholder(\"搜索已安装的技能\")).toBeVisible()",
+    "expect(page.getByRole(\"tablist\", { name: \"技能来源\" })).toHaveCount(0)",
+    "expect(installedSwitch).toBeChecked()",
+    "expect(page.getByRole(\"switch\", { name: \"启用 Weather\" })).not.toBeChecked()",
+    "expect(page.getByRole(\"switch\", { name: \"停用 Weather\" })).toBeChecked()",
+    "expect(installedCardStyle[\"background-color\"]).not.toBe(\"rgba(0, 0, 0, 0)\")",
+    "expect(installedCardStyle[\"box-shadow\"]).not.toBe(\"none\")",
+    "expect(installedToggleBox.x - installedBadgeBox.right).toBeLessThanOrEqual(installedToggleBox.width * 2.25)",
+    "expect(installedDescriptionBox.right).toBeGreaterThanOrEqual(installedToggleBox.x)",
+    "expect(installedDescriptionTooltip).toHaveText(\"Get current weather and forecasts (no API key required).\")",
+    "expect(installedDescriptionTooltip).toHaveCount(0)",
+    "expect(installedMenu.getByRole(\"menuitem\", { name: \"去对话\" })).toBeVisible()",
+    "expect(installedMenu.getByRole(\"menuitem\", { name: \"打开文件夹\" })).toBeVisible()",
+    "expect(installedMenu.getByRole(\"menuitem\", { name: \"卸载\" })).toBeVisible()",
+    "expect(installedMenu.getByText(\"编辑\", { exact: true })).toHaveCount(0)",
+    "expect(composer).toHaveValue(\"\")",
+    "expect( page.getByRole(\"button\", { name: \"默认权限\", exact: true }), ).toBeVisible()",
+    "expect(selectedSkillChip).toBeVisible()",
+    "expect(darkChipBackground).not.toBe(lightChipBackground)",
+    "expect(accountMenuButton).toHaveAttribute(\"aria-expanded\", \"false\")",
+    "expect(page.locator(\".message-copy\", { hasText: \"查询北京天气\" })).toHaveCount(0)",
+    "expect(page.getByText(\"收到：@Weather 查询北京天气\", { exact: true })).toBeVisible()",
+    "expect.poll(() => selectedSkillsFromLog(sidecarLog)).toEqual([ \"Weather\", ])",
+    "expect.poll(() => userMessagesFromLog(sidecarLog)).toContainEqual( expect.stringMatching(/@Weather\\s+[\\s\\S]*查询北京天气/), )",
+    "expect( page.getByRole(\"button\", { name: \"默认权限\", exact: true }), ).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-F3F2B1E4491EFF",
+      "type": "return",
+      "assertion": "installs Weather, opens an unsent trial, and completes a conversation"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-skill-hub-spec-ts.f2bcccede3",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/skill-hub.spec.ts -g \"installs Weather, opens an unsent trial, and completes a conversation\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"SkillHub\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"生活服务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByPlaceholder(\"搜索技能\").fill(\"weather\")"
+        },
+        {
+          "action": "weatherCard.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看源码\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"安装\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看预览\" }).click()"
+        },
+        {
+          "action": "page.getByTestId(\"skill-hub-detail\").getByRole(\"button\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "catalogMore.click()"
+        },
+        {
+          "action": "catalogMenu.getByRole(\"menuitem\", { name: \"关闭\" }).click()"
+        },
+        {
+          "action": "catalogMore.click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"Weather 更多操作\" }).getByRole(\"menuitem\", { name: \"启用\" }).click()"
+        },
+        {
+          "action": "catalogMore.click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"Weather 更多操作\" }).getByRole(\"menuitem\", { name: \"关闭\" }).click()"
+        },
+        {
+          "action": "catalogMore.click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"Weather 更多操作\" }).getByRole(\"menuitem\", { name: \"启用\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /我安装的 \\(\\d+\\)/ }).click()"
+        },
+        {
+          "action": "installedSwitch.click()"
+        },
+        {
+          "action": "page.getByRole(\"switch\", { name: \"启用 Weather\" }).click()"
+        },
+        {
+          "action": "installedCard.getByTestId(\"installed-skill-description\").hover()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作 Weather\" }).click()"
+        },
+        {
+          "action": "installedMenu.getByRole(\"menuitem\", { name: \"去对话\" }).click()"
+        },
+        {
+          "action": "accountMenuButton.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"浅色\", exact: true }).click()"
+        },
+        {
+          "action": "accountMenuButton.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
+        },
+        {
+          "action": "accountMenuButton.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"浅色\", exact: true }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "composer.fill(\"查询北京天气\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /我安装的 \\(\\d+\\)/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作 Weather\" }).click()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"Weather 更多操作\" }) .getByRole(\"menuitem\", { name: \"去对话\" }) .click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/skill-hub.spec.ts",
+        "line_start": 149,
+        "line_end": 296,
+        "body_sha256": "sha256:222465abe3b6149c3a8020f2b4e3a118c8597a172e68aefe23ac7dc3b9eacee1",
+        "assertion_count": 50,
+        "action_count": 38,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:2273637235cd224c143cf062c061be89c5ed2ae5359c59746276110f31e8c03f"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-F3F2B1E4491EFF"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-F3F2B1E4491EFF"
+    ]
+  }
+}

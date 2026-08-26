@@ -1,0 +1,305 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-PRODUCT-PARITY-QWORK-7-3-75783F0D",
+  "title": "docs/product-parity/qwork-clean-room-porting-prd.md · 7.3 响应式和平台 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-product-parity-qwork-clean-room-porting-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/product-parity/qwork-clean-room-porting-prd.md",
+      "locator": "line:171;heading:7.3 响应式和平台",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:0f02498d9eb4480dd8443e7212bdd78731d06c914359d9aeee5793a71a4d7dbd",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-product-parity-qwork-clean-room-porting-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/product-parity/qwork-clean-room-porting-prd.md",
+      "locator": "line:173;heading:7.3 响应式和平台",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:6e387e67759d5afe8ca04da76c23ab15fd3f7e2281db91b7cd3a5b98423ea72f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-9CA4F7DF1C1318",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-product-parity-qwork-clean-room-porting-prd-md:L171:0f02498d9e"
+      ],
+      "content_facets": [
+        "responsive"
+      ],
+      "acceptance_categories": [
+        "responsive"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "基准以 1680×1084 CSS px、DPR 2 为当前采集坐标；既有 1681×900/1440×900/1280×800 QWork 门禁继续保留。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-product-parity-qwork-clean-room-porting-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "基准以 1680×1084 CSS px、DPR 2 为当前采集坐标；既有 1681×900/1440×900/1280×800 QWork 门禁继续保留。"
+    },
+    {
+      "requirement_id": "REQ-92D85A8CE57142",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-product-parity-qwork-clean-room-porting-prd-md:L173:6e387e6775"
+      ],
+      "content_facets": [
+        "responsive"
+      ],
+      "acceptance_categories": [
+        "responsive"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "几何默认容差 ±2 CSS px；断点不能因容差跨越。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-product-parity-qwork-clean-room-porting-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "几何默认容差 ±2 CSS px；断点不能因容差跨越。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for shell-home at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/product-parity/qwork-clean-room-porting-prd.md · 7.3 响应式和平台 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer layout at every declared breakpoint after the trigger and assert [REQ-9CA4F7DF1C1318] exactly: 基准以 1680×1084 CSS px、DPR 2 为当前采集坐标；既有 1681×900/1440×900/1280×800 QWork 门禁继续保留。"
+    },
+    {
+      "action": "observe renderer layout at every declared breakpoint after the trigger and assert [REQ-92D85A8CE57142] exactly: 几何默认容差 ±2 CSS px；断点不能因容差跨越。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "基准以 1680×1084 CSS px、DPR 2 为当前采集坐标；既有 1681×900/1440×900/1280×800 QWork 门禁继续保留。",
+    "几何默认容差 ±2 CSS px；断点不能因容差跨越。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-9CA4F7DF1C1318]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 基准以 1680×1084 CSS px、DPR 2 为当前采集坐标；既有 1681×900/1440×900/1280×800 QWork 门禁继续保留。",
+    "FAIL [REQ-92D85A8CE57142]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 几何默认容差 ±2 CSS px；断点不能因容差跨越。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-9CA4F7DF1C1318",
+      "type": "responsive",
+      "assertion": "基准以 1680×1084 CSS px、DPR 2 为当前采集坐标；既有 1681×900/1440×900/1280×800 QWork 门禁继续保留。"
+    },
+    {
+      "requirement_id": "REQ-92D85A8CE57142",
+      "type": "responsive",
+      "assertion": "几何默认容差 ±2 CSS px；断点不能因容差跨越。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-product-parity-qwork-c.7-3-75783f0dbe",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for shell-home at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/product-parity/qwork-clean-room-porting-prd.md · 7.3 响应式和平台 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer layout at every declared breakpoint after the trigger and assert [REQ-9CA4F7DF1C1318] exactly: 基准以 1680×1084 CSS px、DPR 2 为当前采集坐标；既有 1681×900/1440×900/1280×800 QWork 门禁继续保留。"
+        },
+        {
+          "action": "observe renderer layout at every declared breakpoint after the trigger and assert [REQ-92D85A8CE57142] exactly: 几何默认容差 ±2 CSS px；断点不能因容差跨越。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-92D85A8CE57142",
+      "REQ-9CA4F7DF1C1318"
+    ],
+    "categories": [
+      "responsive"
+    ],
+    "suite_ids": [
+      "category:responsive",
+      "full",
+      "requirement:REQ-92D85A8CE57142",
+      "requirement:REQ-9CA4F7DF1C1318"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-9CA4F7DF1C1318",
+      "oracle_type": "responsive",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/product-parity/qwork-clean-room-porting-prd.md · 7.3 响应式和平台 产品契约 exactly once and retain its correlation identity",
+      "then": "基准以 1680×1084 CSS px、DPR 2 为当前采集坐标；既有 1681×900/1440×900/1280×800 QWork 门禁继续保留。",
+      "observation_boundary": "renderer layout at every declared breakpoint",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-92D85A8CE57142",
+      "oracle_type": "responsive",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/product-parity/qwork-clean-room-porting-prd.md · 7.3 响应式和平台 产品契约 exactly once and retain its correlation identity",
+      "then": "几何默认容差 ±2 CSS px；断点不能因容差跨越。",
+      "observation_boundary": "renderer layout at every declared breakpoint",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

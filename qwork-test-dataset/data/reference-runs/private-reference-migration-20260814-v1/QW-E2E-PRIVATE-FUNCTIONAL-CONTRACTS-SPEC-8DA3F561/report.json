@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "case_id": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-8DA3F561",
+  "case_title": "WB-RECOVERY-006 | 模型首事件超时必须结束等待并提供可重试终态",
+  "status": "fail",
+  "started_at": "2026-08-14T03:31:41.921Z",
+  "finished_at": "2026-08-14T03:32:03.884Z",
+  "exit_code": 1,
+  "zero_real_model_calls": true,
+  "isolated_qwork_home": true,
+  "deterministic_sidecar": "repo://e2e/fixtures/fake-sidecar.mjs",
+  "source": {
+    "spec": "skill://qwork-test-dataset/data/e2e/model-first-event-timeout.spec.ts",
+    "spec_sha256": "sha256:5c56adc2da2d816f26ff1dd02e6ae2cb3e0e13d973d74142376c4b434b141dd2",
+    "implementation_revision": "19f210518dbad3768eb14a09baa5eea226016c7b"
+  },
+  "authority": {
+    "files": [
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts",
+        "sha256": "sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts",
+        "sha256": "sha256:75ea3197686d34faf9b138145ccc5050eac2bbaba31ea7aed1e3f4fdc63ddbd7"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/private-case-authority.mjs",
+        "sha256": "sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs",
+        "sha256": "sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/build_isolated_electron.mjs",
+        "sha256": "sha256:3634574afd74c3762e05b814b80d7bbc1aee08c8c782ebb1884a6b7df10db468"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts",
+        "sha256": "sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/playwright-private.config.ts",
+        "sha256": "sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/package.json",
+        "sha256": "sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390"
+      },
+      {
+        "locator": "repo://e2e/fixtures/fake-sidecar.mjs",
+        "sha256": "sha256:9ea7d9a1ec44d6a681f929f2005ea207598d4711c7de12be55dd447f6c2f91f0"
+      },
+      {
+        "locator": "repo://e2e/fixtures/workbuddy-ui.ts",
+        "sha256": "sha256:4458ee31d84e60d047334a9e26faef4a4415d79046fefd2b3f84bebeff1c2675"
+      }
+    ]
+  },
+  "selected_tests": [
+    {
+      "title": "WB-RECOVERY-006 | 模型首事件超时必须结束等待并提供可重试终态",
+      "file": "model-first-event-timeout.spec.ts",
+      "path": "model-first-event-timeout.spec.ts > WB-RECOVERY-006 | 模型首事件超时必须结束等待并提供可重试终态",
+      "status": "unexpected",
+      "duration_ms": 21490
+    }
+  ],
+  "evidence": {
+    "integrity": "complete",
+    "integrity_errors": [],
+    "build_manifest": {
+      "path": "build-manifest.json",
+      "sha256": "sha256:2ab330195d5e41a4a6e8ae598ba8667263ce42443f723f050f59679efc40057c"
+    },
+    "playwright_report": {
+      "path": "playwright-report.json",
+      "sha256": "sha256:684f707923dfb5bc55de24fafaa8543707290300f59d768b2723cc4bffd3487d"
+    },
+    "stderr": {
+      "path": "playwright.stderr.log",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "electron_runtime": {
+      "path": "electron-runtime.log",
+      "sha256": "sha256:63b310c035e2b2ade1b87d783d3a6a692126e42fa7fe8cadf9c8690b76f4cbdb"
+    },
+    "screenshots": [
+      {
+        "path": "screenshots/WB-RECOVERY-006-模型首事件超时必须结束等待并提供可重试终态-entry-expert-ready-before-timeout-probe.png",
+        "sha256": "sha256:aebb8187d6982810c5079f0508ee990555c7b77eacfa8469c856518e1a8aff5c"
+      },
+      {
+        "path": "screenshots/WB-RECOVERY-006-模型首事件超时必须结束等待并提供可重试终态-failure-first-event-timeout-still-waiting.png",
+        "sha256": "sha256:be3b45bb038f7621161ef7c77aadf4a45af7f915f657b385774c7e5bd03065ad"
+      },
+      {
+        "path": "screenshots/WB-RECOVERY-006-模型首事件超时必须结束等待并提供可重试终态-transition-model-request-has-no-first-event.png",
+        "sha256": "sha256:be3b45bb038f7621161ef7c77aadf4a45af7f915f657b385774c7e5bd03065ad"
+      }
+    ],
+    "traces": [
+      {
+        "path": "playwright-results/model-first-event-timeout--33eca-Y-006-模型首事件超时必须结束等待并提供可重试终态/trace.zip",
+        "sha256": "sha256:092f652bcac547ac3056becc5cfdad1c589a7d647a7cf047989d954018868cc6"
+      }
+    ]
+  },
+  "cleanup": {
+    "case_owned_qwork_home_removed_by_fixture": true,
+    "app_process_closed_by_fixture": true,
+    "app_assembly_removed": true
+  }
+}

@@ -1,0 +1,296 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-EXPERTS-SPEC-B05C3714",
+  "title": "expert sort uses source and local usage data and survives a desktop restart",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "entry",
+      "transition",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-experts-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/experts.spec.ts",
+      "locator": "line:266;test:expert sort uses source and local usage data and survives a desktop restart",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:b05c3714f52b8f1dbf6e078bc1f8f23f371f27a3ea592262924df9b26ba3a525",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-experts-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:cd8f67177fde78ea96cfc8529dbad71afdc0c0c7:e2e/experts.spec.ts",
+      "locator": "line:266;test:expert sort uses source and local usage data and survives a desktop restart",
+      "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:b05c3714f52b8f1dbf6e078bc1f8f23f371f27a3ea592262924df9b26ba3a525",
+      "redaction_status": "minimized",
+      "supports": [
+        "QDEV-E2E-e2e-experts-spec-ts"
+      ]
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-CCAB8275BB0195",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-experts-spec-ts:L266:b05c3714f5",
+        "QHEAD-E2E-e2e-experts-spec-ts:L266:b05c3714f5"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "expert sort uses source and local usage data and survives a desktop restart",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-experts-spec-ts"
+      ],
+      "supporting_sources": [
+        "QHEAD-E2E-e2e-experts-spec-ts"
+      ],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "expert sort uses source and local usage data and survives a desktop restart"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pass",
+    "environment_scope": "isolated Electron Playwright run, case-owned QWork home, deterministic fake sidecar, zero real model calls",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-24T11:48:05.480201+00:00",
+    "status_reason": "hash-verified public Playwright reference run expert-identity-public-reference-cd8f6717-v1 passed"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"最新\" }).click()"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"召唤常用专家\" }).click()"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"本地最热\" }).click()"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"最近使用\" }).click()"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(list.getByRole(\"listitem\").first()).toContainText(\"最后专家\")",
+    "expect(list.getByRole(\"listitem\").first()).toContainText(\"阿尔法专家\")",
+    "expect(launched.page.getByTestId(\"composer-dock\")).toContainText(\"常用专家\")",
+    "expect(list.getByRole(\"listitem\").first()).toContainText(\"常用专家\")",
+    "expect(list.getByRole(\"listitem\").first()).toContainText(\"常用专家\")",
+    "expect(launched.page.getByRole(\"button\", { name: \"最近使用\" })).toHaveAttribute(\"aria-pressed\", \"true\")",
+    "expect(restartedList.getByRole(\"listitem\").first()).toContainText(\"常用专家\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-CCAB8275BB0195",
+      "type": "return",
+      "assertion": "expert sort uses source and local usage data and survives a desktop restart"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "transition screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "transition",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "ready",
+    "route_id": "qwork.playwright.e2e-experts-spec-ts.b05c3714f5",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/experts.spec.ts -g \"expert sort uses source and local usage data and survives a desktop restart\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"最新\" }).click()"
+        },
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"召唤常用专家\" }).click()"
+        },
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"本地最热\" }).click()"
+        },
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"最近使用\" }).click()"
+        },
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "transition.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/experts.spec.ts",
+        "line_start": 266,
+        "line_end": 305,
+        "body_sha256": "sha256:c89a563e68e74478ddcddc8f253ce02e9206f3f5448d1a7d09c5832fef82b6bd",
+        "assertion_count": 7,
+        "action_count": 8,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5cfaebd6f1408fa2252ecc623ad3542efa50ed6bc1345c9a0d13e90f35ff3aed"
+      },
+      "reference_authority": {
+        "manifest": "skill://qwork-test-dataset/data/runs/expert-identity-public-reference-cd8f6717-v1/public-playwright-reference.json",
+        "manifest_sha256": "sha256:e1ff2b9ad3eb0ce149f2bc6e8c347c79b759bbcb18510dbfa16fd8b00c43d5fa",
+        "plan_sha256": "01a00070eaf74745ce1bfcebfe35e51abbd9071286cf0f592c18e631e4d3ba83",
+        "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7"
+      }
+    },
+    "reference_run": {
+      "status": "passed",
+      "run_id": "expert-identity-public-reference-cd8f6717-v1",
+      "verified_at": "2026-08-24T11:48:05.480201+00:00",
+      "environment": "isolated Electron Playwright run, case-owned QWork home, deterministic fake sidecar, zero real model calls"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": []
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-CCAB8275BB0195"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-CCAB8275BB0195"
+    ]
+  }
+}

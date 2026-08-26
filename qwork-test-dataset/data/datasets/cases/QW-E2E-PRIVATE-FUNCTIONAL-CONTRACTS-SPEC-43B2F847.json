@@ -1,0 +1,801 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-43B2F847",
+  "title": "WB-TEAM-009 | AskUser 只投影到 Lead 且 answer/skip 各回执一次",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-team",
+    "journey": "expert-team",
+    "states_covered": [
+      "entry",
+      "transition",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QPRIVATE-E2E-team-ask-user-causality-spec-ts",
+      "type": "private-dataset-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "skill://qwork-test-dataset/data/e2e/team-ask-user-causality.spec.ts",
+      "locator": "line:16;test:WB-TEAM-009 | AskUser 只投影到 Lead 且 answer/skip 各回执一次",
+      "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:43b2f8475b05c63c6c162fd9097ae631acc2ebcde5e9deabba0d09bd3cecf861",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-journey-phase2-plan-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-journey-phase2-plan.md",
+      "locator": "line:23;heading:已冻结决策",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:540950cd0d8288f30927e6dd6d2e26b00609fc4ea15fb8b1ea68afd6eca0ebf4",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qwork-expert-team-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qwork-expert-team-prd.md",
+      "locator": "line:737;heading:16.1 功能验收矩阵",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:3b3c132659e1f5f0571b71f4d2e28cf9932bccf88eb933146b5deaa8e2d692d5",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qwork-expert-team-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qwork-expert-team-prd.md",
+      "locator": "line:357;heading:FR-ASK-001 提问主体",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:7b8d54b4d73b2fabfc85642b147fca34e2f1f89084468158b45029e747aa3d86",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qwork-expert-team-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qwork-expert-team-prd.md",
+      "locator": "line:358;heading:FR-ASK-001 提问主体",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:356271870227ad8c0179746414dc427f1dd24361ee48df06c4b3a60f017c1b3e",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qwork-expert-team-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qwork-expert-team-prd.md",
+      "locator": "line:368;heading:FR-ASK-002 问题卡",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:8aed0b6bcb687ed39b1aaadea86fb340887dcd73ae60def1c3e88a9f68f44792",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qwork-expert-team-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qwork-expert-team-prd.md",
+      "locator": "line:374;heading:FR-ASK-003 关闭语义",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:030f3ccae707ab2fab9338a25290425c0866f539652f693c64a0c25e028e947a",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:208;heading:7.2 用户交互与 AskUser",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:b0724c3299313b03fe7527f95a35183161708698c112f139ea41edee1a8ad2ff",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:212;heading:7.2 用户交互与 AskUser",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:095f90e425c15e2ef37290d19734232808135795aa2cc3ce0a9bad819ae317bb",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:213;heading:7.2 用户交互与 AskUser",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:3b2775a923f1adac5df38f4739e47c3ab7b2f8660740d15ce2778055fd621a0f",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:298;heading:10.1 行为对齐矩阵",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:74efdc24af6f9380c7ec133bbb7eaf8cb7f7ebd83219bdf2e45c1406ed978cf2",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D6E5B1DFD9E843",
+      "source_atom_ids": [
+        "QPRIVATE-E2E-team-ask-user-causality-spec-ts:L16:43b2f8475b"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "WB-TEAM-009 | AskUser 只投影到 Lead 且 answer/skip 各回执一次",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QPRIVATE-E2E-team-ask-user-causality-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WB-TEAM-009 | AskUser 只投影到 Lead 且 answer/skip 各回执一次"
+    },
+    {
+      "requirement_id": "REQ-1EF679656ADC16",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-journey-phase2-plan-md:L23:540950cd0d"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "用户只与 Lead 对话；成员视图只读，AskUser 属于 Lead 主会话。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-journey-phase2-plan-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "用户只与 Lead 对话；成员视图只读，AskUser 属于 Lead 主会话。"
+    },
+    {
+      "requirement_id": "REQ-51495CC9F45624",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md:L737:3b3c132659"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "| QW-TEAM-009 | 成员需要信息 | 触发 AskUser | Lead 汇总后统一提问 | 成员直接打断用户 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| QW-TEAM-009 | 成员需要信息 | 触发 AskUser | Lead 汇总后统一提问 | 成员直接打断用户 |"
+    },
+    {
+      "requirement_id": "REQ-BFAD5E93D681A4",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md:L357:7b8d54b4d7"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "团队对用户的 AskUser 只能由 Lead 发起。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "团队对用户的 AskUser 只能由 Lead 发起。"
+    },
+    {
+      "requirement_id": "REQ-883E99F3F959FA",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md:L358:3562718702"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "成员遇到信息缺口时先回传 Lead，由 Lead 合并去重后向用户提问。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "成员遇到信息缺口时先回传 Lead，由 Lead 合并去重后向用户提问。"
+    },
+    {
+      "requirement_id": "REQ-BB2BEBD4EB7C66",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md:L368:8aed0b6bcb"
+      ],
+      "content_facets": [
+        "ui-interaction"
+      ],
+      "acceptance_categories": [
+        "ui-interaction"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "点击选项或提交补充后，该题进入 answered；点击跳过后进入 skipped。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "点击选项或提交补充后，该题进入 answered；点击跳过后进入 skipped。"
+    },
+    {
+      "requirement_id": "REQ-31E5FCD239A606",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md:L374:030f3ccae7"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "所有问题完成后，Lead 才恢复依赖这些答案的执行。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "所有问题完成后，Lead 才恢复依赖这些答案的执行。"
+    },
+    {
+      "requirement_id": "REQ-106C79F1D3856A",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L208:b0724c3299"
+      ],
+      "content_facets": [
+        "ui-interaction"
+      ],
+      "acceptance_categories": [
+        "ui-interaction"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "只有 Lead 能打开 AskUser。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "只有 Lead 能打开 AskUser。"
+    },
+    {
+      "requirement_id": "REQ-E21D912735E0DE",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L212:095f90e425"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "答案先回 Lead，再转发相关成员。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "答案先回 Lead，再转发相关成员。"
+    },
+    {
+      "requirement_id": "REQ-CEC22FDCE64826",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L213:3b2775a923"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "跳过后保持 blocked 或执行预先声明的默认策略，不能临时猜测。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "跳过后保持 blocked 或执行预先声明的默认策略，不能临时猜测。"
+    },
+    {
+      "requirement_id": "REQ-F5FD1B9B490C44",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L298:74efdc24af"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "| AskUser | 单一底部多题卡 | 仅 Lead 创建，成员问题合并、答案正确回传 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| AskUser | 单一底部多题卡 | 仅 Lead 创建，成员问题合并、答案正确回传 |"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"__E2E_EXPERT_ASK__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "ask.getByRole(\"radio\", { name: \"桌面端\", exact: true }).check()"
+    },
+    {
+      "action": "ask.getByRole(\"button\", { name: \"提交回答\", exact: true }).click()"
+    },
+    {
+      "action": "ask.getByRole(\"button\", { name: \"跳过\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(ask).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: /游戏开发工作室.*负责人/ })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: /发布运营|质量保障/ })).toHaveCount(0)",
+    "expect(page.getByText(\"已收到选择：桌面端\", { exact: true })).toBeVisible()",
+    "expect(ask).toBeVisible()",
+    "expect(page.getByText(\"已收到选择：\", { exact: true })).toBeVisible()",
+    "expect(questions).toHaveLength(3)",
+    "expect(events.some((event) => String(event.kind).startsWith(\"subagent_\"))).toBe(false)",
+    "expect(questions.every((event) => !event.thread_id && !event.agent_id)).toBe(true)",
+    "expect(replies).toHaveLength(2)",
+    "expect(String(replies[0]?.content)).toContain('request_id=\"ask-e2e-1\" action=\"answer\"')",
+    "expect(String(replies[1]?.content)).toContain('request_id=\"ask-e2e-2\" action=\"skip\"')"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D6E5B1DFD9E843",
+      "type": "return",
+      "assertion": "WB-TEAM-009 | AskUser 只投影到 Lead 且 answer/skip 各回执一次"
+    },
+    {
+      "requirement_id": "REQ-1EF679656ADC16",
+      "type": "ui",
+      "assertion": "用户只与 Lead 对话；成员视图只读，AskUser 属于 Lead 主会话。"
+    },
+    {
+      "requirement_id": "REQ-51495CC9F45624",
+      "type": "ui",
+      "assertion": "| QW-TEAM-009 | 成员需要信息 | 触发 AskUser | Lead 汇总后统一提问 | 成员直接打断用户 |"
+    },
+    {
+      "requirement_id": "REQ-BFAD5E93D681A4",
+      "type": "ui",
+      "assertion": "团队对用户的 AskUser 只能由 Lead 发起。"
+    },
+    {
+      "requirement_id": "REQ-883E99F3F959FA",
+      "type": "ui",
+      "assertion": "成员遇到信息缺口时先回传 Lead，由 Lead 合并去重后向用户提问。"
+    },
+    {
+      "requirement_id": "REQ-BB2BEBD4EB7C66",
+      "type": "ui-interaction",
+      "assertion": "点击选项或提交补充后，该题进入 answered；点击跳过后进入 skipped。"
+    },
+    {
+      "requirement_id": "REQ-31E5FCD239A606",
+      "type": "event",
+      "assertion": "所有问题完成后，Lead 才恢复依赖这些答案的执行。"
+    },
+    {
+      "requirement_id": "REQ-106C79F1D3856A",
+      "type": "ui-interaction",
+      "assertion": "只有 Lead 能打开 AskUser。"
+    },
+    {
+      "requirement_id": "REQ-E21D912735E0DE",
+      "type": "return",
+      "assertion": "答案先回 Lead，再转发相关成员。"
+    },
+    {
+      "requirement_id": "REQ-CEC22FDCE64826",
+      "type": "return",
+      "assertion": "跳过后保持 blocked 或执行预先声明的默认策略，不能临时猜测。"
+    },
+    {
+      "requirement_id": "REQ-F5FD1B9B490C44",
+      "type": "return",
+      "assertion": "| AskUser | 单一底部多题卡 | 仅 Lead 创建，成员问题合并、答案正确回传 |"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "transition screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "transition",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.private-playwright.team-ask-user-causality-spec.43b2f8475b",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "external-run://QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/app + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "node .agents/skills/qwork-test-dataset/scripts/run_private_playwright_case.mjs --repo . --case-id QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-43B2F847 --case-title \"WB-TEAM-009 | AskUser 只投影到 Lead 且 answer/skip 各回执一次\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-team",
+      "steps": [
+        {
+          "action": "composer.fill(\"__E2E_EXPERT_ASK__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "ask.getByRole(\"radio\", { name: \"桌面端\", exact: true }).check()"
+        },
+        {
+          "action": "ask.getByRole(\"button\", { name: \"提交回答\", exact: true }).click()"
+        },
+        {
+          "action": "ask.getByRole(\"button\", { name: \"跳过\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "transition.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "skill://qwork-test-dataset/data/e2e/team-ask-user-causality.spec.ts",
+        "line_start": 16,
+        "line_end": 71,
+        "body_sha256": "sha256:a1b7dfefbc5369f72601ecf04cd4e303711d517fd1ae7c7a62fccbe1b4650328",
+        "assertion_count": 12,
+        "action_count": 5,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:324891b4caa36e04fca6da239cf81647a4e7953c44c3495c18299b347072487e",
+        "supporting_contracts": [
+          {
+            "path": "skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:5e1c055763fca3c508d0dd0813c974226be3cddb88bfcdeee1ef3912a113b0e0",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/private-case-authority.mjs",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:1a2611bfa8b6ffc2af213df6c626cffc8bdad43dd1ff25266c21d331a326ea40",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/build_isolated_electron.mjs",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:e67f3a26cf1d7b6350c7903f64ab5513db099cb77df38f738c95b6f117cd612f",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/playwright-private.config.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/package.json",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "repo://e2e/fixtures/fake-sidecar.mjs",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:8a4038d6acda523c6c489ea5814f8a6f271d872ac7b7dd6e94b67b092bb0fae3",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "repo://e2e/fixtures/ui-contract.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:65106efc3fdaea997c145b0f04203eca9989f34c39fb1178d094a107724b338c",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          }
+        ]
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending",
+      "case-level screenshot checkpoint audit pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-106C79F1D3856A",
+      "REQ-1EF679656ADC16",
+      "REQ-31E5FCD239A606",
+      "REQ-51495CC9F45624",
+      "REQ-883E99F3F959FA",
+      "REQ-BB2BEBD4EB7C66",
+      "REQ-BFAD5E93D681A4",
+      "REQ-CEC22FDCE64826",
+      "REQ-D6E5B1DFD9E843",
+      "REQ-E21D912735E0DE",
+      "REQ-F5FD1B9B490C44"
+    ],
+    "categories": [
+      "business",
+      "negative",
+      "recovery",
+      "state",
+      "ui-interaction"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:negative",
+      "category:recovery",
+      "category:state",
+      "category:ui-interaction",
+      "full",
+      "requirement:REQ-106C79F1D3856A",
+      "requirement:REQ-1EF679656ADC16",
+      "requirement:REQ-31E5FCD239A606",
+      "requirement:REQ-51495CC9F45624",
+      "requirement:REQ-883E99F3F959FA",
+      "requirement:REQ-BB2BEBD4EB7C66",
+      "requirement:REQ-BFAD5E93D681A4",
+      "requirement:REQ-CEC22FDCE64826",
+      "requirement:REQ-D6E5B1DFD9E843",
+      "requirement:REQ-E21D912735E0DE",
+      "requirement:REQ-F5FD1B9B490C44"
+    ]
+  }
+}

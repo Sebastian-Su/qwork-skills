@@ -1,0 +1,307 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-DIALOG-WORKBUDDY-HEA-3-ORACLE-4C3C4F3B",
+  "title": "docs/dialog/workbuddy-header-actions-release-checklist.md · 3. Oracle 与视觉验收 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-dialog-workbuddy-header-actions-release-checkli",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/dialog/workbuddy-header-actions-release-checklist.md",
+      "locator": "line:33;heading:3. Oracle 与视觉验收",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:2f7b05e88785d0d648c666028f410c8233340680db914bf2f1b4587d50b7b798",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-dialog-workbuddy-header-actions-release-checkli",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/dialog/workbuddy-header-actions-release-checklist.md",
+      "locator": "line:40;heading:3. Oracle 与视觉验收",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:971c4f4ef4d88fb81126787de0b7bbdc5936f80192a8239fd59136bd157ea272",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D5FC47A9DBBFA1",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-dialog-workbuddy-header-actions-release-checkli:L33:2f7b05e887"
+      ],
+      "content_facets": [
+        "ui-content"
+      ],
+      "acceptance_categories": [
+        "ui-content"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] `UI-01` 三入口顺序为：对话内搜索、分享任务、历史提问。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-dialog-workbuddy-header-actions-release-checkli"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] `UI-01` 三入口顺序为：对话内搜索、分享任务、历史提问。"
+    },
+    {
+      "requirement_id": "REQ-A5B177326BCB7C",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-dialog-workbuddy-header-actions-release-checkli:L40:971c4f4ef4"
+      ],
+      "content_facets": [
+        "ui-visual"
+      ],
+      "acceptance_categories": [
+        "ui-visual"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] `UI-08` 长任务标题、长问题、中文/英文/emoji、系统字体变化不会截断关键操作。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-dialog-workbuddy-header-actions-release-checkli"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Computed style for source-defined target 3. Oracle 与视觉验收 satisfies the exact style contract: [ ] `UI-08` 长任务标题、长问题、中文/英文/emoji、系统字体变化不会截断关键操作。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/dialog/workbuddy-header-actions-release-checklist.md · 3. Oracle 与视觉验收 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer visible content after the trigger and assert [REQ-D5FC47A9DBBFA1] exactly: [ ] `UI-01` 三入口顺序为：对话内搜索、分享任务、历史提问。"
+    },
+    {
+      "action": "observe source-defined computed-style boundary after the trigger and assert [REQ-A5B177326BCB7C] exactly: Computed style for source-defined target 3. Oracle 与视觉验收 satisfies the exact style contract: [ ] `UI-08` 长任务标题、长问题、中文/英文/emoji、系统字体变化不会截断关键操作。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "[ ] `UI-01` 三入口顺序为：对话内搜索、分享任务、历史提问。",
+    "Computed style for source-defined target 3. Oracle 与视觉验收 satisfies the exact style contract: [ ] `UI-08` 长任务标题、长问题、中文/英文/emoji、系统字体变化不会截断关键操作。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-D5FC47A9DBBFA1]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] `UI-01` 三入口顺序为：对话内搜索、分享任务、历史提问。",
+    "FAIL [REQ-A5B177326BCB7C]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Computed style for source-defined target 3. Oracle 与视觉验收 satisfies the exact style contract: [ ] `UI-08` 长任务标题、长问题、中文/英文/emoji、系统字体变化不会截断关键操作。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D5FC47A9DBBFA1",
+      "type": "ui-content",
+      "assertion": "[ ] `UI-01` 三入口顺序为：对话内搜索、分享任务、历史提问。"
+    },
+    {
+      "requirement_id": "REQ-A5B177326BCB7C",
+      "type": "computed-style",
+      "assertion": "Computed style for source-defined target 3. Oracle 与视觉验收 satisfies the exact style contract: [ ] `UI-08` 长任务标题、长问题、中文/英文/emoji、系统字体变化不会截断关键操作。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-dialog-workbuddy-heade.3-oracle-4c3c4f3b39",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/dialog/workbuddy-header-actions-release-checklist.md · 3. Oracle 与视觉验收 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer visible content after the trigger and assert [REQ-D5FC47A9DBBFA1] exactly: [ ] `UI-01` 三入口顺序为：对话内搜索、分享任务、历史提问。"
+        },
+        {
+          "action": "observe source-defined computed-style boundary after the trigger and assert [REQ-A5B177326BCB7C] exactly: Computed style for source-defined target 3. Oracle 与视觉验收 satisfies the exact style contract: [ ] `UI-08` 长任务标题、长问题、中文/英文/emoji、系统字体变化不会截断关键操作。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-A5B177326BCB7C",
+      "REQ-D5FC47A9DBBFA1"
+    ],
+    "categories": [
+      "ui-content",
+      "ui-visual"
+    ],
+    "suite_ids": [
+      "category:ui-content",
+      "category:ui-visual",
+      "full",
+      "requirement:REQ-A5B177326BCB7C",
+      "requirement:REQ-D5FC47A9DBBFA1"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-D5FC47A9DBBFA1",
+      "oracle_type": "ui-content",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/dialog/workbuddy-header-actions-release-checklist.md · 3. Oracle 与视觉验收 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] `UI-01` 三入口顺序为：对话内搜索、分享任务、历史提问。",
+      "observation_boundary": "renderer visible content",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-A5B177326BCB7C",
+      "oracle_type": "computed-style",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/dialog/workbuddy-header-actions-release-checklist.md · 3. Oracle 与视觉验收 产品契约 exactly once and retain its correlation identity",
+      "then": "Computed style for source-defined target 3. Oracle 与视觉验收 satisfies the exact style contract: [ ] `UI-08` 长任务标题、长问题、中文/英文/emoji、系统字体变化不会截断关键操作。",
+      "observation_boundary": "source-defined computed-style boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

@@ -1,0 +1,426 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-SUPERPOWERS-SPECS-20-ITEM-67A1613F",
+  "title": "docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 架构 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "automations",
+    "journey": "automations",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md",
+      "locator": "line:11;heading:架构",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:c0f371ee870a1e689a3cdff4ec0bb6f2c5232915b9e48c4d3e3263bf6dab5cc4",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md",
+      "locator": "line:13;heading:架构",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:34fbe83b316c9dc213afb54aeb20a2b62db87046ce553a8e74e170ab591bdfaa",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md",
+      "locator": "line:15;heading:架构",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:a58c8acaee785ce6995f97c9eb2d7f07d3e08249dbf8eede6f204d149deb42d3",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md",
+      "locator": "line:17;heading:架构",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:5e503096b207df8993ac6f23949f4f1d7a720fd288637e5fb999cca2ed760695",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-600CF362EBCDB6",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual:L11:c0f371ee87"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "Renderer 只消费 `window.workGui.automations` 的类型化 snapshot/command API。Preload 将调用转发给 Main；Main 的 `AutomationService` 独占版本化状态仓库、30 秒调度器、并发协调器、Runner 和 delivery outbox。所有状态变更发布完整 `AutomationSnapshot`，renderer 不自行推导调度事实。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Renderer 只消费 `window.workGui.automations` 的类型化 snapshot/command API。Preload 将调用转发给 Main；Main 的 `AutomationService` 独占版本化状态仓库、30 秒调度器、并发协调器、Runner 和 delivery outbox。所有状态变更发布完整 `AutomationSnapshot`，renderer 不自行推导调度事实。"
+    },
+    {
+      "requirement_id": "REQ-D521820FA78DA2",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual:L13:34fbe83b31"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "状态仓库使用 schema v2 原子 JSON 快照，包含 definitions、inbox、runtimeState 和 outbox。首次加载旧 `definitions/*.json` 与 `runs/*.json` 时复制迁移，旧文件保留；未知新 schema 或损坏文件不得被覆盖。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "状态仓库使用 schema v2 原子 JSON 快照，包含 definitions、inbox、runtimeState 和 outbox。首次加载旧 `definitions/*.json` 与 `runs/*.json` 时复制迁移，旧文件保留；未知新 schema 或损坏文件不得被覆盖。"
+    },
+    {
+      "requirement_id": "REQ-B75945A073B097",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual:L15:a58c8acaee"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "Agent 会话仍由 `SidecarSupervisor` 创建。每个 cwd 对应一个子运行；自动化级并发上限 3，每个聚合最多并发 3 个 cwd，同一任务不重入。Main 根据 session 事件、产物和工具证据分类 delivered、partial_delivered、side_effect_only、failed 与 interrupted。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Agent 会话仍由 `SidecarSupervisor` 创建。每个 cwd 对应一个子运行；自动化级并发上限 3，每个聚合最多并发 3 个 cwd，同一任务不重入。Main 根据 session 事件、产物和工具证据分类 delivered、partial_delivered、side_effect_only、failed 与 interrupted。"
+    },
+    {
+      "requirement_id": "REQ-451436D101FFBA",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual:L17:5e503096b2"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "聊天内 `automation_update` 通过内置 MCP server 和仅监听 `127.0.0.1` 的 bearer-token bridge 调用同一个 Main service，避免第二套业务实现。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "聊天内 `automation_update` 通过内置 MCP server 和仅监听 `127.0.0.1` 的 bearer-token bridge 调用同一个 Main service，避免第二套业务实现。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for automations at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 架构 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-600CF362EBCDB6] exactly: Renderer 只消费 `window.workGui.automations` 的类型化 snapshot/command API。Preload 将调用转发给 Main；Main 的 `AutomationService` 独占版本化状态仓库、30 秒调度器、并发协调器、Runner 和 delivery outbox。所有状态变更发布完整 `AutomationSnapshot`，renderer 不自行推导调度事实。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-D521820FA78DA2] exactly: 状态仓库使用 schema v2 原子 JSON 快照，包含 definitions、inbox、runtimeState 和 outbox。首次加载旧 `definitions/*.json` 与 `runs/*.json` 时复制迁移，旧文件保留；未知新 schema 或损坏文件不得被覆盖。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-B75945A073B097] exactly: Agent 会话仍由 `SidecarSupervisor` 创建。每个 cwd 对应一个子运行；自动化级并发上限 3，每个聚合最多并发 3 个 cwd，同一任务不重入。Main 根据 session 事件、产物和工具证据分类 delivered、partial_delivered、side_effect_only、failed 与 interrupted。"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-451436D101FFBA] exactly: 聊天内 `automation_update` 通过内置 MCP server 和仅监听 `127.0.0.1` 的 bearer-token bridge 调用同一个 Main service，避免第二套业务实现。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "Renderer 只消费 `window.workGui.automations` 的类型化 snapshot/command API。Preload 将调用转发给 Main；Main 的 `AutomationService` 独占版本化状态仓库、30 秒调度器、并发协调器、Runner 和 delivery outbox。所有状态变更发布完整 `AutomationSnapshot`，renderer 不自行推导调度事实。",
+    "状态仓库使用 schema v2 原子 JSON 快照，包含 definitions、inbox、runtimeState 和 outbox。首次加载旧 `definitions/*.json` 与 `runs/*.json` 时复制迁移，旧文件保留；未知新 schema 或损坏文件不得被覆盖。",
+    "Agent 会话仍由 `SidecarSupervisor` 创建。每个 cwd 对应一个子运行；自动化级并发上限 3，每个聚合最多并发 3 个 cwd，同一任务不重入。Main 根据 session 事件、产物和工具证据分类 delivered、partial_delivered、side_effect_only、failed 与 interrupted。",
+    "聊天内 `automation_update` 通过内置 MCP server 和仅监听 `127.0.0.1` 的 bearer-token bridge 调用同一个 Main service，避免第二套业务实现。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-600CF362EBCDB6]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Renderer 只消费 `window.workGui.automations` 的类型化 snapshot/command API。Preload 将调用转发给 Main；Main 的 `AutomationService` 独占版本化状态仓库、30 秒调度器、并发协调器、Runner 和 delivery outbox。所有状态变更发布完整 `AutomationSnapshot`，renderer 不自行推导调度事实。",
+    "FAIL [REQ-D521820FA78DA2]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 状态仓库使用 schema v2 原子 JSON 快照，包含 definitions、inbox、runtimeState 和 outbox。首次加载旧 `definitions/*.json` 与 `runs/*.json` 时复制迁移，旧文件保留；未知新 schema 或损坏文件不得被覆盖。",
+    "FAIL [REQ-B75945A073B097]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Agent 会话仍由 `SidecarSupervisor` 创建。每个 cwd 对应一个子运行；自动化级并发上限 3，每个聚合最多并发 3 个 cwd，同一任务不重入。Main 根据 session 事件、产物和工具证据分类 delivered、partial_delivered、side_effect_only、failed 与 interrupted。",
+    "FAIL [REQ-451436D101FFBA]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 聊天内 `automation_update` 通过内置 MCP server 和仅监听 `127.0.0.1` 的 bearer-token bridge 调用同一个 Main service，避免第二套业务实现。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-600CF362EBCDB6",
+      "type": "event",
+      "assertion": "Renderer 只消费 `window.workGui.automations` 的类型化 snapshot/command API。Preload 将调用转发给 Main；Main 的 `AutomationService` 独占版本化状态仓库、30 秒调度器、并发协调器、Runner 和 delivery outbox。所有状态变更发布完整 `AutomationSnapshot`，renderer 不自行推导调度事实。"
+    },
+    {
+      "requirement_id": "REQ-D521820FA78DA2",
+      "type": "return",
+      "assertion": "状态仓库使用 schema v2 原子 JSON 快照，包含 definitions、inbox、runtimeState 和 outbox。首次加载旧 `definitions/*.json` 与 `runs/*.json` 时复制迁移，旧文件保留；未知新 schema 或损坏文件不得被覆盖。"
+    },
+    {
+      "requirement_id": "REQ-B75945A073B097",
+      "type": "return",
+      "assertion": "Agent 会话仍由 `SidecarSupervisor` 创建。每个 cwd 对应一个子运行；自动化级并发上限 3，每个聚合最多并发 3 个 cwd，同一任务不重入。Main 根据 session 事件、产物和工具证据分类 delivered、partial_delivered、side_effect_only、failed 与 interrupted。"
+    },
+    {
+      "requirement_id": "REQ-451436D101FFBA",
+      "type": "api",
+      "assertion": "聊天内 `automation_update` 通过内置 MCP server 和仅监听 `127.0.0.1` 的 bearer-token bridge 调用同一个 Main service，避免第二套业务实现。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-superpowers-specs-2026.item-67a1613f4b",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "automations",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for automations at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 架构 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-600CF362EBCDB6] exactly: Renderer 只消费 `window.workGui.automations` 的类型化 snapshot/command API。Preload 将调用转发给 Main；Main 的 `AutomationService` 独占版本化状态仓库、30 秒调度器、并发协调器、Runner 和 delivery outbox。所有状态变更发布完整 `AutomationSnapshot`，renderer 不自行推导调度事实。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-D521820FA78DA2] exactly: 状态仓库使用 schema v2 原子 JSON 快照，包含 definitions、inbox、runtimeState 和 outbox。首次加载旧 `definitions/*.json` 与 `runs/*.json` 时复制迁移，旧文件保留；未知新 schema 或损坏文件不得被覆盖。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-B75945A073B097] exactly: Agent 会话仍由 `SidecarSupervisor` 创建。每个 cwd 对应一个子运行；自动化级并发上限 3，每个聚合最多并发 3 个 cwd，同一任务不重入。Main 根据 session 事件、产物和工具证据分类 delivered、partial_delivered、side_effect_only、failed 与 interrupted。"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-451436D101FFBA] exactly: 聊天内 `automation_update` 通过内置 MCP server 和仅监听 `127.0.0.1` 的 bearer-token bridge 调用同一个 Main service，避免第二套业务实现。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-451436D101FFBA",
+      "REQ-600CF362EBCDB6",
+      "REQ-B75945A073B097",
+      "REQ-D521820FA78DA2"
+    ],
+    "categories": [
+      "business",
+      "negative",
+      "permission",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:negative",
+      "category:permission",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-451436D101FFBA",
+      "requirement:REQ-600CF362EBCDB6",
+      "requirement:REQ-B75945A073B097",
+      "requirement:REQ-D521820FA78DA2"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-600CF362EBCDB6",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 架构 产品契约 exactly once and retain its correlation identity",
+      "then": "Renderer 只消费 `window.workGui.automations` 的类型化 snapshot/command API。Preload 将调用转发给 Main；Main 的 `AutomationService` 独占版本化状态仓库、30 秒调度器、并发协调器、Runner 和 delivery outbox。所有状态变更发布完整 `AutomationSnapshot`，renderer 不自行推导调度事实。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-D521820FA78DA2",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 架构 产品契约 exactly once and retain its correlation identity",
+      "then": "状态仓库使用 schema v2 原子 JSON 快照，包含 definitions、inbox、runtimeState 和 outbox。首次加载旧 `definitions/*.json` 与 `runs/*.json` 时复制迁移，旧文件保留；未知新 schema 或损坏文件不得被覆盖。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-B75945A073B097",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 架构 产品契约 exactly once and retain its correlation identity",
+      "then": "Agent 会话仍由 `SidecarSupervisor` 创建。每个 cwd 对应一个子运行；自动化级并发上限 3，每个聚合最多并发 3 个 cwd，同一任务不重入。Main 根据 session 事件、产物和工具证据分类 delivered、partial_delivered、side_effect_only、failed 与 interrupted。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-451436D101FFBA",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 架构 产品契约 exactly once and retain its correlation identity",
+      "then": "聊天内 `automation_update` 通过内置 MCP server 和仅监听 `127.0.0.1` 的 bearer-token bridge 调用同一个 Main service，避免第二套业务实现。",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

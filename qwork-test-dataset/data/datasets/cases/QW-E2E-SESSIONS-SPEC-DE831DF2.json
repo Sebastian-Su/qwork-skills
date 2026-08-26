@@ -1,0 +1,264 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SESSIONS-SPEC-DE831DF2",
+  "title": "creates an isolated timestamp cwd when a new conversation has no selected directory",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-sessions-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/sessions.spec.ts",
+      "locator": "line:160;test:creates an isolated timestamp cwd when a new conversation has no selected directory",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:de831df2c8b632c6d307e0576599e30f01e7768a4ce5c6d367ca87746041317b",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-059652B06FE574",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-sessions-spec-ts:L160:de831df2c8"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "creates an isolated timestamp cwd when a new conversation has no selected directory",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-sessions-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "creates an isolated timestamp cwd when a new conversation has no selected directory"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "createTestHome(\"sessions-auto-cwd\")"
+    },
+    {
+      "action": "createWorkspace(configHome, \"QWork\")"
+    },
+    {
+      "action": "path.join(configHome, \"sidecar-control.jsonl\")"
+    },
+    {
+      "action": "openApp(configHome, { E2E_SIDECAR_CONTROL_LOG: sidecarLog })"
+    },
+    {
+      "action": "startConversation(page, \"自动工作目录\")"
+    },
+    {
+      "action": "waitForCreateSession(sidecarLog)"
+    },
+    {
+      "action": "String(created.cwd ?? \"\")"
+    },
+    {
+      "action": "page.getByRole(\"complementary\")"
+    },
+    {
+      "action": "cleanupTestHome(app, configHome)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(path.dirname(cwd)).toBe(workspaceRoot)",
+    "expect(path.basename(cwd)).toMatch(/^\\d{4}-\\d{2}-\\d{2}-\\d{2}-\\d{2}-\\d{2}(?:-\\d+)?$/)",
+    "expect((await fs.stat(cwd)).isDirectory()).toBe(true)",
+    "expect(leftRail.getByText(\"任务 (1)\", { exact: true })).toBeVisible()",
+    "expect( leftRail.getByRole(\"button\", { name: \"自动工作目录\", exact: true }), ).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-059652B06FE574",
+      "type": "return",
+      "assertion": "creates an isolated timestamp cwd when a new conversation has no selected directory"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-sessions-spec-ts.de831df2c8",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/sessions.spec.ts -g \"creates an isolated timestamp cwd when a new conversation has no selected directory\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "createTestHome(\"sessions-auto-cwd\")"
+        },
+        {
+          "action": "createWorkspace(configHome, \"QWork\")"
+        },
+        {
+          "action": "path.join(configHome, \"sidecar-control.jsonl\")"
+        },
+        {
+          "action": "openApp(configHome, { E2E_SIDECAR_CONTROL_LOG: sidecarLog })"
+        },
+        {
+          "action": "startConversation(page, \"自动工作目录\")"
+        },
+        {
+          "action": "waitForCreateSession(sidecarLog)"
+        },
+        {
+          "action": "String(created.cwd ?? \"\")"
+        },
+        {
+          "action": "page.getByRole(\"complementary\")"
+        },
+        {
+          "action": "cleanupTestHome(app, configHome)"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/sessions.spec.ts",
+        "line_start": 160,
+        "line_end": 184,
+        "body_sha256": "sha256:c5d63cbc45521c5fb805d28db38430bc9bd1bb1e58507bfbce03224013334eb8",
+        "assertion_count": 5,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:41dd039a98f53ede370586c48d27a7d192b67e384c2ddb6162971172e0b3b148"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-059652B06FE574"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-059652B06FE574"
+    ]
+  }
+}

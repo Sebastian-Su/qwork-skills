@@ -1,0 +1,310 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-SUPERPOWERS-SPECS-20-ITEM-63608742",
+  "title": "docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 目标与边界 产品契约",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "automations",
+    "journey": "automations",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md",
+      "locator": "line:5;heading:目标与边界",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:0990a3da2014ad54a73c49c64d76c8188797521ffd55573c9ad7fb57998b6fa0",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md",
+      "locator": "line:7;heading:目标与边界",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:66c7d2ab7de21302887660bc94e75dd33d5644c2d5f7a8ff739d85cfb0969de4",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-36796CC8F9A04D",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual:L5:0990a3da20"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "在 qwork 中实现 参考客户端 5.3.5 实机行为与 5.3.8 公开回归项的体验等价版本。任务定义、调度、运行态和推送队列以本地客户端为事实源；模型、连接器、微信和企微交付使用 qwork 自有适配器。不得调用 参考客户端 私有接口、复制品牌资产，或把 Node/Electron 原语暴露给 renderer。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "在 qwork 中实现 参考客户端 5.3.5 实机行为与 5.3.8 公开回归项的体验等价版本。任务定义、调度、运行态和推送队列以本地客户端为事实源；模型、连接器、微信和企微交付使用 qwork 自有适配器。不得调用 参考客户端 私有接口、复制品牌资产，或把 Node/Electron 原语暴露给 renderer。"
+    },
+    {
+      "requirement_id": "REQ-517E1D5757E3F5",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual:L7:66c7d2ab7d"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "用户彻底退出 qwork 或电脑关机期间不执行任务。应用重新启动、系统解锁或网络恢复后，只补跑 24 小时窗口内的 occurrence。大模型正文不要求逐字一致，但运行状态、证据、产物和副作用语义必须确定且可测试。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "用户彻底退出 qwork 或电脑关机期间不执行任务。应用重新启动、系统解锁或网络恢复后，只补跑 24 小时窗口内的 occurrence。大模型正文不要求逐字一致，但运行状态、证据、产物和副作用语义必须确定且可测试。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for automations at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 目标与边界 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-36796CC8F9A04D] exactly: 在 qwork 中实现 参考客户端 5.3.5 实机行为与 5.3.8 公开回归项的体验等价版本。任务定义、调度、运行态和推送队列以本地客户端为事实源；模型、连接器、微信和企微交付使用 qwork 自有适配器。不得调用 参考客户端 私有接口、复制品牌资产，或把 Node/Electron 原语暴露给 renderer。"
+    },
+    {
+      "action": "observe renderer interaction state after the trigger and assert [REQ-517E1D5757E3F5] exactly: 用户彻底退出 qwork 或电脑关机期间不执行任务。应用重新启动、系统解锁或网络恢复后，只补跑 24 小时窗口内的 occurrence。大模型正文不要求逐字一致，但运行状态、证据、产物和副作用语义必须确定且可测试。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "在 qwork 中实现 参考客户端 5.3.5 实机行为与 5.3.8 公开回归项的体验等价版本。任务定义、调度、运行态和推送队列以本地客户端为事实源；模型、连接器、微信和企微交付使用 qwork 自有适配器。不得调用 参考客户端 私有接口、复制品牌资产，或把 Node/Electron 原语暴露给 renderer。",
+    "用户彻底退出 qwork 或电脑关机期间不执行任务。应用重新启动、系统解锁或网络恢复后，只补跑 24 小时窗口内的 occurrence。大模型正文不要求逐字一致，但运行状态、证据、产物和副作用语义必须确定且可测试。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-36796CC8F9A04D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 在 qwork 中实现 参考客户端 5.3.5 实机行为与 5.3.8 公开回归项的体验等价版本。任务定义、调度、运行态和推送队列以本地客户端为事实源；模型、连接器、微信和企微交付使用 qwork 自有适配器。不得调用 参考客户端 私有接口、复制品牌资产，或把 Node/Electron 原语暴露给 renderer。",
+    "FAIL [REQ-517E1D5757E3F5]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 用户彻底退出 qwork 或电脑关机期间不执行任务。应用重新启动、系统解锁或网络恢复后，只补跑 24 小时窗口内的 occurrence。大模型正文不要求逐字一致，但运行状态、证据、产物和副作用语义必须确定且可测试。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-36796CC8F9A04D",
+      "type": "return",
+      "assertion": "在 qwork 中实现 参考客户端 5.3.5 实机行为与 5.3.8 公开回归项的体验等价版本。任务定义、调度、运行态和推送队列以本地客户端为事实源；模型、连接器、微信和企微交付使用 qwork 自有适配器。不得调用 参考客户端 私有接口、复制品牌资产，或把 Node/Electron 原语暴露给 renderer。"
+    },
+    {
+      "requirement_id": "REQ-517E1D5757E3F5",
+      "type": "ui-state",
+      "assertion": "用户彻底退出 qwork 或电脑关机期间不执行任务。应用重新启动、系统解锁或网络恢复后，只补跑 24 小时窗口内的 occurrence。大模型正文不要求逐字一致，但运行状态、证据、产物和副作用语义必须确定且可测试。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-superpowers-specs-2026.item-636087421c",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "automations",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for automations at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 目标与边界 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-36796CC8F9A04D] exactly: 在 qwork 中实现 参考客户端 5.3.5 实机行为与 5.3.8 公开回归项的体验等价版本。任务定义、调度、运行态和推送队列以本地客户端为事实源；模型、连接器、微信和企微交付使用 qwork 自有适配器。不得调用 参考客户端 私有接口、复制品牌资产，或把 Node/Electron 原语暴露给 renderer。"
+        },
+        {
+          "action": "observe renderer interaction state after the trigger and assert [REQ-517E1D5757E3F5] exactly: 用户彻底退出 qwork 或电脑关机期间不执行任务。应用重新启动、系统解锁或网络恢复后，只补跑 24 小时窗口内的 occurrence。大模型正文不要求逐字一致，但运行状态、证据、产物和副作用语义必须确定且可测试。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-36796CC8F9A04D",
+      "REQ-517E1D5757E3F5"
+    ],
+    "categories": [
+      "negative",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-36796CC8F9A04D",
+      "requirement:REQ-517E1D5757E3F5"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-36796CC8F9A04D",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 目标与边界 产品契约 exactly once and retain its correlation identity",
+      "then": "在 qwork 中实现 参考客户端 5.3.5 实机行为与 5.3.8 公开回归项的体验等价版本。任务定义、调度、运行态和推送队列以本地客户端为事实源；模型、连接器、微信和企微交付使用 qwork 自有适配器。不得调用 参考客户端 私有接口、复制品牌资产，或把 Node/Electron 原语暴露给 renderer。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-517E1D5757E3F5",
+      "oracle_type": "ui-state",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 目标与边界 产品契约 exactly once and retain its correlation identity",
+      "then": "用户彻底退出 qwork 或电脑关机期间不执行任务。应用重新启动、系统解锁或网络恢复后，只补跑 24 小时窗口内的 occurrence。大模型正文不要求逐字一致，但运行状态、证据、产物和副作用语义必须确定且可测试。",
+      "observation_boundary": "renderer interaction state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

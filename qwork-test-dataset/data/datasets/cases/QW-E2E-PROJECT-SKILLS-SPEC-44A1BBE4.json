@@ -1,0 +1,440 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECT-SKILLS-SPEC-44A1BBE4",
+  "title": "imports, installs, paginates and persists WorkBuddy-style project skills",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-project-skills-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/project-skills.spec.ts",
+      "locator": "line:14;test:imports, installs, paginates and persists WorkBuddy-style project skills",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:44a1bbe492ac9b5a578e1720434e414d99b37a3ea7b26eeafca2353681b45a32",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-B254C2693CF2FB",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-project-skills-spec-ts:L14:44a1bbe492"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "imports, installs, paginates and persists WorkBuddy-style project skills",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-project-skills-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "imports, installs, paginates and persists WorkBuddy-style project skills"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "skillCard.click()"
+    },
+    {
+      "action": "manager.getByRole(\"button\", { name: \"添加\" }).click()"
+    },
+    {
+      "action": "addMenu.getByRole(\"menuitem\", { name: /上传技能/ }).click()"
+    },
+    {
+      "action": "importDialog.getByRole(\"button\", { name: \"拖拽文件或点击上传\" }).click()"
+    },
+    {
+      "action": "manager.getByRole(\"button\", { name: \"添加\" }).click()"
+    },
+    {
+      "action": "manager.getByRole(\"menuitem\", { name: /从技能中心添加/ }).click()"
+    },
+    {
+      "action": "picker.getByRole(\"checkbox\", { name: \"选择Weather\" }).click()"
+    },
+    {
+      "action": "picker.getByRole(\"button\", { name: \"确认\", exact: true }).click()"
+    },
+    {
+      "action": "manager.getByRole(\"button\", { name: \"确定\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"/\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /技能复刻项目/ }).first().click()"
+    },
+    {
+      "action": "composer.fill(\"/\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"管理技能\" }).click()"
+    },
+    {
+      "action": "manager.getByRole(\"button\", { name: \"添加\" }).click()"
+    },
+    {
+      "action": "manager.getByRole(\"menuitem\", { name: /从技能中心添加/ }).click()"
+    },
+    {
+      "action": "picker.getByRole(\"button\", { name: \"SkillHub 来源\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"SkillHub 来源选项\" }).getByRole(\"menuitemradio\", { name: \"内网 SkillHub\" }).click()"
+    },
+    {
+      "action": "picker.getByRole(\"tab\", { name: \"已安装\" }).click()"
+    },
+    {
+      "action": "picker.getByRole(\"tab\", { name: \"SkillHub\" }).click()"
+    },
+    {
+      "action": "picker.getByRole(\"button\", { name: \"SkillHub 来源\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"SkillHub 来源选项\" }).getByRole(\"menuitemradio\", { name: \"360 SkillHub\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "manager.getByRole(\"button\", { name: \"更多 Weather\" }).click()"
+    },
+    {
+      "action": "manager.getByRole(\"menuitem\", { name: \"移除\" }).click()"
+    },
+    {
+      "action": "confirmation.getByRole(\"button\", { name: \"移除\" }).click()"
+    },
+    {
+      "action": "manager.getByRole(\"button\", { name: \"确定\" }).click()"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /技能复刻项目/ }).first().click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(skillCard).toContainText(\"技能\")",
+    "expect(managerBox.width).toBeCloseTo(800, 0)",
+    "expect(managerBox.height).toBeCloseTo(560, 0)",
+    "expect(managerStyle[\"border-radius\"]).toBe(\"24px\")",
+    "expect(compactManagerBox.width).toBeCloseTo(652, 0)",
+    "expect(compactManagerBox.height).toBeCloseTo(452, 0)",
+    "expect((await boxOf(addMenu)).width).toBeCloseTo(162, 0)",
+    "expect(manager).toContainText(\"project-local-helper\")",
+    "expect(skillCard).toContainText(\"技能 1\")",
+    "expect(picker.getByRole(\"tab\", { name: \"推荐\" })).toHaveCount(0)",
+    "expect(picker.getByRole(\"tab\", { name: \"SkillHub\" })).toBeVisible()",
+    "expect(picker.getByRole(\"tab\", { name: \"已安装\" })).toBeVisible()",
+    "expect(picker.getByRole(\"button\", { name: \"SkillHub 来源\" })).toContainText(\"360 SkillHub\")",
+    "expect(picker.getByRole(\"checkbox\", { name: \"选择Weather\" })).toBeVisible()",
+    "expect(picker.getByRole(\"checkbox\", { name: \"选择目录技能 199\" })).toBeVisible()",
+    "expect(manager).toContainText(\"Weather\")",
+    "expect(skillCard).toContainText(\"技能 2\")",
+    "expect.poll(async () => page.evaluate(async () => (await window.workGui!.skillHub.installed()).length, )).toBe(personalBefore)",
+    "expect(projectSkillPaths).toHaveLength(2)",
+    "expect(projectSkillPaths.every((installDir) => installDir.includes(`${path.sep}.ziqdo${path.sep}skills${path.sep}`))).toBe(true)",
+    "expect(projectSkillPaths.every((installDir) => !installDir.startsWith(path.join(configHome, \"skills\")))).toBe(true)",
+    "expect(catalogEvidence.global.filter((skill) => skill.id === \"Weather\")).toEqual([ expect.objectContaining({ name: \"Weather\", source: \"skillhub\" }), ])",
+    "expect(catalogEvidence.global.some((skill) => skill.id === \"project-local-helper\")).toBe(false)",
+    "expect(catalogEvidence.global.some((skill) => skill.id === \"目录技能 1\")).toBe(false)",
+    "expect(catalogEvidence.scoped.map((skill) => skill.id)).toContain(\"project-local-helper\")",
+    "expect(catalogEvidence.scoped.filter((skill) => skill.id === \"Weather\")).toEqual([ expect.objectContaining({ name: \"Weather\", source: \"project\" }), ])",
+    "expect(catalogEvidence.scoped).toEqual(expect.arrayContaining([ expect.objectContaining({ id: \"project-local-helper\", source: \"project\" }), ]))",
+    "expect(catalogEvidence.scoped.some((skill) => skill.id === \"目录技能 1\")).toBe(false)",
+    "expect(slashPicker.getByRole(\"option\", { name: /Personal Weather version/ })).toHaveCount(1)",
+    "expect(slashPicker.getByRole(\"option\", { name: /project-local-helper/ })).toHaveCount(0)",
+    "expect(slashPicker.getByRole(\"option\", { name: /目录技能 1/ })).toHaveCount(0)",
+    "expect(slashPicker.getByRole(\"option\", { name: /Weather description/ })).toHaveCount(1)",
+    "expect(slashPicker.getByRole(\"option\", { name: /Personal Weather version/ })).toHaveCount(0)",
+    "expect(slashPicker.getByRole(\"option\", { name: /project-local-helper/ })).toHaveCount(1)",
+    "expect(slashPicker.getByRole(\"option\", { name: /目录技能 1/ })).toHaveCount(0)",
+    "expect.poll(() => selectedSkillsFromLog(sidecarLog)).toEqual(expectedSelectedSkills)",
+    "expect(new Set(await selectedSkillsFromLog(sidecarLog)).size).toBe(expectedSelectedSkills.length)",
+    "expect(picker.getByRole(\"checkbox\", { name: \"选择prompt-doctor\" })).toBeVisible()",
+    "expect(picker.getByRole(\"checkbox\", { name: \"选择Weather\" })).toBeVisible()",
+    "expect(locked).toBeChecked()",
+    "expect(locked).toBeDisabled()",
+    "expect(picker.getByText(\"请在管理页移除\").first()).toBeVisible()",
+    "expect(picker).toBeHidden()",
+    "expect(manager).toBeVisible()",
+    "expect(confirmation).toContainText(\"移除后项目内任务将不再使用该技能\")",
+    "expect(manager).not.toContainText(\"Weather\")",
+    "expect(persisted).toEqual([\"project-local-helper\"])",
+    "expect((await page.evaluate(() => window.workGui!.skillHub.installed())).map((item) => item.runtimeSkillId)).toContain(\"Weather\")",
+    "expect(page.getByRole(\"button\", { name: \"管理技能\" })).toContainText(\"技能 1\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-B254C2693CF2FB",
+      "type": "return",
+      "assertion": "imports, installs, paginates and persists WorkBuddy-style project skills"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-project-skills-spec-ts.44a1bbe492",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/project-skills.spec.ts -g \"imports, installs, paginates and persists WorkBuddy-style project skills\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "skillCard.click()"
+        },
+        {
+          "action": "manager.getByRole(\"button\", { name: \"添加\" }).click()"
+        },
+        {
+          "action": "addMenu.getByRole(\"menuitem\", { name: /上传技能/ }).click()"
+        },
+        {
+          "action": "importDialog.getByRole(\"button\", { name: \"拖拽文件或点击上传\" }).click()"
+        },
+        {
+          "action": "manager.getByRole(\"button\", { name: \"添加\" }).click()"
+        },
+        {
+          "action": "manager.getByRole(\"menuitem\", { name: /从技能中心添加/ }).click()"
+        },
+        {
+          "action": "picker.getByRole(\"checkbox\", { name: \"选择Weather\" }).click()"
+        },
+        {
+          "action": "picker.getByRole(\"button\", { name: \"确认\", exact: true }).click()"
+        },
+        {
+          "action": "manager.getByRole(\"button\", { name: \"确定\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"/\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /技能复刻项目/ }).first().click()"
+        },
+        {
+          "action": "composer.fill(\"/\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"管理技能\" }).click()"
+        },
+        {
+          "action": "manager.getByRole(\"button\", { name: \"添加\" }).click()"
+        },
+        {
+          "action": "manager.getByRole(\"menuitem\", { name: /从技能中心添加/ }).click()"
+        },
+        {
+          "action": "picker.getByRole(\"button\", { name: \"SkillHub 来源\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"SkillHub 来源选项\" }).getByRole(\"menuitemradio\", { name: \"内网 SkillHub\" }).click()"
+        },
+        {
+          "action": "picker.getByRole(\"tab\", { name: \"已安装\" }).click()"
+        },
+        {
+          "action": "picker.getByRole(\"tab\", { name: \"SkillHub\" }).click()"
+        },
+        {
+          "action": "picker.getByRole(\"button\", { name: \"SkillHub 来源\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"SkillHub 来源选项\" }).getByRole(\"menuitemradio\", { name: \"360 SkillHub\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "manager.getByRole(\"button\", { name: \"更多 Weather\" }).click()"
+        },
+        {
+          "action": "manager.getByRole(\"menuitem\", { name: \"移除\" }).click()"
+        },
+        {
+          "action": "confirmation.getByRole(\"button\", { name: \"移除\" }).click()"
+        },
+        {
+          "action": "manager.getByRole(\"button\", { name: \"确定\" }).click()"
+        },
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /技能复刻项目/ }).first().click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/project-skills.spec.ts",
+        "line_start": 14,
+        "line_end": 279,
+        "body_sha256": "sha256:685a4931ab2d4eda4e61892d691bde1579d80d2160ab430409872419904590eb",
+        "assertion_count": 49,
+        "action_count": 31,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:91be868e39d86e2759c2c5c7df2a9f9f03a5e63e40dd7aab5ba1b6340b2de9f5"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B254C2693CF2FB"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-B254C2693CF2FB"
+    ]
+  }
+}

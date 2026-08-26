@@ -1,0 +1,232 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-JOURNEY-SIDEBAR-ACCOUNT-SPEC-C1ADA6FC",
+  "title": "UI-JOURNEY-ACCOUNT-002 | dark menu and toolbar stay usable across the reference sizes and minimum window",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-journey-sidebar-account.spec.ts",
+      "locator": "line:571;test:UI-JOURNEY-ACCOUNT-002 | dark menu and toolbar stay usable across the reference sizes and minimum window",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:c1ada6fc86dd17b01b0b8e780f14bccadc7f4183247a147e6180804590f08529",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-30907B057EDDE2",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts:L571:c1ada6fc86"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "UI-JOURNEY-ACCOUNT-002 | dark menu and toolbar stay usable across the reference sizes and minimum window",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-JOURNEY-ACCOUNT-002 | dark menu and toolbar stay usable across the reference sizes and minimum window"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-18T17:49:28.164762+00:00",
+    "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.locator(\"html\")).toHaveClass(/dark/)",
+    "expect(page.getByRole(\"button\", { name: \"搜索\", exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"筛选\", exact: true })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-30907B057EDDE2",
+      "type": "return",
+      "assertion": "UI-JOURNEY-ACCOUNT-002 | dark menu and toolbar stay usable across the reference sizes and minimum window"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-journey-sidebar-account-spec-ts.c1ada6fc86",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-journey-sidebar-account.spec.ts -g \"UI-JOURNEY-ACCOUNT-002 | dark menu and toolbar stay usable across the reference sizes and minimum window\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-journey-sidebar-account.spec.ts",
+        "line_start": 571,
+        "line_end": 588,
+        "body_sha256": "sha256:0c83e62d73999679580be414e94fb468f84e0ab731889396af2b2b4fd8e371f4",
+        "assertion_count": 3,
+        "action_count": 4,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:047431073ce7b9ab48e52418d325e4db86a1ea0d15b882f6f7d4eff7b9d17a29"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": "bug973549-public-reference-643446ff-v1",
+      "verified_at": "2026-08-18T17:49:28.164762+00:00",
+      "environment": "stale deterministic public Playwright reference run"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-30907B057EDDE2"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-30907B057EDDE2"
+    ]
+  }
+}

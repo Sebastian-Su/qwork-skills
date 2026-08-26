@@ -11,6 +11,8 @@ import subprocess
 import sys
 from typing import Any
 
+from external_artifact_storage import REPORT_HTML_NAME, REPORT_JSON_NAME, validate_external_run_root
+
 
 ALLOWED_EXTERNAL = {
     "new-permission-or-credential",
@@ -115,7 +117,7 @@ def run_finalizer(skill_root: Path, report: Path, run_root: Path, plan: Path) ->
         sys.executable,
         str(skill_root / "scripts/finalize_e2e_report.py"),
         "--input", str(report),
-        "--output", str(run_root / "report.html"),
+        "--output", str(run_root / REPORT_HTML_NAME),
         "--artifact-root", str(run_root),
         "--plan", str(plan),
     ]
@@ -138,17 +140,20 @@ def main() -> int:
 
     repo = args.repo.resolve()
     plan_path = args.plan.resolve()
-    run_root = args.run_root.resolve()
-    report_path = run_root / "report.json"
     skill_root = Path(__file__).resolve().parent.parent
     dataset_root = (args.dataset_skill or repo / ".agents/skills/qwork-test-dataset").resolve()
+    run_root = validate_external_run_root(
+        args.run_root,
+        protected_roots=[repo, dataset_root, skill_root],
+    )
+    report_path = run_root / REPORT_JSON_NAME
     errors: list[str] = []
     external: list[dict[str, Any]] = []
 
     try:
         plan, report = load(plan_path), load(report_path)
     except (OSError, ValueError, json.JSONDecodeError) as error:
-        print(json.dumps({"gate_status": "repair-required", "failure_classification": "evidence", "first_trusted_failure": str(error), "repair_required_next_action": "create the canonical report.json for the current plan", "final_response_allowed": False}, ensure_ascii=False))
+        print(json.dumps({"gate_status": "repair-required", "failure_classification": "evidence", "first_trusted_failure": str(error), "repair_required_next_action": f"create the canonical {REPORT_JSON_NAME} for the current plan", "final_response_allowed": False}, ensure_ascii=False))
         return 1
 
     expected_plan_hash = plan_hash(plan)

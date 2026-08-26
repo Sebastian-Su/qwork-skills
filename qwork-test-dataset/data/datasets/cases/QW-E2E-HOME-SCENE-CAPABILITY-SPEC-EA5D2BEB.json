@@ -1,0 +1,237 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-HOME-SCENE-CAPABILITY-SPEC-EA5D2BEB",
+  "title": "enables document-processing plugins on the session without stuffing them into the prompt",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-home-scene-capability-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/home-scene-capability.spec.ts",
+      "locator": "line:95;test:enables document-processing plugins on the session without stuffing them into the prompt",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:ea5d2beb291746af032764623ddaa9f5d1d5833c6c9d2abf076027167b969b23",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-66D0F50073FFEC",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-home-scene-capability-spec-ts:L95:ea5d2beb29"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "enables document-processing plugins on the session without stuffing them into the prompt",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-home-scene-capability-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "enables document-processing plugins on the session without stuffing them into the prompt"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"文档处理\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"财报分析全流程\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByTestId(\"selected-skill-token\")).toHaveCount(0)",
+    "expect(page.getByRole(\"textbox\")).toHaveValue(REPORT_PROMPT)",
+    "expect.poll(async () => latestUserMessage(sidecarLog)).toContain(\"@scene:daily-01\")",
+    "expect(content).toContain(`@scene:daily-01\\n\\n${REPORT_PROMPT}`)",
+    "expect(content).not.toContain(\"@minimax-docx\")",
+    "expect(content).not.toContain(\"skill-minimax-docx\")",
+    "expect.poll(async () => createdSessionPlugins(sidecarLog)).toEqual([...DOCUMENT_SCENE_PLUGIN_IDS])",
+    "expect(await createdSessionSkills(sidecarLog)).toEqual( homeSceneSkillAllowlist(DOCUMENT_SCENE_PLUGIN_IDS), )"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-66D0F50073FFEC",
+      "type": "return",
+      "assertion": "enables document-processing plugins on the session without stuffing them into the prompt"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-home-scene-capability-spec-ts.ea5d2beb29",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/home-scene-capability.spec.ts -g \"enables document-processing plugins on the session without stuffing them into the prompt\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"文档处理\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"财报分析全流程\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/home-scene-capability.spec.ts",
+        "line_start": 95,
+        "line_end": 124,
+        "body_sha256": "sha256:36e4ee02b5baf8b0705c163c8c4f4aac3e6f66162b83aee50ec96cbdf80fe4a4",
+        "assertion_count": 8,
+        "action_count": 4,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5e44f9c97e89e4c3a08b7e517be2ceebd167481d8fa49e207e3dd9d1259d0f21"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-66D0F50073FFEC"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-66D0F50073FFEC"
+    ]
+  }
+}

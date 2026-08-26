@@ -1,0 +1,293 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-C528DC9E",
+  "title": "UI-LAYOUT-PERMISSION-001 | 输入区默认权限选择器与完全访问开关对齐",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-layout-shell-home.spec.ts",
+      "locator": "line:420;test:UI-LAYOUT-PERMISSION-001 | 输入区默认权限选择器与完全访问开关对齐",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:c528dc9e1e6ae883bd8dcde84c1f669b9f0ca3b6799540043699dc61678fe797",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-journey-phase2-plan-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-journey-phase2-plan.md",
+      "locator": "line:19;heading:已冻结决策",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:0aadd128475c9c627c87a7de296d4bfbcca75acfde88e7e9929cb73d9df03bd5",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-427F16CCB3115B",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts:L420:c528dc9e1e"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "UI-LAYOUT-PERMISSION-001 | 输入区默认权限选择器与完全访问开关对齐",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-LAYOUT-PERMISSION-001 | 输入区默认权限选择器与完全访问开关对齐"
+    },
+    {
+      "requirement_id": "REQ-1393FAD1FE11BB",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-journey-phase2-plan-md:L19:0aadd12847"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "permissions",
+      "priority": "P0",
+      "rule": "默认权限安全；完全访问只能由用户显式开启。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-journey-phase2-plan-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "默认权限安全；完全访问只能由用户显式开启。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-18T17:50:37.259595+00:00",
+    "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "permission.click()"
+    },
+    {
+      "action": "fullAccess.click()"
+    },
+    {
+      "action": "dialog.getByRole(\"checkbox\", { name: \"我已了解风险，并愿意继续\" }).check()"
+    },
+    {
+      "action": "confirm.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "uiExpect.soft(permission).toBeVisible()",
+    "uiExpect.soft(panel).toContainText(\"默认在安全沙箱内运行\")",
+    "uiExpect.soft(panel).toContainText(\"开启完全访问后，将允许访问互联网与工作空间外文件，并减少操作前确认\")",
+    "uiExpect.soft(panel.getByText(\"允许完全访问\", { exact: true })).toBeVisible()",
+    "uiExpect.soft(fullAccess).not.toBeChecked()",
+    "uiExpect.soft(dialog).toBeVisible()",
+    "uiExpect.soft(dialog).toContainText(\"AI 将减少确认步骤\")",
+    "uiExpect.soft(dialog).toContainText(\"仅建议在您信任当前任务时使用\")",
+    "expect(box?.width).toBeGreaterThanOrEqual(478)",
+    "expect(box?.width).toBeLessThanOrEqual(482)",
+    "expect(box?.height).toBeGreaterThanOrEqual(240)",
+    "expect(box?.height).toBeLessThanOrEqual(244)",
+    "uiExpect.soft(confirm).toBeDisabled()",
+    "uiExpect.soft(confirm).toBeEnabled()",
+    "uiExpect.soft(page.getByRole(\"button\", { name: \"完全访问\", exact: true })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-427F16CCB3115B",
+      "type": "return",
+      "assertion": "UI-LAYOUT-PERMISSION-001 | 输入区默认权限选择器与完全访问开关对齐"
+    },
+    {
+      "requirement_id": "REQ-1393FAD1FE11BB",
+      "type": "ui",
+      "assertion": "默认权限安全；完全访问只能由用户显式开启。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-layout-shell-home-spec-ts.c528dc9e1e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-layout-shell-home.spec.ts -g \"UI-LAYOUT-PERMISSION-001 | 输入区默认权限选择器与完全访问开关对齐\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "permission.click()"
+        },
+        {
+          "action": "fullAccess.click()"
+        },
+        {
+          "action": "dialog.getByRole(\"checkbox\", { name: \"我已了解风险，并愿意继续\" }).check()"
+        },
+        {
+          "action": "confirm.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-layout-shell-home.spec.ts",
+        "line_start": 420,
+        "line_end": 451,
+        "body_sha256": "sha256:374ea760199705b1aa13017dea2a80dac98659d83893a3c1269dc9822e219f70",
+        "assertion_count": 15,
+        "action_count": 4,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:178edf5bd7ee72c94282ee866680110da9802652684099416e69e530836213e8"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": "bug973549-public-reference-643446ff-v1",
+      "verified_at": "2026-08-18T17:50:37.259595+00:00",
+      "environment": "stale deterministic public Playwright reference run"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-1393FAD1FE11BB",
+      "REQ-427F16CCB3115B"
+    ],
+    "categories": [
+      "business",
+      "permission"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:permission",
+      "full",
+      "requirement:REQ-1393FAD1FE11BB",
+      "requirement:REQ-427F16CCB3115B"
+    ]
+  }
+}

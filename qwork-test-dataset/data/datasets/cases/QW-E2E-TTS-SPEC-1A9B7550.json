@@ -1,0 +1,256 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-TTS-SPEC-1A9B7550",
+  "title": "reads an assistant reply through cloud PCM and falls back before first audio",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-tts-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/tts.spec.ts",
+      "locator": "line:7;test:reads an assistant reply through cloud PCM and falls back before first audio",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:1a9b7550b17e1bf8ccfc136d819c8c8ba95aa921c10ffa43e4a20f8c5a9be9d9",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-BF5C3778EB6592",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-tts-spec-ts:L7:1a9b7550b1"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "reads an assistant reply through cloud PCM and falls back before first audio",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-tts-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "reads an assistant reply through cloud PCM and falls back before first audio"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.getByRole(\"textbox\").fill(prompt)"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "message.getByRole(\"button\", { name: \"朗读\", exact: true }).click()"
+    },
+    {
+      "action": "message.getByRole(\"button\", { name: \"朗读\", exact: true }).click()"
+    },
+    {
+      "action": "message.getByRole(\"button\", { name: \"停止朗读\", exact: true }).click()"
+    },
+    {
+      "action": "message.getByRole(\"button\", { name: \"朗读\", exact: true }).click()"
+    },
+    {
+      "action": "message.getByRole(\"button\", { name: \"停止朗读\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(message).toContainText(\"收到：TTS 原文 不处理 https://example.com\")",
+    "expect(message.getByRole(\"button\", { name: \"停止朗读\", exact: true })).toHaveAttribute(\"aria-pressed\", \"true\")",
+    "expect(message.getByRole(\"status\")).toHaveText(\"朗读完成\", { timeout: 5_000 })",
+    "expect(fake.texts).toEqual([`收到：${prompt.trimEnd()}`])",
+    "expect(message.getByRole(\"status\")).toHaveText(\"云端语音不可用，已切换系统朗读\")",
+    "expect.poll(() => page.evaluate(() => (window as unknown as { __ttsFake: { spoken: string[] } }).__ttsFake.spoken)).toEqual([ `收到：${prompt.trimEnd()}`, ])",
+    "expect(message.getByRole(\"status\")).toHaveText(\"已停止朗读\")",
+    "expect(message.getByRole(\"button\", { name: \"停止朗读\", exact: true })).toBeVisible()",
+    "expect.poll(fake.wasCancelled).toBe(true)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-BF5C3778EB6592",
+      "type": "return",
+      "assertion": "reads an assistant reply through cloud PCM and falls back before first audio"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-tts-spec-ts.1a9b7550b1",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/tts.spec.ts -g \"reads an assistant reply through cloud PCM and falls back before first audio\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "composer.getByRole(\"textbox\").fill(prompt)"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "message.getByRole(\"button\", { name: \"朗读\", exact: true }).click()"
+        },
+        {
+          "action": "message.getByRole(\"button\", { name: \"朗读\", exact: true }).click()"
+        },
+        {
+          "action": "message.getByRole(\"button\", { name: \"停止朗读\", exact: true }).click()"
+        },
+        {
+          "action": "message.getByRole(\"button\", { name: \"朗读\", exact: true }).click()"
+        },
+        {
+          "action": "message.getByRole(\"button\", { name: \"停止朗读\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/tts.spec.ts",
+        "line_start": 7,
+        "line_end": 44,
+        "body_sha256": "sha256:3fc4e0af3cb0a5a6d735dfa0f40ef69137f829e2b492b1b06957d2615279e5a5",
+        "assertion_count": 9,
+        "action_count": 7,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:c4fc07cdf51e8fec2b0a8663c2ccc5e485cb342330a919f106a2c35532e33ae6"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-BF5C3778EB6592"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-BF5C3778EB6592"
+    ]
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-ASSISTANT-LAYOUT-SPEC-FC813FF2",
+  "title": "assistant uses one content header and docks the unified composer at the bottom",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-assistant-layout-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/assistant-layout.spec.ts",
+      "locator": "line:4;test:assistant uses one content header and docks the unified composer at the bottom",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:fc813ff25e17c7269f0277c382ce2f7113ed93ad7b74117099f95592a3594699",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-3A673C042EDAEA",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-assistant-layout-spec-ts:L4:fc813ff25e"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "assistant uses one content header and docks the unified composer at the bottom",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-assistant-layout-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "assistant uses one content header and docks the unified composer at the bottom"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"你好\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(assistant).toBeVisible()",
+    "expect(page.getByRole(\"heading\", { name: \"本地助理\" })).toHaveCount(1)",
+    "expect(page.getByRole(\"toolbar\", { name: \"助理工具栏\" })).toBeVisible()",
+    "expect(page.getByText(/我们该在/)).toHaveCount(0)",
+    "expect(page.getByText(\"检查当前项目并建议下一步\")).toHaveCount(0)",
+    "expect(page.getByTestId(\"assistant-composer-dock\")).toBeVisible()",
+    "expect(composer).toBeEnabled()",
+    "expect(darkStyles).toEqual({ editorBackground: \"rgb(38, 38, 38)\", editorBorder: \"rgb(56, 56, 56)\", textColor: \"rgb(235, 235, 235)\", placeholderColor: \"rgb(122, 122, 122)\", sendBackground: \"rgb(66, 66, 66)\", sendColor: \"rgb(122, 122, 122)\", modelColor: \"rgb(168, 168, 168)\", })",
+    "expect(assistantBox).not.toBeNull()",
+    "expect(headerBox).not.toBeNull()",
+    "expect(contextPanelBox).not.toBeNull()",
+    "expect(composerBox).not.toBeNull()",
+    "expect(headerBox!.x).toBeGreaterThanOrEqual(assistantBox!.x)",
+    "expect(headerBox!.x + headerBox!.width).toBeLessThanOrEqual( assistantBox!.x + assistantBox!.width, )",
+    "expect(composerBox!.width).toBeGreaterThanOrEqual(500)",
+    "expect( Math.abs( composerBox!.x + composerBox!.width / 2 - (assistantBox!.x + contextPanelBox!.x) / 2, ), ).toBeLessThanOrEqual(2)",
+    "expect(contextPanelBox!.x + contextPanelBox!.width).toBeLessThanOrEqual( assistantBox!.x + assistantBox!.width, )",
+    "expect(composerBox!.y).toBeGreaterThan(headerBox!.y + headerBox!.height)",
+    "expect( assistantBox!.y + assistantBox!.height - (composerBox!.y + composerBox!.height), ).toBeLessThanOrEqual(40)",
+    "expect(enabledSendStyles).toEqual({ background: \"rgb(235, 235, 235)\", color: \"rgb(24, 24, 24)\", })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-3A673C042EDAEA",
+      "type": "ui",
+      "assertion": "assistant uses one content header and docks the unified composer at the bottom"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-assistant-layout-spec-ts.fc813ff25e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/assistant-layout.spec.ts -g \"assistant uses one content header and docks the unified composer at the bottom\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"你好\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/assistant-layout.spec.ts",
+        "line_start": 4,
+        "line_end": 99,
+        "body_sha256": "sha256:f0a4dd3e39a2a700e543516d6b5ad8e130dcecd85209b91ace8523757370ef82",
+        "assertion_count": 20,
+        "action_count": 2,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:58a0005a260c99609065a986326cd1b10450892dbc05e91640cd833d71c65a5d"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending",
+      "case-level screenshot checkpoint audit pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-3A673C042EDAEA"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-3A673C042EDAEA"
+    ]
+  }
+}

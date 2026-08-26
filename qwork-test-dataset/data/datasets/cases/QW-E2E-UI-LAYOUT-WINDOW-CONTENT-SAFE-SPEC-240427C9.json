@@ -1,0 +1,232 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-LAYOUT-WINDOW-CONTENT-SAFE-SPEC-240427C9",
+  "title": "UI-LAYOUT-CONTENT-SAFE-003 | focus changes preserve drag geometry while controls stay clickable and no-drag",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-layout-window-content-safe-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-layout-window-content-safe.spec.ts",
+      "locator": "line:136;test:UI-LAYOUT-CONTENT-SAFE-003 | focus changes preserve drag geometry while controls stay clickable and no-drag",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:240427c9e01e0d548f5b9f5d11d6fe612be67ffa3ea189b4158a1b349c81d8ff",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-6364803C11729D",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-layout-window-content-safe-spec-ts:L136:240427c9e0"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "UI-LAYOUT-CONTENT-SAFE-003 | focus changes preserve drag geometry while controls stay clickable and no-drag",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-layout-window-content-safe-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-LAYOUT-CONTENT-SAFE-003 | focus changes preserve drag geometry while controls stay clickable and no-drag"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "BrowserWindow.getAllWindows()[0]?.blur()"
+    },
+    {
+      "action": "BrowserWindow.getAllWindows()[0]?.focus()"
+    },
+    {
+      "action": "toggle.click()"
+    },
+    {
+      "action": "page.getByTitle(\"收起侧栏\").click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(toggle).toBeVisible()",
+    "expect(page.getByTitle(\"收起侧栏\")).toBeVisible()",
+    "expect(page.getByTitle(\"展开侧栏\")).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-6364803C11729D",
+      "type": "return",
+      "assertion": "UI-LAYOUT-CONTENT-SAFE-003 | focus changes preserve drag geometry while controls stay clickable and no-drag"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-layout-window-content-safe-spec-ts.240427c9e0",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-layout-window-content-safe.spec.ts -g \"UI-LAYOUT-CONTENT-SAFE-003 | focus changes preserve drag geometry while controls stay clickable and no-drag\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "BrowserWindow.getAllWindows()[0]?.blur()"
+        },
+        {
+          "action": "BrowserWindow.getAllWindows()[0]?.focus()"
+        },
+        {
+          "action": "toggle.click()"
+        },
+        {
+          "action": "page.getByTitle(\"收起侧栏\").click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-layout-window-content-safe.spec.ts",
+        "line_start": 136,
+        "line_end": 163,
+        "body_sha256": "sha256:205e89ffe28ff65625208b262a8c7629798042bd15d23fa2ca0ec422854e1e95",
+        "assertion_count": 3,
+        "action_count": 4,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:3a57147af3947b16f280b82f9794c1c4b827b75a87662ca6c94ab1024d45b8f3"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-6364803C11729D"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-6364803C11729D"
+    ]
+  }
+}

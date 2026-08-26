@@ -1,0 +1,310 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SKILL-HUB-SPEC-F8F80609",
+  "title": "selects an installed skill from the draft slash picker and submits it on the first turn",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-skill-hub-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/skill-hub.spec.ts",
+      "locator": "line:340;test:selects an installed skill from the draft slash picker and submits it on the first turn",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:f8f80609867eb016459e847ab4a8c50b8b972cc4d5416fd25387d0e65087f6b0",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-E9274059F757F0",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L340:f8f8060986"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "selects an installed skill from the draft slash picker and submits it on the first turn",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-skill-hub-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "selects an installed skill from the draft slash picker and submits it on the first turn"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"SkillHub\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByPlaceholder(\"搜索技能\").fill(\"adhd\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"安装 ADHD Assistant\" }).click()"
+    },
+    {
+      "action": "composer.fill(\"/ad\")"
+    },
+    {
+      "action": "picker.getByRole(\"option\", { name: /adhd-assistant/ }).click()"
+    },
+    {
+      "action": "composer.press(\"Backspace\")"
+    },
+    {
+      "action": "composer.fill(\"/ad\")"
+    },
+    {
+      "action": "page.getByRole(\"dialog\", { name: \"技能选择\" }).getByRole(\"option\", { name: /adhd-assistant/ }).click()"
+    },
+    {
+      "action": "composer.fill(\"帮我拆解今天的任务\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "composer.fill(\"这次不要使用技能\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "restoredHistory.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( page.getByRole(\"status\").filter({ hasText: \"「ADHD Assistant」技能已安装，去试试\" }), ).toBeVisible()",
+    "expect(picker).toContainText(\"adhd-assistant\")",
+    "expect(composer).toHaveValue(\"\")",
+    "expect(page.getByTestId(\"composer-editor\").getByTestId(\"selected-skill-token\")).toContainText(\"adhd-assistant\")",
+    "expect(page.getByTestId(\"composer-editor\").getByTestId(\"selected-skill-token\")).toHaveCount(0)",
+    "expect( page.getByTestId(\"composer-editor\").getByTestId(\"selected-skill-token\"), ).toContainText(\"adhd-assistant\")",
+    "expect( page.getByText(\"收到：@adhd-assistant 帮我拆解今天的任务\", { exact: true }), ).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"发送\", exact: true })).toBeVisible()",
+    "expect( page.getByTestId(\"composer-editor\").getByTestId(\"selected-skill-token\"), ).toHaveCount(0)",
+    "expect.poll(() => selectedSkillsFromLog(sidecarLog)).toEqual([ \"adhd-assistant\", ])",
+    "expect.poll(() => userMessagesFromLog(sidecarLog)).toContainEqual( expect.stringMatching( /@adhd-assistant\\s+[\\s\\S]*帮我拆解今天的任务/, ), )",
+    "expect( page .getByRole(\"complementary\") .getByText(\"帮我拆解今天的任务\", { exact: true }), ).toBeVisible()",
+    "expect(page.getByTestId(\"message-skill-token\")).toContainText( \"adhd-assistant\", )",
+    "expect( page.getByText(\"收到：这次不要使用技能\", { exact: true }), ).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"发送\", exact: true })).toBeVisible()",
+    "expect.poll(() => userMessagesFromLog(sidecarLog)).toHaveLength(2)",
+    "expect((await userMessagesFromLog(sidecarLog))[1]).toMatch( /^<!-- qwork:personalization:start -->[\\s\\S]*<!-- qwork:personalization:end -->\\s+这次不要使用技能\\s+<qwork_selected_connector_invocation connectors=\"\">[\\s\\S]*<\\/qwork_selected_connector_invocation>$/, )",
+    "expect(restoredHistory).toBeVisible()",
+    "expect( page .getByRole(\"paragraph\") .filter({ hasText: /^帮我拆解今天的任务$/ }), ).toBeVisible()",
+    "expect(page.getByTestId(\"message-skill-token\")).toContainText( \"adhd-assistant\", )",
+    "expect( page.getByTestId(\"composer-editor\").getByTestId(\"selected-skill-token\"), ).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-E9274059F757F0",
+      "type": "return",
+      "assertion": "selects an installed skill from the draft slash picker and submits it on the first turn"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-skill-hub-spec-ts.f8f8060986",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/skill-hub.spec.ts -g \"selects an installed skill from the draft slash picker and submits it on the first turn\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"SkillHub\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByPlaceholder(\"搜索技能\").fill(\"adhd\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"安装 ADHD Assistant\" }).click()"
+        },
+        {
+          "action": "composer.fill(\"/ad\")"
+        },
+        {
+          "action": "picker.getByRole(\"option\", { name: /adhd-assistant/ }).click()"
+        },
+        {
+          "action": "composer.press(\"Backspace\")"
+        },
+        {
+          "action": "composer.fill(\"/ad\")"
+        },
+        {
+          "action": "page.getByRole(\"dialog\", { name: \"技能选择\" }).getByRole(\"option\", { name: /adhd-assistant/ }).click()"
+        },
+        {
+          "action": "composer.fill(\"帮我拆解今天的任务\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "composer.fill(\"这次不要使用技能\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "restoredHistory.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/skill-hub.spec.ts",
+        "line_start": 340,
+        "line_end": 426,
+        "body_sha256": "sha256:6f3c78ee7c53abf523948b3111b3449e24892b109997e9373363604569410114",
+        "assertion_count": 21,
+        "action_count": 14,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:2273637235cd224c143cf062c061be89c5ed2ae5359c59746276110f31e8c03f"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-E9274059F757F0"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-E9274059F757F0"
+    ]
+  }
+}

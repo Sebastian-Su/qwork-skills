@@ -1,0 +1,264 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WINDOW-CLOSE-SPEC-D653FBA4",
+  "title": "closes a renderer-revealed Electron window without a main-process exception",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-window-close-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/window-close.spec.ts",
+      "locator": "line:32;test:closes a renderer-revealed Electron window without a main-process exception",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:d653fba4e7ff40541794df16739fbeea8846cecd1ff643fead0ac39f64c4c33b",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-7A1FE45BE3684B",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-window-close-spec-ts:L32:d653fba4e7"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "closes a renderer-revealed Electron window without a main-process exception",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-window-close-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "closes a renderer-revealed Electron window without a main-process exception"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "createTestHome(\"window-close\")"
+    },
+    {
+      "action": "launchApp( configHome, { HOME: configHome, USERPROFILE: configHome }, fullBuiltinMarketplaceStartupCapabilities, )"
+    },
+    {
+      "action": "app.firstWindow()"
+    },
+    {
+      "action": "app.evaluate( async ({ BrowserWindow }, revealSource) => { const reveal = (0, eval)(`(${revealSource})`) as ( window: Electron.BrowserWindow, fallbackMs?: number, ) => void; const probeWindow = new BrowserWindow({ show: false }); reveal(probeWindow, 5_000); probeWindow.webContents.emit(\"did-finish-load\"); probeWindow.destroy(); await new Promise<void>((resolve) => setImmediate(resolve)); return true; }, revealWindow…"
+    },
+    {
+      "action": "(0, eval)(`(${revealSource})`)"
+    },
+    {
+      "action": "reveal(probeWindow, 5_000)"
+    },
+    {
+      "action": "probeWindow.webContents.emit(\"did-finish-load\")"
+    },
+    {
+      "action": "probeWindow.destroy()"
+    },
+    {
+      "action": "setImmediate(resolve)"
+    },
+    {
+      "action": "revealWindowWhenRendererLoads.toString()"
+    },
+    {
+      "action": "closeWithin(app, GRACEFUL_CLOSE_TIMEOUT_MS)"
+    },
+    {
+      "action": "terminateE2EApplication(app).catch(() => undefined)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(lifecycleProbe).resolves.toBe(true)",
+    "expect(closedGracefully).toBe(true)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-7A1FE45BE3684B",
+      "type": "return",
+      "assertion": "closes a renderer-revealed Electron window without a main-process exception"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-window-close-spec-ts.d653fba4e7",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/window-close.spec.ts -g \"closes a renderer-revealed Electron window without a main-process exception\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "createTestHome(\"window-close\")"
+        },
+        {
+          "action": "launchApp( configHome, { HOME: configHome, USERPROFILE: configHome }, fullBuiltinMarketplaceStartupCapabilities, )"
+        },
+        {
+          "action": "app.firstWindow()"
+        },
+        {
+          "action": "app.evaluate( async ({ BrowserWindow }, revealSource) => { const reveal = (0, eval)(`(${revealSource})`) as ( window: Electron.BrowserWindow, fallbackMs?: number, ) => void; const probeWindow = new BrowserWindow({ show: false }); reveal(probeWindow, 5_000); probeWindow.webContents.emit(\"did-finish-load\"); probeWindow.destroy(); await new Promise<void>((resolve) => setImmediate(resolve)); return true; }, revealWindow…"
+        },
+        {
+          "action": "(0, eval)(`(${revealSource})`)"
+        },
+        {
+          "action": "reveal(probeWindow, 5_000)"
+        },
+        {
+          "action": "probeWindow.webContents.emit(\"did-finish-load\")"
+        },
+        {
+          "action": "probeWindow.destroy()"
+        },
+        {
+          "action": "setImmediate(resolve)"
+        },
+        {
+          "action": "revealWindowWhenRendererLoads.toString()"
+        },
+        {
+          "action": "closeWithin(app, GRACEFUL_CLOSE_TIMEOUT_MS)"
+        },
+        {
+          "action": "terminateE2EApplication(app).catch(() => undefined)"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/window-close.spec.ts",
+        "line_start": 32,
+        "line_end": 69,
+        "body_sha256": "sha256:9ea0c27e5cbb70d6102058c9a2c9af8ec25ef45c4e0a1bbb142a63dda6a0a2de",
+        "assertion_count": 2,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5039f13439a8882273f23467b32e863d1b5c480e85baad0b77b6764b07cb47dc"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-7A1FE45BE3684B"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-7A1FE45BE3684B"
+    ]
+  }
+}

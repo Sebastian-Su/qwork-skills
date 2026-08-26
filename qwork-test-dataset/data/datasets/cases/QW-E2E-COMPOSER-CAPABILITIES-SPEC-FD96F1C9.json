@@ -1,0 +1,253 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-COMPOSER-CAPABILITIES-SPEC-FD96F1C9",
+  "title": "renders echoed prompts once without private contracts",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-composer-capabilities-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/composer-capabilities.spec.ts",
+      "locator": "line:86;test:renders echoed prompts once without private contracts",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:fd96f1c96a55dbc9d7a4c03d310d3c20a76d00ce6c537e1a915888f1f96439a5",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-02531A41D064C8",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L86:fd96f1c96a"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "renders echoed prompts once without private contracts",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "renders echoed prompts once without private contracts"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-18T17:47:55.060983+00:00",
+    "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"/skill-creator\")"
+    },
+    {
+      "action": "page .getByRole(\"dialog\", { name: \"技能选择\" }) .getByRole(\"option\", { name: /skill-creator/i }) .click()"
+    },
+    {
+      "action": "composer.fill(\"你有什么能力\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"第二个问题\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"收到：@skill-creator 你有什么能力\", { exact: true })).toBeVisible()",
+    "expect(visibleUserMessages).toHaveText([\"你有什么能力\"])",
+    "expect(page.getByTestId(\"message-skill-token\")).toContainText(\"skill-creator\")",
+    "expect(page.getByText(\"收到：第二个问题\", { exact: true })).toBeVisible()",
+    "expect(visibleUserMessages).toHaveText([\"你有什么能力\", \"第二个问题\"])",
+    "expect(page.getByText(/qwork:(?:personalization|global-memory)/)).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-02531A41D064C8",
+      "type": "return",
+      "assertion": "renders echoed prompts once without private contracts"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-composer-capabilities-spec-ts.fd96f1c96a",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/composer-capabilities.spec.ts -g \"renders echoed prompts once without private contracts\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"/skill-creator\")"
+        },
+        {
+          "action": "page .getByRole(\"dialog\", { name: \"技能选择\" }) .getByRole(\"option\", { name: /skill-creator/i }) .click()"
+        },
+        {
+          "action": "composer.fill(\"你有什么能力\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"第二个问题\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/composer-capabilities.spec.ts",
+        "line_start": 86,
+        "line_end": 124,
+        "body_sha256": "sha256:0befe3bdd3fd5b5b71b668713dc5f7594e0c93c02467835d4e543ad7ddeb9ed3",
+        "assertion_count": 6,
+        "action_count": 7,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:ef0fe5eafdb3d02943778765fba214b59a44606545516c81b2b6e65bba93bb7a"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": "bug973549-public-reference-643446ff-v1",
+      "verified_at": "2026-08-18T17:47:55.060983+00:00",
+      "environment": "stale deterministic public Playwright reference run"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-02531A41D064C8"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-02531A41D064C8"
+    ]
+  }
+}

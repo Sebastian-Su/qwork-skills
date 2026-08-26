@@ -1,0 +1,310 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-WORKBUDD-1-55CEC8A3",
+  "title": "docs/changes/CHG-workbuddy-quick-actions-20260818/requirements.md · 1. 背景与问题 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-workbuddy-quick-actions-20260818-re",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/changes/CHG-workbuddy-quick-actions-20260818/requirements.md",
+      "locator": "line:10;heading:1. 背景与问题",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:8099f98a280f93655a8a05d09fa165f2f5932fcfa88d3730f6c18b71447ddb0a",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-workbuddy-quick-actions-20260818-re",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/changes/CHG-workbuddy-quick-actions-20260818/requirements.md",
+      "locator": "line:12;heading:1. 背景与问题",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:fc81a2a2c9e6b019b4533b3a3ba9f14812c3ec1f2759401d4cedacf12a8430e8",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-7115FA91EFDE97",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-workbuddy-quick-actions-20260818-re:L10:8099f98a28"
+      ],
+      "content_facets": [
+        "error-copy"
+      ],
+      "acceptance_categories": [
+        "error",
+        "ui-content"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "QWork 首页已有“日常办公 / 代码开发 / 设计创意”场景、一级快捷项、Composer 标签和“更多快捷项”箭头，但当前箭头点击只显示“更多快捷项暂未实现”，一级快捷项也不会展开 WorkBuddy 对应的二级模板或填入模板提示词。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-workbuddy-quick-actions-20260818-re"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "QWork 首页已有“日常办公 / 代码开发 / 设计创意”场景、一级快捷项、Composer 标签和“更多快捷项”箭头，但当前箭头点击只显示“更多快捷项暂未实现”，一级快捷项也不会展开 WorkBuddy 对应的二级模板或填入模板提示词。"
+    },
+    {
+      "requirement_id": "REQ-D725027F8E2266",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-workbuddy-quick-actions-20260818-re:L12:fc81a2a2c9"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "本需求复用现有 `ThreadView` 首页和 `Composer`，补齐 WorkBuddy 参考交互，不新建另一套快捷入口。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-workbuddy-quick-actions-20260818-re"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "本需求复用现有 `ThreadView` 首页和 `Composer`，补齐 WorkBuddy 参考交互，不新建另一套快捷入口。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for shell-home at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-workbuddy-quick-actions-20260818/requirements.md · 1. 背景与问题 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer visible content after the trigger and assert [REQ-7115FA91EFDE97] exactly: QWork 首页已有“日常办公 / 代码开发 / 设计创意”场景、一级快捷项、Composer 标签和“更多快捷项”箭头，但当前箭头点击只显示“更多快捷项暂未实现”，一级快捷项也不会展开 WorkBuddy 对应的二级模板或填入模板提示词。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-D725027F8E2266] exactly: 本需求复用现有 `ThreadView` 首页和 `Composer`，补齐 WorkBuddy 参考交互，不新建另一套快捷入口。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "QWork 首页已有“日常办公 / 代码开发 / 设计创意”场景、一级快捷项、Composer 标签和“更多快捷项”箭头，但当前箭头点击只显示“更多快捷项暂未实现”，一级快捷项也不会展开 WorkBuddy 对应的二级模板或填入模板提示词。",
+    "本需求复用现有 `ThreadView` 首页和 `Composer`，补齐 WorkBuddy 参考交互，不新建另一套快捷入口。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-7115FA91EFDE97]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: QWork 首页已有“日常办公 / 代码开发 / 设计创意”场景、一级快捷项、Composer 标签和“更多快捷项”箭头，但当前箭头点击只显示“更多快捷项暂未实现”，一级快捷项也不会展开 WorkBuddy 对应的二级模板或填入模板提示词。",
+    "FAIL [REQ-D725027F8E2266]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 本需求复用现有 `ThreadView` 首页和 `Composer`，补齐 WorkBuddy 参考交互，不新建另一套快捷入口。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-7115FA91EFDE97",
+      "type": "ui-content",
+      "assertion": "QWork 首页已有“日常办公 / 代码开发 / 设计创意”场景、一级快捷项、Composer 标签和“更多快捷项”箭头，但当前箭头点击只显示“更多快捷项暂未实现”，一级快捷项也不会展开 WorkBuddy 对应的二级模板或填入模板提示词。"
+    },
+    {
+      "requirement_id": "REQ-D725027F8E2266",
+      "type": "ui",
+      "assertion": "本需求复用现有 `ThreadView` 首页和 `Composer`，补齐 WorkBuddy 参考交互，不新建另一套快捷入口。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-workbuddy.1-55cec8a388",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for shell-home at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-workbuddy-quick-actions-20260818/requirements.md · 1. 背景与问题 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer visible content after the trigger and assert [REQ-7115FA91EFDE97] exactly: QWork 首页已有“日常办公 / 代码开发 / 设计创意”场景、一级快捷项、Composer 标签和“更多快捷项”箭头，但当前箭头点击只显示“更多快捷项暂未实现”，一级快捷项也不会展开 WorkBuddy 对应的二级模板或填入模板提示词。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-D725027F8E2266] exactly: 本需求复用现有 `ThreadView` 首页和 `Composer`，补齐 WorkBuddy 参考交互，不新建另一套快捷入口。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-7115FA91EFDE97",
+      "REQ-D725027F8E2266"
+    ],
+    "categories": [
+      "business",
+      "error",
+      "ui-content"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:error",
+      "category:ui-content",
+      "full",
+      "requirement:REQ-7115FA91EFDE97",
+      "requirement:REQ-D725027F8E2266"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-7115FA91EFDE97",
+      "oracle_type": "ui-content",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-workbuddy-quick-actions-20260818/requirements.md · 1. 背景与问题 产品契约 exactly once and retain its correlation identity",
+      "then": "QWork 首页已有“日常办公 / 代码开发 / 设计创意”场景、一级快捷项、Composer 标签和“更多快捷项”箭头，但当前箭头点击只显示“更多快捷项暂未实现”，一级快捷项也不会展开 WorkBuddy 对应的二级模板或填入模板提示词。",
+      "observation_boundary": "renderer visible content",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-D725027F8E2266",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-workbuddy-quick-actions-20260818/requirements.md · 1. 背景与问题 产品契约 exactly once and retain its correlation identity",
+      "then": "本需求复用现有 `ThreadView` 首页和 `Composer`，补齐 WorkBuddy 参考交互，不新建另一套快捷入口。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

@@ -1,0 +1,513 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-EXPERT-CONCURRENCY-SPEC-8C4418BF",
+  "title": "collective session starts in explicit Lead-only mode when Agent Teams are disabled",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-team",
+    "journey": "expert-team",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-expert-concurrency-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/expert-concurrency.spec.ts",
+      "locator": "line:72;test:collective session starts in explicit Lead-only mode when Agent Teams are disabled",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:8c4418bf01c27a24b40382ebc970dfa8af315b014aecaf17a571e732d22c8166",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-journey-phase2-plan-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-journey-phase2-plan.md",
+      "locator": "line:23;heading:已冻结决策",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:540950cd0d8288f30927e6dd6d2e26b00609fc4ea15fb8b1ea68afd6eca0ebf4",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-journey-phase2-plan-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-journey-phase2-plan.md",
+      "locator": "line:55;heading:Slice 3：团队运行时",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:e5a03db010dd24a30d77b177e938547f96c780ca56e38b408a3b949d8bd4c714",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qwork-expert-team-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qwork-expert-team-prd.md",
+      "locator": "line:321;heading:FR-TEAM-001 Lead 主会话",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:393aab74039f1cae7e4bd572635d245ab5c7d62da256cc9439e9af3ba70033eb",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:18;heading:1. 目标与非目标",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:9387e4deefd4eea3ff2bf6153a636c106d11c21620c15c2a78db16d98f44bbb5",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:56;heading:3. 领域边界",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:a3655d233d7236935ec1dafac35dbb3199b71c0cd4a321366bd9b5a79a9815c6",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:198;heading:7.1 启动与委派",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:518c949d8da71a9556b471dd58fbe39c8723ed7ea82e5ac84bbfbb5cfea0b67d",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-CFF4A25385E84F",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-expert-concurrency-spec-ts:L72:8c4418bf01"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "collective session starts in explicit Lead-only mode when Agent Teams are disabled",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-expert-concurrency-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "collective session starts in explicit Lead-only mode when Agent Teams are disabled"
+    },
+    {
+      "requirement_id": "REQ-1EF679656ADC16",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-journey-phase2-plan-md:L23:540950cd0d"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "用户只与 Lead 对话；成员视图只读，AskUser 属于 Lead 主会话。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-journey-phase2-plan-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "用户只与 Lead 对话；成员视图只读，AskUser 属于 Lead 主会话。"
+    },
+    {
+      "requirement_id": "REQ-6876A44BEF87D3",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-journey-phase2-plan-md:L55:e5a03db010"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "Lead-only、只读成员视图和 AskUser 持久化。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-journey-phase2-plan-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Lead-only、只读成员视图和 AskUser 持久化。"
+    },
+    {
+      "requirement_id": "REQ-B21DBC3735A025",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md:L321:393aab7403"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "roster 只表示可用成员，不能触发前端自动运行。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "roster 只表示可用成员，不能触发前端自动运行。"
+    },
+    {
+      "requirement_id": "REQ-B953056AF13CE3",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L18:9387e4deef"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "专家团由唯一负责人统筹，按需启动成员，不自动全员运行。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "专家团由唯一负责人统筹，按需启动成员，不自动全员运行。"
+    },
+    {
+      "requirement_id": "REQ-C7D349DB031C9E",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L56:a3655d233d"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "普通 Plugin 不会因为包含 Agent 或 Skill 自动进入专家中心。只有合法 Expert Package 才能被召唤为主身份。Registered Member 不等于 Running Member；简单任务允许保持零个 Running Member。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "普通 Plugin 不会因为包含 Agent 或 Skill 自动进入专家中心。只有合法 Expert Package 才能被召唤为主身份。Registered Member 不等于 Running Member；简单任务允许保持零个 Running Member。"
+    },
+    {
+      "requirement_id": "REQ-7429F1FD1D3C2F",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L198:518c949d8d"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "召唤后只有 Lead 成为主会话身份。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "召唤后只有 Lead 成为主会话身份。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"请由主理人给出一份方案\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(async () => { const controls = await fs.readFile(controlLog, \"utf8\").catch(() => \"\"); return controls .split(\"\\n\") .filter(Boolean) .map((line) => JSON.parse(line) as Record<string, unknown>) .find((message) => message.type === \"user_message\")?.content ?? null; }).toContain('<qwork_team_runtime version=\"1\" mode=\"lead-only\">')",
+    "expect(messages.find((message) => message.type === \"create_session\")) .not.toHaveProperty(\"subagent_concurrency_limit\")",
+    "expect(controls).not.toContain(\"subscribe_subagent_streams\")",
+    "expect(messages.find((message) => message.type === \"user_message\")?.content) .toContain('<qwork_team_runtime version=\"1\" mode=\"lead-only\">')",
+    "expect(page.getByRole(\"alert\")).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-CFF4A25385E84F",
+      "type": "return",
+      "assertion": "collective session starts in explicit Lead-only mode when Agent Teams are disabled"
+    },
+    {
+      "requirement_id": "REQ-1EF679656ADC16",
+      "type": "ui",
+      "assertion": "用户只与 Lead 对话；成员视图只读，AskUser 属于 Lead 主会话。"
+    },
+    {
+      "requirement_id": "REQ-6876A44BEF87D3",
+      "type": "database",
+      "assertion": "Lead-only、只读成员视图和 AskUser 持久化。"
+    },
+    {
+      "requirement_id": "REQ-B21DBC3735A025",
+      "type": "return",
+      "assertion": "roster 只表示可用成员，不能触发前端自动运行。"
+    },
+    {
+      "requirement_id": "REQ-B953056AF13CE3",
+      "type": "return",
+      "assertion": "专家团由唯一负责人统筹，按需启动成员，不自动全员运行。"
+    },
+    {
+      "requirement_id": "REQ-C7D349DB031C9E",
+      "type": "event",
+      "assertion": "普通 Plugin 不会因为包含 Agent 或 Skill 自动进入专家中心。只有合法 Expert Package 才能被召唤为主身份。Registered Member 不等于 Running Member；简单任务允许保持零个 Running Member。"
+    },
+    {
+      "requirement_id": "REQ-7429F1FD1D3C2F",
+      "type": "return",
+      "assertion": "召唤后只有 Lead 成为主会话身份。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-expert-concurrency-spec-ts.8c4418bf01",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/expert-concurrency.spec.ts -g \"collective session starts in explicit Lead-only mode when Agent Teams are disabled\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-team",
+      "steps": [
+        {
+          "action": "composer.fill(\"请由主理人给出一份方案\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/expert-concurrency.spec.ts",
+        "line_start": 72,
+        "line_end": 114,
+        "body_sha256": "sha256:9ac3414f47c6c683ae88302f1c1efe62eeadff4476ce0a994468f8a70a778bd4",
+        "assertion_count": 5,
+        "action_count": 2,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:9448fd6cdc35b55467c0335c836ed1d425eb38ce714bc16b2a6a34ea47779fae"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-1EF679656ADC16",
+      "REQ-6876A44BEF87D3",
+      "REQ-7429F1FD1D3C2F",
+      "REQ-B21DBC3735A025",
+      "REQ-B953056AF13CE3",
+      "REQ-C7D349DB031C9E",
+      "REQ-CFF4A25385E84F"
+    ],
+    "categories": [
+      "business",
+      "data",
+      "negative",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:data",
+      "category:negative",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-1EF679656ADC16",
+      "requirement:REQ-6876A44BEF87D3",
+      "requirement:REQ-7429F1FD1D3C2F",
+      "requirement:REQ-B21DBC3735A025",
+      "requirement:REQ-B953056AF13CE3",
+      "requirement:REQ-C7D349DB031C9E",
+      "requirement:REQ-CFF4A25385E84F"
+    ]
+  }
+}

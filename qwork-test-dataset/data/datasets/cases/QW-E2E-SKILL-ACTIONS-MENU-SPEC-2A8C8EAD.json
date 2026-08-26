@@ -1,0 +1,300 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SKILL-ACTIONS-MENU-SPEC-2A8C8EAD",
+  "title": "replicates the WorkBuddy find, upload and create skill actions",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-skill-actions-menu-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/skill-actions-menu.spec.ts",
+      "locator": "line:11;test:replicates the WorkBuddy find, upload and create skill actions",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:2a8c8ead8716770889b61d4521b0e2a58bca13355d0d6fa45d02ac0040c7978e",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-4228148034EDC5",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-skill-actions-menu-spec-ts:L11:2a8c8ead87"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "replicates the WorkBuddy find, upload and create skill actions",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-skill-actions-menu-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "replicates the WorkBuddy find, upload and create skill actions"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"查找技能\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"创建技能\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"上传技能\" }).click()"
+    },
+    {
+      "action": "dropZone.click()"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"上传技能\" }).click()"
+    },
+    {
+      "action": "invalidDialog.getByRole(\"button\", { name: \"拖拽文件或点击上传\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(menu).toBeVisible()",
+    "expect(menuStyle[\"border-radius\"]).toBe(\"16px\")",
+    "expect(menuStyle[\"font-size\"]).toBe(\"14px\")",
+    "expect(findComposer).toHaveText(\"请帮我查找并自动安装能「……」的skill\")",
+    "expect(page.getByTestId(\"message-list\").getByText(\"请帮我查找并自动安装能「……」的skill\")).toHaveCount(0)",
+    "expect(createComposer).toHaveText(\"请帮我创建一个可以实现「……」的skill\")",
+    "expect(page.getByTestId(\"composer-dock\")).toContainText(\"skill-creator\")",
+    "expect(dialog).toBeVisible()",
+    "expect(dialogBox.width).toBeCloseTo(460, 0)",
+    "expect(dialogBox.height).toBeGreaterThanOrEqual(340)",
+    "expect(dropZoneBox.width).toBeCloseTo(410, 0)",
+    "expect(dropZoneBox.height).toBeCloseTo(130, 0)",
+    "expect(dialogStyle[\"border-radius\"]).toBe(\"16px\")",
+    "expect(page.getByText(\"「e2e-local-helper」技能已导入\")).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"我安装的 (1)\" })).toBeVisible()",
+    "expect(invalidDialog.getByRole(\"alert\")).toContainText(/description|描述/i)",
+    "expect(page.getByRole(\"button\", { name: \"我安装的 (1)\" })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-4228148034EDC5",
+      "type": "return",
+      "assertion": "replicates the WorkBuddy find, upload and create skill actions"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-skill-actions-menu-spec-ts.2a8c8ead87",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/skill-actions-menu.spec.ts -g \"replicates the WorkBuddy find, upload and create skill actions\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"查找技能\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"创建技能\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"上传技能\" }).click()"
+        },
+        {
+          "action": "dropZone.click()"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"上传技能\" }).click()"
+        },
+        {
+          "action": "invalidDialog.getByRole(\"button\", { name: \"拖拽文件或点击上传\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/skill-actions-menu.spec.ts",
+        "line_start": 11,
+        "line_end": 113,
+        "body_sha256": "sha256:d420677c087ea280e6f0c48cb64cb6c5f3edfcaaced19ae488e59966d4c8431c",
+        "assertion_count": 17,
+        "action_count": 13,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:ce42438d270d21548a2ca815cc85eba533575465347c387709c8e6fed3ed02ec"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-4228148034EDC5"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-4228148034EDC5"
+    ]
+  }
+}

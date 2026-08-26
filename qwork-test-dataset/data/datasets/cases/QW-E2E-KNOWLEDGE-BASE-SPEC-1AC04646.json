@@ -1,0 +1,227 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-KNOWLEDGE-BASE-SPEC-1AC04646",
+  "title": "empty knowledge page creates a library and stays on it",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "library",
+    "journey": "library",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-knowledge-base-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/knowledge-base.spec.ts",
+      "locator": "line:53;test:empty knowledge page creates a library and stays on it",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:1ac046463519dd8f8c45c516b6efca3b6a533f95c17c0e8ce66655e3e3ec2d07",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-1DDEE3BD1C6352",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-knowledge-base-spec-ts:L53:1ac0464635"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "library",
+      "priority": "P1",
+      "rule": "empty knowledge page creates a library and stays on it",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-knowledge-base-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "empty knowledge page creates a library and stays on it"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByLabel(\"知识库名称\").fill(\"联调手册\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"创建\" }).click()"
+    },
+    {
+      "action": "bff.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"还没有知识库\")).toBeVisible()",
+    "expect(page.getByRole(\"heading\", { name: \"联调手册\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"上传文档\" })).toBeVisible()",
+    "expect(page.getByText(\"dataset\")).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-1DDEE3BD1C6352",
+      "type": "return",
+      "assertion": "empty knowledge page creates a library and stays on it"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-knowledge-base-spec-ts.1ac0464635",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/knowledge-base.spec.ts -g \"empty knowledge page creates a library and stays on it\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "library",
+      "steps": [
+        {
+          "action": "page.getByLabel(\"知识库名称\").fill(\"联调手册\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"创建\" }).click()"
+        },
+        {
+          "action": "bff.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/knowledge-base.spec.ts",
+        "line_start": 53,
+        "line_end": 69,
+        "body_sha256": "sha256:efd7599963902507aa9c6e1258e1f676b53b6f034338b8afe30d257f7d616f7a",
+        "assertion_count": 4,
+        "action_count": 3,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:be8caa865d6e14bea5f0658c690c2cde7e98bda1a2e53fac0220727ae4d8dc3d"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-1DDEE3BD1C6352"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-1DDEE3BD1C6352"
+    ]
+  }
+}

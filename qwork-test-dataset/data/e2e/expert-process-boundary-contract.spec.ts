@@ -60,3 +60,19 @@ test("EXPERT-BOUNDARY-003 | 文件边界在主进程最早校验工作区与 Exp
   expect(filesystem).toMatch(/workspace|allowedRoot|root/i);
   expect(`${paths}\n${runtime}\n${filesystem}`).toMatch(/symbolic link|symlink|realpath/i);
 });
+
+test("EXPERT-BOUNDARY-004 | 专家会话要求 Runtime 明示 SessionStart 隐藏上下文能力", async () => {
+  const [protocol, supervisor, providerOracle] = await Promise.all([
+    source("src/shared/protocol.ts"),
+    source("src/main/sidecar/SidecarSupervisor.ts"),
+    source("src/main/experts/expertRuntimeContract.live.test.ts"),
+  ]);
+
+  expect(protocol).toContain("session_start_additional_context?: boolean");
+  expect(supervisor).toContain('supportsCapability("session_start_additional_context")');
+  expect(supervisor).toContain("未声明 SessionStart 专家身份上下文能力");
+  expect(providerOracle).toContain('qwork_expert_identity package_id="douyin-strategist"');
+  expect(providerOracle).toContain("expertIdentityCount: 1");
+  expect(providerOracle).toContain("controlHasExpertIdentity: false");
+  expect(providerOracle).toContain("controlHasDouyinIdentity: false");
+});

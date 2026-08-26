@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "case_id": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-5D07F14C",
+  "case_title": "WB-RECOVERY-005 | 未完成专家历史重启后不伪造续跑且只派发新的继续请求",
+  "status": "pass",
+  "started_at": "2026-08-14T03:30:14.670Z",
+  "finished_at": "2026-08-14T03:30:20.855Z",
+  "exit_code": 0,
+  "zero_real_model_calls": true,
+  "isolated_qwork_home": true,
+  "deterministic_sidecar": "repo://e2e/fixtures/fake-sidecar.mjs",
+  "source": {
+    "spec": "skill://qwork-test-dataset/data/e2e/stale-wait-recovery.spec.ts",
+    "spec_sha256": "sha256:7e6a51c0e170e71ae328cf73a9d96138bbe3c9d192ebb203fb10aed690313cfb",
+    "implementation_revision": "19f210518dbad3768eb14a09baa5eea226016c7b"
+  },
+  "authority": {
+    "files": [
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts",
+        "sha256": "sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts",
+        "sha256": "sha256:75ea3197686d34faf9b138145ccc5050eac2bbaba31ea7aed1e3f4fdc63ddbd7"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/private-case-authority.mjs",
+        "sha256": "sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs",
+        "sha256": "sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/build_isolated_electron.mjs",
+        "sha256": "sha256:3634574afd74c3762e05b814b80d7bbc1aee08c8c782ebb1884a6b7df10db468"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts",
+        "sha256": "sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/playwright-private.config.ts",
+        "sha256": "sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/package.json",
+        "sha256": "sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390"
+      },
+      {
+        "locator": "repo://e2e/fixtures/fake-sidecar.mjs",
+        "sha256": "sha256:9ea7d9a1ec44d6a681f929f2005ea207598d4711c7de12be55dd447f6c2f91f0"
+      },
+      {
+        "locator": "repo://e2e/fixtures/workbuddy-ui.ts",
+        "sha256": "sha256:4458ee31d84e60d047334a9e26faef4a4415d79046fefd2b3f84bebeff1c2675"
+      }
+    ]
+  },
+  "selected_tests": [
+    {
+      "title": "WB-RECOVERY-005 | 未完成专家历史重启后不伪造续跑且只派发新的继续请求",
+      "file": "stale-wait-recovery.spec.ts",
+      "path": "stale-wait-recovery.spec.ts > WB-RECOVERY-005 | 未完成专家历史重启后不伪造续跑且只派发新的继续请求",
+      "status": "expected",
+      "duration_ms": 5685
+    }
+  ],
+  "evidence": {
+    "integrity": "complete",
+    "integrity_errors": [],
+    "build_manifest": {
+      "path": "build-manifest.json",
+      "sha256": "sha256:4d0c675a7757fc82250f5ee1fc0355d678a23fb102ff4f5194ba85b439f8db6b"
+    },
+    "playwright_report": {
+      "path": "playwright-report.json",
+      "sha256": "sha256:b9c73c02b0c56040845cfbdda3156d1640db19bed49c0d8606ad39244536523e"
+    },
+    "stderr": {
+      "path": "playwright.stderr.log",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "electron_runtime": {
+      "path": "electron-runtime.log",
+      "sha256": "sha256:9d3fb22a4d5d9201173c639e9ecba70d71f5ea196bcedefa6ab0e0196e206298"
+    },
+    "screenshots": [
+      {
+        "path": "screenshots/WB-RECOVERY-005-未完成专家历史重启后不伪造续跑且只派发新的继续请求-entry-live-turn-waiting-before-restart.png",
+        "sha256": "sha256:299fe794c89ac1f3cd08cae80f769f6f744fa195513f01eb55fa775cbbd96aea"
+      },
+      {
+        "path": "screenshots/WB-RECOVERY-005-未完成专家历史重启后不伪造续跑且只派发新的继续请求-failure-stale-wait-must-be-terminal.png",
+        "sha256": "sha256:11b1e453a07afa615b505a0c7b2c6cc7ad57daf7330290b83ee526770c5e6fdb"
+      },
+      {
+        "path": "screenshots/WB-RECOVERY-005-未完成专家历史重启后不伪造续跑且只派发新的继续请求-final-restored-session-continued-once.png",
+        "sha256": "sha256:88368138919c09c78e9af59100c77e1b98d471d3528bc7f614095271d28d6131"
+      },
+      {
+        "path": "screenshots/WB-RECOVERY-005-未完成专家历史重启后不伪造续跑且只派发新的继续请求-transition-cold-history-after-restart.png",
+        "sha256": "sha256:11b1e453a07afa615b505a0c7b2c6cc7ad57daf7330290b83ee526770c5e6fdb"
+      },
+      {
+        "path": "screenshots/WB-RECOVERY-005-未完成专家历史重启后不伪造续跑且只派发新的继续请求-transition-cold-history-idle-after-restart.png",
+        "sha256": "sha256:11b1e453a07afa615b505a0c7b2c6cc7ad57daf7330290b83ee526770c5e6fdb"
+      }
+    ],
+    "traces": [
+      {
+        "path": "playwright-results/stale-wait-recovery-WB-REC-c51aa-5-未完成专家历史重启后不伪造续跑且只派发新的继续请求/trace.zip",
+        "sha256": "sha256:ae22ac5e982a0ff126a3df54aeff0324d1c3bc6aec5a1650bc3a5134106ef8af"
+      }
+    ]
+  },
+  "cleanup": {
+    "case_owned_qwork_home_removed_by_fixture": true,
+    "app_process_closed_by_fixture": true,
+    "app_assembly_removed": true
+  }
+}

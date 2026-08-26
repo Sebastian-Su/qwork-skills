@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "project": "qwork",
+  "title": "QWork WorkBuddy 存储聚焦验证",
+  "run_id": "private-reference-storage-negative-c9227fe0-v2",
+  "generated_at": "2026-08-14T08:05:58.112874Z",
+  "gate_status": "repair-required",
+  "plain_language_summary": {
+    "what_was_tested": [
+      "2 个显式选择的 WorkBuddy 存储迁移 Case"
+    ],
+    "what_was_not_tested": [
+      "完整产品全量 E2E",
+      "Electron UI",
+      "真实模型调用",
+      "未选择的存储 Case"
+    ],
+    "result_reason": "选中的 2 个 Case 中有 1 个未满足冻结迁移契约。",
+    "user_impact": "验证只读取冻结后的私有 Dataset，不打开或修改 live ~/.workbuddy 与 ~/.qwork。",
+    "next_step": "WORKBUDDY-STORAGE:ENTRY:153216E016AB3A9D78FE: decision=pending implementation=pending next_action=choose preserve or versioned transform, then bind QWork target plus restart and rollback proof"
+  },
+  "focused_conclusion": "选中 2 个，1 通过、1 Case 失败、0 基础设施失败、0 未执行",
+  "full_suite_conclusion": "未运行，不能据此宣称完整产品可提测",
+  "environment": {
+    "implementation_revision": "c9227fe0f12073144f954f13634f77fbacd9c399",
+    "source_inventory_sha256": "e394d3122cf66681b9e4fcc23334233e0023a6b01e644364d30055e316f6765e",
+    "disposition_canonical_sha256": "d2cbd0303e911b935652e4b423fad5d0b66ca57a32f4e045d2485ed1859fc9a2"
+  },
+  "scope": {
+    "included_case_ids": [
+      "QW-REQ-WORKBUDDY-STORAGE-LOCAL-ARTIFACT-INDEX-PRESERVE-OR-EXPLICI-11112E6A",
+      "QW-REQ-WORKBUDDY-STORAGE-LOCAL-DOMAIN-AUDIT-LOG-C8240E7A"
+    ],
+    "selection": "explicit"
+  },
+  "cases": [
+    {
+      "id": "QW-REQ-WORKBUDDY-STORAGE-LOCAL-ARTIFACT-INDEX-PRESERVE-OR-EXPLICI-11112E6A",
+      "title": "~/.workbuddy/artifact-index · preserve-or-explicitly-transform 迁移契约",
+      "status": "fail",
+      "route": "qwork.dataset.workbuddy-storage.qw-req-workbuddy-storage-local-artifact-index-preserve-or-explici-11112e6a",
+      "executor": "deterministic-runner",
+      "ui": false,
+      "expected": "all Case-bound storage atoms have resolved decisions and verified or not-required implementation state",
+      "actual": "WORKBUDDY-STORAGE:ENTRY:153216E016AB3A9D78FE: decision=pending implementation=pending next_action=choose preserve or versioned transform, then bind QWork target plus restart and rollback proof",
+      "evidence": [
+        {
+          "kind": "json",
+          "path": "cases/QW-REQ-WORKBUDDY-STORAGE-LOCAL-ARTIFACT-INDEX-PRESERVE-OR-EXPLICI-11112E6A/storage-case-result.json",
+          "sha256": "sha256:4a69c094c3eeb33206c035bb76cdd38b0a814ccde4762a156be7babd4ef43a0e"
+        }
+      ]
+    },
+    {
+      "id": "QW-REQ-WORKBUDDY-STORAGE-LOCAL-DOMAIN-AUDIT-LOG-C8240E7A",
+      "title": "~/.workbuddy/audit-log 顶级存储域契约",
+      "status": "pass",
+      "route": "qwork.dataset.workbuddy-storage.qw-req-workbuddy-storage-local-domain-audit-log-c8240e7a",
+      "executor": "deterministic-runner",
+      "ui": false,
+      "expected": "all Case-bound storage atoms have resolved decisions and verified or not-required implementation state",
+      "actual": "1/1 原子通过",
+      "evidence": [
+        {
+          "kind": "json",
+          "path": "cases/QW-REQ-WORKBUDDY-STORAGE-LOCAL-DOMAIN-AUDIT-LOG-C8240E7A/storage-case-result.json",
+          "sha256": "sha256:85fd2e0cff62f43074b0fdaf461242e0ab7136d7a3916a0369e8cc34f8e63a26"
+        }
+      ]
+    }
+  ],
+  "commands": [
+    "validate_workbuddy_storage_case.py --case-id <exact-case-id>"
+  ],
+  "defects": [
+    {
+      "case_id": "QW-REQ-WORKBUDDY-STORAGE-LOCAL-ARTIFACT-INDEX-PRESERVE-OR-EXPLICI-11112E6A",
+      "summary": "WORKBUDDY-STORAGE:ENTRY:153216E016AB3A9D78FE: decision=pending implementation=pending next_action=choose preserve or versioned transform, then bind QWork target plus restart and rollback proof"
+    }
+  ],
+  "blockers": [
+    "WORKBUDDY-STORAGE:ENTRY:153216E016AB3A9D78FE: decision=pending implementation=pending next_action=choose preserve or versioned transform, then bind QWork target plus restart and rollback proof"
+  ],
+  "residual_risks": [
+    "full product release gate was not executed"
+  ],
+  "cleanup": {
+    "status": "passed",
+    "details": "runner only wrote inside the approved ignored run root"
+  },
+  "checkpoint": {
+    "current_implementation_revision": "c9227fe0f12073144f954f13634f77fbacd9c399",
+    "current_plan_hash": "1a5764a8a7be382170048ee81abf2407f31894026df785529db40d84427b456b",
+    "first_trusted_failure": "QW-REQ-WORKBUDDY-STORAGE-LOCAL-ARTIFACT-INDEX-PRESERVE-OR-EXPLICI-11112E6A",
+    "repair_required_next_action": "WORKBUDDY-STORAGE:ENTRY:153216E016AB3A9D78FE: decision=pending implementation=pending next_action=choose preserve or versioned transform, then bind QWork target plus restart and rollback proof",
+    "cleanup_status": "passed",
+    "independent_rerun_status": "not_run",
+    "final_response_allowed": false
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "project": "qwork",
+  "title": "QWork WorkBuddy 存储聚焦验证",
+  "run_id": "private-reference-storage-batch-c9227fe0-v3",
+  "generated_at": "2026-08-14T07:59:46.074833Z",
+  "gate_status": "repair-required",
+  "plain_language_summary": {
+    "what_was_tested": [
+      "2 个显式选择的 WorkBuddy 存储迁移 Case"
+    ],
+    "what_was_not_tested": [
+      "完整产品全量 E2E",
+      "Electron UI",
+      "真实模型调用",
+      "未选择的存储 Case"
+    ],
+    "result_reason": "本次选中的只读存储 Case 均通过，但完整产品全量 E2E 和发布门禁未运行。",
+    "user_impact": "验证只读取冻结后的私有 Dataset，不打开或修改 live ~/.workbuddy 与 ~/.qwork。",
+    "next_step": "审核 promotion-candidates.json 后登记当前证据，再选择下一批。"
+  },
+  "focused_conclusion": "选中 2 个，2 通过、0 Case 失败、0 基础设施失败、0 未执行",
+  "full_suite_conclusion": "未运行，不能据此宣称完整产品可提测",
+  "environment": {
+    "implementation_revision": "c9227fe0f12073144f954f13634f77fbacd9c399",
+    "source_inventory_sha256": "e394d3122cf66681b9e4fcc23334233e0023a6b01e644364d30055e316f6765e",
+    "disposition_canonical_sha256": "d2cbd0303e911b935652e4b423fad5d0b66ca57a32f4e045d2485ed1859fc9a2"
+  },
+  "scope": {
+    "included_case_ids": [
+      "QW-REQ-WORKBUDDY-STORAGE-LOCAL-DS-STORE-REGENERATE-OR-EXCLUDE-845E6105",
+      "QW-REQ-WORKBUDDY-STORAGE-LOCAL-DOMAIN-ARTIFACT-INDEX-CF684E0B"
+    ],
+    "selection": "explicit"
+  },
+  "cases": [
+    {
+      "id": "QW-REQ-WORKBUDDY-STORAGE-LOCAL-DS-STORE-REGENERATE-OR-EXCLUDE-845E6105",
+      "title": "~/.workbuddy/.DS_Store · regenerate-or-exclude 迁移契约",
+      "status": "pass",
+      "route": "qwork.dataset.workbuddy-storage.qw-req-workbuddy-storage-local-ds-store-regenerate-or-exclude-845e6105",
+      "executor": "deterministic-runner",
+      "ui": false,
+      "expected": "all Case-bound storage atoms have resolved decisions and verified or not-required implementation state",
+      "actual": "1/1 原子通过",
+      "evidence": [
+        {
+          "kind": "json",
+          "path": "cases/QW-REQ-WORKBUDDY-STORAGE-LOCAL-DS-STORE-REGENERATE-OR-EXCLUDE-845E6105/storage-case-result.json",
+          "sha256": "sha256:462643830b492ea04c29bd9f8eb7e65db700d00998354cb732999e9e74d76df7"
+        }
+      ]
+    },
+    {
+      "id": "QW-REQ-WORKBUDDY-STORAGE-LOCAL-DOMAIN-ARTIFACT-INDEX-CF684E0B",
+      "title": "~/.workbuddy/artifact-index 顶级存储域契约",
+      "status": "pass",
+      "route": "qwork.dataset.workbuddy-storage.qw-req-workbuddy-storage-local-domain-artifact-index-cf684e0b",
+      "executor": "deterministic-runner",
+      "ui": false,
+      "expected": "all Case-bound storage atoms have resolved decisions and verified or not-required implementation state",
+      "actual": "1/1 原子通过",
+      "evidence": [
+        {
+          "kind": "json",
+          "path": "cases/QW-REQ-WORKBUDDY-STORAGE-LOCAL-DOMAIN-ARTIFACT-INDEX-CF684E0B/storage-case-result.json",
+          "sha256": "sha256:2d6c9e30ea58d0459bf8398c0bd5e2dd30515adc3e2fc51046fe170379b3e3e5"
+        }
+      ]
+    }
+  ],
+  "commands": [
+    "validate_workbuddy_storage_case.py --case-id <exact-case-id>"
+  ],
+  "defects": [],
+  "blockers": [],
+  "residual_risks": [
+    "full product release gate was not executed"
+  ],
+  "cleanup": {
+    "status": "passed",
+    "details": "runner only wrote inside the approved ignored run root"
+  },
+  "checkpoint": {
+    "current_implementation_revision": "c9227fe0f12073144f954f13634f77fbacd9c399",
+    "current_plan_hash": "fdaf3d0fbfa94072473cafcf3dd74ec11da55fcb29057ff94622a646bc273615",
+    "first_trusted_failure": null,
+    "repair_required_next_action": "审核 promotion-candidates.json 后登记当前证据，再选择下一批。",
+    "cleanup_status": "passed",
+    "independent_rerun_status": "not_run",
+    "final_response_allowed": false
+  }
+}

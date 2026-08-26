@@ -9,8 +9,11 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 from typing import Any
+
+from external_artifact_storage import REPORT_JSON_NAME, validate_external_run_root
 
 
 def git(repo: Path, *args: str, check: bool = True) -> str:
@@ -151,17 +154,64 @@ def infer_surface(path: str, changed_content: str = "") -> str | None:
     )
 
 
-def is_gate_only_change(path: str, content: str) -> bool:
+def gate_only_item_ids(path: str, content: str) -> list[str]:
+    if path.startswith("docs/team-collaboration/changes/") or path == "docs/team-collaboration/interface-ledger.md":
+        return ["gate:source-dispositions"]
     if path == "vitest.config.ts":
-        return True
+        return ["gate:coverage"]
     if path == "playwright.config.ts":
-        return "QWORK_RELEASE_GATE_EVIDENCE_DIR" in content
+        return ["gate:electron-build"] if "QWORK_RELEASE_GATE_EVIDENCE_DIR" in content else []
     if path == "e2e/fixtures/launch.ts":
-        return (
+        return ["gate:electron-build"] if (
             "QWORK_RELEASE_GATE_EVIDENCE_DIR" in content
             and "captureReleaseGateState" in content
-        )
-    return False
+        ) else []
+    return []
+
+
+SEMANTIC_ANCHOR = re.compile(
+    r"(?<![A-Za-z0-9])(?:"
+    r"[a-z][a-z0-9]*(?:_[a-z0-9]+){2,}|"
+    r"[a-z][A-Za-z0-9]{19,}|"
+    r"[a-z][a-z0-9]*(?:-[a-z0-9]+){2,}"
+    r")(?![A-Za-z0-9])"
+)
+
+
+def infer_unique_semantic_cases(
+    case_files: dict[str, dict[str, Any]], changed_content: str
+) -> tuple[list[str], list[str]]:
+    """Bind a change to the Case that uniquely owns its high-signal contract atoms.
+
+    Paths such as shared protocol or a provider live test are deliberately
+    generic. Long protocol identifiers and explicit Oracle field names are a
+    stronger causal coordinate than broad words such as session/model/expert.
+    Only anchors occurring in exactly one Case are eligible, and only the
+    highest-scoring Case(s) are retained so an adjacent helper name cannot
+    broaden the affected closure.
+    """
+    changed_anchors = set(SEMANTIC_ANCHOR.findall(changed_content))
+    if not changed_anchors:
+        return [], []
+    owners: dict[str, set[str]] = {}
+    for case_id, case in case_files.items():
+        serialized = json.dumps(case, ensure_ascii=False, sort_keys=True)
+        for anchor in changed_anchors & set(SEMANTIC_ANCHOR.findall(serialized)):
+            owners.setdefault(anchor, set()).add(case_id)
+    unique = {
+        anchor: next(iter(case_ids))
+        for anchor, case_ids in owners.items()
+        if len(case_ids) == 1
+    }
+    if not unique:
+        return [], []
+    scores: dict[str, int] = {}
+    for case_id in unique.values():
+        scores[case_id] = scores.get(case_id, 0) + 1
+    best = max(scores.values())
+    selected = sorted(case_id for case_id, score in scores.items() if score == best)
+    anchors = sorted(anchor for anchor, case_id in unique.items() if case_id in selected)
+    return selected, anchors
 
 
 def qwork_server_available(repo: Path) -> bool:
@@ -379,9 +429,10 @@ def main() -> int:
     for change in changed:
         path = str(change["path"])
         content = changed_content(repo, base, path)
-        if is_gate_only_change(path, content):
+        gate_items = gate_only_item_ids(path, content)
+        if gate_items:
             gate_only_changes.append(path)
-            mappings.append({"changed_file": path, "strategy": "gate-only", "gate_item_ids": ["gate:electron-build"], "case_ids": []})
+            mappings.append({"changed_file": path, "strategy": "gate-only", "gate_item_ids": gate_items, "case_ids": []})
             continue
         exact = sorted(path_cases.get(path, set()))
         if exact:
@@ -400,6 +451,11 @@ def main() -> int:
             if superseded:
                 superseded_exact_cases.setdefault(path, set()).update(superseded)
             mappings.append({"changed_file": path, "strategy": "source-atom-exact", "case_ids": retained, "superseded_case_ids": superseded})
+            continue
+        semantic, anchors = infer_unique_semantic_cases(case_files, content)
+        if semantic:
+            selected.update(semantic)
+            mappings.append({"changed_file": path, "strategy": "unique-semantic-anchor", "anchors": anchors, "case_ids": semantic})
             continue
         surface = infer_surface(path, content)
         inferred, manual_gaps, noncausal = (
@@ -565,8 +621,8 @@ def main() -> int:
             {
                 "kind": "gate-only-change",
                 "path": path,
-                "gate_item_ids": ["gate:coverage"],
-                "reason": "This file configures the mandatory coverage gate and does not implement a product capability.",
+                "gate_item_ids": gate_only_item_ids(path, changed_content(repo, base, path)),
+                "reason": "This governance, coverage or execution-harness file is verified by its mandatory gate and does not independently broaden the product capability closure.",
             }
             for path in sorted(gate_only_changes)
         ],
@@ -589,13 +645,13 @@ def main() -> int:
             "all_required_item_ids_must_be_unique": True,
             "cleanup_required": True,
             "independent_fresh_context_rerun_required": True,
-            "report_json": "<run-root>/report.json",
+            "report_json": f"<run-root>/{REPORT_JSON_NAME}",
         },
         "checkpoint": {
             "current_implementation_revision": head,
             "current_plan_hash": None,
             "first_trusted_failure": None,
-            "repair_required_next_action": "execute every required item and write current machine evidence into the canonical report.json",
+            "repair_required_next_action": f"execute every required item and write current machine evidence into the canonical {REPORT_JSON_NAME}",
             "cleanup_status": "pending",
             "independent_rerun_status": "pending",
             "final_response_allowed": False,
@@ -604,9 +660,14 @@ def main() -> int:
     plan["plan_sha256"] = canonical_hash(plan)
     plan["checkpoint"]["current_plan_hash"] = plan["plan_sha256"]
     # Hash the final object with plan_sha256 and current_plan_hash intentionally excluded during verification.
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(plan, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({"status": "ok", "plan": str(args.output), "plan_sha256": plan["plan_sha256"], "selected_cases": len(selected_ids), "required_items": len(required_items), "conservative_full_expansion": conservative_full}, ensure_ascii=False))
+    output_root = validate_external_run_root(
+        args.output.parent,
+        protected_roots=[repo, dataset_root, project_skill],
+    )
+    output_root.mkdir(parents=True, exist_ok=True)
+    output = output_root / args.output.name
+    output.write_text(json.dumps(plan, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({"status": "ok", "plan": str(output), "plan_sha256": plan["plan_sha256"], "selected_cases": len(selected_ids), "required_items": len(required_items), "conservative_full_expansion": conservative_full}, ensure_ascii=False))
     return 0
 
 

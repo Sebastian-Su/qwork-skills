@@ -1,0 +1,305 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-APP-IDENTITY-SPEC-BDDD7361",
+  "title": "uses the QWork product identity in a real Electron window",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-app-identity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/app-identity.spec.ts",
+      "locator": "line:12;test:uses the QWork product identity in a real Electron window",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:bddd7361830e94b031463907c696f44f44ee735db3fe36792c94199abf69d058",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D229A70EA018AA",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-app-identity-spec-ts:L12:bddd736183"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "uses the QWork product identity in a real Electron window",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-app-identity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "uses the QWork product identity in a real Electron window"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-18T17:47:26.861306+00:00",
+    "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "createTestHome(\"app-identity\")"
+    },
+    {
+      "action": "launchApp(testHome)"
+    },
+    {
+      "action": "waitForE2EWindow(application)"
+    },
+    {
+      "action": "application.evaluate(({ app, nativeImage }) => { const root = `${app.getAppPath().replaceAll(\"\\\\\", \"/\")}/build`; const inspectIcon = (fileName: string) => { const icon = nativeImage.createFromPath(`${root}/${fileName}`).resize({ width: 32, height: 32, }); const bitmap = icon.toBitmap(); let foregroundPixels = 0; let transparentPixels = 0; let whitePixels = 0; let transparentCornerCount = 0; let minimumVisibleX = 32;…"
+    },
+    {
+      "action": "app.getAppPath().replaceAll(\"\\\\\", \"/\")"
+    },
+    {
+      "action": "app.getAppPath()"
+    },
+    {
+      "action": "nativeImage.createFromPath(`${root}/${fileName}`).resize({ width: 32, height: 32, })"
+    },
+    {
+      "action": "nativeImage.createFromPath(`${root}/${fileName}`)"
+    },
+    {
+      "action": "icon.toBitmap()"
+    },
+    {
+      "action": "Math.floor(pixel / 32)"
+    },
+    {
+      "action": "Math.min(minimumVisibleX, x)"
+    },
+    {
+      "action": "Math.max(maximumVisibleX, x)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(identity.name).toBe(\"QWork\")",
+    "expect(identity.icon.empty).toBe(false)",
+    "expect(identity.icon.size).toEqual({ width: 32, height: 32 })",
+    "expect(identity.icon.foregroundPixels).toBeGreaterThan(320)",
+    "expect(identity.icon.foregroundPixels).toBeLessThan(400)",
+    "expect(identity.icon.transparentPixels).toBeGreaterThan(300)",
+    "expect(identity.icon.whitePixels).toBeGreaterThan(200)",
+    "expect(identity.icon.whitePixels).toBeLessThan(350)",
+    "expect(identity.icon.transparentCornerCount).toBe(4)",
+    "expect(identity.icon.visibleWidth).toBeGreaterThanOrEqual(25)",
+    "expect(identity.icon.visibleWidth).toBeLessThanOrEqual(27)",
+    "expect(identity.icon.visibleHeight).toBeGreaterThanOrEqual(25)",
+    "expect(identity.icon.visibleHeight).toBeLessThanOrEqual(27)",
+    "expect(identity.averageApprovedRuntimeDifference).toBe(0)",
+    "expect(identity.windowsLinuxSource.foregroundPixels).toBeGreaterThan(550)",
+    "expect(identity.windowsLinuxSource.whitePixels).toBeLessThan(40)",
+    "expect(identity.windowsLinuxSource.visibleWidth).toBeGreaterThanOrEqual(29)",
+    "expect(identity.windowsLinuxSource.visibleHeight).toBeGreaterThanOrEqual(30)",
+    "expect(identity.windowsLinuxSource.transparentCornerCount).toBe(4)",
+    "expect(identity.linuxGenerated.foregroundPixels).toBeGreaterThan(550)",
+    "expect(identity.linuxGenerated.whitePixels).toBeLessThan(40)",
+    "expect(identity.linuxGenerated.visibleWidth).toBeGreaterThanOrEqual(29)",
+    "expect(identity.linuxGenerated.visibleHeight).toBeGreaterThanOrEqual(30)",
+    "expect(identity.averageWindowsLinuxResizeDifference).toBeLessThan(15)",
+    "expect(path.normalize(identity.userData)).toBe( path.join(path.normalize(testHome), \"qwork\", \"electron\"), )",
+    "expect .poll(async () => fs.stat(path.join(testHome, \"qwork\")).then(() => true, () => false)) .toBe(true)",
+    "expect(fs.access(path.join(testHome, legacyNamespace))).rejects.toThrow()",
+    "expect(page).toHaveTitle(\"QWork\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D229A70EA018AA",
+      "type": "return",
+      "assertion": "uses the QWork product identity in a real Electron window"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-app-identity-spec-ts.bddd736183",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/app-identity.spec.ts -g \"uses the QWork product identity in a real Electron window\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "createTestHome(\"app-identity\")"
+        },
+        {
+          "action": "launchApp(testHome)"
+        },
+        {
+          "action": "waitForE2EWindow(application)"
+        },
+        {
+          "action": "application.evaluate(({ app, nativeImage }) => { const root = `${app.getAppPath().replaceAll(\"\\\\\", \"/\")}/build`; const inspectIcon = (fileName: string) => { const icon = nativeImage.createFromPath(`${root}/${fileName}`).resize({ width: 32, height: 32, }); const bitmap = icon.toBitmap(); let foregroundPixels = 0; let transparentPixels = 0; let whitePixels = 0; let transparentCornerCount = 0; let minimumVisibleX = 32;…"
+        },
+        {
+          "action": "app.getAppPath().replaceAll(\"\\\\\", \"/\")"
+        },
+        {
+          "action": "app.getAppPath()"
+        },
+        {
+          "action": "nativeImage.createFromPath(`${root}/${fileName}`).resize({ width: 32, height: 32, })"
+        },
+        {
+          "action": "nativeImage.createFromPath(`${root}/${fileName}`)"
+        },
+        {
+          "action": "icon.toBitmap()"
+        },
+        {
+          "action": "Math.floor(pixel / 32)"
+        },
+        {
+          "action": "Math.min(minimumVisibleX, x)"
+        },
+        {
+          "action": "Math.max(maximumVisibleX, x)"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/app-identity.spec.ts",
+        "line_start": 12,
+        "line_end": 226,
+        "body_sha256": "sha256:81015d923f5357279cf1cf4bbb8daee9af163746daad39d299706adaeac7d3b1",
+        "assertion_count": 28,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:e55282892c2c5a2882e590b97cd5459aafc98b1bd46a8a6a1b08ead11f151199"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": "bug973549-public-reference-643446ff-v1",
+      "verified_at": "2026-08-18T17:47:26.861306+00:00",
+      "environment": "stale deterministic public Playwright reference run"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-D229A70EA018AA"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-D229A70EA018AA"
+    ]
+  }
+}

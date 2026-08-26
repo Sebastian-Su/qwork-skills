@@ -1,0 +1,315 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-KNOWLEDGE-BASE-LIVE-SPEC-7990C2A5",
+  "title": "live A/B/C against key-backed local BFF",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-knowledge-base-live-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/knowledge-base.live.spec.ts",
+      "locator": "line:91;test:live A/B/C against key-backed local BFF",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:7990c2a5fb8d88ebb6895167f9ba5d376d96f50267094c504c3a26afeada9a7b",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0C29F87B0B85E1",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-knowledge-base-live-spec-ts:L91:7990c2a5fb"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "live A/B/C against key-backed local BFF",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-knowledge-base-live-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "live A/B/C against key-backed local BFF"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"创建\", exact: true }).first().click()"
+    },
+    {
+      "action": "page.getByLabel(\"知识库名称\").fill(LIBRARY)"
+    },
+    {
+      "action": "page.locator(\"form\").getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"上传文档\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"上传文档\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"上传文档\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+    },
+    {
+      "action": "dialog2.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"知识库\", exact: true }).click()"
+    },
+    {
+      "action": "dialog3.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByLabel(`移除知识 ${LIBRARY}`).click()"
+    },
+    {
+      "action": "dialog4.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"heading\", { name: \"知识库\", exact: true })).toBeVisible()",
+    "expect(page.getByText(\"ima知识库\")).toHaveCount(0)",
+    "expect(page.getByText(\"乐享知识库\")).toHaveCount(0)",
+    "expect(page.getByRole(\"heading\", { name: LIBRARY })).toBeVisible({ timeout: 30_000, })",
+    "expect(page.getByRole(\"button\", { name: \"上传文档\" })).toBeVisible()",
+    "expect(page.getByText(\"dataset\")).toHaveCount(0)",
+    "expect(page.getByText(NOTE_NAME)).toHaveCount(0)",
+    "expect(await dialogHadParent(app)).toBe(true)",
+    "expect(page.getByRole(\"alert\")).toContainText(\"不支持的文件类型\")",
+    "expect(page.getByText(\"payload.exe\")).toHaveCount(0)",
+    "expect(page.getByText(NOTE_NAME)).toBeVisible({ timeout: 30_000 })",
+    "expect(page.getByText(/等待索引|索引中|已就绪|索引失败/).first()).toBeVisible()",
+    "expect(dialog).toBeVisible()",
+    "expect(dialog.getByLabel(`选择知识库 ${LIBRARY}`)).toBeVisible()",
+    "expect(dialog).toBeHidden()",
+    "expect(page.getByLabel(/移除知识/)).toHaveCount(0)",
+    "expect(page.getByLabel(`移除知识 ${LIBRARY}`)).toBeVisible()",
+    "expect(page.getByText(\"所选文档尚未完成索引，暂时不能用于检索\")).toBeVisible()",
+    "expect(page.getByTestId(\"knowledge-citations\")).toHaveCount(0)",
+    "expect(page.getByText(\"已就绪\", { exact: true }).first()).toBeVisible({ timeout: 90_000, })",
+    "expect(page.getByLabel(`移除知识 ${LIBRARY}`)).toBeVisible()",
+    "expect(citations).toContainText(NOTE_NAME)",
+    "expect(page.getByTitle(/qwork-kb:/)).toBeVisible()",
+    "expect(page.getByText(\"客服电话\").first()).toBeVisible()",
+    "expect(citations).toHaveCount(0)",
+    "expect(page.getByLabel(/移除知识/)).toHaveCount(0)",
+    "expect(page.getByText(\"再问一次客服电话\").first()).toBeVisible()",
+    "expect(page.getByText(\"zzzz-no-such-knowledge-term-999\").first()).toBeVisible()",
+    "expect(page.getByTestId(\"knowledge-citations\")).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0C29F87B0B85E1",
+      "type": "return",
+      "assertion": "live A/B/C against key-backed local BFF"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-knowledge-base-live-spec-ts.7990c2a5fb",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": true,
+      "scopes": [
+        "real external account/service/model route named by the source test"
+      ]
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/knowledge-base.live.spec.ts -g \"live A/B/C against key-backed local BFF\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"创建\", exact: true }).first().click()"
+        },
+        {
+          "action": "page.getByLabel(\"知识库名称\").fill(LIBRARY)"
+        },
+        {
+          "action": "page.locator(\"form\").getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"上传文档\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"上传文档\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"上传文档\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+        },
+        {
+          "action": "dialog2.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"知识库\", exact: true }).click()"
+        },
+        {
+          "action": "dialog3.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByLabel(`移除知识 ${LIBRARY}`).click()"
+        },
+        {
+          "action": "dialog4.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home plus separately authorized real external fixture",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/knowledge-base.live.spec.ts",
+        "line_start": 91,
+        "line_end": 198,
+        "body_sha256": "sha256:d562471930561f4ae11b3c1e6691786cf0c439bcf5250384f4d04d1726ec075b",
+        "assertion_count": 29,
+        "action_count": 13,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:8c8cbf8e860c17d6648c4923de75e9e4a0ef2f5df21a0fab4585f50e79da9c4f"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "independent authorization for real external route pending",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0C29F87B0B85E1"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-0C29F87B0B85E1"
+    ]
+  }
+}

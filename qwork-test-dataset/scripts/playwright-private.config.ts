@@ -6,7 +6,9 @@ const skillRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..
 
 export default {
   testDir: path.join(skillRoot, "data/e2e"),
-  outputDir: process.env.QWORK_E2E_OUTPUT_DIR || path.join(skillRoot, "data/runs/private-playwright/results"),
+  outputDir: process.env.QWORK_E2E_OUTPUT_DIR || (() => {
+    throw new Error("QWORK_E2E_OUTPUT_DIR must point into the external temporary run");
+  })(),
   timeout: 90_000,
   expect: { timeout: 8_000 },
   fullyParallel: false,

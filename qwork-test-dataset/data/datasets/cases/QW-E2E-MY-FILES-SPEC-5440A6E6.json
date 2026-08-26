@@ -1,0 +1,456 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-MY-FILES-SPEC-5440A6E6",
+  "title": "opens 360 personal cloud drive and manages its files",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "files",
+    "journey": "files",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-my-files-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/my-files.spec.ts",
+      "locator": "line:23;test:opens 360 personal cloud drive and manages its files",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:5440a6e6efe56ff25692a51bac5d552c1c02662dfaebeb64e9d5c505bac4e45c",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-C9475AEB05E89D",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-my-files-spec-ts:L23:5440a6e6ef"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "opens 360 personal cloud drive and manages its files",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-my-files-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "opens 360 personal cloud drive and manages its files"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page .getByTestId(\"left-rail-shell\") .getByRole(\"button\", { name: \"更多\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"更多\" }).getByRole(\"menuitem\", { name: \"我的文件\", exact: true }).click()"
+    },
+    {
+      "action": "tabs.getByRole(\"button\", { name: \"云端网盘\", exact: true }).click()"
+    },
+    {
+      "action": "drive.getByRole(\"combobox\", { name: \"文件类型\" }).selectOption(\"4\")"
+    },
+    {
+      "action": "drive.getByRole(\"combobox\", { name: \"文件类型\" }).selectOption(\"-1\")"
+    },
+    {
+      "action": "drive.getByRole(\"button\", { name:\"新建\", exact:true }).click()"
+    },
+    {
+      "action": "heading.click()"
+    },
+    {
+      "action": "drive.getByRole(\"button\", { name:\"上传\", exact:true }).click()"
+    },
+    {
+      "action": "heading.click()"
+    },
+    {
+      "action": "drive.getByRole(\"button\", { name: \"云端说明.md 更多操作\" }).click()"
+    },
+    {
+      "action": "heading.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name:\"关闭上传提示\" }).click()"
+    },
+    {
+      "action": "drive.getByRole(\"button\", { name:\"新建\", exact:true }).click()"
+    },
+    {
+      "action": "drive.getByRole(\"menuitem\", { name:\"新建文件夹\" }).click()"
+    },
+    {
+      "action": "page.getByLabel(\"文件夹名称\").fill(\"合同\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name:\"创建\", exact:true }).click()"
+    },
+    {
+      "action": "drive.getByRole(\"button\", { name:\"新建\", exact:true }).click()"
+    },
+    {
+      "action": "drive.getByRole(\"menuitem\", { name:\"新建文档\" }).click()"
+    },
+    {
+      "action": "page.getByLabel(\"名称\").fill(\"空白文档\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name:\"创建\", exact:true }).click()"
+    },
+    {
+      "action": "drive.getByRole(\"button\", { name: \"空白文档.md 更多操作\" }).click()"
+    },
+    {
+      "action": "drive.getByRole(\"menuitem\", { name: \"重命名\" }).click()"
+    },
+    {
+      "action": "page.getByLabel(\"名称\").fill(\"项目说明.md\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+    },
+    {
+      "action": "drive.getByRole(\"button\", { name: \"项目说明.md 更多操作\" }).click()"
+    },
+    {
+      "action": "drive.getByRole(\"menuitem\", { name: \"移动到\" }).click()"
+    },
+    {
+      "action": "page.getByLabel(\"目标文件夹路径\").fill(\"/合同/\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"移动\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByText(\"合同\", { exact: true }).dblclick()"
+    },
+    {
+      "action": "page.getByPlaceholder(\"搜索个人空间文件\").fill(\"项目说明\")"
+    },
+    {
+      "action": "page.getByRole(\"search\").press(\"Enter\")"
+    },
+    {
+      "action": "drive.getByRole(\"button\", { name: \"项目说明.md 更多操作\" }).click()"
+    },
+    {
+      "action": "drive.getByRole(\"menuitem\", { name: \"移到回收站\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"清空搜索\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"个人空间\", exact: true }).click()"
+    },
+    {
+      "action": "drive.getByRole(\"button\", { name:\"网格视图\" }).click()"
+    },
+    {
+      "action": "cloudApi.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(heading).toBeVisible()",
+    "expect(page.getByText(\"暂无任务成果\")).toBeVisible()",
+    "expect(await fontSize(heading)).toBe(26)",
+    "expect( await fontSize(tabs.getByRole(\"button\", { name: \"任务成果\", exact: true })), ).toBe(13)",
+    "expect(await fontSize(page.getByLabel(\"文件类型\"))).toBe(13)",
+    "expect( await fontSize(page.getByPlaceholder(\"搜索文件、任务或工作空间\")), ).toBe(13)",
+    "expect(page.getByText(\"云端说明.md\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"已使用 1 KB / 10 KB\", { exact: true })).toBeVisible()",
+    "expect(drive.getByRole(\"button\", { name: \"新建\", exact: true })).toBeVisible()",
+    "expect(drive.getByRole(\"button\", { name: \"上传\", exact: true })).toBeVisible()",
+    "expect(page.getByText(\"云端视频.mp4\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"云端说明.md\", { exact: true })).not.toBeVisible()",
+    "expect(page.getByText(\"云端说明.md\", { exact: true })).toBeVisible()",
+    "expect(drive.getByRole(\"menuitem\", { name:\"新建文件夹\" })).toBeVisible()",
+    "expect(drive.getByRole(\"menuitem\", { name:\"新建文件夹\" })).not.toBeVisible()",
+    "expect(drive.getByRole(\"menuitem\", { name:\"上传文件\", exact:true })).toBeVisible()",
+    "expect(drive.getByRole(\"menuitem\", { name:\"上传文件\", exact:true })).not.toBeVisible()",
+    "expect(drive.getByRole(\"menuitem\", { name: \"重命名\" })).toBeVisible()",
+    "expect(drive.getByRole(\"menuitem\", { name: \"重命名\" })).not.toBeVisible()",
+    "expect( page.getByRole(\"status\").filter({ hasText: \"正在上传 [1/3个文件]\" }), ).toContainText(\"正在上传 [1/3个文件]\")",
+    "expect(page.getByRole(\"progressbar\")).toHaveAttribute(\"aria-valuenow\", \"45\")",
+    "expect( page.getByRole(\"status\").filter({ hasText: \"已上传 [3/3个文件]\" }), ).toContainText(\"已上传 [3/3个文件]\")",
+    "expect(page.getByText(\"合同\", { exact:true })).toBeVisible()",
+    "expect(page.getByText(\"空白文档.md\", { exact:true })).toBeVisible()",
+    "expect(page.getByText(\"项目说明.md\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"项目说明.md\", { exact: true })).not.toBeVisible()",
+    "expect(page.getByText(\"项目说明.md\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"项目说明.md\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"项目说明.md\", { exact: true })).not.toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-C9475AEB05E89D",
+      "type": "return",
+      "assertion": "opens 360 personal cloud drive and manages its files"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-my-files-spec-ts.5440a6e6ef",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/my-files.spec.ts -g \"opens 360 personal cloud drive and manages its files\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "files",
+      "steps": [
+        {
+          "action": "page .getByTestId(\"left-rail-shell\") .getByRole(\"button\", { name: \"更多\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"更多\" }).getByRole(\"menuitem\", { name: \"我的文件\", exact: true }).click()"
+        },
+        {
+          "action": "tabs.getByRole(\"button\", { name: \"云端网盘\", exact: true }).click()"
+        },
+        {
+          "action": "drive.getByRole(\"combobox\", { name: \"文件类型\" }).selectOption(\"4\")"
+        },
+        {
+          "action": "drive.getByRole(\"combobox\", { name: \"文件类型\" }).selectOption(\"-1\")"
+        },
+        {
+          "action": "drive.getByRole(\"button\", { name:\"新建\", exact:true }).click()"
+        },
+        {
+          "action": "heading.click()"
+        },
+        {
+          "action": "drive.getByRole(\"button\", { name:\"上传\", exact:true }).click()"
+        },
+        {
+          "action": "heading.click()"
+        },
+        {
+          "action": "drive.getByRole(\"button\", { name: \"云端说明.md 更多操作\" }).click()"
+        },
+        {
+          "action": "heading.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name:\"关闭上传提示\" }).click()"
+        },
+        {
+          "action": "drive.getByRole(\"button\", { name:\"新建\", exact:true }).click()"
+        },
+        {
+          "action": "drive.getByRole(\"menuitem\", { name:\"新建文件夹\" }).click()"
+        },
+        {
+          "action": "page.getByLabel(\"文件夹名称\").fill(\"合同\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name:\"创建\", exact:true }).click()"
+        },
+        {
+          "action": "drive.getByRole(\"button\", { name:\"新建\", exact:true }).click()"
+        },
+        {
+          "action": "drive.getByRole(\"menuitem\", { name:\"新建文档\" }).click()"
+        },
+        {
+          "action": "page.getByLabel(\"名称\").fill(\"空白文档\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name:\"创建\", exact:true }).click()"
+        },
+        {
+          "action": "drive.getByRole(\"button\", { name: \"空白文档.md 更多操作\" }).click()"
+        },
+        {
+          "action": "drive.getByRole(\"menuitem\", { name: \"重命名\" }).click()"
+        },
+        {
+          "action": "page.getByLabel(\"名称\").fill(\"项目说明.md\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+        },
+        {
+          "action": "drive.getByRole(\"button\", { name: \"项目说明.md 更多操作\" }).click()"
+        },
+        {
+          "action": "drive.getByRole(\"menuitem\", { name: \"移动到\" }).click()"
+        },
+        {
+          "action": "page.getByLabel(\"目标文件夹路径\").fill(\"/合同/\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"移动\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByText(\"合同\", { exact: true }).dblclick()"
+        },
+        {
+          "action": "page.getByPlaceholder(\"搜索个人空间文件\").fill(\"项目说明\")"
+        },
+        {
+          "action": "page.getByRole(\"search\").press(\"Enter\")"
+        },
+        {
+          "action": "drive.getByRole(\"button\", { name: \"项目说明.md 更多操作\" }).click()"
+        },
+        {
+          "action": "drive.getByRole(\"menuitem\", { name: \"移到回收站\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"清空搜索\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"个人空间\", exact: true }).click()"
+        },
+        {
+          "action": "drive.getByRole(\"button\", { name:\"网格视图\" }).click()"
+        },
+        {
+          "action": "cloudApi.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/my-files.spec.ts",
+        "line_start": 23,
+        "line_end": 139,
+        "body_sha256": "sha256:8b8f12527e41c74421b6aa84e3017ce4a0a55b406fd2eb080b3abe44e26eea36",
+        "assertion_count": 29,
+        "action_count": 37,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:eca30f412573b91ea792a4338c8d673694efe8aba5dce21caf063c686d33453c"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-C9475AEB05E89D"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-C9475AEB05E89D"
+    ]
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-OFFICE-EDITOR-SPEC-338629D8",
+  "title": "我的文件按来源分流编辑、只读和系统应用回退",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "files",
+    "journey": "files",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-office-editor-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/office-editor.spec.ts",
+      "locator": "line:218;test:我的文件按来源分流编辑、只读和系统应用回退",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:338629d8553c021428d254b6f026b173f4292d0c61274082cc75e07f50616ead",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-43F450D24782A7",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-office-editor-spec-ts:L218:338629d855"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "我的文件按来源分流编辑、只读和系统应用回退",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-office-editor-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "我的文件按来源分流编辑、只读和系统应用回退"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_OFFICE_ARTIFACT__:预算.xlsx\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page .getByTestId(\"left-rail-shell\") .getByRole(\"button\", { name: \"更多\", exact: true }) .click()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"更多\" }) .getByRole(\"menuitem\", { name: \"我的文件\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByText(\"预算.xlsx\", { exact: true }).dblclick()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"返回我的文件\" }).click()"
+    },
+    {
+      "action": "page .locator(\"header\") .getByRole(\"button\", { name: \"云端网盘\", exact: true }) .click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: /打开产出物 预算\\.xlsx/ })).toBeVisible()",
+    "expect(page.getByText(\"预算.xlsx\", { exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"heading\", { name: \"预算.xlsx\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"用系统应用打开\" })).toBeVisible()",
+    "expect(page.getByText(/云端网盘中的文件不会进入 Office 编辑器/)).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-43F450D24782A7",
+      "type": "return",
+      "assertion": "我的文件按来源分流编辑、只读和系统应用回退"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-office-editor-spec-ts.338629d855",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/office-editor.spec.ts -g \"我的文件按来源分流编辑、只读和系统应用回退\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "files",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_OFFICE_ARTIFACT__:预算.xlsx\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page .getByTestId(\"left-rail-shell\") .getByRole(\"button\", { name: \"更多\", exact: true }) .click()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"更多\" }) .getByRole(\"menuitem\", { name: \"我的文件\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByText(\"预算.xlsx\", { exact: true }).dblclick()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"返回我的文件\" }).click()"
+        },
+        {
+          "action": "page .locator(\"header\") .getByRole(\"button\", { name: \"云端网盘\", exact: true }) .click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/office-editor.spec.ts",
+        "line_start": 218,
+        "line_end": 264,
+        "body_sha256": "sha256:fc1976d9f8e96933663382b357c3eec0a90993167df976051fb76cb7860625f2",
+        "assertion_count": 5,
+        "action_count": 10,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:a783be23b42a4bb7646b5aaa26e4f20fe6deed68d83e8d0e9d514da5b24be01b"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-43F450D24782A7"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-43F450D24782A7"
+    ]
+  }
+}

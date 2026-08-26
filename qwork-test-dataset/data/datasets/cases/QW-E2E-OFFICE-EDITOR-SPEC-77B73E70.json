@@ -1,0 +1,260 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-OFFICE-EDITOR-SPEC-77B73E70",
+  "title": "任务产出 PPTX 自动打开右侧预览",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-office-editor-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/office-editor.spec.ts",
+      "locator": "line:15;test:任务产出 PPTX 自动打开右侧预览",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:77b73e70033bb1ea562411508fd9dd2a609c59256e79781b33f2a00c090bdbad",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-9F303CAF6B754A",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-office-editor-spec-ts:L15:77b73e7003"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "任务产出 PPTX 自动打开右侧预览",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-office-editor-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "任务产出 PPTX 自动打开右侧预览"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+    },
+    {
+      "action": "composer.fill(`__E2E_OFFICE_ARTIFACT__:产品报告.${format}`)"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收起右侧面板\" }).click()"
+    },
+    {
+      "action": "card.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(card).toBeVisible()",
+    "expect(page.getByRole(\"complementary\", { name: \"工件预览\" })).toBeVisible()",
+    "expect(page.getByTestId(\"office-compact-shell\")).toBeVisible()",
+    "expect( page.getByRole(\"heading\", { name: `产品报告.${format}` }), ).toHaveCount(0)",
+    "expect( page.getByLabel(`${format.toUpperCase()} 编辑器`), ).toBeVisible({ timeout: 60_000 })",
+    "expect(editorReady).toBeVisible({ timeout: 60_000 })",
+    "expect(editorToolbar).toBeVisible()",
+    "expect( page.getByText(\"Loading document...\", { exact: true }), ).toBeHidden()",
+    "expect( page.getByText(/Couldn't open this workbook|No slides/), ).toHaveCount(0)",
+    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByText(`产品报告.${format}`, { exact: true }), ).toHaveCount(1)",
+    "expect(composer).toBeFocused()",
+    "expect( page.getByRole(\"complementary\", { name: \"工件预览\" }), ).not.toBeVisible()",
+    "expect(page.getByTestId(\"office-compact-shell\")).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-9F303CAF6B754A",
+      "type": "return",
+      "assertion": "任务产出 PPTX 自动打开右侧预览"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-office-editor-spec-ts.77b73e7003",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/office-editor.spec.ts -g \"任务产出 PPTX 自动打开右侧预览\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+        },
+        {
+          "action": "composer.fill(`__E2E_OFFICE_ARTIFACT__:产品报告.${format}`)"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收起右侧面板\" }).click()"
+        },
+        {
+          "action": "card.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/office-editor.spec.ts",
+        "line_start": 15,
+        "line_end": 88,
+        "body_sha256": "sha256:4da22ce3bc9c05d8d7c74398cb88af09f97e46a70cb06635545f472c021b6261",
+        "assertion_count": 13,
+        "action_count": 7,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:a783be23b42a4bb7646b5aaa26e4f20fe6deed68d83e8d0e9d514da5b24be01b"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-9F303CAF6B754A"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-9F303CAF6B754A"
+    ]
+  }
+}

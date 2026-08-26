@@ -1,0 +1,294 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-EXPERT-FEATURED-INTERACTIONS-SPEC-AAF52688",
+  "title": "场景卡打开真实专家并明确标记缺失成员",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-expert-featured-interactions-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/expert-featured-interactions.spec.ts",
+      "locator": "line:185;test:场景卡打开真实专家并明确标记缺失成员",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:aaf52688e22f3e596b78c3ed8e65ca44a0bda6b790b5abb7caf9b927e836f1e2",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-20978AD7ABF20E",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-expert-featured-interactions-spec-ts:L185:aaf52688e2"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "场景卡打开真实专家并明确标记缺失成员",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-expert-featured-interactions-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "场景卡打开真实专家并明确标记缺失成员"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "skillTab.focus()"
+    },
+    {
+      "action": "page.keyboard.press(\"Enter\")"
+    },
+    {
+      "action": "connectorTab.focus()"
+    },
+    {
+      "action": "page.keyboard.press(\"Space\")"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"专家\", exact: true }).click()"
+    },
+    {
+      "action": "openScene.focus()"
+    },
+    {
+      "action": "page.keyboard.press(\"Space\")"
+    },
+    {
+      "action": "collectiveDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+    },
+    {
+      "action": "scene.getByRole(\"button\", { name: \"内容创作专家\", exact: true }).click()"
+    },
+    {
+      "action": "individualDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(expertLayout.tabs.map((tab) => tab.iconCount)).toEqual([1, 1, 1])",
+    "expect(expertLayout.tabs.map((tab) => tab.height)).toEqual([32, 32, 32])",
+    "expect(expertLayout.tabs[0]?.width).toBeCloseTo(66, 0)",
+    "expect(expertLayout.tabs[1]?.width).toBeCloseTo(66, 0)",
+    "expect(expertLayout.tabs[2]?.width).toBeCloseTo(80, 0)",
+    "expect(skillTab).toBeFocused()",
+    "expect(skillTab).toHaveAttribute(\"aria-selected\", \"true\")",
+    "expect(Math.abs(skillLayout.x - expertLayout.x)).toBeLessThanOrEqual(2)",
+    "expect(skillLayout.tabs.map((tab) => tab.width)).toEqual(expertLayout.tabs.map((tab) => tab.width))",
+    "expect(connectorTab).toHaveAttribute(\"aria-selected\", \"true\")",
+    "expect(Math.abs(connectorLayout.x - expertLayout.x)).toBeLessThanOrEqual(2)",
+    "expect(connectorLayout.tabs.map((tab) => tab.width)).toEqual(expertLayout.tabs.map((tab) => tab.width))",
+    "expect(connectorSearch).toBeVisible()",
+    "expect(customConnector).toBeVisible()",
+    "expect(connectorActions.search?.width).toBeCloseTo(220, 0)",
+    "expect(connectorActions.search?.height).toBeCloseTo(32, 0)",
+    "expect(connectorActions.custom?.height).toBeCloseTo(32, 0)",
+    "expect(Math.abs((connectorActions.search?.y ?? 0) - expertLayout.y)).toBeLessThanOrEqual(12)",
+    "expect(connectorCatalog.getByRole(\"listitem\")).toHaveCount(81)",
+    "expect(connectorCards[0]?.width).toBeCloseTo(338, 0)",
+    "expect(connectorCards[0]?.height).toBeCloseTo(104, 0)",
+    "expect((connectorCards[1]?.x ?? 0) - (connectorCards[0]?.x ?? 0) - (connectorCards[0]?.width ?? 0)).toBeCloseTo(12, 0)",
+    "expect(connectorCards[3]?.x).toBeCloseTo(connectorCards[0]?.x ?? 0, 0)",
+    "expect((connectorCards[3]?.y ?? 0) - (connectorCards[0]?.y ?? 0) - (connectorCards[0]?.height ?? 0)).toBeCloseTo(12, 0)",
+    "expect(page.getByRole(\"heading\", { name: /^(可用|已连接)/ })).toHaveCount(0)",
+    "expect(openScene).toBeFocused()",
+    "expect(collectiveDialog).toBeVisible()",
+    "expect(individualDialog).toBeVisible()",
+    "expect(scene.getByRole(\"button\", { name: \"小红书运营专家 暂不可用\" })).toBeDisabled()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-20978AD7ABF20E",
+      "type": "return",
+      "assertion": "场景卡打开真实专家并明确标记缺失成员"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-expert-featured-interactions-spec-ts.aaf52688e2",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/expert-featured-interactions.spec.ts -g \"场景卡打开真实专家并明确标记缺失成员\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "skillTab.focus()"
+        },
+        {
+          "action": "page.keyboard.press(\"Enter\")"
+        },
+        {
+          "action": "connectorTab.focus()"
+        },
+        {
+          "action": "page.keyboard.press(\"Space\")"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"专家\", exact: true }).click()"
+        },
+        {
+          "action": "openScene.focus()"
+        },
+        {
+          "action": "page.keyboard.press(\"Space\")"
+        },
+        {
+          "action": "collectiveDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+        },
+        {
+          "action": "scene.getByRole(\"button\", { name: \"内容创作专家\", exact: true }).click()"
+        },
+        {
+          "action": "individualDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/expert-featured-interactions.spec.ts",
+        "line_start": 185,
+        "line_end": 271,
+        "body_sha256": "sha256:a5d9c195e74b4092809989916e2a3d19bffa35202a0e466ffce32af1d6ec722c",
+        "assertion_count": 29,
+        "action_count": 10,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5b48c07b5a115d76490a891ffbc45741b5b0873041b9b966e746e25dd02c7243"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-20978AD7ABF20E"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-20978AD7ABF20E"
+    ]
+  }
+}

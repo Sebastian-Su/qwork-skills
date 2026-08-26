@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QWork WorkBuddy 存储聚焦验证</title><style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;background:#f5f7fb;color:#172033}
+main{max-width:1120px;margin:0 auto;padding:32px} .hero,.card{background:#fff;border:1px solid #e5e9f2;border-radius:16px;padding:24px;margin-bottom:18px}
+.status{display:inline-block;background:#fff2e8;color:#ad4e00;border-radius:999px;padding:7px 12px;font-weight:700}
+h1{margin:14px 0 8px} h2{font-size:18px} .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+table{width:100%;border-collapse:collapse} th,td{text-align:left;vertical-align:top;border-bottom:1px solid #edf0f5;padding:10px} code{font-size:12px;word-break:break-all}
+details{margin-top:12px} @media(max-width:760px){.grid{grid-template-columns:1fr}main{padding:16px}}
+</style></head><body><main>
+<section class="hero"><span class="status">暂时不能提测</span><h1>QWork WorkBuddy 存储聚焦验证</h1>
+<p>本次选中的只读存储 Case 均通过，但完整产品全量 E2E 和发布门禁未运行。</p><p><strong>聚焦结论：</strong>选中 2 个，2 通过、0 Case 失败、0 基础设施失败、0 未执行</p>
+<p><strong>全量结论：</strong>未运行，不能据此宣称完整产品可提测</p></section>
+<section class="grid"><div class="card"><h2>测了什么</h2><ul><li>2 个显式选择的 WorkBuddy 存储迁移 Case</li></ul></div>
+<div class="card"><h2>没测什么</h2><ul><li>完整产品全量 E2E</li><li>Electron UI</li><li>真实模型调用</li><li>未选择的存储 Case</li></ul></div></section>
+<section class="card"><h2>用户影响</h2><p>验证只读取冻结后的私有 Dataset，不打开或修改 live ~/.workbuddy 与 ~/.qwork。</p><h2>下一步</h2><p>审核 promotion-candidates.json 后登记当前证据，再选择下一批。</p></section>
+<section class="card"><h2>Case 结果</h2><table><thead><tr><th>ID</th><th>场景</th><th>状态</th><th>观察</th><th>证据</th></tr></thead><tbody><tr><td>QW-REQ-WORKBUDDY-STORAGE-LOCAL-DS-STORE-REGENERATE-OR-EXCLUDE-845E6105</td><td>~/.workbuddy/.DS_Store · regenerate-or-exclude 迁移契约</td><td>符合预期</td><td>1/1 原子通过</td><td><code>cases/QW-REQ-WORKBUDDY-STORAGE-LOCAL-DS-STORE-REGENERATE-OR-EXCLUDE-845E6105/storage-case-result.json</code></td></tr><tr><td>QW-REQ-WORKBUDDY-STORAGE-LOCAL-DOMAIN-ARTIFACT-INDEX-CF684E0B</td><td>~/.workbuddy/artifact-index 顶级存储域契约</td><td>符合预期</td><td>1/1 原子通过</td><td><code>cases/QW-REQ-WORKBUDDY-STORAGE-LOCAL-DOMAIN-ARTIFACT-INDEX-CF684E0B/storage-case-result.json</code></td></tr></tbody></table>
+<details><summary>技术明细</summary><pre>{
+  &quot;schema_version&quot;: 1,
+  &quot;project&quot;: &quot;qwork&quot;,
+  &quot;title&quot;: &quot;QWork WorkBuddy 存储聚焦验证&quot;,
+  &quot;run_id&quot;: &quot;private-reference-storage-batch-c9227fe0-v3&quot;,
+  &quot;generated_at&quot;: &quot;2026-08-14T07:59:46.074833Z&quot;,
+  &quot;gate_status&quot;: &quot;repair-required&quot;,
+  &quot;plain_language_summary&quot;: {
+    &quot;what_was_tested&quot;: [
+      &quot;2 个显式选择的 WorkBuddy 存储迁移 Case&quot;
+    ],
+    &quot;what_was_not_tested&quot;: [
+      &quot;完整产品全量 E2E&quot;,
+      &quot;Electron UI&quot;,
+      &quot;真实模型调用&quot;,
+      &quot;未选择的存储 Case&quot;
+    ],
+    &quot;result_reason&quot;: &quot;本次选中的只读存储 Case 均通过，但完整产品全量 E2E 和发布门禁未运行。&quot;,
+    &quot;user_impact&quot;: &quot;验证只读取冻结后的私有 Dataset，不打开或修改 live ~/.workbuddy 与 ~/.qwork。&quot;,
+    &quot;next_step&quot;: &quot;审核 promotion-candidates.json 后登记当前证据，再选择下一批。&quot;
+  },
+  &quot;focused_conclusion&quot;: &quot;选中 2 个，2 通过、0 Case 失败、0 基础设施失败、0 未执行&quot;,
+  &quot;full_suite_conclusion&quot;: &quot;未运行，不能据此宣称完整产品可提测&quot;,
+  &quot;environment&quot;: {
+    &quot;implementation_revision&quot;: &quot;c9227fe0f12073144f954f13634f77fbacd9c399&quot;,
+    &quot;source_inventory_sha256&quot;: &quot;e394d3122cf66681b9e4fcc23334233e0023a6b01e644364d30055e316f6765e&quot;,
+    &quot;disposition_canonical_sha256&quot;: &quot;d2cbd0303e911b935652e4b423fad5d0b66ca57a32f4e045d2485ed1859fc9a2&quot;
+  },
+  &quot;scope&quot;: {
+    &quot;included_case_ids&quot;: [
+      &quot;QW-REQ-WORKBUDDY-STORAGE-LOCAL-DS-STORE-REGENERATE-OR-EXCLUDE-845E6105&quot;,
+      &quot;QW-REQ-WORKBUDDY-STORAGE-LOCAL-DOMAIN-ARTIFACT-INDEX-CF684E0B&quot;
+    ],
+    &quot;selection&quot;: &quot;explicit&quot;
+  },
+  &quot;cases&quot;: [
+    {
+      &quot;id&quot;: &quot;QW-REQ-WORKBUDDY-STORAGE-LOCAL-DS-STORE-REGENERATE-OR-EXCLUDE-845E6105&quot;,
+      &quot;title&quot;: &quot;~/.workbuddy/.DS_Store · regenerate-or-exclude 迁移契约&quot;,
+      &quot;status&quot;: &quot;pass&quot;,
+      &quot;route&quot;: &quot;qwork.dataset.workbuddy-storage.qw-req-workbuddy-storage-local-ds-store-regenerate-or-exclude-845e6105&quot;,
+      &quot;executor&quot;: &quot;deterministic-runner&quot;,
+      &quot;ui&quot;: false,
+      &quot;expected&quot;: &quot;all Case-bound storage atoms have resolved decisions and verified or not-required implementation state&quot;,
+      &quot;actual&quot;: &quot;1/1 原子通过&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;kind&quot;: &quot;json&quot;,
+          &quot;path&quot;: &quot;cases/QW-REQ-WORKBUDDY-STORAGE-LOCAL-DS-STORE-REGENERATE-OR-EXCLUDE-845E6105/storage-case-result.json&quot;,
+          &quot;sha256&quot;: &quot;sha256:462643830b492ea04c29bd9f8eb7e65db700d00998354cb732999e9e74d76df7&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;QW-REQ-WORKBUDDY-STORAGE-LOCAL-DOMAIN-ARTIFACT-INDEX-CF684E0B&quot;,
+      &quot;title&quot;: &quot;~/.workbuddy/artifact-index 顶级存储域契约&quot;,
+      &quot;status&quot;: &quot;pass&quot;,
+      &quot;route&quot;: &quot;qwork.dataset.workbuddy-storage.qw-req-workbuddy-storage-local-domain-artifact-index-cf684e0b&quot;,
+      &quot;executor&quot;: &quot;deterministic-runner&quot;,
+      &quot;ui&quot;: false,
+      &quot;expected&quot;: &quot;all Case-bound storage atoms have resolved decisions and verified or not-required implementation state&quot;,
+      &quot;actual&quot;: &quot;1/1 原子通过&quot;,
+      &quot;evidence&quot;: [
+        {
+          &quot;kind&quot;: &quot;json&quot;,
+          &quot;path&quot;: &quot;cases/QW-REQ-WORKBUDDY-STORAGE-LOCAL-DOMAIN-ARTIFACT-INDEX-CF684E0B/storage-case-result.json&quot;,
+          &quot;sha256&quot;: &quot;sha256:2d6c9e30ea58d0459bf8398c0bd5e2dd30515adc3e2fc51046fe170379b3e3e5&quot;
+        }
+      ]
+    }
+  ],
+  &quot;commands&quot;: [
+    &quot;validate_workbuddy_storage_case.py --case-id &lt;exact-case-id&gt;&quot;
+  ],
+  &quot;defects&quot;: [],
+  &quot;blockers&quot;: [],
+  &quot;residual_risks&quot;: [
+    &quot;full product release gate was not executed&quot;
+  ],
+  &quot;cleanup&quot;: {
+    &quot;status&quot;: &quot;passed&quot;,
+    &quot;details&quot;: &quot;runner only wrote inside the approved ignored run root&quot;
+  },
+  &quot;checkpoint&quot;: {
+    &quot;current_implementation_revision&quot;: &quot;c9227fe0f12073144f954f13634f77fbacd9c399&quot;,
+    &quot;current_plan_hash&quot;: &quot;fdaf3d0fbfa94072473cafcf3dd74ec11da55fcb29057ff94622a646bc273615&quot;,
+    &quot;first_trusted_failure&quot;: null,
+    &quot;repair_required_next_action&quot;: &quot;审核 promotion-candidates.json 后登记当前证据，再选择下一批。&quot;,
+    &quot;cleanup_status&quot;: &quot;passed&quot;,
+    &quot;independent_rerun_status&quot;: &quot;not_run&quot;,
+    &quot;final_response_allowed&quot;: false
+  }
+}</pre></details></section>
+</main></body></html>

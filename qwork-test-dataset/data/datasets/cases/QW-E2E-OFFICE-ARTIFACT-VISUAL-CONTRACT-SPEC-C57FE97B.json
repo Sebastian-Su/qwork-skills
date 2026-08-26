@@ -1,0 +1,283 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-OFFICE-ARTIFACT-VISUAL-CONTRACT-SPEC-C57FE97B",
+  "title": "产出物卡片和自动右侧面板符合视觉契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "files",
+    "journey": "files",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-office-artifact-visual-contract-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/office-artifact-visual-contract.spec.ts",
+      "locator": "line:17;test:产出物卡片和自动右侧面板符合视觉契约",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:c57fe97bd192e95e26f6f4b9f12a1eba10eb6a22ad4e717bc13b338e6bbd4ae9",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D38E9E115688A8",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-office-artifact-visual-contract-spec-ts:L17:c57fe97bd1"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "产出物卡片和自动右侧面板符合视觉契约",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-office-artifact-visual-contract-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "产出物卡片和自动右侧面板符合视觉契约"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+    },
+    {
+      "action": "composer.fill( \"__E2E_OFFICE_ARTIFACTS__:季度复盘报告.docx,数据明细.xlsx,方案汇报.pptx\", )"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "firstCard.hover()"
+    },
+    {
+      "action": "allButton.click()"
+    },
+    {
+      "action": "firstCard.focus()"
+    },
+    {
+      "action": "card.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"文件已生成\", { exact: true })).toBeVisible()",
+    "expect(firstCard).toBeVisible()",
+    "expect(firstCard.getByTestId(\"artifact-file-size\")).toContainText(/KB|B/)",
+    "expect(firstCard.getByTestId(\"artifact-open-arrow\")).toBeVisible()",
+    "expect(allButton).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: /打开产出物 数据明细\\.xlsx/ })).not.toBeVisible()",
+    "expect(page.getByRole(\"status\", { name: \"文件预览通知\" })).toHaveText( \"文件已在预览面板打开\", )",
+    "expect(composer).toBeFocused()",
+    "expect .poll(() => firstCard.evaluate( (element) => getComputedStyle(element).backgroundColor, ), ) .not.toBe(defaultBackground)",
+    "expect(page.getByRole(\"button\", { name: /打开产出物 数据明细\\.xlsx/ })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: /打开产出物 方案汇报\\.pptx/ })).toBeVisible()",
+    "expect(firstCard).toBeFocused()",
+    "expect(page.getByTestId(\"office-compact-shell\")).toBeVisible()",
+    "expect(editorReady).toBeVisible({ timeout: 60_000 })",
+    "expect(toolbar).toBeVisible()",
+    "expect(toolbar.getByRole(\"button\").first()).toBeVisible()",
+    "expect( panel.getByRole(\"button\", { name: \"Show document outline\", exact: true, }), ).toHaveCount(0)",
+    "expect( panel.getByLabel(\"Horizontal ruler\", { exact: true }), ).toHaveCount(0)",
+    "expect( panel.getByLabel(\"Vertical ruler\", { exact: true }), ).toHaveCount(0)",
+    "expect( panel.getByText(name, { exact: true }), ).toHaveCount(1)",
+    "expect( page.getByText(\"Loading document...\", { exact: true }), ).toBeHidden()",
+    "expect( page.getByText(/Couldn't open this workbook|No slides/), ).toHaveCount(0)",
+    "expect( await page.evaluate( () => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 2, ), ).toBe(true)",
+    "expect(page.getByTestId(\"office-artifact-card-group\")).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D38E9E115688A8",
+      "type": "ui",
+      "assertion": "产出物卡片和自动右侧面板符合视觉契约"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-office-artifact-visual-contract-spec-ts.c57fe97bd1",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/office-artifact-visual-contract.spec.ts -g \"产出物卡片和自动右侧面板符合视觉契约\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "files",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+        },
+        {
+          "action": "composer.fill( \"__E2E_OFFICE_ARTIFACTS__:季度复盘报告.docx,数据明细.xlsx,方案汇报.pptx\", )"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "firstCard.hover()"
+        },
+        {
+          "action": "allButton.click()"
+        },
+        {
+          "action": "firstCard.focus()"
+        },
+        {
+          "action": "card.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/office-artifact-visual-contract.spec.ts",
+        "line_start": 17,
+        "line_end": 190,
+        "body_sha256": "sha256:fa21487ac1a27b4613aa57837e7d2bcaadc2f8ea08decbbd98b78c73a1b9969b",
+        "assertion_count": 24,
+        "action_count": 9,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:e1397d7762fb2fae68970bc10f0510b18a8d6faef3cb15f8fd753d2f35001898"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-D38E9E115688A8"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-D38E9E115688A8"
+    ]
+  }
+}

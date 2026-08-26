@@ -3,10 +3,10 @@ import react from "@vitejs/plugin-react";
 import { defineConfig, externalizeDepsPlugin } from "electron-vite";
 
 const repo = resolve(process.env.QWORK_E2E_REPO_ROOT || process.cwd());
-const output = resolve(
-  process.env.QWORK_E2E_BUILD_ROOT ||
-    ".agents/skills/qwork-test-dataset/data/runs/isolated-build",
-);
+if (!process.env.QWORK_E2E_BUILD_ROOT) {
+  throw new Error("QWORK_E2E_BUILD_ROOT must point into the external temporary run");
+}
+const output = resolve(process.env.QWORK_E2E_BUILD_ROOT);
 const shared = resolve(repo, "src/shared");
 
 export default defineConfig({

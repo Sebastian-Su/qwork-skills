@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "case_id": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-43B2F847",
+  "case_title": "WB-TEAM-009 | AskUser 只投影到 Lead 且 answer/skip 各回执一次",
+  "status": "pass",
+  "started_at": "2026-08-14T03:29:37.406Z",
+  "finished_at": "2026-08-14T03:29:41.788Z",
+  "exit_code": 0,
+  "zero_real_model_calls": true,
+  "isolated_qwork_home": true,
+  "deterministic_sidecar": "repo://e2e/fixtures/fake-sidecar.mjs",
+  "source": {
+    "spec": "skill://qwork-test-dataset/data/e2e/team-ask-user-causality.spec.ts",
+    "spec_sha256": "sha256:d5eeddc2354b933c6e5a033e33dfe53c2df304a6145936ec5ff5b5572efa90cb",
+    "implementation_revision": "19f210518dbad3768eb14a09baa5eea226016c7b"
+  },
+  "authority": {
+    "files": [
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts",
+        "sha256": "sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts",
+        "sha256": "sha256:75ea3197686d34faf9b138145ccc5050eac2bbaba31ea7aed1e3f4fdc63ddbd7"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/private-case-authority.mjs",
+        "sha256": "sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs",
+        "sha256": "sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/build_isolated_electron.mjs",
+        "sha256": "sha256:3634574afd74c3762e05b814b80d7bbc1aee08c8c782ebb1884a6b7df10db468"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts",
+        "sha256": "sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/playwright-private.config.ts",
+        "sha256": "sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/package.json",
+        "sha256": "sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390"
+      },
+      {
+        "locator": "repo://e2e/fixtures/fake-sidecar.mjs",
+        "sha256": "sha256:9ea7d9a1ec44d6a681f929f2005ea207598d4711c7de12be55dd447f6c2f91f0"
+      },
+      {
+        "locator": "repo://e2e/fixtures/workbuddy-ui.ts",
+        "sha256": "sha256:4458ee31d84e60d047334a9e26faef4a4415d79046fefd2b3f84bebeff1c2675"
+      }
+    ]
+  },
+  "selected_tests": [
+    {
+      "title": "WB-TEAM-009 | AskUser 只投影到 Lead 且 answer/skip 各回执一次",
+      "file": "team-ask-user-causality.spec.ts",
+      "path": "team-ask-user-causality.spec.ts > WB-TEAM-009 | AskUser 只投影到 Lead 且 answer/skip 各回执一次",
+      "status": "expected",
+      "duration_ms": 3888
+    }
+  ],
+  "evidence": {
+    "integrity": "complete",
+    "integrity_errors": [],
+    "build_manifest": {
+      "path": "build-manifest.json",
+      "sha256": "sha256:7ed851bf2d256216ca591f0fa5617daef679baec72f0577cfe05ed181ece753b"
+    },
+    "playwright_report": {
+      "path": "playwright-report.json",
+      "sha256": "sha256:276f24913196e15866eb8afd8d04bad34bd2ebeb83b759155de8da3ca5272330"
+    },
+    "stderr": {
+      "path": "playwright.stderr.log",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "electron_runtime": {
+      "path": "electron-runtime.log",
+      "sha256": "sha256:c9cb5db7b147ef6743649d3470ad85b8451b703f21efc73777e1f894f77f9895"
+    },
+    "screenshots": [
+      {
+        "path": "screenshots/WB-TEAM-009-AskUser-只投影到-Lead-且-answer-skip-各回执一次-entry-team-lead-without-member-run.png",
+        "sha256": "sha256:4e0b979c4f8a5eb9834c0f008a4fa94b5f937fea77513aebe8bc8c19bb60383e"
+      },
+      {
+        "path": "screenshots/WB-TEAM-009-AskUser-只投影到-Lead-且-answer-skip-各回执一次-final-answer-and-skip-returned-to-lead.png",
+        "sha256": "sha256:44a88dc3bfed364467f1d2ddc74d9e14c40c29afd90835b25732ce2c14858346"
+      },
+      {
+        "path": "screenshots/WB-TEAM-009-AskUser-只投影到-Lead-且-answer-skip-各回执一次-transition-lead-owned-question-visible.png",
+        "sha256": "sha256:ee7214cf8d4487e19209bd05d8e7c16b55dd0553bb1bbc1fe365414dd8a4af09"
+      }
+    ],
+    "traces": [
+      {
+        "path": "playwright-results/team-ask-user-causality-WB-659b8-影到-Lead-且-answer-skip-各回执一次/trace.zip",
+        "sha256": "sha256:9d19e9a1035e11ed783706d438aae4451f844f7aa64f5d0e8d13f84c6a6b9280"
+      }
+    ]
+  },
+  "cleanup": {
+    "case_owned_qwork_home_removed_by_fixture": true,
+    "app_process_closed_by_fixture": true,
+    "app_assembly_removed": true
+  }
+}

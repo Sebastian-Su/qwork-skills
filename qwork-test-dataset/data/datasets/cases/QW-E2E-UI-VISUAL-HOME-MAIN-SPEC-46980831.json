@@ -1,0 +1,276 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-VISUAL-HOME-MAIN-SPEC-46980831",
+  "title": "remains usable with a collapsed or expanded sidebar at 1024×720",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-visual-home-main-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-visual-home-main.spec.ts",
+      "locator": "line:187;test:remains usable with a collapsed or expanded sidebar at 1024×720",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:46980831dbbdcbb48c408d21bc7134f72d16358bea30a63e9cb978cbedf81762",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-CBCA81F108AB67",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-visual-home-main-spec-ts:L187:46980831db"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "remains usable with a collapsed or expanded sidebar at 1024×720",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-visual-home-main-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "remains usable with a collapsed or expanded sidebar at 1024×720"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").fill(\"启用发送\")"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"代码开发\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"日常开发\" }).click()"
+    },
+    {
+      "action": "page.getByTestId(\"composer-model-trigger\").click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"日常办公\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"文档处理\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收起侧栏\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"展开侧栏\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: \"发送\" })).toBeDisabled()",
+    "expect(page.getByRole(\"button\", { name: \"发送\" })).toBeEnabled()",
+    "expect(page.getByRole(\"button\", { name: \"移除场景 日常开发\" })).toBeVisible()",
+    "expect(page.getByRole(\"menu\")).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"移除场景 文档处理\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"展开侧栏\" })).toBeVisible()",
+    "expect .poll(async () => Math.abs((await boxOf(page.getByTestId(\"main-content\"))).x)) .toBeLessThanOrEqual(1)",
+    "expect(page.getByTestId(\"composer-surface\")).toBeVisible()",
+    "expect(overflow.scroll).toBeLessThanOrEqual(overflow.client)",
+    "expect(page.getByTestId(\"composer-surface\")).toBeVisible()",
+    "expect(page.getByRole(\"textbox\")).toHaveValue(\"启用发送\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-CBCA81F108AB67",
+      "type": "return",
+      "assertion": "remains usable with a collapsed or expanded sidebar at 1024×720"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-visual-home-main-spec-ts.46980831db",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-visual-home-main.spec.ts -g \"remains usable with a collapsed or expanded sidebar at 1024×720\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").fill(\"启用发送\")"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"代码开发\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"日常开发\" }).click()"
+        },
+        {
+          "action": "page.getByTestId(\"composer-model-trigger\").click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"日常办公\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"文档处理\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收起侧栏\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"展开侧栏\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-visual-home-main.spec.ts",
+        "line_start": 187,
+        "line_end": 219,
+        "body_sha256": "sha256:3fc0a39902ac5aca9ea296aa15915be8f4dcd6ebe348de1c402024e27c79eade",
+        "assertion_count": 11,
+        "action_count": 10,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:9acf6a965f2d2e373dea9f0de5ee81b078ad566b4dc4b9e25d3efa3d1c456462"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-CBCA81F108AB67"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-CBCA81F108AB67"
+    ]
+  }
+}

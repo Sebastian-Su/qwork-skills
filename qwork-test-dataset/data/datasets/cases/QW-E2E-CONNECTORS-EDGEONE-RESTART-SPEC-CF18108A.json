@@ -1,0 +1,239 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-EDGEONE-RESTART-SPEC-CF18108A",
+  "title": "never restores an interactive provider process until the user clicks connect",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-edgeone-restart-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-edgeone-restart.spec.ts",
+      "locator": "line:98;test:never restores an interactive provider process until the user clicks connect",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:cf18108a4c86f757e9b6f755ba09a9d1ff4f29a66872f71d4e71df02c2e0bac7",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-BEA01CB1564D2E",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-edgeone-restart-spec-ts:L98:cf18108a4c"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "never restores an interactive provider process until the user clicks connect",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-edgeone-restart-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "never restores an interactive provider process until the user clicks connect"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "opened.page.getByRole(\"searchbox\", { name: \"搜索连接器\" }).fill( \"EdgeOne Makers\", )"
+    },
+    {
+      "action": "opened.page.getByRole(\"searchbox\", { name: \"搜索连接器\" }).fill( \"EdgeOne Makers\", )"
+    },
+    {
+      "action": "card.click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( opened.page.getByRole(\"button\", { name: \"EdgeOne Makers，未连接\", exact: true, }), ).toBeVisible()",
+    "expect((await readSettings(home)).mcpServers?.[CONNECTOR_ID]).toBeUndefined()",
+    "expect(fs.readFile(authSink, \"utf8\").catch(() => \"\")).resolves.toBe(\"\")",
+    "expect(await readMcpLog(mcpLog)).toEqual([])",
+    "expect(card).toBeVisible()",
+    "expect((await readSettings(home)).mcpServers?.[CONNECTOR_ID]).toBeUndefined()",
+    "expect(fs.readFile(authSink, \"utf8\").catch(() => \"\")).resolves.toBe(\"\")",
+    "expect(await readMcpLog(mcpLog)).toEqual([])",
+    "expect( dialog.getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible()",
+    "expect.poll(async () => readMcpLog(mcpLog)).toEqual([ expect.objectContaining({ type: \"mcp_server_upsert\", server: expect.objectContaining({ name: CONNECTOR_ID, command: \"npx\", args: PINNED_ARGS, }), }), ])"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-BEA01CB1564D2E",
+      "type": "return",
+      "assertion": "never restores an interactive provider process until the user clicks connect"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-edgeone-restart-spec-ts.cf18108a4c",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-edgeone-restart.spec.ts -g \"never restores an interactive provider process until the user clicks connect\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "opened.page.getByRole(\"searchbox\", { name: \"搜索连接器\" }).fill( \"EdgeOne Makers\", )"
+        },
+        {
+          "action": "opened.page.getByRole(\"searchbox\", { name: \"搜索连接器\" }).fill( \"EdgeOne Makers\", )"
+        },
+        {
+          "action": "card.click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-edgeone-restart.spec.ts",
+        "line_start": 98,
+        "line_end": 157,
+        "body_sha256": "sha256:868f33616a785d680883bc69beb386af1f0ee4423726d1ff6c63fb5c03ea95cd",
+        "assertion_count": 10,
+        "action_count": 4,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:e8660d570a7e7519b1885ecd0721e38975bae6bb47cec6c2b8a7346629852375"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-BEA01CB1564D2E"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-BEA01CB1564D2E"
+    ]
+  }
+}

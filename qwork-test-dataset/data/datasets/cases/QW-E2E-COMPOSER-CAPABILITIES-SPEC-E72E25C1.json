@@ -1,0 +1,359 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-COMPOSER-CAPABILITIES-SPEC-E72E25C1",
+  "title": "creates and switches WorkBuddy-aligned Ask and Plan conversation modes",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-composer-capabilities-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/composer-capabilities.spec.ts",
+      "locator": "line:126;test:creates and switches WorkBuddy-aligned Ask and Plan conversation modes",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:e72e25c1c1817bfa99e703369868a38400745f1d5a7163fec27a44f6caa2ca55",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-716BF212B7340A",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L126:e72e25c1c1"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "creates and switches WorkBuddy-aligned Ask and Plan conversation modes",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "creates and switches WorkBuddy-aligned Ask and Plan conversation modes"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "rootMenu.getByRole(\"menuitem\", { name: \"模式\", exact: true }).hover()"
+    },
+    {
+      "action": "ask.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "editor.fill(\"只分析当前项目\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "moreButton.click()"
+    },
+    {
+      "action": "thirdRootMenu .getByRole(\"menuitem\", { name: \"模式\", exact: true }) .hover()"
+    },
+    {
+      "action": "existingPlan.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "editor.fill(\"先制定实施计划\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "finalRootMenu .getByRole(\"menuitem\", { name: \"模式\", exact: true }) .hover()"
+    },
+    {
+      "action": "askAgain.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "editor.fill(\"再次只分析当前项目\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(modeMenu).toBeVisible()",
+    "expect(modeMenu).toHaveCSS(\"width\", \"200px\")",
+    "expect(modeMenu).toHaveCSS(\"height\", \"148px\")",
+    "expect(modeMenu).toContainText(\"当前为默认模式，可高效执行并完成任务。\")",
+    "expect(plan).toHaveAttribute(\"aria-checked\", \"false\")",
+    "expect(ask).toHaveAttribute(\"aria-checked\", \"false\")",
+    "expect(ask).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect(modeMenu).toContainText( \"当前为问答模式，适合问问题，找思路，无法做执行。\", )",
+    "expect(page.getByRole(\"status\", { name: \"当前模式\" })).toHaveText(\"仅问答\")",
+    "expect(page.getByRole(\"button\", { name: \"默认权限\" })).toBeVisible()",
+    "expect(page.getByText(\"收到：只分析当前项目\", { exact: true })).toBeVisible()",
+    "expect(thirdRootMenu).toBeVisible()",
+    "expect(existingAsk).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect(existingPlan).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect(page.getByText(\"收到：先制定实施计划\", { exact: true })).toBeVisible()",
+    "expect.poll(async () => { if ((await moreButton.getAttribute(\"aria-expanded\")) !== \"true\") { await moreButton.click(); } return moreButton.getAttribute(\"aria-expanded\"); }).toBe(\"true\")",
+    "expect(finalRootMenu).toBeVisible()",
+    "expect(askAgain).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect( page.getByText(\"收到：再次只分析当前项目\", { exact: true }), ).toBeVisible()",
+    "expect.poll(async () => { try { return (await fs.readFile(eventLog, \"utf8\")) .trim() .split(/\\r?\\n/) .filter(Boolean) .map((line) => JSON.parse(line) as { type: string; content?: string; permission_mode?: string; ref?: string; direction?: string; }); } catch { return []; } }).toEqual(expect.arrayContaining([ expect.objectContaining({ type: \"create_session\", permission_mode: \"plan\", }), expect.objectContaining({ type…",
+    "expect( controls.some((message) => message.permission_mode === \"ask\"), ).toBe(false)",
+    "expect(createIndex).toBeGreaterThanOrEqual(0)",
+    "expect(firstPromptIndex).toBeGreaterThan(createIndex)",
+    "expect(controls[firstPromptIndex]?.content).toMatch(/仅回答问题.*不得执行/s)",
+    "expect(secondPromptIndex).toBeGreaterThan(firstPromptIndex)",
+    "expect(controls[secondPromptIndex]?.content).not.toContain( \"<qwork_conversation_mode>\", )",
+    "expect(thirdPromptIndex).toBeGreaterThan(secondPromptIndex)",
+    "expect(controls[thirdPromptIndex]?.content).toMatch(/仅回答问题.*不得执行/s)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-716BF212B7340A",
+      "type": "return",
+      "assertion": "creates and switches WorkBuddy-aligned Ask and Plan conversation modes"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-composer-capabilities-spec-ts.e72e25c1c1",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/composer-capabilities.spec.ts -g \"creates and switches WorkBuddy-aligned Ask and Plan conversation modes\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "rootMenu.getByRole(\"menuitem\", { name: \"模式\", exact: true }).hover()"
+        },
+        {
+          "action": "ask.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "editor.fill(\"只分析当前项目\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "moreButton.click()"
+        },
+        {
+          "action": "thirdRootMenu .getByRole(\"menuitem\", { name: \"模式\", exact: true }) .hover()"
+        },
+        {
+          "action": "existingPlan.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "editor.fill(\"先制定实施计划\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "finalRootMenu .getByRole(\"menuitem\", { name: \"模式\", exact: true }) .hover()"
+        },
+        {
+          "action": "askAgain.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "editor.fill(\"再次只分析当前项目\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/composer-capabilities.spec.ts",
+        "line_start": 126,
+        "line_end": 291,
+        "body_sha256": "sha256:443c30f752abef86165f28de9dd7476f279c1565a9c0600ff6ed9f4e18d20b42",
+        "assertion_count": 28,
+        "action_count": 21,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:ef0fe5eafdb3d02943778765fba214b59a44606545516c81b2b6e65bba93bb7a"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-716BF212B7340A"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-716BF212B7340A"
+    ]
+  }
+}

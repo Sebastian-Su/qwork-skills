@@ -1,0 +1,229 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SESSION-SHORT-TITLE-SPEC-2BAD0297",
+  "title": "shows an immediate short title and replaces it after the reply without blocking chat",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-session-short-title-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/session-short-title.spec.ts",
+      "locator": "line:12;test:shows an immediate short title and replaces it after the reply without blocking chat",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:2bad02979a13ecdcf40768e64aed61bdc03bfc418abbcd4b81c79145508adc96",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-B3DBBEE10E0C9B",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-session-short-title-spec-ts:L12:2bad02979a"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "shows an immediate short title and replaces it after the reply without blocking chat",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-session-short-title-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "shows an immediate short title and replaces it after the reply without blocking chat"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(message)"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByTestId(\"dialog-thread-title\")).toHaveText( temporaryTitle, { timeout: 1_000 }, )",
+    "expect(page.getByText(`收到：${message}`, { exact: true })).toBeVisible({ timeout: 5_000, })",
+    "expect(page.getByTestId(\"dialog-thread-title\")).toHaveText( \"模型优化后的会话标题\", { timeout: 5_000 }, )",
+    "expect( page .getByRole(\"complementary\") .getByRole(\"button\", { name: /模型优化后的会话标题/ }), ).toBeVisible()",
+    "expect .poll(async () => { const raw = await fs .readFile( path.join(configHome, \"qwork-session-selections.json\"), \"utf8\", ) .catch(() => \"{}\"); const state = JSON.parse(raw) as Record< string, { automaticTitle?: string } >; return Object.values(state)[0]?.automaticTitle; }) .toBe(\"模型优化后的会话标题\")",
+    "expect( page .getByRole(\"complementary\") .getByRole(\"button\", { name: /模型优化后的会话标题/ }), ).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-B3DBBEE10E0C9B",
+      "type": "return",
+      "assertion": "shows an immediate short title and replaces it after the reply without blocking chat"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-session-short-title-spec-ts.2bad02979a",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/session-short-title.spec.ts -g \"shows an immediate short title and replaces it after the reply without blocking chat\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(message)"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/session-short-title.spec.ts",
+        "line_start": 12,
+        "line_end": 77,
+        "body_sha256": "sha256:29b7d0da6af8dd9e484210e1b3ae7feee3fd1961d34eb4d870bf68453bedfe0b",
+        "assertion_count": 6,
+        "action_count": 3,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:bc9fc8158edffa92d7d6e3695b80b13139a0d4725bd353fb84bc0b2259d688b7"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B3DBBEE10E0C9B"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-B3DBBEE10E0C9B"
+    ]
+  }
+}

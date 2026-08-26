@@ -1,0 +1,281 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SETTINGS-SPEC-2184B07B",
+  "title": "matches the fixed WorkBuddy settings shell at 1280 by 752",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "settings",
+    "journey": "settings",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-settings-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/settings.spec.ts",
+      "locator": "line:140;test:matches the fixed WorkBuddy settings shell at 1280 by 752",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:2184b07bff9856057ff68d099f13214290918aec7ffd261fcf8e2b367490dc71",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-5DD095B4976350",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-settings-spec-ts:L140:2184b07bff"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "settings",
+      "priority": "P1",
+      "rule": "matches the fixed WorkBuddy settings shell at 1280 by 752",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-settings-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches the fixed WorkBuddy settings shell at 1280 by 752"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-18T17:48:56.418454+00:00",
+    "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "createTestHome(\"settings-workbuddy-shell\")"
+    },
+    {
+      "action": "openApp(configHome)"
+    },
+    {
+      "action": "opened.page.setViewportSize({ width: 1280, height: 752 })"
+    },
+    {
+      "action": "openSettings(opened.page)"
+    },
+    {
+      "action": "opened.page.getByTestId(\"settings-surface\")"
+    },
+    {
+      "action": "opened.page.getByTestId(\"settings-navigation\")"
+    },
+    {
+      "action": "opened.page.getByTestId(\"settings-panel-header\")"
+    },
+    {
+      "action": "surface.boundingBox()"
+    },
+    {
+      "action": "navigation.boundingBox()"
+    },
+    {
+      "action": "header.boundingBox()"
+    },
+    {
+      "action": "cleanupTestHome(app, configHome)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect .poll(async () => { const box = await surface.boundingBox(); return box ? { x: Math.round(box.x), y: Math.round(box.y), width: Math.round(box.width), height: Math.round(box.height), } : null; }) .toEqual({ x: 120, y: 50, width: 1040, height: 652 })",
+    "expect(surfaceBox).not.toBeNull()",
+    "expect(navigationBox).not.toBeNull()",
+    "expect(headerBox).not.toBeNull()",
+    "expect(Math.round(surfaceBox!.x)).toBe(120)",
+    "expect(Math.round(surfaceBox!.y)).toBe(50)",
+    "expect(Math.round(surfaceBox!.width)).toBe(1040)",
+    "expect(Math.round(surfaceBox!.height)).toBe(652)",
+    "expect(Math.round(navigationBox!.width)).toBe(236)",
+    "expect(Math.round(headerBox!.height)).toBe(56)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-5DD095B4976350",
+      "type": "return",
+      "assertion": "matches the fixed WorkBuddy settings shell at 1280 by 752"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-settings-spec-ts.2184b07bff",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/settings.spec.ts -g \"matches the fixed WorkBuddy settings shell at 1280 by 752\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "settings",
+      "steps": [
+        {
+          "action": "createTestHome(\"settings-workbuddy-shell\")"
+        },
+        {
+          "action": "openApp(configHome)"
+        },
+        {
+          "action": "opened.page.setViewportSize({ width: 1280, height: 752 })"
+        },
+        {
+          "action": "openSettings(opened.page)"
+        },
+        {
+          "action": "opened.page.getByTestId(\"settings-surface\")"
+        },
+        {
+          "action": "opened.page.getByTestId(\"settings-navigation\")"
+        },
+        {
+          "action": "opened.page.getByTestId(\"settings-panel-header\")"
+        },
+        {
+          "action": "surface.boundingBox()"
+        },
+        {
+          "action": "navigation.boundingBox()"
+        },
+        {
+          "action": "header.boundingBox()"
+        },
+        {
+          "action": "cleanupTestHome(app, configHome)"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/settings.spec.ts",
+        "line_start": 140,
+        "line_end": 182,
+        "body_sha256": "sha256:d3de6e823d574cabbbdbf13fffe451829ab333157a56b8923e9c8f474bd6f554",
+        "assertion_count": 10,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:810b9b0eddf7b6308584c421b22da0a5421cc35c2ea9b09cc8cf6def1910ed26"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": "bug973549-public-reference-643446ff-v1",
+      "verified_at": "2026-08-18T17:48:56.418454+00:00",
+      "environment": "stale deterministic public Playwright reference run"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-5DD095B4976350"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-5DD095B4976350"
+    ]
+  }
+}

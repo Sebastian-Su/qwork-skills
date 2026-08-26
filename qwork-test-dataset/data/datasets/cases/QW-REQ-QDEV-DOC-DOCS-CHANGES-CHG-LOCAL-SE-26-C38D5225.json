@@ -1,0 +1,307 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-LOCAL-SE-26-C38D5225",
+  "title": "docs/changes/CHG-local-settings-production-20260814/issues/26-run-full-release-gate.md · 26 — 执行完整设置域发布门禁 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-local-settings-production-20260814-db88e039",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/changes/CHG-local-settings-production-20260814/issues/26-run-full-release-gate.md",
+      "locator": "line:10;heading:26 — 执行完整设置域发布门禁",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:775c7237c69ee9a4c72c827949019f39995a2ff9ce3f7988a695eba99924ab1e",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-local-settings-production-20260814-db88e039",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/changes/CHG-local-settings-production-20260814/issues/26-run-full-release-gate.md",
+      "locator": "line:17;heading:26 — 执行完整设置域发布门禁",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:e78f3a93d78e4f14d8e1ebdb2285711f04e7b6d2902919b4dec091cbfdffb9d0",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D18D62ABEBDD2A",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-local-settings-production-20260814-db88e039:L10:775c7237c6"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[x] 在全新隔离用户目录执行完整 typecheck、unit、coverage、Electron build 和 E2E 门禁，所有实际命令、退出码和报告被记录。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-local-settings-production-20260814-db88e039"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[x] 在全新隔离用户目录执行完整 typecheck、unit、coverage、Electron build 和 E2E 门禁，所有实际命令、退出码和报告被记录。"
+    },
+    {
+      "requirement_id": "REQ-B42D656D266C38",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-local-settings-production-20260814-db88e039:L17:e78f3a93d7"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[x] 最终结论严格区分 passed、failed、not_run、not_evaluated、external_blocked 和 credentials_blocked；只有实际执行并满足断言的项目记为 passed。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-local-settings-production-20260814-db88e039"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[x] 最终结论严格区分 passed、failed、not_run、not_evaluated、external_blocked 和 credentials_blocked；只有实际执行并满足断言的项目记为 passed。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-local-settings-production-20260814/issues/26-run-full-release-gate.md · 26 — 执行完整设置域发布门禁 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-D18D62ABEBDD2A] exactly: [x] 在全新隔离用户目录执行完整 typecheck、unit、coverage、Electron build 和 E2E 门禁，所有实际命令、退出码和报告被记录。"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-B42D656D266C38] exactly: [x] 最终结论严格区分 passed、failed、not_run、not_evaluated、external_blocked 和 credentials_blocked；只有实际执行并满足断言的项目记为 passed。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "[x] 在全新隔离用户目录执行完整 typecheck、unit、coverage、Electron build 和 E2E 门禁，所有实际命令、退出码和报告被记录。",
+    "[x] 最终结论严格区分 passed、failed、not_run、not_evaluated、external_blocked 和 credentials_blocked；只有实际执行并满足断言的项目记为 passed。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-D18D62ABEBDD2A]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [x] 在全新隔离用户目录执行完整 typecheck、unit、coverage、Electron build 和 E2E 门禁，所有实际命令、退出码和报告被记录。",
+    "FAIL [REQ-B42D656D266C38]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [x] 最终结论严格区分 passed、failed、not_run、not_evaluated、external_blocked 和 credentials_blocked；只有实际执行并满足断言的项目记为 passed。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D18D62ABEBDD2A",
+      "type": "ui",
+      "assertion": "[x] 在全新隔离用户目录执行完整 typecheck、unit、coverage、Electron build 和 E2E 门禁，所有实际命令、退出码和报告被记录。"
+    },
+    {
+      "requirement_id": "REQ-B42D656D266C38",
+      "type": "api",
+      "assertion": "[x] 最终结论严格区分 passed、failed、not_run、not_evaluated、external_blocked 和 credentials_blocked；只有实际执行并满足断言的项目记为 passed。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-local-sett.26-c38d5225b4",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-local-settings-production-20260814/issues/26-run-full-release-gate.md · 26 — 执行完整设置域发布门禁 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-D18D62ABEBDD2A] exactly: [x] 在全新隔离用户目录执行完整 typecheck、unit、coverage、Electron build 和 E2E 门禁，所有实际命令、退出码和报告被记录。"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-B42D656D266C38] exactly: [x] 最终结论严格区分 passed、failed、not_run、not_evaluated、external_blocked 和 credentials_blocked；只有实际执行并满足断言的项目记为 passed。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B42D656D266C38",
+      "REQ-D18D62ABEBDD2A"
+    ],
+    "categories": [
+      "business",
+      "permission"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:permission",
+      "full",
+      "requirement:REQ-B42D656D266C38",
+      "requirement:REQ-D18D62ABEBDD2A"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-D18D62ABEBDD2A",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-local-settings-production-20260814/issues/26-run-full-release-gate.md · 26 — 执行完整设置域发布门禁 产品契约 exactly once and retain its correlation identity",
+      "then": "[x] 在全新隔离用户目录执行完整 typecheck、unit、coverage、Electron build 和 E2E 门禁，所有实际命令、退出码和报告被记录。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-B42D656D266C38",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-local-settings-production-20260814/issues/26-run-full-release-gate.md · 26 — 执行完整设置域发布门禁 产品契约 exactly once and retain its correlation identity",
+      "then": "[x] 最终结论严格区分 passed、failed、not_run、not_evaluated、external_blocked 和 credentials_blocked；只有实际执行并满足断言的项目记为 passed。",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

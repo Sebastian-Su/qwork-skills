@@ -1,0 +1,228 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-REVIEW-LOW-RISK-RERU-REVIEW-220FE86F",
+  "title": "docs/review-low-risk-rerun-20260820.md · Review 低风险完整执行验证 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-review-low-risk-rerun-20260820-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/review-low-risk-rerun-20260820.md",
+      "locator": "line:3;heading:Review 低风险完整执行验证",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:b90ef5651f62a2de77b77025ddce55d791aeb93d0bfde3e5e6eb251e86095040",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-55B563D08635B9",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-review-low-risk-rerun-20260820-md:L3:b90ef5651f"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "此纯文档变更用于验证 QWork PR 测试与 Agent Review 能够并行启动并分别完成。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-review-low-risk-rerun-20260820-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "此纯文档变更用于验证 QWork PR 测试与 Agent Review 能够并行启动并分别完成。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for window-runtime at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/review-low-risk-rerun-20260820.md · Review 低风险完整执行验证 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-55B563D08635B9] exactly: 此纯文档变更用于验证 QWork PR 测试与 Agent Review 能够并行启动并分别完成。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "此纯文档变更用于验证 QWork PR 测试与 Agent Review 能够并行启动并分别完成。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-55B563D08635B9]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 此纯文档变更用于验证 QWork PR 测试与 Agent Review 能够并行启动并分别完成。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-55B563D08635B9",
+      "type": "event",
+      "assertion": "此纯文档变更用于验证 QWork PR 测试与 Agent Review 能够并行启动并分别完成。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-review-low-risk-rerun.review-220fe86f0e",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for window-runtime at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/review-low-risk-rerun-20260820.md · Review 低风险完整执行验证 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-55B563D08635B9] exactly: 此纯文档变更用于验证 QWork PR 测试与 Agent Review 能够并行启动并分别完成。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-55B563D08635B9"
+    ],
+    "categories": [
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-55B563D08635B9"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-55B563D08635B9",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/review-low-risk-rerun-20260820.md · Review 低风险完整执行验证 产品契约 exactly once and retain its correlation identity",
+      "then": "此纯文档变更用于验证 QWork PR 测试与 Agent Review 能够并行启动并分别完成。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

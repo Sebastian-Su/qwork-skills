@@ -1,0 +1,282 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CUSTOM-MODEL-LIVE-SPEC-3F23050E",
+  "title": "@live drives a real Ollama model end to end",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-custom-model-live-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/custom-model.live.spec.ts",
+      "locator": "line:145;test:@live drives a real Ollama model end to end",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:3f23050e8f4db802e812fadb5cb4379878e56517eb01f2bd7c2e6317d92b24a7",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-9B5D380C552F09",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-custom-model-live-spec-ts:L145:3f23050e8f"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "@live drives a real Ollama model end to end",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-custom-model-live-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "@live drives a real Ollama model end to end"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"添加模型\" }).click()"
+    },
+    {
+      "action": "editor.getByLabel(\"提供商\").selectOption(\"ollama\")"
+    },
+    {
+      "action": "editor.getByLabel(\"接口地址\").fill(proxy.url)"
+    },
+    {
+      "action": "editor.getByLabel(\"模型名称\").fill(LIVE_MODEL as string)"
+    },
+    {
+      "action": "editor.getByRole(\"button\", { name: \"保存\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"关闭设置\" }).click()"
+    },
+    {
+      "action": "page.getByTestId(\"composer-model-trigger\").click()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"模型\" }) .getByRole(\"menuitemradio\", { name: LIVE_MODEL as string }) .click()"
+    },
+    {
+      "action": "composer.fill(\"回复一个词\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "proxy.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(editor.getByLabel(\"接口地址\")).toHaveValue( \"http://127.0.0.1:11434/v1/chat/completions\", )",
+    "expect(editor.getByText(\"本地部署无需 API Key\")).toBeVisible()",
+    "expect(editor).toBeHidden()",
+    "expect(dialog.getByText(LIVE_MODEL as string)).toBeVisible()",
+    "expect(proxy.observed.length).toBeGreaterThan(0)",
+    "expect .poll( () => proxy.observed .slice(probeCount) .filter((entry) => entry.status !== undefined).length, { timeout: 180_000, intervals: [1_000] }, ) .toBeGreaterThan(0)",
+    "expect(completion.model).toBe(LIVE_MODEL)",
+    "expect( completion.status, `daemon rejected the completion: ${completion.failure ?? \"(no body)\"}`, ).toBeLessThan(400)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-9B5D380C552F09",
+      "type": "return",
+      "assertion": "@live drives a real Ollama model end to end"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-custom-model-live-spec-ts.3f23050e8f",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": true,
+      "scopes": [
+        "real external account/service/model route named by the source test"
+      ]
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/custom-model.live.spec.ts -g \"@live drives a real Ollama model end to end\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"添加模型\" }).click()"
+        },
+        {
+          "action": "editor.getByLabel(\"提供商\").selectOption(\"ollama\")"
+        },
+        {
+          "action": "editor.getByLabel(\"接口地址\").fill(proxy.url)"
+        },
+        {
+          "action": "editor.getByLabel(\"模型名称\").fill(LIVE_MODEL as string)"
+        },
+        {
+          "action": "editor.getByRole(\"button\", { name: \"保存\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"关闭设置\" }).click()"
+        },
+        {
+          "action": "page.getByTestId(\"composer-model-trigger\").click()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"模型\" }) .getByRole(\"menuitemradio\", { name: LIVE_MODEL as string }) .click()"
+        },
+        {
+          "action": "composer.fill(\"回复一个词\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "proxy.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home plus separately authorized real external fixture",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/custom-model.live.spec.ts",
+        "line_start": 145,
+        "line_end": 229,
+        "body_sha256": "sha256:c1ba58e8baf6fd0af3f28e42c405c9037e890b3b5acd603ff07effcbe1ba49c6",
+        "assertion_count": 8,
+        "action_count": 11,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:8c995609853e3d5ac0e95bdad543b50a6415c3a12553de1811c13f13520505d9"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "independent authorization for real external route pending",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-9B5D380C552F09"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-9B5D380C552F09"
+    ]
+  }
+}

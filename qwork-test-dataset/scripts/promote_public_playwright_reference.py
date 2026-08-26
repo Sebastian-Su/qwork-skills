@@ -63,7 +63,7 @@ def main() -> int:
     plan_path = args.plan.resolve()
     run_root = args.run_root.resolve()
     skill_root = (args.skill_root or Path(__file__).resolve().parent.parent).resolve()
-    destination = skill_root / "data/runs" / args.run_id
+    destination = skill_root / "data/reference-runs" / args.run_id
     if destination.exists():
         raise ValueError(f"reference destination already exists: {destination}")
 
@@ -216,7 +216,7 @@ def main() -> int:
         "status": "promotion-candidate",
         "run_id": args.run_id,
         "case_count": len(promoted),
-        "manifest": f"skill://qwork-test-dataset/data/runs/{args.run_id}/public-playwright-reference.json",
+        "manifest": f"skill://qwork-test-dataset/data/reference-runs/{args.run_id}/public-playwright-reference.json",
         "manifest_sha256": f"sha256:{sha256(manifest_path)}",
         "implementation_revision": current_revision,
     }, ensure_ascii=False))

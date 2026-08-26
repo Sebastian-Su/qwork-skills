@@ -1,0 +1,421 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-ADR-0003-CUSTOM-MODE-ITEM-E81EC635",
+  "title": "docs/adr/0003-custom-model-via-local-gateway-proxy.md · 待验证与后续 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-adr-0003-custom-model-via-local-gateway-proxy-m",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/adr/0003-custom-model-via-local-gateway-proxy.md",
+      "locator": "line:179;heading:待验证与后续",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:88d9668cb8a18b1d6a500aa392d1d6bd166df983392dd7ea6a11126911f55456",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-adr-0003-custom-model-via-local-gateway-proxy-m",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/adr/0003-custom-model-via-local-gateway-proxy.md",
+      "locator": "line:181;heading:待验证与后续",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:fa2545cebb0007d54a8999aa925bbe6e1211a9545adea43baf29112a9ce3d049",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-adr-0003-custom-model-via-local-gateway-proxy-m",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/adr/0003-custom-model-via-local-gateway-proxy.md",
+      "locator": "line:182;heading:待验证与后续",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:09573054c135dbfe08b3596067560d2704256b21b6c260530354586c72c61b39",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-adr-0003-custom-model-via-local-gateway-proxy-m",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/adr/0003-custom-model-via-local-gateway-proxy.md",
+      "locator": "line:183;heading:待验证与后续",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:0e855207272eca78f8d919ba657e62dc99d716c0027b557cb1acd92160ba1f02",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-18274B8EB61181",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-adr-0003-custom-model-via-local-gateway-proxy-m:L179:88d9668cb8"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "| 项 | 说明 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-adr-0003-custom-model-via-local-gateway-proxy-m"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 项 | 说明 |"
+    },
+    {
+      "requirement_id": "REQ-59D5F9E2AF0930",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-adr-0003-custom-model-via-local-gateway-proxy-m:L181:fa2545cebb"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "| 内置模型三段 ID 的可用性 | `modelCatalog.ts:6-14` 的 `DASHSCOPE_NAMESPACED_MODELS` 含 `moonshotai/kimi-k3` 等模型名内含斜杠的 ID，经 `runtimeModelId()` 成三段，**在 v0.7.0 实测中被拒绝**；而 `qwen/kimi-k3` 正常。可能是生产版本不同或云端实际下发短名。**不属于本功能范围，需单独核实**——若成立则部分内置模型当前不可用 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-adr-0003-custom-model-via-local-gateway-proxy-m"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 内置模型三段 ID 的可用性 | `modelCatalog.ts:6-14` 的 `DASHSCOPE_NAMESPACED_MODELS` 含 `moonshotai/kimi-k3` 等模型名内含斜杠的 ID，经 `runtimeModelId()` 成三段，**在 v0.7.0 实测中被拒绝**；而 `qwen/kimi-k3` 正常。可能是生产版本不同或云端实际下发短名。**不属于本功能范围，需单独核实**——若成立则部分内置模型当前不可用 |"
+    },
+    {
+      "requirement_id": "REQ-D392AC95EA4CA5",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-adr-0003-custom-model-via-local-gateway-proxy-m:L182:09573054c1"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "| 非标准 OpenAI 实现的兼容性 | 本次仅验证了标准实现。响应字段差异（`usage` 缺失、SSE 结束标记变体）对 ziqdo 解析的影响需真实端点冒烟覆盖 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-adr-0003-custom-model-via-local-gateway-proxy-m"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 非标准 OpenAI 实现的兼容性 | 本次仅验证了标准实现。响应字段差异（`usage` 缺失、SSE 结束标记变体）对 ziqdo 解析的影响需真实端点冒烟覆盖 |"
+    },
+    {
+      "requirement_id": "REQ-7A60E2967863CC",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-adr-0003-custom-model-via-local-gateway-proxy-m:L183:0e85520727"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "| ziqdo 原生 custom provider | 第 11 条的 v2 升级路径，需向 ziqdo 团队提案后另立 ADR |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-adr-0003-custom-model-via-local-gateway-proxy-m"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| ziqdo 原生 custom provider | 第 11 条的 v2 升级路径，需向 ziqdo 团队提案后另立 ADR |"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/adr/0003-custom-model-via-local-gateway-proxy.md · 待验证与后续 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-18274B8EB61181] exactly: | 项 | 说明 |"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-59D5F9E2AF0930] exactly: | 内置模型三段 ID 的可用性 | `modelCatalog.ts:6-14` 的 `DASHSCOPE_NAMESPACED_MODELS` 含 `moonshotai/kimi-k3` 等模型名内含斜杠的 ID，经 `runtimeModelId()` 成三段，**在 v0.7.0 实测中被拒绝**；而 `qwen/kimi-k3` 正常。可能是生产版本不同或云端实际下发短名。**不属于本功能范围，需单独核实**——若成立则部分内置模型当前不可用 |"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-D392AC95EA4CA5] exactly: | 非标准 OpenAI 实现的兼容性 | 本次仅验证了标准实现。响应字段差异（`usage` 缺失、SSE 结束标记变体）对 ziqdo 解析的影响需真实端点冒烟覆盖 |"
+    },
+    {
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-7A60E2967863CC] exactly: | ziqdo 原生 custom provider | 第 11 条的 v2 升级路径，需向 ziqdo 团队提案后另立 ADR |"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "| 项 | 说明 |",
+    "| 内置模型三段 ID 的可用性 | `modelCatalog.ts:6-14` 的 `DASHSCOPE_NAMESPACED_MODELS` 含 `moonshotai/kimi-k3` 等模型名内含斜杠的 ID，经 `runtimeModelId()` 成三段，**在 v0.7.0 实测中被拒绝**；而 `qwen/kimi-k3` 正常。可能是生产版本不同或云端实际下发短名。**不属于本功能范围，需单独核实**——若成立则部分内置模型当前不可用 |",
+    "| 非标准 OpenAI 实现的兼容性 | 本次仅验证了标准实现。响应字段差异（`usage` 缺失、SSE 结束标记变体）对 ziqdo 解析的影响需真实端点冒烟覆盖 |",
+    "| ziqdo 原生 custom provider | 第 11 条的 v2 升级路径，需向 ziqdo 团队提案后另立 ADR |"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-18274B8EB61181]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 项 | 说明 |",
+    "FAIL [REQ-59D5F9E2AF0930]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 内置模型三段 ID 的可用性 | `modelCatalog.ts:6-14` 的 `DASHSCOPE_NAMESPACED_MODELS` 含 `moonshotai/kimi-k3` 等模型名内含斜杠的 ID，经 `runtimeModelId()` 成三段，**在 v0.7.0 实测中被拒绝**；而 `qwen/kimi-k3` 正常。可能是生产版本不同或云端实际下发短名。**不属于本功能范围，需单独核实**——若成立则部分内置模型当前不可用 |",
+    "FAIL [REQ-D392AC95EA4CA5]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 非标准 OpenAI 实现的兼容性 | 本次仅验证了标准实现。响应字段差异（`usage` 缺失、SSE 结束标记变体）对 ziqdo 解析的影响需真实端点冒烟覆盖 |",
+    "FAIL [REQ-7A60E2967863CC]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | ziqdo 原生 custom provider | 第 11 条的 v2 升级路径，需向 ziqdo 团队提案后另立 ADR |",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-18274B8EB61181",
+      "type": "return",
+      "assertion": "| 项 | 说明 |"
+    },
+    {
+      "requirement_id": "REQ-59D5F9E2AF0930",
+      "type": "return",
+      "assertion": "| 内置模型三段 ID 的可用性 | `modelCatalog.ts:6-14` 的 `DASHSCOPE_NAMESPACED_MODELS` 含 `moonshotai/kimi-k3` 等模型名内含斜杠的 ID，经 `runtimeModelId()` 成三段，**在 v0.7.0 实测中被拒绝**；而 `qwen/kimi-k3` 正常。可能是生产版本不同或云端实际下发短名。**不属于本功能范围，需单独核实**——若成立则部分内置模型当前不可用 |"
+    },
+    {
+      "requirement_id": "REQ-D392AC95EA4CA5",
+      "type": "return",
+      "assertion": "| 非标准 OpenAI 实现的兼容性 | 本次仅验证了标准实现。响应字段差异（`usage` 缺失、SSE 结束标记变体）对 ziqdo 解析的影响需真实端点冒烟覆盖 |"
+    },
+    {
+      "requirement_id": "REQ-7A60E2967863CC",
+      "type": "database",
+      "assertion": "| ziqdo 原生 custom provider | 第 11 条的 v2 升级路径，需向 ziqdo 团队提案后另立 ADR |"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-adr-0003-custom-model.item-e81ec6355e",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/adr/0003-custom-model-via-local-gateway-proxy.md · 待验证与后续 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-18274B8EB61181] exactly: | 项 | 说明 |"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-59D5F9E2AF0930] exactly: | 内置模型三段 ID 的可用性 | `modelCatalog.ts:6-14` 的 `DASHSCOPE_NAMESPACED_MODELS` 含 `moonshotai/kimi-k3` 等模型名内含斜杠的 ID，经 `runtimeModelId()` 成三段，**在 v0.7.0 实测中被拒绝**；而 `qwen/kimi-k3` 正常。可能是生产版本不同或云端实际下发短名。**不属于本功能范围，需单独核实**——若成立则部分内置模型当前不可用 |"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-D392AC95EA4CA5] exactly: | 非标准 OpenAI 实现的兼容性 | 本次仅验证了标准实现。响应字段差异（`usage` 缺失、SSE 结束标记变体）对 ziqdo 解析的影响需真实端点冒烟覆盖 |"
+        },
+        {
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-7A60E2967863CC] exactly: | ziqdo 原生 custom provider | 第 11 条的 v2 升级路径，需向 ziqdo 团队提案后另立 ADR |"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-18274B8EB61181",
+      "REQ-59D5F9E2AF0930",
+      "REQ-7A60E2967863CC",
+      "REQ-D392AC95EA4CA5"
+    ],
+    "categories": [
+      "business",
+      "data",
+      "negative"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:data",
+      "category:negative",
+      "full",
+      "requirement:REQ-18274B8EB61181",
+      "requirement:REQ-59D5F9E2AF0930",
+      "requirement:REQ-7A60E2967863CC",
+      "requirement:REQ-D392AC95EA4CA5"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-18274B8EB61181",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/adr/0003-custom-model-via-local-gateway-proxy.md · 待验证与后续 产品契约 exactly once and retain its correlation identity",
+      "then": "| 项 | 说明 |",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-59D5F9E2AF0930",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/adr/0003-custom-model-via-local-gateway-proxy.md · 待验证与后续 产品契约 exactly once and retain its correlation identity",
+      "then": "| 内置模型三段 ID 的可用性 | `modelCatalog.ts:6-14` 的 `DASHSCOPE_NAMESPACED_MODELS` 含 `moonshotai/kimi-k3` 等模型名内含斜杠的 ID，经 `runtimeModelId()` 成三段，**在 v0.7.0 实测中被拒绝**；而 `qwen/kimi-k3` 正常。可能是生产版本不同或云端实际下发短名。**不属于本功能范围，需单独核实**——若成立则部分内置模型当前不可用 |",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-D392AC95EA4CA5",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/adr/0003-custom-model-via-local-gateway-proxy.md · 待验证与后续 产品契约 exactly once and retain its correlation identity",
+      "then": "| 非标准 OpenAI 实现的兼容性 | 本次仅验证了标准实现。响应字段差异（`usage` 缺失、SSE 结束标记变体）对 ziqdo 解析的影响需真实端点冒烟覆盖 |",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-7A60E2967863CC",
+      "oracle_type": "database",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/adr/0003-custom-model-via-local-gateway-proxy.md · 待验证与后续 产品契约 exactly once and retain its correlation identity",
+      "then": "| ziqdo 原生 custom provider | 第 11 条的 v2 升级路径，需向 ziqdo 团队提案后另立 ADR |",
+      "observation_boundary": "case-owned durable database state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

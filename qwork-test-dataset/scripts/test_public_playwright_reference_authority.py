@@ -35,7 +35,7 @@ def main() -> int:
     }
     with tempfile.TemporaryDirectory(prefix="qwork-public-reference-") as value:
         skill = Path(value)
-        root = skill / "data/runs" / run_id
+        root = skill / "data/reference-runs" / run_id
         item_id = f"case:{case_id}"
         plan = {
             "plan_sha256": plan_hash,
@@ -105,7 +105,7 @@ def main() -> int:
             "required_screenshot_states": ["entry", "final-state"],
             "finished_at": "2026-08-19T00:00:00+00:00",
             "artifacts": [{"path": f"items/{case_id}/evidence-manifest.json", "sha256": evidence_sha}],
-            "batch_manifest": f"skill://qwork-test-dataset/data/runs/{run_id}/public-playwright-reference.json",
+            "batch_manifest": f"skill://qwork-test-dataset/data/reference-runs/{run_id}/public-playwright-reference.json",
             "batch_manifest_sha256": "sha256:" + hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
             "authority_files": [
                 {"path": "plan.json", "sha256": plan_sha},

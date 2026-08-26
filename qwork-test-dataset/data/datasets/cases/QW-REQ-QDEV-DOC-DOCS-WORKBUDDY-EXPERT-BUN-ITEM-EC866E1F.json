@@ -1,0 +1,497 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-WORKBUDDY-EXPERT-BUN-ITEM-EC866E1F",
+  "title": "docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 失败与回滚规则 产品契约",
+  "kind": "negative",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md",
+      "locator": "line:206;heading:失败与回滚规则",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:6d37569bda8c92d1e1cad274d1e1636b51162301888edf8fbc4b39391f925e8b",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md",
+      "locator": "line:207;heading:失败与回滚规则",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:ab754d090457127af6bed2509da2f9b3c89cd54ad10cf23194f318a87bea56c5",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md",
+      "locator": "line:208;heading:失败与回滚规则",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:9198e185b1d9960345043983d68d2f74827ad6930c4e5373c0e6ab63f1d94fda",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md",
+      "locator": "line:209;heading:失败与回滚规则",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:0a8dcb8c1ef93c64d69e438d14ea3460e3e86a192e8d69faff6286d8a9c40344",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md",
+      "locator": "line:210;heading:失败与回滚规则",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:e71d9addf588eb34ddb794818145f7d2970727773a1fef52100d08f3d15ca8ac",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-1C1529090E1EF9",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de:L206:6d37569bda"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "下载失败：继续用兼容且未撤销的 last-known-good；optional 包显示离线或更新失败。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "下载失败：继续用兼容且未撤销的 last-known-good；optional 包显示离线或更新失败。"
+    },
+    {
+      "requirement_id": "REQ-2CF29F1044B471",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de:L207:ab754d0904"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "哈希、签名、路径、manifest 或 runtime preflight 失败：拒绝安装，不覆盖 registry。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "哈希、签名、路径、manifest 或 runtime preflight 失败：拒绝安装，不覆盖 registry。"
+    },
+    {
+      "requirement_id": "REQ-83538BA5797534",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de:L208:9198e185b1"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "新版本首次会话启动失败：从受信任制品或内容寻址备份原子恢复同一个活跃目录和 registry，并记录 bad version；回滚不得产生新的活动路径。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "新版本首次会话启动失败：从受信任制品或内容寻址备份原子恢复同一个活跃目录和 registry，并记录 bad version；回滚不得产生新的活动路径。"
+    },
+    {
+      "requirement_id": "REQ-0EBB4A0AC83F88",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de:L209:0a8dcb8c1e"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "权威索引撤销版本：禁止新会话使用，即使本地仍存在文件。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "权威索引撤销版本：禁止新会话使用，即使本地仍存在文件。"
+    },
+    {
+      "requirement_id": "REQ-D542BB13BEBEC1",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de:L210:e71d9addf5"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "模型调用与专家包更新严格分离；更新失败不得通过创建普通 Agent 会话静默降级。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "模型调用与专家包更新严格分离；更新失败不得通过创建普通 Agent 会话静默降级。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 失败与回滚规则 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-1C1529090E1EF9] exactly: 下载失败：继续用兼容且未撤销的 last-known-good；optional 包显示离线或更新失败。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-2CF29F1044B471] exactly: 哈希、签名、路径、manifest 或 runtime preflight 失败：拒绝安装，不覆盖 registry。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-83538BA5797534] exactly: 新版本首次会话启动失败：从受信任制品或内容寻址备份原子恢复同一个活跃目录和 registry，并记录 bad version；回滚不得产生新的活动路径。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0EBB4A0AC83F88] exactly: 权威索引撤销版本：禁止新会话使用，即使本地仍存在文件。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-D542BB13BEBEC1] exactly: 模型调用与专家包更新严格分离；更新失败不得通过创建普通 Agent 会话静默降级。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "下载失败：继续用兼容且未撤销的 last-known-good；optional 包显示离线或更新失败。",
+    "哈希、签名、路径、manifest 或 runtime preflight 失败：拒绝安装，不覆盖 registry。",
+    "新版本首次会话启动失败：从受信任制品或内容寻址备份原子恢复同一个活跃目录和 registry，并记录 bad version；回滚不得产生新的活动路径。",
+    "权威索引撤销版本：禁止新会话使用，即使本地仍存在文件。",
+    "模型调用与专家包更新严格分离；更新失败不得通过创建普通 Agent 会话静默降级。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-1C1529090E1EF9]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 下载失败：继续用兼容且未撤销的 last-known-good；optional 包显示离线或更新失败。",
+    "FAIL [REQ-2CF29F1044B471]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 哈希、签名、路径、manifest 或 runtime preflight 失败：拒绝安装，不覆盖 registry。",
+    "FAIL [REQ-83538BA5797534]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 新版本首次会话启动失败：从受信任制品或内容寻址备份原子恢复同一个活跃目录和 registry，并记录 bad version；回滚不得产生新的活动路径。",
+    "FAIL [REQ-0EBB4A0AC83F88]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 权威索引撤销版本：禁止新会话使用，即使本地仍存在文件。",
+    "FAIL [REQ-D542BB13BEBEC1]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 模型调用与专家包更新严格分离；更新失败不得通过创建普通 Agent 会话静默降级。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-1C1529090E1EF9",
+      "type": "ui",
+      "assertion": "下载失败：继续用兼容且未撤销的 last-known-good；optional 包显示离线或更新失败。"
+    },
+    {
+      "requirement_id": "REQ-2CF29F1044B471",
+      "type": "return",
+      "assertion": "哈希、签名、路径、manifest 或 runtime preflight 失败：拒绝安装，不覆盖 registry。"
+    },
+    {
+      "requirement_id": "REQ-83538BA5797534",
+      "type": "return",
+      "assertion": "新版本首次会话启动失败：从受信任制品或内容寻址备份原子恢复同一个活跃目录和 registry，并记录 bad version；回滚不得产生新的活动路径。"
+    },
+    {
+      "requirement_id": "REQ-0EBB4A0AC83F88",
+      "type": "return",
+      "assertion": "权威索引撤销版本：禁止新会话使用，即使本地仍存在文件。"
+    },
+    {
+      "requirement_id": "REQ-D542BB13BEBEC1",
+      "type": "return",
+      "assertion": "模型调用与专家包更新严格分离；更新失败不得通过创建普通 Agent 会话静默降级。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-workbuddy-expert-bundl.item-ec866e1ffd",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 失败与回滚规则 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-1C1529090E1EF9] exactly: 下载失败：继续用兼容且未撤销的 last-known-good；optional 包显示离线或更新失败。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-2CF29F1044B471] exactly: 哈希、签名、路径、manifest 或 runtime preflight 失败：拒绝安装，不覆盖 registry。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-83538BA5797534] exactly: 新版本首次会话启动失败：从受信任制品或内容寻址备份原子恢复同一个活跃目录和 registry，并记录 bad version；回滚不得产生新的活动路径。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0EBB4A0AC83F88] exactly: 权威索引撤销版本：禁止新会话使用，即使本地仍存在文件。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-D542BB13BEBEC1] exactly: 模型调用与专家包更新严格分离；更新失败不得通过创建普通 Agent 会话静默降级。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0EBB4A0AC83F88",
+      "REQ-1C1529090E1EF9",
+      "REQ-2CF29F1044B471",
+      "REQ-83538BA5797534",
+      "REQ-D542BB13BEBEC1"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-0EBB4A0AC83F88",
+      "requirement:REQ-1C1529090E1EF9",
+      "requirement:REQ-2CF29F1044B471",
+      "requirement:REQ-83538BA5797534",
+      "requirement:REQ-D542BB13BEBEC1"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-1C1529090E1EF9",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 失败与回滚规则 产品契约 exactly once and retain its correlation identity",
+      "then": "下载失败：继续用兼容且未撤销的 last-known-good；optional 包显示离线或更新失败。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-2CF29F1044B471",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 失败与回滚规则 产品契约 exactly once and retain its correlation identity",
+      "then": "哈希、签名、路径、manifest 或 runtime preflight 失败：拒绝安装，不覆盖 registry。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-83538BA5797534",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 失败与回滚规则 产品契约 exactly once and retain its correlation identity",
+      "then": "新版本首次会话启动失败：从受信任制品或内容寻址备份原子恢复同一个活跃目录和 registry，并记录 bad version；回滚不得产生新的活动路径。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-0EBB4A0AC83F88",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 失败与回滚规则 产品契约 exactly once and retain its correlation identity",
+      "then": "权威索引撤销版本：禁止新会话使用，即使本地仍存在文件。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-D542BB13BEBEC1",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 失败与回滚规则 产品契约 exactly once and retain its correlation identity",
+      "then": "模型调用与专家包更新严格分离；更新失败不得通过创建普通 Agent 会话静默降级。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

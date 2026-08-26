@@ -1,0 +1,242 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SETTINGS-SPEC-AF4567B2",
+  "title": "adds and persists English display language with immediate key-surface localization",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "persistence",
+    "journey": "persistence",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-settings-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/settings.spec.ts",
+      "locator": "line:238;test:adds and persists English display language with immediate key-surface localization",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:af4567b211cb108bf4f864f29d50d173cd53c4bb4ee3d822829191c7a44be4e6",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-1F2A4F9AFF8CE9",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-settings-spec-ts:L238:af4567b211"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "persistence",
+      "priority": "P1",
+      "rule": "adds and persists English display language with immediate key-surface localization",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-settings-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "adds and persists English display language with immediate key-surface localization"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"combobox\", { name: \"显示语言\" }).selectOption(\"en-US\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"Close settings\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"System settings\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"Close settings\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(dialog).toBeVisible()",
+    "expect(dialog.getByRole(\"heading\", { name: \"Settings\", level: 1 })).toBeVisible()",
+    "expect(dialog.getByRole(\"button\", { name: \"Shortcuts\", exact: true })).toBeVisible()",
+    "expect.poll(() => opened.page.evaluate( async () => (await window.workGui.settings.get()).system.locale, )).toBe(\"en-US\")",
+    "expect(opened.page.getByRole(\"button\", { name: \"New task\", exact: true })).toBeVisible()",
+    "expect(dialog.getByRole(\"combobox\", { name: \"Display language\" })) .toHaveValue(\"en-US\")",
+    "expect(opened.page.getByRole(\"button\", { name: \"New task\", exact: true })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-1F2A4F9AFF8CE9",
+      "type": "return",
+      "assertion": "adds and persists English display language with immediate key-surface localization"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-settings-spec-ts.af4567b211",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/settings.spec.ts -g \"adds and persists English display language with immediate key-surface localization\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "persistence",
+      "steps": [
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"combobox\", { name: \"显示语言\" }).selectOption(\"en-US\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"Close settings\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"System settings\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"Close settings\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/settings.spec.ts",
+        "line_start": 238,
+        "line_end": 272,
+        "body_sha256": "sha256:e34030f83b2760442d36d521fc73f75ffac5d419ade5c79500c9149183f8fd3a",
+        "assertion_count": 7,
+        "action_count": 5,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:810b9b0eddf7b6308584c421b22da0a5421cc35c2ea9b09cc8cf6def1910ed26"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-1F2A4F9AFF8CE9"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-1F2A4F9AFF8CE9"
+    ]
+  }
+}

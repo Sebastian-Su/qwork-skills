@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import importlib.util
+import datetime as dt
 import json
 from pathlib import Path
 import tempfile
@@ -15,6 +16,11 @@ def main() -> int:
     assert spec and spec.loader
     runner = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(runner)
+    attester_path = Path(__file__).with_name("attest_independent_rerun.py")
+    attester_spec = importlib.util.spec_from_file_location("qwork_release_attester", attester_path)
+    assert attester_spec and attester_spec.loader
+    attester = importlib.util.module_from_spec(attester_spec)
+    attester_spec.loader.exec_module(attester)
     with tempfile.TemporaryDirectory(prefix="qwork-private-bridge-") as value:
         root = Path(value)
         first_namespace = runner.private_run_namespace(root / "full-v6/run")
@@ -23,7 +29,7 @@ def main() -> int:
             raise RuntimeError("distinct release-gate plans share a private evidence namespace")
         if first_namespace != runner.private_run_namespace(root / "full-v6/run"):
             raise RuntimeError("private evidence namespace is not deterministic")
-        private_root = root / "dataset/data/runs/release-gate-execution/run/case"
+        private_root = root / "QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/PRIVATE-EVIDENCE/run/case"
         public_root = root / "public"
         private_root.mkdir(parents=True)
         (private_root / "build-manifest.json").write_text(
@@ -57,7 +63,7 @@ def main() -> int:
         public_files = {path.name for path in public_root.rglob("*") if path.is_file()}
         if public_files != {"private-attestation.json"}:
             raise RuntimeError(f"raw private evidence escaped into public run: {sorted(public_files)}")
-        contract_root = root / "dataset/data/runs/release-gate-execution/run/contract"
+        contract_root = root / "QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/PRIVATE-EVIDENCE/run/contract"
         contract_root.mkdir(parents=True)
         (contract_root / "build-manifest.json").write_text(
             json.dumps({"source_revision": "revision"}), encoding="utf-8"
@@ -111,6 +117,47 @@ def main() -> int:
         )
         if classified["case:contract"].get("required_screenshot_states") != []:
             raise RuntimeError("contract-only empty screenshot contract was not preserved")
+        reference_root = root / "dataset"
+        report_path = reference_root / "data/reference-runs/private-reference/report.json"
+        report_path.parent.mkdir(parents=True)
+        report_path.write_text(json.dumps({
+            "case_id": "contract",
+            "status": "pass",
+            "finished_at": "2026-08-24T00:00:00+00:00",
+            "source": {
+                "spec": "skill://qwork-test-dataset/data/e2e/contract.spec.ts",
+                "spec_sha256": "sha256:" + "a" * 64,
+                "implementation_revision": "revision",
+            },
+            "selected_tests": [{"title": "contract-only", "status": "expected"}],
+        }), encoding="utf-8")
+        report_hash = attester.sha256(report_path)
+        registry_path = reference_root / "references/private-reference-runs.yaml"
+        registry_path.parent.mkdir(parents=True)
+        registry_path.write_text(
+            "runs:\n"
+            "  contract:\n"
+            "    run_id: private-reference\n"
+            "    report: skill://qwork-test-dataset/data/reference-runs/private-reference/report.json\n"
+            f"    report_sha256: sha256:{report_hash}\n",
+            encoding="utf-8",
+        )
+        validated_path, _, validated_hash = attester.validate_private_reference(
+            dataset=reference_root,
+            item={
+                "case_id": "contract",
+                "route_id": "qwork.private-playwright.contract-spec.contract",
+                "source_contract": {
+                    "spec": "skill://qwork-test-dataset/data/e2e/contract.spec.ts",
+                    "spec_sha256": "sha256:" + "a" * 64,
+                    "execution_revision": "revision",
+                },
+            },
+            run_id="private-reference",
+            current_started=dt.datetime.fromisoformat("2026-08-24T00:01:00+00:00"),
+        )
+        if validated_path != report_path or validated_hash != f"sha256:{report_hash}":
+            raise RuntimeError("private reference authority was not hash-bound")
         print(json.dumps({"status": "ok", "public_files": sorted(public_files), "raw_evidence_private": True}))
     return 0
 

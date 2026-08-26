@@ -1,0 +1,319 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONVERSATION-SHARING-SPEC-FF76B3A7",
+  "title": "creates one persistent share for repeated actions and a new share after selection changes",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "persistence",
+    "journey": "persistence",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-conversation-sharing-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/conversation-sharing.spec.ts",
+      "locator": "line:21;test:creates one persistent share for repeated actions and a new share after selection changes",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:ff76b3a75b95a541af2851bcc2de4b4c96ecb48b520bffb08ba581ccd268ab55",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0D5D794C0DC337",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-conversation-sharing-spec-ts:L21:ff76b3a75b"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "persistence",
+      "priority": "P1",
+      "rule": "creates one persistent share for repeated actions and a new share after selection changes",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-conversation-sharing-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "creates one persistent share for repeated actions and a new share after selection changes"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"第一问\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "composer.fill(\"第二问\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"分享任务\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"button\", { name: \"复制链接\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"checkbox\", { name: \"全选\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"button\", { name: \"复制链接\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"button\", { name: \"生成二维码\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"button\", { name: \"关闭二维码\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"button\", { name: \"浏览器打开\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"checkbox\", { name: \"选择完整回合：第二问\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"button\", { name: \"复制链接\" }).click()"
+    },
+    {
+      "action": "server.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"收到：第一问\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"收到：第二问\", { exact: true })).toBeVisible()",
+    "expect(panel.getByRole(\"checkbox\", { name: \"全选\" })).not.toBeChecked()",
+    "expect(page.getByRole(\"status\").filter({ hasText: \"没有可分享的内容\" })).toContainText(\"没有可分享的内容\")",
+    "expect(requests).toHaveLength(0)",
+    "expect(panel.getByRole(\"checkbox\", { name: \"全选\" })).toBeChecked()",
+    "expect(selectedSurfaces).toHaveCount(4)",
+    "expect(surface).toHaveCSS(\"background-color\", \"rgb(242, 242, 242)\")",
+    "expect(page.locator('[data-testid^=\"user-message-toolbar-\"]').first()).toHaveCSS(\"display\", \"none\")",
+    "expect(assistantCheckboxBox).not.toBeNull()",
+    "expect(assistantSurfaceBox).not.toBeNull()",
+    "expect(assistantCheckboxBox!.y - assistantSurfaceBox!.y).toBe(12)",
+    "expect(page.getByRole(\"dialog\", { name: \"确认公开分享内容\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"status\").filter({ hasText: \"链接已复制\" })).toContainText(\"链接已复制\")",
+    "expect(page.getByRole(\"img\", { name: \"分享二维码\" })).toBeVisible()",
+    "expect(page.getByRole(\"img\", { name: \"分享二维码\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"status\").filter({ hasText: \"已在浏览器打开\" })).toContainText(\"已在浏览器打开\")",
+    "expect.poll(() => app!.evaluate(() => { const state = globalThis as typeof globalThis & { __qworkOpenedExternalUrls?: string[] }; return state.__qworkOpenedExternalUrls; })).toEqual([\"https://share.example/token-1\"])",
+    "expect(requests).toHaveLength(1)",
+    "expect(requests[0].headers[\"idempotency-key\"]).toBeTruthy()",
+    "expect(requests[0].body).toMatchObject({ snapshot: { renderer: \"conversation\", turns: [{ user: { content: [{ type: \"markdown\", markdown: \"第一问\" }] } }, { user: { content: [{ type: \"markdown\", markdown: \"第二问\" }] } }], artifacts: [] }, })",
+    "expect.poll(() => page.evaluate(() => window.workGui!.clipboard.readText())).toBe(\"https://share.example/token-1\")",
+    "expect.poll(() => requests.length).toBe(2)",
+    "expect(requests[1].body).toMatchObject({ snapshot: { renderer: \"conversation\", turns: [{ user: { content: [{ type: \"markdown\", markdown: \"第一问\" }] } }], artifacts: [] }, })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0D5D794C0DC337",
+      "type": "return",
+      "assertion": "creates one persistent share for repeated actions and a new share after selection changes"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-conversation-sharing-spec-ts.ff76b3a75b",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/conversation-sharing.spec.ts -g \"creates one persistent share for repeated actions and a new share after selection changes\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "persistence",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"第一问\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "composer.fill(\"第二问\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"分享任务\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"button\", { name: \"复制链接\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"checkbox\", { name: \"全选\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"button\", { name: \"复制链接\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"button\", { name: \"生成二维码\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"button\", { name: \"关闭二维码\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"button\", { name: \"浏览器打开\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"checkbox\", { name: \"选择完整回合：第二问\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"button\", { name: \"复制链接\" }).click()"
+        },
+        {
+          "action": "server.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/conversation-sharing.spec.ts",
+        "line_start": 21,
+        "line_end": 123,
+        "body_sha256": "sha256:2d8a8007d910f8f42d429e11ee6dbec94f92593a7c7eb2d9d24b72a80f872915",
+        "assertion_count": 24,
+        "action_count": 15,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:19a7b3d76c56169ae25fc61ad289e6df5ac13590a98c6b26059320ee223e7984"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0D5D794C0DC337"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-0D5D794C0DC337"
+    ]
+  }
+}

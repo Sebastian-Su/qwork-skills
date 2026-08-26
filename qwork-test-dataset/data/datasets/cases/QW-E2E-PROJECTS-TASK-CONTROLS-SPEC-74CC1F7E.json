@@ -1,0 +1,475 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECTS-TASK-CONTROLS-SPEC-74CC1F7E",
+  "title": "matches WorkBuddy task target, workspace history, and dismiss behavior",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "files",
+    "journey": "files",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-projects-task-controls-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-task-controls.spec.ts",
+      "locator": "line:12;test:matches WorkBuddy task target, workspace history, and dismiss behavior",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:74cc1f7e0ebc3dd6e2b247f84be2484b2ab18ef0b4e5bfd90b741c9af13c4b15",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-80FF4FBE5AF21D",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-projects-task-controls-spec-ts:L12:74cc1f7e0e"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "matches WorkBuddy task target, workspace history, and dismiss behavior",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-projects-task-controls-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches WorkBuddy task target, workspace history, and dismiss behavior"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+    },
+    {
+      "action": "moreMenu.getByRole(\"menuitem\", { name: \"模式\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+    },
+    {
+      "action": "reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+    },
+    {
+      "action": "reopenedMoreMenuAfterReference.getByRole(\"menuitem\", { name: \"添加文件\" }).hover()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+    },
+    {
+      "action": "reopenedMoreMenu.getByRole(\"menuitem\", { name: \"技能\" }).click()"
+    },
+    {
+      "action": "skillSearch.fill(\"不存在的技能\")"
+    },
+    {
+      "action": "skillSearch.fill(\"\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+    },
+    {
+      "action": "connectorMenu.getByRole(\"menuitem\", { name: \"连接器\" }).click()"
+    },
+    {
+      "action": "projectConnectorMenu.getByRole(\"searchbox\", { name: \"搜索连接器\" }).fill(\"不存在的连接器\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"技能\" }).click()"
+    },
+    {
+      "action": "reopenedSkillMenu.getByRole(\"menuitem\", { name: \"从本地添加技能\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭导入技能\" }).click()"
+    },
+    {
+      "action": "composer.getByTestId(\"project-composer-model-trigger\").click()"
+    },
+    {
+      "action": "modelMenu.getByRole(\"menuitemradio\", { name: \"Kimi-K3\" }).click()"
+    },
+    {
+      "action": "localButton.click()"
+    },
+    {
+      "action": "taskMenu.getByRole(\"menuitemradio\", { name: \"云端任务\" }).click()"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"选择工作空间\", exact: true }).click()"
+    },
+    {
+      "action": "workspaceMenu.getByRole(\"menuitem\", { name: \"oracle-workspace\" }).click()"
+    },
+    {
+      "action": "prompt.fill(\"@spec\")"
+    },
+    {
+      "action": "mentionPicker.getByRole(\"option\", { name: \"spec.md\" }).click()"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"移除附件 spec.md\" }).click()"
+    },
+    {
+      "action": "prompt.fill(\"/\")"
+    },
+    {
+      "action": "prompt.fill(\"WorkBuddy 控件回归任务\")"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(sharedSurface).toBeVisible()",
+    "expect(sharedSurface).toHaveCSS(\"height\", \"178px\")",
+    "expect(sharedSurface).toHaveCSS(\"border-radius\", \"18px\")",
+    "expect(sharedEditor).toHaveCSS(\"height\", \"138px\")",
+    "expect(sharedEditor).toHaveCSS(\"border-radius\", \"18px\")",
+    "expect(moreMenu).toBeVisible()",
+    "expect(moreMenu).toHaveClass(/bg-bg-1/)",
+    "expect(moreMenu).toHaveClass(/border-border/)",
+    "expect(moreMenu).toHaveClass(/shadow-float/)",
+    "expect(modeMenu).toBeVisible()",
+    "expect(modeMenu).toHaveText(/当前为默认模式/)",
+    "expect(modeMenu).toHaveClass(/bg-bg-1/)",
+    "expect(modeMenu).toHaveClass(/border-border/)",
+    "expect(modeSurface.background).not.toBe(modeSurface.color)",
+    "expect(modeSurface.rect.width).toBeGreaterThan(200)",
+    "expect(modeSurface.rect.height).toBeGreaterThan(100)",
+    "expect(modeMenu).toBeHidden()",
+    "expect(moreMenu).toBeHidden()",
+    "expect(composer.getByRole(\"button\", { name: \"打开工具菜单\" })).toBeFocused()",
+    "expect(reopenedMoreMenuForTheme).toBeVisible()",
+    "expect(sharedSurface).toHaveClass(/dark:bg-bg-1/)",
+    "expect(sharedEditor).toHaveClass(/dark:bg-bg-1/)",
+    "expect(composer.getByRole(\"textbox\")).toHaveClass(/dark:text-white/)",
+    "expect(composer.getByRole(\"textbox\")).toHaveClass(/dark:placeholder:text-white\\/60/)",
+    "expect(footer).toHaveClass(/dark:bg-bg-1/)",
+    "expect(footer).toHaveClass(/dark:text-white/)",
+    "expect(composer.getByRole(\"button\", { name: label, exact: true })).toHaveClass( /dark:text-white/, )",
+    "expect(composerSurface.editorBackground).not.toBe(\"rgb(255, 255, 255)\")",
+    "expect(composerSurface.footerBackground).not.toBe(\"rgb(255, 255, 255)\")",
+    "expect(composerSurface.textareaColor).toBe(\"rgb(255, 255, 255)\")",
+    "expect(composerSurface.footerControlColor).toBe(\"rgb(255, 255, 255)\")",
+    "expect(reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"添加文件\" })).toBeVisible()",
+    "expect( reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }), ).toBeVisible()",
+    "expect(page.getByRole(\"dialog\", { name: \"引用文件与对话\" })).toBeVisible()",
+    "expect(page.getByRole(\"dialog\", { name: \"引用文件与对话\" })).toBeHidden()",
+    "expect(reopenedMoreMenuAfterReference).toBeVisible()",
+    "expect(fileMenu.getByRole(\"menuitem\")).toHaveCount(1)",
+    "expect(fileMenu.getByRole(\"menuitem\", { name: \"本地文件\" })).toBeVisible()",
+    "expect(projectSkillMenu).toBeVisible()",
+    "expect(projectSkillMenu.getByRole(\"status\")).toHaveText(\"未找到匹配的技能，换个关键词试试\")",
+    "expect(projectConnectorMenu).toBeVisible()",
+    "expect(projectConnectorMenu.getByRole(\"status\")).toHaveText(\"未找到匹配的连接器，换个关键词试试\")",
+    "expect(reopenedSkillMenu).toBeVisible()",
+    "expect(page.getByRole(\"dialog\", { name: \"导入技能\" })).toBeVisible()",
+    "expect(composer).toBeVisible()",
+    "expect(page.getByRole(\"checkbox\", { name: \"非高风险自动安装\" })).toBeChecked()",
+    "expect(modelMenu.getByRole(\"menuitemradio\", { name: \"Kimi-K3\" })).toBeVisible()",
+    "expect(composer.getByTestId(\"project-composer-model-trigger\")).toContainText(\"Kimi-K3\")",
+    "expect(taskMenu.getByRole(\"menuitemradio\", { name: \"本地任务\" })).toHaveAttribute( \"aria-checked\", \"true\", )",
+    "expect(composer.getByRole(\"button\", { name: \"云端任务\", exact: true })).toBeVisible()",
+    "expect(composer.getByTestId(\"project-composer-model-trigger\")).toBeDisabled()",
+    "expect(composer.getByTestId(\"project-composer-model-trigger\")).toContainText(\"Auto\")",
+    "expect(workspaceMenu.getByRole(\"menuitem\", { name: \"oracle-workspace\" })).toBeVisible()",
+    "expect(composer.getByRole(\"button\", { name: \"oracle-workspace\", exact: true })).toBeVisible()",
+    "expect(mentionPicker.getByRole(\"option\", { name: \"spec.md\" })).toBeVisible()",
+    "expect(composer.getByRole(\"button\", { name: \"移除附件 spec.md\" })).toBeVisible()",
+    "expect(slashPicker).toBeVisible()",
+    "expect(managedSkillIds.length).toBeGreaterThan(0)",
+    "expect([...slashSkillIds].sort()).toEqual([...managedSkillIds].sort())",
+    "expect(page.getByRole(\"list\", { name: \"任务列表\" })).toContainText( \"WorkBuddy 控件回归任务\", )"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-80FF4FBE5AF21D",
+      "type": "return",
+      "assertion": "matches WorkBuddy task target, workspace history, and dismiss behavior"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-projects-task-controls-spec-ts.74cc1f7e0e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/projects-task-controls.spec.ts -g \"matches WorkBuddy task target, workspace history, and dismiss behavior\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "files",
+      "steps": [
+        {
+          "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+        },
+        {
+          "action": "moreMenu.getByRole(\"menuitem\", { name: \"模式\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+        },
+        {
+          "action": "reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+        },
+        {
+          "action": "reopenedMoreMenuAfterReference.getByRole(\"menuitem\", { name: \"添加文件\" }).hover()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+        },
+        {
+          "action": "reopenedMoreMenu.getByRole(\"menuitem\", { name: \"技能\" }).click()"
+        },
+        {
+          "action": "skillSearch.fill(\"不存在的技能\")"
+        },
+        {
+          "action": "skillSearch.fill(\"\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+        },
+        {
+          "action": "connectorMenu.getByRole(\"menuitem\", { name: \"连接器\" }).click()"
+        },
+        {
+          "action": "projectConnectorMenu.getByRole(\"searchbox\", { name: \"搜索连接器\" }).fill(\"不存在的连接器\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"技能\" }).click()"
+        },
+        {
+          "action": "reopenedSkillMenu.getByRole(\"menuitem\", { name: \"从本地添加技能\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭导入技能\" }).click()"
+        },
+        {
+          "action": "composer.getByTestId(\"project-composer-model-trigger\").click()"
+        },
+        {
+          "action": "modelMenu.getByRole(\"menuitemradio\", { name: \"Kimi-K3\" }).click()"
+        },
+        {
+          "action": "localButton.click()"
+        },
+        {
+          "action": "taskMenu.getByRole(\"menuitemradio\", { name: \"云端任务\" }).click()"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"选择工作空间\", exact: true }).click()"
+        },
+        {
+          "action": "workspaceMenu.getByRole(\"menuitem\", { name: \"oracle-workspace\" }).click()"
+        },
+        {
+          "action": "prompt.fill(\"@spec\")"
+        },
+        {
+          "action": "mentionPicker.getByRole(\"option\", { name: \"spec.md\" }).click()"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"移除附件 spec.md\" }).click()"
+        },
+        {
+          "action": "prompt.fill(\"/\")"
+        },
+        {
+          "action": "prompt.fill(\"WorkBuddy 控件回归任务\")"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/projects-task-controls.spec.ts",
+        "line_start": 12,
+        "line_end": 219,
+        "body_sha256": "sha256:e39ba4d599a93e053c6a04414e51b40ac01f2d78245c9b6026956292ed32fda9",
+        "assertion_count": 60,
+        "action_count": 35,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:287f911211f6f2a3463ebc0e7dbbb59abdf52414e8d50b903456302d55d4b5ac"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-80FF4FBE5AF21D"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-80FF4FBE5AF21D"
+    ]
+  }
+}

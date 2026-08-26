@@ -1,0 +1,766 @@
+{
+  "schema_version": 1,
+  "project": "qwork",
+  "created_at": "2026-08-24T11:44:05.149035+00:00",
+  "scope": "affected",
+  "closure_algorithm": "least-fixed-point",
+  "base_revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+  "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+  "current_checkout_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+  "dirty_entries": [],
+  "changed_file_hashes": [
+    {
+      "path": "docs/team-collaboration/changes/CHG-expert-identity-runtime-context-20260824.yaml",
+      "content_sha256": "dae17ea2d0a277ca08711d71a317acd55fd9d8ac7b98f2fd814c8b7982662870"
+    },
+    {
+      "path": "docs/team-collaboration/interface-ledger.md",
+      "content_sha256": "7335a90fd5106c08bdcec6cd4dbd0f982b98ba187179fef7a3a9f0ad7e5f48af"
+    },
+    {
+      "path": "e2e/experts.spec.ts",
+      "content_sha256": "5cfaebd6f1408fa2252ecc623ad3542efa50ed6bc1345c9a0d13e90f35ff3aed"
+    },
+    {
+      "path": "e2e/fixtures/fake-sidecar.mjs",
+      "content_sha256": "8a4038d6acda523c6c489ea5814f8a6f271d872ac7b7dd6e94b67b092bb0fae3"
+    },
+    {
+      "path": "src/main/experts/expertRuntimeContract.live.test.ts",
+      "content_sha256": "85779d76113c7f16e944b35b040bafee70c1f0eb4ff1859a604dfa7d145ed1da"
+    },
+    {
+      "path": "src/main/sidecar/SidecarSupervisor.ts",
+      "content_sha256": "dd81b6d4da34239478d2bdf670f3ad8ef398c948afa14f3f9cde57783e017dd5"
+    },
+    {
+      "path": "src/main/sidecar/sidecar.contract.test.ts",
+      "content_sha256": "42430c7367a67adbe5e229a20821e485344de28c4a7d5eede3e4aecafddb69dd"
+    },
+    {
+      "path": "src/shared/protocol.ts",
+      "content_sha256": "b2649a3a2cfe555ea93f0193b008c9e2a706c8848bdd4bf2c15b98ba9726fe68"
+    }
+  ],
+  "change_mappings": [
+    {
+      "changed_file": "docs/team-collaboration/changes/CHG-expert-identity-runtime-context-20260824.yaml",
+      "strategy": "gate-only",
+      "gate_item_ids": [
+        "gate:source-dispositions"
+      ],
+      "case_ids": []
+    },
+    {
+      "changed_file": "docs/team-collaboration/interface-ledger.md",
+      "strategy": "gate-only",
+      "gate_item_ids": [
+        "gate:source-dispositions"
+      ],
+      "case_ids": []
+    },
+    {
+      "changed_file": "e2e/experts.spec.ts",
+      "strategy": "source-atom-exact",
+      "case_ids": [
+        "QW-E2E-EXPERTS-SPEC-30BBFD68",
+        "QW-E2E-EXPERTS-SPEC-31219DF3",
+        "QW-E2E-EXPERTS-SPEC-32C9502C",
+        "QW-E2E-EXPERTS-SPEC-798BE960",
+        "QW-E2E-EXPERTS-SPEC-906C9160",
+        "QW-E2E-EXPERTS-SPEC-B05C3714",
+        "QW-E2E-EXPERTS-SPEC-B4E82251",
+        "QW-E2E-EXPERTS-SPEC-CF18E970"
+      ],
+      "superseded_case_ids": []
+    },
+    {
+      "changed_file": "e2e/fixtures/fake-sidecar.mjs",
+      "strategy": "unique-semantic-anchor",
+      "anchors": [
+        "session_start_additional_context"
+      ],
+      "case_ids": [
+        "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-3281F4D6"
+      ]
+    },
+    {
+      "changed_file": "src/main/experts/expertRuntimeContract.live.test.ts",
+      "strategy": "unique-semantic-anchor",
+      "anchors": [
+        "controlHasDouyinIdentity",
+        "controlHasExpertIdentity"
+      ],
+      "case_ids": [
+        "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-3281F4D6"
+      ]
+    },
+    {
+      "changed_file": "src/main/sidecar/SidecarSupervisor.ts",
+      "strategy": "unique-semantic-anchor",
+      "anchors": [
+        "session_start_additional_context"
+      ],
+      "case_ids": [
+        "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-3281F4D6"
+      ]
+    },
+    {
+      "changed_file": "src/main/sidecar/sidecar.contract.test.ts",
+      "strategy": "unique-semantic-anchor",
+      "anchors": [
+        "session_start_additional_context"
+      ],
+      "case_ids": [
+        "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-3281F4D6"
+      ]
+    },
+    {
+      "changed_file": "src/shared/protocol.ts",
+      "strategy": "unique-semantic-anchor",
+      "anchors": [
+        "session_start_additional_context"
+      ],
+      "case_ids": [
+        "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-3281F4D6"
+      ]
+    }
+  ],
+  "conservative_full_expansion": false,
+  "selected_case_ids": [
+    "QW-E2E-EXPERTS-SPEC-30BBFD68",
+    "QW-E2E-EXPERTS-SPEC-31219DF3",
+    "QW-E2E-EXPERTS-SPEC-32C9502C",
+    "QW-E2E-EXPERTS-SPEC-798BE960",
+    "QW-E2E-EXPERTS-SPEC-906C9160",
+    "QW-E2E-EXPERTS-SPEC-B05C3714",
+    "QW-E2E-EXPERTS-SPEC-B4E82251",
+    "QW-E2E-EXPERTS-SPEC-CF18E970",
+    "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-3281F4D6"
+  ],
+  "required_items": [
+    {
+      "item_id": "gate:source-acceptance",
+      "kind": "source-atom",
+      "required": true,
+      "command": "python3 .agents/skills/qwork-test-e2e/scripts/validate_source_acceptance.py --repo . --manifest skill://qwork-test-dataset/data/datasets/source-acceptance.json",
+      "layer": "static-architecture-type-lint",
+      "dimensions": [
+        "ui-structure-content-state",
+        "ui-geometry-visual-responsive"
+      ]
+    },
+    {
+      "item_id": "gate:source-dispositions",
+      "kind": "source-atom",
+      "required": true,
+      "command": "python3 .agents/skills/qwork-test-dataset/scripts/validate_source_dispositions.py --repo . --manifest skill://qwork-test-dataset/data/datasets/source-dispositions.json",
+      "layer": "static-architecture-type-lint",
+      "dimensions": [
+        "historical-badcase-goodcase",
+        "observability-correlation"
+      ]
+    },
+    {
+      "item_id": "gate:route-registry",
+      "kind": "route",
+      "required": true,
+      "command": "python3 .agents/skills/qwork-test-dataset/scripts/validate_route_registry.py --repo . --skill-root .agents/skills/qwork-test-dataset",
+      "layer": "real-user-path-e2e",
+      "dimensions": [
+        "ui-interaction-accessibility",
+        "observability-correlation"
+      ]
+    },
+    {
+      "item_id": "gate:dataset-private-storage",
+      "kind": "dataset-cohort",
+      "required": true,
+      "command": "python3 .agents/skills/qwork-test-dataset/scripts/validate_private_storage.py --repo . --skill qwork-test-dataset --path .agents/skills/qwork-test-dataset/data/datasets/source-acceptance.json",
+      "layer": "dataset-benchmark-evaluation",
+      "dimensions": [
+        "cleanup-isolation",
+        "permission-security"
+      ]
+    },
+    {
+      "item_id": "gate:dataset-schema",
+      "kind": "dataset-cohort",
+      "required": true,
+      "command": "node .agents/skills/qwork-test-dataset/scripts/validate_cases_ajv.mjs",
+      "layer": "dataset-benchmark-evaluation",
+      "dimensions": [
+        "happy-path",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "item_id": "gate:document-case-coverage",
+      "kind": "source-atom",
+      "required": true,
+      "command": "python3 .agents/skills/qwork-test-dataset/scripts/test_document_case_coverage.py --skill-root .agents/skills/qwork-test-dataset",
+      "layer": "dataset-benchmark-evaluation",
+      "dimensions": [
+        "ui-structure-content-state",
+        "observability-correlation"
+      ]
+    },
+    {
+      "item_id": "gate:structured-oracle-coverage",
+      "kind": "source-atom",
+      "required": true,
+      "command": "python3 .agents/skills/qwork-test-dataset/scripts/test_structured_oracle_coverage.py --skill-root .agents/skills/qwork-test-dataset",
+      "layer": "dataset-benchmark-evaluation",
+      "dimensions": [
+        "ui-geometry-visual-responsive",
+        "observability-correlation"
+      ]
+    },
+    {
+      "item_id": "gate:workbuddy-interaction-inventory",
+      "kind": "source-atom",
+      "required": true,
+      "command": "python3 .agents/skills/qwork-test-dataset/scripts/validate_workbuddy_interaction_inventory.py --skill-root .agents/skills/qwork-test-dataset",
+      "layer": "dataset-benchmark-evaluation",
+      "dimensions": [
+        "ui-interaction-accessibility",
+        "observability-correlation"
+      ]
+    },
+    {
+      "item_id": "gate:live-case-authorization",
+      "kind": "authorization",
+      "required": true,
+      "command": "python3 .agents/skills/qwork-test-dataset/scripts/test_live_case_authorization.py --skill-root .agents/skills/qwork-test-dataset",
+      "layer": "permission-security",
+      "dimensions": [
+        "permission-security",
+        "role-tenant-platform-environment-version"
+      ]
+    },
+    {
+      "item_id": "gate:typecheck",
+      "kind": "layer",
+      "required": true,
+      "command": "npm run typecheck",
+      "layer": "static-architecture-type-lint",
+      "dimensions": [
+        "role-tenant-platform-environment-version"
+      ]
+    },
+    {
+      "item_id": "gate:unit-integration",
+      "kind": "layer",
+      "required": true,
+      "command": "npm test",
+      "layer": "unit",
+      "dimensions": [
+        "happy-path",
+        "negative",
+        "boundary",
+        "empty-loading-error"
+      ]
+    },
+    {
+      "item_id": "gate:coverage",
+      "kind": "dimension",
+      "required": true,
+      "command": "npm run test:coverage",
+      "layer": "regression",
+      "dimensions": [
+        "historical-badcase-goodcase"
+      ]
+    },
+    {
+      "item_id": "gate:electron-build",
+      "kind": "execution-target",
+      "required": true,
+      "command": "npx electron-vite build",
+      "layer": "contract-api-event-protocol",
+      "dimensions": [
+        "ui-api-event-persistence-seams"
+      ]
+    },
+    {
+      "item_id": "case:QW-E2E-EXPERTS-SPEC-30BBFD68",
+      "kind": "case",
+      "required": true,
+      "command": "npx playwright test e2e/experts.spec.ts -g \"UI-JOURNEY-EXPERT-003/004 | real query drives expert thinking, tool flow and final summary\"",
+      "layer": "real-user-path-e2e",
+      "dimensions": [
+        "business",
+        "error",
+        "recovery",
+        "state",
+        "ui-content",
+        "ui-interaction"
+      ],
+      "case_id": "QW-E2E-EXPERTS-SPEC-30BBFD68",
+      "route_id": "qwork.playwright.e2e-experts-spec-ts.30bbfd68e8",
+      "execution_readiness": "partial",
+      "reference_run_status": "pending",
+      "reference_run_id": null,
+      "authorization_required": false,
+      "external_dependency_required": false,
+      "external_dependency": null,
+      "target_platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "required_screenshot_states": [],
+      "source_contract": {
+        "spec": "e2e/experts.spec.ts",
+        "line_start": 643,
+        "line_end": 692,
+        "body_sha256": "sha256:42dc9b6d85aeb5c3024b88cac39dbf3eb60bbe7009c59450f97039695f00e9d1",
+        "assertion_count": 10,
+        "action_count": 5,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5cfaebd6f1408fa2252ecc623ad3542efa50ed6bc1345c9a0d13e90f35ff3aed"
+      },
+      "revision_drift": false,
+      "blockers": [
+        "reference run pending"
+      ]
+    },
+    {
+      "item_id": "case:QW-E2E-EXPERTS-SPEC-31219DF3",
+      "kind": "case",
+      "required": true,
+      "command": "npx playwright test e2e/experts.spec.ts -g \"expert sample question only prefills the draft\"",
+      "layer": "real-user-path-e2e",
+      "dimensions": [
+        "business"
+      ],
+      "case_id": "QW-E2E-EXPERTS-SPEC-31219DF3",
+      "route_id": "qwork.playwright.e2e-experts-spec-ts.31219df3bb",
+      "execution_readiness": "partial",
+      "reference_run_status": "pending",
+      "reference_run_id": null,
+      "authorization_required": false,
+      "external_dependency_required": false,
+      "external_dependency": null,
+      "target_platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "required_screenshot_states": [],
+      "source_contract": {
+        "spec": "e2e/experts.spec.ts",
+        "line_start": 613,
+        "line_end": 641,
+        "body_sha256": "sha256:d2edba299662e2f9bf95381a65f867a9502aa2a0974356e06afa563d4f8a83b0",
+        "assertion_count": 4,
+        "action_count": 3,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5cfaebd6f1408fa2252ecc623ad3542efa50ed6bc1345c9a0d13e90f35ff3aed"
+      },
+      "revision_drift": false,
+      "blockers": [
+        "reference run pending"
+      ]
+    },
+    {
+      "item_id": "case:QW-E2E-EXPERTS-SPEC-32C9502C",
+      "kind": "case",
+      "required": true,
+      "command": "npx playwright test e2e/experts.spec.ts -g \"missing trusted SessionStart Hook blocks creation and keeps the draft\"",
+      "layer": "real-user-path-e2e",
+      "dimensions": [
+        "business",
+        "negative"
+      ],
+      "case_id": "QW-E2E-EXPERTS-SPEC-32C9502C",
+      "route_id": "qwork.playwright.e2e-experts-spec-ts.32c9502c83",
+      "execution_readiness": "partial",
+      "reference_run_status": "pending",
+      "reference_run_id": null,
+      "authorization_required": false,
+      "external_dependency_required": false,
+      "external_dependency": null,
+      "target_platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "required_screenshot_states": [],
+      "source_contract": {
+        "spec": "e2e/experts.spec.ts",
+        "line_start": 531,
+        "line_end": 575,
+        "body_sha256": "sha256:dc6576ef92cfcbe4c2b74c11d6964578285daeb512fd5adf5466c3832b5780af",
+        "assertion_count": 8,
+        "action_count": 3,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5cfaebd6f1408fa2252ecc623ad3542efa50ed6bc1345c9a0d13e90f35ff3aed"
+      },
+      "revision_drift": false,
+      "blockers": [
+        "reference run pending"
+      ]
+    },
+    {
+      "item_id": "case:QW-E2E-EXPERTS-SPEC-798BE960",
+      "kind": "case",
+      "required": true,
+      "command": "npx playwright test e2e/experts.spec.ts -g \"installed expert avatar and description survive a desktop restart\"",
+      "layer": "real-user-path-e2e",
+      "dimensions": [
+        "business"
+      ],
+      "case_id": "QW-E2E-EXPERTS-SPEC-798BE960",
+      "route_id": "qwork.playwright.e2e-experts-spec-ts.798be9608c",
+      "execution_readiness": "partial",
+      "reference_run_status": "pending",
+      "reference_run_id": null,
+      "authorization_required": false,
+      "external_dependency_required": false,
+      "external_dependency": null,
+      "target_platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "required_screenshot_states": [],
+      "source_contract": {
+        "spec": "e2e/experts.spec.ts",
+        "line_start": 232,
+        "line_end": 264,
+        "body_sha256": "sha256:c225f8380d5a3a09105c64a4f17fbc381031d7d14913be1a13b0d52c2731d6ac",
+        "assertion_count": 7,
+        "action_count": 3,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5cfaebd6f1408fa2252ecc623ad3542efa50ed6bc1345c9a0d13e90f35ff3aed"
+      },
+      "revision_drift": false,
+      "blockers": [
+        "reference run pending"
+      ]
+    },
+    {
+      "item_id": "case:QW-E2E-EXPERTS-SPEC-906C9160",
+      "kind": "case",
+      "required": true,
+      "command": "npx playwright test e2e/experts.spec.ts -g \"audited WorkBuddy expert creates a session from its stable canonical path\"",
+      "layer": "real-user-path-e2e",
+      "dimensions": [
+        "business",
+        "negative"
+      ],
+      "case_id": "QW-E2E-EXPERTS-SPEC-906C9160",
+      "route_id": "qwork.playwright.e2e-experts-spec-ts.906c9160ce",
+      "execution_readiness": "partial",
+      "reference_run_status": "pending",
+      "reference_run_id": null,
+      "authorization_required": false,
+      "external_dependency_required": false,
+      "external_dependency": null,
+      "target_platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "required_screenshot_states": [],
+      "source_contract": {
+        "spec": "e2e/experts.spec.ts",
+        "line_start": 307,
+        "line_end": 420,
+        "body_sha256": "sha256:9b0ce270e27ac1fcde50def0d7cf8499db522d8a005831fc524ac0f3d833d05d",
+        "assertion_count": 7,
+        "action_count": 8,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5cfaebd6f1408fa2252ecc623ad3542efa50ed6bc1345c9a0d13e90f35ff3aed"
+      },
+      "revision_drift": false,
+      "blockers": [
+        "reference run pending"
+      ]
+    },
+    {
+      "item_id": "case:QW-E2E-EXPERTS-SPEC-B05C3714",
+      "kind": "case",
+      "required": true,
+      "command": "npx playwright test e2e/experts.spec.ts -g \"expert sort uses source and local usage data and survives a desktop restart\"",
+      "layer": "real-user-path-e2e",
+      "dimensions": [
+        "business"
+      ],
+      "case_id": "QW-E2E-EXPERTS-SPEC-B05C3714",
+      "route_id": "qwork.playwright.e2e-experts-spec-ts.b05c3714f5",
+      "execution_readiness": "partial",
+      "reference_run_status": "pending",
+      "reference_run_id": null,
+      "authorization_required": false,
+      "external_dependency_required": false,
+      "external_dependency": null,
+      "target_platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "required_screenshot_states": [
+        "entry",
+        "transition",
+        "final-state"
+      ],
+      "source_contract": {
+        "spec": "e2e/experts.spec.ts",
+        "line_start": 266,
+        "line_end": 305,
+        "body_sha256": "sha256:c89a563e68e74478ddcddc8f253ce02e9206f3f5448d1a7d09c5832fef82b6bd",
+        "assertion_count": 7,
+        "action_count": 8,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5cfaebd6f1408fa2252ecc623ad3542efa50ed6bc1345c9a0d13e90f35ff3aed"
+      },
+      "revision_drift": false,
+      "blockers": [
+        "reference run pending",
+        "case-level screenshot checkpoint audit pending"
+      ]
+    },
+    {
+      "item_id": "case:QW-E2E-EXPERTS-SPEC-B4E82251",
+      "kind": "case",
+      "required": true,
+      "command": "npx playwright test e2e/experts.spec.ts -g \"expert center exposes registered Expert Packages without treating plugins as experts\"",
+      "layer": "real-user-path-e2e",
+      "dimensions": [
+        "accessibility",
+        "business",
+        "negative",
+        "permission",
+        "recovery",
+        "state"
+      ],
+      "case_id": "QW-E2E-EXPERTS-SPEC-B4E82251",
+      "route_id": "qwork.playwright.e2e-experts-spec-ts.b4e82251ca",
+      "execution_readiness": "partial",
+      "reference_run_status": "pending",
+      "reference_run_id": null,
+      "authorization_required": false,
+      "external_dependency_required": false,
+      "external_dependency": null,
+      "target_platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "required_screenshot_states": [
+        "entry",
+        "final-state"
+      ],
+      "source_contract": {
+        "spec": "e2e/experts.spec.ts",
+        "line_start": 431,
+        "line_end": 529,
+        "body_sha256": "sha256:02183008d34394e7cf1ee75007b212d0537f200c5fe59e4184d05db22d2b5ed1",
+        "assertion_count": 23,
+        "action_count": 5,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5cfaebd6f1408fa2252ecc623ad3542efa50ed6bc1345c9a0d13e90f35ff3aed"
+      },
+      "revision_drift": false,
+      "blockers": [
+        "reference run pending",
+        "case-level screenshot checkpoint audit pending"
+      ]
+    },
+    {
+      "item_id": "case:QW-E2E-EXPERTS-SPEC-CF18E970",
+      "kind": "case",
+      "required": true,
+      "command": "npx playwright test e2e/experts.spec.ts -g \"Runtime without SessionStart context capability blocks expert creation and keeps the draft\"",
+      "layer": "real-user-path-e2e",
+      "dimensions": [
+        "negative"
+      ],
+      "case_id": "QW-E2E-EXPERTS-SPEC-CF18E970",
+      "route_id": "qwork.playwright.e2e-experts-spec-ts.cf18e970f9",
+      "execution_readiness": "partial",
+      "reference_run_status": "pending",
+      "reference_run_id": null,
+      "authorization_required": false,
+      "external_dependency_required": false,
+      "external_dependency": null,
+      "target_platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "required_screenshot_states": [],
+      "source_contract": {
+        "spec": "e2e/experts.spec.ts",
+        "line_start": 577,
+        "line_end": 611,
+        "body_sha256": "sha256:ee41101e8187b400e892d3927ab0ddd74e29e362f6241ca1dd51de536c50d104",
+        "assertion_count": 7,
+        "action_count": 2,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5cfaebd6f1408fa2252ecc623ad3542efa50ed6bc1345c9a0d13e90f35ff3aed"
+      },
+      "revision_drift": false,
+      "blockers": [
+        "reference run pending"
+      ]
+    },
+    {
+      "item_id": "case:QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-3281F4D6",
+      "kind": "case",
+      "required": true,
+      "command": "node .agents/skills/qwork-test-dataset/scripts/run_private_playwright_case.mjs --repo . --case-id QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-3281F4D6 --case-title \"EXPERT-BOUNDARY-004 | 专家会话要求 Runtime 明示 SessionStart 隐藏上下文能力\"",
+      "layer": "real-user-path-e2e",
+      "dimensions": [
+        "business"
+      ],
+      "case_id": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-3281F4D6",
+      "route_id": "qwork.private-playwright.expert-process-boundary-contract-spec.3281f4d69d",
+      "execution_readiness": "ready",
+      "reference_run_status": "passed",
+      "reference_run_id": "expert-identity-runtime-context-cd8f6717",
+      "authorization_required": false,
+      "external_dependency_required": false,
+      "external_dependency": null,
+      "target_platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "required_screenshot_states": [],
+      "source_contract": {
+        "spec": "skill://qwork-test-dataset/data/e2e/expert-process-boundary-contract.spec.ts",
+        "line_start": 64,
+        "line_end": 78,
+        "body_sha256": "sha256:4736440f32bc820ffe1f5a5b17cd9527c3b468207763efcea165b15df4ad5e20",
+        "assertion_count": 7,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:34d1a702d30cce99a5dd36e54fad36b87ab92476ed6a8ba9a1726fc44eb3cf3e",
+        "supporting_contracts": [
+          {
+            "path": "skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:5e1c055763fca3c508d0dd0813c974226be3cddb88bfcdeee1ef3912a113b0e0",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/private-case-authority.mjs",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:1a2611bfa8b6ffc2af213df6c626cffc8bdad43dd1ff25266c21d331a326ea40",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/build_isolated_electron.mjs",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:e67f3a26cf1d7b6350c7903f64ab5513db099cb77df38f738c95b6f117cd612f",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/playwright-private.config.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/package.json",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "repo://e2e/fixtures/fake-sidecar.mjs",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:8a4038d6acda523c6c489ea5814f8a6f271d872ac7b7dd6e94b67b092bb0fae3",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "repo://e2e/fixtures/ui-contract.ts",
+            "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+            "sha256": "sha256:65106efc3fdaea997c145b0f04203eca9989f34c39fb1178d094a107724b338c",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          }
+        ]
+      },
+      "revision_drift": false,
+      "blockers": []
+    }
+  ],
+  "not_applicable": [
+    {
+      "kind": "gate-only-change",
+      "path": "docs/team-collaboration/changes/CHG-expert-identity-runtime-context-20260824.yaml",
+      "gate_item_ids": [
+        "gate:source-dispositions"
+      ],
+      "reason": "This governance, coverage or execution-harness file is verified by its mandatory gate and does not independently broaden the product capability closure."
+    },
+    {
+      "kind": "gate-only-change",
+      "path": "docs/team-collaboration/interface-ledger.md",
+      "gate_item_ids": [
+        "gate:source-dispositions"
+      ],
+      "reason": "This governance, coverage or execution-harness file is verified by its mandatory gate and does not independently broaden the product capability closure."
+    }
+  ],
+  "asset_authority": {
+    "source_acceptance_manifest": "skill://qwork-test-dataset/data/datasets/source-acceptance.json",
+    "source_acceptance_sha256": "737788165a897b4e40c61044f89decab308654d9c9c0e609ddcaae3d95f36978",
+    "source_dispositions_sha256": "8aab1d7d0baa82f8c827e80a66e1e26be5ff48620b582e1bc0633bd8eb1e3c47",
+    "dataset_manifest_sha256": "c20d189678ed2304f1cf7e4868f14551ab58f22d0c7890efc89610d950fbc5f4",
+    "dataset_tree_sha256": "c8f655035a02ce76ebfc54ad3782ca308e74f6a3054289e5bc965cd431f37a41",
+    "project_e2e_skill_tree_sha256": "506fab634e75256959839b733d2e188ce465976409787208aac9bceab8dccd5c",
+    "route_registry_sha256": "3647b4d84852013acf2ca96c9c79c5bd144a821d429c56f73a90530dbc66f2b7",
+    "locator_registry_sha256": "51d79feba4d1eb152feee38bd05a2e3024207f4a1538f1a9bcc9f819e9249a75",
+    "dataset_file_count": 3025,
+    "project_skill_file_count": 24
+  },
+  "environment": {
+    "platform": "Darwin",
+    "machine": "arm64",
+    "python": "3.9.6"
+  },
+  "execution_contract": {
+    "result_statuses": [
+      "pass",
+      "fail",
+      "external-blocked"
+    ],
+    "skip_and_known_gap_are_forbidden": true,
+    "all_required_item_ids_must_be_unique": true,
+    "cleanup_required": true,
+    "independent_fresh_context_rerun_required": true,
+    "report_json": "<run-root>/report.json"
+  },
+  "checkpoint": {
+    "current_implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "current_plan_hash": "01a00070eaf74745ce1bfcebfe35e51abbd9071286cf0f592c18e631e4d3ba83",
+    "first_trusted_failure": null,
+    "repair_required_next_action": "execute every required item and write current machine evidence into the canonical report.json",
+    "cleanup_status": "pending",
+    "independent_rerun_status": "pending",
+    "final_response_allowed": false
+  },
+  "plan_sha256": "01a00070eaf74745ce1bfcebfe35e51abbd9071286cf0f592c18e631e4d3ba83"
+}

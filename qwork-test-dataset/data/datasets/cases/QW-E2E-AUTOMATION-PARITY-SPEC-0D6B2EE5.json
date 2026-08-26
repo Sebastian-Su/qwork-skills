@@ -1,0 +1,289 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-AUTOMATION-PARITY-SPEC-0D6B2EE5",
+  "title": "registers an automatically scheduled background session in the conversation rail",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "automations",
+    "journey": "automations",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-automation-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/automation-parity.spec.ts",
+      "locator": "line:300;test:registers an automatically scheduled background session in the conversation rail",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:0d6b2ee568c7c5801bd2bdade946b5c33a5721fc975ffb7682ceeb8741180dd2",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-E53F02FD1E1DC0",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-automation-parity-spec-ts:L300:0d6b2ee568"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "registers an automatically scheduled background session in the conversation rail",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-automation-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "registers an automatically scheduled background session in the conversation rail"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "createTestHome(\"automation-scheduled-session\")"
+    },
+    {
+      "action": "createWorkspace(configHome)"
+    },
+    {
+      "action": "Date.now()"
+    },
+    {
+      "action": "path.join(configHome, \"qwork\", \"automations\")"
+    },
+    {
+      "action": "repository.load()"
+    },
+    {
+      "action": "repository.mutate((snapshot) => { snapshot.automations = [definition(\"scheduled-visible\", \"到期自动对话\", workspace, { prompt: \"E2E 到期自动对话\", // Keep the occurrence inside the scheduler's on-time grace window even // when a Windows Electron cold start consumes most of the window budget. nextRunAt: scheduledAt.toISOString(), })]; })"
+    },
+    {
+      "action": "definition(\"scheduled-visible\", \"到期自动对话\", workspace, { prompt: \"E2E 到期自动对话\", // Keep the occurrence inside the scheduler's on-time grace window even // when a Windows Electron cold start consumes most of the window budget. nextRunAt: scheduledAt.toISOString(), })"
+    },
+    {
+      "action": "scheduledAt.toISOString()"
+    },
+    {
+      "action": "openApp(configHome, { ...V2_ENV, QWORK_E2E_AUTOMATION_NOW: scheduledAt.toISOString(), })"
+    },
+    {
+      "action": "scheduledAt.toISOString()"
+    },
+    {
+      "action": "app.firstWindow()"
+    },
+    {
+      "action": "attachUiState(page, testInfo, \"entry\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(async () => { const snapshot = await repository.load(); return snapshot.inbox.find((item) => item.automationId === \"scheduled-visible\")?.resultState; }, { timeout: AUTOMATION_RESULT_TIMEOUT_MS }).toBe(\"success\")",
+    "expect.poll(async () => page.evaluate(async () => (await window.workGui.sessions.list()).some((session) => session.title === \"到期自动对话\", ), )).toBe(true)",
+    "expect(page.locator(\"aside\").getByRole(\"button\", { name: \"到期自动对话\" })) .toBeVisible({ timeout: 15_000 })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-E53F02FD1E1DC0",
+      "type": "return",
+      "assertion": "registers an automatically scheduled background session in the conversation rail"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-automation-parity-spec-ts.0d6b2ee568",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/automation-parity.spec.ts -g \"registers an automatically scheduled background session in the conversation rail\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "automations",
+      "steps": [
+        {
+          "action": "createTestHome(\"automation-scheduled-session\")"
+        },
+        {
+          "action": "createWorkspace(configHome)"
+        },
+        {
+          "action": "Date.now()"
+        },
+        {
+          "action": "path.join(configHome, \"qwork\", \"automations\")"
+        },
+        {
+          "action": "repository.load()"
+        },
+        {
+          "action": "repository.mutate((snapshot) => { snapshot.automations = [definition(\"scheduled-visible\", \"到期自动对话\", workspace, { prompt: \"E2E 到期自动对话\", // Keep the occurrence inside the scheduler's on-time grace window even // when a Windows Electron cold start consumes most of the window budget. nextRunAt: scheduledAt.toISOString(), })]; })"
+        },
+        {
+          "action": "definition(\"scheduled-visible\", \"到期自动对话\", workspace, { prompt: \"E2E 到期自动对话\", // Keep the occurrence inside the scheduler's on-time grace window even // when a Windows Electron cold start consumes most of the window budget. nextRunAt: scheduledAt.toISOString(), })"
+        },
+        {
+          "action": "scheduledAt.toISOString()"
+        },
+        {
+          "action": "openApp(configHome, { ...V2_ENV, QWORK_E2E_AUTOMATION_NOW: scheduledAt.toISOString(), })"
+        },
+        {
+          "action": "scheduledAt.toISOString()"
+        },
+        {
+          "action": "app.firstWindow()"
+        },
+        {
+          "action": "attachUiState(page, testInfo, \"entry\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/automation-parity.spec.ts",
+        "line_start": 300,
+        "line_end": 340,
+        "body_sha256": "sha256:09e50aa83422c439877ad46820e4e9a5e7ad9929ce73ff61db5bf1e5020a38d8",
+        "assertion_count": 3,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:79194639bbdbfacae6ee612852a5d73298b2d8fc23a74fe225395923d785e578"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending",
+      "case-level screenshot checkpoint audit pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-E53F02FD1E1DC0"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-E53F02FD1E1DC0"
+    ]
+  }
+}

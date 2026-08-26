@@ -1,0 +1,263 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-JOURNEY-EXPERT-MARKET-SPEC-8CA42D4C",
+  "title": "UI-JOURNEY-EXPERT-005 | 专家团列表沿用同一市场网格和卡片规范",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-journey-expert-market-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-journey-expert-market.spec.ts",
+      "locator": "line:137;test:UI-JOURNEY-EXPERT-005 | 专家团列表沿用同一市场网格和卡片规范",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:8ca42d4c19ab0c4473e048225739ab3a8634af240f74d822da17896f4fc4d70a",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qwork-expert-team-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qwork-expert-team-prd.md",
+      "locator": "line:749;heading:16.2 UI 验收矩阵",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:ef128cef463472e150fd9b670d8524547a2218c3229cd8abc4343a47bdbf939c",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-3BAABA488DB654",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-journey-expert-market-spec-ts:L137:8ca42d4c19"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "UI-JOURNEY-EXPERT-005 | 专家团列表沿用同一市场网格和卡片规范",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-journey-expert-market-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-JOURNEY-EXPERT-005 | 专家团列表沿用同一市场网格和卡片规范"
+    },
+    {
+      "requirement_id": "REQ-4006E6BAE2EDEC",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md:L749:ef128cef46"
+      ],
+      "content_facets": [
+        "ui-geometry"
+      ],
+      "acceptance_categories": [
+        "ui-geometry"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "| QW-UI-EXPERT-001~007 | 市场 Tab、精选、分类、334×154 卡、520 px 详情、双路径召唤 | 8/8 全绿 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| QW-UI-EXPERT-001~007 | 市场 Tab、精选、分类、334×154 卡、520 px 详情、双路径召唤 | 8/8 全绿 |"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"专家团\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "uiExpect.soft(card).toContainText(\"游戏开发工作室\")",
+    "uiExpect.soft(card).toContainText(/成员|负责人/)",
+    "uiExpect.soft(card.getByRole(\"button\", { name: \"召唤游戏开发工作室\" })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-3BAABA488DB654",
+      "type": "ui",
+      "assertion": "UI-JOURNEY-EXPERT-005 | 专家团列表沿用同一市场网格和卡片规范"
+    },
+    {
+      "requirement_id": "REQ-4006E6BAE2EDEC",
+      "type": "ui-geometry",
+      "assertion": "| QW-UI-EXPERT-001~007 | 市场 Tab、精选、分类、334×154 卡、520 px 详情、双路径召唤 | 8/8 全绿 |"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-journey-expert-market-spec-ts.8ca42d4c19",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-journey-expert-market.spec.ts -g \"UI-JOURNEY-EXPERT-005 | 专家团列表沿用同一市场网格和卡片规范\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"专家团\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-journey-expert-market.spec.ts",
+        "line_start": 137,
+        "line_end": 145,
+        "body_sha256": "sha256:3a53ac3c0ff9d725a7df45033cccfbd6fe05de85bde31c1ee01b5f034cea7101",
+        "assertion_count": 3,
+        "action_count": 1,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:cf64e4806249b1b748be1b9b359df7697b022c1ef85318517e289cd0310e2295"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-3BAABA488DB654",
+      "REQ-4006E6BAE2EDEC"
+    ],
+    "categories": [
+      "business",
+      "ui-geometry"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:ui-geometry",
+      "full",
+      "requirement:REQ-3BAABA488DB654",
+      "requirement:REQ-4006E6BAE2EDEC"
+    ]
+  }
+}

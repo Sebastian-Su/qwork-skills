@@ -1,0 +1,218 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-JOURNEY-SECONDARY-SURFACES-SPEC-61E7AB5B",
+  "title": "UI-JOURNEY-SURFACE-002 | 自动化的定时任务、运行记录和模板区对齐",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "automations",
+    "journey": "automations",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-journey-secondary-surfaces-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-journey-secondary-surfaces.spec.ts",
+      "locator": "line:159;test:UI-JOURNEY-SURFACE-002 | 自动化的定时任务、运行记录和模板区对齐",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:61e7ab5bf838108d2c5ec371542d2acb9796b5b0894b361f6491c404aa31ec2f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-138055B5D09C97",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-journey-secondary-surfaces-spec-ts:L159:61e7ab5bf8"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "UI-JOURNEY-SURFACE-002 | 自动化的定时任务、运行记录和模板区对齐",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-journey-secondary-surfaces-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-JOURNEY-SURFACE-002 | 自动化的定时任务、运行记录和模板区对齐"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "uiExpect.soft(page.getByRole(\"tab\", { name: \"定时任务\", exact: true })).toBeVisible()",
+    "uiExpect.soft(page.getByRole(\"tab\", { name: \"运行记录\", exact: true })).toBeVisible()",
+    "uiExpect.soft(toolbar.getByRole(\"button\", { name: \"添加自动化\", exact: true })).toBeVisible()",
+    "uiExpect.soft(toolbar.getByRole(\"button\", { name: \"从模板添加\", exact: true })).toBeVisible()",
+    "uiExpect.soft(page.getByText(\"每日AI新闻\", { exact: true })).toBeVisible()",
+    "uiExpect.soft(page.getByText(\"每周工作周报\", { exact: true })).toBeVisible()",
+    "uiExpect.soft(page.getByText(\"会议前准备\", { exact: true })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-138055B5D09C97",
+      "type": "return",
+      "assertion": "UI-JOURNEY-SURFACE-002 | 自动化的定时任务、运行记录和模板区对齐"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-journey-secondary-surfaces-spec-ts.61e7ab5bf8",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-journey-secondary-surfaces.spec.ts -g \"UI-JOURNEY-SURFACE-002 | 自动化的定时任务、运行记录和模板区对齐\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "automations",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-journey-secondary-surfaces.spec.ts",
+        "line_start": 159,
+        "line_end": 171,
+        "body_sha256": "sha256:82cc51b580e757f6f6b26f107555d4cc9f7c8b89b411d2263d9a05415f4da79d",
+        "assertion_count": 7,
+        "action_count": 1,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:1e821148ce17710ec14a9d139d59a30502f2f7af87d1b278b78201a6c81d07a1"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-138055B5D09C97"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-138055B5D09C97"
+    ]
+  }
+}

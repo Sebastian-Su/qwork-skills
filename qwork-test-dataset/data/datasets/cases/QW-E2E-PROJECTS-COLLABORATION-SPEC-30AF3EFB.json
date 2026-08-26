@@ -1,0 +1,405 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECTS-COLLABORATION-SPEC-30AF3EFB",
+  "title": "logs in and runs the server-backed project vertical slice",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-projects-collaboration-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-collaboration.spec.ts",
+      "locator": "line:20;test:logs in and runs the server-backed project vertical slice",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:30af3efba41e457c342ce46d36300e8f93e6ebba194c19d30114d1015fbde459",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-27C2BBC2F2D2F7",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-projects-collaboration-spec-ts:L20:30af3efba4"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "logs in and runs the server-backed project vertical slice",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-projects-collaboration-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "logs in and runs the server-backed project vertical slice"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(\"E2E 协作项目\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发布留言\" }).click()"
+    },
+    {
+      "action": "publishForm .getByPlaceholder(\"发条留言同步给项目成员，输入 @ 可提及成员\") .fill(\"第一条 E2E 留言\")"
+    },
+    {
+      "action": "publishForm.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+    },
+    {
+      "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
+    },
+    {
+      "action": "todoForm.getByPlaceholder(\"请输入标题\").fill(\"E2E 待办\")"
+    },
+    {
+      "action": "todoForm.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"看板\", exact: true }).click()"
+    },
+    {
+      "action": "todoCard.getByTitle(\"移至进行中\").click()"
+    },
+    {
+      "action": "newViewButton.click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"甘特\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"甘特\", exact: true }).click()"
+    },
+    {
+      "action": "newViewButton.click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"日历\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"日历\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"资产\", exact: true }).click()"
+    },
+    {
+      "action": "storageInfo.hover()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建文件夹\", exact: true }).click()"
+    },
+    {
+      "action": "folderForm.getByLabel(\"文件夹名称\").fill(\"E2E 文件夹\")"
+    },
+    {
+      "action": "folderForm.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"动态\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"邀请\", exact: true }).click()"
+    },
+    {
+      "action": "overlay.getByRole(\"button\", { name: \"复制链接\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"heading\", { name: \"项目\", exact: true })).toBeVisible()",
+    "expect(page.getByText(\"QWork 项目新手指引\")).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"发布留言\" })).toBeVisible()",
+    "expect( page.getByRole(\"paragraph\").filter({ hasText: \"第一条 E2E 留言\" }), ).toBeVisible()",
+    "expect(tabs.getByRole(\"tab\", { name, exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"发布留言\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"table\", { name: \"待办表格\" })).toContainText( \"E2E 待办\", )",
+    "expect(board.getByRole(\"group\", { name: \"待开始\" })).toContainText( \"E2E 待办\", )",
+    "expect(board.getByRole(\"group\", { name: \"进行中\" })).toContainText( \"E2E 待办\", )",
+    "expect(gantt.getByText(\"标题\")).toBeVisible()",
+    "expect(gantt.getByRole(\"button\", { name: /E2E 排期/ })).toBeVisible()",
+    "expect(calendar).toBeVisible()",
+    "expect(calendar.getByText(\"E2E 排期\")).toBeVisible()",
+    "expect( page.getByText(\"你的任务是私密的，除非你共享它们\"), ).toBeVisible()",
+    "expect(page.getByRole(\"list\", { name: \"任务列表\" })).toContainText( \"E2E 任务\", )",
+    "expect(page.getByRole(\"button\", { name: \"升级\", exact: true })).toHaveCount(0)",
+    "expect(storageTooltip).toContainText(\"由360网盘提供存储服务\")",
+    "expect(storageTooltip).toContainText(\"我的云端网盘和项目资产共同使用\")",
+    "expect(storageTooltip).not.toContainText(\"腾讯\")",
+    "expect(page.getByLabel(\"资产文件夹\")).toContainText(\"E2E 文件夹\")",
+    "expect(page.getByRole(\"button\", { name: \"发布留言\" })).toBeVisible()",
+    "expect(overlay).toBeVisible()",
+    "expect(overlay.getByText(\"所有者\")).toBeVisible()",
+    "expect( overlay.getByRole(\"button\", { name: \"申请后加入\" }), ).toBeEnabled()",
+    "expect(page.getByText(\"已复制邀请链接\")).toBeVisible()",
+    "expect(inviteLink).toMatch(/^qwork:\\/\\/invite\\/[^/]+$/)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-27C2BBC2F2D2F7",
+      "type": "return",
+      "assertion": "logs in and runs the server-backed project vertical slice"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-projects-collaboration-spec-ts.30af3efba4",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/projects-collaboration.spec.ts -g \"logs in and runs the server-backed project vertical slice\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(\"E2E 协作项目\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发布留言\" }).click()"
+        },
+        {
+          "action": "publishForm .getByPlaceholder(\"发条留言同步给项目成员，输入 @ 可提及成员\") .fill(\"第一条 E2E 留言\")"
+        },
+        {
+          "action": "publishForm.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
+        },
+        {
+          "action": "todoForm.getByPlaceholder(\"请输入标题\").fill(\"E2E 待办\")"
+        },
+        {
+          "action": "todoForm.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"看板\", exact: true }).click()"
+        },
+        {
+          "action": "todoCard.getByTitle(\"移至进行中\").click()"
+        },
+        {
+          "action": "newViewButton.click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"甘特\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"甘特\", exact: true }).click()"
+        },
+        {
+          "action": "newViewButton.click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"日历\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"日历\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"资产\", exact: true }).click()"
+        },
+        {
+          "action": "storageInfo.hover()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建文件夹\", exact: true }).click()"
+        },
+        {
+          "action": "folderForm.getByLabel(\"文件夹名称\").fill(\"E2E 文件夹\")"
+        },
+        {
+          "action": "folderForm.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"动态\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"邀请\", exact: true }).click()"
+        },
+        {
+          "action": "overlay.getByRole(\"button\", { name: \"复制链接\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/projects-collaboration.spec.ts",
+        "line_start": 20,
+        "line_end": 170,
+        "body_sha256": "sha256:52fb258b04e410c50725b65756552da8e09d4f2814c03195a2b3c0b61ec9b5fc",
+        "assertion_count": 26,
+        "action_count": 29,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:d2d75617a681348e8355ca0bf55aecb6294ad2f25005ad1ce6bc1cb56108ee06"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-27C2BBC2F2D2F7"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-27C2BBC2F2D2F7"
+    ]
+  }
+}

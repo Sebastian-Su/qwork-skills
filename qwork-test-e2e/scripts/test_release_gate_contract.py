@@ -24,7 +24,7 @@ def main() -> int:
     repo = args.repo.resolve()
     skill = Path(__file__).resolve().parent.parent
     with tempfile.TemporaryDirectory(prefix="qwork-release-gate-") as value:
-        root = Path(value)
+        root = Path(value) / "QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT" / "RELEASE-GATE"
         plan_path = root / "plan.json"
         planned = run([sys.executable, str(skill / "scripts/build_release_gate_plan.py"), "--repo", str(repo), "--base", args.base, "--head", args.head, "--scope", "full", "--output", str(plan_path)], repo)
         if planned.returncode:
@@ -95,7 +95,7 @@ def main() -> int:
                 "final_response_allowed": False,
             },
         }
-        (root / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        (root / "QWORK-E2E-REPORT.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         evaluated = run([sys.executable, str(skill / "scripts/evaluate_release_gate.py"), "--repo", str(repo), "--plan", str(plan_path), "--run-root", str(root)], repo)
         try:
             verdict = json.loads(evaluated.stdout)

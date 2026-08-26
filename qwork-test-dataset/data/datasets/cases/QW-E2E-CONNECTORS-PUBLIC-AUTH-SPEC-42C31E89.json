@@ -1,0 +1,244 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-PUBLIC-AUTH-SPEC-42C31E89",
+  "title": "connects Eastmoney, Qixin, and GitHub through their public credential forms",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-public-auth-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-public-auth.spec.ts",
+      "locator": "line:44;test:connects Eastmoney, Qixin, and GitHub through their public credential forms",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:42c31e896c77677b27feac7ef7f9477e7806b4099c27661e2a58712fa653b9e4",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0057B3AE586462",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-public-auth-spec-ts:L44:42c31e896c"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "connects Eastmoney, Qixin, and GitHub through their public credential forms",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-public-auth-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "connects Eastmoney, Qixin, and GitHub through their public credential forms"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "search.fill(item.name)"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: `${item.name}，未连接` }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "form.getByLabel(item.field).fill(item.value)"
+    },
+    {
+      "action": "form.getByRole(\"button\", { name: \"保存并连接\", exact: true }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(detail.getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible({ timeout: 15_000, })",
+    "expect(upserts).toEqual(expect.arrayContaining([ expect.objectContaining({ server: expect.objectContaining({ name: \"mx-ds-mcp\", url: \"https://mxapi.eastmoney.com/mxds/mcp\", static_headers: { em_api_key: \"fixture-eastmoney-key\" }, }), }), expect.objectContaining({ server: expect.objectContaining({ name: \"qixinhuiyan-mcp\", url: \"https://mcp.qixin.com/mcp\", static_headers: { Authorization: \"Bearer mcp-fixture-qixin-tok…",
+    "expect(vault).not.toContain(item.value)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0057B3AE586462",
+      "type": "return",
+      "assertion": "connects Eastmoney, Qixin, and GitHub through their public credential forms"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-public-auth-spec-ts.42c31e896c",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-public-auth.spec.ts -g \"connects Eastmoney, Qixin, and GitHub through their public credential forms\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "search.fill(item.name)"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: `${item.name}，未连接` }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "form.getByLabel(item.field).fill(item.value)"
+        },
+        {
+          "action": "form.getByRole(\"button\", { name: \"保存并连接\", exact: true }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-public-auth.spec.ts",
+        "line_start": 44,
+        "line_end": 118,
+        "body_sha256": "sha256:bd786188d72ec9abe23f7f0d64813e4a2708f24c80ee454aa31dfa767c40266f",
+        "assertion_count": 3,
+        "action_count": 6,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:c11e3fd29f085758670f1679ee5a8e14936c11aae4afb48d7ae4c356e2ee1735"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0057B3AE586462"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-0057B3AE586462"
+    ]
+  }
+}

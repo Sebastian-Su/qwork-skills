@@ -38,15 +38,34 @@ def main() -> int:
         "src/main/e2eStartupPolicy.ts",
         "+ QWORK_E2E_MODEL_MENU_BUNDLED_SKILLS_ROOT",
     ) == "models"
-    assert builder.is_gate_only_change("vitest.config.ts", "") is True
-    assert builder.is_gate_only_change(
+    assert builder.gate_only_item_ids("vitest.config.ts", "") == ["gate:coverage"]
+    assert builder.gate_only_item_ids(
         "e2e/fixtures/launch.ts",
         "+ const evidenceDir = process.env.QWORK_RELEASE_GATE_EVIDENCE_DIR\n+ captureReleaseGateState(app, 'entry')",
-    ) is True
-    assert builder.is_gate_only_change(
+    ) == ["gate:electron-build"]
+    assert builder.gate_only_item_ids(
         "e2e/fixtures/launch.ts",
         "+ export async function launchApp() {}",
-    ) is False
+    ) == []
+    assert builder.gate_only_item_ids(
+        "docs/team-collaboration/interface-ledger.md",
+        "+ protocol evidence",
+    ) == ["gate:source-dispositions"]
+    semantic, anchors = builder.infer_unique_semantic_cases(
+        {
+            "EXPERT-CONTEXT": {
+                "title": "SessionStart hidden context",
+                "expected": "session_start_additional_context controlHasExpertIdentity",
+            },
+            "ADJACENT-HELPER": {
+                "title": "helper",
+                "expected": "verifyTrustedExpertActivation",
+            },
+        },
+        "+ session_start_additional_context\n+ controlHasExpertIdentity\n+ verifyTrustedExpertActivation",
+    )
+    assert semantic == ["EXPERT-CONTEXT"]
+    assert anchors == ["controlHasExpertIdentity", "session_start_additional_context"]
     assert builder.case_requires_macos_native_fullscreen({
         "title": "macOS 原生全屏移除交通灯偏移",
         "execution_contract": {"observability": {"source_contract": {

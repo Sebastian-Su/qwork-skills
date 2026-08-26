@@ -1,0 +1,266 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-IM-LOOPBACK-SPEC-2A560BEF",
+  "title": "keeps the QQ conversation mapping across app restarts",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-im-loopback-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/im-loopback.spec.ts",
+      "locator": "line:61;test:keeps the QQ conversation mapping across app restarts",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:2a560bef4c074c5eda914b626b3577cb0e53aeed6f57a2131fa136bd1466c3cc",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-17696F84F8102C",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-im-loopback-spec-ts:L61:2a560bef4c"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "keeps the QQ conversation mapping across app restarts",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-im-loopback-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps the QQ conversation mapping across app restarts"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "createTestHome(\"im-mapping\")"
+    },
+    {
+      "action": "createWorkspace(configHome)"
+    },
+    {
+      "action": "seedEnabledQq(configHome)"
+    },
+    {
+      "action": "path.join(configHome, \"im-inbox.json\")"
+    },
+    {
+      "action": "writeInbox( inboxFile, qqMessage({ messageId: \"qq-mapping-1\", conversationId: \"qq-persisted-conversation\", content: firstContent, }), )"
+    },
+    {
+      "action": "qqMessage({ messageId: \"qq-mapping-1\", conversationId: \"qq-persisted-conversation\", content: firstContent, })"
+    },
+    {
+      "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, })"
+    },
+    {
+      "action": "openInjectedConversation( launched.page, \"qq-persisted-conversation\", firstContent, )"
+    },
+    {
+      "action": "expectInboundText(launched.page, firstContent)"
+    },
+    {
+      "action": "expectSidecarReply(launched.page, firstContent)"
+    },
+    {
+      "action": "readOnlyMapping(configHome)"
+    },
+    {
+      "action": "closeE2EApplication(app)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(afterRestart.scopeId).toBe(beforeRestart.scopeId)",
+    "expect(afterRestart.sessionId).toMatch(/^wg-/)",
+    "expect(afterRestart.createdAt).toBe(beforeRestart.createdAt)",
+    "expect(afterRestart.lastActiveAt).toBeGreaterThanOrEqual(beforeRestart.lastActiveAt)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-17696F84F8102C",
+      "type": "return",
+      "assertion": "keeps the QQ conversation mapping across app restarts"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-im-loopback-spec-ts.2a560bef4c",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/im-loopback.spec.ts -g \"keeps the QQ conversation mapping across app restarts\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "createTestHome(\"im-mapping\")"
+        },
+        {
+          "action": "createWorkspace(configHome)"
+        },
+        {
+          "action": "seedEnabledQq(configHome)"
+        },
+        {
+          "action": "path.join(configHome, \"im-inbox.json\")"
+        },
+        {
+          "action": "writeInbox( inboxFile, qqMessage({ messageId: \"qq-mapping-1\", conversationId: \"qq-persisted-conversation\", content: firstContent, }), )"
+        },
+        {
+          "action": "qqMessage({ messageId: \"qq-mapping-1\", conversationId: \"qq-persisted-conversation\", content: firstContent, })"
+        },
+        {
+          "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, })"
+        },
+        {
+          "action": "openInjectedConversation( launched.page, \"qq-persisted-conversation\", firstContent, )"
+        },
+        {
+          "action": "expectInboundText(launched.page, firstContent)"
+        },
+        {
+          "action": "expectSidecarReply(launched.page, firstContent)"
+        },
+        {
+          "action": "readOnlyMapping(configHome)"
+        },
+        {
+          "action": "closeE2EApplication(app)"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/im-loopback.spec.ts",
+        "line_start": 61,
+        "line_end": 129,
+        "body_sha256": "sha256:5ac409eb45f2bef6c8c085850d1ea736376d9e620a52015871dc3479c788d83c",
+        "assertion_count": 4,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:73c646b3d06da3b72f1b6a9891f48ee6f7df4c4c461e3bdff7c4d64a3a410b64"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-17696F84F8102C"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-17696F84F8102C"
+    ]
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-ACCOUNT-AVATAR-SPEC-DF788E9B",
+  "title": "loads the signed-in QUC avatar from the qhmsg CDN without a broken image",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-account-avatar-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/account-avatar.spec.ts",
+      "locator": "line:19;test:loads the signed-in QUC avatar from the qhmsg CDN without a broken image",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:df788e9b0c94927565e08c2f096d976c16d43556b138d2ab299df201a087c16f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-74870D5FE13A45",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-account-avatar-spec-ts:L19:df788e9b0c"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "loads the signed-in QUC avatar from the qhmsg CDN without a broken image",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-account-avatar-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "loads the signed-in QUC avatar from the qhmsg CDN without a broken image"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "createTestHome(\"account-avatar\")"
+    },
+    {
+      "action": "startAvatarAuthServer()"
+    },
+    {
+      "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: auth.baseUrl, QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"test\", NODE_ENV: \"test\", })"
+    },
+    {
+      "action": "app.firstWindow()"
+    },
+    {
+      "action": "page.route(\"https://p1.ssl.qhmsg.com/**\", (route) => route.fulfill({ status: 200, contentType: \"image/svg+xml\", body: AVATAR_SVG }), )"
+    },
+    {
+      "action": "route.fulfill({ status: 200, contentType: \"image/svg+xml\", body: AVATAR_SVG })"
+    },
+    {
+      "action": "page.evaluate(() => window.workGui!.auth.completeLoginForTest!(\"avatar-e2e\"))"
+    },
+    {
+      "action": "window.workGui!.auth.completeLoginForTest!(\"avatar-e2e\")"
+    },
+    {
+      "action": "page.getByRole(\"img\", { name: \"生活是美好的6 头像\" })"
+    },
+    {
+      "action": "attachUiState(page, testInfo, \"qhmsg-avatar-loaded\")"
+    },
+    {
+      "action": "attachUiState(page, testInfo, \"qhmsg-avatar-load-failure\")"
+    },
+    {
+      "action": "cleanupTestHome(app, configHome)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(avatar).toBeVisible()",
+    "expect.poll(() => avatar.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBe(32)",
+    "expect(page.getByRole(\"img\", { name: \"生活是美好的6 头像占位\" })).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-74870D5FE13A45",
+      "type": "return",
+      "assertion": "loads the signed-in QUC avatar from the qhmsg CDN without a broken image"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-account-avatar-spec-ts.df788e9b0c",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/account-avatar.spec.ts -g \"loads the signed-in QUC avatar from the qhmsg CDN without a broken image\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "createTestHome(\"account-avatar\")"
+        },
+        {
+          "action": "startAvatarAuthServer()"
+        },
+        {
+          "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: auth.baseUrl, QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"test\", NODE_ENV: \"test\", })"
+        },
+        {
+          "action": "app.firstWindow()"
+        },
+        {
+          "action": "page.route(\"https://p1.ssl.qhmsg.com/**\", (route) => route.fulfill({ status: 200, contentType: \"image/svg+xml\", body: AVATAR_SVG }), )"
+        },
+        {
+          "action": "route.fulfill({ status: 200, contentType: \"image/svg+xml\", body: AVATAR_SVG })"
+        },
+        {
+          "action": "page.evaluate(() => window.workGui!.auth.completeLoginForTest!(\"avatar-e2e\"))"
+        },
+        {
+          "action": "window.workGui!.auth.completeLoginForTest!(\"avatar-e2e\")"
+        },
+        {
+          "action": "page.getByRole(\"img\", { name: \"生活是美好的6 头像\" })"
+        },
+        {
+          "action": "attachUiState(page, testInfo, \"qhmsg-avatar-loaded\")"
+        },
+        {
+          "action": "attachUiState(page, testInfo, \"qhmsg-avatar-load-failure\")"
+        },
+        {
+          "action": "cleanupTestHome(app, configHome)"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/account-avatar.spec.ts",
+        "line_start": 19,
+        "line_end": 51,
+        "body_sha256": "sha256:19347e2d4581b2bd09cdfe85408270e8e6943990a63519d244858e61853185be",
+        "assertion_count": 3,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:2812d2be078c87a6e5be54ab5793f0854f7edbadc33d7f27e513c46664915588"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-74870D5FE13A45"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-74870D5FE13A45"
+    ]
+  }
+}

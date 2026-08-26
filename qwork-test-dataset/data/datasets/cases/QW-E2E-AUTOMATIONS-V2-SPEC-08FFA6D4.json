@@ -1,0 +1,223 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-AUTOMATIONS-V2-SPEC-08FFA6D4",
+  "title": "keeps a conflicted startup job blocked until canonical resolution and runs it once",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "automations",
+    "journey": "automations",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-automations-v2-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/automations-v2.spec.ts",
+      "locator": "line:269;test:keeps a conflicted startup job blocked until canonical resolution and runs it once",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:08ffa6d40e1775dda9c468faac25bbb349ea667f34d6b0f656b2da0261a869b2",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-4D2AFC469A8B72",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-automations-v2-spec-ts:L269:08ffa6d40e"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "keeps a conflicted startup job blocked until canonical resolution and runs it once",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-automations-v2-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps a conflicted startup job blocked until canonical resolution and runs it once"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"运行记录\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(async () => { const snapshot = await new AutomationStateRepository(stateRoot).load(); const job = snapshot.jobs.find(({ id }) => id === \"conflicted-startup-job\"); return `${snapshot.runtimeState.conflicted?.state ?? \"missing\"}:${job?.status ?? \"missing\"}:${snapshot.inbox.length}`; }, { timeout: 10_000 }).toBe(\"ownership_conflict:queued:0\")",
+    "expect(page.evaluate(async () => Promise.race([ window.workGui.automations.test(\"conflicted\").then( () => \"resolved\", (error: unknown) => `rejected:${error instanceof Error ? error.message : String(error)}`, ), new Promise<string>((resolve) => setTimeout(() => resolve(\"timed-out\"), 1_000)), ]))).resolves.toMatch(/^rejected:.*ownership conflict/i)",
+    "expect.poll(async () => (await new AutomationStateRepository(stateRoot).load()).jobs.map(({ id }) => id)).toEqual([ \"conflicted-startup-job\", ])",
+    "expect.poll(async () => { const snapshot = await new AutomationStateRepository(stateRoot).load(); return { conflict: snapshot.runtimeState.conflicted?.state, jobs: snapshot.jobs.filter(({ id }) => id === \"conflicted-startup-job\").length, terminal: snapshot.inbox.filter(({ aggregateRunId, resultState }) => aggregateRunId === \"conflicted-startup-job\" && resultState === \"success\").length, }; }, { timeout: 60_000 }).toE…",
+    "expect(page.getByTestId(\"automation-content\").getByText(\"conflicted\", { exact: true })).toBeVisible()",
+    "expect((await new AutomationStateRepository(stateRoot).load()).inbox.filter( ({ aggregateRunId }) => aggregateRunId === \"conflicted-startup-job\", )).toHaveLength(1)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-4D2AFC469A8B72",
+      "type": "return",
+      "assertion": "keeps a conflicted startup job blocked until canonical resolution and runs it once"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-automations-v2-spec-ts.08ffa6d40e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/automations-v2.spec.ts -g \"keeps a conflicted startup job blocked until canonical resolution and runs it once\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "automations",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"运行记录\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/automations-v2.spec.ts",
+        "line_start": 269,
+        "line_end": 348,
+        "body_sha256": "sha256:8740b04fcc2f30909f8692b040fd343690f70f4160087cc3a7f7867833bddfb9",
+        "assertion_count": 6,
+        "action_count": 2,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:a71d2566221f86bbc4cb1957107f1c2e948557fa549c2a014486b4065cfe63f8"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-4D2AFC469A8B72"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-4D2AFC469A8B72"
+    ]
+  }
+}

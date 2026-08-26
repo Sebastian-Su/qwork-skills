@@ -1,0 +1,234 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-DEEP-LINK-SPEC-0397FED0",
+  "title": "forwards a qwork URL from a second Electron launch to the running app",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-deep-link-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-deep-link.spec.ts",
+      "locator": "line:37;test:forwards a qwork URL from a second Electron launch to the running app",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:0397fed0cc07e5d0b3dc180f6062e87053854b82b3503082a39202efcd975745",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-CC94FA3B9276F0",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-deep-link-spec-ts:L37:0397fed0cc"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "forwards a qwork URL from a second Electron launch to the running app",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-deep-link-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "forwards a qwork URL from a second Electron launch to the running app"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "path.join(configHome, \"received-deep-links.txt\")"
+    },
+    {
+      "action": "openApp(configHome, { WORK_GUI_DEEP_LINK_SINK: sink })"
+    },
+    {
+      "action": "require(\"electron\")"
+    },
+    {
+      "action": "spawn(electron, [\"--no-sandbox\", root, callback], { env: { ...env, ZIQDO_CONFIG_HOME: configHome }, stdio: \"ignore\", })"
+    },
+    {
+      "action": "child.once(\"error\", reject)"
+    },
+    {
+      "action": "child.once(\"exit\", () => resolve())"
+    },
+    {
+      "action": "resolve()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(async () => readLines(sink)).toContain(callback)",
+    "expect(await app.windows()).toHaveLength(1)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-CC94FA3B9276F0",
+      "type": "return",
+      "assertion": "forwards a qwork URL from a second Electron launch to the running app"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-deep-link-spec-ts.0397fed0cc",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-deep-link.spec.ts -g \"forwards a qwork URL from a second Electron launch to the running app\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "path.join(configHome, \"received-deep-links.txt\")"
+        },
+        {
+          "action": "openApp(configHome, { WORK_GUI_DEEP_LINK_SINK: sink })"
+        },
+        {
+          "action": "require(\"electron\")"
+        },
+        {
+          "action": "spawn(electron, [\"--no-sandbox\", root, callback], { env: { ...env, ZIQDO_CONFIG_HOME: configHome }, stdio: \"ignore\", })"
+        },
+        {
+          "action": "child.once(\"error\", reject)"
+        },
+        {
+          "action": "child.once(\"exit\", () => resolve())"
+        },
+        {
+          "action": "resolve()"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-deep-link.spec.ts",
+        "line_start": 37,
+        "line_end": 56,
+        "body_sha256": "sha256:fa91845d0acaa0f5cb1ee5bd1822f7267e1562aa355dcff0e21b7524bc8b69dc",
+        "assertion_count": 2,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:7aa195648c6409d7e9b90862c5193c5ed89dcab17c46a1d4246f92b58c48850a"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-CC94FA3B9276F0"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-CC94FA3B9276F0"
+    ]
+  }
+}

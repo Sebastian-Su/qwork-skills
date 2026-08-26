@@ -1,0 +1,378 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-WORKBUDDY-STORAGE-LOCAL-SESSIONS-PRESERVE-OR-EXPLICITLY-TR-762569D7",
+  "title": "~/.workbuddy/sessions · preserve-or-explicitly-transform 迁移契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "deterministic-replay",
+  "coverage": {
+    "capability_id": "persistence",
+    "journey": "persistence",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "WORKBUDDY-STORAGE-LOCAL",
+      "type": "local-storage-inventory",
+      "authority_kind": "normative",
+      "authority_domain": "storage",
+      "stable_source_id": "~/.workbuddy/",
+      "locator": "inventory-entry:18506;path:sessions/segment-e3c4f12e51b7.json",
+      "revision": "2026-08-13T13:11:03.278942+00:00",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:d3fed03327395fffae22fbb87bd5621299714aa19202d62edb78789d35e888ea",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-STORAGE-LOCAL",
+      "type": "local-storage-inventory",
+      "authority_kind": "normative",
+      "authority_domain": "storage",
+      "stable_source_id": "~/.workbuddy/",
+      "locator": "inventory-entry:18507;path:sessions/segment-620fee0cbeb7.json",
+      "revision": "2026-08-13T13:11:03.278942+00:00",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:94d93b691d61b9f1eb9b885ab283be66dc8906e62a4d5c0654c31e2d84c14886",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-STORAGE-LOCAL",
+      "type": "local-storage-inventory",
+      "authority_kind": "normative",
+      "authority_domain": "storage",
+      "stable_source_id": "~/.workbuddy/",
+      "locator": "inventory-entry:18508;path:sessions/segment-8f4fd13a4f9f.json",
+      "revision": "2026-08-13T13:11:03.278942+00:00",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:7041d167aaf8f1bf539010124770cf4913f7c5cd03494ffd3fb820f7e1ee6ebf",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-STORAGE-LOCAL",
+      "type": "local-storage-inventory",
+      "authority_kind": "normative",
+      "authority_domain": "storage",
+      "stable_source_id": "~/.workbuddy/",
+      "locator": "inventory-entry:18509;path:sessions/segment-776a78c6e39a.json",
+      "revision": "2026-08-13T13:11:03.278942+00:00",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:a2c6dd32aff84718d1d7067a3a6fc9764de2e5c32bb5bbcd9c06acde900e9e2f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-B7163CF31D3A58",
+      "source_atom_ids": [
+        "WORKBUDDY-STORAGE:ENTRY:BC402E53AF03AA15CF8E"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "persistence",
+      "priority": "P1",
+      "rule": "~/.workbuddy/sessions/segment-e3c4f12e51b7.json inventory entry (file, 385 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof",
+      "authority_domain": "storage",
+      "governing_sources": [
+        "WORKBUDDY-STORAGE-LOCAL"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "~/.workbuddy/sessions/segment-e3c4f12e51b7.json inventory entry (file, 385 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof"
+    },
+    {
+      "requirement_id": "REQ-ABC70B9CD78EBA",
+      "source_atom_ids": [
+        "WORKBUDDY-STORAGE:ENTRY:79630ECF8B214A138F4B"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "persistence",
+      "priority": "P1",
+      "rule": "~/.workbuddy/sessions/segment-620fee0cbeb7.json inventory entry (file, 337 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof",
+      "authority_domain": "storage",
+      "governing_sources": [
+        "WORKBUDDY-STORAGE-LOCAL"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "~/.workbuddy/sessions/segment-620fee0cbeb7.json inventory entry (file, 337 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof"
+    },
+    {
+      "requirement_id": "REQ-5CD6EBFAD73661",
+      "source_atom_ids": [
+        "WORKBUDDY-STORAGE:ENTRY:9FF174A89AAA9BB0564E"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "persistence",
+      "priority": "P1",
+      "rule": "~/.workbuddy/sessions/segment-8f4fd13a4f9f.json inventory entry (file, 493 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof",
+      "authority_domain": "storage",
+      "governing_sources": [
+        "WORKBUDDY-STORAGE-LOCAL"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "~/.workbuddy/sessions/segment-8f4fd13a4f9f.json inventory entry (file, 493 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof"
+    },
+    {
+      "requirement_id": "REQ-9CC3A9E03F95D5",
+      "source_atom_ids": [
+        "WORKBUDDY-STORAGE:ENTRY:E4BA113986FF76CF3250"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "persistence",
+      "priority": "P1",
+      "rule": "~/.workbuddy/sessions/segment-776a78c6e39a.json inventory entry (file, 385 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof",
+      "authority_domain": "storage",
+      "governing_sources": [
+        "WORKBUDDY-STORAGE-LOCAL"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "~/.workbuddy/sessions/segment-776a78c6e39a.json inventory entry (file, 385 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "read-only frozen private Dataset",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": null,
+    "status_reason": "dedicated verifier implemented; reference run pending"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": false,
+    "frozen_workbuddy_inventory": "e394d3122cf66681b9e4fcc23334233e0023a6b01e644364d30055e316f6765e"
+  },
+  "steps": [
+    {
+      "action": "load the frozen privacy-minimized WorkBuddy storage inventory"
+    },
+    {
+      "action": "select only the source atoms bound to this Case"
+    },
+    {
+      "action": "verify exact disposition, QWork target and implementation evidence for every atom"
+    }
+  ],
+  "expected_outcomes": [
+    "every bound storage atom has exactly one explicit disposition",
+    "resolved migration decisions have a canonical QWork target or a justified no-copy action",
+    "implementation-required atoms include restart and rollback evidence before PASS"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-B7163CF31D3A58]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: ~/.workbuddy/sessions/segment-e3c4f12e51b7.json inventory entry (file, 385 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof",
+    "FAIL [REQ-ABC70B9CD78EBA]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: ~/.workbuddy/sessions/segment-620fee0cbeb7.json inventory entry (file, 337 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof",
+    "FAIL [REQ-5CD6EBFAD73661]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: ~/.workbuddy/sessions/segment-8f4fd13a4f9f.json inventory entry (file, 493 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof",
+    "FAIL [REQ-9CC3A9E03F95D5]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: ~/.workbuddy/sessions/segment-776a78c6e39a.json inventory entry (file, 385 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-B7163CF31D3A58",
+      "type": "database",
+      "assertion": "~/.workbuddy/sessions/segment-e3c4f12e51b7.json inventory entry (file, 385 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof"
+    },
+    {
+      "requirement_id": "REQ-ABC70B9CD78EBA",
+      "type": "database",
+      "assertion": "~/.workbuddy/sessions/segment-620fee0cbeb7.json inventory entry (file, 337 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof"
+    },
+    {
+      "requirement_id": "REQ-5CD6EBFAD73661",
+      "type": "database",
+      "assertion": "~/.workbuddy/sessions/segment-8f4fd13a4f9f.json inventory entry (file, 493 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof"
+    },
+    {
+      "requirement_id": "REQ-9CC3A9E03F95D5",
+      "type": "database",
+      "assertion": "~/.workbuddy/sessions/segment-776a78c6e39a.json inventory entry (file, 385 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof"
+    }
+  ],
+  "cleanup": {
+    "action": "none; verifier is read-only over frozen private Dataset assets"
+  },
+  "evidence": [
+    "machine-readable per-atom storage disposition result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.dataset.workbuddy-storage.qw-req-workbuddy-storage-local-sessions-preserve-or-explicitly-tr-762569d7",
+    "target": {
+      "kind": "deterministic-runner",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "skill://qwork-test-dataset/scripts/validate_workbuddy_storage_case.py"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "verify source inventory and disposition manifest hashes",
+        "oracle": "frozen inventory and one-to-one atom map are unchanged"
+      },
+      {
+        "action": "resolve exact Case atom set",
+        "oracle": "all atoms belong to WORKBUDDY-STORAGE-LOCAL and exist once"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "python3 .agents/skills/qwork-test-dataset/scripts/validate_workbuddy_storage_case.py --skill-root .agents/skills/qwork-test-dataset --case-id QW-REQ-WORKBUDDY-STORAGE-LOCAL-SESSIONS-PRESERVE-OR-EXPLICITLY-TR-762569D7",
+      "success_oracle": "all Case-bound storage atoms have resolved decisions and verified or not-required implementation state",
+      "failure_action": "preserve per-atom failures and execute each unique next_action; never skip or silently drop data"
+    },
+    "navigation": {
+      "kind": "cli-command",
+      "entrypoint": "workbuddy-storage-disposition-verifier",
+      "steps": [
+        {
+          "action": "run the exact Case ID through the read-only verifier"
+        }
+      ],
+      "locator_strategy": "source atom ID and frozen inventory locator",
+      "success_oracle": "the verifier returns zero and reports no pending decision or implementation",
+      "failure_action": "repair product decision, migration implementation or evidence binding"
+    },
+    "fixtures": {
+      "setup": "frozen metadata/hash/schema-only inventory and generated disposition manifest",
+      "isolation": "never reads or writes live ~/.workbuddy or ~/.qwork during Case replay",
+      "cleanup": "none; all inputs are immutable Dataset assets"
+    },
+    "observability": {
+      "artifacts": [
+        "storage-case-result.json"
+      ],
+      "correlation": "case_id + source inventory sha256 + disposition manifest sha256",
+      "failure_classification": "source-drift|decision-pending|implementation-pending|evidence-drift",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "read-only frozen private Dataset; reference replay pending"
+    },
+    "cleanup": {
+      "actions": [
+        "assert no live WorkBuddy or QWork state was opened or modified"
+      ],
+      "success_oracle": "verifier created no state outside the requested report path"
+    },
+    "blockers": [
+      "reference run pending; unresolved per-atom product decisions or implementation evidence remain machine-verifiable failures"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-5CD6EBFAD73661",
+      "REQ-9CC3A9E03F95D5",
+      "REQ-ABC70B9CD78EBA",
+      "REQ-B7163CF31D3A58"
+    ],
+    "categories": [
+      "data"
+    ],
+    "suite_ids": [
+      "category:data",
+      "full",
+      "requirement:REQ-5CD6EBFAD73661",
+      "requirement:REQ-9CC3A9E03F95D5",
+      "requirement:REQ-ABC70B9CD78EBA",
+      "requirement:REQ-B7163CF31D3A58"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-B7163CF31D3A58",
+      "oracle_type": "database",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for ~/.workbuddy/sessions · preserve-or-explicitly-transform 迁移契约 exactly once and retain its correlation identity",
+      "then": "~/.workbuddy/sessions/segment-e3c4f12e51b7.json inventory entry (file, 385 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof",
+      "observation_boundary": "case-owned durable database state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-ABC70B9CD78EBA",
+      "oracle_type": "database",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for ~/.workbuddy/sessions · preserve-or-explicitly-transform 迁移契约 exactly once and retain its correlation identity",
+      "then": "~/.workbuddy/sessions/segment-620fee0cbeb7.json inventory entry (file, 337 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof",
+      "observation_boundary": "case-owned durable database state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-5CD6EBFAD73661",
+      "oracle_type": "database",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for ~/.workbuddy/sessions · preserve-or-explicitly-transform 迁移契约 exactly once and retain its correlation identity",
+      "then": "~/.workbuddy/sessions/segment-8f4fd13a4f9f.json inventory entry (file, 493 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof",
+      "observation_boundary": "case-owned durable database state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-9CC3A9E03F95D5",
+      "oracle_type": "database",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for ~/.workbuddy/sessions · preserve-or-explicitly-transform 迁移契约 exactly once and retain its correlation identity",
+      "then": "~/.workbuddy/sessions/segment-776a78c6e39a.json inventory entry (file, 385 bytes) must preserve durable semantics and stable identity, or record an explicit versioned transform with restart/rollback proof",
+      "observation_boundary": "case-owned durable database state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

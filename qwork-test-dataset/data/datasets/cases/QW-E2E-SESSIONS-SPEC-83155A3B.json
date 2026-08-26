@@ -1,0 +1,266 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SESSIONS-SPEC-83155A3B",
+  "title": "C10 copies a user message and prefills composer after inline edit",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-sessions-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/sessions.spec.ts",
+      "locator": "line:295;test:C10 copies a user message and prefills composer after inline edit",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:83155a3b42863d9e02a3ba00a569f44d7c891d0e4200fc3fb5a653d45382af67",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-EAAC3D44070826",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-sessions-spec-ts:L295:83155a3b42"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "C10 copies a user message and prefills composer after inline edit",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-sessions-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "C10 copies a user message and prefills composer after inline edit"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "userMessage.hover()"
+    },
+    {
+      "action": "copyButton.click()"
+    },
+    {
+      "action": "userMessage.hover()"
+    },
+    {
+      "action": "userMessage.getByRole(\"button\", { name: \"修改消息\" }).click()"
+    },
+    {
+      "action": "editor.getByRole(\"textbox\", { name: \"修改消息内容\" }).fill(\"修改后的用户消息\")"
+    },
+    {
+      "action": "editor.getByRole(\"button\", { name: \"发送修改\" }).click()"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"收到：原始用户消息\", { exact: true })).toBeVisible()",
+    "expect(copyBox).toBeTruthy()",
+    "expect(editBox).toBeTruthy()",
+    "expect(Math.abs((copyBox?.width ?? 0) - 24)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs((copyBox?.height ?? 0) - 24)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs((editBox?.width ?? 0) - 24)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs((editBox?.height ?? 0) - 24)).toBeLessThanOrEqual(2)",
+    "expect(bubbleBox).toBeTruthy()",
+    "expect((editBox?.y ?? 0) + 2).toBeGreaterThan((bubbleBox?.y ?? 0) + (bubbleBox?.height ?? 0) - 2)",
+    "expect(userMessage.getByRole(\"button\", { name: \"已复制\" })).toBeVisible()",
+    "expect(userMessage.getByText(\"已复制\", { exact: true })).toHaveCount(0)",
+    "expect .poll(() => page.evaluate(() => window.workGui.clipboard.readText())) .toBe(\"原始用户消息\")",
+    "expect(editor).toBeVisible()",
+    "expect(editor.getByText(\"编辑后将从此处重新开始对话，已有产物不会被删除\")).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"取消修改\" })).toBeVisible()",
+    "expect(composer).toHaveValue(\"修改后的用户消息\")",
+    "expect(page.getByText(\"收到：修改后的用户消息\", { exact: true })).toBeVisible()",
+    "expect( page.getByTestId(\"user-message\").filter({ hasText: \"原始用户消息\" }), ).toBeVisible()",
+    "expect( page.getByTestId(\"user-message\").filter({ hasText: \"修改后的用户消息\" }), ).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-EAAC3D44070826",
+      "type": "ui",
+      "assertion": "C10 copies a user message and prefills composer after inline edit"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-sessions-spec-ts.83155a3b42",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/sessions.spec.ts -g \"C10 copies a user message and prefills composer after inline edit\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "userMessage.hover()"
+        },
+        {
+          "action": "copyButton.click()"
+        },
+        {
+          "action": "userMessage.hover()"
+        },
+        {
+          "action": "userMessage.getByRole(\"button\", { name: \"修改消息\" }).click()"
+        },
+        {
+          "action": "editor.getByRole(\"textbox\", { name: \"修改消息内容\" }).fill(\"修改后的用户消息\")"
+        },
+        {
+          "action": "editor.getByRole(\"button\", { name: \"发送修改\" }).click()"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/sessions.spec.ts",
+        "line_start": 295,
+        "line_end": 352,
+        "body_sha256": "sha256:3be4c4aabbe6621bc8e22801608c3c9ecfdd6e96cad334a268499180f30a305c",
+        "assertion_count": 19,
+        "action_count": 7,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:41dd039a98f53ede370586c48d27a7d192b67e384c2ddb6162971172e0b3b148"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-EAAC3D44070826"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-EAAC3D44070826"
+    ]
+  }
+}

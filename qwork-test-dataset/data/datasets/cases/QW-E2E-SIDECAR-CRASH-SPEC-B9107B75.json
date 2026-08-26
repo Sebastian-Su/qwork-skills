@@ -1,0 +1,258 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SIDECAR-CRASH-SPEC-B9107B75",
+  "title": "restarts a crashed sidecar and resumes the active session",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-sidecar-crash-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/sidecar-crash.spec.ts",
+      "locator": "line:10;test:restarts a crashed sidecar and resumes the active session",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:b9107b754ad15000a744aae355545ae34988c93322a3385acf2792edd738746f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-89F07BC278066B",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-sidecar-crash-spec-ts:L10:b9107b754a"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "restarts a crashed sidecar and resumes the active session",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-sidecar-crash-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "restarts a crashed sidecar and resumes the active session"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"E2E before sidecar crash\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "composer.fill(\"__E2E_CRASH__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "composer.fill(\"E2E after sidecar recovery\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"收到：E2E before sidecar crash\", { exact: true })).toBeVisible()",
+    "expect(toolbar).toHaveAttribute(\"data-main-content-toolbar\", \"true\")",
+    "expect(toolbarBox?.y).toBeGreaterThanOrEqual(mainBox?.y ?? 0)",
+    "expect(toolbarBox && mainBox ? toolbarBox.x + toolbarBox.width : 0).toBe( mainBox ? mainBox.x + mainBox.width : 0, )",
+    "expect( page.getByText(/引擎意外退出，本次回复未完成，请重试/), ).toBeVisible()",
+    "expect(composer).toBeEnabled()",
+    "expect .poll( () => page.evaluate(() => { const target = window as typeof window & { __e2eSidecarStates?: string[] }; return target.__e2eSidecarStates ?? []; }), { timeout: 10_000 }, ) .toContain(\"restarting\")",
+    "expect .poll( () => page.evaluate(() => { const target = window as typeof window & { __e2eSidecarStates?: string[] }; const states = target.__e2eSidecarStates ?? []; const restarting = states.lastIndexOf(\"restarting\"); return restarting >= 0 && states.slice(restarting + 1).includes(\"ready\"); }), { timeout: 10_000 }, ) .toBe(true)",
+    "expect( page.getByText(\"收到：E2E after sidecar recovery\", { exact: true }), ).toBeVisible()",
+    "expect(createMessages.length).toBeGreaterThanOrEqual(2)",
+    "expect(createMessages.at(-1)).toEqual( expect.objectContaining({ session_id: createMessages[0].session_id, resume: path.join( configHome, \"sessions\", \"e2e\", `${createMessages[0].session_id}.jsonl`, ), }), )"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-89F07BC278066B",
+      "type": "return",
+      "assertion": "restarts a crashed sidecar and resumes the active session"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-sidecar-crash-spec-ts.b9107b754a",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/sidecar-crash.spec.ts -g \"restarts a crashed sidecar and resumes the active session\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"E2E before sidecar crash\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "composer.fill(\"__E2E_CRASH__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "composer.fill(\"E2E after sidecar recovery\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/sidecar-crash.spec.ts",
+        "line_start": 10,
+        "line_end": 105,
+        "body_sha256": "sha256:6782224a0efd2d5103b65b1532ffd5ea2afddc7318a8240d9c17e55f91cff6d0",
+        "assertion_count": 11,
+        "action_count": 7,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:2905e94b01797294799aced299494955d5b75e6e4d75def9e13c61e8bad198bb"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-89F07BC278066B"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-89F07BC278066B"
+    ]
+  }
+}

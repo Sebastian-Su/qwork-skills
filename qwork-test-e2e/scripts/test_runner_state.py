@@ -48,6 +48,8 @@ def main() -> int:
     assert runner.coordinate_requires_loopback("gate:unit-integration", coordinates["gate:first"])
     assert runner.coordinate_requires_loopback("case:second", coordinates["case:second"])
     assert not runner.coordinate_requires_loopback("gate:typecheck", {"category": "gate"})
+    assert runner.infer_visual_state("expert-final-after-restart.png", failed=False) == "final-state"
+    assert runner.infer_visual_state("expert-after-important-mutation.png", failed=False) == "after-important-mutation"
 
     with tempfile.TemporaryDirectory(prefix="qwork-dataset-verifier-") as value:
         run_root = Path(value)
@@ -106,7 +108,12 @@ def main() -> int:
             },
             Path("/dataset"),
         )
-        private_root = Path("/dataset") / "data/runs/release-gate-execution" / run_root.name / "CASE-PRIVATE"
+        private_root = (
+            run_root
+            / "PRIVATE-EVIDENCE"
+            / runner.private_run_namespace(run_root)
+            / "CASE-PRIVATE"
+        )
         assert private_steps == [[
             "node",
             ".agents/skills/qwork-test-dataset/scripts/run_private_playwright_case.mjs",

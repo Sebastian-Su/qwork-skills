@@ -1,0 +1,241 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-SUPERPOWERS-SPECS-20-UI-E6A1B5E6",
+  "title": "docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · UI 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md",
+      "locator": "line:44;heading:UI",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:cb11da96f150b64ed4336bf08089dc108670a481a765be83aeed3a0815461028",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-14217DF98D0E5F",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual:L44:cb11da96f1"
+      ],
+      "content_facets": [
+        "ui-geometry"
+      ],
+      "acceptance_categories": [
+        "ui-geometry"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "同日对编辑器的 CDP 复核进一步取代早期七按钮频率、原生日期输入和独立“思考配置”草案：编辑器使用右侧主区域全宽与 24 px 内边距，按提示横幅、名称、工作空间、提示词、连接器、执行频率、生效日期、结果推送排列。调度使用“周期 / 按间隔 / 单次”两级控件，日期和时间弹层通过 portal 展开；界面隐藏思考配置但更新旧任务时保留原值。连接器继续复用受限 `window.workGui.mcp.status`，两路推送开关映射 qwork 自有 wechat/wecom",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "同日对编辑器的 CDP 复核进一步取代早期七按钮频率、原生日期输入和独立“思考配置”草案：编辑器使用右侧主区域全宽与 24 px 内边距，按提示横幅、名称、工作空间、提示词、连接器、执行频率、生效日期、结果推送排列。调度使用“周期 / 按间隔 / 单次”两级控件，日期和时间弹层通过 portal 展开；界面隐藏思考配置但更新旧任务时保留原值。连接器继续复用受限 `window.workGui.mcp.status`，两路推送开关映射 qwork 自有 wechat/wecom"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for connectors at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · UI 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer CSS-pixel geometry at the declared viewport and DPR after the trigger and assert [REQ-14217DF98D0E5F] exactly: 同日对编辑器的 CDP 复核进一步取代早期七按钮频率、原生日期输入和独立“思考配置”草案：编辑器使用右侧主区域全宽与 24 px 内边距，按提示横幅、名称、工作空间、提示词、连接器、执行频率、生效日期、结果推送排列。调度使用“周期 / 按间隔 / 单次”两级控件，日期和时间弹层通过 portal 展开；界面隐藏思考配置但更新旧任务时保留原值。连接器继续复用受限 `window.workGui.mcp.status`，两路推送开关映射 qwork 自有 wechat/wecom"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "同日对编辑器的 CDP 复核进一步取代早期七按钮频率、原生日期输入和独立“思考配置”草案：编辑器使用右侧主区域全宽与 24 px 内边距，按提示横幅、名称、工作空间、提示词、连接器、执行频率、生效日期、结果推送排列。调度使用“周期 / 按间隔 / 单次”两级控件，日期和时间弹层通过 portal 展开；界面隐藏思考配置但更新旧任务时保留原值。连接器继续复用受限 `window.workGui.mcp.status`，两路推送开关映射 qwork 自有 wechat/wecom"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-14217DF98D0E5F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 同日对编辑器的 CDP 复核进一步取代早期七按钮频率、原生日期输入和独立“思考配置”草案：编辑器使用右侧主区域全宽与 24 px 内边距，按提示横幅、名称、工作空间、提示词、连接器、执行频率、生效日期、结果推送排列。调度使用“周期 / 按间隔 / 单次”两级控件，日期和时间弹层通过 portal 展开；界面隐藏思考配置但更新旧任务时保留原值。连接器继续复用受限 `window.workGui.mcp.status`，两路推送开关映射 qwork 自有 wechat/wecom",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-14217DF98D0E5F",
+      "type": "ui-geometry",
+      "assertion": "同日对编辑器的 CDP 复核进一步取代早期七按钮频率、原生日期输入和独立“思考配置”草案：编辑器使用右侧主区域全宽与 24 px 内边距，按提示横幅、名称、工作空间、提示词、连接器、执行频率、生效日期、结果推送排列。调度使用“周期 / 按间隔 / 单次”两级控件，日期和时间弹层通过 portal 展开；界面隐藏思考配置但更新旧任务时保留原值。连接器继续复用受限 `window.workGui.mcp.status`，两路推送开关映射 qwork 自有 wechat/wecom"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-superpowers-specs-2026.ui-e6a1b5e655",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for connectors at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · UI 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer CSS-pixel geometry at the declared viewport and DPR after the trigger and assert [REQ-14217DF98D0E5F] exactly: 同日对编辑器的 CDP 复核进一步取代早期七按钮频率、原生日期输入和独立“思考配置”草案：编辑器使用右侧主区域全宽与 24 px 内边距，按提示横幅、名称、工作空间、提示词、连接器、执行频率、生效日期、结果推送排列。调度使用“周期 / 按间隔 / 单次”两级控件，日期和时间弹层通过 portal 展开；界面隐藏思考配置但更新旧任务时保留原值。连接器继续复用受限 `window.workGui.mcp.status`，两路推送开关映射 qwork 自有 wechat/wecom"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-14217DF98D0E5F"
+    ],
+    "categories": [
+      "ui-geometry"
+    ],
+    "suite_ids": [
+      "category:ui-geometry",
+      "full",
+      "requirement:REQ-14217DF98D0E5F"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-14217DF98D0E5F",
+      "oracle_type": "ui-geometry",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · UI 产品契约 exactly once and retain its correlation identity",
+      "then": "同日对编辑器的 CDP 复核进一步取代早期七按钮频率、原生日期输入和独立“思考配置”草案：编辑器使用右侧主区域全宽与 24 px 内边距，按提示横幅、名称、工作空间、提示词、连接器、执行频率、生效日期、结果推送排列。调度使用“周期 / 按间隔 / 单次”两级控件，日期和时间弹层通过 portal 展开；界面隐藏思考配置但更新旧任务时保留原值。连接器继续复用受限 `window.workGui.mcp.status`，两路推送开关映射 qwork 自有 wechat/wecom",
+      "observation_boundary": "renderer CSS-pixel geometry at the declared viewport and DPR",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

@@ -1,0 +1,369 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-CONVERSATION-SPEC-65ECAD82",
+  "title": "groups one assistant turn and makes every reply action observable",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-conversation-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/workbuddy-conversation.spec.ts",
+      "locator": "line:238;test:groups one assistant turn and makes every reply action observable",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:65ecad82f260a1c3cd509d28bdb24cf56ced9a730e25bd17258812b8539ad2c5",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-CA377B2628FDF0",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts:L238:65ecad82f2"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "groups one assistant turn and makes every reply action observable",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "groups one assistant turn and makes every reply action observable"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"查询北京天气并验证单轮回复\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "userMessage.getByTestId(\"user-message-bubble\").hover()"
+    },
+    {
+      "action": "userToolbar.getByRole(\"button\", { name: \"复制消息\" }).click()"
+    },
+    {
+      "action": "userToolbar.getByRole(\"button\", { name: \"修改消息\" }).click()"
+    },
+    {
+      "action": "userMessage.getByRole(\"button\", { name: \"取消修改\" }).click()"
+    },
+    {
+      "action": "disclosure.click()"
+    },
+    {
+      "action": "disclosure.click()"
+    },
+    {
+      "action": "turn.getByRole(\"button\", { name: \"复制\" }).click()"
+    },
+    {
+      "action": "turn.getByRole(\"button\", { name: \"朗读\" }).click()"
+    },
+    {
+      "action": "stopReading.click()"
+    },
+    {
+      "action": "like.click()"
+    },
+    {
+      "action": "turn.getByRole(\"button\", { name: \"踩\" }).click()"
+    },
+    {
+      "action": "feedbackReasons.getByRole(\"option\", { name: \"回答不清晰\" }).click()"
+    },
+    {
+      "action": "feedbackReasons.getByRole(\"button\", { name: \"提交反馈\" }).click()"
+    },
+    {
+      "action": "turn.getByRole(\"button\", { name: \"分享\" }).click()"
+    },
+    {
+      "action": "share.getByRole(\"button\", { name: \"退出分享\" }).click()"
+    },
+    {
+      "action": "turn.getByRole(\"button\", { name: \"更多\" }).click()"
+    },
+    {
+      "action": "moreMenu.getByRole(\"menuitem\", { name: \"复制请求ID\" }).click()"
+    },
+    {
+      "action": "turn.getByRole(\"button\", { name: \"重试\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(turn).toHaveCount(1)",
+    "expect(turn).toContainText(\"北京今天晴，最高 30℃。\")",
+    "expect(turn.getByText(\"正在查询北京天气。\", { exact: true })).toHaveCount(0)",
+    "expect(turn.getByText(\"WebSearch\", { exact: true })).toHaveCount(0)",
+    "expect(turn.getByRole(\"button\", { name: \"复制\" })).toHaveCount(1)",
+    "expect(userMessage.getByTestId(\"user-message-bubble\")).toContainText( \"查询北京天气并验证单轮回复\", )",
+    "expect(userMessage.getByTestId(\"user-message-bubble\").locator(\"p\")).toHaveCSS( \"color\", \"rgb(0, 0, 0)\", )",
+    "expect(userToolbar).toHaveCSS(\"opacity\", \"0\")",
+    "expect(userToolbar).toHaveCSS(\"opacity\", \"1\")",
+    "expect(userToolbar).toContainText(/^\\d{2}:\\d{2}$/)",
+    "expect(userToolbar.getByRole(\"button\", { name: \"修改消息\" })).toBeVisible()",
+    "expect(userToolbar.getByRole(\"button\", { name: \"复制消息\" })).toBeVisible()",
+    "expect.poll(() => page.evaluate(() => window.workGui!.clipboard.readText())).toBe( \"查询北京天气并验证单轮回复\", )",
+    "expect(userToolbar.getByRole(\"button\", { name: \"已复制\" })).toBeVisible()",
+    "expect(userMessage.getByRole(\"textbox\", { name: \"修改消息内容\" })).toHaveValue( \"查询北京天气并验证单轮回复\", )",
+    "expect(disclosure).toHaveAttribute(\"aria-expanded\", \"false\")",
+    "expect(disclosure).toHaveAttribute(\"aria-expanded\", \"true\")",
+    "expect(turn).toContainText(\"正在查询北京天气。\")",
+    "expect(turn).toContainText(\"WebSearch\")",
+    "expect(disclosure).toHaveAttribute(\"aria-expanded\", \"false\")",
+    "expect.poll(() => page.evaluate(() => window.workGui!.clipboard.readText())).toBe( \"正在查询北京天气。\\n\\n北京今天晴，最高 30℃。\", )",
+    "expect(turn.getByRole(\"button\", { name: \"已复制\" })).toHaveAttribute(\"title\", \"已复制\")",
+    "expect(turn.getByText(\"已复制\", { exact: true })).toHaveCount(0)",
+    "expect(turn.getByRole(\"status\")).toHaveText( /正在朗读|云端语音不可用，已切换系统朗读|朗读完成|当前系统不支持朗读/, )",
+    "expect(like).toHaveAttribute(\"aria-pressed\", \"true\")",
+    "expect(feedbackReasons).toBeVisible()",
+    "expect(turn.getByRole(\"status\")).toHaveText(\"感谢反馈\")",
+    "expect(turn.getByText(\"感谢反馈\", { exact: true })).toHaveCount(0, { timeout: 3_000 })",
+    "expect(share).toBeVisible()",
+    "expect(share.getByRole(\"checkbox\", { name: \"全选\" })).toBeChecked()",
+    "expect(share.getByRole(\"button\", { name: \"复制链接\" })).toBeEnabled()",
+    "expect(share.getByRole(\"button\", { name: \"生成二维码\" })).toBeEnabled()",
+    "expect(share.getByRole(\"button\", { name: \"浏览器打开\" })).toBeEnabled()",
+    "expect(moreMenu.getByRole(\"menuitem\", { name: \"提交反馈\" })).toBeVisible()",
+    "expect.poll(() => page.evaluate(() => window.workGui!.clipboard.readText())).not.toBe(\"\")",
+    "expect( page.getByTestId(\"user-message-bubble\").filter({ hasText: \"查询北京天气并验证单轮回复\", }), ).toHaveCount(1)",
+    "expect(page.getByTestId(/assistant-turn-/)).toHaveCount(1)",
+    "expect(page.getByTestId(/assistant-turn-/).getByRole(\"button\", { name: \"复制\" })).toHaveCount(1)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-CA377B2628FDF0",
+      "type": "return",
+      "assertion": "groups one assistant turn and makes every reply action observable"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-conversation-spec-ts.65ecad82f2",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-conversation.spec.ts -g \"groups one assistant turn and makes every reply action observable\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"查询北京天气并验证单轮回复\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "userMessage.getByTestId(\"user-message-bubble\").hover()"
+        },
+        {
+          "action": "userToolbar.getByRole(\"button\", { name: \"复制消息\" }).click()"
+        },
+        {
+          "action": "userToolbar.getByRole(\"button\", { name: \"修改消息\" }).click()"
+        },
+        {
+          "action": "userMessage.getByRole(\"button\", { name: \"取消修改\" }).click()"
+        },
+        {
+          "action": "disclosure.click()"
+        },
+        {
+          "action": "disclosure.click()"
+        },
+        {
+          "action": "turn.getByRole(\"button\", { name: \"复制\" }).click()"
+        },
+        {
+          "action": "turn.getByRole(\"button\", { name: \"朗读\" }).click()"
+        },
+        {
+          "action": "stopReading.click()"
+        },
+        {
+          "action": "like.click()"
+        },
+        {
+          "action": "turn.getByRole(\"button\", { name: \"踩\" }).click()"
+        },
+        {
+          "action": "feedbackReasons.getByRole(\"option\", { name: \"回答不清晰\" }).click()"
+        },
+        {
+          "action": "feedbackReasons.getByRole(\"button\", { name: \"提交反馈\" }).click()"
+        },
+        {
+          "action": "turn.getByRole(\"button\", { name: \"分享\" }).click()"
+        },
+        {
+          "action": "share.getByRole(\"button\", { name: \"退出分享\" }).click()"
+        },
+        {
+          "action": "turn.getByRole(\"button\", { name: \"更多\" }).click()"
+        },
+        {
+          "action": "moreMenu.getByRole(\"menuitem\", { name: \"复制请求ID\" }).click()"
+        },
+        {
+          "action": "turn.getByRole(\"button\", { name: \"重试\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-conversation.spec.ts",
+        "line_start": 238,
+        "line_end": 396,
+        "body_sha256": "sha256:45a400f90bb326eba939f71ec506e1f6712fcc1d2e8128c036fad9a5580ca83a",
+        "assertion_count": 38,
+        "action_count": 21,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:e41ad610ac1ef751fc8180aeb82fa087f0603c92891af87f8c24be07b2143737"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-CA377B2628FDF0"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-CA377B2628FDF0"
+    ]
+  }
+}

@@ -1,0 +1,307 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PLAN-MODE-INTERACTIONS-SPEC-6AE3CA00",
+  "title": "keeps plan questions and approval controls stable across task switches",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-plan-mode-interactions-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/plan-mode-interactions.spec.ts",
+      "locator": "line:73;test:keeps plan questions and approval controls stable across task switches",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:6ae3ca00c315830f0e7bb1d7c496b9a633253f2af91d50518ec4f5c9a0e38e08",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-B79C0F0791949A",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-plan-mode-interactions-spec-ts:L73:6ae3ca00c3"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "keeps plan questions and approval controls stable across task switches",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-plan-mode-interactions-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps plan questions and approval controls stable across task switches"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"__E2E_PLAN_INTERACTION__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "question.getByRole(\"button\", { name: \"提交回答\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: \"计划审批 E2E\", exact: true }) .click()"
+    },
+    {
+      "action": "approval.getByRole(\"button\", { name: \"调整计划\" }).click()"
+    },
+    {
+      "action": "activeComposer.fill(\"__E2E_PLAN_INTERACTION__\")"
+    },
+    {
+      "action": "activeComposer.press(\"Enter\")"
+    },
+    {
+      "action": "question.getByRole(\"button\", { name: \"提交回答\" }).click()"
+    },
+    {
+      "action": "approval.getByRole(\"button\", { name: \"开始执行\" }).click()"
+    },
+    {
+      "action": "activeComposer.fill(\"__E2E_PLAN_INTERACTION__\")"
+    },
+    {
+      "action": "activeComposer.press(\"Enter\")"
+    },
+    {
+      "action": "question.getByRole(\"button\", { name: \"关闭\" }).click()"
+    },
+    {
+      "action": "approval.getByRole(\"button\", { name: \"调整计划\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(question).toContainText(\"优先采用哪个方案\")",
+    "expect( question.getByRole(\"radio\", { name: \"扩展现有通道\" }), ).toBeChecked()",
+    "expect(approval).toContainText(\"先补测试，再实现计划模式交互闭环\")",
+    "expect(approval).toContainText(\"完成计划模式提问与审批闭环\")",
+    "expect(page.getByRole(\"button\", { name: \"停止生成\" })).toBeVisible()",
+    "expect(page.getByRole(\"region\", { name: \"方案已就绪\" })).toHaveCount(0)",
+    "expect(approval).toBeVisible()",
+    "expect(page.getByText(\"permission:denied\", { exact: true })).toBeVisible()",
+    "expect(question).toBeVisible()",
+    "expect(approval).toBeVisible()",
+    "expect( page.getByText(\"permission:allowed:once\", { exact: true }), ).toBeVisible()",
+    "expect(question).toBeVisible()",
+    "expect(approval).toBeVisible()",
+    "expect(page.getByText(\"permission:denied\", { exact: true })).toHaveCount(2)",
+    "expect(controls).toContainEqual( expect.objectContaining({ type: \"user_question_response\", status: \"answered\", value: \"扩展现有通道\", matched_option: 0, }), )",
+    "expect(controls).toContainEqual( expect.objectContaining({ type: \"user_question_response\", status: \"cancelled\", reason: \"user_cancelled\", }), )",
+    "expect(controls).toContainEqual({ type: \"permission_response\", request_id: expect.any(String), decision: { decision: \"deny\", reason: \"继续修改计划\" }, })",
+    "expect(controls).toContainEqual({ type: \"permission_response\", request_id: expect.any(String), decision: { decision: \"allow\", scope: \"once\" }, })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-B79C0F0791949A",
+      "type": "return",
+      "assertion": "keeps plan questions and approval controls stable across task switches"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-plan-mode-interactions-spec-ts.6ae3ca00c3",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/plan-mode-interactions.spec.ts -g \"keeps plan questions and approval controls stable across task switches\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "composer.fill(\"__E2E_PLAN_INTERACTION__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "question.getByRole(\"button\", { name: \"提交回答\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: \"计划审批 E2E\", exact: true }) .click()"
+        },
+        {
+          "action": "approval.getByRole(\"button\", { name: \"调整计划\" }).click()"
+        },
+        {
+          "action": "activeComposer.fill(\"__E2E_PLAN_INTERACTION__\")"
+        },
+        {
+          "action": "activeComposer.press(\"Enter\")"
+        },
+        {
+          "action": "question.getByRole(\"button\", { name: \"提交回答\" }).click()"
+        },
+        {
+          "action": "approval.getByRole(\"button\", { name: \"开始执行\" }).click()"
+        },
+        {
+          "action": "activeComposer.fill(\"__E2E_PLAN_INTERACTION__\")"
+        },
+        {
+          "action": "activeComposer.press(\"Enter\")"
+        },
+        {
+          "action": "question.getByRole(\"button\", { name: \"关闭\" }).click()"
+        },
+        {
+          "action": "approval.getByRole(\"button\", { name: \"调整计划\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/plan-mode-interactions.spec.ts",
+        "line_start": 73,
+        "line_end": 161,
+        "body_sha256": "sha256:39c427df8a7988c30e15df62484b4743bd7406eb2d30ab8ef23e569ef65d9f2a",
+        "assertion_count": 18,
+        "action_count": 14,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:31237aed7f27238eb30d107b85a80ee2f182d52c9a2bff4eec7b89160461e0bb"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B79C0F0791949A"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-B79C0F0791949A"
+    ]
+  }
+}

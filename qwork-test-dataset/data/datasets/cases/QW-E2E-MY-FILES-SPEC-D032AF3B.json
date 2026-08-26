@@ -1,0 +1,286 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-MY-FILES-SPEC-D032AF3B",
+  "title": "shows all task artifacts in one unified category",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "files",
+    "journey": "files",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-my-files-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/my-files.spec.ts",
+      "locator": "line:165;test:shows all task artifacts in one unified category",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:d032af3b54e2a1696af816433cb9a89be46168adceced4957369729f76281266",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-59352ED4AAC426",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-my-files-spec-ts:L165:d032af3b54"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "shows all task artifacts in one unified category",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-my-files-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "shows all task artifacts in one unified category"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_ARTIFACT__:任务产出.md\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: \"助理\", exact: true }) .click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_ARTIFACT__:助理产出.md\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page .getByTestId(\"left-rail-shell\") .getByRole(\"button\", { name: \"更多\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"更多\" }).getByRole(\"menuitem\", { name: \"我的文件\", exact: true }).click()"
+    },
+    {
+      "action": "taskOutputRow.hover()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(/收到：.*E2E_ARTIFACT.*任务产出/)).toBeVisible()",
+    "expect .poll(() => fs.readFile(path.join(workspace, \"任务产出.md\"), \"utf8\")) .toContain(\"E2E workspace file\")",
+    "expect( (await fs.readdir(workspace, { withFileTypes: true })).filter((entry) => entry.isDirectory(), ), ).toEqual([])",
+    "expect(page.getByRole(\"heading\", { name: \"本地助理\" })).toBeVisible()",
+    "expect(page.getByText(/收到：.*E2E_ARTIFACT.*助理产出/)).toBeVisible()",
+    "expect(assistantDirectories).toHaveLength(1)",
+    "expect(assistantDirectory.name).toMatch( /^\\d{4}-\\d{2}-\\d{2}-\\d{2}-\\d{2}-\\d{2}(?:-\\d+)?$/, )",
+    "expect( fs.readFile( path.join(workspace, assistantDirectory.name, \"助理产出.md\"), \"utf8\", ), ).resolves.toContain(\"E2E workspace file\")",
+    "expect .poll(() => page.evaluate(() => window.workGui.files.list())) .toHaveLength(2)",
+    "expect(page.getByRole(\"heading\", { name: \"我的文件\" })).toBeVisible()",
+    "expect(page.getByText(\"任务产出.md\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"助理产出.md\", { exact: true })).toBeVisible()",
+    "expect( page.locator(\"header\").getByRole(\"button\", { name: \"助理\", exact: true }), ).toHaveCount(0)",
+    "expect(page.getByRole(\"status\", { name: \"云端同步说明\" })).toContainText( \"任务成果仍安全保存在本地\", )",
+    "expect( taskOutputRow.getByRole(\"button\", { name: \"云端网盘尚未配置\", }), ).toBeDisabled()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-59352ED4AAC426",
+      "type": "return",
+      "assertion": "shows all task artifacts in one unified category"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-my-files-spec-ts.d032af3b54",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/my-files.spec.ts -g \"shows all task artifacts in one unified category\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "files",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_ARTIFACT__:任务产出.md\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: \"助理\", exact: true }) .click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_ARTIFACT__:助理产出.md\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page .getByTestId(\"left-rail-shell\") .getByRole(\"button\", { name: \"更多\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"更多\" }).getByRole(\"menuitem\", { name: \"我的文件\", exact: true }).click()"
+        },
+        {
+          "action": "taskOutputRow.hover()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/my-files.spec.ts",
+        "line_start": 165,
+        "line_end": 249,
+        "body_sha256": "sha256:bd2a0f8eed5161494a16e46003ef8a8cb3184ca3a480c11d17c644dfc81f6a3d",
+        "assertion_count": 15,
+        "action_count": 11,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:eca30f412573b91ea792a4338c8d673694efe8aba5dce21caf063c686d33453c"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-59352ED4AAC426"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-59352ED4AAC426"
+    ]
+  }
+}

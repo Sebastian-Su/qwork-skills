@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "case_id": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-C16DF454",
+  "case_title": "WB-TEAM-004/005/006 | 真实成员事件形成只读成员流且 completed 状态与事件一致",
+  "status": "fail",
+  "started_at": "2026-08-14T07:23:55.959Z",
+  "finished_at": "2026-08-14T07:24:10.105Z",
+  "exit_code": 1,
+  "zero_real_model_calls": true,
+  "isolated_qwork_home": true,
+  "deterministic_sidecar": "repo://e2e/fixtures/fake-sidecar.mjs",
+  "source": {
+    "spec": "skill://qwork-test-dataset/data/e2e/team-event-causality.spec.ts",
+    "spec_sha256": "sha256:2acc03c88fd606a23fd83693b2a4113c5e7d1fb98496c417db08462796142949",
+    "implementation_revision": "c9227fe0f12073144f954f13634f77fbacd9c399"
+  },
+  "authority": {
+    "files": [
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts",
+        "sha256": "sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts",
+        "sha256": "sha256:75ea3197686d34faf9b138145ccc5050eac2bbaba31ea7aed1e3f4fdc63ddbd7"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/private-case-authority.mjs",
+        "sha256": "sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs",
+        "sha256": "sha256:6e77cedc0a4c5ab454f7b69d2f20ddefb63f60cb58945dbc3d6fd22b5ed36da0"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/build_isolated_electron.mjs",
+        "sha256": "sha256:3634574afd74c3762e05b814b80d7bbc1aee08c8c782ebb1884a6b7df10db468"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts",
+        "sha256": "sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/playwright-private.config.ts",
+        "sha256": "sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/package.json",
+        "sha256": "sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390"
+      },
+      {
+        "locator": "repo://e2e/fixtures/fake-sidecar.mjs",
+        "sha256": "sha256:0255d59cf306b7dcf7285779ca6ed603b02fd5cd4863c91af5dda0fe69d97987"
+      },
+      {
+        "locator": "repo://e2e/fixtures/workbuddy-ui.ts",
+        "sha256": "sha256:4458ee31d84e60d047334a9e26faef4a4415d79046fefd2b3f84bebeff1c2675"
+      }
+    ]
+  },
+  "selected_tests": [
+    {
+      "title": "WB-TEAM-004/005/006 | 真实成员事件形成只读成员流且 completed 状态与事件一致",
+      "file": "team-event-causality.spec.ts",
+      "path": "team-event-causality.spec.ts > WB-TEAM-004/005/006 | 真实成员事件形成只读成员流且 completed 状态与事件一致",
+      "status": "unexpected",
+      "duration_ms": 13686
+    }
+  ],
+  "evidence": {
+    "integrity": "complete",
+    "integrity_errors": [],
+    "build_manifest": {
+      "path": "build-manifest.json",
+      "sha256": "sha256:9414990f3f09e24c38566f018202a8824e14ad1abbfafb880302719ec5c02888"
+    },
+    "playwright_report": {
+      "path": "playwright-report.json",
+      "sha256": "sha256:83f9478b73a0983131107c595c8ec688af62200818eb133c4ae6466d77275ce8"
+    },
+    "stderr": {
+      "path": "playwright.stderr.log",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "electron_runtime": {
+      "path": "electron-runtime.log",
+      "sha256": "sha256:5068f8db6cfb286374685defdf70b25cdbe90bf49ecf71edc39947038bdd4f2d"
+    },
+    "screenshots": [
+      {
+        "path": "playwright-results/team-event-causality-WB-TE-966ea-件形成只读成员流且-completed-状态与事件一致/test-failed-1.png",
+        "sha256": "sha256:75632fd771e958105091fa13395a73ae4ee5740ebc18c06dceea9041485ed018",
+        "kind": "screenshot",
+        "state": "assertion-failure",
+        "origin": "playwright-failure"
+      },
+      {
+        "path": "screenshots/WB-TEAM-004-005-006-真实成员事件形成只读成员流且-completed-状态与事件一致-entry-lead-registered-without-running-members.png",
+        "sha256": "sha256:a328287de7cfbe76d493d06595ceae938c763a658efc774bee742843c4e8f8c9",
+        "kind": "screenshot",
+        "state": "entry",
+        "origin": "case-checkpoint"
+      },
+      {
+        "path": "screenshots/WB-TEAM-004-005-006-真实成员事件形成只读成员流且-completed-状态与事件一致-evidence-raw-event-order-before-assertion.png",
+        "sha256": "sha256:0411cae0ef2149193fcfa5dffc2e8b637c4ef22a2024b3d1c7df529bcce1b374",
+        "kind": "screenshot",
+        "state": "WB-TEAM-004-005-006-真实成员事件形成只读成员流且-completed-状态与事件一致-evidence-raw-event-order-before-assertion",
+        "origin": "case-checkpoint"
+      },
+      {
+        "path": "screenshots/WB-TEAM-004-005-006-真实成员事件形成只读成员流且-completed-状态与事件一致-transition-members-completed-before-lead-summary.png",
+        "sha256": "sha256:0411cae0ef2149193fcfa5dffc2e8b637c4ef22a2024b3d1c7df529bcce1b374",
+        "kind": "screenshot",
+        "state": "transition",
+        "origin": "case-checkpoint"
+      }
+    ],
+    "traces": [
+      {
+        "path": "playwright-results/team-event-causality-WB-TE-966ea-件形成只读成员流且-completed-状态与事件一致/trace.zip",
+        "sha256": "sha256:ad5ec2ad9405d6212acd78a1389112917bb8f202c9f7182680295804cb9a4498"
+      }
+    ]
+  },
+  "cleanup": {
+    "case_owned_qwork_home_removed_by_fixture": true,
+    "app_process_closed_by_fixture": true,
+    "app_assembly_removed": true
+  }
+}

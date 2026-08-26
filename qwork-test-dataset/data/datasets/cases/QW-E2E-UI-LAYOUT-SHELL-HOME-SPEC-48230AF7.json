@@ -1,0 +1,591 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-48230AF7",
+  "title": "UI-LAYOUT-SIDEBAR-001/002/004 | 收起后主区占满且隐藏导航不可交互，再展开恢复",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-layout-shell-home.spec.ts",
+      "locator": "line:155;test:UI-LAYOUT-SIDEBAR-001/002/004 | 收起后主区占满且隐藏导航不可交互，再展开恢复",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:48230af7eb2f42e41167d9c1fadc6b6aa3a918e2bf178a7d33a9436f8ccf4dcd",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE",
+      "type": "structured-workbuddy-oracle",
+      "authority_kind": "normative",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/visual-baselines/shell-home-reference.json",
+      "locator": "json-pointer:/platform/darwin/windowedCollapsedToggle/height",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:e29c9c180c6279b0b02abd6a1801c7c04082cf486ec027aa13515e4f3884bb6b",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE",
+      "type": "structured-workbuddy-oracle",
+      "authority_kind": "normative",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/visual-baselines/shell-home-reference.json",
+      "locator": "json-pointer:/platform/darwin/windowedCollapsedToggle/width",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:e29c9c180c6279b0b02abd6a1801c7c04082cf486ec027aa13515e4f3884bb6b",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE",
+      "type": "structured-workbuddy-oracle",
+      "authority_kind": "normative",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/visual-baselines/shell-home-reference.json",
+      "locator": "json-pointer:/platform/darwin/windowedCollapsedToggle/x",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:1da51b8d8ff98f6a48f80ae79fe3ca6c26e1abb7b7d125259255d6d2b875ea08",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE",
+      "type": "structured-workbuddy-oracle",
+      "authority_kind": "normative",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/visual-baselines/shell-home-reference.json",
+      "locator": "json-pointer:/platform/darwin/windowedCollapsedToggle/y",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE",
+      "type": "structured-workbuddy-oracle",
+      "authority_kind": "normative",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/visual-baselines/shell-home-reference.json",
+      "locator": "json-pointer:/shared/sidebar/collapsedWidthDesktopLocal",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE",
+      "type": "structured-workbuddy-oracle",
+      "authority_kind": "normative",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/visual-baselines/shell-home-reference.json",
+      "locator": "json-pointer:/shared/sidebar/transitionDurationMs",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:1e472b39b105d349bcd069c4a711b44a2fffb8e274714bb07ecfff69a9a7f67b",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE",
+      "type": "structured-workbuddy-oracle",
+      "authority_kind": "normative",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/visual-baselines/shell-home-reference.json",
+      "locator": "json-pointer:/shared/sidebar/transitionTimingFunction",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:74e40dd7612394ce443ea230ec4a6bb6edd593b2c086f119efcc1df3f39dc956",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-6D17A41956D6D7",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts:L155:48230af7eb"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "UI-LAYOUT-SIDEBAR-001/002/004 | 收起后主区占满且隐藏导航不可交互，再展开恢复",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-LAYOUT-SIDEBAR-001/002/004 | 收起后主区占满且隐藏导航不可交互，再展开恢复"
+    },
+    {
+      "requirement_id": "REQ-94056C669FB65A",
+      "source_atom_ids": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE:PTR:7B7AF1888D4CE9"
+      ],
+      "content_facets": [
+        "ui-geometry"
+      ],
+      "acceptance_categories": [
+        "ui-geometry"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "WorkBuddy structured Oracle /platform/darwin/windowedCollapsedToggle/height equals 32",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "governing_sources": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WorkBuddy structured Oracle /platform/darwin/windowedCollapsedToggle/height equals 32"
+    },
+    {
+      "requirement_id": "REQ-9DBB7E34E31E18",
+      "source_atom_ids": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE:PTR:A08BB8A6645BFD"
+      ],
+      "content_facets": [
+        "ui-geometry"
+      ],
+      "acceptance_categories": [
+        "ui-geometry"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "WorkBuddy structured Oracle /platform/darwin/windowedCollapsedToggle/width equals 32",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "governing_sources": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WorkBuddy structured Oracle /platform/darwin/windowedCollapsedToggle/width equals 32"
+    },
+    {
+      "requirement_id": "REQ-F0238F367AEF38",
+      "source_atom_ids": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE:PTR:BDA2ED56811B30"
+      ],
+      "content_facets": [
+        "ui-geometry"
+      ],
+      "acceptance_categories": [
+        "ui-geometry"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "WorkBuddy structured Oracle /platform/darwin/windowedCollapsedToggle/x equals 91",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "governing_sources": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WorkBuddy structured Oracle /platform/darwin/windowedCollapsedToggle/x equals 91"
+    },
+    {
+      "requirement_id": "REQ-0C3291E4C71CD6",
+      "source_atom_ids": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE:PTR:0D00749A02CA18"
+      ],
+      "content_facets": [
+        "ui-geometry"
+      ],
+      "acceptance_categories": [
+        "ui-geometry"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "WorkBuddy structured Oracle /platform/darwin/windowedCollapsedToggle/y equals 12",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "governing_sources": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WorkBuddy structured Oracle /platform/darwin/windowedCollapsedToggle/y equals 12"
+    },
+    {
+      "requirement_id": "REQ-EBD52E30A8B9A9",
+      "source_atom_ids": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE:PTR:34128F41ED8440"
+      ],
+      "content_facets": [
+        "ui-state"
+      ],
+      "acceptance_categories": [
+        "ui-state"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "WorkBuddy structured Oracle /shared/sidebar/collapsedWidthDesktopLocal equals 0",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "governing_sources": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WorkBuddy structured Oracle /shared/sidebar/collapsedWidthDesktopLocal equals 0"
+    },
+    {
+      "requirement_id": "REQ-041A95A094E71B",
+      "source_atom_ids": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE:PTR:AB0F7D940395B5"
+      ],
+      "content_facets": [
+        "ui-state"
+      ],
+      "acceptance_categories": [
+        "ui-state"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "WorkBuddy structured Oracle /shared/sidebar/transitionDurationMs equals 250",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "governing_sources": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WorkBuddy structured Oracle /shared/sidebar/transitionDurationMs equals 250"
+    },
+    {
+      "requirement_id": "REQ-94CE593249DB25",
+      "source_atom_ids": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE:PTR:69D53B5F852994"
+      ],
+      "content_facets": [
+        "ui-state"
+      ],
+      "acceptance_categories": [
+        "ui-state"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "WorkBuddy structured Oracle /shared/sidebar/transitionTimingFunction equals \"ease-out\"",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "governing_sources": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WorkBuddy structured Oracle /shared/sidebar/transitionTimingFunction equals \"ease-out\""
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-18T17:50:17.908403+00:00",
+    "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "button.click()"
+    },
+    {
+      "action": "collapse.click()"
+    },
+    {
+      "action": "expand.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收起侧栏\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"展开侧栏\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(samples.length).toBeGreaterThan(5)",
+    "expect(samples.every((sample) => sample.x >= 76)).toBe(true)",
+    "expect(samples.some((sample) => sample.trafficLightHit)).toBe(false)",
+    "uiExpect.soft(page.getByRole(\"button\", { name: \"展开侧栏\", exact: true })).toBeVisible()",
+    "expect.poll(async () => (await boxOf(sidebar)).width).toBe(0)",
+    "uiExpect.soft(sidebar).toHaveAttribute(\"aria-hidden\", \"true\")",
+    "uiExpect.soft(sidebar).toHaveAttribute(\"inert\", \"\")",
+    "uiExpect.soft(page.getByRole(\"button\", { name: \"新建任务\", exact: true })).toBeHidden()",
+    "uiExpect.soft(await computedStyle(sidebar, [\"transition-duration\", \"transition-timing-function\", \"pointer-events\"])) .toEqual({ \"transition-duration\": \"0.25s\", \"transition-timing-function\": \"ease-out\", \"pointer-events\": \"none\", })",
+    "expect.poll(async () => (await boxOf(sidebar)).width).toBe(264)",
+    "uiExpect.soft(sidebar).toHaveAttribute(\"aria-hidden\", \"false\")",
+    "uiExpect.soft(sidebar).not.toHaveAttribute(\"inert\")",
+    "expect.poll(async () => (await boxOf(sidebar)).width).toBe(0)",
+    "uiExpect.soft(sidebar).toHaveCSS(\"transition-duration\", \"0s\")",
+    "expect.poll(async () => (await boxOf(sidebar)).width).toBe(264)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-6D17A41956D6D7",
+      "type": "return",
+      "assertion": "UI-LAYOUT-SIDEBAR-001/002/004 | 收起后主区占满且隐藏导航不可交互，再展开恢复"
+    },
+    {
+      "requirement_id": "REQ-94056C669FB65A",
+      "type": "ui-geometry",
+      "assertion": "WorkBuddy structured Oracle /platform/darwin/windowedCollapsedToggle/height equals 32"
+    },
+    {
+      "requirement_id": "REQ-9DBB7E34E31E18",
+      "type": "ui-geometry",
+      "assertion": "WorkBuddy structured Oracle /platform/darwin/windowedCollapsedToggle/width equals 32"
+    },
+    {
+      "requirement_id": "REQ-F0238F367AEF38",
+      "type": "ui-geometry",
+      "assertion": "WorkBuddy structured Oracle /platform/darwin/windowedCollapsedToggle/x equals 91"
+    },
+    {
+      "requirement_id": "REQ-0C3291E4C71CD6",
+      "type": "ui-geometry",
+      "assertion": "WorkBuddy structured Oracle /platform/darwin/windowedCollapsedToggle/y equals 12"
+    },
+    {
+      "requirement_id": "REQ-EBD52E30A8B9A9",
+      "type": "ui-state",
+      "assertion": "WorkBuddy structured Oracle /shared/sidebar/collapsedWidthDesktopLocal equals 0"
+    },
+    {
+      "requirement_id": "REQ-041A95A094E71B",
+      "type": "ui-state",
+      "assertion": "WorkBuddy structured Oracle /shared/sidebar/transitionDurationMs equals 250"
+    },
+    {
+      "requirement_id": "REQ-94CE593249DB25",
+      "type": "ui-state",
+      "assertion": "WorkBuddy structured Oracle /shared/sidebar/transitionTimingFunction equals \"ease-out\""
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-layout-shell-home-spec-ts.48230af7eb",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-layout-shell-home.spec.ts -g \"UI-LAYOUT-SIDEBAR-001/002/004 | 收起后主区占满且隐藏导航不可交互，再展开恢复\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "button.click()"
+        },
+        {
+          "action": "collapse.click()"
+        },
+        {
+          "action": "expand.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收起侧栏\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"展开侧栏\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-layout-shell-home.spec.ts",
+        "line_start": 155,
+        "line_end": 224,
+        "body_sha256": "sha256:72e3897dee911958dee2d1bce83dfbfdc5b388ed55984022cbd4c58ac1a65e37",
+        "assertion_count": 15,
+        "action_count": 5,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:178edf5bd7ee72c94282ee866680110da9802652684099416e69e530836213e8",
+        "supporting_contracts": [
+          {
+            "path": "e2e/visual-baselines/shell-home-reference.json",
+            "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+            "sha256": "sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e",
+            "purpose": "frozen structured WorkBuddy product Oracle governing the mapped pointers"
+          }
+        ]
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": "bug973549-public-reference-643446ff-v1",
+      "verified_at": "2026-08-18T17:50:17.908403+00:00",
+      "environment": "stale deterministic public Playwright reference run"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-041A95A094E71B",
+      "REQ-0C3291E4C71CD6",
+      "REQ-6D17A41956D6D7",
+      "REQ-94056C669FB65A",
+      "REQ-94CE593249DB25",
+      "REQ-9DBB7E34E31E18",
+      "REQ-EBD52E30A8B9A9",
+      "REQ-F0238F367AEF38"
+    ],
+    "categories": [
+      "business",
+      "ui-geometry",
+      "ui-state"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:ui-geometry",
+      "category:ui-state",
+      "full",
+      "requirement:REQ-041A95A094E71B",
+      "requirement:REQ-0C3291E4C71CD6",
+      "requirement:REQ-6D17A41956D6D7",
+      "requirement:REQ-94056C669FB65A",
+      "requirement:REQ-94CE593249DB25",
+      "requirement:REQ-9DBB7E34E31E18",
+      "requirement:REQ-EBD52E30A8B9A9",
+      "requirement:REQ-F0238F367AEF38"
+    ]
+  }
+}

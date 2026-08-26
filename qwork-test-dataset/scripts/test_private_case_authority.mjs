@@ -12,7 +12,6 @@ try {
   const skillRoot = path.join(root, "skill");
   const repo = path.join(root, "repo");
   await fs.mkdir(path.join(skillRoot, "data/datasets/cases"), { recursive: true });
-  await fs.mkdir(path.join(skillRoot, "data/runs"), { recursive: true });
   await fs.mkdir(path.join(skillRoot, "scripts"), { recursive: true });
   await fs.mkdir(path.join(repo, "e2e/fixtures"), { recursive: true });
   await fs.writeFile(path.join(skillRoot, "scripts/special.mjs"), "export {};\n");
@@ -34,16 +33,23 @@ try {
     "repo://e2e/fixtures/fake.mjs",
   ]);
   const projectEntry = path.join(repo, ".agents/skills/qwork-test-dataset");
+  const externalRoot = path.join(root, "QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT");
+  await fs.mkdir(externalRoot);
   const runRoot = await resolvePrivateRunRoot({
     skillEntry: projectEntry,
     skillRoot,
     cwd: repo,
-    value: ".agents/skills/qwork-test-dataset/data/runs/run-1",
+    value: path.join(externalRoot, "run-1"),
   });
-  assert.equal(runRoot, path.join(skillRoot, "data/runs/run-1"));
+  assert.equal(runRoot, path.join(await fs.realpath(externalRoot), "run-1"));
   await assert.rejects(
-    resolvePrivateRunRoot({ skillEntry: projectEntry, skillRoot, cwd: repo, value: "outside/run-1" }),
-    /must be inside/,
+    resolvePrivateRunRoot({
+      skillEntry: projectEntry,
+      skillRoot,
+      cwd: repo,
+      value: path.join(skillRoot, "data/runs/run-1"),
+    }),
+    /protected Git or Skill root/,
   );
   console.log("private Case authority test: PASS");
 } finally {

@@ -26,7 +26,7 @@ selection_modes: [requirement, category, affected, full]
 release_gate_policy: references/release-gate-policy.yaml
 release_gate_contract: references/release-gate-contract.md
 report_policy: references/report-policy.yaml
-artifact_root: test-artifacts/e2e/<run-id>
+artifact_root: /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>
 screenshot_checkpoints: [entry, major-state-transition, before-and-after-important-mutation, assertion-failure, final-state]
 ~~~
 
@@ -42,26 +42,26 @@ Full plan 还必须把 Dataset 的复合文档 Case 映射、结构化 WorkBuddy
 python3 .agents/skills/qwork-test-e2e/scripts/build_release_gate_plan.py \
   --repo . --base <base-sha> --head <head-sha> \
   --scope affected \
-  --output test-artifacts/e2e/<run-id>/plan.json
+  --output /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/plan.json
 ~~~
 
 Planner 从显式 base/head、所有 changed/dirty 文件和内容 hash 开始，按 `least-fixed-point` 展开到 requirement/category、capability/risk、Case/Dataset/Suite、route/target、layer/dimension。未知变更保守选择 full 闭世界；Token、时间、成本或 Case 数不能缩减必需范围。任何代码、Case、Dataset、runner、locator、source 或 Skill 变更都会使旧 plan 失效。
 
 ## 2. 执行
 
-按 plan 的 `required_items[]` 原样执行并写入同一 `report.json`。不得以命令退出码代替用户可见结果，也不得把 skip/known gap/pending 计入通过。
+按 plan 的 `required_items[]` 原样执行并写入同一 `QWORK-E2E-REPORT.json`。不得以命令退出码代替用户可见结果，也不得把 skip/known gap/pending 计入通过。
 
-执行批次结束后必须运行 `scripts/compile_release_gate_report.py`，从冻结 plan、逐坐标 WAL、公开证据清单和私有 attestation确定性生成唯一 `report.json`；禁止手工拼接或把缺 runner、未授权、未执行、截图缺失压成通过。
+执行批次结束后必须运行 `scripts/compile_release_gate_report.py`，从冻结 plan、逐坐标 WAL、公开证据清单和私有 attestation 确定性生成唯一 `QWORK-E2E-REPORT.json`；禁止手工拼接或把缺 runner、未授权、未执行、截图缺失压成通过。
 
 先运行零执行预检；它会校验 revision、plan、Skill、Dataset 与 Route hash，将每项严格分类，并默认拒绝所有 live Case 与 shell 字符串求值：
 
 ~~~bash
 python3 .agents/skills/qwork-test-e2e/scripts/run_release_gate_plan.py \
-  --repo . --plan test-artifacts/e2e/<run-id>/plan.json \
-  --run-root test-artifacts/e2e/<run-id> --preflight-only
+  --repo . --plan /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/plan.json \
+  --run-root /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id> --preflight-only
 ~~~
 
-正式本地执行只能显式选择 `gate`、`dataset-verifier`、`deterministic-playwright` 或 `workbuddy-oracle`。`dataset-verifier` 仅对冻结私有 Dataset 执行非 UI 的只读确定性判定；当前用于逐 Case 验证 `~/.workbuddy` 原子处置、QWork 目标和实现证据，不能代替 Electron UI 或真实持久化迁移 E2E。私有 Electron Case 的原始截图、trace、Playwright JSON 和构建清单必须留在 Dataset Skill 的 `data/runs/`；项目 run 只接收哈希绑定的脱敏 attestation，不得复制私有原始证据。执行器逐坐标先写 WAL；发现旧 `running/partial`、已有证据冲突、未知命令或 authority drift 时，在下一个子进程前停止。已有 `pass/fail` 坐标必须属于同一 plan/revision/category，并在执行后原样保留，禁止分类别运行覆盖旧终态。`npm test`、coverage 和 deterministic Electron 执行前必须零执行探测 `127.0.0.1` loopback bind；能力不足属于本地执行环境缺口，不得写成产品失败。`live-authorization` 永远不由该命令执行，必须建立独立授权 runner；`runner-gap` 是本地修复项，不得 skip。
+正式本地执行只能显式选择 `gate`、`dataset-verifier`、`deterministic-playwright` 或 `workbuddy-oracle`。`dataset-verifier` 仅对冻结私有 Dataset 执行非 UI 的只读确定性判定；当前用于逐 Case 验证 `~/.workbuddy` 原子处置、QWork 目标和实现证据，不能代替 Electron UI 或真实持久化迁移 E2E。私有 Electron Case 的原始截图、trace、Playwright JSON、构建清单和临时 app 必须位于当前外置 run 的 `PRIVATE-EVIDENCE/`；只有人工审核后通过晋升器进入 `qwork-test-dataset/data/reference-runs/` 的最小闭合证据才可进 Git。执行器逐坐标先写 WAL；发现旧 `running/partial`、已有证据冲突、未知命令或 authority drift 时，在下一个子进程前停止。已有 `pass/fail` 坐标必须属于同一 plan/revision/category，并在执行后原样保留，禁止分类别运行覆盖旧终态。`npm test`、coverage 和 deterministic Electron 执行前必须零执行探测 `127.0.0.1` loopback bind；能力不足属于本地执行环境缺口，不得写成产品失败。`live-authorization` 永远不由该命令执行，必须建立独立授权 runner；`runner-gap` 是本地修复项，不得 skip。
 
 | 层级 | QWork 入口 |
 |---|---|
@@ -84,14 +84,14 @@ WorkBuddy reference 与 QWork actual 必须来自相同 product state、viewport
 
 ## 3. 自动报告与证据
 
-每次 E2E attempt 在 cleanup 后自动从唯一 `report.json` 生成 `report.html`，无需用户提醒：
+每次 E2E attempt 在 cleanup 后自动从唯一 `QWORK-E2E-REPORT.json` 生成醒目的 `QWORK-E2E-REPORT.html`，无需用户提醒：
 
 ~~~bash
 python3 .agents/skills/qwork-test-e2e/scripts/finalize_e2e_report.py \
-  --input test-artifacts/e2e/<run-id>/report.json \
-  --output test-artifacts/e2e/<run-id>/report.html \
-  --artifact-root test-artifacts/e2e/<run-id> \
-  --plan test-artifacts/e2e/<run-id>/plan.json
+  --input /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/QWORK-E2E-REPORT.json \
+  --output /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/QWORK-E2E-REPORT.html \
+  --artifact-root /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id> \
+  --plan /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/plan.json
 ~~~
 
 `plain_language_summary` 第一屏用口语回答测了什么、没测什么、能否提测、原因、用户影响和下一步；Case ID、route、executor、revision/hash、命令和路径放入折叠“技术明细”。报告不是终态。
@@ -105,8 +105,8 @@ UI Case 按状态机保存关键截图。UI PASS 无当前 run 的入口/终态�
 ~~~bash
 python3 .agents/skills/qwork-test-e2e/scripts/evaluate_release_gate.py \
   --repo . \
-  --plan test-artifacts/e2e/<run-id>/plan.json \
-  --run-root test-artifacts/e2e/<run-id>
+  --plan /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/plan.json \
+  --run-root /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>
 ~~~
 
 Evaluator 先验证 source acceptance，再调用 `finalize_e2e_report`，然后核对 plan/revision/hash、逐项结果、artifact、cleanup 和独立新上下文重跑。只有它输出 `test-ready` 才能说达到提测标准。

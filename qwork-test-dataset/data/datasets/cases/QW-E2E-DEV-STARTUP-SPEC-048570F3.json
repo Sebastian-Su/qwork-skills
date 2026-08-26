@@ -1,0 +1,265 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-DEV-STARTUP-SPEC-048570F3",
+  "title": "cross-platform development entry reaches electron-vite",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-dev-startup-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/dev-startup.spec.ts",
+      "locator": "line:8;test:cross-platform development entry reaches electron-vite",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:048570f369dc8a92bbd88d36386ac449235adfc92f7ff25dca44e0ca460ac243",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-BBF8AD0F155C3E",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-dev-startup-spec-ts:L8:048570f369"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "cross-platform development entry reaches electron-vite",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-dev-startup-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "cross-platform development entry reaches electron-vite"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "[\"linux\", \"darwin\", \"win32\"].includes(process.platform)"
+    },
+    {
+      "action": "resolve(\"scripts/run-electron-vite-dev.mjs\")"
+    },
+    {
+      "action": "Object.keys(childEnv)"
+    },
+    {
+      "action": "/^(?:PW_|npm_)/i.test(key)"
+    },
+    {
+      "action": "spawn( process.execPath, [ \"-e\", \"setInterval(() => {}, 1000)\", \"--\", resolve(\"node_modules/.bin/electron-vite\"), \"dev\", ], { cwd: process.cwd(), env: childEnv, stdio: \"ignore\" }, )"
+    },
+    {
+      "action": "resolve(\"node_modules/.bin/electron-vite\")"
+    },
+    {
+      "action": "process.cwd()"
+    },
+    {
+      "action": "stale!.once(\"spawn\", resolveSpawn)"
+    },
+    {
+      "action": "stale!.once(\"error\", reject)"
+    },
+    {
+      "action": "execFileAsync( process.execPath, [launcher, \"--help\"], { cwd: process.cwd(), env: childEnv, }, )"
+    },
+    {
+      "action": "process.cwd()"
+    },
+    {
+      "action": "stale?.kill(\"SIGKILL\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(stderr).not.toContain(\"cross-env\")",
+    "expect .poll(() => stale!.exitCode !== null || stale!.signalCode !== null) .toBe(true)",
+    "expect( execFileAsync(process.execPath, [launcher, \"--definitely-invalid\"], { cwd: process.cwd(), env: childEnv, }), ).rejects.toMatchObject({ code: 1, stderr: expect.stringContaining( \"CACError: Unknown option `--definitelyInvalid`\", ), })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-BBF8AD0F155C3E",
+      "type": "return",
+      "assertion": "cross-platform development entry reaches electron-vite"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-dev-startup-spec-ts.048570f369",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/dev-startup.spec.ts -g \"cross-platform development entry reaches electron-vite\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "[\"linux\", \"darwin\", \"win32\"].includes(process.platform)"
+        },
+        {
+          "action": "resolve(\"scripts/run-electron-vite-dev.mjs\")"
+        },
+        {
+          "action": "Object.keys(childEnv)"
+        },
+        {
+          "action": "/^(?:PW_|npm_)/i.test(key)"
+        },
+        {
+          "action": "spawn( process.execPath, [ \"-e\", \"setInterval(() => {}, 1000)\", \"--\", resolve(\"node_modules/.bin/electron-vite\"), \"dev\", ], { cwd: process.cwd(), env: childEnv, stdio: \"ignore\" }, )"
+        },
+        {
+          "action": "resolve(\"node_modules/.bin/electron-vite\")"
+        },
+        {
+          "action": "process.cwd()"
+        },
+        {
+          "action": "stale!.once(\"spawn\", resolveSpawn)"
+        },
+        {
+          "action": "stale!.once(\"error\", reject)"
+        },
+        {
+          "action": "execFileAsync( process.execPath, [launcher, \"--help\"], { cwd: process.cwd(), env: childEnv, }, )"
+        },
+        {
+          "action": "process.cwd()"
+        },
+        {
+          "action": "stale?.kill(\"SIGKILL\")"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/dev-startup.spec.ts",
+        "line_start": 8,
+        "line_end": 67,
+        "body_sha256": "sha256:3cd4e2bbdd031c27c8eb4fe05d4ab6fac55543875abbd50d1a51335a8a97fb1f",
+        "assertion_count": 3,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:7dad1ca7a0bc099d312865760792d5a4fb9a918ae2c37b7a29990da91750e6b3"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-BBF8AD0F155C3E"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-BBF8AD0F155C3E"
+    ]
+  }
+}

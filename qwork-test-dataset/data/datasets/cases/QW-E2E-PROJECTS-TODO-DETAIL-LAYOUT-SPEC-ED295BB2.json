@@ -1,0 +1,292 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECTS-TODO-DETAIL-LAYOUT-SPEC-ED295BB2",
+  "title": "matches the provided WorkBuddy todo detail layout oracle",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-projects-todo-detail-layout-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-todo-detail-layout.spec.ts",
+      "locator": "line:14;test:matches the provided WorkBuddy todo detail layout oracle",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:ed295bb208ff2389f2e75477cb4c493a140685ca49651534306d068cb5dcff8c",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-C6A40C487C6619",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-projects-todo-detail-layout-spec-ts:L14:ed295bb208"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "matches the provided WorkBuddy todo detail layout oracle",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-projects-todo-detail-layout-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches the provided WorkBuddy todo detail layout oracle"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /qwork项目/ }).first().click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: configDialog.action }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+    },
+    {
+      "action": "page .locator('button[aria-label^=\"打开 个性化你的项目标题\"]') .click({ force: true })"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"添加到输入框\" }).click()"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: `移除待办 ${todoTitle}`, }).click()"
+    },
+    {
+      "action": "projectServer.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( page.getByPlaceholder(\"今天帮你做些什么？ @ 引用对话文件，/ 调用技能与指令\"), ).toBeVisible()",
+    "expect(projectComposerBackground).not.toBe(\"rgb(255, 255, 255)\")",
+    "expect(dialog).toBeVisible()",
+    "expect( await dialog.evaluate((element) => getComputedStyle(element.querySelector<HTMLElement>(\"header\")!).borderBottomWidth, ), ).toBe(\"0px\")",
+    "expect(dialog).toBeHidden()",
+    "expect(detail).toBeVisible()",
+    "expect(detail.getByRole(\"button\", { name: \"添加附件\" })).toBeVisible()",
+    "expect(detail.getByRole(\"button\", { name: \"添加子待办\" })).toBeVisible()",
+    "expect(detail.getByPlaceholder(\"添加评论\")).toBeVisible()",
+    "expect(activity).toContainText(\"刘昭 创建了待办\")",
+    "expect(activity).not.toContainText(\"fe0a18df-e242-41e9-92bc-06aee049cb13\")",
+    "expect(scrollContract.layoutOverflowY).toBe(\"hidden\")",
+    "expect(scrollContract.layoutScrollHeight).toBe(scrollContract.layoutClientHeight)",
+    "expect(scrollContract.mainOverflowY).toBe(\"auto\")",
+    "expect(scrollContract.mainScrollHeight).toBeGreaterThan(scrollContract.mainClientHeight)",
+    "expect(scrollContract.mainContentOverflowY).not.toBe(\"auto\")",
+    "expect(scrollContract.sidebarOverflowY).not.toBe(\"auto\")",
+    "expect(scrollContract.titleClientHeight).toBe(scrollContract.titleScrollHeight)",
+    "expect(scrollContract.descriptionClientHeight).toBeGreaterThanOrEqual( scrollContract.descriptionScrollHeight - 2, )",
+    "expect(geometry.dialog.width).toBeCloseTo(880, 0)",
+    "expect(geometry.dialog.height).toBeCloseTo(720, 0)",
+    "expect(geometry.dialog.x).toBeGreaterThan(200)",
+    "expect(geometry.dialog.y).toBeGreaterThan(60)",
+    "expect(geometry.layout.width).toBeLessThanOrEqual(880)",
+    "expect(geometry.layout.height).toBeLessThanOrEqual(664)",
+    "expect(geometry.main.height).toBeLessThanOrEqual(geometry.layout.height)",
+    "expect(geometry.mainScroll.height).toBeGreaterThan(geometry.main.height)",
+    "expect(geometry.comment.height).toBeGreaterThanOrEqual(40)",
+    "expect(geometry.comment.height).toBeLessThanOrEqual(48)",
+    "expect(detail).toBeHidden()",
+    "expect(page.getByRole(\"status\").filter({ hasText: \"已添加到输入框\" })).toBeVisible()",
+    "expect(composer).toContainText(todoTitle)",
+    "expect(composer).not.toContainText(todoTitle)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-C6A40C487C6619",
+      "type": "return",
+      "assertion": "matches the provided WorkBuddy todo detail layout oracle"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-projects-todo-detail-layout-spec-ts.ed295bb208",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/projects-todo-detail-layout.spec.ts -g \"matches the provided WorkBuddy todo detail layout oracle\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /qwork项目/ }).first().click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: configDialog.action }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+        },
+        {
+          "action": "page .locator('button[aria-label^=\"打开 个性化你的项目标题\"]') .click({ force: true })"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"添加到输入框\" }).click()"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: `移除待办 ${todoTitle}`, }).click()"
+        },
+        {
+          "action": "projectServer.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/projects-todo-detail-layout.spec.ts",
+        "line_start": 14,
+        "line_end": 245,
+        "body_sha256": "sha256:af7c58ae39ab7cbe0fed5a230914a8c3feb468474e1993d1a21817347e8c4975",
+        "assertion_count": 33,
+        "action_count": 9,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:aca3178691c07caed5081bb57293b16acf22d52fedc23330867e40c53667e683"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-C6A40C487C6619"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-C6A40C487C6619"
+    ]
+  }
+}

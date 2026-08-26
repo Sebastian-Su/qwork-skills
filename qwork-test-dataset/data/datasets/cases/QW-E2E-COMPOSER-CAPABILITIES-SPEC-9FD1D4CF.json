@@ -1,0 +1,259 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-COMPOSER-CAPABILITIES-SPEC-9FD1D4CF",
+  "title": "switching models keeps old reply labels and marks the switch boundary",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-composer-capabilities-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/composer-capabilities.spec.ts",
+      "locator": "line:765;test:switching models keeps old reply labels and marks the switch boundary",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:9fd1d4cfeb7cebe095b9ec786418a9fe481622064a93e39f5e28a42e083893f1",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-A84A68F1B9B242",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L765:9fd1d4cfeb"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "switching models keeps old reply labels and marks the switch boundary",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "switching models keeps old reply labels and marks the switch boundary"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-18T17:47:42.185586+00:00",
+    "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").fill(\"第一轮\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+    },
+    {
+      "action": "page.getByTestId(\"composer-model-trigger\").click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitemradio\", { name: \"Kimi-K3\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").fill(\"第二轮\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"收到：第一轮\", { exact: true })).toBeVisible()",
+    "expect(replyMeta).toHaveCount(1)",
+    "expect(replyMeta.nth(0)).toContainText(\"共消耗 ◇1500\")",
+    "expect(replyMeta.nth(0)).toContainText(\"GLM-5.2\")",
+    "expect(page.getByText(\"模型已从 GLM-5.2 更改为 Kimi-K3\")).toBeVisible()",
+    "expect(replyMeta.nth(0)).toContainText(\"GLM-5.2\")",
+    "expect(page.getByText(\"收到：第二轮\", { exact: true })).toBeVisible()",
+    "expect(replyMeta).toHaveCount(2)",
+    "expect(replyMeta.nth(0)).toContainText(\"共消耗 ◇1500\")",
+    "expect(replyMeta.nth(0)).toContainText(\"GLM-5.2\")",
+    "expect(replyMeta.nth(1)).toContainText(\"共消耗 ◇3000\")",
+    "expect(replyMeta.nth(1)).toContainText(\"Kimi-K3\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-A84A68F1B9B242",
+      "type": "return",
+      "assertion": "switching models keeps old reply labels and marks the switch boundary"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-composer-capabilities-spec-ts.9fd1d4cfeb",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/composer-capabilities.spec.ts -g \"switching models keeps old reply labels and marks the switch boundary\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").fill(\"第一轮\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+        },
+        {
+          "action": "page.getByTestId(\"composer-model-trigger\").click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitemradio\", { name: \"Kimi-K3\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").fill(\"第二轮\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/composer-capabilities.spec.ts",
+        "line_start": 765,
+        "line_end": 797,
+        "body_sha256": "sha256:9b40a2aabd0739b16acb1dfc20b64cccab659505f3f47bec925229a7bf417467",
+        "assertion_count": 12,
+        "action_count": 7,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:ef0fe5eafdb3d02943778765fba214b59a44606545516c81b2b6e65bba93bb7a"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": "bug973549-public-reference-643446ff-v1",
+      "verified_at": "2026-08-18T17:47:42.185586+00:00",
+      "environment": "stale deterministic public Playwright reference run"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-A84A68F1B9B242"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-A84A68F1B9B242"
+    ]
+  }
+}

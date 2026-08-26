@@ -1,0 +1,279 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-TERMINAL-SPEC-5E6BAC77",
+  "title": "uses the Electron Node runtime without a system Node installation",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "terminal",
+    "journey": "terminal",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-terminal-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/terminal.spec.ts",
+      "locator": "line:79;test:uses the Electron Node runtime without a system Node installation",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:5e6bac771397f1c25a8e39a10e7dfbc085c164ce7cd88519a9978bf5e44c0b45",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-CE91FDBFB851C7",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-terminal-spec-ts:L79:5e6bac7713"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "terminal",
+      "priority": "P1",
+      "rule": "uses the Electron Node runtime without a system Node installation",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-terminal-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "uses the Electron Node runtime without a system Node installation"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "withApp(\"ziqdo-terminal-node-runtime-\", async (page, configHome) => { const probe = path.join(configHome, \"electron-node-probe.cjs\"); const token = `ELECTRON_NODE_RUNTIME_${Date.now()}`; await fs.writeFile( probe, // Assert the Node runtime is reachable through the shim. We check // process.versions.node (always present when the shim runs, whether the // resolved runtime is Electron-as-node in a packaged app or the …"
+    },
+    {
+      "action": "path.join(configHome, \"electron-node-probe.cjs\")"
+    },
+    {
+      "action": "Date.now()"
+    },
+    {
+      "action": "fs.writeFile( probe, // Assert the Node runtime is reachable through the shim. We check // process.versions.node (always present when the shim runs, whether the // resolved runtime is Electron-as-node in a packaged app or the launcher // node when the E2E runs from source) plus ZIQDO_NODE_SHIM_ACTIVE, which // proves the injected shim — not a system node — served the request. `console.log(${JSON.stringify(token)} + …"
+    },
+    {
+      "action": "JSON.stringify(token)"
+    },
+    {
+      "action": "page.evaluate( async ({ cwd, script, expected }) => { const terminal = window.workGui.terminal; const created = await terminal.create({ cwd, cols: 100, rows: 24 }); let combined = \"\"; let unsubscribe = () => undefined; try { const completed = new Promise<string>((resolve, reject) => { const timeout = window.setTimeout( () => reject(new Error(`Electron Node probe timed out: ${combined}`)), 12_000, ); unsubscribe = te…"
+    },
+    {
+      "action": "terminal.create({ cwd, cols: 100, rows: 24 })"
+    },
+    {
+      "action": "window.setTimeout( () => reject(new Error(`Electron Node probe timed out: ${combined}`)), 12_000, )"
+    },
+    {
+      "action": "reject(new Error(`Electron Node probe timed out: ${combined}`))"
+    },
+    {
+      "action": "terminal.onData((event) => { if (event.id !== created.id) return; combined += atob(event.data); if (combined.includes(expected)) { window.clearTimeout(timeout); resolve(combined); } })"
+    },
+    {
+      "action": "atob(event.data)"
+    },
+    {
+      "action": "combined.includes(expected)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(output).toContain(token)",
+    "expect(output).toMatch(new RegExp(`${token}:\\\\d+\\\\.\\\\d+\\\\.\\\\d+:1`))"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-CE91FDBFB851C7",
+      "type": "return",
+      "assertion": "uses the Electron Node runtime without a system Node installation"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-terminal-spec-ts.5e6bac7713",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/terminal.spec.ts -g \"uses the Electron Node runtime without a system Node installation\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "terminal",
+      "steps": [
+        {
+          "action": "withApp(\"ziqdo-terminal-node-runtime-\", async (page, configHome) => { const probe = path.join(configHome, \"electron-node-probe.cjs\"); const token = `ELECTRON_NODE_RUNTIME_${Date.now()}`; await fs.writeFile( probe, // Assert the Node runtime is reachable through the shim. We check // process.versions.node (always present when the shim runs, whether the // resolved runtime is Electron-as-node in a packaged app or the …"
+        },
+        {
+          "action": "path.join(configHome, \"electron-node-probe.cjs\")"
+        },
+        {
+          "action": "Date.now()"
+        },
+        {
+          "action": "fs.writeFile( probe, // Assert the Node runtime is reachable through the shim. We check // process.versions.node (always present when the shim runs, whether the // resolved runtime is Electron-as-node in a packaged app or the launcher // node when the E2E runs from source) plus ZIQDO_NODE_SHIM_ACTIVE, which // proves the injected shim — not a system node — served the request. `console.log(${JSON.stringify(token)} + …"
+        },
+        {
+          "action": "JSON.stringify(token)"
+        },
+        {
+          "action": "page.evaluate( async ({ cwd, script, expected }) => { const terminal = window.workGui.terminal; const created = await terminal.create({ cwd, cols: 100, rows: 24 }); let combined = \"\"; let unsubscribe = () => undefined; try { const completed = new Promise<string>((resolve, reject) => { const timeout = window.setTimeout( () => reject(new Error(`Electron Node probe timed out: ${combined}`)), 12_000, ); unsubscribe = te…"
+        },
+        {
+          "action": "terminal.create({ cwd, cols: 100, rows: 24 })"
+        },
+        {
+          "action": "window.setTimeout( () => reject(new Error(`Electron Node probe timed out: ${combined}`)), 12_000, )"
+        },
+        {
+          "action": "reject(new Error(`Electron Node probe timed out: ${combined}`))"
+        },
+        {
+          "action": "terminal.onData((event) => { if (event.id !== created.id) return; combined += atob(event.data); if (combined.includes(expected)) { window.clearTimeout(timeout); resolve(combined); } })"
+        },
+        {
+          "action": "atob(event.data)"
+        },
+        {
+          "action": "combined.includes(expected)"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/terminal.spec.ts",
+        "line_start": 79,
+        "line_end": 130,
+        "body_sha256": "sha256:4d6290e17a4fa6b0475e0ca80e20abdcc27c51e7ff0f7eaf17e2e813500d4c2e",
+        "assertion_count": 2,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:2af09725067aac6357cfbfefc405760ba1b1dcfb317ebfbdafe28620276118b9"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-CE91FDBFB851C7"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-CE91FDBFB851C7"
+    ]
+  }
+}

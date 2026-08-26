@@ -13,6 +13,8 @@ from typing import Any
 
 import yaml
 
+from external_artifact_storage import REPORT_JSON_NAME, validate_external_run_root
+
 
 def load(path: Path) -> dict[str, Any]:
     value = json.loads(path.read_text(encoding="utf-8"))
@@ -47,6 +49,43 @@ def artifact(root: Path, path: Path) -> dict[str, str]:
     return {"path": relative.as_posix(), "sha256": sha256(resolved)}
 
 
+def validate_private_reference(
+    *, dataset: Path, item: dict[str, Any], run_id: str, current_started: dt.datetime
+) -> tuple[Path, dict[str, Any], str]:
+    registry = yaml.safe_load(
+        (dataset / "references/private-reference-runs.yaml").read_text(encoding="utf-8")
+    )
+    case_id = str(item["case_id"])
+    reference = (registry.get("runs") or {}).get(case_id)
+    if not isinstance(reference, dict) or reference.get("run_id") != run_id:
+        raise ValueError(f"private Case reference is not registered: {case_id} {run_id}")
+    locator = str(reference.get("report") or "")
+    prefix = "skill://qwork-test-dataset/"
+    if not locator.startswith(prefix):
+        raise ValueError(f"private Case reference uses a non-Skill locator: {case_id}")
+    report_path = dataset / locator.removeprefix(prefix)
+    actual = f"sha256:{sha256(report_path)}"
+    if actual != str(reference.get("report_sha256") or ""):
+        raise ValueError(f"private Case reference report drifted: {case_id}")
+    report = load(report_path)
+    source = report.get("source") if isinstance(report.get("source"), dict) else {}
+    source_contract = item.get("source_contract") if isinstance(item.get("source_contract"), dict) else {}
+    if (
+        report.get("status") != "pass"
+        or report.get("case_id") != case_id
+        or source.get("implementation_revision") != item.get("source_contract", {}).get("execution_revision")
+        or source.get("spec") != source_contract.get("spec")
+        or source.get("spec_sha256") != source_contract.get("spec_sha256")
+    ):
+        raise ValueError(f"private Case reference authority differs from current Case: {case_id}")
+    selected = report.get("selected_tests")
+    if not isinstance(selected, list) or len(selected) != 1 or selected[0].get("status") != "expected":
+        raise ValueError(f"private Case reference did not select one passing test: {case_id}")
+    if timestamp(str(report.get("finished_at") or "")) >= current_started:
+        raise ValueError("independent rerun started before the private reference finished")
+    return report_path, report, actual
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", type=Path, required=True)
@@ -57,12 +96,16 @@ def main() -> int:
 
     repo = args.repo.resolve()
     plan_path = args.plan.resolve()
-    run_root = args.run_root.resolve()
     dataset = (args.dataset_skill or repo / ".agents/skills/qwork-test-dataset").resolve()
+    skill = Path(__file__).resolve().parent.parent
+    run_root = validate_external_run_root(
+        args.run_root,
+        protected_roots=[repo, dataset, skill],
+    )
     plan = load(plan_path)
     state = load(run_root / "runner-state.json")
     preflight = load(run_root / "execution-preflight.json")
-    report = load(run_root / "report.json")
+    report = load(run_root / REPORT_JSON_NAME)
     revision = subprocess.run(
         ["git", "rev-parse", "HEAD"], cwd=repo, check=True, capture_output=True, text=True
     ).stdout.strip()
@@ -129,6 +172,18 @@ def main() -> int:
     reference_manifest_evidence: list[dict[str, str]] = []
     for item in case_items:
         run_id = str(item["reference_run_id"])
+        if str(item.get("route_id") or "").startswith("qwork.private-playwright."):
+            path, _, report_sha = validate_private_reference(
+                dataset=dataset,
+                item=item,
+                run_id=run_id,
+                current_started=current_started,
+            )
+            reference_run_ids.add(run_id)
+            evidence = {"path": str(path), "sha256": report_sha.removeprefix("sha256:")}
+            if evidence not in reference_manifest_evidence:
+                reference_manifest_evidence.append(evidence)
+            continue
         registered = manifests.get(run_id)
         if not registered:
             raise ValueError(f"Case reference run is not a registered public batch: {item['case_id']} {run_id}")
@@ -226,9 +281,9 @@ def main() -> int:
             else "保留报告与哈希供审核。"
         ),
     })
-    temporary = (run_root / ".report.json.tmp")
+    temporary = run_root / f".{REPORT_JSON_NAME}.tmp"
     temporary.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    temporary.replace(run_root / "report.json")
+    temporary.replace(run_root / REPORT_JSON_NAME)
     print(json.dumps({
         "status": "pass",
         "gate_status": gate_status,

@@ -1,0 +1,227 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-5BAC0354",
+  "title": "UI-LAYOUT-SHELL-004 | 默认进入新建对话且侧栏品牌与开关完整可用",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-layout-shell-home.spec.ts",
+      "locator": "line:85;test:UI-LAYOUT-SHELL-004 | 默认进入新建对话且侧栏品牌与开关完整可用",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:5bac03549249e885d9ec4eb22402239bf1bdc437e4d965bef904dc6a9a3c010e",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D3B4EB8A78DF2A",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts:L85:5bac035492"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "UI-LAYOUT-SHELL-004 | 默认进入新建对话且侧栏品牌与开关完整可用",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-LAYOUT-SHELL-004 | 默认进入新建对话且侧栏品牌与开关完整可用"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-18T17:50:23.560511+00:00",
+    "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "toggle.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"展开侧栏\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "uiExpect.soft(brand).toBeVisible()",
+    "expect( await brand.evaluate((element) => ({ clientWidth: element.clientWidth, scrollWidth: element.scrollWidth, text: element.textContent, })), ).toMatchObject({ text: \"QWork v0.1.0\" })",
+    "expect(await brand.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)",
+    "expect(brandBox && toggleBox).toBeTruthy()",
+    "expect(separatedFromToggle).toBe(true)",
+    "uiExpect.soft(page.getByRole(\"heading\", { name: \"QWork, 我帮你\" })).toBeVisible()",
+    "uiExpect.soft(page.getByRole(\"button\", { name: \"新建任务\" })).toHaveAttribute( \"aria-current\", \"page\", )",
+    "expect( await toggle.evaluate((button) => { const rect = button.getBoundingClientRect(); const hit = document.elementFromPoint( rect.x + rect.width / 2, rect.y + rect.height / 2, ); return { hitsToggle: hit === button || Boolean(hit && button.contains(hit)), hitTag: hit?.tagName, hitTestId: hit?.getAttribute(\"data-testid\"), hitClass: hit?.getAttribute(\"class\"), }; }), ).toMatchObject({ hitsToggle: true })",
+    "expect.poll(async () => (await boxOf(page.getByTestId(\"left-rail-shell\"))).width).toBe(0)",
+    "expect.poll(async () => (await boxOf(page.getByTestId(\"left-rail-shell\"))).width).toBe(264)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D3B4EB8A78DF2A",
+      "type": "ui",
+      "assertion": "UI-LAYOUT-SHELL-004 | 默认进入新建对话且侧栏品牌与开关完整可用"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-layout-shell-home-spec-ts.5bac035492",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-layout-shell-home.spec.ts -g \"UI-LAYOUT-SHELL-004 | 默认进入新建对话且侧栏品牌与开关完整可用\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "toggle.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"展开侧栏\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-layout-shell-home.spec.ts",
+        "line_start": 85,
+        "line_end": 131,
+        "body_sha256": "sha256:0ff4c22829e3bdc1d96a399849d416f6dc6b25945e434ec9172d89490ead58d6",
+        "assertion_count": 10,
+        "action_count": 2,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:178edf5bd7ee72c94282ee866680110da9802652684099416e69e530836213e8"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": "bug973549-public-reference-643446ff-v1",
+      "verified_at": "2026-08-18T17:50:23.560511+00:00",
+      "environment": "stale deterministic public Playwright reference run"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-D3B4EB8A78DF2A"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-D3B4EB8A78DF2A"
+    ]
+  }
+}

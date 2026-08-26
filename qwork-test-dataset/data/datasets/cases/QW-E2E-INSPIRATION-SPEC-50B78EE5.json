@@ -1,0 +1,512 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-INSPIRATION-SPEC-50B78EE5",
+  "title": "matches the WorkBuddy list contract and exposes true capability types",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "library",
+    "journey": "library",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-inspiration-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/inspiration.spec.ts",
+      "locator": "line:95;test:matches the WorkBuddy list contract and exposes true capability types",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:50b78ee5484e721cde1854ee482684c662e2683d50a2d6dc6fa4a01b9f393216",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-438AFE9ABEE4C6",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-inspiration-spec-ts:L95:50b78ee548"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "library",
+      "priority": "P1",
+      "rule": "matches the WorkBuddy list contract and exposes true capability types",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-inspiration-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches the WorkBuddy list contract and exposes true capability types"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "favoritesButton.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"返回\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"精选\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"全部\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看 首富的记账本\" }).click()"
+    },
+    {
+      "action": "shoufuDialog.getByRole(\"button\", { name: \"最大化预览\" }).click()"
+    },
+    {
+      "action": "demo.getByRole(\"button\", { name: \"记一笔\" }).click()"
+    },
+    {
+      "action": "shoufuDialog.getByRole(\"button\", { name: \"最小化预览\" }).click()"
+    },
+    {
+      "action": "shoufuDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看 4岁宝宝学习乐园工作台\" }).click()"
+    },
+    {
+      "action": "babyCopy.hover()"
+    },
+    {
+      "action": "babyMaximize.hover()"
+    },
+    {
+      "action": "babyFavorite.click()"
+    },
+    {
+      "action": "babyCopy.click()"
+    },
+    {
+      "action": "babyMaximize.click()"
+    },
+    {
+      "action": "babyMinimize.click()"
+    },
+    {
+      "action": "babyDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看 生活全能工作台\" }).click()"
+    },
+    {
+      "action": "lifeMaximize.click()"
+    },
+    {
+      "action": "lifeDialog.getByRole(\"button\", { name: \"最小化预览\" }).click()"
+    },
+    {
+      "action": "lifeDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: category, exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"全部\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看 港股资金往哪流？三条主线怎么选\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"一键做同款\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看 事件因子解读页\" }).click()"
+    },
+    {
+      "action": "mcpDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"searchbox\", { name: \"搜索灵感\" }).fill(\"合同\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收藏 SaaS 服务协议差异报告\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"我的收藏\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"searchbox\", { name: \"搜索灵感\" }).fill(\"\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"返回\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"searchbox\", { name: \"搜索灵感\" }).fill(\"仓储管理工作台\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看 仓储管理工作台\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"dialog\", { name: \"仓储管理工作台\" }).getByRole(\"button\", { name: \"一键做同款\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"tab\")).toHaveCount(14)",
+    "expect(page.getByRole(\"searchbox\", { name: \"搜索灵感\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"我的收藏\" })).toBeVisible()",
+    "expect(cards).toHaveCount(29)",
+    "expect(new Set(firstRow.map((box) => box.y)).size).toBe(1)",
+    "expect(box.width).toBeGreaterThanOrEqual(201.5)",
+    "expect(box.width).toBeLessThanOrEqual(205.5)",
+    "expect(firstRow[index].x - firstRow[index - 1].right).toBeGreaterThanOrEqual(16)",
+    "expect(firstRow[index].x - firstRow[index - 1].right).toBeLessThanOrEqual(20)",
+    "expect(page.getByRole(\"button\", { name: \"返回\" })).toBeVisible()",
+    "expect(page.getByText(\"暂无收藏\")).toBeVisible()",
+    "expect(page.getByText(\"点击案例卡片上的收藏图标添加收藏\")).toBeVisible()",
+    "expect(page.getByRole(\"tablist\", { name: \"灵感分类\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"清除筛选\" })).toHaveCount(0)",
+    "expect(favoritesButton.locator(\"svg\")).toHaveCount(0)",
+    "expect(favoritesButtonStyle).toMatchObject({ fontSize: \"13px\", color: \"rgb(0, 0, 0)\", backgroundColor: \"rgb(255, 255, 255)\", })",
+    "expect(Math.abs( Number.parseFloat(favoritesButtonStyle.borderTopWidth) * favoritesButtonStyle.devicePixelRatio - 1, )) .toBeLessThanOrEqual(0.25)",
+    "expect(page.getByRole(\"tab\")).toHaveCount(14)",
+    "expect(cards).toHaveCount(29)",
+    "expect(cards).toHaveCount(8)",
+    "expect(cards.first()).toHaveAccessibleName(\"打工人小账本\")",
+    "expect(cards).toHaveCount(29)",
+    "expect(shoufuDialog.getByText(\"工作台搭建师\")).toBeVisible()",
+    "expect(shoufuDialog.getByText(\"个人工作台\")).toHaveCount(0)",
+    "expect(shoufuDialog.getByText(\"Scene\", { exact: true })).toHaveCount(0)",
+    "expect(normalDialogBox.width).toBeGreaterThanOrEqual(638)",
+    "expect(normalDialogBox.width).toBeLessThanOrEqual(642)",
+    "expect(normalDialogBox.height).toBeGreaterThanOrEqual(642)",
+    "expect(normalDialogBox.height).toBeLessThanOrEqual(646)",
+    "expect(shoufuDialog.getByTitle(\"首富的记账本 Demo 预览\")).toBeVisible()",
+    "expect(demo.getByRole(\"heading\", { name: \"首页\" })).toBeVisible()",
+    "expect(shoufuDialog).toHaveAttribute(\"data-preview-mode\", \"maximized\")",
+    "expect(maximizedDialogBox.width).toBeGreaterThanOrEqual(958)",
+    "expect(maximizedDialogBox.width).toBeLessThanOrEqual(962)",
+    "expect(maximizedDialogBox.height).toBeGreaterThanOrEqual(718)",
+    "expect(maximizedDialogBox.height).toBeLessThanOrEqual(722)",
+    "expect(previewFrameBox.width).toBeGreaterThanOrEqual(958)",
+    "expect(previewFrameBox.width).toBeLessThanOrEqual(962)",
+    "expect(previewFrameBox.height).toBeGreaterThanOrEqual(630)",
+    "expect(previewFrameBox.height).toBeLessThanOrEqual(634)",
+    "expect(demo.getByRole(\"heading\", { name: \"首页\" })).toBeVisible()",
+    "expect(demo.getByRole(\"status\")).toContainText(\"已记录\")",
+    "expect(shoufuDialog).toHaveAttribute(\"data-preview-mode\", \"normal\")",
+    "expect(babyStyle).toEqual({ fontSize: \"13px\", lineHeight: \"20.15px\", color: \"rgba(0, 0, 0, 0.7)\", lineClamp: \"2\" })",
+    "expect(babyDescriptionBox.y - babyDialogBox.y).toBeGreaterThanOrEqual(56)",
+    "expect(babyDescriptionBox.y - babyDialogBox.y).toBeLessThanOrEqual(60)",
+    "expect(babyDescriptionBox.height).toBeGreaterThanOrEqual(38)",
+    "expect(babyDescriptionBox.height).toBeLessThanOrEqual(42)",
+    "expect(babyExpertIcon).toBeVisible()",
+    "expect(babyDialog.getByText(\"Expert\", { exact: true })).toHaveCount(0)",
+    "expect(babyDialog.getByText(\"为 4 岁孩子打造识字、数数、儿歌与习惯打卡的启蒙学习乐园。\")).toHaveCount(0)",
+    "expect(babyPreviewBox.y - babyDialogBox.y).toBeGreaterThanOrEqual(150)",
+    "expect(babyPreviewBox.y - babyDialogBox.y).toBeLessThanOrEqual(154)",
+    "expect(babyCopy).toBeEnabled()",
+    "expect(babyMaximize).toBeEnabled()",
+    "expect.poll(() => hoverStyle(button)).toMatchObject({ backgroundColor: \"rgba(0, 0, 0, 0.05)\", color: \"rgb(0, 0, 0)\", })",
+    "expect(await hoverStyle(babyExpertChip)).toMatchObject({ backgroundColor: \"rgb(247, 247, 247)\", color: \"rgb(0, 0, 0)\", })",
+    "expect(await hoverStyle(babyUseTemplate)).toMatchObject({ opacity: \"0.88\" })",
+    "expect(copyTooltip).toBeVisible()",
+    "expect(tooltipStyle).toMatchObject({ fontSize: \"13px\", backgroundColor: \"rgb(255, 255, 255)\", color: \"rgb(59, 59, 59)\", borderRadius: \"4px\", paddingTop: \"6px\", paddingLeft: \"10px\", })",
+    "expect(Math.abs( Number.parseFloat(tooltipStyle.borderTopWidth) * tooltipStyle.devicePixelRatio - 1, )) .toBeLessThanOrEqual(0.25)",
+    "expect(babyDialog.getByRole(\"tooltip\", { name: \"最大化预览\" })).toBeVisible()",
+    "expect(babyDialog.getByRole(\"button\", { name: \"取消收藏\" })).toHaveAttribute(\"aria-pressed\", \"true\")",
+    "expect(babyDialog.getByRole(\"status\", { name: \"分享口令复制状态\" })).toContainText(\"分享口令已复制\")",
+    "expect(babyDialog).toHaveAttribute(\"data-preview-mode\", \"maximized\")",
+    "expect(babyMaximizedBox.width).toBeGreaterThanOrEqual(958)",
+    "expect(babyMaximizedBox.width).toBeLessThanOrEqual(962)",
+    "expect(babyMaximizedBox.height).toBeGreaterThanOrEqual(718)",
+    "expect(babyMaximizedBox.height).toBeLessThanOrEqual(722)",
+    "expect(babyDemo.getByRole(\"heading\", { name: \"今天学点新东西\" })).toBeVisible()",
+    "expect(await hoverStyle(babyMinimize)).toMatchObject({ backgroundColor: \"rgba(0, 0, 0, 0.05)\", color: \"rgb(0, 0, 0)\", })",
+    "expect(babyDialog.getByRole(\"tooltip\", { name: \"最小化预览\" })).toBeVisible()",
+    "expect(babyDialog).toHaveAttribute(\"data-preview-mode\", \"normal\")",
+    "expect(lifeMaximize).toBeEnabled()",
+    "expect(lifeDialog).toHaveAttribute(\"data-preview-mode\", \"maximized\")",
+    "expect(lifeDemo.getByRole(\"heading\", { name: \"今天，慢慢来\" })).toBeVisible()",
+    "expect.poll(() => cards.count()).toBeGreaterThanOrEqual(2)",
+    "expect(cards).toHaveCount(29)",
+    "expect(dialog).toBeVisible()",
+    "expect(dialog.getByText(\"Skill\", { exact: true })).toBeVisible()",
+    "expect(dialog.getByText(\"Expert\", { exact: true })).toHaveCount(0)",
+    "expect(dialog.getByLabel(\"专家\")).toBeVisible()",
+    "expect(dialog.getByRole(\"button\", { name: \"一键做同款\" })).toBeEnabled()",
+    "expect(page.getByRole(\"status\", { name: \"灵感回填状态\" })).toContainText(\"已临时跳过\")",
+    "expect(page.getByRole(\"status\", { name: \"灵感回填状态\" })).toContainText(\"NeoData金融搜索服务\")",
+    "expect(page.getByRole(\"textbox\")).not.toHaveValue(\"\")",
+    "expect(mcpDialog.getByText(\"MCP\", { exact: true })).toBeVisible()",
+    "expect(mcpDialog.getByText(\"同舟公开 MCP Gateway\", { exact: true })).toBeVisible()",
+    "expect(cards).toHaveCount(1)",
+    "expect(cards).toHaveCount(1)",
+    "expect(page.getByRole(\"tablist\", { name: \"灵感分类\" })).toHaveCount(0)",
+    "expect(cards).toHaveCount(29)",
+    "expect(responsiveCards[0].y).toBe(responsiveCards[1].y)",
+    "expect(responsiveCards[2].y).toBeGreaterThan(responsiveCards[0].bottom)",
+    "expect(page.getByRole(\"heading\", { name: \"灵感\", level: 1 })).not.toBeVisible()",
+    "expect(page.getByRole(\"textbox\")).not.toHaveValue(\"\")",
+    "expect(page.getByRole(\"status\", { name: \"灵感回填状态\" })).toContainText(\"来自灵感「仓储管理工作台」\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-438AFE9ABEE4C6",
+      "type": "return",
+      "assertion": "matches the WorkBuddy list contract and exposes true capability types"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-inspiration-spec-ts.50b78ee548",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/inspiration.spec.ts -g \"matches the WorkBuddy list contract and exposes true capability types\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "library",
+      "steps": [
+        {
+          "action": "favoritesButton.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"返回\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"精选\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"全部\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看 首富的记账本\" }).click()"
+        },
+        {
+          "action": "shoufuDialog.getByRole(\"button\", { name: \"最大化预览\" }).click()"
+        },
+        {
+          "action": "demo.getByRole(\"button\", { name: \"记一笔\" }).click()"
+        },
+        {
+          "action": "shoufuDialog.getByRole(\"button\", { name: \"最小化预览\" }).click()"
+        },
+        {
+          "action": "shoufuDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看 4岁宝宝学习乐园工作台\" }).click()"
+        },
+        {
+          "action": "babyCopy.hover()"
+        },
+        {
+          "action": "babyMaximize.hover()"
+        },
+        {
+          "action": "babyFavorite.click()"
+        },
+        {
+          "action": "babyCopy.click()"
+        },
+        {
+          "action": "babyMaximize.click()"
+        },
+        {
+          "action": "babyMinimize.click()"
+        },
+        {
+          "action": "babyDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看 生活全能工作台\" }).click()"
+        },
+        {
+          "action": "lifeMaximize.click()"
+        },
+        {
+          "action": "lifeDialog.getByRole(\"button\", { name: \"最小化预览\" }).click()"
+        },
+        {
+          "action": "lifeDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: category, exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"全部\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看 港股资金往哪流？三条主线怎么选\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"一键做同款\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看 事件因子解读页\" }).click()"
+        },
+        {
+          "action": "mcpDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"searchbox\", { name: \"搜索灵感\" }).fill(\"合同\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收藏 SaaS 服务协议差异报告\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"我的收藏\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"searchbox\", { name: \"搜索灵感\" }).fill(\"\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"返回\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"searchbox\", { name: \"搜索灵感\" }).fill(\"仓储管理工作台\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看 仓储管理工作台\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"dialog\", { name: \"仓储管理工作台\" }).getByRole(\"button\", { name: \"一键做同款\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/inspiration.spec.ts",
+        "line_start": 95,
+        "line_end": 380,
+        "body_sha256": "sha256:bb2afca9ef9b89c725c719ed6c986f9bda9679b15a3a6f2eeec3dfb00c2d0bcc",
+        "assertion_count": 97,
+        "action_count": 35,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:31208ec86625619dc0415ddae5e10f058fd5f3b6e973cbdf69f51cafa9d17d7a"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-438AFE9ABEE4C6"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-438AFE9ABEE4C6"
+    ]
+  }
+}

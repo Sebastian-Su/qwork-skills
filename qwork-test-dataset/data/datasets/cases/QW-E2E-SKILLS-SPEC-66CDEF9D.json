@@ -1,0 +1,356 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SKILLS-SPEC-66CDEF9D",
+  "title": "manages bundled skills independently without an uninstall entry",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-skills-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/skills.spec.ts",
+      "locator": "line:10;test:manages bundled skills independently without an uninstall entry",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:66cdef9ddc55c7472237eb0996d801d080fe6d3577b0551aea40037e9951dcca",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-E29726FC1CADB9",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-skills-spec-ts:L10:66cdef9ddc"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "manages bundled skills independently without an uninstall entry",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-skills-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "manages bundled skills independently without an uninstall entry"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /内置技能 \\(\\d+\\)/ }).click()"
+    },
+    {
+      "action": "longNameCard.hover()"
+    },
+    {
+      "action": "description.hover()"
+    },
+    {
+      "action": "search.fill(\"skill-creator\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作 skill-creator\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"全部技能\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"/\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭技能选择\" }).click()"
+    },
+    {
+      "action": "composer.fill(\"\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /内置技能 \\(\\d+\\)/ }).click()"
+    },
+    {
+      "action": "search.fill(\"skill-creator\")"
+    },
+    {
+      "action": "persistedToggle.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"全部技能\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"heading\", { name: \"内置技能\", level: 1 })).toBeVisible()",
+    "expect(builtinCards.first()).toBeVisible()",
+    "expect(longestBuiltinName.length).toBeGreaterThan(20)",
+    "expect(titleBox.right).toBeLessThanOrEqual(badgeBox.x)",
+    "expect(badgeBox.right).toBeLessThanOrEqual(pinBox.x)",
+    "expect(toggleBox.x - badgeBox.right).toBeLessThanOrEqual(toggleBox.width * 2.25)",
+    "expect(descriptionBox.right).toBeGreaterThanOrEqual(toggleBox.x)",
+    "expect(await computedStyle(badge, [\"white-space\"])).toEqual({ \"white-space\": \"nowrap\" })",
+    "expect(descriptionTooltip).toHaveText(fullDescription ?? \"\", { timeout: 2_000 })",
+    "expect(descriptionTooltip).toHaveCSS(\"background-color\", \"rgb(255, 255, 255)\")",
+    "expect(search).toBeVisible()",
+    "expect(skill).toBeVisible()",
+    "expect(page.getByRole(\"article\", { name: /skill-creator.*内置技能/i })).toHaveCount(1)",
+    "expect(page.getByText(\"卸载\", { exact: true })).toHaveCount(0)",
+    "expect(await computedStyle(skill.getByText(\"内置\", { exact: true }), [\"white-space\"])).toEqual({ \"white-space\": \"nowrap\", })",
+    "expect(toggle).not.toBeChecked()",
+    "expect(menu.getByRole(\"menuitem\", { name: \"去对话\" })).toBeDisabled()",
+    "expect(menu.getByRole(\"menuitem\", { name: \"打开文件夹\" })).toBeVisible()",
+    "expect(page.getByRole(\"menuitem\", { name: \"卸载\" })).toHaveCount(0)",
+    "expect(picker).toBeVisible()",
+    "expect(picker.getByText(\"正在加载技能…\", { exact: true })).toHaveCount(0)",
+    "expect(picker.getByRole(\"option\", { name: /skill-creator/i })).toHaveCount(0)",
+    "expect(persistedToggle).not.toBeChecked()",
+    "expect(page.getByRole(\"switch\", { name: \"关闭 skill-creator\" })).toBeChecked()",
+    "expect.poll(async () => page.evaluate(async () => (await window.workGui.skills.scanManaged()).find( (item) => item.id === \"skill-creator\", ), ), ).toMatchObject({ id: \"skill-creator\", active: true, available: true, })",
+    "expect(enabledPicker).toBeVisible()",
+    "expect(enabledPicker.getByText(\"正在加载技能…\", { exact: true })).toHaveCount(0)",
+    "expect(enabledPicker.getByRole(\"option\", { name: /skill-creator/i })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-E29726FC1CADB9",
+      "type": "return",
+      "assertion": "manages bundled skills independently without an uninstall entry"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-skills-spec-ts.66cdef9ddc",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/skills.spec.ts -g \"manages bundled skills independently without an uninstall entry\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /内置技能 \\(\\d+\\)/ }).click()"
+        },
+        {
+          "action": "longNameCard.hover()"
+        },
+        {
+          "action": "description.hover()"
+        },
+        {
+          "action": "search.fill(\"skill-creator\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作 skill-creator\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"全部技能\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"/\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭技能选择\" }).click()"
+        },
+        {
+          "action": "composer.fill(\"\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /内置技能 \\(\\d+\\)/ }).click()"
+        },
+        {
+          "action": "search.fill(\"skill-creator\")"
+        },
+        {
+          "action": "persistedToggle.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"全部技能\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/skills.spec.ts",
+        "line_start": 10,
+        "line_end": 129,
+        "body_sha256": "sha256:424556d7012b3fbc692a7c7a4053cfc2c7a1522989fd6fdf77396e1dfdc1a34c",
+        "assertion_count": 28,
+        "action_count": 19,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:11ecc0e0bcc606d49c5e185080eb55b97698cd34a82052a7ce3f5b80b2b3a89e"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending",
+      "case-level screenshot checkpoint audit pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-E29726FC1CADB9"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-E29726FC1CADB9"
+    ]
+  }
+}

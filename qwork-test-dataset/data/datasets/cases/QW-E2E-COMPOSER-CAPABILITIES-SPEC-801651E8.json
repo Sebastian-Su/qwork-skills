@@ -1,0 +1,530 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-COMPOSER-CAPABILITIES-SPEC-801651E8",
+  "title": "new conversation exposes expert, skill, and connector menus",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-composer-capabilities-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/composer-capabilities.spec.ts",
+      "locator": "line:361;test:new conversation exposes expert, skill, and connector menus",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:801651e8f3751d9c821512e0bea7af092d518940e9bbae3d4283148ab0ba3e76",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-6F6174CD75E3FA",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L361:801651e8f3"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "new conversation exposes expert, skill, and connector menus",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "new conversation exposes expert, skill, and connector menus"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-18T17:47:35.582172+00:00",
+    "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "addButton.hover()"
+    },
+    {
+      "action": "composer.hover()"
+    },
+    {
+      "action": "composer.fill(\"/\")"
+    },
+    {
+      "action": "composer.fill(\"\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"ArrowDown\")"
+    },
+    {
+      "action": "page.keyboard.press(\"ArrowDown\")"
+    },
+    {
+      "action": "rootMenu.getByRole(\"menuitem\", { name: \"添加文件\", exact: true }).hover()"
+    },
+    {
+      "action": "rootMenu.getByRole(\"menuitem\", { name: \"模式\", exact: true }).hover()"
+    },
+    {
+      "action": "modeMenu.getByRole(\"switch\", { name: \"计划 Plan\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "rootMenu.getByRole(\"menuitem\", { name: \"模式\", exact: true }).hover()"
+    },
+    {
+      "action": "rootMenu.getByRole(\"menuitem\", { name: \"专家\", exact: true }).hover()"
+    },
+    {
+      "action": "expertMenu.getByRole(\"menuitem\", { name: \"召唤更多专家\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "rootMenu.getByRole(\"menuitem\", { name: \"专家\", exact: true }).hover()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"专家快捷选择\" }) .getByRole(\"menuitem\", { name: /高级开发工程师/ }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"技能\", exact: true }).hover()"
+    },
+    {
+      "action": "skillList.hover()"
+    },
+    {
+      "action": "skillSearch.click()"
+    },
+    {
+      "action": "qqMusic.click({ force: true })"
+    },
+    {
+      "action": "selectedSkillToken.hover()"
+    },
+    {
+      "action": "cancelSkill.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"技能\", exact: true }).hover()"
+    },
+    {
+      "action": "skillMenu.getByRole(\"menuitem\", { name: \"从本地添加技能\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭导入技能\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"技能\", exact: true }).hover()"
+    },
+    {
+      "action": "skillMenu.getByRole(\"menuitem\", { name: \"管理技能\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"连接器\", exact: true }).hover()"
+    },
+    {
+      "action": "connectorSearch.click()"
+    },
+    {
+      "action": "connectorSearch.fill(\"\")"
+    },
+    {
+      "action": "connectorMenu.getByRole(\"menuitem\", { name: \"管理连接器\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "rootMenu.getByRole(\"menuitem\", { name: \"技能\", exact: true }).hover()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(addTooltip).toHaveText(\"可添加文件、专家、技能、连接器\")",
+    "expect(addTooltip).toHaveCSS(\"background-color\", \"rgb(64, 64, 64)\")",
+    "expect(addTooltip).toHaveCSS(\"color\", \"rgb(255, 255, 255)\")",
+    "expect(addTooltip).toHaveCSS(\"border-radius\", \"7.2px\")",
+    "expect(addTooltip).toHaveCSS(\"font-size\", \"12px\")",
+    "expect(addBox).not.toBeNull()",
+    "expect(tooltipBox).not.toBeNull()",
+    "expect(Math.abs( tooltipBox!.x + tooltipBox!.width / 2 - (addBox!.x + addBox!.width / 2), )).toBeLessThanOrEqual(2)",
+    "expect(tooltipBox!.y + tooltipBox!.height).toBeLessThan(addBox!.y)",
+    "expect(tooltipBox!.width).toBeGreaterThan(185)",
+    "expect(tooltipBox!.width).toBeLessThan(215)",
+    "expect(tooltipBox!.height).toBeGreaterThanOrEqual(31)",
+    "expect(tooltipBox!.height).toBeLessThanOrEqual(33)",
+    "expect(slashSkillPicker).toBeVisible()",
+    "expect(slashOptions.first()).toBeVisible()",
+    "expect(rootMenu).toBeVisible()",
+    "expect(rootMenu).toHaveCSS(\"border-radius\", \"16px\")",
+    "expect(rootMenu).toBeFocused()",
+    "expect(rootMenu.getByRole(\"menuitem\", { name: \"添加文件\", exact: true })).toBeFocused()",
+    "expect(rootMenu.getByRole(\"menuitem\", { name: \"模式\", exact: true })).toBeFocused()",
+    "expect(fileMenu).toBeVisible()",
+    "expect(fileMenu.getByRole(\"menuitem\")).toHaveText([ \"本地文件\", \"引用对话中的文件\", \"360知识库\", ])",
+    "expect(modeMenu).toBeVisible()",
+    "expect(modeMenu).toContainText(\"当前为默认模式，可高效执行并完成任务。\")",
+    "expect(modeMenu.getByRole(\"switch\", { name: \"计划 Plan\" })).toHaveAttribute(\"aria-checked\", \"false\")",
+    "expect(modeMenu.getByRole(\"switch\", { name: \"仅问答 Ask\" })).toHaveAttribute(\"aria-checked\", \"false\")",
+    "expect(modeMenu).toContainText(\"当前为计划模式，将先规划任务，等你确认后再执行。\")",
+    "expect(modeMenu.getByRole(\"switch\", { name: \"计划 Plan\" })).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect(modeMenu).toContainText(\"当前为默认模式，可高效执行并完成任务。\")",
+    "expect(expertMenu).toBeVisible()",
+    "expect(expertMenu.getByRole(\"menuitem\", { name: /高级开发工程师/ })).toBeVisible()",
+    "expect( page.getByRole(\"toolbar\", { name: \"专家中心工具栏\" }).getByRole(\"tab\", { name: \"专家\", exact: true }), ).toHaveAttribute(\"aria-selected\", \"true\")",
+    "expect(page.getByTestId(\"composer-editor\")).toContainText(\"高级开发工程师\")",
+    "expect(page.getByRole(\"textbox\")).toHaveValue( \"帮我开发一个功能，我会描述需求，请你先给出实现计划再动手写代码。\", )",
+    "expect(skillMenu.getByRole(\"menuitemcheckbox\").first()).toBeVisible()",
+    "expect(menuSkillIds).toEqual(slashSkillIds)",
+    "expect(skillMenu).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"更多操作\" })).toBeVisible()",
+    "expect(skillSearch).toBeFocused()",
+    "expect(qqMusic).toBeVisible()",
+    "expect(page.getByTestId(\"composer-editor\")).toContainText(/QQ Music|QQ音乐|qqmusic/i)",
+    "expect(cancelSkill).toHaveCSS(\"opacity\", \"0\")",
+    "expect(cancelSkill).toHaveCSS(\"opacity\", \"1\")",
+    "expect(selectedSkillToken).toHaveCount(0)",
+    "expect(page.getByRole(\"dialog\", { name: \"导入技能\" })).toBeVisible()",
+    "expect(page.getByTestId(\"composer-editor\")).toBeVisible()",
+    "expect(page.getByRole(\"toolbar\", { name: \"专家中心工具栏\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"checkbox\", { name: \"非高风险自动安装\" })).toBeChecked()",
+    "expect(skillMenu.getByRole(\"menuitemcheckbox\").first()).toBeVisible()",
+    "expect( page.getByRole(\"toolbar\", { name: \"专家中心工具栏\" }).getByRole(\"tab\", { name: \"技能\", exact: true }), ).toHaveAttribute(\"aria-selected\", \"true\")",
+    "expect(page.getByRole(\"dialog\", { name: \"导入技能\" })).toHaveCount(0)",
+    "expect(connectorSearch).toBeFocused()",
+    "expect(connectAction.getByTestId(\"connector-link-icon\")).toBeVisible()",
+    "expect( page .getByRole(\"toolbar\", { name: \"专家中心工具栏\" }) .getByRole(\"tab\", { name: \"连接器\", exact: true }), ).toHaveAttribute(\"aria-selected\", \"true\")",
+    "expect(skillMenu.getByRole(\"menuitemcheckbox\").first()).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-6F6174CD75E3FA",
+      "type": "return",
+      "assertion": "new conversation exposes expert, skill, and connector menus"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-composer-capabilities-spec-ts.801651e8f3",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/composer-capabilities.spec.ts -g \"new conversation exposes expert, skill, and connector menus\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "addButton.hover()"
+        },
+        {
+          "action": "composer.hover()"
+        },
+        {
+          "action": "composer.fill(\"/\")"
+        },
+        {
+          "action": "composer.fill(\"\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"ArrowDown\")"
+        },
+        {
+          "action": "page.keyboard.press(\"ArrowDown\")"
+        },
+        {
+          "action": "rootMenu.getByRole(\"menuitem\", { name: \"添加文件\", exact: true }).hover()"
+        },
+        {
+          "action": "rootMenu.getByRole(\"menuitem\", { name: \"模式\", exact: true }).hover()"
+        },
+        {
+          "action": "modeMenu.getByRole(\"switch\", { name: \"计划 Plan\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "rootMenu.getByRole(\"menuitem\", { name: \"模式\", exact: true }).hover()"
+        },
+        {
+          "action": "rootMenu.getByRole(\"menuitem\", { name: \"专家\", exact: true }).hover()"
+        },
+        {
+          "action": "expertMenu.getByRole(\"menuitem\", { name: \"召唤更多专家\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "rootMenu.getByRole(\"menuitem\", { name: \"专家\", exact: true }).hover()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"专家快捷选择\" }) .getByRole(\"menuitem\", { name: /高级开发工程师/ }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"技能\", exact: true }).hover()"
+        },
+        {
+          "action": "skillList.hover()"
+        },
+        {
+          "action": "skillSearch.click()"
+        },
+        {
+          "action": "qqMusic.click({ force: true })"
+        },
+        {
+          "action": "selectedSkillToken.hover()"
+        },
+        {
+          "action": "cancelSkill.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"技能\", exact: true }).hover()"
+        },
+        {
+          "action": "skillMenu.getByRole(\"menuitem\", { name: \"从本地添加技能\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭导入技能\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"技能\", exact: true }).hover()"
+        },
+        {
+          "action": "skillMenu.getByRole(\"menuitem\", { name: \"管理技能\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"连接器\", exact: true }).hover()"
+        },
+        {
+          "action": "connectorSearch.click()"
+        },
+        {
+          "action": "connectorSearch.fill(\"\")"
+        },
+        {
+          "action": "connectorMenu.getByRole(\"menuitem\", { name: \"管理连接器\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "rootMenu.getByRole(\"menuitem\", { name: \"技能\", exact: true }).hover()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/composer-capabilities.spec.ts",
+        "line_start": 361,
+        "line_end": 566,
+        "body_sha256": "sha256:26328df016338bb16e7167af99bb4da819174437e07ddeda0bda9c9e7d057a0c",
+        "assertion_count": 55,
+        "action_count": 45,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:ef0fe5eafdb3d02943778765fba214b59a44606545516c81b2b6e65bba93bb7a"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": "bug973549-public-reference-643446ff-v1",
+      "verified_at": "2026-08-18T17:47:35.582172+00:00",
+      "environment": "stale deterministic public Playwright reference run"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-6F6174CD75E3FA"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-6F6174CD75E3FA"
+    ]
+  }
+}

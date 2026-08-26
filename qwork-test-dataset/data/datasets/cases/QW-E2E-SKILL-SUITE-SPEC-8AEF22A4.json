@@ -1,0 +1,271 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SKILL-SUITE-SPEC-8AEF22A4",
+  "title": "SUITE-DETAIL-001 | installs and manages a suite from its full-page detail",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-skill-suite-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/skill-suite.spec.ts",
+      "locator": "line:339;test:SUITE-DETAIL-001 | installs and manages a suite from its full-page detail",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:8aef22a4f02e3a36fb47ae3d9433f00895f4b05464e8cdeabf22bed6118a1b65",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-86C51AFA965FF6",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-skill-suite-spec-ts:L339:8aef22a4f0"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "SUITE-DETAIL-001 | installs and manages a suite from its full-page detail",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-skill-suite-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "SUITE-DETAIL-001 | installs and manages a suite from its full-page detail"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"套件\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"添加市场\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"textbox\", { name: \"市场源\" }).fill(\".\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"添加\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"document-skills 4 个技能\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"安装 document-skills\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"document-skills 更多操作\" }).click()"
+    },
+    {
+      "action": "menu.getByRole(\"menuitem\", { name: \"卸载\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"heading\", { name: \"document-skills\", level: 1 })).toBeVisible()",
+    "expect(page.getByText(\"市场 (Anthropic example skills)\", { exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"article\", { name: /子技能$/ })).toHaveCount(4)",
+    "expect(page.getByRole(\"article\", { name: \"document-skills-5 子技能\" })).toHaveCount(0)",
+    "expect(compactLayout.observedColumns).toBeLessThanOrEqual(wideLayout.observedColumns)",
+    "expect(page.getByText(\"插件 document-skills 安装成功\", { exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"document-skills 已安装\" })).toBeDisabled()",
+    "expect(page.getByRole(\"switch\", { name: \"关闭 document-skills\" })).toBeVisible()",
+    "expect(menu.getByRole(\"menuitem\", { name: \"更新\" })).toBeVisible()",
+    "expect(menu.getByRole(\"menuitem\", { name: \"打开文件夹\" })).toBeVisible()",
+    "expect(menu.getByRole(\"menuitem\", { name: \"卸载\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"document-skills 4 个技能\" })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-86C51AFA965FF6",
+      "type": "return",
+      "assertion": "SUITE-DETAIL-001 | installs and manages a suite from its full-page detail"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-skill-suite-spec-ts.8aef22a4f0",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/skill-suite.spec.ts -g \"SUITE-DETAIL-001 | installs and manages a suite from its full-page detail\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"套件\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"添加市场\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"textbox\", { name: \"市场源\" }).fill(\".\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"添加\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"document-skills 4 个技能\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"安装 document-skills\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"document-skills 更多操作\" }).click()"
+        },
+        {
+          "action": "menu.getByRole(\"menuitem\", { name: \"卸载\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/skill-suite.spec.ts",
+        "line_start": 339,
+        "line_end": 381,
+        "body_sha256": "sha256:5ba677d756f2aa023eb2eeb4741e56e180a35fcae05e8cea36209cdedaae4a37",
+        "assertion_count": 12,
+        "action_count": 9,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:477e7268eafc7cc8cb459ee9c0ca813f6dfe19fc32a250f8cef01d3ee4e7ed14"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-86C51AFA965FF6"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-86C51AFA965FF6"
+    ]
+  }
+}

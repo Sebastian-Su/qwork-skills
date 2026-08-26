@@ -1,0 +1,284 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECTS-PLAN-SPEC-B94DEEB7",
+  "title": "hides #, shows the selection toolbar, and edits dates and attachments",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-projects-plan-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-plan.spec.ts",
+      "locator": "line:380;test:hides #, shows the selection toolbar, and edits dates and attachments",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:b94deeb7084653d248e045adc935f8934c89f57095f197809b89d7df3c36b895",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-036871D1AA05CF",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-projects-plan-spec-ts:L380:b94deeb708"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "hides #, shows the selection toolbar, and edits dates and attachments",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-projects-plan-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "hides #, shows the selection toolbar, and edits dates and attachments"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+    },
+    {
+      "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
+    },
+    {
+      "action": "editor.getByPlaceholder(\"请输入标题\").fill(\"E2E 表格选中\")"
+    },
+    {
+      "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"checkbox\", { name: \"全选\" }).check()"
+    },
+    {
+      "action": "toolbar.getByRole(\"button\", { name: \"关闭\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"编辑开始日期\" }).first().click()"
+    },
+    {
+      "action": "page.getByLabel(\"开始日期\", { exact: true }).fill(\"2026-08-07\")"
+    },
+    {
+      "action": "popup.trigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"编辑附件\" }).first().click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(table.getByRole(\"columnheader\", { name: \"标题\", exact: true })).toBeVisible()",
+    "expect(table.getByRole(\"columnheader\", { name: \"序号\", exact: true })).toHaveCount(0)",
+    "expect(table.getByRole(\"columnheader\", { name: \"#\", exact: true })).toHaveCount(0)",
+    "expect(table).toContainText(\"E2E 表格选中\")",
+    "expect(toolbar).toContainText(/个已选择/)",
+    "expect(page.getByRole(\"button\", { name: \"添加到对话\" })).toHaveAttribute( \"title\", \"添加到对话\", )",
+    "expect(page.getByRole(\"button\", { name: \"删除\" })).toHaveAttribute(\"title\", \"删除\")",
+    "expect(toolbar.getByRole(\"button\", { name: \"关闭\" })).toHaveAttribute(\"title\", \"关闭\")",
+    "expect(toolbar).toHaveCount(0)",
+    "expect(table.getByText(\"2026-08-07\").first()).toBeVisible()",
+    "expect(popup.overlay).toBeHidden()",
+    "expect(attachmentMenu.getByRole(\"menuitem\", { name: \"本地文件\" })).toBeVisible()",
+    "expect(attachmentMenu.getByRole(\"menuitem\", { name: \"项目资产\" })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-036871D1AA05CF",
+      "type": "return",
+      "assertion": "hides #, shows the selection toolbar, and edits dates and attachments"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-projects-plan-spec-ts.b94deeb708",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/projects-plan.spec.ts -g \"hides #, shows the selection toolbar, and edits dates and attachments\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
+        },
+        {
+          "action": "editor.getByPlaceholder(\"请输入标题\").fill(\"E2E 表格选中\")"
+        },
+        {
+          "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"checkbox\", { name: \"全选\" }).check()"
+        },
+        {
+          "action": "toolbar.getByRole(\"button\", { name: \"关闭\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"编辑开始日期\" }).first().click()"
+        },
+        {
+          "action": "page.getByLabel(\"开始日期\", { exact: true }).fill(\"2026-08-07\")"
+        },
+        {
+          "action": "popup.trigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"编辑附件\" }).first().click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/projects-plan.spec.ts",
+        "line_start": 380,
+        "line_end": 459,
+        "body_sha256": "sha256:e15c1cfa1a2e8dc3f72b41089c62f00b21002573f257d812ec09871a379ca9f5",
+        "assertion_count": 13,
+        "action_count": 11,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:e52eb9cb17908f5ac19d6612f0e92543e08a9e8c9ad5127c02c85c0eeed5a6d0"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-036871D1AA05CF"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-036871D1AA05CF"
+    ]
+  }
+}

@@ -1,0 +1,241 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-PRODUCT-PARITY-QWORK-4-CASE-72F75FE2",
+  "title": "docs/product-parity/qwork-e2e-dataset-acceptance-map.md · 4. 产品面→Case 家族 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-product-parity-qwork-e2e-dataset-acceptance-map",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/product-parity/qwork-e2e-dataset-acceptance-map.md",
+      "locator": "line:63;heading:4. 产品面→Case 家族",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:13e8bfa5d4a17e6dc4479e6bf4cd5989e5fb32aec53ffe980d073632272c514f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-8BAEF43D64F58F",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-product-parity-qwork-e2e-dataset-acceptance-map:L63:13e8bfa5d4"
+      ],
+      "content_facets": [
+        "ui-interaction"
+      ],
+      "acceptance_categories": [
+        "ui-interaction"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "| 技能 | secondary surfaces、skill hub | 市场、安装边界、选择、不可用和卡片 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-product-parity-qwork-e2e-dataset-acceptance-map"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 技能 | secondary surfaces、skill hub | 市场、安装边界、选择、不可用和卡片 |"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for skills at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/product-parity/qwork-e2e-dataset-acceptance-map.md · 4. 产品面→Case 家族 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-8BAEF43D64F58F] exactly: | 技能 | secondary surfaces、skill hub | 市场、安装边界、选择、不可用和卡片 |"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "| 技能 | secondary surfaces、skill hub | 市场、安装边界、选择、不可用和卡片 |"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-8BAEF43D64F58F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 技能 | secondary surfaces、skill hub | 市场、安装边界、选择、不可用和卡片 |",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-8BAEF43D64F58F",
+      "type": "ui-interaction",
+      "assertion": "| 技能 | secondary surfaces、skill hub | 市场、安装边界、选择、不可用和卡片 |"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-product-parity-qwork-e.4-case-72f75fe2f5",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for skills at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/product-parity/qwork-e2e-dataset-acceptance-map.md · 4. 产品面→Case 家族 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-8BAEF43D64F58F] exactly: | 技能 | secondary surfaces、skill hub | 市场、安装边界、选择、不可用和卡片 |"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-8BAEF43D64F58F"
+    ],
+    "categories": [
+      "ui-interaction"
+    ],
+    "suite_ids": [
+      "category:ui-interaction",
+      "full",
+      "requirement:REQ-8BAEF43D64F58F"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-8BAEF43D64F58F",
+      "oracle_type": "ui-interaction",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/product-parity/qwork-e2e-dataset-acceptance-map.md · 4. 产品面→Case 家族 产品契约 exactly once and retain its correlation identity",
+      "then": "| 技能 | secondary surfaces、skill hub | 市场、安装边界、选择、不可用和卡片 |",
+      "observation_boundary": "renderer input/output interaction boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

@@ -48,7 +48,7 @@ description: 维护 QWork 全产品项目测试集，包括 E2E 数据、需求 
 
 来源进入 `data/sources/<source>/<revision-and-hash>/` 后才可派生。Git 来源必须记录 base/head 和 dirty 状态；飞书记录文档 revision 与正文 hash；`~/.workbuddy` 仅记录路径元数据、hash、计数和只读 SQLite schema；WorkBuddy UI 只允许导航、标签、菜单、展开/收起、截图和 DOM/几何检查。
 
-该 Skill 的唯一实体源位于专用 `qwork-skills` 仓库；QWork 项目中的 `.agents/.codex/.claude` 都只能是未追踪的相对软链接。`data/` 始终是本地数据，不进入任何 Git 索引。
+该 Skill 的唯一实体源位于专用 `qwork-skills` 仓库；QWork 项目中的 `.agents/.codex/.claude` 都只能是未追踪的相对软链接。脱敏且可复用的 `data/{datasets,sources,evidence,benchmarks,e2e,reference-runs}` 是版本化测试资产；执行中间物必须写到仓库外的 `QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/`，不得写入任何 Git 工作树。
 
 任何新来源都先按 `normative`、`evidence` 或 `context-only` 定权。当前 QWork 截图是 evidence，不能反向批准为视觉基线；用户指定的 WorkBuddy UI/数据是 normative Oracle。
 
@@ -151,12 +151,12 @@ python3 .agents/skills/qwork-test-dataset/scripts/validate_dataset.py \
 
 存储 Case 另由 `scripts/validate_workbuddy_storage_case.py --case-id <exact-id>` 只读回放。它要求 Case 中每个 `WORKBUDDY-STORAGE:*` 原子在处置 manifest 中唯一存在；只有决策为 `resolved` 且实现为 `verified` 或 `not-required` 才通过。`pending` 必须输出原子级 `next_action`，不得转成 skip、known gap 或 UI PASS。
 
-多个存储 Case 只能通过 `scripts/run_workbuddy_storage_batch.py` 的显式 `--case-id` 或 JSON `--case-file` 选择；runner 不提供隐式全选。输出必须位于本 Skill 的 Git ignored `data/runs/<run-id>/`，每个坐标调用前先写 `state.json` WAL，再逐 Case 保存原始 verifier 结果、stdout/stderr、SHA-256、统一 `report.json`、离线 `report.html` 与 `promotion-candidates.json`。Case 契约失败可以继续记录其他独立坐标；source、hash、state、evidence 或 verifier 协议错误必须立即停批。`--resume` 只复用 hash 完整的 `pass/fail` 坐标；任何 `running`、未知状态、pending-but-has-evidence、run/contract/Case 集漂移都要求人工证据审计，禁止重复执行。
+多个存储 Case 只能通过 `scripts/run_workbuddy_storage_batch.py` 的显式 `--case-id` 或 JSON `--case-file` 选择；runner 不提供隐式全选。输出必须位于仓库外的绝对路径 `QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/`，每个坐标调用前先写 `state.json` WAL，再逐 Case保存原始 verifier 结果、stdout/stderr、SHA-256、统一报告与 `promotion-candidates.json`。Case 契约失败可以继续记录其他独立坐标；source、hash、state、evidence 或 verifier 协议错误必须立即停批。`--resume` 只复用 hash 完整的 `pass/fail` 坐标；任何 `running`、未知状态、pending-but-has-evidence、run/contract/Case 集漂移都要求人工证据审计，禁止重复执行。
 
 ~~~bash
 python3 .agents/skills/qwork-test-dataset/scripts/run_workbuddy_storage_batch.py \
   --skill-root .agents/skills/qwork-test-dataset \
-  --output .agents/skills/qwork-test-dataset/data/runs/<unique-run-id> \
+  --output /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<unique-run-id> \
   --case-id <exact-case-id> \
   --case-id <another-exact-case-id>
 ~~~
@@ -169,7 +169,7 @@ python3 .agents/skills/qwork-test-dataset/scripts/run_workbuddy_storage_batch.py
 python3 .agents/skills/qwork-test-dataset/scripts/run_structured_oracle_source_batch.py \
   --repo . \
   --skill-root .agents/skills/qwork-test-dataset \
-  --output .agents/skills/qwork-test-dataset/data/runs/<unique-run-id> \
+  --output /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<unique-run-id> \
   --case-file <explicit-case-id-array.json>
 ~~~
 
@@ -177,17 +177,17 @@ python3 .agents/skills/qwork-test-dataset/scripts/run_structured_oracle_source_b
 
 共享仓库已有 E2E 不足以直接证明规范原子时，把完整用户路径写入 `data/e2e/functional-contracts.spec.ts`。测试必须使用无障碍角色/名称定位，显式覆盖入口、转移、终态、禁止结果和 cleanup；不得用标题中的验收 ID 代替测试体证据。
 
-执行统一走 `scripts/run_private_playwright_case.mjs`。Runner 会在 `data/runs/<run-id>/` 内重新构建隔离 Electron app，分配临时 QWork home，强制使用仓库 fake sidecar，并保存 `report.json`、build manifest、Playwright JSON、三态截图和 trace；运行结束必须删除含外向依赖软链接的临时 `app/` 装配，只保留闭合证据。禁止复用仓库 `out/`、真实 `~/.qwork`、账号或模型 Provider。
+执行统一走 `scripts/run_private_playwright_case.mjs`。Runner 会在仓库外的 `QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/` 内重新构建隔离 Electron app，分配临时 QWork home，强制使用仓库 fake sidecar，并保存原始报告、build manifest、Playwright JSON、三态截图和 trace；运行结束必须删除含外向依赖软链接的临时 `app/` 装配，只保留闭合证据。禁止复用仓库 `out/`、真实 `~/.qwork`、账号或模型 Provider。
 
 ~~~bash
 node .agents/skills/qwork-test-dataset/scripts/run_private_playwright_case.mjs \
   --repo . \
   --case-id <stable-case-id> \
   --case-title '<exact-test-title>' \
-  --run-root .agents/skills/qwork-test-dataset/data/runs/<unique-run-id>
+  --run-root /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<unique-run-id>
 ~~~
 
-Reference run 通过后，把唯一 Case ID、report 的 `skill://` URI、SHA-256 和所需截图状态写入 `references/private-reference-runs.yaml` 的 `runs`，再重建 Dataset。编译器只有在报告身份、source/spec hash、实现 revision、唯一测试结果、截图、trace、隔离/零真实模型声明及全部 artifact hash 同时通过时才将 Case 标为 `ready`；任一变更自动使旧证据失效。
+Reference run 通过并完成脱敏审核后，先用 `scripts/promote_reference_evidence.py` 把 manifest 白名单内的最小证据晋升到 `data/reference-runs/<reference-id>/`；`build/`、`app/`、`out/`、source map、缓存和临时 QWork home 永远不可晋升。随后把唯一 Case ID、report 的 `skill://` URI、SHA-256 和所需截图状态写入 `references/private-reference-runs.yaml` 的 `runs`，再重建 Dataset。编译器只有在报告身份、source/spec hash、实现 revision、唯一测试结果、截图、trace、隔离/零真实模型声明及全部 artifact hash 同时通过时才将 Case 标为 `ready`；任一变更自动使旧证据失效。
 
 已稳定复现的产品缺口写入同文件的 `failed_runs`，同时记录 failure classification、完整摘要和失败状态截图。编译器对失败报告执行同等严格的身份、authority、artifact、trace、隔离与哈希检查，但只允许生成 `last_outcome=fail`、`reference_run=failed`、`readiness=partial` 和非空 repair blocker；失败证据不得进入 ready 或任何通过率。
 
@@ -213,7 +213,7 @@ Reference run 通过后，把唯一 Case ID、report 的 `skill://` URI、SHA-25
 
 ## 维护约束
 
-- Dataset 派生数据、快照、基线、证据与运行产物始终保存在本地并由 Git ignored；仅 `data/e2e/` 的脱敏测试源码可由专用 qwork-skills 仓库追踪。禁止提交用户内容、凭据、Cookie、Token 或未脱敏标识。
+- Dataset 中脱敏、可复现且未来 E2E 会直接消费的 Case、来源快照、Oracle、Golden、基线、索引与已登记最小 reference evidence 必须由专用 qwork-skills 仓库追踪；PNG/trace 等二进制使用 Git LFS。执行过程、构建目录、source map、缓存、重试和未晋升报告始终放在仓库外。禁止提交用户内容、凭据、Cookie、Token 或未脱敏标识。
 - Case ID 与稳定路径不可随标题或版本目录漂移；版本放字段，不放逻辑身份路径。
 - 更新来源、Case、schema、route、runner 或 Oracle 后，旧计划和旧结果全部失效，必须重建并独立复测。
 - 新增 Case 必须同时更新 manifest、dataset index、suite index 和对应来源映射；验证器不允许孤儿或重复 ID。

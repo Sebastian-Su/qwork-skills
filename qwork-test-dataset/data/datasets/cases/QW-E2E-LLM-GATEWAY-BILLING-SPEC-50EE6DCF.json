@@ -1,0 +1,255 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-LLM-GATEWAY-BILLING-SPEC-50EE6DCF",
+  "title": "every selectable model is proxied and billed for the authenticated user",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-llm-gateway-billing-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/llm-gateway-billing.spec.ts",
+      "locator": "line:18;test:every selectable model is proxied and billed for the authenticated user",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:50ee6dcf9ae872353dfd4fe0a0e28c4b9473b795eea11914d43a38ff7388833c",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-EA238F168C4699",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-llm-gateway-billing-spec-ts:L18:50ee6dcf9a"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "every selectable model is proxied and billed for the authenticated user",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-llm-gateway-billing-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "every selectable model is proxied and billed for the authenticated user"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "dock .getByRole(\"button\", { name: /^(GLM-5\\.2|Kimi-K3)$/ }) .click()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"模型\" }) .getByRole(\"menuitemradio\", { name: option.label, exact: true }) .click()"
+    },
+    {
+      "action": "composer.fill(\"你好\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(dock.getByRole(\"button\", { name: option.label, exact: true })).toBeVisible()",
+    "expect( page.getByText(`模型批测成功：${providerModelId(option.value)}`, { exact: true }), ).toBeVisible()",
+    "expect(page.getByText(\"共消耗 ◇15\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(/NaN/)).toHaveCount(0)",
+    "expect(sessionCookie).toBeDefined()",
+    "expect(authCookies.map((cookie) => cookie.name)).toEqual([\"qwork_session\"])",
+    "expect(usage.records).toHaveLength(TEST_MODEL_OPTIONS.length)",
+    "expect(usage.records.map((record) => record.model).sort()).toEqual( TEST_MODEL_OPTIONS.map((option) => providerModelId(option.value)).sort(), )",
+    "expect(record.totalTokens).toBe(15)",
+    "expect(record.totalCostNanos).toBe(21_000)",
+    "expect(upstream.requests).toEqual( TEST_MODEL_OPTIONS.map((option) => ({ model: providerModelId(option.value), authorization: \"Bearer server-owned-test-key\", })), )"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-EA238F168C4699",
+      "type": "return",
+      "assertion": "every selectable model is proxied and billed for the authenticated user"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-llm-gateway-billing-spec-ts.50ee6dcf9a",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/llm-gateway-billing.spec.ts -g \"every selectable model is proxied and billed for the authenticated user\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "dock .getByRole(\"button\", { name: /^(GLM-5\\.2|Kimi-K3)$/ }) .click()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"模型\" }) .getByRole(\"menuitemradio\", { name: option.label, exact: true }) .click()"
+        },
+        {
+          "action": "composer.fill(\"你好\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/llm-gateway-billing.spec.ts",
+        "line_start": 18,
+        "line_end": 139,
+        "body_sha256": "sha256:6b51f0aefb9bae5d913dda43909f87af3e954493abfd52047a804423ef9bfc25",
+        "assertion_count": 11,
+        "action_count": 5,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:cc2edea7c9176e825692973981fc6f2722c9d599c9eb11c733e9c7a316ff5b4e"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending",
+      "case-level screenshot checkpoint audit pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-EA238F168C4699"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-EA238F168C4699"
+    ]
+  }
+}

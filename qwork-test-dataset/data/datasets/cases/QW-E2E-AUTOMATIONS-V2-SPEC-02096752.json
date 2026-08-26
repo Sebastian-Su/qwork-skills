@@ -1,0 +1,252 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-AUTOMATIONS-V2-SPEC-02096752",
+  "title": "coalesces rapid save activation into one persisted automation",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "automations",
+    "journey": "automations",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-automations-v2-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/automations-v2.spec.ts",
+      "locator": "line:59;test:coalesces rapid save activation into one persisted automation",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:020967525e461b1c85921bcc14901d830d0187c67d738c458f5b26199cc52e03",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-F1E839E155D647",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-automations-v2-spec-ts:L59:020967525e"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "coalesces rapid save activation into one persisted automation",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-automations-v2-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "coalesces rapid save activation into one persisted automation"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"添加自动化\", exact: true }).first().click()"
+    },
+    {
+      "action": "page.getByPlaceholder(\"给自动化任务起个名字\").fill(\"E2E 快速保存\")"
+    },
+    {
+      "action": "page.getByPlaceholder(\"输入任务目标、上下文和期望输出…\").fill(\"只保存一次\")"
+    },
+    {
+      "action": "button.click()"
+    },
+    {
+      "action": "button.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"E2E 快速保存\", { exact: true })).toBeVisible()",
+    "expect.poll(async () => { const snapshot = await new AutomationStateRepository(stateRoot).load(); return snapshot.automations.filter(({ name }) => name === \"E2E 快速保存\").length; }).toBe(1)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-F1E839E155D647",
+      "type": "return",
+      "assertion": "coalesces rapid save activation into one persisted automation"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-automations-v2-spec-ts.020967525e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/automations-v2.spec.ts -g \"coalesces rapid save activation into one persisted automation\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "automations",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"添加自动化\", exact: true }).first().click()"
+        },
+        {
+          "action": "page.getByPlaceholder(\"给自动化任务起个名字\").fill(\"E2E 快速保存\")"
+        },
+        {
+          "action": "page.getByPlaceholder(\"输入任务目标、上下文和期望输出…\").fill(\"只保存一次\")"
+        },
+        {
+          "action": "button.click()"
+        },
+        {
+          "action": "button.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/automations-v2.spec.ts",
+        "line_start": 59,
+        "line_end": 94,
+        "body_sha256": "sha256:412ff22a7970d34746f28dac4f6233eed03f79fc5652758fb15d2ed5a0bc2957",
+        "assertion_count": 2,
+        "action_count": 6,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:a71d2566221f86bbc4cb1957107f1c2e948557fa549c2a014486b4065cfe63f8"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending",
+      "case-level screenshot checkpoint audit pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-F1E839E155D647"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-F1E839E155D647"
+    ]
+  }
+}

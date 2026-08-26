@@ -1,0 +1,291 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-OFFICE-DOCUMENTS-MD-ITEM-31B561B5",
+  "title": "docs/office-documents.md · 升级与发布验收 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "permissions",
+    "journey": "permissions",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-office-documents-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/office-documents.md",
+      "locator": "line:64;heading:升级与发布验收",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:259de93604a7653611a66466091b5ca42894dc90946d9346b372ac57ad45b551",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-office-documents-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/office-documents.md",
+      "locator": "line:69;heading:升级与发布验收",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:520ee190f786a55b6111b5cb7a9017a492f89e2f4f6abbc02534994047a31dea",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0BC61DB361F4BA",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-office-documents-md:L64:259de93604"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "permissions",
+      "priority": "P0",
+      "rule": "OOXML 校验、权限、revision 冲突、保存和恢复单元/集成测试。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-office-documents-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "OOXML 校验、权限、revision 冲突、保存和恢复单元/集成测试。"
+    },
+    {
+      "requirement_id": "REQ-B738F5E1D2C0DE",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-office-documents-md:L69:520ee190f7"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "permissions",
+      "priority": "P0",
+      "rule": "缺少目标平台 Golden、真实 Office/LibreOffice 往返或具名安全/打包 Reviewer 时，状态必须是 `not_evaluated` 或 `human_review_required`，不得标记可发布。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-office-documents-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "缺少目标平台 Golden、真实 Office/LibreOffice 往返或具名安全/打包 Reviewer 时，状态必须是 `not_evaluated` 或 `human_review_required`，不得标记可发布。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for permissions at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/office-documents.md · 升级与发布验收 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-0BC61DB361F4BA] exactly: OOXML 校验、权限、revision 冲突、保存和恢复单元/集成测试。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-B738F5E1D2C0DE] exactly: 缺少目标平台 Golden、真实 Office/LibreOffice 往返或具名安全/打包 Reviewer 时，状态必须是 `not_evaluated` 或 `human_review_required`，不得标记可发布。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "OOXML 校验、权限、revision 冲突、保存和恢复单元/集成测试。",
+    "缺少目标平台 Golden、真实 Office/LibreOffice 往返或具名安全/打包 Reviewer 时，状态必须是 `not_evaluated` 或 `human_review_required`，不得标记可发布。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-0BC61DB361F4BA]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: OOXML 校验、权限、revision 冲突、保存和恢复单元/集成测试。",
+    "FAIL [REQ-B738F5E1D2C0DE]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 缺少目标平台 Golden、真实 Office/LibreOffice 往返或具名安全/打包 Reviewer 时，状态必须是 `not_evaluated` 或 `human_review_required`，不得标记可发布。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0BC61DB361F4BA",
+      "type": "api",
+      "assertion": "OOXML 校验、权限、revision 冲突、保存和恢复单元/集成测试。"
+    },
+    {
+      "requirement_id": "REQ-B738F5E1D2C0DE",
+      "type": "return",
+      "assertion": "缺少目标平台 Golden、真实 Office/LibreOffice 往返或具名安全/打包 Reviewer 时，状态必须是 `not_evaluated` 或 `human_review_required`，不得标记可发布。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-office-documents-md.item-31b561b587",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "permissions",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for permissions at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/office-documents.md · 升级与发布验收 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-0BC61DB361F4BA] exactly: OOXML 校验、权限、revision 冲突、保存和恢复单元/集成测试。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-B738F5E1D2C0DE] exactly: 缺少目标平台 Golden、真实 Office/LibreOffice 往返或具名安全/打包 Reviewer 时，状态必须是 `not_evaluated` 或 `human_review_required`，不得标记可发布。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0BC61DB361F4BA",
+      "REQ-B738F5E1D2C0DE"
+    ],
+    "categories": [
+      "negative",
+      "permission"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "category:permission",
+      "full",
+      "requirement:REQ-0BC61DB361F4BA",
+      "requirement:REQ-B738F5E1D2C0DE"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-0BC61DB361F4BA",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/office-documents.md · 升级与发布验收 产品契约 exactly once and retain its correlation identity",
+      "then": "OOXML 校验、权限、revision 冲突、保存和恢复单元/集成测试。",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-B738F5E1D2C0DE",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/office-documents.md · 升级与发布验收 产品契约 exactly once and retain its correlation identity",
+      "then": "缺少目标平台 Golden、真实 Office/LibreOffice 往返或具名安全/打包 Reviewer 时，状态必须是 `not_evaluated` 或 `human_review_required`，不得标记可发布。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

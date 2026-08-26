@@ -1,0 +1,302 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECT-CAPABILITIES-SPEC-6C136458",
+  "title": "selects real connectors, experts and skills and persists them",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-project-capabilities-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/project-capabilities.spec.ts",
+      "locator": "line:46;test:selects real connectors, experts and skills and persists them",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:6c1364584064eb3a1388db2d4b70ddb56e88bd1b5f56d2ce3d43a8264856de5a",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-FE6CE0E360B4DB",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-project-capabilities-spec-ts:L46:6c13645840"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "selects real connectors, experts and skills and persists them",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-project-capabilities-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "selects real connectors, experts and skills and persists them"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "createDialog.getByRole(\"button\", { name: \"添加连接器\" }).click()"
+    },
+    {
+      "action": "connectorDialog.getByRole(\"checkbox\", { name: \"选择腾讯文档\" }).click()"
+    },
+    {
+      "action": "connectorDialog.getByRole(\"button\", { name: \"完成\", exact: true }).click()"
+    },
+    {
+      "action": "createDialog.getByRole(\"button\", { name: \"添加专家\" }).click()"
+    },
+    {
+      "action": "expertDialog.getByRole(\"checkbox\", { name: \"选择高级开发工程师\" }).click()"
+    },
+    {
+      "action": "expertDialog.getByRole(\"button\", { name: \"确认\", exact: true }).click()"
+    },
+    {
+      "action": "createDialog.getByRole(\"button\", { name: \"添加技能\" }).click()"
+    },
+    {
+      "action": "skillDialog.getByRole(\"checkbox\", { name: \"选择天气查询\" }).click()"
+    },
+    {
+      "action": "skillDialog.getByRole(\"button\", { name: \"确认\", exact: true }).click()"
+    },
+    {
+      "action": "createDialog.getByPlaceholder(\"请输入项目名称\").fill(\"能力协作项目\")"
+    },
+    {
+      "action": "createDialog .getByPlaceholder(/提供当前项目的背景信息/) .fill(\"统一使用已选项目能力\")"
+    },
+    {
+      "action": "createDialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(createDialog).toBeVisible()",
+    "expect(createDialog).toHaveCSS(\"border-radius\", \"12px\")",
+    "expect(connectorDialog.getByText(\"腾讯文档\", { exact: true })).toBeVisible()",
+    "expect(expertDialog.getByPlaceholder(\"搜索专家职称或描述\")).toBeVisible()",
+    "expect(expertCategoryLayout).toEqual({ flexWrap: \"nowrap\", overflowX: \"auto\" })",
+    "expect(expertDialog.getByTestId(\"project-capability-picker-grid\")).toBeVisible()",
+    "expect(expertDialog.getByRole(\"button\", { name: \"确认\", exact: true })).toBeVisible()",
+    "expect(skillDialog.getByPlaceholder(\"搜索技能\")).toBeVisible()",
+    "expect(createDialog).toContainText(\"腾讯文档\")",
+    "expect(createDialog).toContainText(\"高级开发工程师\")",
+    "expect(createDialog).toContainText(\"天气查询\")",
+    "expect(page.getByText(\"能力协作项目\", { exact: true }).first()).toBeVisible()",
+    "expect(persisted).toMatchObject({ instruction: \"统一使用已选项目能力\", connectorIds: [\"project-docs\"], expertIds: [\"senior-developer@qwork-builtin\"], skillIds: [\"weather\"], })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-FE6CE0E360B4DB",
+      "type": "return",
+      "assertion": "selects real connectors, experts and skills and persists them"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-project-capabilities-spec-ts.6c13645840",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/project-capabilities.spec.ts -g \"selects real connectors, experts and skills and persists them\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "createDialog.getByRole(\"button\", { name: \"添加连接器\" }).click()"
+        },
+        {
+          "action": "connectorDialog.getByRole(\"checkbox\", { name: \"选择腾讯文档\" }).click()"
+        },
+        {
+          "action": "connectorDialog.getByRole(\"button\", { name: \"完成\", exact: true }).click()"
+        },
+        {
+          "action": "createDialog.getByRole(\"button\", { name: \"添加专家\" }).click()"
+        },
+        {
+          "action": "expertDialog.getByRole(\"checkbox\", { name: \"选择高级开发工程师\" }).click()"
+        },
+        {
+          "action": "expertDialog.getByRole(\"button\", { name: \"确认\", exact: true }).click()"
+        },
+        {
+          "action": "createDialog.getByRole(\"button\", { name: \"添加技能\" }).click()"
+        },
+        {
+          "action": "skillDialog.getByRole(\"checkbox\", { name: \"选择天气查询\" }).click()"
+        },
+        {
+          "action": "skillDialog.getByRole(\"button\", { name: \"确认\", exact: true }).click()"
+        },
+        {
+          "action": "createDialog.getByPlaceholder(\"请输入项目名称\").fill(\"能力协作项目\")"
+        },
+        {
+          "action": "createDialog .getByPlaceholder(/提供当前项目的背景信息/) .fill(\"统一使用已选项目能力\")"
+        },
+        {
+          "action": "createDialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/project-capabilities.spec.ts",
+        "line_start": 46,
+        "line_end": 129,
+        "body_sha256": "sha256:c588f6e5b456d70e67917b01c7ca2e9978be0db618b15af28b0393d35b292bd6",
+        "assertion_count": 13,
+        "action_count": 14,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:f8c40caa7f58dbe8ddf0c5e16b38f3efcc296119d82ebec8cfdf022e1eafdd56"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-FE6CE0E360B4DB"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-FE6CE0E360B4DB"
+    ]
+  }
+}

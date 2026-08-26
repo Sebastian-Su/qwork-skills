@@ -1,0 +1,278 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-TERMINAL-SPEC-D820A5CF",
+  "title": "keeps the Electron Node runtime available when a session hook drops its path variable",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "terminal",
+    "journey": "terminal",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-terminal-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/terminal.spec.ts",
+      "locator": "line:132;test:keeps the Electron Node runtime available when a session hook drops its path variable",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:d820a5cfd2b69d7d98b7860c2526fe466bf8e3f23dd5b8b7b298443b81a4226b",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-CC20DA12DCFEA1",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-terminal-spec-ts:L132:d820a5cfd2"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "terminal",
+      "priority": "P1",
+      "rule": "keeps the Electron Node runtime available when a session hook drops its path variable",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-terminal-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps the Electron Node runtime available when a session hook drops its path variable"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "withApp(\"ziqdo-terminal-hook-node-runtime-\", async (page, configHome) => { const probe = path.join(configHome, \"session-start-hook-probe.cjs\"); const token = `SESSION_START_HOOK_RUNTIME_${Date.now()}`; await fs.writeFile( probe, `console.log(${JSON.stringify(token)} + \":\" + process.env.ELECTRON_RUN_AS_NODE);\\n`, ); const output = await page.evaluate( async ({ cwd, script, expected, platform }) => { const terminal = …"
+    },
+    {
+      "action": "path.join(configHome, \"session-start-hook-probe.cjs\")"
+    },
+    {
+      "action": "Date.now()"
+    },
+    {
+      "action": "fs.writeFile( probe, `console.log(${JSON.stringify(token)} + \":\" + process.env.ELECTRON_RUN_AS_NODE);\\n`, )"
+    },
+    {
+      "action": "JSON.stringify(token)"
+    },
+    {
+      "action": "page.evaluate( async ({ cwd, script, expected, platform }) => { const terminal = window.workGui.terminal; const created = await terminal.create({ cwd, cols: 110, rows: 24 }); let combined = \"\"; let unsubscribe = () => undefined; try { const completed = new Promise<string>((resolve, reject) => { const timeout = window.setTimeout( () => reject(new Error(`SessionStart hook runtime probe timed out: ${combined}`)), 12_00…"
+    },
+    {
+      "action": "terminal.create({ cwd, cols: 110, rows: 24 })"
+    },
+    {
+      "action": "window.setTimeout( () => reject(new Error(`SessionStart hook runtime probe timed out: ${combined}`)), 12_000, )"
+    },
+    {
+      "action": "reject(new Error(`SessionStart hook runtime probe timed out: ${combined}`))"
+    },
+    {
+      "action": "terminal.onData((event) => { if (event.id !== created.id) return; combined += atob(event.data); if (combined.includes(expected)) { window.clearTimeout(timeout); resolve(combined); } })"
+    },
+    {
+      "action": "atob(event.data)"
+    },
+    {
+      "action": "combined.includes(expected)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(output).toContain(`${token}:1`)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-CC20DA12DCFEA1",
+      "type": "return",
+      "assertion": "keeps the Electron Node runtime available when a session hook drops its path variable"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-terminal-spec-ts.d820a5cfd2",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/terminal.spec.ts -g \"keeps the Electron Node runtime available when a session hook drops its path variable\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "terminal",
+      "steps": [
+        {
+          "action": "withApp(\"ziqdo-terminal-hook-node-runtime-\", async (page, configHome) => { const probe = path.join(configHome, \"session-start-hook-probe.cjs\"); const token = `SESSION_START_HOOK_RUNTIME_${Date.now()}`; await fs.writeFile( probe, `console.log(${JSON.stringify(token)} + \":\" + process.env.ELECTRON_RUN_AS_NODE);\\n`, ); const output = await page.evaluate( async ({ cwd, script, expected, platform }) => { const terminal = …"
+        },
+        {
+          "action": "path.join(configHome, \"session-start-hook-probe.cjs\")"
+        },
+        {
+          "action": "Date.now()"
+        },
+        {
+          "action": "fs.writeFile( probe, `console.log(${JSON.stringify(token)} + \":\" + process.env.ELECTRON_RUN_AS_NODE);\\n`, )"
+        },
+        {
+          "action": "JSON.stringify(token)"
+        },
+        {
+          "action": "page.evaluate( async ({ cwd, script, expected, platform }) => { const terminal = window.workGui.terminal; const created = await terminal.create({ cwd, cols: 110, rows: 24 }); let combined = \"\"; let unsubscribe = () => undefined; try { const completed = new Promise<string>((resolve, reject) => { const timeout = window.setTimeout( () => reject(new Error(`SessionStart hook runtime probe timed out: ${combined}`)), 12_00…"
+        },
+        {
+          "action": "terminal.create({ cwd, cols: 110, rows: 24 })"
+        },
+        {
+          "action": "window.setTimeout( () => reject(new Error(`SessionStart hook runtime probe timed out: ${combined}`)), 12_000, )"
+        },
+        {
+          "action": "reject(new Error(`SessionStart hook runtime probe timed out: ${combined}`))"
+        },
+        {
+          "action": "terminal.onData((event) => { if (event.id !== created.id) return; combined += atob(event.data); if (combined.includes(expected)) { window.clearTimeout(timeout); resolve(combined); } })"
+        },
+        {
+          "action": "atob(event.data)"
+        },
+        {
+          "action": "combined.includes(expected)"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/terminal.spec.ts",
+        "line_start": 132,
+        "line_end": 179,
+        "body_sha256": "sha256:a71d7830cc44d931881c04b3bea3dc7d04254a8a47598820c85da3e556abdd9e",
+        "assertion_count": 1,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:2af09725067aac6357cfbfefc405760ba1b1dcfb317ebfbdafe28620276118b9"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-CC20DA12DCFEA1"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-CC20DA12DCFEA1"
+    ]
+  }
+}

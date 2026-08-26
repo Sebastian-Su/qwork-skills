@@ -1,0 +1,305 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-SUPERPOWERS-SPECS-20-ITEM-91644917",
+  "title": "docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 交付与安全 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "automations",
+    "journey": "automations",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md",
+      "locator": "line:50;heading:交付与安全",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:712643d85d5bdedcf555e9c06582df068cd80bd79e7855794a4148e4f5f79b1f",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md",
+      "locator": "line:52;heading:交付与安全",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:3d3562aadb8cfffe50c0787a003c8255da2518c29dd23a3c251c7cbdecb6edf7",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-CE397A4342CDF2",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual:L50:712643d85d"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "Outbox 最多 5 次尝试，退避 3 秒、30 秒、10 分钟、60 分钟并加入 ±20% jitter。未登录每 5 分钟检查、最多等待 24 小时且不增加 attempt；不明确交付进入 manual_required，不能自动重发。成功项保留 24 小时，失败项保留 30 天且最多 200 条。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Outbox 最多 5 次尝试，退避 3 秒、30 秒、10 分钟、60 分钟并加入 ±20% jitter。未登录每 5 分钟检查、最多等待 24 小时且不增加 attempt；不明确交付进入 manual_required，不能自动重发。成功项保留 24 小时，失败项保留 30 天且最多 200 条。"
+    },
+    {
+      "requirement_id": "REQ-B5CD2B2BF0AD6B",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual:L52:3d3562aadb"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "自动化不保存 OAuth/连接器凭证。通知和日志必须删除用户目录等绝对路径并截断内部错误。每个 cwd 在执行前经过已有工作空间根、符号链接和权限校验。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-superpowers-specs-2026-08-10-automation-visual"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "自动化不保存 OAuth/连接器凭证。通知和日志必须删除用户目录等绝对路径并截断内部错误。每个 cwd 在执行前经过已有工作空间根、符号链接和权限校验。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for automations at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 交付与安全 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-CE397A4342CDF2] exactly: Outbox 最多 5 次尝试，退避 3 秒、30 秒、10 分钟、60 分钟并加入 ±20% jitter。未登录每 5 分钟检查、最多等待 24 小时且不增加 attempt；不明确交付进入 manual_required，不能自动重发。成功项保留 24 小时，失败项保留 30 天且最多 200 条。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-B5CD2B2BF0AD6B] exactly: 自动化不保存 OAuth/连接器凭证。通知和日志必须删除用户目录等绝对路径并截断内部错误。每个 cwd 在执行前经过已有工作空间根、符号链接和权限校验。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "Outbox 最多 5 次尝试，退避 3 秒、30 秒、10 分钟、60 分钟并加入 ±20% jitter。未登录每 5 分钟检查、最多等待 24 小时且不增加 attempt；不明确交付进入 manual_required，不能自动重发。成功项保留 24 小时，失败项保留 30 天且最多 200 条。",
+    "自动化不保存 OAuth/连接器凭证。通知和日志必须删除用户目录等绝对路径并截断内部错误。每个 cwd 在执行前经过已有工作空间根、符号链接和权限校验。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-CE397A4342CDF2]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Outbox 最多 5 次尝试，退避 3 秒、30 秒、10 分钟、60 分钟并加入 ±20% jitter。未登录每 5 分钟检查、最多等待 24 小时且不增加 attempt；不明确交付进入 manual_required，不能自动重发。成功项保留 24 小时，失败项保留 30 天且最多 200 条。",
+    "FAIL [REQ-B5CD2B2BF0AD6B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 自动化不保存 OAuth/连接器凭证。通知和日志必须删除用户目录等绝对路径并截断内部错误。每个 cwd 在执行前经过已有工作空间根、符号链接和权限校验。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-CE397A4342CDF2",
+      "type": "api",
+      "assertion": "Outbox 最多 5 次尝试，退避 3 秒、30 秒、10 分钟、60 分钟并加入 ±20% jitter。未登录每 5 分钟检查、最多等待 24 小时且不增加 attempt；不明确交付进入 manual_required，不能自动重发。成功项保留 24 小时，失败项保留 30 天且最多 200 条。"
+    },
+    {
+      "requirement_id": "REQ-B5CD2B2BF0AD6B",
+      "type": "ui",
+      "assertion": "自动化不保存 OAuth/连接器凭证。通知和日志必须删除用户目录等绝对路径并截断内部错误。每个 cwd 在执行前经过已有工作空间根、符号链接和权限校验。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-superpowers-specs-2026.item-916449171f",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "automations",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for automations at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 交付与安全 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-CE397A4342CDF2] exactly: Outbox 最多 5 次尝试，退避 3 秒、30 秒、10 分钟、60 分钟并加入 ±20% jitter。未登录每 5 分钟检查、最多等待 24 小时且不增加 attempt；不明确交付进入 manual_required，不能自动重发。成功项保留 24 小时，失败项保留 30 天且最多 200 条。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-B5CD2B2BF0AD6B] exactly: 自动化不保存 OAuth/连接器凭证。通知和日志必须删除用户目录等绝对路径并截断内部错误。每个 cwd 在执行前经过已有工作空间根、符号链接和权限校验。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B5CD2B2BF0AD6B",
+      "REQ-CE397A4342CDF2"
+    ],
+    "categories": [
+      "permission"
+    ],
+    "suite_ids": [
+      "category:permission",
+      "full",
+      "requirement:REQ-B5CD2B2BF0AD6B",
+      "requirement:REQ-CE397A4342CDF2"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-CE397A4342CDF2",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 交付与安全 产品契约 exactly once and retain its correlation identity",
+      "then": "Outbox 最多 5 次尝试，退避 3 秒、30 秒、10 分钟、60 分钟并加入 ±20% jitter。未登录每 5 分钟检查、最多等待 24 小时且不增加 attempt；不明确交付进入 manual_required，不能自动重发。成功项保留 24 小时，失败项保留 30 天且最多 200 条。",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-B5CD2B2BF0AD6B",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/superpowers/specs/2026-08-10-automation-visual-contract-design.md · 交付与安全 产品契约 exactly once and retain its correlation identity",
+      "then": "自动化不保存 OAuth/连接器凭证。通知和日志必须删除用户目录等绝对路径并截断内部错误。每个 cwd 在执行前经过已有工作空间根、符号链接和权限校验。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

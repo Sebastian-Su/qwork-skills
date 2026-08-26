@@ -1,0 +1,325 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SKILL-HUB-SPEC-B1E553C6",
+  "title": "matches the WorkBuddy catalog cards and detail layout",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-skill-hub-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/skill-hub.spec.ts",
+      "locator": "line:490;test:matches the WorkBuddy catalog cards and detail layout",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:b1e553c6545a6021c4edd7ab0ec8e3b777a7fc956606407ed255fafb8d495326",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-2A3A2BA12A0828",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L490:b1e553c654"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "matches the WorkBuddy catalog cards and detail layout",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-skill-hub-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches the WorkBuddy catalog cards and detail layout"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"SkillHub\", exact: true }).click()"
+    },
+    {
+      "action": "categoryRail.getByRole(\"tab\", { name: \"办公效率\", exact: true }).hover()"
+    },
+    {
+      "action": "cards.nth(0).hover({ position: { x: 6, y: 6 } })"
+    },
+    {
+      "action": "topCard.getByRole(\"heading\", { name: \"法律服务（上方）\" }).hover()"
+    },
+    {
+      "action": "topCard.getByTestId(\"skill-card-description\").hover()"
+    },
+    {
+      "action": "bottomCard.getByTestId(\"skill-card-description\").hover()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /web-tools-guide.*MANDATORY before calling/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"安装\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看源码\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看预览\" }).click()"
+    },
+    {
+      "action": "page.getByTestId(\"skill-hub-detail\").getByRole(\"button\", { name: \"技能\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(categoryRail.getByRole(\"tab\", { name: \"生活服务\", exact: true })).toHaveCount(1)",
+    "expect(categoryStyle[\"overflow-x\"]).toBe(\"auto\")",
+    "expect(categoryStyle[\"scrollbar-width\"]).toBe(\"none\")",
+    "expect.poll(async () => ( categoryRail.getByRole(\"tab\", { name: \"办公效率\", exact: true }).evaluate( (element) => getComputedStyle(element).backgroundColor, ) )).not.toBe(\"rgba(0, 0, 0, 0)\")",
+    "expect(scrollPosition.scrollWidth).toBeGreaterThan(scrollPosition.clientWidth)",
+    "expect(scrollPosition.left).toBeGreaterThan(0)",
+    "expect(cards).toHaveCount(100)",
+    "expect(first.width).toBeGreaterThanOrEqual(290)",
+    "expect(first.width).toBeLessThanOrEqual(380)",
+    "expect(first.height).toBeGreaterThanOrEqual(124)",
+    "expect(first.height).toBeLessThanOrEqual(128)",
+    "expect(Math.abs(first.y - second.y)).toBeLessThanOrEqual(2)",
+    "expect(second.x - first.right).toBeGreaterThanOrEqual(10)",
+    "expect(second.x - first.right).toBeLessThanOrEqual(14)",
+    "expect(firstCardStyle[\"background-color\"]).toBe(\"rgb(255, 255, 255)\")",
+    "expect(firstCardStyle[\"box-shadow\"]).not.toBe(\"none\")",
+    "expect.poll(async () => ( await computedStyle(cards.nth(0), [\"background-color\"]) )[\"background-color\"]).not.toBe(firstCardStyle[\"background-color\"])",
+    "expect(cards.nth(0).getByTestId(\"skill-card-avatar\")).toHaveCSS(\"font-size\", \"14px\")",
+    "expect(installAction).toHaveCSS(\"width\", \"28px\")",
+    "expect(installAction).toHaveCSS(\"height\", \"28px\")",
+    "expect(installAction.getByTestId(\"skill-card-install-icon\")).toHaveAttribute(\"width\", \"16\")",
+    "expect(actionStyle[\"background-color\"]).not.toBe(\"rgba(0, 0, 0, 0)\")",
+    "expect(actionStyle[\"border-radius\"]).toBe(\"8px\")",
+    "expect(page.getByRole(\"tooltip\")).toHaveCount(0)",
+    "expect(topTooltip).toHaveText(longDescription)",
+    "expect(topTooltip).toHaveAttribute(\"data-side\", \"bottom\")",
+    "expect(topTooltip).toHaveCount(0)",
+    "expect(bottomTooltip).toHaveText(longDescription)",
+    "expect(bottomTooltip).toHaveAttribute(\"data-side\", \"top\")",
+    "expect(page.getByRole(\"heading\", { name: \"web-tools-guide\", level: 1 })).toBeVisible()",
+    "expect(page.getByTestId(\"skill-detail-stats\")).toHaveText(catalogStats)",
+    "expect(page.getByRole(\"tablist\", { name: \"专家中心内容\" })).toHaveCount(0)",
+    "expect(page.getByTestId(\"skill-detail-summary\")).toContainText(\"MANDATORY before calling\")",
+    "expect(page.getByTestId(\"skill-detail-metadata\")).toContainText(\"knowledge-management\")",
+    "expect(page.getByTestId(\"skill-detail-preview\")).not.toContainText(\"baseDir =\")",
+    "expect(content.x - detail.x).toBeGreaterThanOrEqual(18)",
+    "expect(content.x - detail.x).toBeLessThanOrEqual(22)",
+    "expect(detail.right - content.right).toBeGreaterThanOrEqual(18)",
+    "expect(detail.right - content.right).toBeLessThanOrEqual(22)",
+    "expect(Math.abs(content.width - (detail.width - 40))).toBeLessThanOrEqual(1)",
+    "expect(content.width).toBeGreaterThan(1100)",
+    "expect( page.getByRole(\"status\").filter({ hasText: \"「web-tools-guide」技能已安装，去试试\" }), ).toContainText(\"「web-tools-guide」技能已安装，去试试\")",
+    "expect(page.getByTestId(\"skill-detail-preview\")).toContainText(\"DETAIL_LINE_80\")",
+    "expect(page.getByTestId(\"skill-detail-preview\")).not.toContainText(\"baseDir =\")",
+    "expect.poll(() => detailScroll.evaluate((element) => element.scrollTop)).toBeGreaterThan(0)",
+    "expect(Math.abs(headerAfterScroll.y - headerBeforeScroll.y)).toBeLessThanOrEqual(1)",
+    "expect(page.getByTestId(\"skill-detail-source\")).toContainText(\"baseDir = /root/.openclaw/workspace/skills/web-tools-guide\")",
+    "expect(page.getByRole(\"tablist\", { name: \"专家中心内容\" })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-2A3A2BA12A0828",
+      "type": "return",
+      "assertion": "matches the WorkBuddy catalog cards and detail layout"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-skill-hub-spec-ts.b1e553c654",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/skill-hub.spec.ts -g \"matches the WorkBuddy catalog cards and detail layout\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"SkillHub\", exact: true }).click()"
+        },
+        {
+          "action": "categoryRail.getByRole(\"tab\", { name: \"办公效率\", exact: true }).hover()"
+        },
+        {
+          "action": "cards.nth(0).hover({ position: { x: 6, y: 6 } })"
+        },
+        {
+          "action": "topCard.getByRole(\"heading\", { name: \"法律服务（上方）\" }).hover()"
+        },
+        {
+          "action": "topCard.getByTestId(\"skill-card-description\").hover()"
+        },
+        {
+          "action": "bottomCard.getByTestId(\"skill-card-description\").hover()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /web-tools-guide.*MANDATORY before calling/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"安装\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看源码\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看预览\" }).click()"
+        },
+        {
+          "action": "page.getByTestId(\"skill-hub-detail\").getByRole(\"button\", { name: \"技能\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/skill-hub.spec.ts",
+        "line_start": 490,
+        "line_end": 604,
+        "body_sha256": "sha256:6c9ec867a1cf8a372d4105e2449e3fe9e967709e48c68ff8b64168332c28c683",
+        "assertion_count": 48,
+        "action_count": 12,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:2273637235cd224c143cf062c061be89c5ed2ae5359c59746276110f31e8c03f"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-2A3A2BA12A0828"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-2A3A2BA12A0828"
+    ]
+  }
+}

@@ -1,0 +1,284 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECTS-PLAN-SPEC-5134D2D4",
+  "title": "shows every table field after 全部字段 and selects all visible rows",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-projects-plan-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-plan.spec.ts",
+      "locator": "line:183;test:shows every table field after 全部字段 and selects all visible rows",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:5134d2d45f975a01d17c45286cea8b395c3a34f0d926cb5c3ffb646daab2c1f5",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-B72DE6602F7BDC",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-projects-plan-spec-ts:L183:5134d2d45f"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "shows every table field after 全部字段 and selects all visible rows",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-projects-plan-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "shows every table field after 全部字段 and selects all visible rows"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"字段显示\" }).click()"
+    },
+    {
+      "action": "fields.getByRole(\"button\", { name: \"全部字段\" }).click()"
+    },
+    {
+      "action": "closeFields.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
+    },
+    {
+      "action": "editor.getByPlaceholder(\"请输入标题\").fill(itemTitle)"
+    },
+    {
+      "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"checkbox\", { name: \"全选\" }).check()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"甘特\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"表格\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(table.getByRole(\"columnheader\", { name: \"标题\", exact: true })).toBeVisible()",
+    "expect(table.getByRole(\"columnheader\", { name: \"截止日期\", exact: true })).toHaveCount(0)",
+    "expect(dividers.header).toEqual({ width: \"1px\", style: \"solid\" })",
+    "expect(dividers.body.length).toBeGreaterThan(0)",
+    "expect(dividers.body.every((divider) => divider.width === \"1px\" && divider.style === \"solid\" )).toBe(true)",
+    "expect(fields.getByRole(\"button\", { name: \"全部字段\" })).toBeVisible()",
+    "expect(fields.getByText(label, { exact: true })).toBeVisible()",
+    "expect(table.getByRole(\"columnheader\", { name: label, exact: true })).toBeVisible()",
+    "expect(table).toContainText(itemTitle)",
+    "expect(table).toContainText(\"待开始\")",
+    "expect(table).toContainText(\"手动创建\")",
+    "expect(page.getByRole(\"checkbox\", { name: `选择 ${itemTitle}` })).toBeChecked()",
+    "expect(table.getByRole(\"columnheader\", { name: \"来源\", exact: true })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-B72DE6602F7BDC",
+      "type": "return",
+      "assertion": "shows every table field after 全部字段 and selects all visible rows"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-projects-plan-spec-ts.5134d2d45f",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/projects-plan.spec.ts -g \"shows every table field after 全部字段 and selects all visible rows\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"字段显示\" }).click()"
+        },
+        {
+          "action": "fields.getByRole(\"button\", { name: \"全部字段\" }).click()"
+        },
+        {
+          "action": "closeFields.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
+        },
+        {
+          "action": "editor.getByPlaceholder(\"请输入标题\").fill(itemTitle)"
+        },
+        {
+          "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"checkbox\", { name: \"全选\" }).check()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"甘特\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"表格\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/projects-plan.spec.ts",
+        "line_start": 183,
+        "line_end": 283,
+        "body_sha256": "sha256:d95bf3ae2b428653c9717e68482e0ee8d42aae8c703a823d8321b0bf122d39b1",
+        "assertion_count": 13,
+        "action_count": 11,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:e52eb9cb17908f5ac19d6612f0e92543e08a9e8c9ad5127c02c85c0eeed5a6d0"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B72DE6602F7BDC"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-B72DE6602F7BDC"
+    ]
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "case_id": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-E4A49205",
+  "case_title": "WB-EXEC-005 | ZiqDo 工具失败事件形成红色错误摘要且不伪造完成或产物",
+  "status": "pass",
+  "started_at": "2026-08-14T03:33:29.226Z",
+  "finished_at": "2026-08-14T03:33:33.844Z",
+  "exit_code": 0,
+  "zero_real_model_calls": true,
+  "isolated_qwork_home": true,
+  "deterministic_sidecar": "repo://e2e/fixtures/fake-sidecar.mjs",
+  "source": {
+    "spec": "skill://qwork-test-dataset/data/e2e/tool-failure-causality.spec.ts",
+    "spec_sha256": "sha256:ff863f006adffeccb7cf2037798f638823007a2dfeb4861cda4a7e88611793f1",
+    "implementation_revision": "19f210518dbad3768eb14a09baa5eea226016c7b"
+  },
+  "authority": {
+    "files": [
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts",
+        "sha256": "sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/launch-tool-failure-isolated.ts",
+        "sha256": "sha256:1b4a342767e38a72968a518445a5a3364295e5997eba39963c0db699396651be"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/tool-failure-sidecar.mjs",
+        "sha256": "sha256:954be85029c0d0f08d319bb7ab992f4b63d4b30123cc74fd96835f6ee424f19d"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/run_private_tool_failure_case.mjs",
+        "sha256": "sha256:ec8f231940f796012436c01736e0cdc05ae4f3cc801e5861e28838a2b5e246de"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/private-case-authority.mjs",
+        "sha256": "sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs",
+        "sha256": "sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/build_isolated_electron.mjs",
+        "sha256": "sha256:3634574afd74c3762e05b814b80d7bbc1aee08c8c782ebb1884a6b7df10db468"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts",
+        "sha256": "sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/playwright-private.config.ts",
+        "sha256": "sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/package.json",
+        "sha256": "sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390"
+      },
+      {
+        "locator": "repo://e2e/fixtures/workbuddy-ui.ts",
+        "sha256": "sha256:4458ee31d84e60d047334a9e26faef4a4415d79046fefd2b3f84bebeff1c2675"
+      }
+    ]
+  },
+  "selected_tests": [
+    {
+      "title": "WB-EXEC-005 | ZiqDo 工具失败事件形成红色错误摘要且不伪造完成或产物",
+      "file": "tool-failure-causality.spec.ts",
+      "path": "tool-failure-causality.spec.ts > WB-EXEC-005 | ZiqDo 工具失败事件形成红色错误摘要且不伪造完成或产物",
+      "status": "expected",
+      "duration_ms": 4153
+    }
+  ],
+  "evidence": {
+    "integrity": "complete",
+    "integrity_errors": [],
+    "build_manifest": {
+      "path": "build-manifest.json",
+      "sha256": "sha256:675f67d3e485b9623eced72ecad134a26ea79bb1c41b3a5b3aa4ea983fdb8460"
+    },
+    "playwright_report": {
+      "path": "playwright-report.json",
+      "sha256": "sha256:b4d515dca765b28e5c68c5849fefa5e8f71d7ddaedc4dc28e8f91ad1460871fd"
+    },
+    "stderr": {
+      "path": "playwright.stderr.log",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "electron_runtime": {
+      "path": "electron-runtime.log",
+      "sha256": "sha256:f62bda103c219950978b25b8b8e8b5c6f75d335094d29a9a5a20f89ec1d5928d"
+    },
+    "screenshots": [
+      {
+        "path": "screenshots/WB-EXEC-005-ZiqDo-工具失败事件形成红色错误摘要且不伪造完成或产物-entry-expert-before-failed-tool.png",
+        "sha256": "sha256:fe1151644b26eeb1b80060c934d86c6779e36b0a5ebf5d9de8417316ca7da799"
+      },
+      {
+        "path": "screenshots/WB-EXEC-005-ZiqDo-工具失败事件形成红色错误摘要且不伪造完成或产物-final-no-completed-state-no-artifact.png",
+        "sha256": "sha256:bc1008e35c9ea0954157dde0988c4440c91d623e3c5defc475132bcf890068de"
+      },
+      {
+        "path": "screenshots/WB-EXEC-005-ZiqDo-工具失败事件形成红色错误摘要且不伪造完成或产物-transition-error-summary-and-danger-state.png",
+        "sha256": "sha256:bc1008e35c9ea0954157dde0988c4440c91d623e3c5defc475132bcf890068de"
+      }
+    ],
+    "traces": [
+      {
+        "path": "playwright-results/tool-failure-causality-WB--85376-qDo-工具失败事件形成红色错误摘要且不伪造完成或产物/trace.zip",
+        "sha256": "sha256:10d8cc741a71482abe1c19d5fa82214cb385e66db84ca164398737e7eaf8f9ca"
+      }
+    ]
+  },
+  "cleanup": {
+    "case_owned_qwork_home_removed_by_fixture": true,
+    "app_process_closed_by_fixture": true,
+    "app_assembly_removed": true
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-ASSISTANT-SPEC-EC045367",
+  "title": "dims the assistant status bar behind the settings dialog",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-assistant-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/assistant.spec.ts",
+      "locator": "line:148;test:dims the assistant status bar behind the settings dialog",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:ec0453675762c4fb4b43943bd5cb35ccda92b653b776042cd4befa6c0c019361",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-F98A7DFE334393",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-assistant-spec-ts:L148:ec04536757"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "dims the assistant status bar behind the settings dialog",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-assistant-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "dims the assistant status bar behind the settings dialog"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"助理设置\", exact: true }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(statusBar).toBeVisible()",
+    "expect(dialog).toBeVisible()",
+    "expect(page.getByTestId(\"settings-backdrop\")).toBeVisible()",
+    "expect(layering).not.toBeNull()",
+    "expect(layering?.backdropZIndex).toBe(\"50\")",
+    "expect(layering?.layerZIndex).toBe(\"60\")",
+    "expect(layering?.backdropBox.width).toBeGreaterThan(1000)",
+    "expect(layering?.backdropBox.height).toBeGreaterThan(600)",
+    "expect(layering?.topAtStatus).toBe(\"settings-layer\")",
+    "expect(layering?.topAtSurface).toBe(\"settings-surface\")",
+    "expect(dialog).not.toBeVisible()",
+    "expect(statusBar).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-F98A7DFE334393",
+      "type": "return",
+      "assertion": "dims the assistant status bar behind the settings dialog"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-assistant-spec-ts.ec04536757",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/assistant.spec.ts -g \"dims the assistant status bar behind the settings dialog\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"助理设置\", exact: true }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/assistant.spec.ts",
+        "line_start": 148,
+        "line_end": 227,
+        "body_sha256": "sha256:503f0e5d4e523e86f0b3ff33496eec0665429f411a5a15c24efd0d06c1b59e83",
+        "assertion_count": 12,
+        "action_count": 3,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:b419f117ab4704650073005614779001446fa41b2285da999e552aba3e2d38e8"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-F98A7DFE334393"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-F98A7DFE334393"
+    ]
+  }
+}

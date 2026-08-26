@@ -1,0 +1,250 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-CLI-BROWSER-LOGIN-SPEC-62DDF23C",
+  "title": "opens one QWork-controlled page and waits for DingTalk, ZSXQ, and Lovrabet login",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-cli-browser-login-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-cli-browser-login.spec.ts",
+      "locator": "line:40;test:opens one QWork-controlled page and waits for DingTalk, ZSXQ, and Lovrabet login",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:62ddf23c8ebebfc75250ac3688c5731a764763d8baade6a190eb6cb4fcd99b51",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-4F9BB596CAFFC3",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-cli-browser-login-spec-ts:L40:62ddf23c8e"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "opens one QWork-controlled page and waits for DingTalk, ZSXQ, and Lovrabet login",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-cli-browser-login-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "opens one QWork-controlled page and waits for DingTalk, ZSXQ, and Lovrabet login"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: `${name}，未连接`, exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: `${name}，已连接`, exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(dialog.getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible()",
+    "expect.poll(() => readLines(qworkAuthSink)).toEqual([ expect.stringMatching(/^https:\\/\\/login\\.dingtalk\\.com\\//), \"https://garden.zsxq.com/jasmine/index.html?code=FRESH-1234\", \"https://user.lovrabet.com/device-auth?code=LOVRABET-1234&source=lovrabet-cli\", ])",
+    "expect(readLines(providerBrowserSink)).resolves.toEqual([])",
+    "expect(readLines(providerInstallSink)).resolves.toEqual([])",
+    "expect(fs.readFile(state, \"utf8\").then(JSON.parse)).resolves.toMatchObject({ versionChecks: [\"dws\", \"zsxq-cli\", \"lovrabet\"], dingtalk: true, zsxq: true, lovrabet: true, lovrabetPolls: 2, dingtalkStateDir: path.join(configHome, \"qwork\", \"connectors\", \"cli-data\", \"dingtalk\"), zsxqStateDir: path.join(configHome, \"qwork\", \"connectors\", \"cli-data\", \"zsxq\"), })",
+    "expect( launched.page.getByRole(\"button\", { name: `${name}，已连接`, exact: true }), ).toBeVisible({ timeout: 20_000 })",
+    "expect.poll(async () => { const current = await readLines(providerStatusSink); return [\"dws\", \"zsxq-cli\", \"lovrabet\"].every((cli) => current.filter((entry) => entry === cli).length > statusCountsBeforeRestart.filter((entry) => entry === cli).length, ); }, { timeout: 20_000 }).toBe(true)",
+    "expect(readLines(qworkAuthSink)).resolves.toEqual([ expect.stringMatching(/^https:\\/\\/login\\.dingtalk\\.com\\//), \"https://garden.zsxq.com/jasmine/index.html?code=FRESH-1234\", \"https://user.lovrabet.com/device-auth?code=LOVRABET-1234&source=lovrabet-cli\", ])",
+    "expect(readLines(providerBrowserSink)).resolves.toEqual([])",
+    "expect( launched.page.getByRole(\"button\", { name: `${name}，未连接`, exact: true }), ).toBeVisible()",
+    "expect.poll(() => fs.access(privateDingtalkState).then(() => true, () => false)).toBe(false)",
+    "expect.poll(() => fs.access(privateZsxqState).then(() => true, () => false)).toBe(false)",
+    "expect(fs.readFile(path.join(sharedDingtalkState, \"keep\"), \"utf8\")).resolves.toBe( \"outside-qwork\", )",
+    "expect(fs.readFile(path.join(sharedZsxqState, \"keep\"), \"utf8\")).resolves.toBe( \"outside-qwork\", )",
+    "expect(finalProviderState).not.toHaveProperty(\"providerLogoutCalls\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-4F9BB596CAFFC3",
+      "type": "return",
+      "assertion": "opens one QWork-controlled page and waits for DingTalk, ZSXQ, and Lovrabet login"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-cli-browser-login-spec-ts.62ddf23c8e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-cli-browser-login.spec.ts -g \"opens one QWork-controlled page and waits for DingTalk, ZSXQ, and Lovrabet login\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "launched.page.getByRole(\"button\", { name: `${name}，未连接`, exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+        },
+        {
+          "action": "launched.page.getByRole(\"button\", { name: `${name}，已连接`, exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-cli-browser-login.spec.ts",
+        "line_start": 40,
+        "line_end": 298,
+        "body_sha256": "sha256:ce0e1f4ba6f6397352b9fed99115a87e3c8bb76e01b49e491d45202d140262da",
+        "assertion_count": 15,
+        "action_count": 5,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:74adeacd9c5149de88c1a1e96119e8c2e72b807cccf2f875bca00c75429f999f"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-4F9BB596CAFFC3"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-4F9BB596CAFFC3"
+    ]
+  }
+}

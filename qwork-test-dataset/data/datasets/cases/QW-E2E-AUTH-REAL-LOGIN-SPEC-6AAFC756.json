@@ -1,0 +1,247 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-AUTH-REAL-LOGIN-SPEC-6AAFC756",
+  "title": "serves the embedded QUC form over https://qwork.360.cn without timing out",
+  "kind": "negative",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "auth",
+    "journey": "auth",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-auth-real-login-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/auth-real-login.spec.ts",
+      "locator": "line:29;test:serves the embedded QUC form over https://qwork.360.cn without timing out",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:6aafc756ec1beb7794228973e04cf517936a12729350cbff8d650fc45b6490e2",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-CB42DF749AB251",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-auth-real-login-spec-ts:L29:6aafc756ec"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "serves the embedded QUC form over https://qwork.360.cn without timing out",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-auth-real-login-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "serves the embedded QUC form over https://qwork.360.cn without timing out"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "createTestHome(\"auth-real-login\")"
+    },
+    {
+      "action": "startDevApi({ serverDir, tls: { certFile, keyFile, host: \"qwork.360.cn\" }, })"
+    },
+    {
+      "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: baseUrl, // https://qwork.360.cn QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"development\", NODE_ENV: \"development\", })"
+    },
+    {
+      "action": "app.firstWindow()"
+    },
+    {
+      "action": "cleanupTestHome(app, configHome)"
+    },
+    {
+      "action": "stop()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"heading\", { name: /登录 Qwork/ })).toBeVisible()",
+    "expect(page.getByLabelText(\"登录框\")).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"项目\", exact: true })).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-CB42DF749AB251",
+      "type": "return",
+      "assertion": "serves the embedded QUC form over https://qwork.360.cn without timing out"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-auth-real-login-spec-ts.6aafc756ec",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": true,
+      "scopes": [
+        "real external account/service/model route named by the source test"
+      ]
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/auth-real-login.spec.ts -g \"serves the embedded QUC form over https://qwork.360.cn without timing out\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "auth",
+      "steps": [
+        {
+          "action": "createTestHome(\"auth-real-login\")"
+        },
+        {
+          "action": "startDevApi({ serverDir, tls: { certFile, keyFile, host: \"qwork.360.cn\" }, })"
+        },
+        {
+          "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: baseUrl, // https://qwork.360.cn QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"development\", NODE_ENV: \"development\", })"
+        },
+        {
+          "action": "app.firstWindow()"
+        },
+        {
+          "action": "cleanupTestHome(app, configHome)"
+        },
+        {
+          "action": "stop()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home plus separately authorized real external fixture",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/auth-real-login.spec.ts",
+        "line_start": 29,
+        "line_end": 55,
+        "body_sha256": "sha256:18d779c20f281ae05fc443892273402bd809dd6ed0cd5f0d300be172f7dc833b",
+        "assertion_count": 3,
+        "action_count": 0,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:b19ced86ceb7858f34130ba42c6293a6519a1c26edf1431ba6918c268cfea94f"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "independent authorization for real external route pending",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-CB42DF749AB251"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-CB42DF749AB251"
+    ]
+  }
+}

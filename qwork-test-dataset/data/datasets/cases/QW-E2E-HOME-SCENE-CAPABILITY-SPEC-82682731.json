@@ -1,0 +1,248 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-HOME-SCENE-CAPABILITY-SPEC-82682731",
+  "title": "enables Agent 应用 skills on the session and prefills the open-source template",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-home-scene-capability-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/home-scene-capability.spec.ts",
+      "locator": "line:156;test:enables Agent 应用 skills on the session and prefills the open-source template",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:82682731d4bf79d934f654b56a47af897f7e0a5cb09455fddba59432185d6cf6",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0176FC6F403EA1",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-home-scene-capability-spec-ts:L156:82682731d4"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "enables Agent 应用 skills on the session and prefills the open-source template",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-home-scene-capability-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "enables Agent 应用 skills on the session and prefills the open-source template"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"代码开发\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"Agent 应用\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"聊天应用初始化\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByTestId(\"selected-skill-token\")).toHaveCount(0)",
+    "expect((await readSidecarWire(sidecarLog)).some((message) => message.type === \"create_session\" || message.type === \"user_message\")).toBe(false)",
+    "expect(page.getByRole(\"textbox\")).toHaveValue(CHAT_APP_PROMPT)",
+    "expect((await readSidecarWire(sidecarLog)).some((message) => message.type === \"create_session\")).toBe(false)",
+    "expect((await readSidecarWire(sidecarLog)).some((message) => message.type === \"user_message\")).toBe(false)",
+    "expect.poll(async () => latestUserMessage(sidecarLog)).toContain(\"@scene:code-03\")",
+    "expect(created?.selected_plugins).toEqual([...AGENT_APP_SCENE_PLUGIN_IDS])",
+    "expect(created?.selected_skills).toEqual(homeSceneSkillAllowlist(AGENT_APP_SCENE_PLUGIN_IDS))",
+    "expect(prompted?.content).toContain(`@scene:code-03\\n\\n${CHAT_APP_PROMPT}`)",
+    "expect(prompted?.content).not.toContain(\"skill-claude-agent-web\")",
+    "expect(prompted?.content).not.toContain(\"skill-claude-agent-sdk\")",
+    "expect(prompted?.selected_plugins).toBeUndefined()",
+    "expect(wire.some((message) => message.type === \"set_plugins\")).toBe(false)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0176FC6F403EA1",
+      "type": "return",
+      "assertion": "enables Agent 应用 skills on the session and prefills the open-source template"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-home-scene-capability-spec-ts.82682731d4",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/home-scene-capability.spec.ts -g \"enables Agent 应用 skills on the session and prefills the open-source template\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"代码开发\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"Agent 应用\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"聊天应用初始化\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/home-scene-capability.spec.ts",
+        "line_start": 156,
+        "line_end": 194,
+        "body_sha256": "sha256:8c15e5ca634aa3f53c88d0fe87be58a489164c11a8c9062d708723a3cdb5159b",
+        "assertion_count": 13,
+        "action_count": 5,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5e44f9c97e89e4c3a08b7e517be2ceebd167481d8fa49e207e3dd9d1259d0f21"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0176FC6F403EA1"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-0176FC6F403EA1"
+    ]
+  }
+}

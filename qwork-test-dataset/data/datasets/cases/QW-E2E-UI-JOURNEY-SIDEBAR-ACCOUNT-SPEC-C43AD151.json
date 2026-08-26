@@ -1,0 +1,282 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-JOURNEY-SIDEBAR-ACCOUNT-SPEC-C43AD151",
+  "title": "UI-JOURNEY-ACCOUNT-001 | compact account menu is 320px and preserves QWork actions",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-journey-sidebar-account.spec.ts",
+      "locator": "line:216;test:UI-JOURNEY-ACCOUNT-001 | compact account menu is 320px and preserves QWork actions",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:c43ad151267e7683c735a0d0a41618f042f8272886a84c82a8ce82ee84dda2fd",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-ORACLE-5-3-5-SIDEBAR-ACCOUNT-REFERENCE",
+      "type": "structured-workbuddy-oracle",
+      "authority_kind": "normative",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/visual-baselines/sidebar-account-reference.json",
+      "locator": "json-pointer:/accountMenu/width",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:88820462180e5c893eff2ed73f4ec33e205d1cd5acc4d17fa7b2bca2495d3448",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-818FFB6B30E7A8",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts:L216:c43ad15126"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "UI-JOURNEY-ACCOUNT-001 | compact account menu is 320px and preserves QWork actions",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-JOURNEY-ACCOUNT-001 | compact account menu is 320px and preserves QWork actions"
+    },
+    {
+      "requirement_id": "REQ-E45091C23C55DB",
+      "source_atom_ids": [
+        "WORKBUDDY-ORACLE-5-3-5-SIDEBAR-ACCOUNT-REFERENCE:PTR:FBA2EF33481227"
+      ],
+      "content_facets": [
+        "ui-geometry"
+      ],
+      "acceptance_categories": [
+        "ui-geometry"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "WorkBuddy structured Oracle /accountMenu/width equals 320",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "governing_sources": [
+        "WORKBUDDY-ORACLE-5-3-5-SIDEBAR-ACCOUNT-REFERENCE"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WorkBuddy structured Oracle /accountMenu/width equals 320"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(menu.getByText(label, { exact: true })).toBeVisible()",
+    "expect(menu).not.toContainText(\"5 期·7/29 结束\")",
+    "expect(copyBox?.x).toBeGreaterThan(usernameBox?.x ?? 0)",
+    "expect((copyBox?.x ?? 0) - ((usernameBox?.x ?? 0) + (usernameBox?.width ?? 0))).toBeLessThanOrEqual(8)",
+    "expect(copyButton.getByTestId(\"account-copy-icon\")).toHaveAttribute(\"width\", \"12\")",
+    "expect(Math.max(...arrowRights) - Math.min(...arrowRights)).toBeLessThanOrEqual(2)",
+    "expect(menu).toBeHidden()",
+    "expect(trigger).toBeFocused()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-818FFB6B30E7A8",
+      "type": "return",
+      "assertion": "UI-JOURNEY-ACCOUNT-001 | compact account menu is 320px and preserves QWork actions"
+    },
+    {
+      "requirement_id": "REQ-E45091C23C55DB",
+      "type": "ui-geometry",
+      "assertion": "WorkBuddy structured Oracle /accountMenu/width equals 320"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-journey-sidebar-account-spec-ts.c43ad15126",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-journey-sidebar-account.spec.ts -g \"UI-JOURNEY-ACCOUNT-001 | compact account menu is 320px and preserves QWork actions\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-journey-sidebar-account.spec.ts",
+        "line_start": 216,
+        "line_end": 251,
+        "body_sha256": "sha256:b0a1eb3cd05a3a66fc352da0beeabcfae0d5e89155b1142e67a5d47b777b3b19",
+        "assertion_count": 8,
+        "action_count": 2,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:047431073ce7b9ab48e52418d325e4db86a1ea0d15b882f6f7d4eff7b9d17a29",
+        "supporting_contracts": [
+          {
+            "path": "e2e/visual-baselines/sidebar-account-reference.json",
+            "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+            "sha256": "sha256:b05bb01c09ad5d2b8150cad491cd7d260e371625abb83471d2d8cb0afb1661c9",
+            "purpose": "frozen structured WorkBuddy product Oracle governing the mapped pointers"
+          }
+        ]
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-818FFB6B30E7A8",
+      "REQ-E45091C23C55DB"
+    ],
+    "categories": [
+      "business",
+      "ui-geometry"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:ui-geometry",
+      "full",
+      "requirement:REQ-818FFB6B30E7A8",
+      "requirement:REQ-E45091C23C55DB"
+    ]
+  }
+}

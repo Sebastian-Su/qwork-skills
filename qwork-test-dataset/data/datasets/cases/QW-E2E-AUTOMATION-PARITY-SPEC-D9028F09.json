@@ -1,0 +1,343 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-AUTOMATION-PARITY-SPEC-D9028F09",
+  "title": "uses the same model, skill, expert, and connector catalog rows as a new task",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "automations",
+    "journey": "automations",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-automation-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/automation-parity.spec.ts",
+      "locator": "line:48;test:uses the same model, skill, expert, and connector catalog rows as a new task",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:d9028f09ecc0f6b1e765945f9cd30f3494650c270db8178155362098d9afe452",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-348ED1E23BE2D8",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-automation-parity-spec-ts:L48:d9028f09ec"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "uses the same model, skill, expert, and connector catalog rows as a new task",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-automation-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "uses the same model, skill, expert, and connector catalog rows as a new task"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTestId(\"composer-model-trigger\").click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "rootMenu.getByRole(\"menuitem\", { name: \"技能\", exact: true }).hover()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "rootMenu.getByRole(\"menuitem\", { name: \"专家\", exact: true }).hover()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "rootMenu.getByRole(\"menuitem\", { name: \"连接器\", exact: true }).hover()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"添加自动化\", exact: true }).first().click()"
+    },
+    {
+      "action": "automationModelTrigger.click()"
+    },
+    {
+      "action": "toolbar.getByRole(\"button\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "toolbar.getByRole(\"button\", { name: \"召唤专家\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"选择连接器\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(automationModelTrigger).not.toContainText(\"Auto\")",
+    "expect(page.getByRole(\"menu\", { name: \"模型\" }).locator('[data-capability-id=\"auto\"]')).toHaveCount(0)",
+    "expect(page.getByRole(\"menu\", { name: \"技能\" }).getByRole(\"menuitem\", { name: \"从本地添加技能\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"menu\", { name: \"技能\" }).getByRole(\"menuitem\", { name: \"管理技能\" })).toHaveCount(0)",
+    "expect(connectorMenu.getByRole(\"menuitem\", { name: \"管理连接器\" })).toHaveCount(0)",
+    "expect(connectorTriggerBox).not.toBeNull()",
+    "expect(connectorMenuBox).not.toBeNull()",
+    "expect(Math.abs(connectorMenuBox!.width - connectorTriggerBox!.width)).toBeLessThanOrEqual(2)",
+    "expect(automationModels).toEqual(taskModels)",
+    "expect(automationSkills).toEqual(taskSkills)",
+    "expect(automationExperts).toEqual(taskExperts)",
+    "expect(automationConnectors).toEqual(taskConnectors)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-348ED1E23BE2D8",
+      "type": "return",
+      "assertion": "uses the same model, skill, expert, and connector catalog rows as a new task"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-automation-parity-spec-ts.d9028f09ec",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/automation-parity.spec.ts -g \"uses the same model, skill, expert, and connector catalog rows as a new task\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "automations",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTestId(\"composer-model-trigger\").click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "rootMenu.getByRole(\"menuitem\", { name: \"技能\", exact: true }).hover()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "rootMenu.getByRole(\"menuitem\", { name: \"专家\", exact: true }).hover()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "rootMenu.getByRole(\"menuitem\", { name: \"连接器\", exact: true }).hover()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"添加自动化\", exact: true }).first().click()"
+        },
+        {
+          "action": "automationModelTrigger.click()"
+        },
+        {
+          "action": "toolbar.getByRole(\"button\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "toolbar.getByRole(\"button\", { name: \"召唤专家\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"选择连接器\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/automation-parity.spec.ts",
+        "line_start": 48,
+        "line_end": 113,
+        "body_sha256": "sha256:7b0dfc3791c0b7e76836e687b023a281885ef3c7435709f088e6fd62262c7667",
+        "assertion_count": 12,
+        "action_count": 21,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:79194639bbdbfacae6ee612852a5d73298b2d8fc23a74fe225395923d785e578"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-348ED1E23BE2D8"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-348ED1E23BE2D8"
+    ]
+  }
+}

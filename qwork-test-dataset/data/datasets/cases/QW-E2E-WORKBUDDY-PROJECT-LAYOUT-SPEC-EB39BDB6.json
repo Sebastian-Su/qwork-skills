@@ -1,0 +1,1149 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-PROJECT-LAYOUT-SPEC-EB39BDB6",
+  "title": "matches the WorkBuddy project-home layout without a live project server",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-project-layout-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/workbuddy-project-layout.spec.ts",
+      "locator": "line:146;test:matches the WorkBuddy project-home layout without a live project server",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:eb39bdb653330ef3f51a9eaf1ed7d5d19d7142f9909a0ac6850de20de0286923",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-BAC08B102657A7",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-project-layout-spec-ts:L146:eb39bdb653"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "matches the WorkBuddy project-home layout without a live project server",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-project-layout-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches the WorkBuddy project-home layout without a live project server"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "newProjectDialog.getByRole(\"button\", { name: \"选择模板\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"产品需求全流程\" }).click()"
+    },
+    {
+      "action": "newProjectDialog.getByRole(\"button\", { name: \"选择模板\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"自定义\" }).click()"
+    },
+    {
+      "action": "newProjectDialog.getByRole(\"button\", { name: \"添加技能\" }).click()"
+    },
+    {
+      "action": "skillSearch.fill(\"__no_result__\")"
+    },
+    {
+      "action": "tab.click()"
+    },
+    {
+      "action": "skillCategories.nth(1).click()"
+    },
+    {
+      "action": "skillCategories.first().click()"
+    },
+    {
+      "action": "firstSkillCheckbox.click()"
+    },
+    {
+      "action": "skillPicker.getByRole(\"button\", { name: \"确认\" }).click()"
+    },
+    {
+      "action": "newProjectDialog.getByRole(\"button\", { name: \"添加技能\" }).click()"
+    },
+    {
+      "action": "selectedSkill.click()"
+    },
+    {
+      "action": "skillPicker.getByRole(\"button\", { name: \"确认\" }).click()"
+    },
+    {
+      "action": "newProjectDialog.getByRole(\"button\", { name: \"添加专家\" }).click()"
+    },
+    {
+      "action": "expertSearch.fill(\"__no_result__\")"
+    },
+    {
+      "action": "myExpertsTab.click()"
+    },
+    {
+      "action": "expertPicker.getByRole(\"tab\", { name: \"专家\", exact: true }).click()"
+    },
+    {
+      "action": "expertCategories.nth(1).click()"
+    },
+    {
+      "action": "expertCategories.first().click()"
+    },
+    {
+      "action": "firstExpertCheckbox.click()"
+    },
+    {
+      "action": "firstExpertCheckbox.click()"
+    },
+    {
+      "action": "expertPicker.getByRole(\"button\", { name: \"取消\" }).click()"
+    },
+    {
+      "action": "newProjectDialog.getByRole(\"button\", { name: \"添加技能\" }).click()"
+    },
+    {
+      "action": "skillPicker.getByRole(\"button\", { name: \"取消\" }).click()"
+    },
+    {
+      "action": "newProjectDialog.getByRole(\"button\", { name: \"取消\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /产品需求全流程/ }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "projectSearch.fill(\"workbuddy\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"清空搜索\" }).click()"
+    },
+    {
+      "action": "projectActions.click()"
+    },
+    {
+      "action": "projectMenu.getByRole(\"menuitem\", { name: \"重命名\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "projectActions.click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"删除\" }).click()"
+    },
+    {
+      "action": "deleteDialog.getByRole(\"button\", { name: \"取消\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /qwork项目/ }).first().click()"
+    },
+    {
+      "action": "page.getByTestId(\"project-composer-tool-trigger\").click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByTestId(\"project-composer-task-trigger\").click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByTestId(\"project-composer-model-trigger\").click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByTestId(\"project-composer-permission-trigger\").click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByTestId(\"project-composer-workspace-trigger\").click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByTestId(\"project-composer-tool-trigger\").click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"更多操作\" }) .getByRole(\"menuitem\", { name, exact: true }) .click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "connectorToolMenu.getByPlaceholder(\"\\u641c\\u7d22\\u8fde\\u63a5\\u5668\").fill(connectorQuery)"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.locator(\"button\").filter({ hasText: \"\\u53d1\\u5e03\\u7559\\u8a00\" }).first().click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"\\u53d6\\u6d88\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"\\u6210\\u5458\\u52a8\\u6001\", exact: true }).click()"
+    },
+    {
+      "action": "memberTrigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"\\u4e0e\\u6211\\u76f8\\u5173\", exact: true }).click()"
+    },
+    {
+      "action": "messageMore.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "messageMore.click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"\\u56de\\u590d\", exact: true }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "messageMore.click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"\\u4fee\\u6539\", exact: true }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"\\u8ba1\\u5212\", exact: true }).click()"
+    },
+    {
+      "action": "planToolbar.getByRole(\"button\", { name: \"\\u6dfb\\u52a0\", exact: true }).click()"
+    },
+    {
+      "action": "statusTrigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "assigneeTrigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "priorityTrigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "todoEditor.getByRole(\"button\", { name: \"\\u6dfb\\u52a0\\u63cf\\u8ff0\\uff08\\u53ef\\u9009\\uff09\" }).click()"
+    },
+    {
+      "action": "todoEditor.getByRole(\"button\", { name: \"\\u53d6\\u6d88\", exact: true }).click()"
+    },
+    {
+      "action": "planFilterButton.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "planToolbar.getByRole(\"button\", { name: \"\\u641c\\u7d22\\u4e8b\\u9879\\u6807\\u9898\\u6216\\u63cf\\u8ff0\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "newViewButton.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "settingsButton.click()"
+    },
+    {
+      "action": "showSubtasks.click()"
+    },
+    {
+      "action": "settings.getByRole(\"button\", { name: \"\\u5173\\u95ed\" }).click()"
+    },
+    {
+      "action": "planToolbar.getByRole(\"tab\", { name: \"\\u770b\\u677f\" }).click()"
+    },
+    {
+      "action": "planToolbar.getByRole(\"tab\", { name: \"\\u7518\\u7279\" }).click()"
+    },
+    {
+      "action": "gantt.getByRole(\"button\", { name: \"\\u4e0a\\u4e00\\u5468\" }).click()"
+    },
+    {
+      "action": "planToolbar.getByRole(\"tab\", { name: \"\\u65e5\\u5386\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"\\u4efb\\u52a1\", exact: true }).click()"
+    },
+    {
+      "action": "allTasksButton.click()"
+    },
+    {
+      "action": "scopeMenu.getByRole(\"menuitem\", { name: \"\\u4e2a\\u4eba\\u4efb\\u52a1\" }).click()"
+    },
+    {
+      "action": "allSourcesButton.click()"
+    },
+    {
+      "action": "sourceMenu.getByRole(\"menuitem\", { name: \"\\u81ea\\u52a8\\u5316\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"\\u8d44\\u4ea7\", exact: true }).click()"
+    },
+    {
+      "action": "assetTable.locator(\"article\").nth(1).hover()"
+    },
+    {
+      "action": "assetTable.getByTitle(\"\\u66f4\\u591a\\u64cd\\u4f5c\").first().click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "assetTypeButton.click()"
+    },
+    {
+      "action": "assetTypeMenu.getByRole(\"menuitem\", { name: \"PDF\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"\\u65b0\\u5efa\\u6587\\u4ef6\\u5939\", exact: true }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"\\u9080\\u8bf7\", exact: true }).click()"
+    },
+    {
+      "action": "joinModeTrigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"\\u8d44\\u4ea7\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"\\u7f16\\u8f91\\u6307\\u4ee4\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: configDialog.action }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"tab\", { name: \"\\u516c\\u5171\\u6388\\u6743\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"\\u6dfb\\u52a0\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: /\\u4ece\\u6280\\u80fd\\u4e2d\\u5fc3\\u6dfb\\u52a0/ }).click()"
+    },
+    {
+      "action": "picker.getByRole(\"button\", { name: \"\\u53d6\\u6d88\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"\\u6dfb\\u52a0\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"\\u53d6\\u6d88\", exact: true }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "collapse.click()"
+    },
+    {
+      "action": "page.getByTitle(\"\\u5c55\\u5f00\\u9879\\u76ee\\u914d\\u7f6e\").click()"
+    },
+    {
+      "action": "projectServer.close((error) => error ? reject(error) : resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(scroll).toBeVisible()",
+    "expect(hero).toBeVisible()",
+    "expect(art).toBeVisible()",
+    "expect(heroImage).toBeVisible()",
+    "expect(await heroImage.evaluate((image) => image instanceof HTMLImageElement && image.naturalWidth === 2172 && image.naturalHeight === 724)).toBe(true)",
+    "expect(await heroImage.evaluate(async (image) => { if (!(image instanceof HTMLImageElement)) return \"\"; const bytes = await fetch(image.src).then((response) => response.arrayBuffer()); const digest = await crypto.subtle.digest(\"SHA-256\", bytes); return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, \"0\")).join(\"\"); })).toBe(\"c1a53967f41db4cd816a1f6a70215304721125a559d248a7e8eb7c0b14bc34ee\")",
+    "expect.poll(() => heroImage.evaluate((node) => getComputedStyle(node).filter)).toBe(\"none\")",
+    "expect.poll(() => heroImage.evaluate((node) => getComputedStyle(node).filter)).toContain(\"invert\")",
+    "expect.poll(() => heroImage.evaluate((node) => getComputedStyle(node).filter)).toContain(\"grayscale\")",
+    "expect(darkHeroFilter).toContain(\"invert\")",
+    "expect(darkHeroFilter).toContain(\"grayscale\")",
+    "expect.poll(() => heroImage.evaluate((node) => getComputedStyle(node).filter)).toBe(\"none\")",
+    "expect(templates).toBeVisible()",
+    "expect(page.getByText(\"qwork项目\", { exact: true })).toBeVisible()",
+    "expect(geometry.hero.y - geometry.scroll.y).toBeGreaterThanOrEqual(54)",
+    "expect(geometry.hero.y - geometry.scroll.y).toBeLessThanOrEqual(58)",
+    "expect(geometry.scroll.y).toBeGreaterThanOrEqual(projectHomeY(84))",
+    "expect(geometry.scroll.y).toBeLessThanOrEqual(projectHomeY(88))",
+    "expect(geometry.hero.height).toBeGreaterThanOrEqual(158)",
+    "expect(geometry.hero.height).toBeLessThanOrEqual(162)",
+    "expect(geometry.art.width).toBeGreaterThanOrEqual(480)",
+    "expect(geometry.art.width).toBeLessThanOrEqual(484)",
+    "expect(geometry.hero.width).toBeGreaterThanOrEqual(1_046)",
+    "expect(geometry.hero.width).toBeLessThanOrEqual(1_050)",
+    "expect(geometry.templateCards).toHaveLength(5)",
+    "expect(geometry.templateCards[0]?.width).toBeGreaterThanOrEqual(337)",
+    "expect(geometry.templateCards[0]?.width).toBeLessThanOrEqual(341)",
+    "expect(geometry.templateCards[3]?.y).toBeGreaterThan( geometry.templateCards[0]?.y ?? 0, )",
+    "expect(geometry.projectCards).toHaveLength(2)",
+    "expect(geometry.projectCards[0]?.width).toBeGreaterThanOrEqual(337)",
+    "expect(geometry.projectCards[0]?.width).toBeLessThanOrEqual(341)",
+    "expect(page.getByRole(\"menuitem\", { name: \"自定义\", exact: true })).toHaveCount(1)",
+    "expect(newProjectDialog.getByText(\"360企业安全云\", { exact: true })).toBeVisible()",
+    "expect(newProjectDialog.getByText(\"360云盘\", { exact: true })).toBeVisible()",
+    "expect(newProjectDialog.getByText(\"腾讯文档\", { exact: true })).toHaveCount(0)",
+    "expect(newProjectDialog.getByText(\"TAPD\", { exact: true })).toHaveCount(0)",
+    "expect(page.getByRole(\"menuitem\", { name: \"自定义\", exact: true })).toHaveCount(1)",
+    "expect(skillPicker).toBeVisible()",
+    "expect(skillPicker.getByRole(\"checkbox\").first()).toBeVisible()",
+    "expect(skillPicker.getByText(\"当前没有符合条件的可用项目能力\")).toBeVisible()",
+    "expect(tab).toHaveAttribute(\"aria-selected\", \"true\")",
+    "expect(skillCategories.nth(1)).toHaveAttribute(\"aria-pressed\", \"true\")",
+    "expect(firstSkillCheckbox).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect(skillPicker).toBeHidden()",
+    "expect(newProjectDialog.getByText(firstSkillName, { exact: true })).toBeVisible()",
+    "expect(selectedSkill).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect(newProjectDialog.getByText(firstSkillName, { exact: true })).toBeHidden()",
+    "expect(expertPicker.getByRole(\"checkbox\").first()).toBeVisible()",
+    "expect(expertPicker.getByText(\"当前没有符合条件的可用项目能力\")).toBeVisible()",
+    "expect(myExpertsTab).toHaveAttribute(\"aria-selected\", \"true\")",
+    "expect(expertCategories.nth(1)).toHaveAttribute(\"aria-pressed\", \"true\")",
+    "expect(firstExpertCheckbox).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect(firstExpertCheckbox).toHaveAttribute(\"aria-checked\", \"false\")",
+    "expect(expertPicker).toBeHidden()",
+    "expect(skillPicker.getByRole(\"checkbox\").first()).toBeVisible()",
+    "expect(newProjectDialog).toBeHidden()",
+    "expect(page.getByPlaceholder(\"请输入项目名称\")).toHaveValue(\"产品需求全流程\")",
+    "expect(newProjectDialog).toBeHidden()",
+    "expect(page.getByText(\"qwork项目\", { exact: true })).toBeHidden()",
+    "expect(page.getByText(\"workbuddy产品研究\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"qwork项目\", { exact: true })).toBeVisible()",
+    "expect(renameGeometry.height).toBeGreaterThanOrEqual(232)",
+    "expect(renameGeometry.height).toBeLessThanOrEqual(234)",
+    "expect(renameGeometry.text).toContain(\"原名称：qwork项目\")",
+    "expect(renameGeometry.text).toContain(\"7/15\")",
+    "expect(renameDialog).toBeHidden()",
+    "expect(deleteDialog).toContainText(\"确定要删除此项目吗？删除后项目将被永久删除，包括项目内所有任务及产物，且不可恢复。\")",
+    "expect(deleteDialog).toBeHidden()",
+    "expect(detailHeader).toBeVisible()",
+    "expect(detailBody).toBeVisible()",
+    "expect(detailGeometry.header.height).toBeGreaterThanOrEqual(54)",
+    "expect(detailGeometry.header.height).toBeLessThanOrEqual(58)",
+    "expect(detailGeometry.tabs.height).toBeGreaterThanOrEqual(46)",
+    "expect(detailGeometry.tabs.height).toBeLessThanOrEqual(50)",
+    "expect(detailGeometry.invite.width).toBeGreaterThanOrEqual(66)",
+    "expect(detailGeometry.invite.width).toBeLessThanOrEqual(70)",
+    "expect(activityGeometry.publish.y).toBeGreaterThanOrEqual(projectDetailY(147))",
+    "expect(activityGeometry.publish.y).toBeLessThanOrEqual(projectDetailY(151))",
+    "expect( page.getByPlaceholder(\"今天帮你做些什么？ @ 引用对话文件，/ 调用技能与指令\"), ).toBeVisible()",
+    "expect(toolsGeometry.items).toHaveLength(5)",
+    "expect(toolsMenu).toBeHidden()",
+    "expect(workspaceGeometry.height).toBeLessThanOrEqual(376)",
+    "expect(skillMenu.getByRole(\"menuitemcheckbox\").first()).toBeVisible()",
+    "expect(skillMenu.getByRole(\"menuitem\", { name: \"从本地添加技能\" })).toBeVisible()",
+    "expect(skillMenu.getByRole(\"menuitem\", { name: \"管理技能\" })).toBeVisible()",
+    "expect.poll(() => connectorItems.count()).toBeGreaterThan(1)",
+    "expect(firstConnectorText.length).toBeGreaterThan(0)",
+    "expect(connectorItems.filter({ hasText: connectorQuery }).first()).toBeVisible()",
+    "expect.poll(() => connectorItems.count()).toBeLessThan(connectorCount)",
+    "expect(publishGeometry.cancel.width).toBeGreaterThanOrEqual(40)",
+    "expect(publishGeometry.cancel.width).toBeLessThanOrEqual(44)",
+    "expect(publishGeometry.send.width).toBeGreaterThanOrEqual(38)",
+    "expect(publishGeometry.send.width).toBeLessThanOrEqual(42)",
+    "expect(page.getByRole(\"form\", { name: \"\\u53d1\\u5e03\\u7559\\u8a00\" })).toBeHidden()",
+    "expect(memberTrigger).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"\\u6210\\u5458\\u7b5b\\u9009\" })).toBeHidden()",
+    "expect(messageMore).toBeVisible()",
+    "expect(messageMenuGeometry.items).toHaveLength(4)",
+    "expect(page.getByRole(\"menu\", { name: \"\\u7559\\u8a00\\u64cd\\u4f5c\" })).toBeHidden()",
+    "expect(page.locator('form[aria-label^=\"\\u56de\\u590d \"]')).toBeHidden()",
+    "expect(page.locator('textarea[aria-label=\"\\u4fee\\u6539\\u7559\\u8a00\"]')).toBeHidden()",
+    "expect(planGeometry.toolbar.height).toBeGreaterThanOrEqual(50)",
+    "expect(planGeometry.toolbar.height).toBeLessThanOrEqual(54)",
+    "expect(planGeometry.tabs).toEqual([\"\\u8868\\u683c\", \"\\u770b\\u677f\", \"\\u7518\\u7279\", \"\\u65e5\\u5386\"])",
+    "expect(planGeometry.tableTab.y - planGeometry.toolbar.y).toBeGreaterThanOrEqual(7)",
+    "expect(planGeometry.tableTab.y - planGeometry.toolbar.y).toBeLessThanOrEqual(10)",
+    "expect(planGeometry.tableTab.width).toBeGreaterThanOrEqual(56)",
+    "expect(planGeometry.tableTab.width).toBeLessThanOrEqual(60)",
+    "expect(planGeometry.add.width).toBeGreaterThanOrEqual(42)",
+    "expect(planGeometry.add.width).toBeLessThanOrEqual(46)",
+    "expect(planTableGeometry.width).toBeGreaterThanOrEqual(960)",
+    "expect(planTableGeometry.borderRadius).toBe(\"8px\")",
+    "expect(todoEditor).toBeVisible()",
+    "expect(Math.abs(actual - expected), `${label}: expected ${expected}, received ${actual}`).toBeLessThanOrEqual(2)",
+    "expect(actual, `${label} should have a bounding box`).not.toBeNull()",
+    "expect(statusMenu).toBeHidden()",
+    "expect(assigneeMenu).toBeHidden()",
+    "expect(priorityMenu).toBeHidden()",
+    "expect(todoEditor.getByRole(\"textbox\", { name: \"\\u5f85\\u529e\\u63cf\\u8ff0\" })).toBeFocused()",
+    "expect(todoEditor).toBeHidden()",
+    "expect(planFilter).toBeVisible()",
+    "expect(planFilter).toBeHidden()",
+    "expect(planSearch).toBeFocused()",
+    "expect(planSearch).toBeHidden()",
+    "expect(newViewMenu).toBeHidden()",
+    "expect(settings).toBeVisible()",
+    "expect(Math.abs((settingsBox?.x ?? 0) - (planGeometry.add.right - 290))).toBeLessThanOrEqual(2)",
+    "expect(showSubtasks).toBeChecked()",
+    "expect(page.getByText(\"\\u5b50\\u5f85\\u529e\\u9a8c\\u6536\", { exact: true })).toBeVisible()",
+    "expect(showSubtasks).not.toBeChecked()",
+    "expect(page.getByText(\"\\u5b50\\u5f85\\u529e\\u9a8c\\u6536\", { exact: true })).toBeHidden()",
+    "expect(settings).toBeHidden()",
+    "expect(boardGeometry.columns).toHaveLength(4)",
+    "expect(gantt.getByRole(\"button\", { name: \"\\u4eca\\u5929\" })).toHaveCount(0)",
+    "expect(ganttGeometry.grid.width).toBeGreaterThanOrEqual(1040)",
+    "expect(ganttGeometry.month.x - ganttGeometry.grid.x).toBeGreaterThanOrEqual(449)",
+    "expect(ganttGeometry.month.x - ganttGeometry.grid.x).toBeLessThanOrEqual(451)",
+    "expect(ganttGeometry.title.x - ganttGeometry.grid.x).toBeGreaterThanOrEqual(49)",
+    "expect(ganttGeometry.title.x - ganttGeometry.grid.x).toBeLessThanOrEqual(51)",
+    "expect(ganttGeometry.todayIndex).toBe(3)",
+    "expect(firstGanttDay).not.toHaveText(firstGanttDayBeforeShift ?? \"\")",
+    "expect(undatedButton).toHaveText(\"\\u65e0\\u65e5\\u671f\\u8bb0\\u5f55\\uff1a2\")",
+    "expect(calendarGeometry.headingFontSize).toBe(\"24px\")",
+    "expect(calendarGeometry.firstCell.height).toBeGreaterThan(89)",
+    "expect(calendarGeometry.firstCell.height).toBeLessThan(91)",
+    "expect(calendarGeometry.undated.width).toBeGreaterThanOrEqual(90)",
+    "expect(calendarGeometry.undated.width).toBeLessThanOrEqual(100)",
+    "expect(calendar.getByRole(\"button\", { name: \"\\u6536\\u8d77\\u65e0\\u65e5\\u671f\\u8bb0\\u5f55\" })).toHaveCount(0)",
+    "expect(taskGeometry.buttons).toHaveLength(2)",
+    "expect(firstTask).toContainText(\"\\u67e5\\u8be2\\u4eca\\u65e5\\u5f85\\u529e\\u4e8b\\u9879\")",
+    "expect(page.getByRole(\"button\", { name: \"\\u4e2a\\u4eba\\u4efb\\u52a1\", exact: true })).toBeVisible()",
+    "expect(page.getByTestId(\"project-task-toolbar\").getByRole(\"button\", { name: \"\\u81ea\\u52a8\\u5316\", exact: true })).toBeVisible()",
+    "expect(assetGeometry.folder.width).toBeGreaterThanOrEqual(94)",
+    "expect(assetGeometry.folder.width).toBeLessThanOrEqual(98)",
+    "expect(assetGeometry.upload.width).toBeGreaterThanOrEqual(80)",
+    "expect(assetGeometry.upload.width).toBeLessThanOrEqual(84)",
+    "expect(assetTableGeometry.iconColors).toEqual([ \"rgb(85, 169, 238)\", \"rgb(67, 175, 175)\", \"rgb(230, 108, 122)\", ])",
+    "expect(assetTable.getByTitle(\"\\u6dfb\\u52a0\\u5230\\u4efb\\u52a1\")).toHaveCount(0)",
+    "expect(assetTable.getByTitle(\"\\u4e0b\\u8f7d\")).toHaveCount(0)",
+    "expect(assetActionMenu.getByRole(\"menuitem\", { name: \"\\u5220\\u9664\" })).toBeVisible()",
+    "expect(assetActionMenu.getByRole(\"menuitem\", { name: \"\\u4e0b\\u8f7d\" })).toHaveCount(0)",
+    "expect(assetActionMenu).toBeHidden()",
+    "expect(assetTypeButton).toContainText(\"PDF\")",
+    "expect(folderDialogGeometry.buttons).toEqual(expect.arrayContaining([ { name: \"Close\", width: 24, height: 24 }, { name: \"\\u53d6\\u6d88\", width: 68, height: 32 }, { name: \"\\u521b\\u5efa\", width: 68, height: 32 }, ]))",
+    "expect(folderDialog).toHaveCount(0)",
+    "expect(inviteGeometry.panel.y).toBeGreaterThanOrEqual(78)",
+    "expect(inviteGeometry.panel.y).toBeLessThanOrEqual(82)",
+    "expect(inviteGeometry.panel.width).toBeGreaterThanOrEqual(320)",
+    "expect(inviteGeometry.panel.width).toBeLessThanOrEqual(324)",
+    "expect(1360 - inviteGeometry.panel.right).toBeGreaterThanOrEqual(14)",
+    "expect(1360 - inviteGeometry.panel.right).toBeLessThanOrEqual(18)",
+    "expect(inviteGeometry.hasBackdrop).toBe(false)",
+    "expect((joinModeMenuBox?.y ?? 0) - ((joinModeTriggerBox?.y ?? 0) + (joinModeTriggerBox?.height ?? 0))).toBeGreaterThanOrEqual(6)",
+    "expect((joinModeMenuBox?.y ?? 0) - ((joinModeTriggerBox?.y ?? 0) + (joinModeTriggerBox?.height ?? 0))).toBeLessThanOrEqual(8)",
+    "expect(joinModeMenu.getByRole(\"menuitem\")).toHaveText([\"\\u7533\\u8bf7\\u540e\\u52a0\\u5165\", \"\\u76f4\\u63a5\\u52a0\\u5165\"])",
+    "expect(joinModeMenu).toBeHidden()",
+    "expect(page.getByRole(\"dialog\", { name: \"\\u9879\\u76ee\\u56e2\\u961f\\u6210\\u5458\" })).toBeVisible()",
+    "expect(page.getByRole(\"dialog\", { name: \"\\u9879\\u76ee\\u56e2\\u961f\\u6210\\u5458\" })).toBeHidden()",
+    "expect(instructionGeometry.save.y).toBeGreaterThanOrEqual(672)",
+    "expect(instructionGeometry.save.y).toBeLessThanOrEqual(674)",
+    "expect(instructionGeometry.backdropColor).toBe(\"rgba(0, 0, 0, 0.6)\")",
+    "expect(instructionDialog.getByRole(\"button\", { name: \"\\u4fdd\\u5b58\" })).toBeVisible()",
+    "expect(instructionDialog).toHaveCount(0)",
+    "expect(await dialog.evaluate((element) => getComputedStyle(element).borderRadius)).toBe(\"24px\")",
+    "expect(dialog).toContainText(\"\\u6dfb\\u52a0\\u56e2\\u961f\\u51ed\\u8bc1\\u540e\\uff0c\\u6240\\u6709\\u56e2\\u961f\\u6210\\u5458\\u5c06\\u4f7f\\u7528\\u540c\\u4e00\\u51ed\\u8bc1\\u8c03\\u7528\\u8fde\\u63a5\\u5668\\u3002\")",
+    "expect(dialog).toContainText(\"\\u8fd8\\u6ca1\\u6709\\u6dfb\\u52a0\\u516c\\u5171\\u8fde\\u63a5\\u5668\")",
+    "expect(dialog.getByRole(\"button\", { name: \"\\u6dfb\\u52a0\\u516c\\u5171\\u8fde\\u63a5\\u5668\" })).toBeEnabled()",
+    "expect(managementGeometry.panelBottom - managementGeometry.footer.y).toBeGreaterThanOrEqual(76)",
+    "expect(managementGeometry.panelBottom - managementGeometry.footer.y).toBeLessThanOrEqual(78)",
+    "expect(managementGeometry.footer.height).toBeGreaterThanOrEqual(76)",
+    "expect(managementGeometry.footer.height).toBeLessThanOrEqual(77)",
+    "expect(picker).toBeVisible()",
+    "expect(dialog).toBeVisible()",
+    "expect(automationListGeometry.footer.y).toBeGreaterThanOrEqual(652)",
+    "expect(automationListGeometry.footer.y).toBeLessThanOrEqual(653)",
+    "expect(automationListGeometry.footer.height).toBeGreaterThanOrEqual(76)",
+    "expect(automationListGeometry.footer.height).toBeLessThanOrEqual(77)",
+    "expect(dialog).toContainText(\"\\u6dfb\\u52a0\\u81ea\\u52a8\\u5316\\u4efb\\u52a1\")",
+    "expect(dialog.getByRole(\"button\", { name: \"\\u521b\\u5efa\" })).toBeDisabled()",
+    "expect( dialog .getByTestId(\"project-automation-list-footer\") .getByRole(\"button\", { name: \"\\u5173\\u95ed\", exact: true }), ).toBeVisible()",
+    "expect(dialog).toHaveCount(0)",
+    "expect(collapsedGeometry.expand.x).toBeGreaterThanOrEqual(1309)",
+    "expect(collapsedGeometry.expand.x).toBeLessThanOrEqual(1313)",
+    "expect(collapsedGeometry.expand.y).toBeGreaterThanOrEqual(projectDetailY(96))",
+    "expect(collapsedGeometry.expand.y).toBeLessThanOrEqual(projectDetailY(100))",
+    "expect(page.getByTestId(\"project-config-sidebar\")).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-BAC08B102657A7",
+      "type": "return",
+      "assertion": "matches the WorkBuddy project-home layout without a live project server"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-project-layout-spec-ts.eb39bdb653",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-project-layout.spec.ts -g \"matches the WorkBuddy project-home layout without a live project server\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "newProjectDialog.getByRole(\"button\", { name: \"选择模板\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"产品需求全流程\" }).click()"
+        },
+        {
+          "action": "newProjectDialog.getByRole(\"button\", { name: \"选择模板\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"自定义\" }).click()"
+        },
+        {
+          "action": "newProjectDialog.getByRole(\"button\", { name: \"添加技能\" }).click()"
+        },
+        {
+          "action": "skillSearch.fill(\"__no_result__\")"
+        },
+        {
+          "action": "tab.click()"
+        },
+        {
+          "action": "skillCategories.nth(1).click()"
+        },
+        {
+          "action": "skillCategories.first().click()"
+        },
+        {
+          "action": "firstSkillCheckbox.click()"
+        },
+        {
+          "action": "skillPicker.getByRole(\"button\", { name: \"确认\" }).click()"
+        },
+        {
+          "action": "newProjectDialog.getByRole(\"button\", { name: \"添加技能\" }).click()"
+        },
+        {
+          "action": "selectedSkill.click()"
+        },
+        {
+          "action": "skillPicker.getByRole(\"button\", { name: \"确认\" }).click()"
+        },
+        {
+          "action": "newProjectDialog.getByRole(\"button\", { name: \"添加专家\" }).click()"
+        },
+        {
+          "action": "expertSearch.fill(\"__no_result__\")"
+        },
+        {
+          "action": "myExpertsTab.click()"
+        },
+        {
+          "action": "expertPicker.getByRole(\"tab\", { name: \"专家\", exact: true }).click()"
+        },
+        {
+          "action": "expertCategories.nth(1).click()"
+        },
+        {
+          "action": "expertCategories.first().click()"
+        },
+        {
+          "action": "firstExpertCheckbox.click()"
+        },
+        {
+          "action": "firstExpertCheckbox.click()"
+        },
+        {
+          "action": "expertPicker.getByRole(\"button\", { name: \"取消\" }).click()"
+        },
+        {
+          "action": "newProjectDialog.getByRole(\"button\", { name: \"添加技能\" }).click()"
+        },
+        {
+          "action": "skillPicker.getByRole(\"button\", { name: \"取消\" }).click()"
+        },
+        {
+          "action": "newProjectDialog.getByRole(\"button\", { name: \"取消\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /产品需求全流程/ }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "projectSearch.fill(\"workbuddy\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"清空搜索\" }).click()"
+        },
+        {
+          "action": "projectActions.click()"
+        },
+        {
+          "action": "projectMenu.getByRole(\"menuitem\", { name: \"重命名\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "projectActions.click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"删除\" }).click()"
+        },
+        {
+          "action": "deleteDialog.getByRole(\"button\", { name: \"取消\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /qwork项目/ }).first().click()"
+        },
+        {
+          "action": "page.getByTestId(\"project-composer-tool-trigger\").click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByTestId(\"project-composer-task-trigger\").click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByTestId(\"project-composer-model-trigger\").click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByTestId(\"project-composer-permission-trigger\").click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByTestId(\"project-composer-workspace-trigger\").click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByTestId(\"project-composer-tool-trigger\").click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"更多操作\" }) .getByRole(\"menuitem\", { name, exact: true }) .click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "connectorToolMenu.getByPlaceholder(\"\\u641c\\u7d22\\u8fde\\u63a5\\u5668\").fill(connectorQuery)"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.locator(\"button\").filter({ hasText: \"\\u53d1\\u5e03\\u7559\\u8a00\" }).first().click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"\\u53d6\\u6d88\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"\\u6210\\u5458\\u52a8\\u6001\", exact: true }).click()"
+        },
+        {
+          "action": "memberTrigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"\\u4e0e\\u6211\\u76f8\\u5173\", exact: true }).click()"
+        },
+        {
+          "action": "messageMore.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "messageMore.click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"\\u56de\\u590d\", exact: true }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "messageMore.click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"\\u4fee\\u6539\", exact: true }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"\\u8ba1\\u5212\", exact: true }).click()"
+        },
+        {
+          "action": "planToolbar.getByRole(\"button\", { name: \"\\u6dfb\\u52a0\", exact: true }).click()"
+        },
+        {
+          "action": "statusTrigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "assigneeTrigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "priorityTrigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "todoEditor.getByRole(\"button\", { name: \"\\u6dfb\\u52a0\\u63cf\\u8ff0\\uff08\\u53ef\\u9009\\uff09\" }).click()"
+        },
+        {
+          "action": "todoEditor.getByRole(\"button\", { name: \"\\u53d6\\u6d88\", exact: true }).click()"
+        },
+        {
+          "action": "planFilterButton.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "planToolbar.getByRole(\"button\", { name: \"\\u641c\\u7d22\\u4e8b\\u9879\\u6807\\u9898\\u6216\\u63cf\\u8ff0\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "newViewButton.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "settingsButton.click()"
+        },
+        {
+          "action": "showSubtasks.click()"
+        },
+        {
+          "action": "settings.getByRole(\"button\", { name: \"\\u5173\\u95ed\" }).click()"
+        },
+        {
+          "action": "planToolbar.getByRole(\"tab\", { name: \"\\u770b\\u677f\" }).click()"
+        },
+        {
+          "action": "planToolbar.getByRole(\"tab\", { name: \"\\u7518\\u7279\" }).click()"
+        },
+        {
+          "action": "gantt.getByRole(\"button\", { name: \"\\u4e0a\\u4e00\\u5468\" }).click()"
+        },
+        {
+          "action": "planToolbar.getByRole(\"tab\", { name: \"\\u65e5\\u5386\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"\\u4efb\\u52a1\", exact: true }).click()"
+        },
+        {
+          "action": "allTasksButton.click()"
+        },
+        {
+          "action": "scopeMenu.getByRole(\"menuitem\", { name: \"\\u4e2a\\u4eba\\u4efb\\u52a1\" }).click()"
+        },
+        {
+          "action": "allSourcesButton.click()"
+        },
+        {
+          "action": "sourceMenu.getByRole(\"menuitem\", { name: \"\\u81ea\\u52a8\\u5316\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"\\u8d44\\u4ea7\", exact: true }).click()"
+        },
+        {
+          "action": "assetTable.locator(\"article\").nth(1).hover()"
+        },
+        {
+          "action": "assetTable.getByTitle(\"\\u66f4\\u591a\\u64cd\\u4f5c\").first().click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "assetTypeButton.click()"
+        },
+        {
+          "action": "assetTypeMenu.getByRole(\"menuitem\", { name: \"PDF\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"\\u65b0\\u5efa\\u6587\\u4ef6\\u5939\", exact: true }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"\\u9080\\u8bf7\", exact: true }).click()"
+        },
+        {
+          "action": "joinModeTrigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"\\u8d44\\u4ea7\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"\\u7f16\\u8f91\\u6307\\u4ee4\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: configDialog.action }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"tab\", { name: \"\\u516c\\u5171\\u6388\\u6743\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"\\u6dfb\\u52a0\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: /\\u4ece\\u6280\\u80fd\\u4e2d\\u5fc3\\u6dfb\\u52a0/ }).click()"
+        },
+        {
+          "action": "picker.getByRole(\"button\", { name: \"\\u53d6\\u6d88\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"\\u6dfb\\u52a0\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"\\u53d6\\u6d88\", exact: true }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "collapse.click()"
+        },
+        {
+          "action": "page.getByTitle(\"\\u5c55\\u5f00\\u9879\\u76ee\\u914d\\u7f6e\").click()"
+        },
+        {
+          "action": "projectServer.close((error) => error ? reject(error) : resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-project-layout.spec.ts",
+        "line_start": 146,
+        "line_end": 2290,
+        "body_sha256": "sha256:b3323f760c22383a6efb5efb405c98f73a565d09d8ecc8323ee9fa44396b1840",
+        "assertion_count": 206,
+        "action_count": 123,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:ef9ede518e599bfc1df299a05e298ddbb1a6bbd8faf2c8ab9d7558324ab2db7b"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-BAC08B102657A7"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-BAC08B102657A7"
+    ]
+  }
+}

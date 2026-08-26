@@ -1,0 +1,280 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-LAYOUT-SHELL-HOME-SPEC-44A9BA11",
+  "title": "UI-LAYOUT-HOME-005 | 浅深主题与三档窗口保持首页框架",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-layout-shell-home.spec.ts",
+      "locator": "line:453;test:UI-LAYOUT-HOME-005 | 浅深主题与三档窗口保持首页框架",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:44a9ba11f2798733c887a54331c12ca99bed08f9f130673727b962f7a6e58815",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE",
+      "type": "structured-workbuddy-oracle",
+      "authority_kind": "normative",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/visual-baselines/shell-home-reference.json",
+      "locator": "json-pointer:/dark/bodyBackground",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:6b4253a85a4f50d98bc18d3d72531738201ab142b0f7bf7c2d86a1df0993f0d4",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-59B3BED8FBCD17",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts:L453:44a9ba11f2"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "UI-LAYOUT-HOME-005 | 浅深主题与三档窗口保持首页框架",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-LAYOUT-HOME-005 | 浅深主题与三档窗口保持首页框架"
+    },
+    {
+      "requirement_id": "REQ-3F2DB00CE26A33",
+      "source_atom_ids": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE:PTR:BEE9EAE658C6B7"
+      ],
+      "content_facets": [
+        "ui-state"
+      ],
+      "acceptance_categories": [
+        "ui-state"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "WorkBuddy structured Oracle /dark/bodyBackground equals \"rgb(24, 24, 24)\"",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "governing_sources": [
+        "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WorkBuddy structured Oracle /dark/bodyBackground equals \"rgb(24, 24, 24)\""
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-18T17:50:14.507922+00:00",
+    "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "account.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "uiExpect.soft(page.locator(\"html\")).toHaveClass(/dark/)",
+    "uiExpect.soft(account).toHaveAttribute(\"aria-expanded\", \"false\")",
+    "uiExpect.soft((await computedStyle(sidebar, [\"background-color\"]))[\"background-color\"]) .toBe(\"rgb(24, 24, 24)\")",
+    "uiExpect.soft((await computedStyle(main, [\"background-color\"]))[\"background-color\"]) .toBe(\"rgb(24, 24, 24)\")",
+    "uiExpect.soft(page.getByRole(\"heading\", { name: \"QWork, 我帮你\" })).toBeVisible()",
+    "uiExpect.soft(page.getByRole(\"textbox\")).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-59B3BED8FBCD17",
+      "type": "ui",
+      "assertion": "UI-LAYOUT-HOME-005 | 浅深主题与三档窗口保持首页框架"
+    },
+    {
+      "requirement_id": "REQ-3F2DB00CE26A33",
+      "type": "ui-state",
+      "assertion": "WorkBuddy structured Oracle /dark/bodyBackground equals \"rgb(24, 24, 24)\""
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-layout-shell-home-spec-ts.44a9ba11f2",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-layout-shell-home.spec.ts -g \"UI-LAYOUT-HOME-005 | 浅深主题与三档窗口保持首页框架\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "account.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-layout-shell-home.spec.ts",
+        "line_start": 453,
+        "line_end": 476,
+        "body_sha256": "sha256:627118de98a0611dca4970eef10c59af592f97fb68796ca25a41704e0b436b06",
+        "assertion_count": 6,
+        "action_count": 2,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:178edf5bd7ee72c94282ee866680110da9802652684099416e69e530836213e8",
+        "supporting_contracts": [
+          {
+            "path": "e2e/visual-baselines/shell-home-reference.json",
+            "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+            "sha256": "sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e",
+            "purpose": "frozen structured WorkBuddy product Oracle governing the mapped pointers"
+          }
+        ]
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": "bug973549-public-reference-643446ff-v1",
+      "verified_at": "2026-08-18T17:50:14.507922+00:00",
+      "environment": "stale deterministic public Playwright reference run"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-3F2DB00CE26A33",
+      "REQ-59B3BED8FBCD17"
+    ],
+    "categories": [
+      "business",
+      "ui-state"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:ui-state",
+      "full",
+      "requirement:REQ-3F2DB00CE26A33",
+      "requirement:REQ-59B3BED8FBCD17"
+    ]
+  }
+}

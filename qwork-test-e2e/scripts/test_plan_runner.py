@@ -19,7 +19,7 @@ def main() -> int:
     repo = args.repo.resolve()
     runner = Path(__file__).with_name("run_release_gate_plan.py")
     with tempfile.TemporaryDirectory(prefix="qwork-plan-runner-") as value:
-        root = Path(value)
+        root = Path(value) / "QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT" / "PLAN-RUNNER"
         result = subprocess.run([sys.executable, str(runner), "--repo", str(repo), "--plan", str(args.plan.resolve()), "--run-root", str(root), "--preflight-only"], cwd=repo, text=True, capture_output=True)
         if result.returncode:
             raise RuntimeError(result.stderr or result.stdout)

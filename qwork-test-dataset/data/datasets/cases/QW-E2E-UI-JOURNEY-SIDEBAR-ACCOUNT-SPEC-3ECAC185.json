@@ -1,0 +1,311 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-JOURNEY-SIDEBAR-ACCOUNT-SPEC-3ECAC185",
+  "title": "UI-JOURNEY-SIDEBAR-FOOTER-002 | message center keeps scrolling open and matches the reference card geometry",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-journey-sidebar-account.spec.ts",
+      "locator": "line:429;test:UI-JOURNEY-SIDEBAR-FOOTER-002 | message center keeps scrolling open and matches the reference card geometry",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:3ecac18588dc9a0423a553aaa77c452a7d7e158325e502034aef5aca86c0e5b0",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-7432F361916BE5",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts:L429:3ecac18588"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "UI-JOURNEY-SIDEBAR-FOOTER-002 | message center keeps scrolling open and matches the reference card geometry",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-JOURNEY-SIDEBAR-FOOTER-002 | message center keeps scrolling open and matches the reference card geometry"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(`__E2E_ERROR__:${index}`)"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "list.hover()"
+    },
+    {
+      "action": "list.focus()"
+    },
+    {
+      "action": "page.keyboard.press(\"PageDown\")"
+    },
+    {
+      "action": "page.mouse.click(600, 300)"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "center.getByRole(\"button\", { name: /查看 任务运行失败/ }).first().click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByTestId(\"dialog-thread-title\")).toHaveText( `E2E 确定性失败 ${index}`, )",
+    "expect(center).toBeVisible()",
+    "expect(center.getByRole(\"listitem\")).toHaveCount(8)",
+    "expect(dateLabel).toBeVisible()",
+    "expect(center).not.toContainText(\"最近\")",
+    "expect(await computedStyle(center, [\"border-radius\", \"border-color\", \"background-color\"])).toEqual({ \"border-radius\": `${MESSAGE_CENTER_REFERENCE.panel.radius}px`, \"border-color\": \"rgb(242, 242, 242)\", \"background-color\": \"rgb(255, 255, 255)\", })",
+    "expect( await computedStyle(center.getByRole(\"heading\", { name: \"消息中心\" }), [ \"font-size\", \"font-weight\", \"line-height\", ]), ).toEqual({ \"font-size\": \"17px\", \"font-weight\": \"600\", \"line-height\": \"22px\", })",
+    "expect.soft(firstCardBox.y - dateLabelBox.bottom).toBeGreaterThanOrEqual(12 - 2)",
+    "expect.soft(firstCardBox.y - dateLabelBox.bottom).toBeLessThanOrEqual(12 + 2)",
+    "expect(await computedStyle(firstCard, [\"border-radius\", \"padding-left\", \"padding-top\"])).toEqual({ \"border-radius\": `${MESSAGE_CENTER_REFERENCE.card.radius}px`, \"padding-left\": \"12px\", \"padding-top\": \"10px\", })",
+    "expect.poll(() => list.evaluate((node) => node.scrollTop)).toBeGreaterThan(0)",
+    "expect(center).toBeVisible()",
+    "expect.poll(() => list.evaluate((node) => node.scrollTop)).toBeGreaterThan(0)",
+    "expect(center).toBeVisible()",
+    "expect(scrollbarDragged).toBe(true)",
+    "expect(center).toBeVisible()",
+    "expect(center).toBeHidden()",
+    "expect(center).toBeHidden()",
+    "expect(trigger).toBeFocused()",
+    "expect.soft(responsiveListBox.height).toBeLessThanOrEqual(viewport.height * 0.7 + 2)",
+    "expect(center).toBeHidden()",
+    "expect(page.getByTestId(\"dialog-thread-title\")).toHaveText(\"E2E 确定性失败 8\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-7432F361916BE5",
+      "type": "return",
+      "assertion": "UI-JOURNEY-SIDEBAR-FOOTER-002 | message center keeps scrolling open and matches the reference card geometry"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-journey-sidebar-account-spec-ts.3ecac18588",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-journey-sidebar-account.spec.ts -g \"UI-JOURNEY-SIDEBAR-FOOTER-002 | message center keeps scrolling open and matches the reference card geometry\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(`__E2E_ERROR__:${index}`)"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "list.hover()"
+        },
+        {
+          "action": "list.focus()"
+        },
+        {
+          "action": "page.keyboard.press(\"PageDown\")"
+        },
+        {
+          "action": "page.mouse.click(600, 300)"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "center.getByRole(\"button\", { name: /查看 任务运行失败/ }).first().click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-journey-sidebar-account.spec.ts",
+        "line_start": 429,
+        "line_end": 569,
+        "body_sha256": "sha256:13bcfea87512e180932352c250c21d77cbcfe8706af2cc8bcef144a3869177cd",
+        "assertion_count": 22,
+        "action_count": 14,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:047431073ce7b9ab48e52418d325e4db86a1ea0d15b882f6f7d4eff7b9d17a29"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-7432F361916BE5"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-7432F361916BE5"
+    ]
+  }
+}

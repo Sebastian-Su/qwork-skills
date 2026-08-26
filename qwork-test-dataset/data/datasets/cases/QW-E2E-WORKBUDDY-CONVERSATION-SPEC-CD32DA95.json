@@ -1,0 +1,292 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-CONVERSATION-SPEC-CD32DA95",
+  "title": "presents an existing conversation with the WorkBuddy expanded and collapsed layouts",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-conversation-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/workbuddy-conversation.spec.ts",
+      "locator": "line:7;test:presents an existing conversation with the WorkBuddy expanded and collapsed layouts",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:cd32da95020ac5e56593eeb887b00270441f7361030d7034418a698dc647a608",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-5C207E63EAA9FE",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts:L7:cd32da9502"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "presents an existing conversation with the WorkBuddy expanded and collapsed layouts",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "presents an existing conversation with the WorkBuddy expanded and collapsed layouts"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"WorkBuddy 对话验收\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"分享任务\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"退出分享\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收起侧栏\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /^编辑/ }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(async () => { const [width, height] = await page.evaluate(() => [window.innerWidth, window.innerHeight]); return Math.abs(width - 1159) <= 2 && height === 792; }).toBe(true)",
+    "expect(page.getByRole(\"button\", { name: \"收起侧栏\" })).toBeVisible()",
+    "expect(sidebarGeometry.brand).toEqual({ y: 30, height: 48 })",
+    "expect(sidebarGeometry.newTask).toEqual({ y: 86, height: 32 })",
+    "expect(page.getByText(\"收到：WorkBuddy 对话验收\", { exact: true })).toBeVisible()",
+    "expect(expanded.title).toMatchObject({ x: 288, height: 32 })",
+    "expect(expanded.scroll).toEqual({ x: 264, y: conversationScrollY, width: viewportWidth - 264, height: 542 })",
+    "expect(expanded.content.width).toBe(832)",
+    "expect(expanded.composer).toEqual({ x: 319.5 + horizontalShift, y: 628 + compactVerticalShift, width: 784, height: 128 })",
+    "expect(page.getByRole(\"button\", { name })).toBeVisible()",
+    "expect(page.getByRole(\"combobox\", { name: \"历史提问\" })).toBeVisible()",
+    "expect(page.getByRole(\"region\", { name: \"分享任务消息选择\" })).toBeVisible()",
+    "expect(composerControls.getByRole(\"button\", { name: \"更多操作\" })).toBeVisible()",
+    "expect(composerControls.getByRole(\"button\", { name: /权限/ })).toBeVisible()",
+    "expect(composerControls.getByTestId(\"composer-model-trigger\")).toBeVisible()",
+    "expect(controlBoxes.more).toMatchObject({ width: 24, height: 24 })",
+    "expect(controlBoxes.more.x).toBeGreaterThanOrEqual(330.5)",
+    "expect(controlBoxes.more.x).toBeLessThanOrEqual(334.5)",
+    "expect(Math.abs(moreBottomGap - 16)).toBeLessThanOrEqual(2)",
+    "expect(controlBoxes.permission).toMatchObject({ height: 32 })",
+    "expect(controlBoxes.permission.x).toBeGreaterThanOrEqual(358.5)",
+    "expect(controlBoxes.permission.x).toBeLessThanOrEqual(362.5)",
+    "expect(controlBoxes.model).toMatchObject({ height: 32 })",
+    "expect(controlBoxes.model.x).toBeGreaterThan(controlBoxes.permission.x)",
+    "expect.poll(() => page.evaluate(() => window.innerHeight)).toBe(900)",
+    "expect(bottomGap).toBe(36)",
+    "expect.poll(() => page.evaluate(() => window.innerHeight)).toBe(792)",
+    "expect(page.getByRole(\"button\", { name: \"展开侧栏\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"新建对话\" })).toBeVisible()",
+    "expect(controlsBox).not.toBeNull()",
+    "expect(titleBox).not.toBeNull()",
+    "expect(separatedFromControls).toBe(true)",
+    "expect(cutMenuItem).toBeVisible()",
+    "expect(menuHitTarget).toBe(true)",
+    "expect(page.getByText(\"收到：WorkBuddy 对话验收\", { exact: true })).toBeVisible()",
+    "expect.poll(() => page.locator('[data-testid=\"conversation-scroll\"]').evaluate((node) => node.getBoundingClientRect().x)).toBe(0)",
+    "expect(collapsed.scroll).toEqual({ x: 0, y: conversationScrollY, width: viewportWidth, height: 542 })",
+    "expect(collapsed.content).toMatchObject({ x: 163.5 + horizontalShift, width: 832 })",
+    "expect(collapsed.composer).toEqual({ x: 187.5 + horizontalShift, y: 628 + compactVerticalShift, width: 784, height: 128 })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-5C207E63EAA9FE",
+      "type": "return",
+      "assertion": "presents an existing conversation with the WorkBuddy expanded and collapsed layouts"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-conversation-spec-ts.cd32da9502",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-conversation.spec.ts -g \"presents an existing conversation with the WorkBuddy expanded and collapsed layouts\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"WorkBuddy 对话验收\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"分享任务\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"退出分享\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收起侧栏\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /^编辑/ }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-conversation.spec.ts",
+        "line_start": 7,
+        "line_end": 194,
+        "body_sha256": "sha256:e57f7924aa28a6c25bc9cd7405c0df6aee6f451fafc70dc8d5a42818c3406e23",
+        "assertion_count": 39,
+        "action_count": 8,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:e41ad610ac1ef751fc8180aeb82fa087f0603c92891af87f8c24be07b2143737"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-5C207E63EAA9FE"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-5C207E63EAA9FE"
+    ]
+  }
+}

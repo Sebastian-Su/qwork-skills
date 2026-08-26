@@ -1,0 +1,332 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-LIVE-LIMITATIONS-SPEC-3C9F8932",
+  "title": "exercises one user action per limitation category without real accounts or network",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-live-limitations-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-live-limitations.spec.ts",
+      "locator": "line:133;test:exercises one user action per limitation category without real accounts or network",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:3c9f89324b61f0be9b33d5aee1683a0070b7ed020d8effad978945c76b11d916",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0C9E831E399129",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-live-limitations-spec-ts:L133:3c9f89324b"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "exercises one user action per limitation category without real accounts or network",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-live-limitations-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "exercises one user action per limitation category without real accounts or network"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: `${name}，未连接`, exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "form.getByLabel(\"测试密钥\").fill(secret)"
+    },
+    {
+      "action": "form.getByRole(\"button\", { name: \"保存并连接\", exact: true }).click()"
+    },
+    {
+      "action": "form.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"停用\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"离线路由检查\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(dialog.getByRole(\"alert\")).toContainText(/HTTP 403.*access_denied/)",
+    "expect(dialog.getByRole(\"alert\")).toContainText(/安装命令行工具失败.*未通过审核/)",
+    "expect.poll(() => fs.access(forbiddenInstallSink).then(() => true, () => false)).toBe( false, )",
+    "expect(form.getByRole(\"alert\")).toContainText(/sidecar.*env/)",
+    "expect(form.getByRole(\"alert\")).not.toContainText(secret)",
+    "expect(JSON.stringify(await readJsonLines(mcpLog))).not.toContain(secret)",
+    "expect(await readJsonLines(mcpLog)).toEqual([])",
+    "expect(dialog.getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible()",
+    "expect(dialog.getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible()",
+    "expect.poll(async () => (await readJsonLines(mcpLog)).filter( ({ type, server }) => type === \"mcp_server_upsert\" && (server as { name?: string } | undefined)?.name === \"cloudbase\", ).length, ).toBe(1)",
+    "expect( dialog.getByRole(\"button\", { name: \"启用\", exact: true }), ).toBeVisible()",
+    "expect.poll(async () => (await readJsonLines(mcpLog)).filter( ({ type, name }) => type === \"mcp_server_remove\" && name === \"cloudbase\", ).length, ).toBe(1)",
+    "expect(page.getByText(\"收到：离线路由检查\", { exact: true })).toBeVisible()",
+    "expect.poll(async () => { const record = (await readJsonLines(sidecarLog)).find( ({ type }) => type === \"user_message\", ); return JSON.stringify(record?.content ?? \"\"); }).toContain(\"CLI 连接器：tmeet\")",
+    "expect(promptWire).toContain(\"tencent-meeting-skill\")",
+    "expect(promptWire).toContain(\"tmeet,wecom,weisheng-scrm\")",
+    "expect(promptWire).toContain(\"wecom（Skill：wecom-cli）\")",
+    "expect(promptWire).not.toMatch( /连接器 [^。]*wecom[^。]* 当前没有可调用的 Agent 工具/, )",
+    "expect(promptWire).not.toContain(\"MCP 连接器：wecom\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0C9E831E399129",
+      "type": "return",
+      "assertion": "exercises one user action per limitation category without real accounts or network"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-live-limitations-spec-ts.3c9f89324b",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-live-limitations.spec.ts -g \"exercises one user action per limitation category without real accounts or network\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: `${name}，未连接`, exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "form.getByLabel(\"测试密钥\").fill(secret)"
+        },
+        {
+          "action": "form.getByRole(\"button\", { name: \"保存并连接\", exact: true }).click()"
+        },
+        {
+          "action": "form.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"停用\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"离线路由检查\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-live-limitations.spec.ts",
+        "line_start": 133,
+        "line_end": 426,
+        "body_sha256": "sha256:5aa4eb75bc5483275596ad75419150a63beddde87f9edd44944658d9eac3757e",
+        "assertion_count": 19,
+        "action_count": 18,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:c94af32da75febcd92948682d433d87554935faa84c8968ce3844fb5aef35bc4"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0C9E831E399129"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-0C9E831E399129"
+    ]
+  }
+}

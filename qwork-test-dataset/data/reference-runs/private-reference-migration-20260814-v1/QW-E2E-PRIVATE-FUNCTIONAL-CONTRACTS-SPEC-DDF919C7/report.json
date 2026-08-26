@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "case_id": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-DDF919C7",
+  "case_title": "WB-EXPERT-001 + WB-EXPERT-002 | 专家详情与召唤保留草稿且不建会话",
+  "status": "fail",
+  "started_at": "2026-08-14T03:32:51.621Z",
+  "finished_at": "2026-08-14T03:33:11.388Z",
+  "exit_code": 1,
+  "zero_real_model_calls": true,
+  "isolated_qwork_home": true,
+  "deterministic_sidecar": "repo://e2e/fixtures/fake-sidecar.mjs",
+  "source": {
+    "spec": "skill://qwork-test-dataset/data/e2e/summon-causality.spec.ts",
+    "spec_sha256": "sha256:05cb78301681ac3f8eee97ecf3453eb80db7fc3b80bfceb320e3c230cfc662a8",
+    "implementation_revision": "19f210518dbad3768eb14a09baa5eea226016c7b"
+  },
+  "authority": {
+    "files": [
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts",
+        "sha256": "sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts",
+        "sha256": "sha256:75ea3197686d34faf9b138145ccc5050eac2bbaba31ea7aed1e3f4fdc63ddbd7"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/private-case-authority.mjs",
+        "sha256": "sha256:c12ff17a7412d163e059edfbca77e0ba098425d09ffe1bc9d0a264dd4e7374a5"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs",
+        "sha256": "sha256:dc1703fe395b9a236d8e8ba001d6b37bff23f7fc9b25e0653a97b54f5f88c1a7"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/build_isolated_electron.mjs",
+        "sha256": "sha256:3634574afd74c3762e05b814b80d7bbc1aee08c8c782ebb1884a6b7df10db468"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts",
+        "sha256": "sha256:7a8c176c431352e692fe7dfba03d25ad90a0c2f48c4c67cc861fe887b18fcaba"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/playwright-private.config.ts",
+        "sha256": "sha256:f92ce629c0a6aef9a3800c85028aa6f26adef6454ca94cb8edf54b1aa2572eea"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/package.json",
+        "sha256": "sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390"
+      },
+      {
+        "locator": "repo://e2e/fixtures/fake-sidecar.mjs",
+        "sha256": "sha256:9ea7d9a1ec44d6a681f929f2005ea207598d4711c7de12be55dd447f6c2f91f0"
+      },
+      {
+        "locator": "repo://e2e/fixtures/workbuddy-ui.ts",
+        "sha256": "sha256:4458ee31d84e60d047334a9e26faef4a4415d79046fefd2b3f84bebeff1c2675"
+      }
+    ]
+  },
+  "selected_tests": [
+    {
+      "title": "WB-EXPERT-001 + WB-EXPERT-002 | 专家详情与召唤保留草稿且不建会话",
+      "file": "summon-causality.spec.ts",
+      "path": "summon-causality.spec.ts > WB-EXPERT-001 + WB-EXPERT-002 | 专家详情与召唤保留草稿且不建会话",
+      "status": "unexpected",
+      "duration_ms": 19309
+    }
+  ],
+  "evidence": {
+    "integrity": "complete",
+    "integrity_errors": [],
+    "build_manifest": {
+      "path": "build-manifest.json",
+      "sha256": "sha256:4ee32e6dc93c70c3bf5ac03549f7c54727d80fd75867be3569bfed46a8117df8"
+    },
+    "playwright_report": {
+      "path": "playwright-report.json",
+      "sha256": "sha256:32219952a313cadf85ee596f0374da75d469ca39643cb16b96a2341cc67c2045"
+    },
+    "stderr": {
+      "path": "playwright.stderr.log",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "electron_runtime": {
+      "path": "electron-runtime.log",
+      "sha256": "sha256:482fae5d35cabed5e0f84ddcf86f53952f7673cf05a73398acd1289d594f368d"
+    },
+    "screenshots": [
+      {
+        "path": "screenshots/WB-EXPERT-001-WB-EXPERT-002-专家详情与召唤保留草稿且不建会话-entry-expert-detail-with-draft.png",
+        "sha256": "sha256:4cf2ded3b1dc668c598ef3eaf59434056f052be5f9c532f22696e38e741e493f"
+      },
+      {
+        "path": "screenshots/WB-EXPERT-001-WB-EXPERT-002-专家详情与召唤保留草稿且不建会话-final-expert-no-session-no-user-message.png",
+        "sha256": "sha256:06375f9503fb4b82fa527cff5139c5978f50b2adaea76db36cec9d2de3aa6e71"
+      },
+      {
+        "path": "screenshots/WB-EXPERT-001-WB-EXPERT-002-专家详情与召唤保留草稿且不建会话-transition-expert-selected-before-oracles.png",
+        "sha256": "sha256:06375f9503fb4b82fa527cff5139c5978f50b2adaea76db36cec9d2de3aa6e71"
+      }
+    ],
+    "traces": [
+      {
+        "path": "playwright-results/summon-causality-WB-EXPERT-e731d-EXPERT-002-专家详情与召唤保留草稿且不建会话/trace.zip",
+        "sha256": "sha256:fb6e85b8a4191942ee36150d706947f04265cd086dd32f61f821371fabe33e8f"
+      }
+    ]
+  },
+  "cleanup": {
+    "case_owned_qwork_home_removed_by_fixture": true,
+    "app_process_closed_by_fixture": true,
+    "app_assembly_removed": true
+  }
+}

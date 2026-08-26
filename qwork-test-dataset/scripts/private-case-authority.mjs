@@ -1,6 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
+export const TEMP_ROOT_NAME = "QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT";
+
 export async function loadPrivateCaseAuthority({ skillRoot, repo, caseId, title }) {
   const [canonicalSkillRoot, canonicalRepo] = await Promise.all([
     fs.realpath(skillRoot),
@@ -33,37 +35,38 @@ export async function loadPrivateCaseAuthority({ skillRoot, repo, caseId, title 
 }
 
 export async function resolvePrivateRunRoot({ skillEntry, skillRoot, cwd, value }) {
+  if (!path.isAbsolute(value)) {
+    throw new Error("private E2E run root must be an absolute path");
+  }
   const input = path.resolve(cwd, value);
-  let relative = null;
-  for (const base of [skillRoot, skillEntry]) {
-    const candidate = path.relative(base, input);
-    if (candidate && !candidate.startsWith("..") && !path.isAbsolute(candidate)) {
-      relative = candidate;
-      break;
-    }
-  }
-  if (!relative || !(relative === "data/runs" || relative.startsWith(`data/runs${path.sep}`))) {
-    throw new Error(`run root must be inside the private Dataset data/runs directory: ${input}`);
-  }
-  if (relative === "data/runs") {
-    throw new Error("run root must identify one unique run below data/runs");
-  }
-  const resolved = path.join(skillRoot, relative);
-  let ancestor = resolved;
+  let ancestor = input;
+  const missing = [];
   while (true) {
     try {
       const actual = await fs.realpath(ancestor);
-      const approved = await fs.realpath(path.join(skillRoot, "data/runs"));
-      if (actual !== approved && !actual.startsWith(`${approved}${path.sep}`)) {
-        throw new Error(`run root existing ancestor escapes private Dataset data/runs: ${ancestor}`);
-      }
+      ancestor = actual;
       break;
     } catch (error) {
       if (error.code !== "ENOENT") throw error;
+      missing.unshift(path.basename(ancestor));
       const parent = path.dirname(ancestor);
       if (parent === ancestor) throw error;
       ancestor = parent;
     }
+  }
+  const resolved = path.join(ancestor, ...missing);
+  const canonicalSkillRoot = await fs.realpath(skillRoot);
+  const repoRoot = path.resolve(skillEntry, "../../..");
+  for (const protectedRoot of [canonicalSkillRoot, repoRoot]) {
+    const relative = path.relative(protectedRoot, resolved);
+    if (!relative.startsWith("..") && !path.isAbsolute(relative)) {
+      throw new Error(`private E2E run root resolves inside a protected Git or Skill root: ${resolved}`);
+    }
+  }
+  const parts = resolved.split(path.sep);
+  const markerIndex = parts.lastIndexOf(TEMP_ROOT_NAME);
+  if (markerIndex < 0 || markerIndex === parts.length - 1) {
+    throw new Error(`private E2E run root must be below ${TEMP_ROOT_NAME}: ${resolved}`);
   }
   return resolved;
 }

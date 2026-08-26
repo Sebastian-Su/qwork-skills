@@ -1,0 +1,262 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-EXPERT-TEAM-SPEC-20D48D28",
+  "title": "team members stay registered until ZiqDo emits their independent streams",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-team",
+    "journey": "expert-team",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-expert-team-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/expert-team.spec.ts",
+      "locator": "line:14;test:team members stay registered until ZiqDo emits their independent streams",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:20d48d28bed68e9f137064b7905cbb5c463421263c53a74b1ae364a74a63deb0",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-402EE0CD9BE06F",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-expert-team-spec-ts:L14:20d48d28be"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "team members stay registered until ZiqDo emits their independent streams",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-expert-team-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "team members stay registered until ZiqDo emits their independent streams"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"__E2E_EXPERT_TEAM__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /发布运营.*已完成/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /游戏开发工作室.*负责人/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").fill(\"__E2E_EXPERT_TEAM_RUNNING__\")"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"__E2E_EXPERT_TEAM__\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /发布运营.*已中断/ }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"navigation\", { name: \"专家团成员\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: /发布运营.*已完成/ })).toBeVisible({ timeout: 30_000, })",
+    "expect(page.getByRole(\"button\", { name: /质量保障.*已完成/ })).toBeVisible({ timeout: 30_000, })",
+    "expect(page.getByRole(\"heading\", { name: \"发布运营\" })).toBeVisible()",
+    "expect(page.getByText(\"Sprint 规划已完成\", { exact: true })).toBeVisible()",
+    "expect .poll(async () => fs.readFile(controlLog, \"utf8\")) .toContain('\"type\":\"subscribe_subagent_streams\"')",
+    "expect(page.getByRole(\"button\", { name: /发布运营.*运行中/ })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: /发布运营.*已中断/ })).toBeVisible()",
+    "expect(page.getByText(\"等待用户确认\", { exact: true })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-402EE0CD9BE06F",
+      "type": "return",
+      "assertion": "team members stay registered until ZiqDo emits their independent streams"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-expert-team-spec-ts.20d48d28be",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/expert-team.spec.ts -g \"team members stay registered until ZiqDo emits their independent streams\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-team",
+      "steps": [
+        {
+          "action": "composer.fill(\"__E2E_EXPERT_TEAM__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /发布运营.*已完成/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /游戏开发工作室.*负责人/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").fill(\"__E2E_EXPERT_TEAM_RUNNING__\")"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"__E2E_EXPERT_TEAM__\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /发布运营.*已中断/ }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/expert-team.spec.ts",
+        "line_start": 14,
+        "line_end": 64,
+        "body_sha256": "sha256:84fca62351c7060abe7f51cc9ca47be99d104a4b9f7bb66a41828f5926dafa2f",
+        "assertion_count": 9,
+        "action_count": 8,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:ee6745b3feb6bf7a5b519d3762197a5ed39a8f76fa019b132bb3069784475fc4"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-402EE0CD9BE06F"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-402EE0CD9BE06F"
+    ]
+  }
+}

@@ -10,6 +10,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from external_artifact_storage import REPORT_JSON_NAME, validate_external_run_root
+
 
 def load(path: Path) -> dict[str, Any]:
     value = json.loads(path.read_text(encoding="utf-8"))
@@ -84,8 +86,13 @@ def main() -> int:
     parser.add_argument("--run-root", type=Path, required=True)
     parser.add_argument("--dataset-skill", type=Path)
     args = parser.parse_args()
-    repo, plan_path, run_root = args.repo.resolve(), args.plan.resolve(), args.run_root.resolve()
+    repo, plan_path = args.repo.resolve(), args.plan.resolve()
     dataset = (args.dataset_skill or repo / ".agents/skills/qwork-test-dataset").resolve()
+    skill = Path(__file__).resolve().parent.parent
+    run_root = validate_external_run_root(
+        args.run_root,
+        protected_roots=[repo, dataset, skill],
+    )
     plan = load(plan_path)
     state = load(run_root / "runner-state.json") if (run_root / "runner-state.json").is_file() else {"coordinates": {}}
     preflight = load(run_root / "execution-preflight.json")
@@ -296,7 +303,7 @@ def main() -> int:
         "full_suite_conclusion": "repair-required",
         "visual_artifact_exclusions": [],
     }
-    output = run_root / "report.json"
+    output = run_root / REPORT_JSON_NAME
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"status": "ok", "report": str(output), "results": len(results), "cases": len(human_cases), "counts": counts, "visual_evidence_gaps": visual_gap_count}, ensure_ascii=False))
     return 0

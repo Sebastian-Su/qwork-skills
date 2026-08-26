@@ -1,0 +1,240 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CUSTOM-MODEL-SPEC-7C596DC6",
+  "title": "groups custom models in the composer picker and offers the配置 shortcut",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "settings",
+    "journey": "settings",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-custom-model-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/custom-model.spec.ts",
+      "locator": "line:248;test:groups custom models in the composer picker and offers the配置 shortcut",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:7c596dc6014f841e079c54a5cc4eeb4a698cf6b4a0413c47d39b332f2eb14b13",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-A12A3AA0952B44",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-custom-model-spec-ts:L248:7c596dc601"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "settings",
+      "priority": "P1",
+      "rule": "groups custom models in the composer picker and offers the配置 shortcut",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-custom-model-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "groups custom models in the composer picker and offers the配置 shortcut"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"添加模型\" }).click()"
+    },
+    {
+      "action": "editor.getByRole(\"button\", { name: \"保存\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"关闭设置\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"GLM-5.2\", exact: true }).click()"
+    },
+    {
+      "action": "menu.getByRole(\"button\", { name: \"配置自定义模型\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(editor).toBeHidden()",
+    "expect(menu.getByText(\"自定义模型\", { exact: true })).toBeVisible()",
+    "expect( menu.getByRole(\"menuitemradio\", { name: \"picker-model\" }), ).toBeVisible()",
+    "expect(menu).toBeHidden()",
+    "expect( page.getByRole(\"dialog\", { name: \"设置\" }).getByText(\"已保存模型\"), ).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-A12A3AA0952B44",
+      "type": "ui",
+      "assertion": "groups custom models in the composer picker and offers the配置 shortcut"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-custom-model-spec-ts.7c596dc601",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/custom-model.spec.ts -g \"groups custom models in the composer picker and offers the配置 shortcut\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "settings",
+      "steps": [
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"添加模型\" }).click()"
+        },
+        {
+          "action": "editor.getByRole(\"button\", { name: \"保存\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"关闭设置\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"GLM-5.2\", exact: true }).click()"
+        },
+        {
+          "action": "menu.getByRole(\"button\", { name: \"配置自定义模型\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/custom-model.spec.ts",
+        "line_start": 248,
+        "line_end": 285,
+        "body_sha256": "sha256:53d5447c3baeb58b1590c705d785cd20b99f42011928ce3eeac0da954baaba4e",
+        "assertion_count": 5,
+        "action_count": 5,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:66d4518842206f5606974fcf874ca5d72463fed7a4a677c6ba6046a91f2abdbc"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-A12A3AA0952B44"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-A12A3AA0952B44"
+    ]
+  }
+}

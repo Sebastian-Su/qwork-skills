@@ -17,6 +17,8 @@ import subprocess
 import sys
 from typing import Any
 
+from external_artifact_storage import validate_external_run_root
+
 
 GATE_COMMANDS = {
     "gate:source-acceptance": "python3 .agents/skills/qwork-test-e2e/scripts/validate_source_acceptance.py --repo . --manifest skill://qwork-test-dataset/data/datasets/source-acceptance.json",
@@ -380,8 +382,8 @@ def coordinate_steps(
         return [[*coordinate["argv"], "--output", str(result_path)]], [result_path]
     if coordinate.get("private_playwright"):
         private_root = (
-            dataset
-            / "data/runs/release-gate-execution"
+            run_root
+            / "PRIVATE-EVIDENCE"
             / private_run_namespace(run_root)
             / safe_name(str(coordinate["case_id"]))
         )
@@ -477,14 +479,14 @@ def infer_visual_state(name: str, *, failed: bool) -> str:
         return "entry"
     if "transition" in lowered:
         return "transition"
+    if "final" in lowered:
+        return "final-state"
     if "before" in lowered:
         return "before-important-mutation"
     if "after" in lowered:
         return "after-important-mutation"
     if "test-finished" in lowered:
         return "checkpoint"
-    if "final" in lowered:
-        return "final-state"
     if failed and ("fail" in lowered or "error" in lowered):
         return "assertion-failure"
     return "checkpoint"
@@ -623,9 +625,13 @@ def main() -> int:
     parser.add_argument("--category", action="append", choices=sorted(LOCAL_CATEGORIES))
     parser.add_argument("--item-id", action="append")
     args = parser.parse_args()
-    repo, plan_path, run_root = args.repo.resolve(), args.plan.resolve(), args.run_root.resolve()
+    repo, plan_path = args.repo.resolve(), args.plan.resolve()
     dataset = (args.dataset_skill or repo / ".agents/skills/qwork-test-dataset").resolve()
     skill = Path(__file__).resolve().parent.parent
+    run_root = validate_external_run_root(
+        args.run_root,
+        protected_roots=[repo, dataset, skill],
+    )
     plan = load(plan_path)
     validate_authority(repo, plan, dataset, skill)
     cases = {path.stem: load(path) for path in sorted((dataset / "data/datasets/cases").glob("*.json"))}

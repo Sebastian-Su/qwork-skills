@@ -1595,7 +1595,7 @@ def default_case(
             "contract_version": 1,
             "readiness": readiness,
             "route_id": route_id,
-            "target": {"kind": "installed-app", "platforms": target_platforms_for_title(title), "artifact": ("skill://qwork-test-dataset/data/runs/<run-id>/app + Electron" if private_spec else "repo://out/main/index.js + Electron")},
+            "target": {"kind": "installed-app", "platforms": target_platforms_for_title(title), "artifact": ("external-run://QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/app + Electron" if private_spec else "repo://out/main/index.js + Electron")},
             "authorization": {"required": is_live, "scopes": (["real external account/service/model route named by the source test"] if is_live else [])},
             "preflight": [
                 {"action": "resolve repo revision and dependency lock", "oracle": "revision and lock hashes are recorded"},

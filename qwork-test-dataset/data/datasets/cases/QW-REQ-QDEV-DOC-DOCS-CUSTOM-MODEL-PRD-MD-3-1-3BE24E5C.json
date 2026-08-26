@@ -1,0 +1,499 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CUSTOM-MODEL-PRD-MD-3-1-3BE24E5C",
+  "title": "docs/custom-model-prd.md · 3.1 业务背景 产品契约",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-custom-model-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/custom-model-prd.md",
+      "locator": "line:52;heading:3.1 业务背景",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:c737971cf3fb4dbc5ded77b73856cfc5c8761fe1baafdcf9e6b5701afc718511",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-custom-model-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/custom-model-prd.md",
+      "locator": "line:56;heading:3.1 业务背景",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:b869531ae0bdd55a715fba649cb5154b45eee3905e7618565ddb3c8b04ccb63a",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-custom-model-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/custom-model-prd.md",
+      "locator": "line:58;heading:3.1 业务背景",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:41502b7fb4347b9c8dbf5f188b49ae0dcd4e64c548bc017b8426f02013c5427e",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-custom-model-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/custom-model-prd.md",
+      "locator": "line:59;heading:3.1 业务背景",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:e4c6d17ca0c1eaa9c40a0da9aad48afaa0bbf525ee5d52ac161ec741b94eb28e",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-custom-model-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/custom-model-prd.md",
+      "locator": "line:60;heading:3.1 业务背景",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:029c0398137857c21ffc144640faf90a2b7fa78f924d3a85764cdb03f91a282b",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-9AAD7738E88296",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-custom-model-prd-md:L52:c737971cf3"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "QWork 当前的可用模型完全由云端下发。`src/main/cloud/LLMModelCatalog.ts:142-153` 向 `${projectApiBaseUrl}/api/v1/llm/models` 拉取目录， `resolve()`（`:127-140`）对任何不在该目录内的模型 ID 直接抛错拒绝。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-custom-model-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "QWork 当前的可用模型完全由云端下发。`src/main/cloud/LLMModelCatalog.ts:142-153` 向 `${projectApiBaseUrl}/api/v1/llm/models` 拉取目录， `resolve()`（`:127-140`）对任何不在该目录内的模型 ID 直接抛错拒绝。"
+    },
+    {
+      "requirement_id": "REQ-317A5F9134CFBD",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-custom-model-prd-md:L56:b869531ae0"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "这带来三类用户无法自行解决的阻塞：",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-custom-model-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "这带来三类用户无法自行解决的阻塞："
+    },
+    {
+      "requirement_id": "REQ-BC652AEDA57815",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-custom-model-prd-md:L58:41502b7fb4"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "**私有化与内网场景**：客户在内网部署了自有推理服务，QWork 无法接入。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-custom-model-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**私有化与内网场景**：客户在内网部署了自有推理服务，QWork 无法接入。"
+    },
+    {
+      "requirement_id": "REQ-BC90F3D3F65001",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-custom-model-prd-md:L59:e4c6d17ca0"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "**本地模型**：用户已在本机跑 Ollama 等本地推理，无法在 QWork 中使用。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-custom-model-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**本地模型**：用户已在本机跑 Ollama 等本地推理，无法在 QWork 中使用。"
+    },
+    {
+      "requirement_id": "REQ-0B692699C8854B",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-custom-model-prd-md:L60:029c039813"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "**自带额度**：用户持有第三方 provider 的 API Key，希望用自己的额度而非平台额度。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-custom-model-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**自带额度**：用户持有第三方 provider 的 API Key，希望用自己的额度而非平台额度。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/custom-model-prd.md · 3.1 业务背景 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-9AAD7738E88296] exactly: QWork 当前的可用模型完全由云端下发。`src/main/cloud/LLMModelCatalog.ts:142-153` 向 `${projectApiBaseUrl}/api/v1/llm/models` 拉取目录， `resolve()`（`:127-140`）对任何不在该目录内的模型 ID 直接抛错拒绝。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-317A5F9134CFBD] exactly: 这带来三类用户无法自行解决的阻塞："
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-BC652AEDA57815] exactly: **私有化与内网场景**：客户在内网部署了自有推理服务，QWork 无法接入。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-BC90F3D3F65001] exactly: **本地模型**：用户已在本机跑 Ollama 等本地推理，无法在 QWork 中使用。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0B692699C8854B] exactly: **自带额度**：用户持有第三方 provider 的 API Key，希望用自己的额度而非平台额度。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "QWork 当前的可用模型完全由云端下发。`src/main/cloud/LLMModelCatalog.ts:142-153` 向 `${projectApiBaseUrl}/api/v1/llm/models` 拉取目录， `resolve()`（`:127-140`）对任何不在该目录内的模型 ID 直接抛错拒绝。",
+    "这带来三类用户无法自行解决的阻塞：",
+    "**私有化与内网场景**：客户在内网部署了自有推理服务，QWork 无法接入。",
+    "**本地模型**：用户已在本机跑 Ollama 等本地推理，无法在 QWork 中使用。",
+    "**自带额度**：用户持有第三方 provider 的 API Key，希望用自己的额度而非平台额度。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-9AAD7738E88296]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: QWork 当前的可用模型完全由云端下发。`src/main/cloud/LLMModelCatalog.ts:142-153` 向 `${projectApiBaseUrl}/api/v1/llm/models` 拉取目录， `resolve()`（`:127-140`）对任何不在该目录内的模型 ID 直接抛错拒绝。",
+    "FAIL [REQ-317A5F9134CFBD]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 这带来三类用户无法自行解决的阻塞：",
+    "FAIL [REQ-BC652AEDA57815]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **私有化与内网场景**：客户在内网部署了自有推理服务，QWork 无法接入。",
+    "FAIL [REQ-BC90F3D3F65001]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **本地模型**：用户已在本机跑 Ollama 等本地推理，无法在 QWork 中使用。",
+    "FAIL [REQ-0B692699C8854B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **自带额度**：用户持有第三方 provider 的 API Key，希望用自己的额度而非平台额度。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-9AAD7738E88296",
+      "type": "return",
+      "assertion": "QWork 当前的可用模型完全由云端下发。`src/main/cloud/LLMModelCatalog.ts:142-153` 向 `${projectApiBaseUrl}/api/v1/llm/models` 拉取目录， `resolve()`（`:127-140`）对任何不在该目录内的模型 ID 直接抛错拒绝。"
+    },
+    {
+      "requirement_id": "REQ-317A5F9134CFBD",
+      "type": "ui",
+      "assertion": "这带来三类用户无法自行解决的阻塞："
+    },
+    {
+      "requirement_id": "REQ-BC652AEDA57815",
+      "type": "return",
+      "assertion": "**私有化与内网场景**：客户在内网部署了自有推理服务，QWork 无法接入。"
+    },
+    {
+      "requirement_id": "REQ-BC90F3D3F65001",
+      "type": "ui",
+      "assertion": "**本地模型**：用户已在本机跑 Ollama 等本地推理，无法在 QWork 中使用。"
+    },
+    {
+      "requirement_id": "REQ-0B692699C8854B",
+      "type": "return",
+      "assertion": "**自带额度**：用户持有第三方 provider 的 API Key，希望用自己的额度而非平台额度。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-custom-model-prd-md.3-1-3be24e5c73",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/custom-model-prd.md · 3.1 业务背景 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-9AAD7738E88296] exactly: QWork 当前的可用模型完全由云端下发。`src/main/cloud/LLMModelCatalog.ts:142-153` 向 `${projectApiBaseUrl}/api/v1/llm/models` 拉取目录， `resolve()`（`:127-140`）对任何不在该目录内的模型 ID 直接抛错拒绝。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-317A5F9134CFBD] exactly: 这带来三类用户无法自行解决的阻塞："
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-BC652AEDA57815] exactly: **私有化与内网场景**：客户在内网部署了自有推理服务，QWork 无法接入。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-BC90F3D3F65001] exactly: **本地模型**：用户已在本机跑 Ollama 等本地推理，无法在 QWork 中使用。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0B692699C8854B] exactly: **自带额度**：用户持有第三方 provider 的 API Key，希望用自己的额度而非平台额度。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0B692699C8854B",
+      "REQ-317A5F9134CFBD",
+      "REQ-9AAD7738E88296",
+      "REQ-BC652AEDA57815",
+      "REQ-BC90F3D3F65001"
+    ],
+    "categories": [
+      "business",
+      "negative"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:negative",
+      "full",
+      "requirement:REQ-0B692699C8854B",
+      "requirement:REQ-317A5F9134CFBD",
+      "requirement:REQ-9AAD7738E88296",
+      "requirement:REQ-BC652AEDA57815",
+      "requirement:REQ-BC90F3D3F65001"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-9AAD7738E88296",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/custom-model-prd.md · 3.1 业务背景 产品契约 exactly once and retain its correlation identity",
+      "then": "QWork 当前的可用模型完全由云端下发。`src/main/cloud/LLMModelCatalog.ts:142-153` 向 `${projectApiBaseUrl}/api/v1/llm/models` 拉取目录， `resolve()`（`:127-140`）对任何不在该目录内的模型 ID 直接抛错拒绝。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-317A5F9134CFBD",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/custom-model-prd.md · 3.1 业务背景 产品契约 exactly once and retain its correlation identity",
+      "then": "这带来三类用户无法自行解决的阻塞：",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-BC652AEDA57815",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/custom-model-prd.md · 3.1 业务背景 产品契约 exactly once and retain its correlation identity",
+      "then": "**私有化与内网场景**：客户在内网部署了自有推理服务，QWork 无法接入。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-BC90F3D3F65001",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/custom-model-prd.md · 3.1 业务背景 产品契约 exactly once and retain its correlation identity",
+      "then": "**本地模型**：用户已在本机跑 Ollama 等本地推理，无法在 QWork 中使用。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-0B692699C8854B",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/custom-model-prd.md · 3.1 业务背景 产品契约 exactly once and retain its correlation identity",
+      "then": "**自带额度**：用户持有第三方 provider 的 API Key，希望用自己的额度而非平台额度。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

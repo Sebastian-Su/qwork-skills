@@ -1,0 +1,357 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-HOME-PRA-8-7A4BA17D",
+  "title": "docs/changes/CHG-home-practice-cases-20260819/phase-1-requirements.md · 8. 安全与边界 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-22e3049d",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/changes/CHG-home-practice-cases-20260819/phase-1-requirements.md",
+      "locator": "line:120;heading:8. 安全与边界",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:4f583119ac029f0486e105f982629c64ce007aee8f83ead8f75d0480a48f572a",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-22e3049d",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/changes/CHG-home-practice-cases-20260819/phase-1-requirements.md",
+      "locator": "line:121;heading:8. 安全与边界",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:612b9a0f08f77ad5625ab8ed8058404ada2a91565175658a5fc421a8f849e774",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-22e3049d",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/changes/CHG-home-practice-cases-20260819/phase-1-requirements.md",
+      "locator": "line:122;heading:8. 安全与边界",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:f80d7290f82b8367cc520676f1115e5e5b807adfd40cba3c3e65bde519a7e239",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-8D45B1778078AA",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-22e3049d:L120:4f583119ac"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "Renderer 只读打包目录模块，不读文件系统、不 fetch。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-22e3049d"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Renderer 只读打包目录模块，不读文件系统、不 fetch。"
+    },
+    {
+      "requirement_id": "REQ-8E5D80B3EA4009",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-22e3049d:L121:612b9a0f08"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "封面路径必须落在应用资源白名单（打包静态资源），不得是任意 `http(s)`。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-22e3049d"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "封面路径必须落在应用资源白名单（打包静态资源），不得是任意 `http(s)`。"
+    },
+    {
+      "requirement_id": "REQ-F0FA8DF20A6734",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-22e3049d:L122:f80d7290f8"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "不新增 IPC。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-22e3049d"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "不新增 IPC。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for shell-home at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-1-requirements.md · 8. 安全与边界 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-8D45B1778078AA] exactly: Renderer 只读打包目录模块，不读文件系统、不 fetch。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8E5D80B3EA4009] exactly: 封面路径必须落在应用资源白名单（打包静态资源），不得是任意 `http(s)`。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-F0FA8DF20A6734] exactly: 不新增 IPC。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "Renderer 只读打包目录模块，不读文件系统、不 fetch。",
+    "封面路径必须落在应用资源白名单（打包静态资源），不得是任意 `http(s)`。",
+    "不新增 IPC。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-8D45B1778078AA]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Renderer 只读打包目录模块，不读文件系统、不 fetch。",
+    "FAIL [REQ-8E5D80B3EA4009]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 封面路径必须落在应用资源白名单（打包静态资源），不得是任意 `http(s)`。",
+    "FAIL [REQ-F0FA8DF20A6734]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 不新增 IPC。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-8D45B1778078AA",
+      "type": "database",
+      "assertion": "Renderer 只读打包目录模块，不读文件系统、不 fetch。"
+    },
+    {
+      "requirement_id": "REQ-8E5D80B3EA4009",
+      "type": "return",
+      "assertion": "封面路径必须落在应用资源白名单（打包静态资源），不得是任意 `http(s)`。"
+    },
+    {
+      "requirement_id": "REQ-F0FA8DF20A6734",
+      "type": "return",
+      "assertion": "不新增 IPC。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-home-pract.8-7a4ba17d71",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for shell-home at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-1-requirements.md · 8. 安全与边界 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-8D45B1778078AA] exactly: Renderer 只读打包目录模块，不读文件系统、不 fetch。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8E5D80B3EA4009] exactly: 封面路径必须落在应用资源白名单（打包静态资源），不得是任意 `http(s)`。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-F0FA8DF20A6734] exactly: 不新增 IPC。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-8D45B1778078AA",
+      "REQ-8E5D80B3EA4009",
+      "REQ-F0FA8DF20A6734"
+    ],
+    "categories": [
+      "business",
+      "data",
+      "negative"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:data",
+      "category:negative",
+      "full",
+      "requirement:REQ-8D45B1778078AA",
+      "requirement:REQ-8E5D80B3EA4009",
+      "requirement:REQ-F0FA8DF20A6734"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-8D45B1778078AA",
+      "oracle_type": "database",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-1-requirements.md · 8. 安全与边界 产品契约 exactly once and retain its correlation identity",
+      "then": "Renderer 只读打包目录模块，不读文件系统、不 fetch。",
+      "observation_boundary": "case-owned durable database state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-8E5D80B3EA4009",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-1-requirements.md · 8. 安全与边界 产品契约 exactly once and retain its correlation identity",
+      "then": "封面路径必须落在应用资源白名单（打包静态资源），不得是任意 `http(s)`。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-F0FA8DF20A6734",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-1-requirements.md · 8. 安全与边界 产品契约 exactly once and retain its correlation identity",
+      "then": "不新增 IPC。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

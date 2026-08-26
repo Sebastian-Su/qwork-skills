@@ -1,0 +1,277 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECT-PUBLIC-CONNECTORS-SPEC-A6D3E99C",
+  "title": "opens the owner-only public credential picker backed by qwork_server",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-project-public-connectors-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/project-public-connectors.spec.ts",
+      "locator": "line:14;test:opens the owner-only public credential picker backed by qwork_server",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:a6d3e99c3c2275bd98a8af87567327b019b3fd9323b2bad6dfa89473c6867679",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-FB2AF07B5C68FB",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-project-public-connectors-spec-ts:L14:a6d3e99c3c"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "opens the owner-only public credential picker backed by qwork_server",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-project-public-connectors-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "opens the owner-only public credential picker backed by qwork_server"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "createDialog.getByPlaceholder(\"请输入项目名称\").fill(\"公共凭据项目\")"
+    },
+    {
+      "action": "createDialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"管理连接器\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"tab\", { name: \"公共授权\" }).click()"
+    },
+    {
+      "action": "add.click()"
+    },
+    {
+      "action": "cnb.click()"
+    },
+    {
+      "action": "tokenDialog.getByPlaceholder(\"输入令牌\").fill(\"cnb-e2e-token\")"
+    },
+    {
+      "action": "tokenDialog.getByRole(\"button\", { name: \"确认\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"公共凭据项目\", { exact: true }).first()).toBeVisible()",
+    "expect(add).toBeEnabled()",
+    "expect(picker.getByText(\"TAPD\", { exact: true })).toBeVisible()",
+    "expect(picker.getByRole(\"img\", { name: \"TAPD 图标\" })).toBeVisible()",
+    "expect(picker.getByText( \"管理需求、缺陷、任务和迭代。查询项目进度、拆分需求、流转状态、填写工时，覆盖需求到发布的研发全生命周期。\", { exact: true }, )).toBeVisible()",
+    "expect(picker.getByRole(\"button\", { name: \"添加 TAPD 团队凭证\" })).toBeEnabled()",
+    "expect(picker.getByText(\"CNB\", { exact: true })).toBeVisible()",
+    "expect(picker.getByRole(\"img\", { name: \"CNB 图标\" })).toBeVisible()",
+    "expect(picker.getByText( \"通过自然语言管理 CNB 平台：仓库、Issue、PR、流水线、制品库等操作。\", { exact: true }, )).toBeVisible()",
+    "expect(cnb).toBeEnabled()",
+    "expect(tokenDialog.getByPlaceholder(\"输入令牌\")).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"移除 CNB 团队凭证\" })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-FB2AF07B5C68FB",
+      "type": "return",
+      "assertion": "opens the owner-only public credential picker backed by qwork_server"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-project-public-connectors-spec-ts.a6d3e99c3c",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/project-public-connectors.spec.ts -g \"opens the owner-only public credential picker backed by qwork_server\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "createDialog.getByPlaceholder(\"请输入项目名称\").fill(\"公共凭据项目\")"
+        },
+        {
+          "action": "createDialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"管理连接器\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"tab\", { name: \"公共授权\" }).click()"
+        },
+        {
+          "action": "add.click()"
+        },
+        {
+          "action": "cnb.click()"
+        },
+        {
+          "action": "tokenDialog.getByPlaceholder(\"输入令牌\").fill(\"cnb-e2e-token\")"
+        },
+        {
+          "action": "tokenDialog.getByRole(\"button\", { name: \"确认\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/project-public-connectors.spec.ts",
+        "line_start": 14,
+        "line_end": 70,
+        "body_sha256": "sha256:71674d9c4ec6b3dab747ca62bdf685618532d8d3e875a4c584a95d6372107e95",
+        "assertion_count": 12,
+        "action_count": 10,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:06ce787c7a30a1c40f4d6ad013451e732d8ded518c2bfe6b0d44ef4d42450508"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-FB2AF07B5C68FB"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-FB2AF07B5C68FB"
+    ]
+  }
+}

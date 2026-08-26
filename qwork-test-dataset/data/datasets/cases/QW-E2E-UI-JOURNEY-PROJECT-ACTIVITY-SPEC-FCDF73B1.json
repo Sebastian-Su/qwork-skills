@@ -1,0 +1,478 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-JOURNEY-PROJECT-ACTIVITY-SPEC-FCDF73B1",
+  "title": "drives the scoped project activity controls from a real Electron window",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-journey-project-activity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-journey-project-activity.spec.ts",
+      "locator": "line:26;test:drives the scoped project activity controls from a real Electron window",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:fcdf73b17bfd35661b311091e2f724e0539d8088a243fc865bf495d395e44fa1",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-EEDEA12C42F4E9",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-journey-project-activity-spec-ts:L26:fcdf73b17b"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "drives the scoped project activity controls from a real Electron window",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-journey-project-activity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "drives the scoped project activity controls from a real Electron window"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByTestId(\"project-detail-header\").getByRole(\"button\", { name: \"项目\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /E2E 动态复刻项目/ }).first().click()"
+    },
+    {
+      "action": "activitySurface.getByRole(\"button\", { name: \"发布留言\" }).click()"
+    },
+    {
+      "action": "publishForm.getByTitle(\"添加附件\").click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"上传本地文件\" }).click()"
+    },
+    {
+      "action": "publishForm.getByTitle(\"添加附件\").click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"引用项目文件\" }).click()"
+    },
+    {
+      "action": "publishReferenceDialog.getByPlaceholder(\"搜索项目文件\").fill(\"publish\")"
+    },
+    {
+      "action": "publishReferenceDialog.getByRole(\"button\", { name: \"publish-local.md\" }).click()"
+    },
+    {
+      "action": "publishReferenceDialog.getByRole(\"button\", { name: \"确定\" }).click()"
+    },
+    {
+      "action": "publishForm .getByPlaceholder(\"发条留言同步给项目成员，输入 @ 可提及成员\") .fill(\"E2E 动态留言 1\")"
+    },
+    {
+      "action": "publishForm.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "latest.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "activitySurface.click({ position: { x: 24, y: 240 } })"
+    },
+    {
+      "action": "latest.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"回复\" }).click()"
+    },
+    {
+      "action": "replyForm.getByTitle(\"添加附件\").click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"引用项目文件\" }).click()"
+    },
+    {
+      "action": "replyReferenceDialog.getByRole(\"button\", { name: \"publish-local.md\" }).click()"
+    },
+    {
+      "action": "replyReferenceDialog.getByRole(\"button\", { name: \"确定\" }).click()"
+    },
+    {
+      "action": "replyForm.getByTitle(\"添加附件\").click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"上传本地文件\" }).click()"
+    },
+    {
+      "action": "replyForm.getByPlaceholder(/回复 .+\\.\\.\\./).fill(\"E2E 行内回复\")"
+    },
+    {
+      "action": "latest.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "submittedReply.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "latest.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"修改\" }).click()"
+    },
+    {
+      "action": "editMessage.fill(\"E2E 动态留言 2 - 已编辑\")"
+    },
+    {
+      "action": "latest.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "activitySurface.getByRole(\"button\", { name: \"成员动态\" }).click()"
+    },
+    {
+      "action": "firstMemberActivity.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "activitySurface.getByRole(\"button\", { name: \"全部成员\" }).click()"
+    },
+    {
+      "action": "page.locator(\"main\").nth(1).click({ position: { x: 24, y: 240 }, force: true })"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"动态\", exact: true }).click()"
+    },
+    {
+      "action": "activitySurface.getByRole(\"button\", { name: \"与我相关\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(dialogOverrideProbe).toEqual([publishAttachmentPath])",
+    "expect(activitySurface.getByRole(\"button\", { name: \"发布留言\" })).toBeVisible()",
+    "expect(activitySurface.getByRole(\"button\", { name: \"与我相关\" })).toHaveAttribute( \"aria-pressed\", \"true\", )",
+    "expect(activitySurface.getByRole(\"button\", { name: \"全部动态\" })).toHaveCount(0)",
+    "expect(activitySurface.getByRole(\"button\", { name: \"自动化\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"menu\", { name: \"留言附件操作\" })).toBeVisible()",
+    "expect(page.getByRole(\"menuitem\", { name: \"引用项目文件\" })).toBeVisible()",
+    "expect(page.getByRole(\"menuitem\", { name: \"上传本地文件\" })).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"留言附件操作\" })).toHaveCount(0)",
+    "expect(publishForm.getByText(\"publish-local.md\")).toBeVisible()",
+    "expect(publishForm.getByText(\"已上传项目文件\")).toBeVisible()",
+    "expect(publishReferenceDialog.getByPlaceholder(\"搜索项目文件\")).toBeVisible()",
+    "expect( publishReferenceDialog.getByRole(\"button\", { name: \"publish-local.md\" }), ).toBeVisible()",
+    "expect(page.getByRole(\"dialog\", { name: \"引用项目文件\" })).toHaveCount(0)",
+    "expect( page.locator(\"article\", { hasText: \"E2E 动态留言 1\" }).first(), ).toBeVisible()",
+    "expect(items.first()).toContainText(\"E2E 动态留言 2\")",
+    "expect(latest.getByRole(\"button\", { name: \"更多操作\" })).toBeVisible()",
+    "expect(latest.getByRole(\"button\", { name: \"更多操作\" })).not.toHaveClass( /opacity-0/, )",
+    "expect(page.getByRole(\"menuitem\", { name: \"回复\" })).toBeVisible()",
+    "expect(page.getByRole(\"menuitem\", { name: \"在对话中引用\" })).toBeVisible()",
+    "expect(page.getByRole(\"menuitem\", { name: \"在对话中引用\" })).toHaveCount(0)",
+    "expect(replyForm.getByPlaceholder(/回复 .+\\.\\.\\./)).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"回复附件操作\" })).toBeVisible()",
+    "expect(page.getByRole(\"menuitem\", { name: \"引用项目文件\" })).toBeVisible()",
+    "expect(page.getByRole(\"menuitem\", { name: \"上传本地文件\" })).toBeVisible()",
+    "expect(replyReferenceDialog.getByPlaceholder(\"搜索项目文件\")).toBeVisible()",
+    "expect( replyReferenceDialog.getByRole(\"button\", { name: \"publish-local.md\" }), ).toBeVisible()",
+    "expect(replyForm.getByText(\"publish-local.md\")).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"回复附件操作\" })).toHaveCount(0)",
+    "expect(replyForm.getByText(\"reply-local.md\")).toBeVisible()",
+    "expect(replyForm.getByText(\"已上传项目文件\")).toBeVisible()",
+    "expect(replyRows).toHaveCount(1)",
+    "expect(replyRows.first()).toHaveClass(/ml-10/)",
+    "expect(page.getByRole(\"menu\", { name: \"回复留言操作\" })).toBeVisible()",
+    "expect(page.getByRole(\"menuitem\", { name: \"在对话中引用\" })).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"回复留言操作\" })).toHaveCount(0)",
+    "expect(editMessage).toBeFocused()",
+    "expect(editMessage.locator(\"xpath=ancestor::form[1]\")).toHaveClass(/border-fg-2/)",
+    "expect( page.locator(\"article\", { hasText: \"E2E 动态留言 2 - 已编辑\" }).first(), ).toBeVisible()",
+    "expect(activitySurface.getByRole(\"button\", { name: \"成员动态\" })).toHaveAttribute( \"aria-pressed\", \"true\", )",
+    "expect(activitySurface.getByText(/欢迎来到 Qwork 项目/)).toHaveCount(0)",
+    "expect(activitySurface.locator(\"article\").first()).toBeVisible()",
+    "expect(firstMemberActivity.getByRole(\"button\", { name: \"更多操作\" })).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"动态操作\" })).toBeVisible()",
+    "expect(page.getByRole(\"menuitem\", { name: \"在对话中引用\" })).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"动态操作\" })).toHaveCount(0)",
+    "expect(page.getByText(\"筛选成员\")).toBeVisible()",
+    "expect(page.getByPlaceholder(\"搜索成员\")).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"确定\" })).toBeVisible()",
+    "expect(page.getByPlaceholder(\"搜索成员\")).toHaveCount(0)",
+    "expect(activitySurface.getByText(\"没有更多了\")).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-EEDEA12C42F4E9",
+      "type": "return",
+      "assertion": "drives the scoped project activity controls from a real Electron window"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-journey-project-activity-spec-ts.fcdf73b17b",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-journey-project-activity.spec.ts -g \"drives the scoped project activity controls from a real Electron window\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "page.getByTestId(\"project-detail-header\").getByRole(\"button\", { name: \"项目\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /E2E 动态复刻项目/ }).first().click()"
+        },
+        {
+          "action": "activitySurface.getByRole(\"button\", { name: \"发布留言\" }).click()"
+        },
+        {
+          "action": "publishForm.getByTitle(\"添加附件\").click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"上传本地文件\" }).click()"
+        },
+        {
+          "action": "publishForm.getByTitle(\"添加附件\").click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"引用项目文件\" }).click()"
+        },
+        {
+          "action": "publishReferenceDialog.getByPlaceholder(\"搜索项目文件\").fill(\"publish\")"
+        },
+        {
+          "action": "publishReferenceDialog.getByRole(\"button\", { name: \"publish-local.md\" }).click()"
+        },
+        {
+          "action": "publishReferenceDialog.getByRole(\"button\", { name: \"确定\" }).click()"
+        },
+        {
+          "action": "publishForm .getByPlaceholder(\"发条留言同步给项目成员，输入 @ 可提及成员\") .fill(\"E2E 动态留言 1\")"
+        },
+        {
+          "action": "publishForm.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "latest.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "activitySurface.click({ position: { x: 24, y: 240 } })"
+        },
+        {
+          "action": "latest.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"回复\" }).click()"
+        },
+        {
+          "action": "replyForm.getByTitle(\"添加附件\").click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"引用项目文件\" }).click()"
+        },
+        {
+          "action": "replyReferenceDialog.getByRole(\"button\", { name: \"publish-local.md\" }).click()"
+        },
+        {
+          "action": "replyReferenceDialog.getByRole(\"button\", { name: \"确定\" }).click()"
+        },
+        {
+          "action": "replyForm.getByTitle(\"添加附件\").click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"上传本地文件\" }).click()"
+        },
+        {
+          "action": "replyForm.getByPlaceholder(/回复 .+\\.\\.\\./).fill(\"E2E 行内回复\")"
+        },
+        {
+          "action": "latest.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "submittedReply.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "latest.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"修改\" }).click()"
+        },
+        {
+          "action": "editMessage.fill(\"E2E 动态留言 2 - 已编辑\")"
+        },
+        {
+          "action": "latest.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "activitySurface.getByRole(\"button\", { name: \"成员动态\" }).click()"
+        },
+        {
+          "action": "firstMemberActivity.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "activitySurface.getByRole(\"button\", { name: \"全部成员\" }).click()"
+        },
+        {
+          "action": "page.locator(\"main\").nth(1).click({ position: { x: 24, y: 240 }, force: true })"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"动态\", exact: true }).click()"
+        },
+        {
+          "action": "activitySurface.getByRole(\"button\", { name: \"与我相关\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-journey-project-activity.spec.ts",
+        "line_start": 26,
+        "line_end": 269,
+        "body_sha256": "sha256:5207566cb7130762dce6443ae7fc59c7c7d153578f3378573ce8d5f8ce1951d0",
+        "assertion_count": 51,
+        "action_count": 37,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:1b8c408ae7e23c35cf50f083d03e6ccf3c0b1c0324f62bad778cba5d89dcdb63"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-EEDEA12C42F4E9"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-EEDEA12C42F4E9"
+    ]
+  }
+}

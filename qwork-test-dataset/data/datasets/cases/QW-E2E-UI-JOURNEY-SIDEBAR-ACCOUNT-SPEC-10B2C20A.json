@@ -1,0 +1,317 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-JOURNEY-SIDEBAR-ACCOUNT-SPEC-10B2C20A",
+  "title": "UI-JOURNEY-SIDEBAR-TOOLS-003 | real task and workspace sessions drive search, combined filters, counts, and selection",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-journey-sidebar-account.spec.ts",
+      "locator": "line:160;test:UI-JOURNEY-SIDEBAR-TOOLS-003 | real task and workspace sessions drive search, combined filters, counts, and selection",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:10b2c20a4cc13a65ae3697dd96b0d171b94dc1aa15440526aa102c0861a838c7",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-49215E0438F25D",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts:L160:10b2c20a4c"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "UI-JOURNEY-SIDEBAR-TOOLS-003 | real task and workspace sessions drive search, combined filters, counts, and selection",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-JOURNEY-SIDEBAR-TOOLS-003 | real task and workspace sessions drive search, combined filters, counts, and selection"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"Ａｌｐｈａ 报告\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_HANG__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"搜索\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"textbox\", { name: \"搜索任务和空间\" }).fill(\" alpha \")"
+    },
+    {
+      "action": "page .getByRole(\"dialog\", { name: \"搜索对话\" }) .getByRole(\"button\", { name: /__E2E_HANG__.*Ａｌｐｈａ-space/ }) .click()"
+    },
+    {
+      "action": "filterButton.click()"
+    },
+    {
+      "action": "filterDialog.getByRole(\"button\", { name: \"已完成\", exact: true }).click()"
+    },
+    {
+      "action": "filterDialog.getByRole(\"button\", { name: \"今天\", exact: true }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "filterButton.click()"
+    },
+    {
+      "action": "filterDialog.getByRole(\"button\", { name: \"进行中\", exact: true }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"收到：Ａｌｐｈａ 报告\", { exact: true })).toBeVisible()",
+    "expect( page .getByTestId(\"composer-surface\") .getByRole(\"button\", { name: \"停止生成\", exact: true }), ).toBeVisible()",
+    "expect(page.getByRole(\"dialog\", { name: \"搜索对话\" })).toBeHidden()",
+    "expect(page.getByRole(\"paragraph\").filter({ hasText: /^__E2E_HANG__$/ })).toBeVisible()",
+    "expect(page.getByText(\"任务 (1)\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"空间 (0)\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"任务 (0)\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"空间 (1)\", { exact: true })).toBeVisible()",
+    "expect(rail.getByRole(\"button\", { name: path.basename(workspace), exact: true })).toBeVisible()",
+    "expect(rail.getByRole(\"button\", { name: \"Stop\", exact: true })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-49215E0438F25D",
+      "type": "return",
+      "assertion": "UI-JOURNEY-SIDEBAR-TOOLS-003 | real task and workspace sessions drive search, combined filters, counts, and selection"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-journey-sidebar-account-spec-ts.10b2c20a4c",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-journey-sidebar-account.spec.ts -g \"UI-JOURNEY-SIDEBAR-TOOLS-003 | real task and workspace sessions drive search, combined filters, counts, and selection\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "composer.fill(\"Ａｌｐｈａ 报告\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_HANG__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"搜索\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"textbox\", { name: \"搜索任务和空间\" }).fill(\" alpha \")"
+        },
+        {
+          "action": "page .getByRole(\"dialog\", { name: \"搜索对话\" }) .getByRole(\"button\", { name: /__E2E_HANG__.*Ａｌｐｈａ-space/ }) .click()"
+        },
+        {
+          "action": "filterButton.click()"
+        },
+        {
+          "action": "filterDialog.getByRole(\"button\", { name: \"已完成\", exact: true }).click()"
+        },
+        {
+          "action": "filterDialog.getByRole(\"button\", { name: \"今天\", exact: true }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "filterButton.click()"
+        },
+        {
+          "action": "filterDialog.getByRole(\"button\", { name: \"进行中\", exact: true }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-journey-sidebar-account.spec.ts",
+        "line_start": 160,
+        "line_end": 214,
+        "body_sha256": "sha256:d358a6b5645cc11282fe6f34738f82d2e0f9a9f8813e14e754fb40291ed41101",
+        "assertion_count": 10,
+        "action_count": 17,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:047431073ce7b9ab48e52418d325e4db86a1ea0d15b882f6f7d4eff7b9d17a29"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-49215E0438F25D"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-49215E0438F25D"
+    ]
+  }
+}

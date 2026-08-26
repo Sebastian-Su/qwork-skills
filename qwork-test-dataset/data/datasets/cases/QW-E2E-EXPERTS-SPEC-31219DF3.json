@@ -1,0 +1,251 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-EXPERTS-SPEC-31219DF3",
+  "title": "expert sample question only prefills the draft",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-experts-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/experts.spec.ts",
+      "locator": "line:577;test:expert sample question only prefills the draft",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:31219df3bb69e78f69186bc307158ca8361db9743c68ac333a9515a28d58e27f",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-experts-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:cd8f67177fde78ea96cfc8529dbad71afdc0c0c7:e2e/experts.spec.ts",
+      "locator": "line:613;test:expert sample question only prefills the draft",
+      "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:31219df3bb69e78f69186bc307158ca8361db9743c68ac333a9515a28d58e27f",
+      "redaction_status": "minimized",
+      "supports": [
+        "QDEV-E2E-e2e-experts-spec-ts"
+      ]
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-7E3F662A1690E3",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-experts-spec-ts:L577:31219df3bb",
+        "QHEAD-E2E-e2e-experts-spec-ts:L613:31219df3bb"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "expert sample question only prefills the draft",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-experts-spec-ts"
+      ],
+      "supporting_sources": [
+        "QHEAD-E2E-e2e-experts-spec-ts"
+      ],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "expert sample question only prefills the draft"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pass",
+    "environment_scope": "isolated Electron Playwright run, case-owned QWork home, deterministic fake sidecar, zero real model calls",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-24T11:47:52.249938+00:00",
+    "status_reason": "hash-verified public Playwright reference run expert-identity-public-reference-cd8f6717-v1 passed"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /高级开发工程师.*从证据出发/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /帮我开发一个功能.*先给出实现计划再动手写代码/, }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"textbox\")).toHaveValue( \"“帮我开发一个功能，我会描述需求，请你先给出实现计划再动手写代码。”\", )",
+    "expect(page.getByTestId(\"composer-dock\")).toContainText(\"高级开发工程师\")",
+    "expect(controls).not.toContain('\"type\":\"create_session\"')",
+    "expect(controls).not.toContain('\"type\":\"user_message\"')"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-7E3F662A1690E3",
+      "type": "return",
+      "assertion": "expert sample question only prefills the draft"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "ready",
+    "route_id": "qwork.playwright.e2e-experts-spec-ts.31219df3bb",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/experts.spec.ts -g \"expert sample question only prefills the draft\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /高级开发工程师.*从证据出发/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /帮我开发一个功能.*先给出实现计划再动手写代码/, }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/experts.spec.ts",
+        "line_start": 613,
+        "line_end": 641,
+        "body_sha256": "sha256:d2edba299662e2f9bf95381a65f867a9502aa2a0974356e06afa563d4f8a83b0",
+        "assertion_count": 4,
+        "action_count": 3,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:5cfaebd6f1408fa2252ecc623ad3542efa50ed6bc1345c9a0d13e90f35ff3aed"
+      },
+      "reference_authority": {
+        "manifest": "skill://qwork-test-dataset/data/runs/expert-identity-public-reference-cd8f6717-v1/public-playwright-reference.json",
+        "manifest_sha256": "sha256:e1ff2b9ad3eb0ce149f2bc6e8c347c79b759bbcb18510dbfa16fd8b00c43d5fa",
+        "plan_sha256": "01a00070eaf74745ce1bfcebfe35e51abbd9071286cf0f592c18e631e4d3ba83",
+        "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7"
+      }
+    },
+    "reference_run": {
+      "status": "passed",
+      "run_id": "expert-identity-public-reference-cd8f6717-v1",
+      "verified_at": "2026-08-24T11:47:52.249938+00:00",
+      "environment": "isolated Electron Playwright run, case-owned QWork home, deterministic fake sidecar, zero real model calls"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": []
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-7E3F662A1690E3"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-7E3F662A1690E3"
+    ]
+  }
+}

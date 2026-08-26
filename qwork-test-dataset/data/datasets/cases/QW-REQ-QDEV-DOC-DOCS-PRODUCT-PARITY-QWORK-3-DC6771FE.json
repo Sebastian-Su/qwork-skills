@@ -1,0 +1,310 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-PRODUCT-PARITY-QWORK-3-DC6771FE",
+  "title": "docs/product-parity/qwork-clean-room-porting-prd.md · 3. 证据层级与冲突裁决 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "browser",
+    "journey": "browser",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-product-parity-qwork-clean-room-porting-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/product-parity/qwork-clean-room-porting-prd.md",
+      "locator": "line:39;heading:3. 证据层级与冲突裁决",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:cc355a8b9d39bd0eb7718e9717e4b30d0db853a8d46f22cd537865b75aeb7a3d",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-product-parity-qwork-clean-room-porting-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/product-parity/qwork-clean-room-porting-prd.md",
+      "locator": "line:49;heading:3. 证据层级与冲突裁决",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:8abf23cf36b6dbefbb1caa6b708e4cc36e49e88e3b48796827f91e246f87ff44",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-38735872AA4CFB",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-product-parity-qwork-clean-room-porting-prd-md:L39:cc355a8b9d"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "browser",
+      "priority": "P1",
+      "rule": "| 3 | 飞书复刻 PRD revision 6 | 完整产品结构、组件、状态机、接缝和 5.3.8 测绘 | 与当前 CDP 冲突时保留冲突并人工裁决 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-product-parity-qwork-clean-room-porting-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 3 | 飞书复刻 PRD revision 6 | 完整产品结构、组件、状态机、接缝和 5.3.8 测绘 | 与当前 CDP 冲突时保留冲突并人工裁决 |"
+    },
+    {
+      "requirement_id": "REQ-8C1EEF0DB92982",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-product-parity-qwork-clean-room-porting-prd-md:L49:8abf23cf36"
+      ],
+      "content_facets": [
+        "responsive"
+      ],
+      "acceptance_categories": [
+        "responsive"
+      ],
+      "surface": "browser",
+      "priority": "P1",
+      "rule": "当前 CDP：1680×1084 CSS px、DPR 2、19 个稳定表面；",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-product-parity-qwork-clean-room-porting-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "当前 CDP：1680×1084 CSS px、DPR 2、19 个稳定表面；"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for browser at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/product-parity/qwork-clean-room-porting-prd.md · 3. 证据层级与冲突裁决 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-38735872AA4CFB] exactly: | 3 | 飞书复刻 PRD revision 6 | 完整产品结构、组件、状态机、接缝和 5.3.8 测绘 | 与当前 CDP 冲突时保留冲突并人工裁决 |"
+    },
+    {
+      "action": "observe renderer layout at every declared breakpoint after the trigger and assert [REQ-8C1EEF0DB92982] exactly: 当前 CDP：1680×1084 CSS px、DPR 2、19 个稳定表面；"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "| 3 | 飞书复刻 PRD revision 6 | 完整产品结构、组件、状态机、接缝和 5.3.8 测绘 | 与当前 CDP 冲突时保留冲突并人工裁决 |",
+    "当前 CDP：1680×1084 CSS px、DPR 2、19 个稳定表面；"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-38735872AA4CFB]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 3 | 飞书复刻 PRD revision 6 | 完整产品结构、组件、状态机、接缝和 5.3.8 测绘 | 与当前 CDP 冲突时保留冲突并人工裁决 |",
+    "FAIL [REQ-8C1EEF0DB92982]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 当前 CDP：1680×1084 CSS px、DPR 2、19 个稳定表面；",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-38735872AA4CFB",
+      "type": "event",
+      "assertion": "| 3 | 飞书复刻 PRD revision 6 | 完整产品结构、组件、状态机、接缝和 5.3.8 测绘 | 与当前 CDP 冲突时保留冲突并人工裁决 |"
+    },
+    {
+      "requirement_id": "REQ-8C1EEF0DB92982",
+      "type": "responsive",
+      "assertion": "当前 CDP：1680×1084 CSS px、DPR 2、19 个稳定表面；"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-product-parity-qwork-c.3-dc6771fe1e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "browser",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for browser at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/product-parity/qwork-clean-room-porting-prd.md · 3. 证据层级与冲突裁决 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-38735872AA4CFB] exactly: | 3 | 飞书复刻 PRD revision 6 | 完整产品结构、组件、状态机、接缝和 5.3.8 测绘 | 与当前 CDP 冲突时保留冲突并人工裁决 |"
+        },
+        {
+          "action": "observe renderer layout at every declared breakpoint after the trigger and assert [REQ-8C1EEF0DB92982] exactly: 当前 CDP：1680×1084 CSS px、DPR 2、19 个稳定表面；"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-38735872AA4CFB",
+      "REQ-8C1EEF0DB92982"
+    ],
+    "categories": [
+      "recovery",
+      "responsive",
+      "state"
+    ],
+    "suite_ids": [
+      "category:recovery",
+      "category:responsive",
+      "category:state",
+      "full",
+      "requirement:REQ-38735872AA4CFB",
+      "requirement:REQ-8C1EEF0DB92982"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-38735872AA4CFB",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/product-parity/qwork-clean-room-porting-prd.md · 3. 证据层级与冲突裁决 产品契约 exactly once and retain its correlation identity",
+      "then": "| 3 | 飞书复刻 PRD revision 6 | 完整产品结构、组件、状态机、接缝和 5.3.8 测绘 | 与当前 CDP 冲突时保留冲突并人工裁决 |",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-8C1EEF0DB92982",
+      "oracle_type": "responsive",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/product-parity/qwork-clean-room-porting-prd.md · 3. 证据层级与冲突裁决 产品契约 exactly once and retain its correlation identity",
+      "then": "当前 CDP：1680×1084 CSS px、DPR 2、19 个稳定表面；",
+      "observation_boundary": "renderer layout at every declared breakpoint",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

@@ -1,0 +1,440 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-WORKBUDDY-EXPERT-BUN-ITEM-7CADD444",
+  "title": "docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 检测时机 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md",
+      "locator": "line:198;heading:检测时机",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:5df450aa15052042c458e34f3c9adb87c860733b5476c9f233d1e9e07a989e0b",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md",
+      "locator": "line:199;heading:检测时机",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:ddf408e5c644530969aa934c052af407c96d1a5b2a0b0c8638324e7f98e06702",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md",
+      "locator": "line:200;heading:检测时机",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:8062bd9f3e4fbb4e9d6005263821f3b419ff1e78dda9797782b9304ffcd24c76",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md",
+      "locator": "line:202;heading:检测时机",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:83d735756c36bc8d481fbe3105752ef0c762c1e12311311ff29c8902990e6125",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-7D0A9A9DFA9703",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de:L198:5df450aa15"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "**应用启动后后台检查**：不阻塞主窗口，修复缺失的内置核心包并获取远端索引。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**应用启动后后台检查**：不阻塞主窗口，修复缺失的内置核心包并获取远端索引。"
+    },
+    {
+      "requirement_id": "REQ-88DA9AC64261D5",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de:L199:ddf408e5c6"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "**固定周期检查**：可以复用当前六小时节奏，但由 ExpertPackageManager 负责专家，不复用普通 SkillUpdater 的安装实现。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**固定周期检查**：可以复用当前六小时节奏，但由 ExpertPackageManager 负责专家，不复用普通 SkillUpdater 的安装实现。"
+    },
+    {
+      "requirement_id": "REQ-0B2CE4A1BBDC18",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de:L200:8062bd9f3e"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "**创建专家会话前硬检查**：这是正确性的最终门禁。若选择的专家缺失、版本落后、损坏或被撤销，先 reconcile 并只重试一次解析；仍失败则不给 ZiqDo 创建会话，展示可操作错误。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**创建专家会话前硬检查**：这是正确性的最终门禁。若选择的专家缺失、版本落后、损坏或被撤销，先 reconcile 并只重试一次解析；仍失败则不给 ZiqDo 创建会话，展示可操作错误。"
+    },
+    {
+      "requirement_id": "REQ-97104A5449EDC3",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de:L202:83d735756c"
+      ],
+      "content_facets": [
+        "error-copy"
+      ],
+      "acceptance_categories": [
+        "error",
+        "ui-content"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "会话应保存 `expertKey`、创建时版本和树哈希，但不保存版本化安装路径。后台更新只影响后续新会话；已经运行的 sidecar 使用其启动时已加载内容。历史会话恢复时若发现版本或树哈希变化，必须明确提示并阻止静默恢复，用户确认升级后仍从同一个稳定路径加载。V0 尚未完成版本/树哈希 pin，因此远程自动更新不得先于该门禁上线。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-expert-bundling-and-runtime-update-de"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "会话应保存 `expertKey`、创建时版本和树哈希，但不保存版本化安装路径。后台更新只影响后续新会话；已经运行的 sidecar 使用其启动时已加载内容。历史会话恢复时若发现版本或树哈希变化，必须明确提示并阻止静默恢复，用户确认升级后仍从同一个稳定路径加载。V0 尚未完成版本/树哈希 pin，因此远程自动更新不得先于该门禁上线。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 检测时机 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7D0A9A9DFA9703] exactly: **应用启动后后台检查**：不阻塞主窗口，修复缺失的内置核心包并获取远端索引。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-88DA9AC64261D5] exactly: **固定周期检查**：可以复用当前六小时节奏，但由 ExpertPackageManager 负责专家，不复用普通 SkillUpdater 的安装实现。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0B2CE4A1BBDC18] exactly: **创建专家会话前硬检查**：这是正确性的最终门禁。若选择的专家缺失、版本落后、损坏或被撤销，先 reconcile 并只重试一次解析；仍失败则不给 ZiqDo 创建会话，展示可操作错误。"
+    },
+    {
+      "action": "observe renderer visible content after the trigger and assert [REQ-97104A5449EDC3] exactly: 会话应保存 `expertKey`、创建时版本和树哈希，但不保存版本化安装路径。后台更新只影响后续新会话；已经运行的 sidecar 使用其启动时已加载内容。历史会话恢复时若发现版本或树哈希变化，必须明确提示并阻止静默恢复，用户确认升级后仍从同一个稳定路径加载。V0 尚未完成版本/树哈希 pin，因此远程自动更新不得先于该门禁上线。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "**应用启动后后台检查**：不阻塞主窗口，修复缺失的内置核心包并获取远端索引。",
+    "**固定周期检查**：可以复用当前六小时节奏，但由 ExpertPackageManager 负责专家，不复用普通 SkillUpdater 的安装实现。",
+    "**创建专家会话前硬检查**：这是正确性的最终门禁。若选择的专家缺失、版本落后、损坏或被撤销，先 reconcile 并只重试一次解析；仍失败则不给 ZiqDo 创建会话，展示可操作错误。",
+    "会话应保存 `expertKey`、创建时版本和树哈希，但不保存版本化安装路径。后台更新只影响后续新会话；已经运行的 sidecar 使用其启动时已加载内容。历史会话恢复时若发现版本或树哈希变化，必须明确提示并阻止静默恢复，用户确认升级后仍从同一个稳定路径加载。V0 尚未完成版本/树哈希 pin，因此远程自动更新不得先于该门禁上线。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-7D0A9A9DFA9703]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **应用启动后后台检查**：不阻塞主窗口，修复缺失的内置核心包并获取远端索引。",
+    "FAIL [REQ-88DA9AC64261D5]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **固定周期检查**：可以复用当前六小时节奏，但由 ExpertPackageManager 负责专家，不复用普通 SkillUpdater 的安装实现。",
+    "FAIL [REQ-0B2CE4A1BBDC18]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **创建专家会话前硬检查**：这是正确性的最终门禁。若选择的专家缺失、版本落后、损坏或被撤销，先 reconcile 并只重试一次解析；仍失败则不给 ZiqDo 创建会话，展示可操作错误。",
+    "FAIL [REQ-97104A5449EDC3]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 会话应保存 `expertKey`、创建时版本和树哈希，但不保存版本化安装路径。后台更新只影响后续新会话；已经运行的 sidecar 使用其启动时已加载内容。历史会话恢复时若发现版本或树哈希变化，必须明确提示并阻止静默恢复，用户确认升级后仍从同一个稳定路径加载。V0 尚未完成版本/树哈希 pin，因此远程自动更新不得先于该门禁上线。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-7D0A9A9DFA9703",
+      "type": "return",
+      "assertion": "**应用启动后后台检查**：不阻塞主窗口，修复缺失的内置核心包并获取远端索引。"
+    },
+    {
+      "requirement_id": "REQ-88DA9AC64261D5",
+      "type": "return",
+      "assertion": "**固定周期检查**：可以复用当前六小时节奏，但由 ExpertPackageManager 负责专家，不复用普通 SkillUpdater 的安装实现。"
+    },
+    {
+      "requirement_id": "REQ-0B2CE4A1BBDC18",
+      "type": "return",
+      "assertion": "**创建专家会话前硬检查**：这是正确性的最终门禁。若选择的专家缺失、版本落后、损坏或被撤销，先 reconcile 并只重试一次解析；仍失败则不给 ZiqDo 创建会话，展示可操作错误。"
+    },
+    {
+      "requirement_id": "REQ-97104A5449EDC3",
+      "type": "ui-content",
+      "assertion": "会话应保存 `expertKey`、创建时版本和树哈希，但不保存版本化安装路径。后台更新只影响后续新会话；已经运行的 sidecar 使用其启动时已加载内容。历史会话恢复时若发现版本或树哈希变化，必须明确提示并阻止静默恢复，用户确认升级后仍从同一个稳定路径加载。V0 尚未完成版本/树哈希 pin，因此远程自动更新不得先于该门禁上线。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-workbuddy-expert-bundl.item-7cadd44451",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 检测时机 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7D0A9A9DFA9703] exactly: **应用启动后后台检查**：不阻塞主窗口，修复缺失的内置核心包并获取远端索引。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-88DA9AC64261D5] exactly: **固定周期检查**：可以复用当前六小时节奏，但由 ExpertPackageManager 负责专家，不复用普通 SkillUpdater 的安装实现。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0B2CE4A1BBDC18] exactly: **创建专家会话前硬检查**：这是正确性的最终门禁。若选择的专家缺失、版本落后、损坏或被撤销，先 reconcile 并只重试一次解析；仍失败则不给 ZiqDo 创建会话，展示可操作错误。"
+        },
+        {
+          "action": "observe renderer visible content after the trigger and assert [REQ-97104A5449EDC3] exactly: 会话应保存 `expertKey`、创建时版本和树哈希，但不保存版本化安装路径。后台更新只影响后续新会话；已经运行的 sidecar 使用其启动时已加载内容。历史会话恢复时若发现版本或树哈希变化，必须明确提示并阻止静默恢复，用户确认升级后仍从同一个稳定路径加载。V0 尚未完成版本/树哈希 pin，因此远程自动更新不得先于该门禁上线。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0B2CE4A1BBDC18",
+      "REQ-7D0A9A9DFA9703",
+      "REQ-88DA9AC64261D5",
+      "REQ-97104A5449EDC3"
+    ],
+    "categories": [
+      "business",
+      "error",
+      "negative",
+      "ui-content"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:error",
+      "category:negative",
+      "category:ui-content",
+      "full",
+      "requirement:REQ-0B2CE4A1BBDC18",
+      "requirement:REQ-7D0A9A9DFA9703",
+      "requirement:REQ-88DA9AC64261D5",
+      "requirement:REQ-97104A5449EDC3"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-7D0A9A9DFA9703",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 检测时机 产品契约 exactly once and retain its correlation identity",
+      "then": "**应用启动后后台检查**：不阻塞主窗口，修复缺失的内置核心包并获取远端索引。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-88DA9AC64261D5",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 检测时机 产品契约 exactly once and retain its correlation identity",
+      "then": "**固定周期检查**：可以复用当前六小时节奏，但由 ExpertPackageManager 负责专家，不复用普通 SkillUpdater 的安装实现。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-0B2CE4A1BBDC18",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 检测时机 产品契约 exactly once and retain its correlation identity",
+      "then": "**创建专家会话前硬检查**：这是正确性的最终门禁。若选择的专家缺失、版本落后、损坏或被撤销，先 reconcile 并只重试一次解析；仍失败则不给 ZiqDo 创建会话，展示可操作错误。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-97104A5449EDC3",
+      "oracle_type": "ui-content",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-expert-bundling-and-runtime-update-design-2026-08-12.md · 检测时机 产品契约 exactly once and retain its correlation identity",
+      "then": "会话应保存 `expertKey`、创建时版本和树哈希，但不保存版本化安装路径。后台更新只影响后续新会话；已经运行的 sidecar 使用其启动时已加载内容。历史会话恢复时若发现版本或树哈希变化，必须明确提示并阻止静默恢复，用户确认升级后仍从同一个稳定路径加载。V0 尚未完成版本/树哈希 pin，因此远程自动更新不得先于该门禁上线。",
+      "observation_boundary": "renderer visible content",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

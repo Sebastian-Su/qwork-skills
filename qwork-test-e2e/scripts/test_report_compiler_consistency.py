@@ -21,7 +21,7 @@ def main() -> int:
         root = Path(value)
         repo = root / "repo"
         dataset = root / "dataset"
-        run = root / "run"
+        run = root / "QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT" / "REPORT-COMPILER"
         case_id = "CASE-UI-MISSING-VISUAL"
         behavior_case_id = "CASE-UI-BEHAVIOR-ONLY-FAIL"
         drift_case_id = "CASE-DEVELOP-REVISION-DRIFT"
@@ -84,7 +84,7 @@ def main() -> int:
         ], text=True, capture_output=True)
         if result.returncode:
             raise RuntimeError(result.stderr or result.stdout)
-        report = json.loads((run / "report.json").read_text(encoding="utf-8"))
+        report = json.loads((run / "QWORK-E2E-REPORT.json").read_text(encoding="utf-8"))
         statuses = {
             report["results"][0]["status"],
             report["cases"][0]["status"],

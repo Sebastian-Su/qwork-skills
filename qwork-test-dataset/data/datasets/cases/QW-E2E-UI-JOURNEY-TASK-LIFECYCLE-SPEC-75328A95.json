@@ -1,0 +1,508 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-JOURNEY-TASK-LIFECYCLE-SPEC-75328A95",
+  "title": "UI-JOURNEY-TASK-006 | 超出沙箱时权限询问卡、允许/拒绝和记住选择对齐",
+  "kind": "negative",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "permissions",
+    "journey": "permissions",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-journey-task-lifecycle-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-journey-task-lifecycle.spec.ts",
+      "locator": "line:188;test:UI-JOURNEY-TASK-006 | 超出沙箱时权限询问卡、允许/拒绝和记住选择对齐",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:75328a95bc4b91f3d2a8a64a6bc70cb9d4043fe6e1381393843ba783fc324dc4",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qwork-expert-team-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qwork-expert-team-prd.md",
+      "locator": "line:750;heading:16.2 UI 验收矩阵",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:bb1401838cd29ce8802c9cf2a9e630a48de870c267fc73736e875a795d914289",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qwork-expert-team-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qwork-expert-team-prd.md",
+      "locator": "line:565;heading:11.5 任务执行页",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:a08b3559e39a7087e51530a8ce7b4327c52c1d88e3dfc33acd1a9d3033506123",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qwork-expert-team-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qwork-expert-team-prd.md",
+      "locator": "line:378;heading:FR-PERM-001 权限询问",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:a0de0a121fdb20038129af99f42265be118b8fdb26e2c7441ceaf6ebb3665fa0",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qwork-expert-team-prd-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qwork-expert-team-prd.md",
+      "locator": "line:379;heading:FR-PERM-001 权限询问",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:db6927c5c327531cc48d18310734d880ee685c04bf3e8159f947a6e48692aaba",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:221;heading:7.3 权限",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:ca8161d2156bd1aa3fb52c6be5923ad6c91f0bf2798aa2f62dcc3b00334a20e8",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-expert-team-v1-spec-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "locator": "line:299;heading:10.1 行为对齐矩阵",
+      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "content_hash": "sha256:cedae6c41053f59182f5073f12cbb5c97f83ce44d376d8ec12a40135ceba7672",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-A1449F2B58DBAB",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-journey-task-lifecycle-spec-ts:L188:75328a95bc"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "permissions",
+      "priority": "P0",
+      "rule": "UI-JOURNEY-TASK-006 | 超出沙箱时权限询问卡、允许/拒绝和记住选择对齐",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-journey-task-lifecycle-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-JOURNEY-TASK-006 | 超出沙箱时权限询问卡、允许/拒绝和记住选择对齐"
+    },
+    {
+      "requirement_id": "REQ-FA7CAC861F22FF",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md:L750:bb1401838c"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "| QW-UI-TASK-001~008 | Sent/Waiting/Thinking/Tool/Done/Stopped/Permission/Artifact | 状态逐一有真实 视觉契约 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| QW-UI-TASK-001~008 | Sent/Waiting/Thinking/Tool/Done/Stopped/Permission/Artifact | 状态逐一有真实 视觉契约 |"
+    },
+    {
+      "requirement_id": "REQ-76F69F2A0442D1",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md:L565:a08b3559e3"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "Waiting、Thinking、Tool pending、Tool completed、Tool failed、Permission、Done、Stopped 均有独立可观察状态。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Waiting、Thinking、Tool pending、Tool completed、Tool failed、Permission、Done、Stopped 均有独立可观察状态。"
+    },
+    {
+      "requirement_id": "REQ-7BAC2164BA2F6F",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md:L378:a0de0a121f"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "permissions",
+      "priority": "P0",
+      "rule": "超出当前沙箱/权限策略的工具操作显示权限询问卡。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "超出当前沙箱/权限策略的工具操作显示权限询问卡。"
+    },
+    {
+      "requirement_id": "REQ-291E17D4409E04",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md:L379:db6927c5c3"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "卡片展示工具或操作摘要、允许、拒绝和“记住选择”。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qwork-expert-team-prd-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "卡片展示工具或操作摘要、允许、拒绝和“记住选择”。"
+    },
+    {
+      "requirement_id": "REQ-7CAA9D3CFFB856",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L221:ca8161d215"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "高风险请求展示成员、工具和参数，只有用户可以批准。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "高风险请求展示成员、工具和参数，只有用户可以批准。"
+    },
+    {
+      "requirement_id": "REQ-9909E0D1E0A724",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md:L299:cedae6c410"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "expert-team",
+      "priority": "P0",
+      "rule": "| 权限 | 写入前等待用户 | 显示成员归属，拒绝后任务不假成功 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-expert-team-v1-spec-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 权限 | 写入前等待用户 | 显示成员归属，拒绝后任务不假成功 |"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_verified_at": "2026-08-18T17:49:39.580710+00:00",
+    "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"__E2E_PERMISSION__:Bash\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(prompt).toBeVisible()",
+    "uiExpect.soft(prompt).toBeVisible()",
+    "uiExpect.soft(prompt).toContainText(/Bash|E2E permission request/)",
+    "uiExpect.soft(prompt.getByRole(\"button\", { name: \"允许\", exact: true })).toBeVisible()",
+    "uiExpect.soft(prompt.getByRole(\"button\", { name: \"拒绝\", exact: true })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-A1449F2B58DBAB",
+      "type": "return",
+      "assertion": "UI-JOURNEY-TASK-006 | 超出沙箱时权限询问卡、允许/拒绝和记住选择对齐"
+    },
+    {
+      "requirement_id": "REQ-FA7CAC861F22FF",
+      "type": "api",
+      "assertion": "| QW-UI-TASK-001~008 | Sent/Waiting/Thinking/Tool/Done/Stopped/Permission/Artifact | 状态逐一有真实 视觉契约 |"
+    },
+    {
+      "requirement_id": "REQ-76F69F2A0442D1",
+      "type": "api",
+      "assertion": "Waiting、Thinking、Tool pending、Tool completed、Tool failed、Permission、Done、Stopped 均有独立可观察状态。"
+    },
+    {
+      "requirement_id": "REQ-7BAC2164BA2F6F",
+      "type": "ui",
+      "assertion": "超出当前沙箱/权限策略的工具操作显示权限询问卡。"
+    },
+    {
+      "requirement_id": "REQ-291E17D4409E04",
+      "type": "ui",
+      "assertion": "卡片展示工具或操作摘要、允许、拒绝和“记住选择”。"
+    },
+    {
+      "requirement_id": "REQ-7CAA9D3CFFB856",
+      "type": "ui",
+      "assertion": "高风险请求展示成员、工具和参数，只有用户可以批准。"
+    },
+    {
+      "requirement_id": "REQ-9909E0D1E0A724",
+      "type": "ui",
+      "assertion": "| 权限 | 写入前等待用户 | 显示成员归属，拒绝后任务不假成功 |"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-journey-task-lifecycle-spec-ts.75328a95bc",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-journey-task-lifecycle.spec.ts -g \"UI-JOURNEY-TASK-006 | 超出沙箱时权限询问卡、允许/拒绝和记住选择对齐\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "permissions",
+      "steps": [
+        {
+          "action": "composer.fill(\"__E2E_PERMISSION__:Bash\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-journey-task-lifecycle.spec.ts",
+        "line_start": 188,
+        "line_end": 201,
+        "body_sha256": "sha256:415b7762c02747799b7df7c6f250f89f74e19fcf0d2abdb91ba4071c3feb9773",
+        "assertion_count": 5,
+        "action_count": 2,
+        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+        "spec_sha256": "sha256:4e2941efcf0f78e23541fae3b92351774bd96ceadaeae8249bcbf5a13098d53d"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": "bug973549-public-reference-643446ff-v1",
+      "verified_at": "2026-08-18T17:49:39.580710+00:00",
+      "environment": "stale deterministic public Playwright reference run"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-291E17D4409E04",
+      "REQ-76F69F2A0442D1",
+      "REQ-7BAC2164BA2F6F",
+      "REQ-7CAA9D3CFFB856",
+      "REQ-9909E0D1E0A724",
+      "REQ-A1449F2B58DBAB",
+      "REQ-FA7CAC861F22FF"
+    ],
+    "categories": [
+      "business",
+      "negative",
+      "permission"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:negative",
+      "category:permission",
+      "full",
+      "requirement:REQ-291E17D4409E04",
+      "requirement:REQ-76F69F2A0442D1",
+      "requirement:REQ-7BAC2164BA2F6F",
+      "requirement:REQ-7CAA9D3CFFB856",
+      "requirement:REQ-9909E0D1E0A724",
+      "requirement:REQ-A1449F2B58DBAB",
+      "requirement:REQ-FA7CAC861F22FF"
+    ]
+  }
+}
