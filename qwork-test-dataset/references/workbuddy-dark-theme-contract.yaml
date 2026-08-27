@@ -83,3 +83,86 @@ failure_rules:
   - a screenshot without resolved-theme metadata is evidence-incomplete
   - static IDE Night selectors prove capability only, not product acceptance
   - missing platform or viewport Golden is not_evaluated, never pass
+
+# ---------------------------------------------------------------------------
+# 对话进行态（thread conversation active state）暗黑 token 基线
+#
+# 补齐上方 19 个 surface 未覆盖的空白：那 19 个均为顶层 tab 落地页，不含进入 thread
+# 之后的对话进行态（产物卡片、对话内搜索、历史弹窗、消息区）。structured-oracle-coverage-map
+# 中 thread / dialog / artifact / assistant / conversation 关键词出现 0 次，
+# 该状态此前无任何正向暗黑 oracle，漏测 surface 未登记即永不暴露。
+#
+# 采集方式与上方截图证据不同：本段为静态 token 提取，不依赖真机截图，可确定性复验。
+# ---------------------------------------------------------------------------
+conversation_state_token_baseline:
+  status: captured-static-token-extraction
+  source:
+    product: WorkBuddy
+    version: 5.3.8
+    platform: win32
+    artifact: app.asar (renderer/assets/*.css)
+    method: 解析 [data-theme="dark"] / body.vscode-dark 规则中的 --wb-* 定义并递归 resolve var()
+    reproducible: true
+    note: >-
+      与 5.3.13 交叉核对，本段列出的对话态 token 取值在两个版本间一致；
+      色值层跨平台一致，几何与 DPI 仍以 platform-oracle-matrix.json 为准。
+  # WorkBuddy 对话态存在两层色彩体系，QWork 对齐时必须区分，不可混用。
+  layers:
+    wb_business_tokens:
+      description: --wb-* 业务 token，用于卡片、弹窗、输入、文字等常规 UI
+      values:
+        bg_primary: "#1f1f1f"
+        bg_secondary: "#292929"
+        bg_content: "#1a1a1a"
+        bg_card: "#242424"
+        bg_card_strong: "#252525"
+        bg_elevated: "#3C3C3C"
+        bg_modal: "#141414"
+        bg_input_inset: "#242424"
+        bg_inset_strong: "#262626"
+        bg_item_selected: "#272B2B"
+        bg_hover: "color-mix(in srgb, #FFFFFF 6%, transparent)"
+        bg_active: "rgba(255, 255, 255, 0.1)"
+        border_secondary: "#3a3a3a"
+        border_popover: "color-mix(in srgb, #FFFFFF 10%, transparent)"
+        text_primary: "rgba(255, 255, 255, 1)"
+        text_secondary: "rgba(255, 255, 255, 0.85)"
+        text_tertiary: "rgba(255, 255, 255, 0.65)"
+        text_placeholder: "#727882"
+    vscode_ide_night:
+      description: >-
+        VS Code IDE Night 编辑器色板，用于 artifact 内容与代码预览等 IDE 区域；
+        artifact.css 不引用任何 --wb- 变量，直接使用下列色值。
+      values:
+        editor_background: "#1e1e1e"
+        editor_background_deep: "#181818"
+        editor_foreground: "#cccccc"
+        accent_blue: "#007fd4"
+        error: "#f48771"
+      note: >-
+        本层解释了顶部 dark_runtime_contract.body_background 的 rgb(24, 24, 24) = #181818
+        来源：它属于 IDE 主题层，而非 --wb- 业务 token 层（后者内容区为 #1a1a1a）。
+  qwork_alignment:
+    token_schema: >-
+      QWork 自有 :root.dark token（globals.css）已能承载主题切换：
+      --bg-0 9.4% / --bg-1 15% / --bg-2 20% / --bg-3 26% / --fg-1 92% / --fg-2 66%。
+      其语义与上表对应关系：bg-1 ≈ bg_card、bg-0 ≈ editor_background_deep、fg-1 ≈ text_primary。
+    known_gap_root_cause: >-
+      QWork 深色白页的根因不是缺少 schema，而是组件绕过 schema 硬编码浅色
+      （bg-white / bg-[#f5f5f5] / text-[#1f2329]），硬编码不参与 .dark 翻转。
+    guard: >-
+      qwork 仓库 src/renderer/src/styles/darkModeBlindspotGuard.test.ts 以棘轮基线
+      拦截新增硬编码浅色背景；基线即全页盲区清单。
+  acceptance_status:
+    token_values: captured-and-cross-version-verified
+    conversation_state_pixel_golden: not_evaluated
+    conversation_state_screenshot_set: not_evaluated
+    reason: >-
+      本段仅建立 token 取值基线，未采集对话进行态的真机截图；
+      pixel 与截图级验收待动态内容（任务、草稿、活动气泡）冻结或批准 mask 后另行评估。
+  covered_qwork_cases:
+    - QW-E2E-THREAD-CONVERSATION-DARK：产物卡片在深色下的外层背景、文件名前景与图标底
+  pending_qwork_surfaces:
+    - 对话内搜索框与历史提问弹窗（ThreadToolbar 真实渲染入口未用 E2E 覆盖）
+    - 消息气泡与工具调用区
+    - 专家团成员切换条
