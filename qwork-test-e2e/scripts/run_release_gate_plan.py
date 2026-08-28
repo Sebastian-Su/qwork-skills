@@ -353,6 +353,54 @@ def classify(plan: dict[str, Any], cases: dict[str, dict[str, Any]]) -> dict[str
                 "private_playwright": True,
                 "required_screenshot_states": item.get("required_screenshot_states", []),
             }
+        elif str(contract["route_id"]).startswith("qwork.requirement."):
+            argv = shlex.split(command)
+            if (
+                len(argv) != 6
+                or argv[:3] != ["npx", "playwright", "test"]
+                or argv[4] != "-g"
+            ):
+                raise ValueError(f"requirement Playwright contract mismatch: {case_id}")
+            delegate_id = str(contract["launch"].get("delegate_case_id") or "")
+            direct_source = contract["launch"].get("source_contract")
+            if delegate_id and direct_source:
+                raise ValueError(f"requirement Playwright contract mismatch: {case_id}")
+            if delegate_id:
+                delegate = cases.get(delegate_id)
+                delegate_contract = (
+                    delegate.get("execution_contract", {})
+                    if isinstance(delegate, dict)
+                    else {}
+                )
+                delegate_source = (
+                    delegate_contract.get("observability", {}).get("source_contract")
+                    or {}
+                )
+                valid_source = (
+                    bool(delegate)
+                    and str(delegate_contract.get("route_id") or "").startswith("qwork.playwright.")
+                    and command == str(delegate_contract.get("launch", {}).get("command_or_tool") or "")
+                    and argv[3] == delegate_source.get("spec")
+                    and argv[5] == delegate.get("title")
+                )
+            else:
+                valid_source = (
+                    isinstance(direct_source, dict)
+                    and argv[3] == direct_source.get("spec")
+                    and argv[5] == direct_source.get("title")
+                    and direct_source.get("execution_revision") == plan.get("implementation_revision")
+                    and re.fullmatch(r"sha256:[0-9a-f]{64}", str(direct_source.get("body_sha256") or "")) is not None
+                    and re.fullmatch(r"sha256:[0-9a-f]{64}", str(direct_source.get("spec_sha256") or "")) is not None
+                )
+            if not valid_source:
+                raise ValueError(f"requirement Playwright contract mismatch: {case_id}")
+            coordinates[item_id] = {
+                "category": "deterministic-playwright",
+                "command": command,
+                "argv": argv,
+                "case_id": case_id,
+                **({"delegate_case_id": delegate_id} if delegate_id else {}),
+            }
         else:
             raise ValueError(f"unclassified executable Case: {case_id}")
     return coordinates

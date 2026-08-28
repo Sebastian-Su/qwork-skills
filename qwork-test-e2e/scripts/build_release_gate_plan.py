@@ -121,7 +121,7 @@ def infer_surface(path: str, changed_content: str = "") -> str | None:
         "expert-team": ("team", "subagent"),
         "skills": ("skill",),
         "connectors": ("connector", "oauth", "mcp"),
-        "projects": ("project",),
+        "projects": ("project", "workspace"),
         "automations": ("automation", "schedule"),
         "files": ("file", "artifact", "attachment"),
         "browser": ("browser",),
@@ -346,7 +346,7 @@ def partition_exact_cases(
             case.get("execution_contract", {})
             .get("observability", {})
             .get("source_contract", {})
-        )
+        ) or {}
         historical_same_spec = (
             source.get("spec") == path
             and source.get("execution_revision")
