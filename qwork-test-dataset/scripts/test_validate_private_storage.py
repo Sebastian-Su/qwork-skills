@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -85,6 +86,24 @@ class ValidatePrivateStorageTest(unittest.TestCase):
     def tearDown(self) -> None:
         self.temporary_directory.cleanup()
 
+    def assert_rejects_without_lfs(self, attributes: str, relative_file: str) -> None:
+        (self.skill_repo / ".gitattributes").write_text(attributes, encoding="utf-8")
+        git(self.skill_repo, "add", ".gitattributes", relative_file)
+        git(
+            self.skill_repo,
+            "-c",
+            "user.name=QWork Test",
+            "-c",
+            "user.email=qwork@example.invalid",
+            "commit",
+            "-m",
+            "remove lfs attribute",
+        )
+
+        filename = re.escape(Path(relative_file).name)
+        with self.assertRaisesRegex(ValueError, f"Git LFS.*{filename}"):
+            validate(self.team_repo, "qwork-test-dataset", [])
+
     def test_accepts_clean_versioned_dataset_assets(self) -> None:
         result = validate(
             self.team_repo,
@@ -122,46 +141,16 @@ class ValidatePrivateStorageTest(unittest.TestCase):
             validate(self.team_repo, "qwork-test-dataset", [])
 
     def test_rejects_binary_without_lfs_attribute(self) -> None:
-        (self.skill_repo / ".gitattributes").write_text("", encoding="utf-8")
-        git(self.skill_repo, "add", ".gitattributes", "qwork-test-dataset/data/benchmarks/ui-visual/reference.png")
-        git(
-            self.skill_repo,
-            "-c",
-            "user.name=QWork Test",
-            "-c",
-            "user.email=qwork@example.invalid",
-            "commit",
-            "-m",
-            "remove lfs attribute",
+        self.assert_rejects_without_lfs(
+            "",
+            "qwork-test-dataset/data/benchmarks/ui-visual/reference.png",
         )
-
-        with self.assertRaisesRegex(ValueError, "Git LFS.*reference.png"):
-            validate(self.team_repo, "qwork-test-dataset", [])
 
     def test_rejects_trace_without_lfs_attribute(self) -> None:
-        (self.skill_repo / ".gitattributes").write_text(
+        self.assert_rejects_without_lfs(
             "qwork-test-dataset/data/**/*.png filter=lfs diff=lfs merge=lfs -text\n",
-            encoding="utf-8",
-        )
-        git(
-            self.skill_repo,
-            "add",
-            ".gitattributes",
             "qwork-test-dataset/data/reference-runs/reference/execution.trace",
         )
-        git(
-            self.skill_repo,
-            "-c",
-            "user.name=QWork Test",
-            "-c",
-            "user.email=qwork@example.invalid",
-            "commit",
-            "-m",
-            "remove trace lfs attribute",
-        )
-
-        with self.assertRaisesRegex(ValueError, "Git LFS.*execution.trace"):
-            validate(self.team_repo, "qwork-test-dataset", [])
 
 
 if __name__ == "__main__":
