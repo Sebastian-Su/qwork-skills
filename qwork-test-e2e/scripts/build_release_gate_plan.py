@@ -343,10 +343,9 @@ def partition_exact_cases(
     for case_id in exact_case_ids:
         case = case_files[case_id]
         source = (
-            case.get("execution_contract", {})
-            .get("observability", {})
-            .get("source_contract", {})
-        )
+            (case.get("execution_contract") or {}).get("observability")
+            or {}
+        ).get("source_contract") or {}
         historical_same_spec = (
             source.get("spec") == path
             and source.get("execution_revision")
