@@ -26,7 +26,7 @@
       "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "retrieved_at": "2026-08-28T12:22:21.629686+00:00",
       "content_hash": "sha256:22083a1bc5b4f608429be6c758304664b74be2bc00a4b97ab5f04c8f90a41fff",
       "redaction_status": "minimized"
     },
@@ -35,12 +35,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:b84f367917c9cc47f265fad746a780495a942c49:e2e/ui-journey-expert-market.spec.ts",
+      "stable_source_id": "git:8179e3b6c7a91d1414407d6a077c8a64c359ec89:e2e/ui-journey-expert-market.spec.ts",
       "locator": "line:56;test:UI-JOURNEY-CONNECTOR-001 | 专家中心连接器页签复用完整连接器市场",
-      "revision": "b84f367917c9cc47f265fad746a780495a942c49",
+      "revision": "8179e3b6c7a91d1414407d6a077c8a64c359ec89",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "retrieved_at": "2026-08-28T12:22:21.629686+00:00",
       "content_hash": "sha256:22083a1bc5b4f608429be6c758304664b74be2bc00a4b97ab5f04c8f90a41fff",
       "redaction_status": "minimized",
       "supports": [
@@ -80,11 +80,11 @@
     }
   ],
   "verification": {
-    "last_outcome": "pass",
-    "environment_scope": "isolated Electron Playwright run, case-owned QWork home, deterministic fake sidecar, zero real model calls",
-    "implementation_revision": "b84f367917c9cc47f265fad746a780495a942c49",
-    "last_verified_at": "2026-08-28T09:15:33.370533+00:00",
-    "status_reason": "hash-verified public Playwright reference run image-media-assets-public-reference-b84f3679-v1 passed"
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
   },
   "preconditions": {
     "repository": "qwork",
@@ -136,7 +136,7 @@
   },
   "execution_contract": {
     "contract_version": 1,
-    "readiness": "ready",
+    "readiness": "partial",
     "route_id": "qwork.playwright.e2e-ui-journey-expert-market-spec-ts.22083a1bc5",
     "target": {
       "kind": "installed-app",
@@ -198,21 +198,15 @@
         "body_sha256": "sha256:c901d224e4332c693a0bb66347ebd434d3c84a563906c6eeaa7987ce45a87bdd",
         "assertion_count": 4,
         "action_count": 1,
-        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "execution_revision": "8179e3b6c7a91d1414407d6a077c8a64c359ec89",
         "spec_sha256": "sha256:5142d20ff14cd3027753238473278011e13008ce1fdda54169c97353ffd35b62"
-      },
-      "reference_authority": {
-        "manifest": "skill://qwork-test-dataset/data/reference-runs/image-media-assets-public-reference-b84f3679-v1/public-playwright-reference.json",
-        "manifest_sha256": "sha256:43faf60b84a647475d1988b54735d1e4fbca8864be4f748a95d6f2e918aaaab5",
-        "plan_sha256": "7d27ebfddb33e28914f17e654a092484880ee713cae17e420deb70610c0d29d1",
-        "implementation_revision": "b84f367917c9cc47f265fad746a780495a942c49"
       }
     },
     "reference_run": {
-      "status": "passed",
-      "run_id": "image-media-assets-public-reference-b84f3679-v1",
-      "verified_at": "2026-08-28T09:15:33.370533+00:00",
-      "environment": "isolated Electron Playwright run, case-owned QWork home, deterministic fake sidecar, zero real model calls"
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
     },
     "cleanup": {
       "actions": [
@@ -221,7 +215,9 @@
       ],
       "success_oracle": "no case-owned process or temporary state remains"
     },
-    "blockers": []
+    "blockers": [
+      "reference run pending"
+    ]
   },
   "selection": {
     "requirement_ids": [
