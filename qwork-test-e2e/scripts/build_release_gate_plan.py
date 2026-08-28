@@ -8,6 +8,8 @@ import datetime as dt
 import hashlib
 import json
 import os
+import platform
+import sys
 from pathlib import Path
 import re
 import subprocess
@@ -512,7 +514,10 @@ def main() -> int:
         result_item("gate:electron-build", "execution-target", "npx electron-vite build", "contract-api-event-protocol", ["ui-api-event-persistence-seams"]),
     ]
     has_qwork_server = qwork_server_available(repo)
-    current_platform = {"Darwin": "darwin", "Linux": "linux", "Windows_NT": "win32"}.get(os.uname().sysname, os.uname().sysname.lower())
+    # `os.uname()` does not exist on Windows; `sys.platform` is the portable
+    # spelling and already matches the darwin/linux/win32 vocabulary used by the
+    # platform oracle matrix.
+    current_platform = sys.platform
     native_fullscreen_unavailable = os.environ.get(
         "QWORK_MACOS_NATIVE_FULLSCREEN_AVAILABLE", ""
     ).strip().lower() in {"0", "false", "no"}
@@ -646,7 +651,7 @@ def main() -> int:
             "dataset_file_count": len(dataset_files),
             "project_skill_file_count": len(skill_files),
         },
-        "environment": {"platform": os.uname().sysname, "machine": os.uname().machine, "python": os.sys.version.split()[0]},
+        "environment": {"platform": platform.system(), "machine": platform.machine(), "python": sys.version.split()[0]},
         "execution_contract": {
             "result_statuses": ["pass", "fail", "external-blocked"],
             "skip_and_known_gap_are_forbidden": True,
