@@ -22,13 +22,13 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/04-cli-login.md",
-      "locator": "line:229;heading:3. 连接流程",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/qconnector/contracts/04-cli-login.md",
+      "locator": "line:331;heading:3. 连接流程",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
-      "content_hash": "sha256:cf7e2f3762bd7f175f47f07e93fb1585630739fd196b1b8f0e1b3d50e65a51bf",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:cea4cdc864c573eba14ec996b4ae712e234d3cacec7461a045f6c88af1c75f55",
       "redaction_status": "minimized"
     },
     {
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/04-cli-login.md",
-      "locator": "line:231;heading:3. 连接流程",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/qconnector/contracts/04-cli-login.md",
+      "locator": "line:333;heading:3. 连接流程",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:10137b5ade07068496c928bec94bb79eee0efce8f827e378704d6682690dd7f2",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-40732AF64E873F",
+      "requirement_id": "REQ-FB0F9510FE9D07",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md:L229:cf7e2f3762"
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md:L331:cea4cdc864"
       ],
       "content_facets": [
         "error-copy"
@@ -61,7 +61,7 @@
       ],
       "surface": "connectors",
       "priority": "P1",
-      "rule": "失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权、状态检查仍只展示连接中的 busy 状态和最终错误，尚无逐步 UI。",
+      "rule": "失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权与状态检查仍不展开内部步骤，但卡片必须显示黄色呼吸点与旋转动作；hover/focus 时旋转动作切换为可访问的停止按钮。",
       "authority_domain": "product",
       "governing_sources": [
         "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md"
@@ -72,12 +72,12 @@
         "status": "resolved",
         "reason": "compiled from the user-approved source hierarchy"
       },
-      "oracle": "失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权、状态检查仍只展示连接中的 busy 状态和最终错误，尚无逐步 UI。"
+      "oracle": "失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权与状态检查仍不展开内部步骤，但卡片必须显示黄色呼吸点与旋转动作；hover/focus 时旋转动作切换为可访问的停止按钮。"
     },
     {
-      "requirement_id": "REQ-9FDAB1510A2AB5",
+      "requirement_id": "REQ-782081C62F43DC",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md:L231:10137b5ade"
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md:L333:10137b5ade"
       ],
       "content_facets": [
         "business-rule"
@@ -123,33 +123,33 @@
       "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 3. 连接流程 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe renderer visible content after the trigger and assert [REQ-40732AF64E873F] exactly: 失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权、状态检查仍只展示连接中的 busy 状态和最终错误，尚无逐步 UI。"
+      "action": "observe renderer visible content after the trigger and assert [REQ-FB0F9510FE9D07] exactly: 失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权与状态检查仍不展开内部步骤，但卡片必须显示黄色呼吸点与旋转动作；hover/focus 时旋转动作切换为可访问的停止按钮。"
     },
     {
-      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-9FDAB1510A2AB5] exactly: provider CLI 与 sidecar 使用不同环境对象：前者只保留 OS/runtime、代理、CA、用户目录、PATH 和少量供应商所需变量；生产态不会透传任意 `QWORK_*`、模型或云盘凭据。隔离环境仍复用 connector CLI 的 PATH 布局，私有 prefix 是安装目标和查找优先级，不是严格的二进制来源隔离。 实现有意保留 inherited PATH 作为系统 runtime/工具的回退，因此同名命令仍可能来自用户或 系统 PATH；当前也没"
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-782081C62F43DC] exactly: provider CLI 与 sidecar 使用不同环境对象：前者只保留 OS/runtime、代理、CA、用户目录、PATH 和少量供应商所需变量；生产态不会透传任意 `QWORK_*`、模型或云盘凭据。隔离环境仍复用 connector CLI 的 PATH 布局，私有 prefix 是安装目标和查找优先级，不是严格的二进制来源隔离。 实现有意保留 inherited PATH 作为系统 runtime/工具的回退，因此同名命令仍可能来自用户或 系统 PATH；当前也没"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
     }
   ],
   "expected_outcomes": [
-    "失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权、状态检查仍只展示连接中的 busy 状态和最终错误，尚无逐步 UI。",
+    "失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权与状态检查仍不展开内部步骤，但卡片必须显示黄色呼吸点与旋转动作；hover/focus 时旋转动作切换为可访问的停止按钮。",
     "provider CLI 与 sidecar 使用不同环境对象：前者只保留 OS/runtime、代理、CA、用户目录、PATH 和少量供应商所需变量；生产态不会透传任意 `QWORK_*`、模型或云盘凭据。隔离环境仍复用 connector CLI 的 PATH 布局，私有 prefix 是安装目标和查找优先级，不是严格的二进制来源隔离。 实现有意保留 inherited PATH 作为系统 runtime/工具的回退，因此同名命令仍可能来自用户或 系统 PATH；当前也没"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-40732AF64E873F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权、状态检查仍只展示连接中的 busy 状态和最终错误，尚无逐步 UI。",
-    "FAIL [REQ-9FDAB1510A2AB5]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: provider CLI 与 sidecar 使用不同环境对象：前者只保留 OS/runtime、代理、CA、用户目录、PATH 和少量供应商所需变量；生产态不会透传任意 `QWORK_*`、模型或云盘凭据。隔离环境仍复用 connector CLI 的 PATH 布局，私有 prefix 是安装目标和查找优先级，不是严格的二进制来源隔离。 实现有意保留 inherited PATH 作为系统 runtime/工具的回退，因此同名命令仍可能来自用户或 系统 PATH；当前也没",
+    "FAIL [REQ-FB0F9510FE9D07]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权与状态检查仍不展开内部步骤，但卡片必须显示黄色呼吸点与旋转动作；hover/focus 时旋转动作切换为可访问的停止按钮。",
+    "FAIL [REQ-782081C62F43DC]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: provider CLI 与 sidecar 使用不同环境对象：前者只保留 OS/runtime、代理、CA、用户目录、PATH 和少量供应商所需变量；生产态不会透传任意 `QWORK_*`、模型或云盘凭据。隔离环境仍复用 connector CLI 的 PATH 布局，私有 prefix 是安装目标和查找优先级，不是严格的二进制来源隔离。 实现有意保留 inherited PATH 作为系统 runtime/工具的回退，因此同名命令仍可能来自用户或 系统 PATH；当前也没",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-40732AF64E873F",
+      "requirement_id": "REQ-FB0F9510FE9D07",
       "type": "ui-content",
-      "assertion": "失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权、状态检查仍只展示连接中的 busy 状态和最终错误，尚无逐步 UI。"
+      "assertion": "失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权与状态检查仍不展开内部步骤，但卡片必须显示黄色呼吸点与旋转动作；hover/focus 时旋转动作切换为可访问的停止按钮。"
     },
     {
-      "requirement_id": "REQ-9FDAB1510A2AB5",
+      "requirement_id": "REQ-782081C62F43DC",
       "type": "ui",
       "assertion": "provider CLI 与 sidecar 使用不同环境对象：前者只保留 OS/runtime、代理、CA、用户目录、PATH 和少量供应商所需变量；生产态不会透传任意 `QWORK_*`、模型或云盘凭据。隔离环境仍复用 connector CLI 的 PATH 布局，私有 prefix 是安装目标和查找优先级，不是严格的二进制来源隔离。 实现有意保留 inherited PATH 作为系统 runtime/工具的回退，因此同名命令仍可能来自用户或 系统 PATH；当前也没"
     }
@@ -221,10 +221,10 @@
           "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 3. 连接流程 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe renderer visible content after the trigger and assert [REQ-40732AF64E873F] exactly: 失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权、状态检查仍只展示连接中的 busy 状态和最终错误，尚无逐步 UI。"
+          "action": "observe renderer visible content after the trigger and assert [REQ-FB0F9510FE9D07] exactly: 失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权与状态检查仍不展开内部步骤，但卡片必须显示黄色呼吸点与旋转动作；hover/focus 时旋转动作切换为可访问的停止按钮。"
         },
         {
-          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-9FDAB1510A2AB5] exactly: provider CLI 与 sidecar 使用不同环境对象：前者只保留 OS/runtime、代理、CA、用户目录、PATH 和少量供应商所需变量；生产态不会透传任意 `QWORK_*`、模型或云盘凭据。隔离环境仍复用 connector CLI 的 PATH 布局，私有 prefix 是安装目标和查找优先级，不是严格的二进制来源隔离。 实现有意保留 inherited PATH 作为系统 runtime/工具的回退，因此同名命令仍可能来自用户或 系统 PATH；当前也没"
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-782081C62F43DC] exactly: provider CLI 与 sidecar 使用不同环境对象：前者只保留 OS/runtime、代理、CA、用户目录、PATH 和少量供应商所需变量；生产态不会透传任意 `QWORK_*`、模型或云盘凭据。隔离环境仍复用 connector CLI 的 PATH 布局，私有 prefix 是安装目标和查找优先级，不是严格的二进制来源隔离。 实现有意保留 inherited PATH 作为系统 runtime/工具的回退，因此同名命令仍可能来自用户或 系统 PATH；当前也没"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -270,8 +270,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-40732AF64E873F",
-      "REQ-9FDAB1510A2AB5"
+      "REQ-782081C62F43DC",
+      "REQ-FB0F9510FE9D07"
     ],
     "categories": [
       "business",
@@ -283,22 +283,22 @@
       "category:error",
       "category:ui-content",
       "full",
-      "requirement:REQ-40732AF64E873F",
-      "requirement:REQ-9FDAB1510A2AB5"
+      "requirement:REQ-782081C62F43DC",
+      "requirement:REQ-FB0F9510FE9D07"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-40732AF64E873F",
+      "requirement_id": "REQ-FB0F9510FE9D07",
       "oracle_type": "ui-content",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 3. 连接流程 产品契约 exactly once and retain its correlation identity",
-      "then": "失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权、状态检查仍只展示连接中的 busy 状态和最终错误，尚无逐步 UI。",
+      "then": "失败停在该步并可重试，**不回滚已完成的步骤**（安装和登录都是幂等的，`skipIf` 保证重跑安全）。通过本地供应链与 runtime fail-fast 后，`init` 真正开始执行时，UI 会显示全局安装提示；安装完成或失败后自动收起，用户关闭提示只影响展示、不取消安装。版本探测、授权与状态检查仍不展开内部步骤，但卡片必须显示黄色呼吸点与旋转动作；hover/focus 时旋转动作切换为可访问的停止按钮。",
       "observation_boundary": "renderer visible content",
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-9FDAB1510A2AB5",
+      "requirement_id": "REQ-782081C62F43DC",
       "oracle_type": "ui",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 3. 连接流程 产品契约 exactly once and retain its correlation identity",

@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/home-practice-cases.spec.ts",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/home-practice-cases.spec.ts",
       "locator": "line:40;test:shows scene-filtered practice cases, refreshes a batch, and does not create a session on card click",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:39af5cdda4dfb4aa10e73ed0ed7837418a195bd55621909b8282d002e61abb21",
       "redaction_status": "minimized"
     }
@@ -81,6 +81,12 @@
       "action": "page.getByRole(\"button\", { name: \"文档处理\" }).click()"
     },
     {
+      "action": "firstCard.hover()"
+    },
+    {
+      "action": "firstCard.hover()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"换一批\" }).click()"
     },
     {
@@ -112,13 +118,22 @@
     "expect(page.getByRole(\"button\", { name: \"换一批\" })).toBeVisible()",
     "expect(cards).toHaveCount(5)",
     "expect(cards).toHaveText(BATCH_0)",
+    "expect.poll(async () => firstCard.locator(\"xpath=..\").evaluate((element) => { const animations = element.getAnimations(); return animations.length > 0 && animations.every((animation) => animation.playState === \"finished\"); })).toBe(true)",
     "expect(box).toBeTruthy()",
     "expect(Math.abs(box.width - 147)).toBeLessThanOrEqual(2)",
     "expect(Math.abs(box.height - 98)).toBeLessThanOrEqual(2)",
     "expect(radius).toBe(\"16px\")",
-    "expect.poll(async () => cards.evaluateAll((elements) => elements.filter((element) => getComputedStyle(element).display !== \"none\").length), ).toBe(4)",
-    "expect(await cards.nth(4).evaluate((element) => getComputedStyle(element).display === \"none\" || element.tabIndex < 0)).toBe(true)",
-    "expect.poll(async () => cards.evaluateAll((elements) => elements.filter((element) => getComputedStyle(element).display !== \"none\").length), ).toBe(3)",
+    "expect(firstCard.locator(\"xpath=..\")).toHaveCSS(\"animation-duration\", \"0.32s\")",
+    "expect(firstCard.locator(\"xpath=..\")).toHaveCSS(\"transition\", \"transform 0.18s, filter 0.18s\")",
+    "expect.poll(async () => await firstCard.locator(\"xpath=..\").evaluate((element) => getComputedStyle(element).transform)).not.toBe(\"none\")",
+    "expect.poll(async () => Math.abs( ((await firstCard.boundingBox())?.y ?? 0) - ((beforeHover?.y ?? 0) - 2), )).toBeLessThanOrEqual(2)",
+    "expect(firstCard).toHaveCSS(\"box-shadow\", \"rgba(0, 0, 0, 0.12) 0px 8px 20px 0px\")",
+    "expect(firstCard.locator(\"iframe, img\").first()).toHaveCSS(\"transform\", \"none\")",
+    "expect.poll(async () => await firstCard.locator(\"xpath=..\").evaluate((element) => getComputedStyle(element).transform)).toBe(\"matrix(1, 0, 0, 1, 0, 0)\")",
+    "expect.poll(async () => Math.abs(((await firstCard.boundingBox())?.y ?? 0) - (beforeHover?.y ?? 0))).toBeLessThanOrEqual(10)",
+    "expect.poll(async () => cards.evaluateAll((elements) => elements.filter((element) => element.getClientRects().length > 0).length), ).toBe(4)",
+    "expect(await cards.nth(4).evaluate((element) => element.getClientRects().length === 0 || element.tabIndex < 0)).toBe(true)",
+    "expect.poll(async () => cards.evaluateAll((elements) => elements.filter((element) => element.getClientRects().length > 0).length), ).toBe(3)",
     "expect(cards).toHaveCount(5)",
     "expect(cards).toHaveText(BATCH_1)",
     "expect(page.getByTestId(\"scene-phrase\")).toHaveAttribute(\"data-scene-uri\", \"scene://daily-01\")",
@@ -131,7 +146,7 @@
     "expect(page.getByRole(\"button\", { name: \"Orders API 接口文档\" })).toHaveCount(0)",
     "expect(page.getByTestId(\"home-practice-card\")).toHaveCount(5)",
     "expect(page.getByRole(\"button\", { name: \"换一批\" })).toBeVisible()",
-    "expect(page.getByText(\"不知道做什么，试试最佳实践案例\")).toHaveCount(0)",
+    "expect(page.getByText(\"不知道做什么，试试最佳实践案例\")).toBeVisible()",
     "expect(requests.some((url) => /playbook|myqcloud\\.com|cos\\./i.test(url))).toBe(false)"
   ],
   "forbidden_outcomes": [
@@ -208,6 +223,12 @@
           "action": "page.getByRole(\"button\", { name: \"文档处理\" }).click()"
         },
         {
+          "action": "firstCard.hover()"
+        },
+        {
+          "action": "firstCard.hover()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"换一批\" }).click()"
         },
         {
@@ -248,12 +269,12 @@
       "source_contract": {
         "spec": "e2e/home-practice-cases.spec.ts",
         "line_start": 40,
-        "line_end": 163,
-        "body_sha256": "sha256:371da34d58f304cc96979dc8a1aeb65ffe04fc2a0266457c492dad94e2b49492",
-        "assertion_count": 30,
-        "action_count": 9,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:4f61ee9defefbc9813606408ebb3ad032f3e3258f4fb7b03846cda206a7cf568"
+        "line_end": 182,
+        "body_sha256": "sha256:1cb1b6d908d5123765f23d7d6ea2bf85cca9e37717f1777272e8580ed9ac26fb",
+        "assertion_count": 39,
+        "action_count": 11,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:82f46678a57f02de57b0dd5983d9e57e84f42432f7188a58953ec281d0aacb9e"
       }
     },
     "reference_run": {

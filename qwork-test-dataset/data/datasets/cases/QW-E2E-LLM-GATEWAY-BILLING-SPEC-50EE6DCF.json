@@ -22,21 +22,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/llm-gateway-billing.spec.ts",
-      "locator": "line:18;test:every selectable model is proxied and billed for the authenticated user",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/llm-gateway-billing.spec.ts",
+      "locator": "line:38;test:every selectable model is proxied and billed for the authenticated user",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:50ee6dcf9ae872353dfd4fe0a0e28c4b9473b795eea11914d43a38ff7388833c",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-EA238F168C4699",
+      "requirement_id": "REQ-A10660DCBD1620",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-llm-gateway-billing-spec-ts:L18:50ee6dcf9a"
+        "QDEV-E2E-e2e-llm-gateway-billing-spec-ts:L38:50ee6dcf9a"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -76,10 +76,10 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+      "action": "page .getByRole(\"button\", { name: \"新建任务\", exact: true }) .click()"
     },
     {
-      "action": "dock .getByRole(\"button\", { name: /^(GLM-5\\.2|Kimi-K3)$/ }) .click()"
+      "action": "dock .getByRole(\"button\", { name: /^(MiniMax-M3|DeepSeek-V4-Flash)$/ }) .click()"
     },
     {
       "action": "page .getByRole(\"menu\", { name: \"模型\" }) .getByRole(\"menuitemradio\", { name: option.label, exact: true }) .click()"
@@ -89,20 +89,34 @@
     },
     {
       "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page .locator('button[aria-haspopup=\"menu\"]') .filter({ hasText: authStatus.displayName }) .click()"
+    },
+    {
+      "action": "accountMenu.getByRole(\"menuitem\", { name: /积分余额/ }).click()"
     }
   ],
   "expected_outcomes": [
-    "expect(dock.getByRole(\"button\", { name: option.label, exact: true })).toBeVisible()",
-    "expect( page.getByText(`模型批测成功：${providerModelId(option.value)}`, { exact: true }), ).toBeVisible()",
-    "expect(page.getByText(\"共消耗 ◇15\", { exact: true })).toBeVisible()",
+    "expect( dock.getByRole(\"button\", { name: option.label, exact: true }), ).toBeVisible()",
+    "expect( page.getByText(`模型批测成功：${providerModelId(option.value)}`, { exact: true, }), ).toBeVisible()",
+    "expect( page.getByText( `共使用 ${TEST_USAGE[option.value].total.toLocaleString(\"en-US\")} Token`, { exact: true }, ), ).toBeVisible()",
     "expect(page.getByText(/NaN/)).toHaveCount(0)",
     "expect(sessionCookie).toBeDefined()",
-    "expect(authCookies.map((cookie) => cookie.name)).toEqual([\"qwork_session\"])",
+    "expect(authCookies.map((cookie) => cookie.name)).toEqual([ \"qwork_session\", ])",
     "expect(usage.records).toHaveLength(TEST_MODEL_OPTIONS.length)",
-    "expect(usage.records.map((record) => record.model).sort()).toEqual( TEST_MODEL_OPTIONS.map((option) => providerModelId(option.value)).sort(), )",
-    "expect(record.totalTokens).toBe(15)",
-    "expect(record.totalCostNanos).toBe(21_000)",
-    "expect(upstream.requests).toEqual( TEST_MODEL_OPTIONS.map((option) => ({ model: providerModelId(option.value), authorization: \"Bearer server-owned-test-key\", })), )"
+    "expect(usage.records.map((record) => record.model).sort()).toEqual( TEST_MODEL_OPTIONS.map((option) => providerModelId(option.value), ).sort(), )",
+    "expect(record.totalTokens).toBe(TEST_USAGE[record.model].total)",
+    "expect(record.totalCostNanos).toBeGreaterThan(0)",
+    "expect(credits.balance).toBe(4_994.83)",
+    "expect(credits.ledger?.filter((entry) => entry.type === \"LLM\")).toEqual( expect.arrayContaining([ expect.objectContaining({ model: \"minimax/MiniMax-M3\", amount: -1.94, status: \"SETTLED\", }), expect.objectContaining({ model: \"deepseek/deepseek-v4-flash\", amount: -3.23, status: \"SETTLED\", }), ]), )",
+    "expect(rejectedResponse!.status).toBe(429)",
+    "expect((await heldRequest).ok).toBe(true)",
+    "expect( creditsAfterAdmissionFailure.ledger?.find( (entry) => entry.requestId === \"e2e-credit-admission-rejected\", ), ).toMatchObject({ status: \"RELEASED\", amount: 0 })",
+    "expect(accountMenu).toBeVisible()",
+    "expect(page.getByRole(\"heading\", { name: \"套餐与用量\" })).toBeVisible()",
+    "expect(page.getByText(\"预占已释放\", { exact: true })).toBeVisible()",
+    "expect(upstream.requests).toEqual( [ ...TEST_MODEL_OPTIONS.map((option) => ({ model: providerModelId(option.value), authorization: \"Bearer server-owned-test-key\", })), { model: \"deepseek/deepseek-v4-flash\", authorization: \"Bearer server-owned-test-key\", }, ], )"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -111,7 +125,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-EA238F168C4699",
+      "requirement_id": "REQ-A10660DCBD1620",
       "type": "return",
       "assertion": "every selectable model is proxied and billed for the authenticated user"
     }
@@ -177,10 +191,10 @@
       "entrypoint": "models",
       "steps": [
         {
-          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+          "action": "page .getByRole(\"button\", { name: \"新建任务\", exact: true }) .click()"
         },
         {
-          "action": "dock .getByRole(\"button\", { name: /^(GLM-5\\.2|Kimi-K3)$/ }) .click()"
+          "action": "dock .getByRole(\"button\", { name: /^(MiniMax-M3|DeepSeek-V4-Flash)$/ }) .click()"
         },
         {
           "action": "page .getByRole(\"menu\", { name: \"模型\" }) .getByRole(\"menuitemradio\", { name: option.label, exact: true }) .click()"
@@ -190,6 +204,12 @@
         },
         {
           "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page .locator('button[aria-haspopup=\"menu\"]') .filter({ hasText: authStatus.displayName }) .click()"
+        },
+        {
+          "action": "accountMenu.getByRole(\"menuitem\", { name: /积分余额/ }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -212,13 +232,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/llm-gateway-billing.spec.ts",
-        "line_start": 18,
-        "line_end": 139,
-        "body_sha256": "sha256:6b51f0aefb9bae5d913dda43909f87af3e954493abfd52047a804423ef9bfc25",
-        "assertion_count": 11,
-        "action_count": 5,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:cc2edea7c9176e825692973981fc6f2722c9d599c9eb11c733e9c7a316ff5b4e"
+        "line_start": 38,
+        "line_end": 287,
+        "body_sha256": "sha256:c43cde86e94c9a1fbbe69024eab73d9d8c85b76880e26827c7807bbaab18acc4",
+        "assertion_count": 19,
+        "action_count": 7,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:9e1bc80001a0b75471676e8a517bd959da8d0a02388339b50046c0275e8056c5"
       }
     },
     "reference_run": {
@@ -241,7 +261,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-EA238F168C4699"
+      "REQ-A10660DCBD1620"
     ],
     "categories": [
       "business"
@@ -249,7 +269,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-EA238F168C4699"
+      "requirement:REQ-A10660DCBD1620"
     ]
   }
 }

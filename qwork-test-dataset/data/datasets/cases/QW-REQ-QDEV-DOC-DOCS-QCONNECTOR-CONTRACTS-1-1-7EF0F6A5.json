@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/01-oauth.md",
-      "locator": "line:33;heading:1.1 顺序",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/qconnector/contracts/01-oauth.md",
+      "locator": "line:36;heading:1.1 顺序",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:b51e94500442e657ff3e1acb4a62a1700f43240a7f025258e60dbedef6c9192c",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-7E52A52E9E80D6",
+      "requirement_id": "REQ-8501603989E4C1",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-01-oauth-md:L33:b51e945004"
+        "QDEV-DOC-docs-qconnector-contracts-01-oauth-md:L36:b51e945004"
       ],
       "content_facets": [
         "negative-rule"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 1.1 顺序 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7E52A52E9E80D6] exactly: 任一步失败按 §1.3 回退。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8501603989E4C1] exactly: 任一步失败按 §1.3 回退。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "任一步失败按 §1.3 回退。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-7E52A52E9E80D6]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 任一步失败按 §1.3 回退。",
+    "FAIL [REQ-8501603989E4C1]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 任一步失败按 §1.3 回退。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-7E52A52E9E80D6",
+      "requirement_id": "REQ-8501603989E4C1",
       "type": "return",
       "assertion": "任一步失败按 §1.3 回退。"
     }
@@ -157,7 +157,7 @@
           "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 1.1 顺序 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7E52A52E9E80D6] exactly: 任一步失败按 §1.3 回退。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8501603989E4C1] exactly: 任一步失败按 §1.3 回退。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -200,7 +200,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-7E52A52E9E80D6"
+      "REQ-8501603989E4C1"
     ],
     "categories": [
       "negative"
@@ -208,12 +208,12 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-7E52A52E9E80D6"
+      "requirement:REQ-8501603989E4C1"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-7E52A52E9E80D6",
+      "requirement_id": "REQ-8501603989E4C1",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 1.1 顺序 产品契约 exactly once and retain its correlation identity",

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-form.spec.ts",
-      "locator": "line:238;test:unbind clears the credential and asks again",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/connectors-form.spec.ts",
+      "locator": "line:250;test:unbind clears the credential and asks again",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:5d47a221f5bba6c67f779825ae803ab16ae7963b18479d8433d6e247dabc6c59",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-C921F81C2A9398",
+      "requirement_id": "REQ-0706D60A83CFF2",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-connectors-form-spec-ts:L238:5d47a221f5"
+        "QDEV-E2E-e2e-connectors-form-spec-ts:L250:5d47a221f5"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -88,12 +88,22 @@
     },
     {
       "action": "detail.getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"Demo 地图，未连接\" }).click()"
+    },
+    {
+      "action": "page .getByRole(\"dialog\", { name: \"Demo 地图\" }) .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
     }
   ],
   "expected_outcomes": [
-    "expect(detail.getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible({ timeout: 15000, })",
-    "expect(page.getByRole(\"button\", { name: \"Demo 地图，未连接\" })).toBeVisible()",
-    "expect(await fs.readFile(vault, \"utf8\")).not.toContain(SECRET)"
+    "expect( detail.getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible({ timeout: 15000, })",
+    "expect( page.getByRole(\"button\", { name: \"Demo 地图，未连接\" }), ).toBeVisible()",
+    "expect(vaultDocument.records ?? {}).toEqual({})",
+    "expect(settings.mcpServers ?? {}).not.toHaveProperty(\"demo-map\")",
+    "expect(reconnectForm).toBeVisible()",
+    "expect(reconnectForm.getByLabel(/开发者 Key/)).toHaveValue(\"\")",
+    "expect(reconnectForm.getByLabel(/开发者 Key/)).not.toHaveAttribute( \"placeholder\", \"已配置，留空则保持不变\", )"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -102,7 +112,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-C921F81C2A9398",
+      "requirement_id": "REQ-0706D60A83CFF2",
       "type": "return",
       "assertion": "unbind clears the credential and asks again"
     }
@@ -176,6 +186,12 @@
         },
         {
           "action": "detail.getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"Demo 地图，未连接\" }).click()"
+        },
+        {
+          "action": "page .getByRole(\"dialog\", { name: \"Demo 地图\" }) .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -196,13 +212,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/connectors-form.spec.ts",
-        "line_start": 238,
-        "line_end": 259,
-        "body_sha256": "sha256:a8b570150f9349d2d734a07ac2851adb784fae199805bc3d04a822e285a18f87",
-        "assertion_count": 3,
-        "action_count": 5,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:2e7e018fa78876f222fa620aea27cd334c79cf56759e0b690a5e2d37160d8601"
+        "line_start": 250,
+        "line_end": 318,
+        "body_sha256": "sha256:35ba85037be3303d5447b91610a24e90caf11a2639d84709d38ecb68edec2bdc",
+        "assertion_count": 7,
+        "action_count": 7,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:8132202e61f73c9aeb8389730ff30e108dcda7cff519437ececea5dfb313c250"
       }
     },
     "reference_run": {
@@ -224,7 +240,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-C921F81C2A9398"
+      "REQ-0706D60A83CFF2"
     ],
     "categories": [
       "business"
@@ -232,7 +248,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-C921F81C2A9398"
+      "requirement:REQ-0706D60A83CFF2"
     ]
   }
 }

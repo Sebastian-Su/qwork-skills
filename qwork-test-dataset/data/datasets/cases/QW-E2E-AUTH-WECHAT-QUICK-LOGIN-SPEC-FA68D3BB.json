@@ -1,0 +1,238 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-AUTH-WECHAT-QUICK-LOGIN-SPEC-FA68D3BB",
+  "title": "cold-starts the modal and delegates QQ to the system browser",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "auth",
+    "journey": "auth",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-auth-wechat-quick-login-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/auth-wechat-quick-login.spec.ts",
+      "locator": "line:48;test:cold-starts the modal and delegates QQ to the system browser",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:fa68d3bb8e554b3438cf7d3cdbee6c5725338c3c233a2d7aeb6973f8de5477dd",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-29BF0E8B039CF8",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-auth-wechat-quick-login-spec-ts:L48:fa68d3bb8e"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "cold-starts the modal and delegates QQ to the system browser",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-auth-wechat-quick-login-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "cold-starts the modal and delegates QQ to the system browser"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "modal.getByRole(\"button\", { name: provider }).click({ noWaitAfter: true })"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"heading\", { name: \"QWork，我帮你\" })).toBeVisible()",
+    "expect(page.getByRole(\"status\", { name: \"聚合登录状态\" })).toContainText(\"请在登录窗口完成验证\")",
+    "expect(page.getByRole(\"button\", { name: \"显示登录窗口\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"显示登录窗口\" })).toBeEnabled()",
+    "expect(page.getByRole(\"button\", { name: \"离线登录\" })).toHaveCount(0)",
+    "expect.poll(() => app!.windows().length).toBe(2)",
+    "expect(modal.getByRole(\"heading\", { name: \"欢迎登录 QWork\" })).toBeVisible()",
+    "expect(modal.getByText(\"登录后即可同步工作空间与历史记录\")).toBeVisible()",
+    "expect(modal.getByText(\"由 360 用户中心提供安全登录\")).toBeVisible()",
+    "expect(modal.getByRole(\"button\", { name: \"扫码登录\" })).toBeVisible()",
+    "expect(modal.getByRole(\"button\", { name: \"QQ\" })).toBeVisible()",
+    "expect(modal.getByRole(\"button\", { name: \"微信\" })).toBeVisible()",
+    "expect(modal.getByRole(\"button\", { name: \"微博\" })).toHaveCount(0)",
+    "expect(modal.getByRole(\"button\", { name: \"支付宝\" })).toHaveCount(0)",
+    "expect(modalLayout).toEqual({ width: 760, height: 560, horizontalOverflow: false, verticalOverflow: false, })",
+    "expect(fs.stat(authUrlSink)).rejects.toThrow()",
+    "expect.poll(() => app!.windows().length).toBe(1)",
+    "expect(page.getByRole(\"status\", { name: \"聚合登录状态\" })).toContainText(\"请在默认浏览器完成确认\")",
+    "expect(page.getByRole(\"button\", { name: \"取消登录\" })).toBeVisible()",
+    "expect.poll(() => readAuthorizationURLs(authUrlSink)).toHaveLength(1)",
+    "expect(loginURL.pathname).toBe(\"/auth/login\")",
+    "expect(loginURL.searchParams.get(\"mode\")).toBe(provider === \"微信\" ? \"wechat-quick\" : \"qq-quick\")",
+    "expect(state).toBeTruthy()",
+    "expect(challenge).toBeTruthy()",
+    "expect(grantResponse.status).toBe(200)",
+    "expect(page.getByRole(\"button\", { name: \"项目\", exact: true })).toBeVisible()",
+    "expect(status).toMatchObject({ loggedIn: true, qid: TEST_QID })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-29BF0E8B039CF8",
+      "type": "return",
+      "assertion": "cold-starts the modal and delegates QQ to the system browser"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-auth-wechat-quick-login-spec-ts.fa68d3bb8e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/auth-wechat-quick-login.spec.ts -g \"cold-starts the modal and delegates QQ to the system browser\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "auth",
+      "steps": [
+        {
+          "action": "modal.getByRole(\"button\", { name: provider }).click({ noWaitAfter: true })"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/auth-wechat-quick-login.spec.ts",
+        "line_start": 48,
+        "line_end": 123,
+        "body_sha256": "sha256:030e4b19f7afdd3cd8cc203b6f639172a65de544e7690c32b0ce330a8ca3861b",
+        "assertion_count": 27,
+        "action_count": 1,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:cd166f913cedc7d9260095054da133ac22a8f822cbfd2719dddcc2a0f7b78c6e"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-29BF0E8B039CF8"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-29BF0E8B039CF8"
+    ]
+  }
+}

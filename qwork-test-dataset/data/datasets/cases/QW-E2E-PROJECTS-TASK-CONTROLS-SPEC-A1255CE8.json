@@ -1,0 +1,242 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECTS-TASK-CONTROLS-SPEC-A1255CE8",
+  "title": "creates a cloud task with an opaque server workspace and no local path controls",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "files",
+    "journey": "files",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-projects-task-controls-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/projects-task-controls.spec.ts",
+      "locator": "line:339;test:creates a cloud task with an opaque server workspace and no local path controls",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:a1255ce8c2da5a440ef92d4feca35c4d3e0a1c7c3eaa89ff212c88c9b7ea3ebd",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-B7C6C22152FDBA",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-projects-task-controls-spec-ts:L339:a1255ce8c2"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "creates a cloud task with an opaque server workspace and no local path controls",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-projects-task-controls-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "creates a cloud task with an opaque server workspace and no local path controls"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"本地任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"任务类型\" }) .getByRole(\"menuitemradio\", { name: \"云端任务\" }) .click()"
+    },
+    {
+      "action": "composer.getByPlaceholder( \"今天帮你做些什么？ @ 引用项目资产或待办，/ 调用技能与指令\", ).fill(promptText)"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(composer.getByTestId(\"project-composer-workspace-trigger\")).toHaveCount(0)",
+    "expect(composer.getByTestId(\"project-composer-permission-trigger\")).toHaveCount(0)",
+    "expect(composer.getByTestId(\"project-composer-model-trigger\")).toBeDisabled()",
+    "expect(page.getByRole(\"list\", { name: \"任务列表\" })).toContainText(promptText)",
+    "expect(cloudTask).toMatchObject({ executionTarget: \"cloud\", workspaceBinding: { kind: \"cloud_managed\", workspaceId: expect.any(String), }, })",
+    "expect(cloudTask?.workspaceBinding).not.toHaveProperty(\"cwd\")",
+    "expect(cloudTask?.workspaceBinding?.kind === \"cloud_managed\" ? cloudTask.workspaceBinding.workspaceId : \"\").not.toBe(cloudTask?.id)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-B7C6C22152FDBA",
+      "type": "return",
+      "assertion": "creates a cloud task with an opaque server workspace and no local path controls"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-projects-task-controls-spec-ts.a1255ce8c2",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/projects-task-controls.spec.ts -g \"creates a cloud task with an opaque server workspace and no local path controls\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "files",
+      "steps": [
+        {
+          "action": "composer.getByRole(\"button\", { name: \"本地任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"任务类型\" }) .getByRole(\"menuitemradio\", { name: \"云端任务\" }) .click()"
+        },
+        {
+          "action": "composer.getByPlaceholder( \"今天帮你做些什么？ @ 引用项目资产或待办，/ 调用技能与指令\", ).fill(promptText)"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/projects-task-controls.spec.ts",
+        "line_start": 339,
+        "line_end": 398,
+        "body_sha256": "sha256:4492a95005ef73fa927b61f7b1eb81df690272c0d6d3a10b22ba8fa1b4790934",
+        "assertion_count": 7,
+        "action_count": 5,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:c494a107586cbaa8b4b452fa4dbd0b16afdf9cdb77d8d9b7f83892164f98606b"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B7C6C22152FDBA"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-B7C6C22152FDBA"
+    ]
+  }
+}

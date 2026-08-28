@@ -1,0 +1,286 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-USER-DELIVERY-SPEC-BE87820D",
+  "title": "历史 Word 和 TXT 恢复卡片并保留会话内预览开关状态",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-user-delivery-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/user-delivery.spec.ts",
+      "locator": "line:643;test:历史 Word 和 TXT 恢复卡片并保留会话内预览开关状态",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:be87820de6f72813973eb14643582df24a61c37b143fc7e6371de63f495380bb",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-A5DE9D82696176",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-user-delivery-spec-ts:L643:be87820de6"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "历史 Word 和 TXT 恢复卡片并保留会话内预览开关状态",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-user-delivery-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "历史 Word 和 TXT 恢复卡片并保留会话内预览开关状态"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_WORD_DELIVERY__:历史A.docx,历史B.docx\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_USER_DELIVERY__:历史问候.txt\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收起右侧面板\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收起右侧面板\" }).click()"
+    },
+    {
+      "action": "wordCard.click()"
+    },
+    {
+      "action": "textCard.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"tab\", { name: \"历史A.docx\" })).toHaveAttribute( \"aria-selected\", \"true\", { timeout: 60_000 }, )",
+    "expect( page.getByRole(\"textbox\", { name: \"编辑 历史问候.txt\" }), ).toHaveValue(\"你好，QWork\\n\", { timeout: 60_000 })",
+    "expect( page.getByRole(\"button\", { name: \"打开产出物 历史A.docx\" }), ).toBeVisible()",
+    "expect(page.getByRole(\"tab\", { name: \"历史A.docx\" })).toHaveAttribute( \"aria-selected\", \"true\", { timeout: 60_000 }, )",
+    "expect( page.getByRole(\"button\", { name: \"打开产出物 历史问候.txt\" }), ).toBeVisible()",
+    "expect(wordCard).toBeVisible({ timeout: 30_000 })",
+    "expect(page.getByRole(\"tab\", { name: \"历史A.docx\" })).toHaveAttribute( \"aria-selected\", \"true\", { timeout: 60_000 }, )",
+    "expect(textCard).toBeVisible({ timeout: 30_000 })",
+    "expect( page.getByRole(\"textbox\", { name: \"编辑 历史问候.txt\" }), ).toHaveValue(\"你好，QWork\\n\", { timeout: 60_000 })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-A5DE9D82696176",
+      "type": "ui",
+      "assertion": "历史 Word 和 TXT 恢复卡片并保留会话内预览开关状态"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-user-delivery-spec-ts.be87820de6",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/user-delivery.spec.ts -g \"历史 Word 和 TXT 恢复卡片并保留会话内预览开关状态\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_WORD_DELIVERY__:历史A.docx,历史B.docx\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_USER_DELIVERY__:历史问候.txt\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收起右侧面板\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收起右侧面板\" }).click()"
+        },
+        {
+          "action": "wordCard.click()"
+        },
+        {
+          "action": "textCard.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/user-delivery.spec.ts",
+        "line_start": 643,
+        "line_end": 742,
+        "body_sha256": "sha256:4374df5e41c57a4164a499d0551d44b31e42e12963726fabfe875183b11211f5",
+        "assertion_count": 9,
+        "action_count": 12,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:e71c0968379c8b2812058b7e5de8ad54544932e4910c009dc2e396fe1bb55d04"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-A5DE9D82696176"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-A5DE9D82696176"
+    ]
+  }
+}

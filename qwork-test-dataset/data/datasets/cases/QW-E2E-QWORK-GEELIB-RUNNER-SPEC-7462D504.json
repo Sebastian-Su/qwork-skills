@@ -1,0 +1,263 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-QWORK-GEELIB-RUNNER-SPEC-7462D504",
+  "title": "qwork-geelib executes a detail query from an external working directory",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-qwork-geelib-runner-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/qwork-geelib-runner.spec.ts",
+      "locator": "line:10;test:qwork-geelib executes a detail query from an external working directory",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:7462d504685a1deb6218e29bad5e30bfeaa2caa22bbd693f4a065fe55c352e39",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-889AD984295A9E",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-qwork-geelib-runner-spec-ts:L10:7462d50468"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "qwork-geelib executes a detail query from an external working directory",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-qwork-geelib-runner-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "qwork-geelib executes a detail query from an external working directory"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "path.join(repositoryRoot, \".scratch\")"
+    },
+    {
+      "action": "fs.mkdirSync(scratchRoot, { recursive: true })"
+    },
+    {
+      "action": "fs.mkdtempSync(path.join(scratchRoot, \"qwork-geelib-runner-e2e-\"))"
+    },
+    {
+      "action": "path.join(scratchRoot, \"qwork-geelib-runner-e2e-\")"
+    },
+    {
+      "action": "path.join(fixture, \"executor\")"
+    },
+    {
+      "action": "path.join(fixture, \"external-cwd\")"
+    },
+    {
+      "action": "path.join(fixture, \"fake-sso-cli.js\")"
+    },
+    {
+      "action": "fs.mkdirSync(executorDir, { recursive: true })"
+    },
+    {
+      "action": "fs.mkdirSync(externalCwd, { recursive: true })"
+    },
+    {
+      "action": "fs.writeFileSync(fakeSso, \"\\n\")"
+    },
+    {
+      "action": "fs.writeFileSync(path.join(executorDir, \"package.json\"), JSON.stringify({ private: true, scripts: { \"matter:detail\": \"node fake-detail.mjs\" }, }))"
+    },
+    {
+      "action": "path.join(executorDir, \"package.json\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(JSON.parse(output)).toEqual({ code: 0, data: { id: 976518, args: [\"--sub-id\", \"7180\", \"--id\", \"976518\"], }, })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-889AD984295A9E",
+      "type": "return",
+      "assertion": "qwork-geelib executes a detail query from an external working directory"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-qwork-geelib-runner-spec-ts.7462d50468",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/qwork-geelib-runner.spec.ts -g \"qwork-geelib executes a detail query from an external working directory\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "path.join(repositoryRoot, \".scratch\")"
+        },
+        {
+          "action": "fs.mkdirSync(scratchRoot, { recursive: true })"
+        },
+        {
+          "action": "fs.mkdtempSync(path.join(scratchRoot, \"qwork-geelib-runner-e2e-\"))"
+        },
+        {
+          "action": "path.join(scratchRoot, \"qwork-geelib-runner-e2e-\")"
+        },
+        {
+          "action": "path.join(fixture, \"executor\")"
+        },
+        {
+          "action": "path.join(fixture, \"external-cwd\")"
+        },
+        {
+          "action": "path.join(fixture, \"fake-sso-cli.js\")"
+        },
+        {
+          "action": "fs.mkdirSync(executorDir, { recursive: true })"
+        },
+        {
+          "action": "fs.mkdirSync(externalCwd, { recursive: true })"
+        },
+        {
+          "action": "fs.writeFileSync(fakeSso, \"\\n\")"
+        },
+        {
+          "action": "fs.writeFileSync(path.join(executorDir, \"package.json\"), JSON.stringify({ private: true, scripts: { \"matter:detail\": \"node fake-detail.mjs\" }, }))"
+        },
+        {
+          "action": "path.join(executorDir, \"package.json\")"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/qwork-geelib-runner.spec.ts",
+        "line_start": 10,
+        "line_end": 58,
+        "body_sha256": "sha256:b4ccb8bccb7204eb3f5301fe8a11b767dfeaf6804737bccb01a4d49a05c8d7a8",
+        "assertion_count": 1,
+        "action_count": 0,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:6dbc4e913087bb7780b87993ff12cf23952a0d135029f47e413cfdee3a0570a4"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-889AD984295A9E"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-889AD984295A9E"
+    ]
+  }
+}

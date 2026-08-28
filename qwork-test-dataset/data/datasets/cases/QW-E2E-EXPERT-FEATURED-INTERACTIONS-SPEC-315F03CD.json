@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/expert-featured-interactions.spec.ts",
-      "locator": "line:273;test:精选技能支持换一换、下载、安装状态和试用",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/expert-featured-interactions.spec.ts",
+      "locator": "line:317;test:精选技能支持换一换、下载、安装状态和试用",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:315f03cd6826594ebb412284429b2d686d872df4bbceeda4e2043ac0f6371fba",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-8B97209C41CC5F",
+      "requirement_id": "REQ-E76BAAD97C4793",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-expert-featured-interactions-spec-ts:L273:315f03cd68"
+        "QDEV-E2E-e2e-expert-featured-interactions-spec-ts:L317:315f03cd68"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -137,9 +137,9 @@
     "expect.poll(async () => featured.getByRole(\"article\").first().textContent()) .not.toBe(firstBefore)",
     "expect(sourceTabs.getByRole(\"tab\")).toHaveText([\"推荐\", \"SkillHub\", \"套件\"])",
     "expect(sourceTabs.getByRole(\"tab\", { name: \"推荐\" })).toHaveAttribute(\"aria-selected\", \"true\")",
-    "expect(recommended.getByRole(\"article\")).toHaveCount(60)",
-    "expect(recommended.getByRole(\"heading\").first()).toHaveText(\"office-efficiency 00\")",
-    "expect(recommended.getByRole(\"article\")).toHaveCount(30)",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(5)",
+    "expect(recommended.getByRole(\"heading\").first()).toHaveText(\"后台首选技能\")",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(2)",
     "expect(recommended.getByRole(\"heading\").first()).toHaveText(\"Weather\")",
     "expect(recommended.getByRole(\"button\", { name: \"安装 Weather\" })).toBeVisible()",
     "expect(featuredStyle.backgroundColor).not.toBe(\"rgba(0, 0, 0, 0)\")",
@@ -159,9 +159,9 @@
     "expect(addMenu.getByRole(\"menuitem\")).toHaveText([\"查找技能\", \"上传技能\", \"创建技能\"])",
     "expect(sourceTabs.getByRole(\"tab\", { name: \"SkillHub\" })).toHaveAttribute(\"aria-selected\", \"true\")",
     "expect(page.getByTestId(\"skill-card\")).toHaveCount(70)",
-    "expect(recommended.getByRole(\"article\")).toHaveCount(60)",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(5)",
     "expect(recommended.getByText(\"Weather\", { exact: true })).toHaveCount(0)",
-    "expect(recommended.getByRole(\"article\")).toHaveCount(59)",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(4)",
     "expect(firstFeatured).toContainText(firstFeaturedName)",
     "expect(trial).toBeVisible()",
     "expect(page.getByRole(\"tooltip\")).toHaveText(\"试一试\")",
@@ -174,7 +174,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-8B97209C41CC5F",
+      "requirement_id": "REQ-E76BAAD97C4793",
       "type": "return",
       "assertion": "精选技能支持换一换、下载、安装状态和试用"
     }
@@ -292,13 +292,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/expert-featured-interactions.spec.ts",
-        "line_start": 273,
-        "line_end": 418,
-        "body_sha256": "sha256:f0a168aca41a345862c81084b7d4fe0bc9376b308041c893d769b8bc009f6332",
+        "line_start": 317,
+        "line_end": 462,
+        "body_sha256": "sha256:0ecb38e516fff3a9dd64b69b32079f180158de4cf83baa0f0b6c27eba07aacd1",
         "assertion_count": 51,
         "action_count": 13,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:5b48c07b5a115d76490a891ffbc45741b5b0873041b9b966e746e25dd02c7243"
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:225573b0d3ad1f191fbdb3d12efdbecf2d41dbaf52205bfa0d29e1b0c09f24cf"
       }
     },
     "reference_run": {
@@ -320,7 +320,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-8B97209C41CC5F"
+      "REQ-E76BAAD97C4793"
     ],
     "categories": [
       "business"
@@ -328,7 +328,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-8B97209C41CC5F"
+      "requirement:REQ-E76BAAD97C4793"
     ]
   }
 }

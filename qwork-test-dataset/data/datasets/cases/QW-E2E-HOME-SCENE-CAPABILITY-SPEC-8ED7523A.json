@@ -1,0 +1,242 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-HOME-SCENE-CAPABILITY-SPEC-8ED7523A",
+  "title": "enables 网站开发 with the SKILL.md name 前端开发 instead of frontend-dev",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-home-scene-capability-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/home-scene-capability.spec.ts",
+      "locator": "line:229;test:enables 网站开发 with the SKILL.md name 前端开发 instead of frontend-dev",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:8ed7523a2ca2441b6e9f53011ce7b61cc5e6247daeb5c6a2d4ff307ea30af09b",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-98C5F3FB8110EA",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-home-scene-capability-spec-ts:L229:8ed7523a2c"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "enables 网站开发 with the SKILL.md name 前端开发 instead of frontend-dev",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-home-scene-capability-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "enables 网站开发 with the SKILL.md name 前端开发 instead of frontend-dev"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"代码开发\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"网站开发\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"企业官网开发\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"textbox\")).toHaveValue(WEBSITE_PROMPT)",
+    "expect.poll(async () => latestUserMessage(sidecarLog)).toContain(\"@scene:code-02\")",
+    "expect(content).not.toContain(\"frontend-dev\")",
+    "expect(content).not.toContain(\"前端开发\")",
+    "expect.poll(async () => createdSessionPlugins(sidecarLog)).toEqual([ \"skill-frontend-dev@qwork-builtin\", ])",
+    "expect(await createdSessionSkills(sidecarLog)).toEqual([\"前端开发\"])",
+    "expect(await createdSessionExpertKey(sidecarLog)).toBeUndefined()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-98C5F3FB8110EA",
+      "type": "return",
+      "assertion": "enables 网站开发 with the SKILL.md name 前端开发 instead of frontend-dev"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-home-scene-capability-spec-ts.8ed7523a2c",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/home-scene-capability.spec.ts -g \"enables 网站开发 with the SKILL.md name 前端开发 instead of frontend-dev\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"代码开发\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"网站开发\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"企业官网开发\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/home-scene-capability.spec.ts",
+        "line_start": 229,
+        "line_end": 257,
+        "body_sha256": "sha256:5e2a39cb302ea671140c9e9a3853065a99f6dd8c5f82e8c19a58d0033c89aa31",
+        "assertion_count": 7,
+        "action_count": 5,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:8406b8e79d947f93291e6a1e4b428129fdc8706fad8f49ff6db0abb32a575ffd"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-98C5F3FB8110EA"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-98C5F3FB8110EA"
+    ]
+  }
+}

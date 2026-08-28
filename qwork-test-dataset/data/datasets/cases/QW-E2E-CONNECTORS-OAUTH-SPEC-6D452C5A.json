@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-oauth.spec.ts",
-      "locator": "line:242;test:builds a PKCE authorization request and lands the grant via deep link",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/connectors-oauth.spec.ts",
+      "locator": "line:333;test:builds a PKCE authorization request and lands the grant via deep link",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:6d452c5af37824c0dbaa655f221401f6ec274222f50ffccd217b49b5484f3f4d",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-A08F97CA59BC34",
+      "requirement_id": "REQ-1E06E2569CE635",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-connectors-oauth-spec-ts:L242:6d452c5af3"
+        "QDEV-E2E-e2e-connectors-oauth-spec-ts:L333:6d452c5af3"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -82,7 +82,7 @@
     }
   ],
   "expected_outcomes": [
-    "expect .poll(async () => (await readLines(authUrlSink)).length, { timeout: 15000 }) .toBe(1)",
+    "expect .poll(async () => (await readLines(authUrlSink)).length, { timeout: 15000, }) .toBe(1)",
     "expect(authorizeUrl.searchParams.get(\"response_type\")).toBe(\"code\")",
     "expect(authorizeUrl.searchParams.get(\"code_challenge_method\")).toBe(\"S256\")",
     "expect(authorizeUrl.searchParams.get(\"code_challenge\")).toBeTruthy()",
@@ -103,7 +103,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-A08F97CA59BC34",
+      "requirement_id": "REQ-1E06E2569CE635",
       "type": "return",
       "assertion": "builds a PKCE authorization request and lands the grant via deep link"
     }
@@ -188,13 +188,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/connectors-oauth.spec.ts",
-        "line_start": 242,
-        "line_end": 292,
-        "body_sha256": "sha256:cfeea20384af7bc620f670dd1707b91937ff3e6b01fe11fe6579f0109d96d7cf",
+        "line_start": 333,
+        "line_end": 385,
+        "body_sha256": "sha256:21dc01138d47b135d2ffff3d69c1245bf6e0fb9afcb53d22bdeaeb75721f34e6",
         "assertion_count": 13,
         "action_count": 2,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:892319a3a8f6e1b3c48b1eb1a6f61c61ec571996b292dae88a3ac7f9b8d2fa52"
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:3cdd19ec6fd215e12b27a19274126c3ca1085589ce267a586e07be439a5678a1"
       }
     },
     "reference_run": {
@@ -216,7 +216,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-A08F97CA59BC34"
+      "REQ-1E06E2569CE635"
     ],
     "categories": [
       "business"
@@ -224,7 +224,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-A08F97CA59BC34"
+      "requirement:REQ-1E06E2569CE635"
     ]
   }
 }

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-custom.spec.ts",
-      "locator": "line:118;test:granting trust dispatches the exact upsert payload",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/connectors-custom.spec.ts",
+      "locator": "line:193;test:granting trust dispatches the exact upsert payload",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:dd52901535a949a8d0d456e74220841eb7add05a276b9af87750efb81d7c17ee",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-0907E91A02536B",
+      "requirement_id": "REQ-96E15A3CAA2568",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-connectors-custom-spec-ts:L118:dd52901535"
+        "QDEV-E2E-e2e-connectors-custom-spec-ts:L193:dd52901535"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,20 +75,20 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "page.getByRole(\"dialog\", { name: \"自定义连接器\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+      "action": "page.getByRole(\"dialog\", { name: \"配置 MCP\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"my-server，未连接\" }).click()"
     },
     {
-      "action": "detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+      "action": "detailDialog(page, \"my-server\") .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"信任并启用\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
-    "expect(detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible()",
+    "expect( detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"停用\", exact: true, }), ).toBeVisible()",
     "expect(upsert).toBeTruthy()",
     "expect(upsert!.server).toMatchObject({ name: \"my-server\", scope: \"user\", transport: \"http\", url: \"https://example.com/mcp\", static_headers: { \"X-Api-Key\": \"s3cret\" }, })",
     "expect(upsert!.server).not.toHaveProperty(\"oauth\")"
@@ -100,7 +100,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-0907E91A02536B",
+      "requirement_id": "REQ-96E15A3CAA2568",
       "type": "return",
       "assertion": "granting trust dispatches the exact upsert payload"
     }
@@ -161,13 +161,13 @@
       "entrypoint": "connectors",
       "steps": [
         {
-          "action": "page.getByRole(\"dialog\", { name: \"自定义连接器\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+          "action": "page.getByRole(\"dialog\", { name: \"配置 MCP\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
         },
         {
           "action": "page.getByRole(\"button\", { name: \"my-server，未连接\" }).click()"
         },
         {
-          "action": "detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+          "action": "detailDialog(page, \"my-server\") .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
         },
         {
           "action": "page.getByRole(\"button\", { name: \"信任并启用\", exact: true }).click()"
@@ -191,13 +191,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/connectors-custom.spec.ts",
-        "line_start": 118,
-        "line_end": 143,
-        "body_sha256": "sha256:56a19b8cd601b40ca112559daac7ef28fe4e52550977c0f689012651af81ea64",
+        "line_start": 193,
+        "line_end": 225,
+        "body_sha256": "sha256:9fc9d0accd94d08a080c5826c20a609c449f22875c5c041d21cbe98665c7efe9",
         "assertion_count": 4,
         "action_count": 4,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:60df48f4820859375bce894365f3c009b133f1bedd7bd74690d6c28cd4c023aa"
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:5e2146fe1fba53e75cefc23102c3ec684379de0665569cefe03878613c15783a"
       }
     },
     "reference_run": {
@@ -219,7 +219,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-0907E91A02536B"
+      "REQ-96E15A3CAA2568"
     ],
     "categories": [
       "business"
@@ -227,7 +227,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-0907E91A02536B"
+      "requirement:REQ-96E15A3CAA2568"
     ]
   }
 }

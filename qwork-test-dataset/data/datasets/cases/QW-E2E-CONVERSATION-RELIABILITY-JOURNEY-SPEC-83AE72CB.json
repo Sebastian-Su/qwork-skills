@@ -1,0 +1,288 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONVERSATION-RELIABILITY-JOURNEY-SPEC-83AE72CB",
+  "title": "keeps Skill and MCP selections isolated across concurrent conversations and restart",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-conversation-reliability-journey-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/conversation-reliability-journey.spec.ts",
+      "locator": "line:243;test:keeps Skill and MCP selections isolated across concurrent conversations and restart",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:83ae72cb9a045733a22e5871797b5a48012e078dcf989b53edfb20b087f9f58e",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-69657B553D6BC5",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-conversation-reliability-journey-spec-ts:L243:83ae72cb9a"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "keeps Skill and MCP selections isolated across concurrent conversations and restart",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-conversation-reliability-journey-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps Skill and MCP selections isolated across concurrent conversations and restart"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "rail.getByRole(\"button\", { name: \"能力组合会话 A\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"停止生成\", exact: true }).click()"
+    },
+    {
+      "action": "restartedRail.getByRole(\"button\", { name: \"能力组合会话 A\", exact: true }).click()"
+    },
+    {
+      "action": "restartedRail.getByRole(\"button\", { name: \"无能力会话 B\", exact: true }).click()"
+    },
+    {
+      "action": "restartedRail.getByRole(\"button\", { name: \"仅技能会话 C\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"收到：@skill-creator 能力组合会话 A\", { exact: true })).toBeVisible()",
+    "expect(page.getByTestId(\"message-skill-token\")).toContainText(JOURNEY_SKILL_ID)",
+    "expect(page.getByRole(\"button\", { name: \"停止生成\", exact: true })).toBeVisible()",
+    "expect(page.getByText(\"收到：无能力会话 B\", { exact: true })).toBeVisible()",
+    "expect(page.getByTestId(\"message-skill-token\")).toHaveCount(0)",
+    "expect(page.getByText(\"收到：@skill-creator 仅技能会话 C\", { exact: true })).toBeVisible()",
+    "expect(page.getByTestId(\"message-skill-token\")).toContainText(JOURNEY_SKILL_ID)",
+    "expect.poll(async () => { controls = await readJsonLines(sidecarLog); return controls.filter(({ type }) => type === \"create_session\").length; }).toBe(3)",
+    "expect(prompt).toBeDefined()",
+    "expect(created).toBeDefined()",
+    "expect(capabilityA.created.selected_skills).toEqual([JOURNEY_SKILL_ID])",
+    "expect(savedSelections[capabilityA.sessionId]?.connectors).toEqual([JOURNEY_MCP_ID])",
+    "expect(capabilityA.wire).toContain(`MCP 连接器：${JOURNEY_MCP_ID}`)",
+    "expect(capabilityA.wire).toContain(`@${JOURNEY_SKILL_ID}`)",
+    "expect(capabilityB.created.selected_skills).toEqual([JOURNEY_SKILL_ID])",
+    "expect(savedSelections[capabilityB.sessionId]?.connectors ?? []).toEqual([])",
+    "expect(capabilityB.wire).not.toContain(`@${JOURNEY_SKILL_ID}`)",
+    "expect(capabilityB.wire).not.toContain(`MCP 连接器：${JOURNEY_MCP_ID}`)",
+    "expect(capabilityC.created.selected_skills).toEqual([JOURNEY_SKILL_ID])",
+    "expect(savedSelections[capabilityC.sessionId]?.connectors ?? []).toEqual([])",
+    "expect(capabilityC.wire).toContain(`@${JOURNEY_SKILL_ID}`)",
+    "expect(capabilityC.wire).not.toContain(`MCP 连接器：${JOURNEY_MCP_ID}`)",
+    "expect(page.getByText(\"收到：@skill-creator 能力组合会话 A\", { exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"停止生成\", exact: true })).toBeVisible()",
+    "expect(page.getByText(\"已取消\", { exact: false })).toBeVisible()",
+    "expect(page.getByText(\"收到：@skill-creator 能力组合会话 A\", { exact: true })).toBeVisible()",
+    "expect(page.getByTestId(\"message-skill-token\")).toContainText(JOURNEY_SKILL_ID)",
+    "expect(page.getByRole(\"img\", { name: JOURNEY_MCP_ID, exact: true })).toBeVisible()",
+    "expect(page.getByText(\"收到：无能力会话 B\", { exact: true })).toBeVisible()",
+    "expect(page.getByTestId(\"message-skill-token\")).toHaveCount(0)",
+    "expect(page.getByRole(\"img\", { name: JOURNEY_MCP_ID, exact: true })).toHaveCount(0)",
+    "expect(page.getByText(\"收到：@skill-creator 仅技能会话 C\", { exact: true })).toBeVisible()",
+    "expect(page.getByTestId(\"message-skill-token\")).toContainText(JOURNEY_SKILL_ID)",
+    "expect(page.getByRole(\"img\", { name: JOURNEY_MCP_ID, exact: true })).toHaveCount(0)",
+    "expect(page.getByText(/qwork_selected_(?:skill|connector)_invocation/u)).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-69657B553D6BC5",
+      "type": "return",
+      "assertion": "keeps Skill and MCP selections isolated across concurrent conversations and restart"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-conversation-reliability-journey-spec-ts.83ae72cb9a",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/conversation-reliability-journey.spec.ts -g \"keeps Skill and MCP selections isolated across concurrent conversations and restart\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "rail.getByRole(\"button\", { name: \"能力组合会话 A\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"停止生成\", exact: true }).click()"
+        },
+        {
+          "action": "restartedRail.getByRole(\"button\", { name: \"能力组合会话 A\", exact: true }).click()"
+        },
+        {
+          "action": "restartedRail.getByRole(\"button\", { name: \"无能力会话 B\", exact: true }).click()"
+        },
+        {
+          "action": "restartedRail.getByRole(\"button\", { name: \"仅技能会话 C\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/conversation-reliability-journey.spec.ts",
+        "line_start": 243,
+        "line_end": 372,
+        "body_sha256": "sha256:524833cf67ab81921c1d1ad9d2bdbf2606a25aca27368bc53e786439af7eddd3",
+        "assertion_count": 35,
+        "action_count": 8,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:a8950bdef5ecdc9f664cbc8c74f3cfea1c977d8f710b3866774552a0829b7528"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-69657B553D6BC5"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-69657B553D6BC5"
+    ]
+  }
+}

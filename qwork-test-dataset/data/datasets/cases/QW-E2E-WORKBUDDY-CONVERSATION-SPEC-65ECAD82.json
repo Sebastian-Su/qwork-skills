@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/workbuddy-conversation.spec.ts",
-      "locator": "line:238;test:groups one assistant turn and makes every reply action observable",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/workbuddy-conversation.spec.ts",
+      "locator": "line:453;test:groups one assistant turn and makes every reply action observable",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:65ecad82f260a1c3cd509d28bdb24cf56ced9a730e25bd17258812b8539ad2c5",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-CA377B2628FDF0",
+      "requirement_id": "REQ-85D72F3AA322E6",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts:L238:65ecad82f2"
+        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts:L453:65ecad82f2"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -105,10 +105,10 @@
       "action": "turn.getByRole(\"button\", { name: \"复制\" }).click()"
     },
     {
-      "action": "turn.getByRole(\"button\", { name: \"朗读\" }).click()"
+      "action": "turn.getByRole(\"button\", { name: \"朗读\", exact: true }).click()"
     },
     {
-      "action": "stopReading.click()"
+      "action": "stopReading.click({ timeout: 500 })"
     },
     {
       "action": "like.click()"
@@ -162,7 +162,8 @@
     "expect.poll(() => page.evaluate(() => window.workGui!.clipboard.readText())).toBe( \"正在查询北京天气。\\n\\n北京今天晴，最高 30℃。\", )",
     "expect(turn.getByRole(\"button\", { name: \"已复制\" })).toHaveAttribute(\"title\", \"已复制\")",
     "expect(turn.getByText(\"已复制\", { exact: true })).toHaveCount(0)",
-    "expect(turn.getByRole(\"status\")).toHaveText( /正在朗读|云端语音不可用，已切换系统朗读|朗读完成|当前系统不支持朗读/, )",
+    "expect.poll(async () => { observedReadAloudState = await readAloudUiState(); return observedReadAloudState; }).toMatch(/^(active|completed|error)$/)",
+    "expect.poll(readAloudUiState).toMatch(/^(stopped|completed|error)$/)",
     "expect(like).toHaveAttribute(\"aria-pressed\", \"true\")",
     "expect(feedbackReasons).toBeVisible()",
     "expect(turn.getByRole(\"status\")).toHaveText(\"感谢反馈\")",
@@ -185,7 +186,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-CA377B2628FDF0",
+      "requirement_id": "REQ-85D72F3AA322E6",
       "type": "return",
       "assertion": "groups one assistant turn and makes every reply action observable"
     }
@@ -276,10 +277,10 @@
           "action": "turn.getByRole(\"button\", { name: \"复制\" }).click()"
         },
         {
-          "action": "turn.getByRole(\"button\", { name: \"朗读\" }).click()"
+          "action": "turn.getByRole(\"button\", { name: \"朗读\", exact: true }).click()"
         },
         {
-          "action": "stopReading.click()"
+          "action": "stopReading.click({ timeout: 500 })"
         },
         {
           "action": "like.click()"
@@ -327,13 +328,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/workbuddy-conversation.spec.ts",
-        "line_start": 238,
-        "line_end": 396,
-        "body_sha256": "sha256:45a400f90bb326eba939f71ec506e1f6712fcc1d2e8128c036fad9a5580ca83a",
-        "assertion_count": 38,
+        "line_start": 453,
+        "line_end": 648,
+        "body_sha256": "sha256:6da0372f5e222bec2996b3e58c92633974b3e32b171b155d78c80cd501e39813",
+        "assertion_count": 39,
         "action_count": 21,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:e41ad610ac1ef751fc8180aeb82fa087f0603c92891af87f8c24be07b2143737"
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:ca7107bc5e9405b53f88ee94214e10e656189f5bc9b51ff10d4e3ec6cf233468"
       }
     },
     "reference_run": {
@@ -355,7 +356,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-CA377B2628FDF0"
+      "REQ-85D72F3AA322E6"
     ],
     "categories": [
       "business"
@@ -363,7 +364,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-CA377B2628FDF0"
+      "requirement:REQ-85D72F3AA322E6"
     ]
   }
 }

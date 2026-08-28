@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/workbuddy-project-layout.spec.ts",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/workbuddy-project-layout.spec.ts",
       "locator": "line:146;test:matches the WorkBuddy project-home layout without a live project server",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:eb39bdb653330ef3f51a9eaf1ed7d5d19d7142f9909a0ac6850de20de0286923",
       "redaction_status": "minimized"
     }
@@ -189,6 +189,15 @@
       "action": "deleteDialog.getByRole(\"button\", { name: \"取消\" }).click()"
     },
     {
+      "action": "page.getByRole(\"button\", { name: /workbuddy产品研究/ }).first().click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"资产\", exact: true }).click()"
+    },
+    {
+      "action": "page .getByTestId(\"project-detail-header\") .getByRole(\"button\", { name: \"项目\", exact: true }) .click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: /qwork项目/ }).first().click()"
     },
     {
@@ -286,6 +295,9 @@
     },
     {
       "action": "page.getByRole(\"tab\", { name: \"\\u8ba1\\u5212\", exact: true }).click()"
+    },
+    {
+      "action": "planToolbar.getByRole(\"tab\", { name: \"\\u8868\\u683c\", exact: true }).click()"
     },
     {
       "action": "planToolbar.getByRole(\"button\", { name: \"\\u6dfb\\u52a0\", exact: true }).click()"
@@ -450,7 +462,8 @@
     "expect(art).toBeVisible()",
     "expect(heroImage).toBeVisible()",
     "expect(await heroImage.evaluate((image) => image instanceof HTMLImageElement && image.naturalWidth === 2172 && image.naturalHeight === 724)).toBe(true)",
-    "expect(await heroImage.evaluate(async (image) => { if (!(image instanceof HTMLImageElement)) return \"\"; const bytes = await fetch(image.src).then((response) => response.arrayBuffer()); const digest = await crypto.subtle.digest(\"SHA-256\", bytes); return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, \"0\")).join(\"\"); })).toBe(\"c1a53967f41db4cd816a1f6a70215304721125a559d248a7e8eb7c0b14bc34ee\")",
+    "expect(await heroImage.evaluate(async (image) => { if (!(image instanceof HTMLImageElement)) return \"\"; const bytes = await fetch(image.src).then((response) => response.arrayBuffer()); const digest = await crypto.subtle.digest(\"SHA-256\", bytes); return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, \"0\")).join(\"\"); })).toBe(\"2d872edf34f200cc90f1ca1831f744a9003c4e616080fb668f9c0324e2e964da\")",
+    "expect(await heroImage.evaluate((image) => { if (!(image instanceof HTMLImageElement)) return [-1]; const canvas = document.createElement(\"canvas\"); canvas.width = 1; canvas.height = 1; const context = canvas.getContext(\"2d\"); if (!context) return [-1]; const samples: Array<[number, number]> = [ [0, 0], [image.naturalWidth - 1, 0], [0, image.naturalHeight - 1], [image.naturalWidth - 1, image.naturalHeight - 1], ]; r…",
     "expect.poll(() => heroImage.evaluate((node) => getComputedStyle(node).filter)).toBe(\"none\")",
     "expect.poll(() => heroImage.evaluate((node) => getComputedStyle(node).filter)).toContain(\"invert\")",
     "expect.poll(() => heroImage.evaluate((node) => getComputedStyle(node).filter)).toContain(\"grayscale\")",
@@ -513,17 +526,23 @@
     "expect(renameDialog).toBeHidden()",
     "expect(deleteDialog).toContainText(\"确定要删除此项目吗？删除后项目将被永久删除，包括项目内所有任务及产物，且不可恢复。\")",
     "expect(deleteDialog).toBeHidden()",
+    "expect(page.getByText(\"暂无项目资产\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"暂无匹配的项目资产\", { exact: true })).toBeHidden()",
     "expect(detailHeader).toBeVisible()",
     "expect(detailBody).toBeVisible()",
     "expect(detailGeometry.header.height).toBeGreaterThanOrEqual(54)",
     "expect(detailGeometry.header.height).toBeLessThanOrEqual(58)",
+    "expect( Math.abs( detailGeometry.breadcrumbCenterY - detailGeometry.sidebarControlsCenterY, ), ).toBeLessThanOrEqual(process.platform === \"win32\" ? 4 : 2)",
     "expect(detailGeometry.tabs.height).toBeGreaterThanOrEqual(46)",
     "expect(detailGeometry.tabs.height).toBeLessThanOrEqual(50)",
     "expect(detailGeometry.invite.width).toBeGreaterThanOrEqual(66)",
     "expect(detailGeometry.invite.width).toBeLessThanOrEqual(70)",
     "expect(activityGeometry.publish.y).toBeGreaterThanOrEqual(projectDetailY(147))",
     "expect(activityGeometry.publish.y).toBeLessThanOrEqual(projectDetailY(151))",
-    "expect( page.getByPlaceholder(\"今天帮你做些什么？ @ 引用对话文件，/ 调用技能与指令\"), ).toBeVisible()",
+    "expect(requestDateBox).not.toBeNull()",
+    "expect(requestStatusBox).not.toBeNull()",
+    "expect(requestDateBox?.y ?? 0).toBeLessThan(requestStatusBox?.y ?? 0)",
+    "expect( page.getByPlaceholder(\"今天帮你做些什么？ @ 引用项目资产或待办，/ 调用技能与指令\"), ).toBeVisible()",
     "expect(toolsGeometry.items).toHaveLength(5)",
     "expect(toolsMenu).toBeHidden()",
     "expect(workspaceGeometry.height).toBeLessThanOrEqual(376)",
@@ -546,9 +565,11 @@
     "expect(page.getByRole(\"menu\", { name: \"\\u7559\\u8a00\\u64cd\\u4f5c\" })).toBeHidden()",
     "expect(page.locator('form[aria-label^=\"\\u56de\\u590d \"]')).toBeHidden()",
     "expect(page.locator('textarea[aria-label=\"\\u4fee\\u6539\\u7559\\u8a00\"]')).toBeHidden()",
+    "expect( planToolbar.getByRole(\"tab\", { name: \"\\u5217\\u8868\", exact: true }), ).toHaveAttribute(\"aria-selected\", \"true\")",
+    "expect(page.getByRole(\"region\", { name: \"\\u5217\\u8868\" })).toBeVisible()",
     "expect(planGeometry.toolbar.height).toBeGreaterThanOrEqual(50)",
     "expect(planGeometry.toolbar.height).toBeLessThanOrEqual(54)",
-    "expect(planGeometry.tabs).toEqual([\"\\u8868\\u683c\", \"\\u770b\\u677f\", \"\\u7518\\u7279\", \"\\u65e5\\u5386\"])",
+    "expect(planGeometry.tabs).toEqual([\"\\u8868\\u683c\", \"\\u770b\\u677f\", \"\\u7518\\u7279\", \"\\u65e5\\u5386\", \"\\u5217\\u8868\"])",
     "expect(planGeometry.tableTab.y - planGeometry.toolbar.y).toBeGreaterThanOrEqual(7)",
     "expect(planGeometry.tableTab.y - planGeometry.toolbar.y).toBeLessThanOrEqual(10)",
     "expect(planGeometry.tableTab.width).toBeGreaterThanOrEqual(56)",
@@ -834,6 +855,15 @@
           "action": "deleteDialog.getByRole(\"button\", { name: \"取消\" }).click()"
         },
         {
+          "action": "page.getByRole(\"button\", { name: /workbuddy产品研究/ }).first().click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"资产\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByTestId(\"project-detail-header\") .getByRole(\"button\", { name: \"项目\", exact: true }) .click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: /qwork项目/ }).first().click()"
         },
         {
@@ -931,6 +961,9 @@
         },
         {
           "action": "page.getByRole(\"tab\", { name: \"\\u8ba1\\u5212\", exact: true }).click()"
+        },
+        {
+          "action": "planToolbar.getByRole(\"tab\", { name: \"\\u8868\\u683c\", exact: true }).click()"
         },
         {
           "action": "planToolbar.getByRole(\"button\", { name: \"\\u6dfb\\u52a0\", exact: true }).click()"
@@ -1108,12 +1141,12 @@
       "source_contract": {
         "spec": "e2e/workbuddy-project-layout.spec.ts",
         "line_start": 146,
-        "line_end": 2290,
-        "body_sha256": "sha256:b3323f760c22383a6efb5efb405c98f73a565d09d8ecc8323ee9fa44396b1840",
-        "assertion_count": 206,
-        "action_count": 123,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:ef9ede518e599bfc1df299a05e298ddbb1a6bbd8faf2c8ab9d7558324ab2db7b"
+        "line_end": 2366,
+        "body_sha256": "sha256:1701eb78171d597f43ade4bad999b80c76b694a96bf3660cb4993ddeb32c3a32",
+        "assertion_count": 215,
+        "action_count": 127,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:f8a3394d824e4fbe63c4ad0bb12ee11c73ba8ec6165083b062820be461c6f3c0"
       }
     },
     "reference_run": {

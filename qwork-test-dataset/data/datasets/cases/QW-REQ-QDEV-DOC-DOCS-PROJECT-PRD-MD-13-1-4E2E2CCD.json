@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/project-prd.md",
-      "locator": "line:925;heading:13.1 北极星指标",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/project-prd.md",
+      "locator": "line:979;heading:13.1 北极星指标",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:4b1af814ad38d3308238467d1dcc117aa0986b3f3162d6bb9e0417cc7b860bd4",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-CE0CADD33AD097",
+      "requirement_id": "REQ-9975F833E68D85",
       "source_atom_ids": [
-        "QDEV-DOC-docs-project-prd-md:L925:4b1af814ad"
+        "QDEV-DOC-docs-project-prd-md:L979:4b1af814ad"
       ],
       "content_facets": [
         "state-transition"
@@ -83,7 +83,7 @@
       "action": "perform the source-defined scenario trigger for docs/project-prd.md · 13.1 北极星指标 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe session/sidecar event stream after the trigger and assert [REQ-CE0CADD33AD097] exactly: 项目内由 AI 完成并被成员验收的有效任务数。"
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-9975F833E68D85] exactly: 项目内由 AI 完成并被成员验收的有效任务数。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -93,13 +93,13 @@
     "项目内由 AI 完成并被成员验收的有效任务数。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-CE0CADD33AD097]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 项目内由 AI 完成并被成员验收的有效任务数。",
+    "FAIL [REQ-9975F833E68D85]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 项目内由 AI 完成并被成员验收的有效任务数。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-CE0CADD33AD097",
+      "requirement_id": "REQ-9975F833E68D85",
       "type": "event",
       "assertion": "项目内由 AI 完成并被成员验收的有效任务数。"
     }
@@ -158,7 +158,7 @@
           "action": "perform the source-defined scenario trigger for docs/project-prd.md · 13.1 北极星指标 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe session/sidecar event stream after the trigger and assert [REQ-CE0CADD33AD097] exactly: 项目内由 AI 完成并被成员验收的有效任务数。"
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-9975F833E68D85] exactly: 项目内由 AI 完成并被成员验收的有效任务数。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -201,7 +201,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-CE0CADD33AD097"
+      "REQ-9975F833E68D85"
     ],
     "categories": [
       "recovery",
@@ -211,12 +211,12 @@
       "category:recovery",
       "category:state",
       "full",
-      "requirement:REQ-CE0CADD33AD097"
+      "requirement:REQ-9975F833E68D85"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-CE0CADD33AD097",
+      "requirement_id": "REQ-9975F833E68D85",
       "oracle_type": "event",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/project-prd.md · 13.1 北极星指标 产品契约 exactly once and retain its correlation identity",

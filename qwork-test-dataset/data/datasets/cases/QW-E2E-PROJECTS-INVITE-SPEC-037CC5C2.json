@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-invite.spec.ts",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/projects-invite.spec.ts",
       "locator": "line:30;test:guest with an invite link requests to join, then the owner approves",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:037cc5c247be16d4ca2ed7ba9ce5bcdf74c0b3190623deeb17137dae8ec8c17f",
       "redaction_status": "minimized"
     }
@@ -79,6 +79,12 @@
     },
     {
       "action": "ownerPage .getByRole(\"article\") .filter({ hasText: \"申请加入项目\" }) .getByRole(\"button\", { name: \"同意\", exact: true }) .click()"
+    },
+    {
+      "action": "ownerPanel.getByRole(\"button\", { name: \"申请后加入\" }).click()"
+    },
+    {
+      "action": "ownerPage .getByRole(\"menu\", { name: \"项目加入方式\" }) .getByRole(\"menuitem\", { name: \"直接加入\" }) .click()"
     }
   ],
   "expected_outcomes": [
@@ -86,7 +92,16 @@
     "expect( invitePanel(ownerPage).getByRole(\"button\", { name: \"申请后加入\" }), ).toBeEnabled()",
     "expect( guestPage.getByRole(\"dialog\", { name: \"已提交申请，等待管理员审批\" }), ).toBeVisible()",
     "expect(pendingNames).not.toContain(\"E2E 邀请审批项目\")",
-    "expect(ownerPage.getByText(\"已同意\")).toBeVisible()",
+    "expect(approvedRequest.getByText(\"申请权限：成员\")).toBeVisible()",
+    "expect(date).toBeVisible()",
+    "expect(status).toHaveClass(/text-emerald-600/)",
+    "expect(dateBox).not.toBeNull()",
+    "expect(statusBox).not.toBeNull()",
+    "expect(Math.abs((dateBox?.x ?? 0) + (dateBox?.width ?? 0) - (statusBox?.x ?? 0) - (statusBox?.width ?? 0))).toBeLessThanOrEqual(2)",
+    "expect(dateBox?.y ?? 0).toBeLessThan(statusBox?.y ?? 0)",
+    "expect( ownerPage.getByRole(\"article\").filter({ hasText: \"已同意\" }), ).toBeVisible()",
+    "expect(ownerPanel.getByRole(\"button\", { name: \"直接加入\" })).toBeVisible()",
+    "expect(ownerPage.getByTestId(\"project-detail-header\")).toContainText( \"E2E 邀请审批项目\", )",
     "expect .poll(async () => listProjectNames(guestPage), { timeout: 15_000 }) .toContain(\"E2E 邀请审批项目\")"
   ],
   "forbidden_outcomes": [
@@ -161,6 +176,12 @@
         },
         {
           "action": "ownerPage .getByRole(\"article\") .filter({ hasText: \"申请加入项目\" }) .getByRole(\"button\", { name: \"同意\", exact: true }) .click()"
+        },
+        {
+          "action": "ownerPanel.getByRole(\"button\", { name: \"申请后加入\" }).click()"
+        },
+        {
+          "action": "ownerPage .getByRole(\"menu\", { name: \"项目加入方式\" }) .getByRole(\"menuitem\", { name: \"直接加入\" }) .click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -182,12 +203,12 @@
       "source_contract": {
         "spec": "e2e/projects-invite.spec.ts",
         "line_start": 30,
-        "line_end": 78,
-        "body_sha256": "sha256:86fdf0cc752f7d38a4b9d514e391c7e244830d9b9dd1db8d8157ef01f8f64f08",
-        "assertion_count": 6,
-        "action_count": 2,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:67dc7b856c7e257f38553b97f03c760c9f4a10b2c7ea886ba94a3f179ec2d8fd"
+        "line_end": 106,
+        "body_sha256": "sha256:ecf8f77f341322209e1eb1e5e6519b0d06970199f5f564d78d831fb98325b5fd",
+        "assertion_count": 15,
+        "action_count": 4,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:e235ceaf37e305fa56819a753cf9b9e57b48011dca021b6e42465eb386d38b91"
       }
     },
     "reference_run": {

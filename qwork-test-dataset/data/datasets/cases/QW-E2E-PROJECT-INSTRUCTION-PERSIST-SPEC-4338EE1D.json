@@ -1,0 +1,269 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECT-INSTRUCTION-PERSIST-SPEC-4338EE1D",
+  "title": "saves project instruction and keeps it after re-entering the project",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-project-instruction-persist-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/project-instruction-persist.spec.ts",
+      "locator": "line:10;test:saves project instruction and keeps it after re-entering the project",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:4338ee1d10165dd47c6e0316204b539606bc9da20744bd5596464faf24b385e1",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-1E6D0C18260731",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-project-instruction-persist-spec-ts:L10:4338ee1d10"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "saves project instruction and keeps it after re-entering the project",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-project-instruction-persist-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "saves project instruction and keeps it after re-entering the project"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /指令持久化项目/ }).first().click()"
+    },
+    {
+      "action": "expandConfig.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"编辑指令\" }).click()"
+    },
+    {
+      "action": "editor.fill(\"E2E 持久化指令：优先引用资产与待办\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"保存\" }).click()"
+    },
+    {
+      "action": "page .getByTestId(\"project-detail-header\") .getByRole(\"button\", { name: \"项目\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /指令持久化项目/ }).first().click()"
+    },
+    {
+      "action": "expandAgain.click()"
+    },
+    {
+      "action": "projectServer.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(dialog).toHaveCount(0)",
+    "expect(page.getByTestId(\"project-config-card-instruction\")).toContainText( \"E2E 持久化指令：优先引用资产与待办\", )",
+    "expect(page.getByRole(\"heading\", { name: \"项目\", exact: true })).toBeVisible()",
+    "expect(page.getByTestId(\"project-config-card-instruction\")).toContainText( \"E2E 持久化指令：优先引用资产与待办\", )"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-1E6D0C18260731",
+      "type": "return",
+      "assertion": "saves project instruction and keeps it after re-entering the project"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-project-instruction-persist-spec-ts.4338ee1d10",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/project-instruction-persist.spec.ts -g \"saves project instruction and keeps it after re-entering the project\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /指令持久化项目/ }).first().click()"
+        },
+        {
+          "action": "expandConfig.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"编辑指令\" }).click()"
+        },
+        {
+          "action": "editor.fill(\"E2E 持久化指令：优先引用资产与待办\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"保存\" }).click()"
+        },
+        {
+          "action": "page .getByTestId(\"project-detail-header\") .getByRole(\"button\", { name: \"项目\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /指令持久化项目/ }).first().click()"
+        },
+        {
+          "action": "expandAgain.click()"
+        },
+        {
+          "action": "projectServer.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/project-instruction-persist.spec.ts",
+        "line_start": 10,
+        "line_end": 206,
+        "body_sha256": "sha256:a25a47915583c7d7793bbe324754891c551bcd71a0b055f0e914dec49e4f888d",
+        "assertion_count": 4,
+        "action_count": 10,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:f1aa1bedb74040defa60fbb1aa97ea70ceafdd29c8c73ba53b489c255cb38a32"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-1E6D0C18260731"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-1E6D0C18260731"
+    ]
+  }
+}

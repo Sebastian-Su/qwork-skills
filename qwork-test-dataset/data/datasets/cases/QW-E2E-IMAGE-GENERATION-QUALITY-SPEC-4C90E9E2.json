@@ -1,0 +1,258 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-IMAGE-GENERATION-QUALITY-SPEC-4C90E9E2",
+  "title": "ships and selects the text-safe image generation Skill",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-image-generation-quality-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/image-generation-quality.spec.ts",
+      "locator": "line:11;test:ships and selects the text-safe image generation Skill",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:4c90e9e2730d41a38a56d47fe69a39cdc4b1efb12d019ffa395a56d70959fa0b",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-FAED187E61C9DB",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-image-generation-quality-spec-ts:L11:4c90e9e273"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "ships and selects the text-safe image generation Skill",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-image-generation-quality-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "ships and selects the text-safe image generation Skill"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /内置技能 \\(\\d+\\)/ }).click()"
+    },
+    {
+      "action": "page.getByPlaceholder(\"搜索内置技能\").fill(\"图像生成\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"全部技能\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"/\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(skill).toBeVisible()",
+    "expect(skill.getByTestId(\"builtin-skill-description\")).toContainText( \"多语种文字与多方向字体\", )",
+    "expect(skill.getByRole(\"switch\", { name: \"关闭 图像生成\" })).toBeChecked()",
+    "expect(picker.getByRole(\"option\", { name: /图像生成/ })).toBeVisible()",
+    "expect.poll(async () => { try { const messages = (await fs.readFile(sidecarLog, \"utf8\")) .split(\"\\n\") .filter(Boolean) .map((line) => JSON.parse(line) as Record<string, unknown>); return messages.find((message) => message.type === \"create_session\")?.plugin_dirs; } catch (error) { if ((error as NodeJS.ErrnoException).code === \"ENOENT\") return undefined; throw error; } }, { timeout: 30_000 }).toContain(path.join( conf…"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-FAED187E61C9DB",
+      "type": "return",
+      "assertion": "ships and selects the text-safe image generation Skill"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-image-generation-quality-spec-ts.4c90e9e273",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/image-generation-quality.spec.ts -g \"ships and selects the text-safe image generation Skill\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /内置技能 \\(\\d+\\)/ }).click()"
+        },
+        {
+          "action": "page.getByPlaceholder(\"搜索内置技能\").fill(\"图像生成\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"全部技能\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"/\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/image-generation-quality.spec.ts",
+        "line_start": 11,
+        "line_end": 71,
+        "body_sha256": "sha256:e3055041ecfe0f74b00bf9313e03decc15ba9708f2895dec18a72ae15abbb502",
+        "assertion_count": 5,
+        "action_count": 8,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:979e7379649ed7c6b27091d5b42d5a185a0d737bb1e32ab041a7662767965b7a"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-FAED187E61C9DB"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-FAED187E61C9DB"
+    ]
+  }
+}

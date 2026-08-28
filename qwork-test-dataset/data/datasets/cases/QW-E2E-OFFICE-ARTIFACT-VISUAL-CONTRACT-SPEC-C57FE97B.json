@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/office-artifact-visual-contract.spec.ts",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/office-artifact-visual-contract.spec.ts",
       "locator": "line:17;test:产出物卡片和自动右侧面板符合视觉契约",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:c57fe97bd192e95e26f6f4b9f12a1eba10eb6a22ad4e717bc13b338e6bbd4ae9",
       "redaction_status": "minimized"
     }
@@ -99,7 +99,13 @@
       "action": "firstCard.focus()"
     },
     {
+      "action": "openTab.click()"
+    },
+    {
       "action": "card.click()"
+    },
+    {
+      "action": "panel .getByRole(\"button\", { name: /Zoom out|缩小/i }) .click()"
     }
   ],
   "expected_outcomes": [
@@ -107,12 +113,16 @@
     "expect(firstCard).toBeVisible()",
     "expect(firstCard.getByTestId(\"artifact-file-size\")).toContainText(/KB|B/)",
     "expect(firstCard.getByTestId(\"artifact-open-arrow\")).toBeVisible()",
+    "expect(secondCard).toBeVisible()",
     "expect(allButton).toBeVisible()",
-    "expect(page.getByRole(\"button\", { name: /打开产出物 数据明细\\.xlsx/ })).not.toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: /打开产出物 方案汇报\\.pptx/ })).not.toBeVisible()",
+    "expect(firstBox).not.toBeNull()",
+    "expect(secondBox).not.toBeNull()",
+    "expect(Math.abs(firstBox!.y - secondBox!.y)).toBeLessThanOrEqual(2)",
+    "expect(secondBox!.x).toBeGreaterThan(firstBox!.x)",
     "expect(page.getByRole(\"status\", { name: \"文件预览通知\" })).toHaveText( \"文件已在预览面板打开\", )",
     "expect(composer).toBeFocused()",
     "expect .poll(() => firstCard.evaluate( (element) => getComputedStyle(element).backgroundColor, ), ) .not.toBe(defaultBackground)",
-    "expect(page.getByRole(\"button\", { name: /打开产出物 数据明细\\.xlsx/ })).toBeVisible()",
     "expect(page.getByRole(\"button\", { name: /打开产出物 方案汇报\\.pptx/ })).toBeVisible()",
     "expect(firstCard).toBeFocused()",
     "expect(page.getByTestId(\"office-compact-shell\")).toBeVisible()",
@@ -126,6 +136,7 @@
     "expect( page.getByText(\"Loading document...\", { exact: true }), ).toBeHidden()",
     "expect( page.getByText(/Couldn't open this workbook|No slides/), ).toHaveCount(0)",
     "expect( await page.evaluate( () => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 2, ), ).toBe(true)",
+    "expect .poll(async () => { const after = await docxFitGeometry(page); return Math.abs(after.pageWidth - beforeZoomOut.pageWidth); }) .toBeLessThanOrEqual(2)",
     "expect(page.getByTestId(\"office-artifact-card-group\")).toBeVisible()"
   ],
   "forbidden_outcomes": [
@@ -220,7 +231,13 @@
           "action": "firstCard.focus()"
         },
         {
+          "action": "openTab.click()"
+        },
+        {
           "action": "card.click()"
+        },
+        {
+          "action": "panel .getByRole(\"button\", { name: /Zoom out|缩小/i }) .click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -242,12 +259,12 @@
       "source_contract": {
         "spec": "e2e/office-artifact-visual-contract.spec.ts",
         "line_start": 17,
-        "line_end": 190,
-        "body_sha256": "sha256:fa21487ac1a27b4613aa57837e7d2bcaadc2f8ea08decbbd98b78c73a1b9969b",
-        "assertion_count": 24,
-        "action_count": 9,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:e1397d7762fb2fae68970bc10f0510b18a8d6faef3cb15f8fd753d2f35001898"
+        "line_end": 233,
+        "body_sha256": "sha256:bed872388de8519e3f609b78cfd64728338e6f3fac40c3e277f23ed8fbb08a99",
+        "assertion_count": 29,
+        "action_count": 11,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:027fb6a24bf5f17ad64252080d10834a8c769ce8db5a4674e730a75afa4063a4"
       }
     },
     "reference_run": {

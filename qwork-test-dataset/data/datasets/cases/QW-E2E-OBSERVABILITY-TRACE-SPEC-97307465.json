@@ -1,0 +1,231 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-OBSERVABILITY-TRACE-SPEC-97307465",
+  "title": "a UI send produces one metadata-only desktop and engine trace",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-observability-trace-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/observability-trace.spec.ts",
+      "locator": "line:12;test:a UI send produces one metadata-only desktop and engine trace",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:97307465d08dd542d336bc9ef48616efeb05c84335e099ea4e2441c89a87c986",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-F1A43A3998102A",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-observability-trace-spec-ts:L12:97307465d0"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "a UI send produces one metadata-only desktop and engine trace",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-observability-trace-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "a UI send produces one metadata-only desktop and engine trace"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_OBSERVABILITY_PRIVATE_PROMPT__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"可观测链路完成\", { exact: true })).toBeVisible()",
+    "expect.poll( () => received.some((record) => record.event_name === \"turn.complete\"), { timeout: 15_000 }, ).toBe(true)",
+    "expect( root, `received events: ${received.map((record) => `${record.schema_version}:${record.event_name ?? record.attr ?? \"unknown\"}`).join(\", \")}`, ).toBeDefined()",
+    "expect(root!.trace_id).toMatch(/^[0-9a-f]{32}$/)",
+    "expect(trace.map((record) => `${record.event_name}:${record.event_phase}`)).toEqual( expect.arrayContaining([ \"ui.prompt.submit:accepted\", \"engine.turn.dispatch:start\", \"engine.turn.accept:accepted\", \"model.request:start\", \"model.response.first_event:first\", \"model.response.first_text:first\", \"tool.call:complete\", \"tool.result:complete\", \"model.usage:complete\", \"model.request:complete\", \"turn.complete:complete\", ]),…",
+    "expect(new Set(trace.map((record) => record.session_id).filter(Boolean)).size).toBe(1)",
+    "expect(JSON.stringify(trace)).not.toContain(\"__E2E_OBSERVABILITY_PRIVATE_PROMPT__\")",
+    "expect(JSON.stringify(trace)).not.toContain(\"private tool output\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-F1A43A3998102A",
+      "type": "return",
+      "assertion": "a UI send produces one metadata-only desktop and engine trace"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-observability-trace-spec-ts.97307465d0",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/observability-trace.spec.ts -g \"a UI send produces one metadata-only desktop and engine trace\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_OBSERVABILITY_PRIVATE_PROMPT__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/observability-trace.spec.ts",
+        "line_start": 12,
+        "line_end": 69,
+        "body_sha256": "sha256:28a306efd5527647af322bc77dc56dae97d31b3a8d27a34ee5f6ac8b61db0970",
+        "assertion_count": 8,
+        "action_count": 3,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:3b480daf3c5ae1406dd694ca747955564d1ff67bc1ed0368aff2dd67d39364a1"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-F1A43A3998102A"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-F1A43A3998102A"
+    ]
+  }
+}

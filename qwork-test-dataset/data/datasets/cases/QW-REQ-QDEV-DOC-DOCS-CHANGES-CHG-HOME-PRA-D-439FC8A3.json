@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/changes/CHG-home-practice-cases-20260819/phase-2-acceptance-checklist.md",
-      "locator": "line:39;heading:D. 失败与恢复",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/changes/CHG-home-practice-cases-20260819/phase-2-acceptance-checklist.md",
+      "locator": "line:41;heading:D. 失败与恢复",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:8ff74489c7e6c48cfddf6adbaa58af299aabff49baa39428e209b59938f1fb36",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-3A0D2E3D24DBD9",
+      "requirement_id": "REQ-A5E29F3C96CD60",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-b3c56323:L39:8ff74489c7"
+        "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-b3c56323:L41:8ff74489c7"
       ],
       "content_facets": [
         "business-rule"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-2-acceptance-checklist.md · D. 失败与恢复 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-3A0D2E3D24DBD9] exactly: [x] 未安装 `skillId`：无新会话，可见「技能不可用」，不静默去掉该技能后启动。"
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-A5E29F3C96CD60] exactly: [x] 未安装 `skillId`：无新会话，可见「技能不可用」，不静默去掉该技能后启动。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "[x] 未安装 `skillId`：无新会话，可见「技能不可用」，不静默去掉该技能后启动。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-3A0D2E3D24DBD9]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [x] 未安装 `skillId`：无新会话，可见「技能不可用」，不静默去掉该技能后启动。",
+    "FAIL [REQ-A5E29F3C96CD60]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [x] 未安装 `skillId`：无新会话，可见「技能不可用」，不静默去掉该技能后启动。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-3A0D2E3D24DBD9",
+      "requirement_id": "REQ-A5E29F3C96CD60",
       "type": "ui",
       "assertion": "[x] 未安装 `skillId`：无新会话，可见「技能不可用」，不静默去掉该技能后启动。"
     }
@@ -170,7 +170,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-2-acceptance-checklist.md · D. 失败与恢复 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-3A0D2E3D24DBD9] exactly: [x] 未安装 `skillId`：无新会话，可见「技能不可用」，不静默去掉该技能后启动。"
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-A5E29F3C96CD60] exactly: [x] 未安装 `skillId`：无新会话，可见「技能不可用」，不静默去掉该技能后启动。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -216,7 +216,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-3A0D2E3D24DBD9"
+      "REQ-A5E29F3C96CD60"
     ],
     "categories": [
       "business"
@@ -224,12 +224,12 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-3A0D2E3D24DBD9"
+      "requirement:REQ-A5E29F3C96CD60"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-3A0D2E3D24DBD9",
+      "requirement_id": "REQ-A5E29F3C96CD60",
       "oracle_type": "ui",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-2-acceptance-checklist.md · D. 失败与恢复 产品契约 exactly once and retain its correlation identity",

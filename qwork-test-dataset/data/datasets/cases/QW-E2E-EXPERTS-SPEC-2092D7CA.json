@@ -1,0 +1,275 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-EXPERTS-SPEC-2092D7CA",
+  "title": "expert center keeps installed experts first while switching server sort modes",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "entry",
+      "transition",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-experts-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/experts.spec.ts",
+      "locator": "line:295;test:expert center keeps installed experts first while switching server sort modes",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:2092d7ca427bf90edc12d49f06cf4967fed9af2c05f6d9c039175b1b6882fc09",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-79E2B6A29F84D2",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-experts-spec-ts:L295:2092d7ca42"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "expert center keeps installed experts first while switching server sort modes",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-experts-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "expert center keeps installed experts first while switching server sort modes"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"最新\" }).click()"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"召唤常用专家\" }).click()"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"最热\" }).click()"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "launched.page.getByRole(\"button\", { name: \"最热\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(list.getByRole(\"listitem\").first()).toContainText(\"最后专家\")",
+    "expect(list.getByRole(\"listitem\").first()).toContainText(\"阿尔法专家\")",
+    "expect(launched.page.getByRole(\"button\", { name: \"最热\" })).toBeVisible()",
+    "expect(launched.page.getByRole(\"button\", { name: \"本地最热\" })).toHaveCount(0)",
+    "expect(launched.page.getByRole(\"button\", { name: \"最近使用\" })).toHaveCount(0)",
+    "expect(launched.page.getByRole(\"button\", { name: \"名称\" })).toHaveCount(0)",
+    "expect(launched.page.getByRole(\"textbox\")).toBeVisible()",
+    "expect(list.getByRole(\"listitem\").first()).toContainText(\"常用专家\")",
+    "expect(launched.page.getByRole(\"list\", { name: \"专家列表\" }).getByRole(\"listitem\").first()).toContainText(\"常用专家\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-79E2B6A29F84D2",
+      "type": "return",
+      "assertion": "expert center keeps installed experts first while switching server sort modes"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "transition screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "transition",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-experts-spec-ts.2092d7ca42",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/experts.spec.ts -g \"expert center keeps installed experts first while switching server sort modes\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"最新\" }).click()"
+        },
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"召唤常用专家\" }).click()"
+        },
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"最热\" }).click()"
+        },
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "launched.page.getByRole(\"button\", { name: \"最热\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "transition.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/experts.spec.ts",
+        "line_start": 295,
+        "line_end": 336,
+        "body_sha256": "sha256:0280a36f475cf9476181ab83d75d2641d4105bec09c0e1e891d093006279dcc4",
+        "assertion_count": 9,
+        "action_count": 8,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:c02d81ae7e97edab5454af66429d2c776fcf5699026576cb0822a4a20e494068"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending",
+      "case-level screenshot checkpoint audit pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-79E2B6A29F84D2"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-79E2B6A29F84D2"
+    ]
+  }
+}

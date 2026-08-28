@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/home-practice-catalog.spec.ts",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/home-practice-catalog.spec.ts",
       "locator": "line:47;test:loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:86a9760556dd1f80a6c3e49278d5c63c0f0b835073f757c63b5f50202f4353d4",
       "redaction_status": "minimized"
     }
@@ -103,7 +103,8 @@
     "expect(requests.some((url) => /playbook|myqcloud\\.com|workbuddy/i.test(url))).toBe(false)",
     "expect(detail).toBeVisible()",
     "expect(detail).toContainText(\"远端摘要 6\")",
-    "expect(page.getByText(\"任务 (1)\", { exact: true })).toBeVisible()"
+    "expect(page.getByText(\"任务 (0)\", { exact: true })).toBeVisible()",
+    "expect(page.getByTestId(\"composer-dock\").getByRole(\"textbox\")).toHaveValue( \"请完成远端案例 6。\", )"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -210,12 +211,12 @@
       "source_contract": {
         "spec": "e2e/home-practice-catalog.spec.ts",
         "line_start": 47,
-        "line_end": 83,
-        "body_sha256": "sha256:7a6753fd3c516c22927a6f95cadd337cb313d43477ce6e4b1272174012a69f23",
-        "assertion_count": 10,
+        "line_end": 86,
+        "body_sha256": "sha256:afb274f0ebff96c3c350a943615993fcd65fe157c4691cf98d9881641eb629d9",
+        "assertion_count": 11,
         "action_count": 6,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:a0c2a5ee90b6fd2b15eb399cc55c41182168e23a83b0332881a2fcb2a2de75dd"
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:863d39a9fcceb00eb81960f1f0a7c2f36e8f61f36390bea294c530fcacb7aec2"
       }
     },
     "reference_run": {

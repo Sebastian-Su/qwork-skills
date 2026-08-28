@@ -1,0 +1,259 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-AUTH-WECHAT-QUICK-LOGIN-SPEC-F9B57ED9",
+  "title": "cancels the old browser authorization before starting an independent login",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "auth",
+    "journey": "auth",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-auth-wechat-quick-login-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/auth-wechat-quick-login.spec.ts",
+      "locator": "line:125;test:cancels the old browser authorization before starting an independent login",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:f9b57ed99f54df2ec4564a06829313db8ad271c18f7e595c4fdb8ed22e6e6f17",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-5EC515D287B34F",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-auth-wechat-quick-login-spec-ts:L125:f9b57ed99f"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "cancels the old browser authorization before starting an independent login",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-auth-wechat-quick-login-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "cancels the old browser authorization before starting an independent login"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "firstModal.getByRole(\"button\", { name: \"微信\" }).click({ noWaitAfter: true })"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"取消登录\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"重新登录\" }).click()"
+    },
+    {
+      "action": "nextModal.getByRole(\"button\", { name: \"微信\" }).click({ noWaitAfter: true })"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /微信快捷用户/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"退出登录\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"确认登出\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(() => app!.windows().length).toBe(2)",
+    "expect.poll(() => readAuthorizationURLs(authUrlSink)).toHaveLength(1)",
+    "expect(page.getByRole(\"button\", { name: \"重新登录\" })).toBeVisible()",
+    "expect(staleGrant.status).toBe(200)",
+    "expect(page.getByRole(\"heading\", { name: \"QWork，我帮你\" })).toBeVisible()",
+    "expect.poll(() => app!.windows().length).toBe(2)",
+    "expect.poll(() => readAuthorizationURLs(authUrlSink)).toHaveLength(2)",
+    "expect(nextURL.searchParams.get(\"state\")).not.toBe(oldURL.searchParams.get(\"state\"))",
+    "expect(nextGrant.status).toBe(200)",
+    "expect(page.getByRole(\"button\", { name: \"项目\", exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"menu\")).toHaveCount(0)",
+    "expect(page.getByRole(\"heading\", { name: \"QWork，我帮你\" })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-5EC515D287B34F",
+      "type": "return",
+      "assertion": "cancels the old browser authorization before starting an independent login"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-auth-wechat-quick-login-spec-ts.f9b57ed99f",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/auth-wechat-quick-login.spec.ts -g \"cancels the old browser authorization before starting an independent login\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "auth",
+      "steps": [
+        {
+          "action": "firstModal.getByRole(\"button\", { name: \"微信\" }).click({ noWaitAfter: true })"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"取消登录\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"重新登录\" }).click()"
+        },
+        {
+          "action": "nextModal.getByRole(\"button\", { name: \"微信\" }).click({ noWaitAfter: true })"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /微信快捷用户/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"退出登录\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"确认登出\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/auth-wechat-quick-login.spec.ts",
+        "line_start": 125,
+        "line_end": 187,
+        "body_sha256": "sha256:fef66ec06120372d1140c731a336c60a2d75fab4e1cd21d25f43341d330ab352",
+        "assertion_count": 12,
+        "action_count": 7,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:cd166f913cedc7d9260095054da133ac22a8f822cbfd2719dddcc2a0f7b78c6e"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-5EC515D287B34F"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-5EC515D287B34F"
+    ]
+  }
+}

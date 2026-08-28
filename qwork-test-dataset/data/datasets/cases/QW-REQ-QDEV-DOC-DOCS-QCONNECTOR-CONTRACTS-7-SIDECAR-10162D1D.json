@@ -22,12 +22,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/01-oauth.md",
-      "locator": "line:193;heading:7. 与 sidecar 的交接",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/qconnector/contracts/01-oauth.md",
+      "locator": "line:208;heading:7. 与 sidecar 的交接",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:3d8c119f08310a4c600dd17a1cbf29f1638f6b4353597518aabb5a69d9b3822d",
       "redaction_status": "minimized"
     },
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/01-oauth.md",
-      "locator": "line:200;heading:7. 与 sidecar 的交接",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/qconnector/contracts/01-oauth.md",
+      "locator": "line:215;heading:7. 与 sidecar 的交接",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:960553ee6fbe78de05475669dc0b3bf00702833bea5355ce59b4e980e68e5751",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-692394310B82CF",
+      "requirement_id": "REQ-19F9AF5E4C2D2D",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-01-oauth-md:L193:3d8c119f08"
+        "QDEV-DOC-docs-qconnector-contracts-01-oauth-md:L208:3d8c119f08"
       ],
       "content_facets": [
         "role-permission"
@@ -74,9 +74,9 @@
       "oracle": "拿到 token 后按切片 0 契约 §3.1 下发，`static_headers` 含注入好的 `Authorization`。 授权码交换和 refresh 请求都必须携带与授权请求完全相同的 RFC 8707 `resource`；否则 浏览器授权可能显示成功，但 MCP resource server 会因 token audience 不匹配返回 401。 Token endpoint 返回的 `token_type` 按 OAuth 语义不区分大小写，但下发 M"
     },
     {
-      "requirement_id": "REQ-DC26D257634EC8",
+      "requirement_id": "REQ-1806A1B555DBC8",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-01-oauth-md:L200:960553ee6f"
+        "QDEV-DOC-docs-qconnector-contracts-01-oauth-md:L215:960553ee6f"
       ],
       "content_facets": [
         "role-permission"
@@ -122,10 +122,10 @@
       "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 7. 与 sidecar 的交接 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-692394310B82CF] exactly: 拿到 token 后按切片 0 契约 §3.1 下发，`static_headers` 含注入好的 `Authorization`。 授权码交换和 refresh 请求都必须携带与授权请求完全相同的 RFC 8707 `resource`；否则 浏览器授权可能显示成功，但 MCP resource server 会因 token audience 不匹配返回 401。 Token endpoint 返回的 `token_type` 按 OAuth 语义不区分大小写，但下发 M"
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-19F9AF5E4C2D2D] exactly: 拿到 token 后按切片 0 契约 §3.1 下发，`static_headers` 含注入好的 `Authorization`。 授权码交换和 refresh 请求都必须携带与授权请求完全相同的 RFC 8707 `resource`；否则 浏览器授权可能显示成功，但 MCP resource server 会因 token audience 不匹配返回 401。 Token endpoint 返回的 `token_type` 按 OAuth 语义不区分大小写，但下发 M"
     },
     {
-      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-DC26D257634EC8] exactly: token 刷新后重新下发同一个 server（覆盖式 upsert）。"
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-1806A1B555DBC8] exactly: token 刷新后重新下发同一个 server（覆盖式 upsert）。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -136,19 +136,19 @@
     "token 刷新后重新下发同一个 server（覆盖式 upsert）。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-692394310B82CF]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 拿到 token 后按切片 0 契约 §3.1 下发，`static_headers` 含注入好的 `Authorization`。 授权码交换和 refresh 请求都必须携带与授权请求完全相同的 RFC 8707 `resource`；否则 浏览器授权可能显示成功，但 MCP resource server 会因 token audience 不匹配返回 401。 Token endpoint 返回的 `token_type` 按 OAuth 语义不区分大小写，但下发 M",
-    "FAIL [REQ-DC26D257634EC8]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: token 刷新后重新下发同一个 server（覆盖式 upsert）。",
+    "FAIL [REQ-19F9AF5E4C2D2D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 拿到 token 后按切片 0 契约 §3.1 下发，`static_headers` 含注入好的 `Authorization`。 授权码交换和 refresh 请求都必须携带与授权请求完全相同的 RFC 8707 `resource`；否则 浏览器授权可能显示成功，但 MCP resource server 会因 token audience 不匹配返回 401。 Token endpoint 返回的 `token_type` 按 OAuth 语义不区分大小写，但下发 M",
+    "FAIL [REQ-1806A1B555DBC8]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: token 刷新后重新下发同一个 server（覆盖式 upsert）。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-692394310B82CF",
+      "requirement_id": "REQ-19F9AF5E4C2D2D",
       "type": "ui",
       "assertion": "拿到 token 后按切片 0 契约 §3.1 下发，`static_headers` 含注入好的 `Authorization`。 授权码交换和 refresh 请求都必须携带与授权请求完全相同的 RFC 8707 `resource`；否则 浏览器授权可能显示成功，但 MCP resource server 会因 token audience 不匹配返回 401。 Token endpoint 返回的 `token_type` 按 OAuth 语义不区分大小写，但下发 M"
     },
     {
-      "requirement_id": "REQ-DC26D257634EC8",
+      "requirement_id": "REQ-1806A1B555DBC8",
       "type": "api",
       "assertion": "token 刷新后重新下发同一个 server（覆盖式 upsert）。"
     }
@@ -220,10 +220,10 @@
           "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 7. 与 sidecar 的交接 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-692394310B82CF] exactly: 拿到 token 后按切片 0 契约 §3.1 下发，`static_headers` 含注入好的 `Authorization`。 授权码交换和 refresh 请求都必须携带与授权请求完全相同的 RFC 8707 `resource`；否则 浏览器授权可能显示成功，但 MCP resource server 会因 token audience 不匹配返回 401。 Token endpoint 返回的 `token_type` 按 OAuth 语义不区分大小写，但下发 M"
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-19F9AF5E4C2D2D] exactly: 拿到 token 后按切片 0 契约 §3.1 下发，`static_headers` 含注入好的 `Authorization`。 授权码交换和 refresh 请求都必须携带与授权请求完全相同的 RFC 8707 `resource`；否则 浏览器授权可能显示成功，但 MCP resource server 会因 token audience 不匹配返回 401。 Token endpoint 返回的 `token_type` 按 OAuth 语义不区分大小写，但下发 M"
         },
         {
-          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-DC26D257634EC8] exactly: token 刷新后重新下发同一个 server（覆盖式 upsert）。"
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-1806A1B555DBC8] exactly: token 刷新后重新下发同一个 server（覆盖式 upsert）。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -269,8 +269,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-692394310B82CF",
-      "REQ-DC26D257634EC8"
+      "REQ-1806A1B555DBC8",
+      "REQ-19F9AF5E4C2D2D"
     ],
     "categories": [
       "permission"
@@ -278,13 +278,13 @@
     "suite_ids": [
       "category:permission",
       "full",
-      "requirement:REQ-692394310B82CF",
-      "requirement:REQ-DC26D257634EC8"
+      "requirement:REQ-1806A1B555DBC8",
+      "requirement:REQ-19F9AF5E4C2D2D"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-692394310B82CF",
+      "requirement_id": "REQ-19F9AF5E4C2D2D",
       "oracle_type": "ui",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 7. 与 sidecar 的交接 产品契约 exactly once and retain its correlation identity",
@@ -293,7 +293,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-DC26D257634EC8",
+      "requirement_id": "REQ-1806A1B555DBC8",
       "oracle_type": "api",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 7. 与 sidecar 的交接 产品契约 exactly once and retain its correlation identity",

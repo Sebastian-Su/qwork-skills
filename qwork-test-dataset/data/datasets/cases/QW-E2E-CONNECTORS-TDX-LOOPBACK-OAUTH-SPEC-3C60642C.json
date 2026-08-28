@@ -1,0 +1,256 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-TDX-LOOPBACK-OAUTH-SPEC-3C60642C",
+  "title": "completes the shipped TDX contract through a local loopback provider",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-tdx-loopback-oauth-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/connectors-tdx-loopback-oauth.spec.ts",
+      "locator": "line:195;test:completes the shipped TDX contract through a local loopback provider",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:3c60642cda791430d3dd91827f48a18c00ed411770cb27cd3b53a415b5215fdb",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-CAF87F3177E1FD",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-tdx-loopback-oauth-spec-ts:L195:3c60642cda"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "completes the shipped TDX contract through a local loopback provider",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-tdx-loopback-oauth-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "completes the shipped TDX contract through a local loopback provider"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"通达信，未连接\" }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "provider.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(async () => readLines(authUrlSink)).toHaveLength(1)",
+    "expect(authorize.origin).toBe(provider.origin)",
+    "expect(authorize.pathname).toBe(\"/oauth/authorize\")",
+    "expect(authorize.searchParams.get(\"scope\")).toBe( shipped.oauth.scopes?.join(\" \") ?? null, )",
+    "expect(authorize.searchParams.get(\"resource\")).toBe( `${provider.origin}/mcp`, )",
+    "expect(authorize.searchParams.get(\"code_challenge_method\")).toBe(\"S256\")",
+    "expect(authorize.searchParams.get(\"code_challenge\")).toBeTruthy()",
+    "expect(redirect).not.toContain(\"qwork://\")",
+    "expect(redirect).toMatch( /^http:\\/\\/127\\.0\\.0\\.1:\\d+\\/qconnector\\/tdx-connector\\/oauth\\/callback$/, )",
+    "expect(state).toBeTruthy()",
+    "expect(provider.registrationRequests).toHaveLength(1)",
+    "expect(provider.registrationRequests[0]).toMatchObject({ redirect_uris: [redirect], grant_types: [\"authorization_code\", \"refresh_token\"], response_types: [\"code\"], token_endpoint_auth_method: \"none\", application_type: \"native\", })",
+    "expect(callback.status).toBe(200)",
+    "expect.poll(() => provider.tokenRequests).toHaveLength(1)",
+    "expect(provider.tokenRequests[0].get(\"redirect_uri\")).toBe(redirect)",
+    "expect(provider.tokenRequests[0].get(\"resource\")).toBe( `${provider.origin}/mcp`, )",
+    "expect( detail.getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible()",
+    "expect .poll(async () => (await readMcpLog(mcpLog)).find( (entry) => entry.type === \"mcp_server_upsert\" && (entry.server as { name?: string } | undefined)?.name === \"tdx-connector\", ), ) .toBeTruthy()",
+    "expect(event?.server).toEqual( expect.objectContaining({ name: \"tdx-connector\", transport: \"http\", url: `${provider.origin}/mcp`, static_headers: { Authorization: \"Bearer tdx-e2e-access\" }, }), )",
+    "expect(event?.server).not.toHaveProperty(\"oauth\")",
+    "expect(await readLines(authUrlSink)).toHaveLength(1)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-CAF87F3177E1FD",
+      "type": "return",
+      "assertion": "completes the shipped TDX contract through a local loopback provider"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-tdx-loopback-oauth-spec-ts.3c60642cda",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-tdx-loopback-oauth.spec.ts -g \"completes the shipped TDX contract through a local loopback provider\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"通达信，未连接\" }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "provider.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-tdx-loopback-oauth.spec.ts",
+        "line_start": 195,
+        "line_end": 290,
+        "body_sha256": "sha256:635c0b80d3db1edd58fb2b8b64852298c309212351a504634b9dbb6b078b77f0",
+        "assertion_count": 21,
+        "action_count": 5,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:d1e6904d24bd1fe7450de94f471369aa0f5f0c656bd611a296c9431823fcf2bd"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-CAF87F3177E1FD"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-CAF87F3177E1FD"
+    ]
+  }
+}

@@ -1,0 +1,422 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-996386-E-5-4-D70DE060",
+  "title": "docs/changes/CHG-996386-expert-cloud-catalog-20260824/implementation-plan.md · 5.4 热度事件 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-996386-expert-cloud-catalog-2026082",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/changes/CHG-996386-expert-cloud-catalog-20260824/implementation-plan.md",
+      "locator": "line:216;heading:5.4 热度事件",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:22181b4ed9fa813f07410b97f3ef7c0e1213138020669a92424712724f8e0f0e",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-996386-expert-cloud-catalog-2026082",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/changes/CHG-996386-expert-cloud-catalog-20260824/implementation-plan.md",
+      "locator": "line:217;heading:5.4 热度事件",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:12fbd9888fed3e6f161f483548ef3d96c443629d87d46e38c4784e7f68593069",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-996386-expert-cloud-catalog-2026082",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/changes/CHG-996386-expert-cloud-catalog-20260824/implementation-plan.md",
+      "locator": "line:218;heading:5.4 热度事件",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:a472a7368352747a84bcf2b2f9b5346e3a192ad41b4260c37f1b3e638fcd8584",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-996386-expert-cloud-catalog-2026082",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/changes/CHG-996386-expert-cloud-catalog-20260824/implementation-plan.md",
+      "locator": "line:219;heading:5.4 热度事件",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:05b881d19c14177ec288977f7d9706ab565458980ed432d7bbd30bb2f026f019",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0B9EA594D7FF47",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-996386-expert-cloud-catalog-2026082:L216:22181b4ed9"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "`download` 在服务端成功签发下载 URL 时记账，避免客户端任意上报下载次数。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-996386-expert-cloud-catalog-2026082"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`download` 在服务端成功签发下载 URL 时记账，避免客户端任意上报下载次数。"
+    },
+    {
+      "requirement_id": "REQ-3591CE3C396244",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-996386-expert-cloud-catalog-2026082:L217:12fbd9888f"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "`install`、`update`、`use` 只接受显式 allowlist，并使用操作/会话级幂等键。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-996386-expert-cloud-catalog-2026082"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`install`、`update`、`use` 只接受显式 allowlist，并使用操作/会话级幂等键。"
+    },
+    {
+      "requirement_id": "REQ-83EA1EB9BBFCBC",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-996386-expert-cloud-catalog-2026082:L218:a472a73683"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "`popular` 使用服务端统计，不信任 renderer 传入计数。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-996386-expert-cloud-catalog-2026082"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`popular` 使用服务端统计，不信任 renderer 传入计数。"
+    },
+    {
+      "requirement_id": "REQ-914562B89B5102",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-996386-expert-cloud-catalog-2026082:L219:05b881d19c"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "事件失败属于观测失败，不得反向使已经完成的安装或召唤失败。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-996386-expert-cloud-catalog-2026082"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "事件失败属于观测失败，不得反向使已经完成的安装或召唤失败。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-996386-expert-cloud-catalog-20260824/implementation-plan.md · 5.4 热度事件 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0B9EA594D7FF47] exactly: `download` 在服务端成功签发下载 URL 时记账，避免客户端任意上报下载次数。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-3591CE3C396244] exactly: `install`、`update`、`use` 只接受显式 allowlist，并使用操作/会话级幂等键。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-83EA1EB9BBFCBC] exactly: `popular` 使用服务端统计，不信任 renderer 传入计数。"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-914562B89B5102] exactly: 事件失败属于观测失败，不得反向使已经完成的安装或召唤失败。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "`download` 在服务端成功签发下载 URL 时记账，避免客户端任意上报下载次数。",
+    "`install`、`update`、`use` 只接受显式 allowlist，并使用操作/会话级幂等键。",
+    "`popular` 使用服务端统计，不信任 renderer 传入计数。",
+    "事件失败属于观测失败，不得反向使已经完成的安装或召唤失败。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-0B9EA594D7FF47]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `download` 在服务端成功签发下载 URL 时记账，避免客户端任意上报下载次数。",
+    "FAIL [REQ-3591CE3C396244]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `install`、`update`、`use` 只接受显式 allowlist，并使用操作/会话级幂等键。",
+    "FAIL [REQ-83EA1EB9BBFCBC]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `popular` 使用服务端统计，不信任 renderer 传入计数。",
+    "FAIL [REQ-914562B89B5102]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 事件失败属于观测失败，不得反向使已经完成的安装或召唤失败。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0B9EA594D7FF47",
+      "type": "return",
+      "assertion": "`download` 在服务端成功签发下载 URL 时记账，避免客户端任意上报下载次数。"
+    },
+    {
+      "requirement_id": "REQ-3591CE3C396244",
+      "type": "return",
+      "assertion": "`install`、`update`、`use` 只接受显式 allowlist，并使用操作/会话级幂等键。"
+    },
+    {
+      "requirement_id": "REQ-83EA1EB9BBFCBC",
+      "type": "return",
+      "assertion": "`popular` 使用服务端统计，不信任 renderer 传入计数。"
+    },
+    {
+      "requirement_id": "REQ-914562B89B5102",
+      "type": "event",
+      "assertion": "事件失败属于观测失败，不得反向使已经完成的安装或召唤失败。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-996386-exp.5-4-d70de06003",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-996386-expert-cloud-catalog-20260824/implementation-plan.md · 5.4 热度事件 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0B9EA594D7FF47] exactly: `download` 在服务端成功签发下载 URL 时记账，避免客户端任意上报下载次数。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-3591CE3C396244] exactly: `install`、`update`、`use` 只接受显式 allowlist，并使用操作/会话级幂等键。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-83EA1EB9BBFCBC] exactly: `popular` 使用服务端统计，不信任 renderer 传入计数。"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-914562B89B5102] exactly: 事件失败属于观测失败，不得反向使已经完成的安装或召唤失败。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0B9EA594D7FF47",
+      "REQ-3591CE3C396244",
+      "REQ-83EA1EB9BBFCBC",
+      "REQ-914562B89B5102"
+    ],
+    "categories": [
+      "business",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-0B9EA594D7FF47",
+      "requirement:REQ-3591CE3C396244",
+      "requirement:REQ-83EA1EB9BBFCBC",
+      "requirement:REQ-914562B89B5102"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-0B9EA594D7FF47",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-996386-expert-cloud-catalog-20260824/implementation-plan.md · 5.4 热度事件 产品契约 exactly once and retain its correlation identity",
+      "then": "`download` 在服务端成功签发下载 URL 时记账，避免客户端任意上报下载次数。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-3591CE3C396244",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-996386-expert-cloud-catalog-20260824/implementation-plan.md · 5.4 热度事件 产品契约 exactly once and retain its correlation identity",
+      "then": "`install`、`update`、`use` 只接受显式 allowlist，并使用操作/会话级幂等键。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-83EA1EB9BBFCBC",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-996386-expert-cloud-catalog-20260824/implementation-plan.md · 5.4 热度事件 产品契约 exactly once and retain its correlation identity",
+      "then": "`popular` 使用服务端统计，不信任 renderer 传入计数。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-914562B89B5102",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-996386-expert-cloud-catalog-20260824/implementation-plan.md · 5.4 热度事件 产品契约 exactly once and retain its correlation identity",
+      "then": "事件失败属于观测失败，不得反向使已经完成的安装或召唤失败。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

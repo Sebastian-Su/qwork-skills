@@ -22,12 +22,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/03-local-process.md",
-      "locator": "line:63;heading:2.1 清单形态",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/qconnector/contracts/03-local-process.md",
+      "locator": "line:68;heading:2.1 清单形态",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:cc0c38a84c28cc0aa551c680cf7b24996a0c405ca3cdb4e72db8c5940d9c3bd6",
       "redaction_status": "minimized"
     },
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/03-local-process.md",
-      "locator": "line:65;heading:2.1 清单形态",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/qconnector/contracts/03-local-process.md",
+      "locator": "line:70;heading:2.1 清单形态",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:627196a341dc080cb176eb990408af4fd819437b8babfca9c416f06a2d3e785c",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-906ECBF7E4363B",
+      "requirement_id": "REQ-36BC2084D86C76",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-03-local-process-md:L63:cc0c38a84c"
+        "QDEV-DOC-docs-qconnector-contracts-03-local-process-md:L68:cc0c38a84c"
       ],
       "content_facets": [
         "business-rule"
@@ -74,9 +74,9 @@
       "oracle": "`env` 会被保留用于展示真实供应商契约，但在当前 sidecar 协议下不可下发（见开头阻塞）。"
     },
     {
-      "requirement_id": "REQ-2E5F657D6977D9",
+      "requirement_id": "REQ-CCCFFBCCEB6BB8",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-03-local-process-md:L65:627196a341"
+        "QDEV-DOC-docs-qconnector-contracts-03-local-process-md:L70:627196a341"
       ],
       "content_facets": [
         "business-rule"
@@ -122,10 +122,10 @@
       "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/03-local-process.md · 2.1 清单形态 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-906ECBF7E4363B] exactly: `env` 会被保留用于展示真实供应商契约，但在当前 sidecar 协议下不可下发（见开头阻塞）。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-36BC2084D86C76] exactly: `env` 会被保留用于展示真实供应商契约，但在当前 sidecar 协议下不可下发（见开头阻塞）。"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-2E5F657D6977D9] exactly: `command` 允许的取值受**白名单**约束（§4.1）。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-CCCFFBCCEB6BB8] exactly: `command` 允许的取值受**白名单**约束（§4.1）。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -136,19 +136,19 @@
     "`command` 允许的取值受**白名单**约束（§4.1）。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-906ECBF7E4363B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `env` 会被保留用于展示真实供应商契约，但在当前 sidecar 协议下不可下发（见开头阻塞）。",
-    "FAIL [REQ-2E5F657D6977D9]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `command` 允许的取值受**白名单**约束（§4.1）。",
+    "FAIL [REQ-36BC2084D86C76]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `env` 会被保留用于展示真实供应商契约，但在当前 sidecar 协议下不可下发（见开头阻塞）。",
+    "FAIL [REQ-CCCFFBCCEB6BB8]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `command` 允许的取值受**白名单**约束（§4.1）。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-906ECBF7E4363B",
+      "requirement_id": "REQ-36BC2084D86C76",
       "type": "return",
       "assertion": "`env` 会被保留用于展示真实供应商契约，但在当前 sidecar 协议下不可下发（见开头阻塞）。"
     },
     {
-      "requirement_id": "REQ-2E5F657D6977D9",
+      "requirement_id": "REQ-CCCFFBCCEB6BB8",
       "type": "return",
       "assertion": "`command` 允许的取值受**白名单**约束（§4.1）。"
     }
@@ -207,10 +207,10 @@
           "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/03-local-process.md · 2.1 清单形态 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-906ECBF7E4363B] exactly: `env` 会被保留用于展示真实供应商契约，但在当前 sidecar 协议下不可下发（见开头阻塞）。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-36BC2084D86C76] exactly: `env` 会被保留用于展示真实供应商契约，但在当前 sidecar 协议下不可下发（见开头阻塞）。"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-2E5F657D6977D9] exactly: `command` 允许的取值受**白名单**约束（§4.1）。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-CCCFFBCCEB6BB8] exactly: `command` 允许的取值受**白名单**约束（§4.1）。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -253,8 +253,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-2E5F657D6977D9",
-      "REQ-906ECBF7E4363B"
+      "REQ-36BC2084D86C76",
+      "REQ-CCCFFBCCEB6BB8"
     ],
     "categories": [
       "business"
@@ -262,13 +262,13 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-2E5F657D6977D9",
-      "requirement:REQ-906ECBF7E4363B"
+      "requirement:REQ-36BC2084D86C76",
+      "requirement:REQ-CCCFFBCCEB6BB8"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-906ECBF7E4363B",
+      "requirement_id": "REQ-36BC2084D86C76",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/03-local-process.md · 2.1 清单形态 产品契约 exactly once and retain its correlation identity",
@@ -277,7 +277,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-2E5F657D6977D9",
+      "requirement_id": "REQ-CCCFFBCCEB6BB8",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/03-local-process.md · 2.1 清单形态 产品契约 exactly once and retain its correlation identity",

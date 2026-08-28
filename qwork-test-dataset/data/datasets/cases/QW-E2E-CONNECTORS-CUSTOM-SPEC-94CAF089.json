@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-custom.spec.ts",
-      "locator": "line:98;test:refusing trust leaves the connector unconnected and undispatched",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/connectors-custom.spec.ts",
+      "locator": "line:160;test:refusing trust leaves the connector unconnected and undispatched",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:94caf0891efdcfcbd8b36ccec43ea98fbd1d079127c6b25c072ba9452533939d",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-FF69EA1E2AEC45",
+      "requirement_id": "REQ-720F67E6D6FC5E",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-connectors-custom-spec-ts:L98:94caf0891e"
+        "QDEV-E2E-e2e-connectors-custom-spec-ts:L160:94caf0891e"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,22 +75,24 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "page.getByRole(\"dialog\", { name: \"自定义连接器\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+      "action": "page.getByRole(\"dialog\", { name: \"配置 MCP\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"my-server，未连接\" }).click()"
     },
     {
-      "action": "detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+      "action": "detailDialog(page, \"my-server\") .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"拒绝\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect( detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"工具清单\" }), ).toHaveCount(0)",
     "expect(page.getByText(\"第三方服务，qwork 未审核\")).toBeVisible()",
-    "expect(dialog.getByRole(\"button\", { name: \"连接\", exact: true })).toBeVisible()",
-    "expect(dialog.getByRole(\"button\", { name: \"停用\", exact: true })).toHaveCount(0)",
+    "expect( dialog.getByRole(\"button\", { name: \"连接\", exact: true }), ).toBeVisible()",
+    "expect(dialog.getByRole(\"button\", { name: \"工具清单\" })).toHaveCount( 0, )",
+    "expect( dialog.getByRole(\"button\", { name: \"停用\", exact: true }), ).toHaveCount(0)",
     "expect(await readMcpLog(mcpLog)).toHaveLength(0)"
   ],
   "forbidden_outcomes": [
@@ -100,7 +102,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-FF69EA1E2AEC45",
+      "requirement_id": "REQ-720F67E6D6FC5E",
       "type": "return",
       "assertion": "refusing trust leaves the connector unconnected and undispatched"
     }
@@ -161,13 +163,13 @@
       "entrypoint": "connectors",
       "steps": [
         {
-          "action": "page.getByRole(\"dialog\", { name: \"自定义连接器\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+          "action": "page.getByRole(\"dialog\", { name: \"配置 MCP\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
         },
         {
           "action": "page.getByRole(\"button\", { name: \"my-server，未连接\" }).click()"
         },
         {
-          "action": "detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+          "action": "detailDialog(page, \"my-server\") .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
         },
         {
           "action": "page.getByRole(\"button\", { name: \"拒绝\", exact: true }).click()"
@@ -191,13 +193,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/connectors-custom.spec.ts",
-        "line_start": 98,
-        "line_end": 116,
-        "body_sha256": "sha256:9c6c284388575a4ff8adbbbd08cdcbc0ee6c9ba59df4cff9e069e154a8fce92f",
-        "assertion_count": 4,
+        "line_start": 160,
+        "line_end": 191,
+        "body_sha256": "sha256:5e3f8c1e2a4edc114674e4a810c7c996e97eabdae60f8df9110ebe4fc5f9ec3e",
+        "assertion_count": 6,
         "action_count": 4,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:60df48f4820859375bce894365f3c009b133f1bedd7bd74690d6c28cd4c023aa"
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:5e2146fe1fba53e75cefc23102c3ec684379de0665569cefe03878613c15783a"
       }
     },
     "reference_run": {
@@ -219,7 +221,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-FF69EA1E2AEC45"
+      "REQ-720F67E6D6FC5E"
     ],
     "categories": [
       "business"
@@ -227,7 +229,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-FF69EA1E2AEC45"
+      "requirement:REQ-720F67E6D6FC5E"
     ]
   }
 }

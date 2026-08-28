@@ -1,0 +1,264 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECT-ASSETS-FOLDER-FILTER-SPEC-4A2412E1",
+  "title": "creates an asset folder and filters assets by type",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-project-assets-folder-filter-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/project-assets-folder-filter.spec.ts",
+      "locator": "line:10;test:creates an asset folder and filters assets by type",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:4a2412e1d10b320431367f39d1a93bd3db4a8b1902f274f505780e0d8bbc9472",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-BAFF7F1A091EF5",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-project-assets-folder-filter-spec-ts:L10:4a2412e1d1"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "creates an asset folder and filters assets by type",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-project-assets-folder-filter-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "creates an asset folder and filters assets by type"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /资产筛选项目/ }).first().click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"资产\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建文件夹\", exact: true }).click()"
+    },
+    {
+      "action": "folderForm.getByLabel(\"文件夹名称\").fill(\"E2E 资料夹\")"
+    },
+    {
+      "action": "folderForm.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"资产类型\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"PDF\" }).click()"
+    },
+    {
+      "action": "projectServer.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"welcome.md\")).toBeVisible()",
+    "expect(page.getByText(\"资产库使用指南.pdf\")).toBeVisible()",
+    "expect( page.getByLabel(\"资产文件夹\").filter({ hasText: \"E2E 资料夹\" }), ).toBeVisible()",
+    "expect(page.getByText(\"资产库使用指南.pdf\")).toBeVisible()",
+    "expect(page.getByText(\"welcome.md\")).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-BAFF7F1A091EF5",
+      "type": "return",
+      "assertion": "creates an asset folder and filters assets by type"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-project-assets-folder-filter-spec-ts.4a2412e1d1",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/project-assets-folder-filter.spec.ts -g \"creates an asset folder and filters assets by type\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /资产筛选项目/ }).first().click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"资产\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建文件夹\", exact: true }).click()"
+        },
+        {
+          "action": "folderForm.getByLabel(\"文件夹名称\").fill(\"E2E 资料夹\")"
+        },
+        {
+          "action": "folderForm.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"资产类型\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"PDF\" }).click()"
+        },
+        {
+          "action": "projectServer.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/project-assets-folder-filter.spec.ts",
+        "line_start": 10,
+        "line_end": 223,
+        "body_sha256": "sha256:19144e9304e990f47f8e5fd3f28828fb89a2ae69dc10168bc17c3d3aa328d3fa",
+        "assertion_count": 5,
+        "action_count": 9,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:984a41288ddd0d961eaccd7f71b8e28842cacb8ad91dc443607a949df6e28d24"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-BAFF7F1A091EF5"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-BAFF7F1A091EF5"
+    ]
+  }
+}

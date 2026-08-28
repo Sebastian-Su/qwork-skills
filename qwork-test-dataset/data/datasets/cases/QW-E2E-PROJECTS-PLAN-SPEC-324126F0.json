@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-plan.spec.ts",
-      "locator": "line:527;test:matches the WorkBuddy filter menu, multi-selects status, and closes safely",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/projects-plan.spec.ts",
+      "locator": "line:649;test:matches the WorkBuddy filter menu, multi-selects status, and closes safely",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:324126f07c2960984aff50c18d40652f648123644729c6c30920a590bb9d5dc7",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-F76600F14083E8",
+      "requirement_id": "REQ-7A5B74B6DC06FA",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-projects-plan-spec-ts:L527:324126f07c"
+        "QDEV-E2E-e2e-projects-plan-spec-ts:L649:324126f07c"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -93,6 +93,9 @@
       "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
     },
     {
+      "action": "list.getByRole(\"button\", { name: \"展开进行中\" }).click()"
+    },
+    {
       "action": "trigger.click()"
     },
     {
@@ -126,9 +129,9 @@
   "expected_outcomes": [
     "expect(filter).toBeVisible()",
     "expect(filter.getByLabel(\"筛选状态\")).toHaveCount(0)",
-    "expect(table).toContainText(\"筛选待开始\")",
-    "expect(table).toContainText(\"筛选进行中\")",
-    "expect(table).not.toContainText(\"筛选已完成\")",
+    "expect(list).toContainText(\"筛选待开始\")",
+    "expect(list).toContainText(\"筛选进行中\")",
+    "expect(list).not.toContainText(\"筛选已完成\")",
     "expect(filter).toBeHidden()",
     "expect(filter).toBeHidden()",
     "expect(filter).toBeHidden()"
@@ -140,7 +143,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-F76600F14083E8",
+      "requirement_id": "REQ-7A5B74B6DC06FA",
       "type": "return",
       "assertion": "matches the WorkBuddy filter menu, multi-selects status, and closes safely"
     }
@@ -219,6 +222,9 @@
           "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
         },
         {
+          "action": "list.getByRole(\"button\", { name: \"展开进行中\" }).click()"
+        },
+        {
           "action": "trigger.click()"
         },
         {
@@ -267,13 +273,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/projects-plan.spec.ts",
-        "line_start": 527,
-        "line_end": 589,
-        "body_sha256": "sha256:71cd3f0dee35cb5285124da3ca9a14091b5dfb428a51de4a94431d59e14550a6",
+        "line_start": 649,
+        "line_end": 712,
+        "body_sha256": "sha256:1ce71b07e942ac8c30b903b2bec6855e255f6d8dc08e037d99560819164c36e4",
         "assertion_count": 8,
-        "action_count": 16,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:e52eb9cb17908f5ac19d6612f0e92543e08a9e8c9ad5127c02c85c0eeed5a6d0"
+        "action_count": 17,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:39f092a3d14f270b5f9009d6239b9b80edaeca781dbd2ad463f9045f009d1280"
       }
     },
     "reference_run": {
@@ -295,7 +301,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-F76600F14083E8"
+      "REQ-7A5B74B6DC06FA"
     ],
     "categories": [
       "business"
@@ -303,7 +309,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-F76600F14083E8"
+      "requirement:REQ-7A5B74B6DC06FA"
     ]
   }
 }

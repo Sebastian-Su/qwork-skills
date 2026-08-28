@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-custom.spec.ts",
-      "locator": "line:78;test:rejects an invalid config, then accepts a corrected one",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/connectors-custom.spec.ts",
+      "locator": "line:140;test:rejects an invalid config, then accepts a corrected one",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:5367ff5fa271b07f6328d474807146d63e22125bb1befd17d4b82d2979f77b4d",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-D6D4387BF72067",
+      "requirement_id": "REQ-ED9AD2260AC6C0",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-connectors-custom-spec-ts:L78:5367ff5fa2"
+        "QDEV-E2E-e2e-connectors-custom-spec-ts:L140:5367ff5fa2"
       ],
       "content_facets": [
         "negative-rule"
@@ -75,14 +75,14 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "page.getByRole(\"dialog\", { name: \"自定义连接器\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+      "action": "page.getByRole(\"dialog\", { name: \"配置 MCP\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
     },
     {
-      "action": "page.getByRole(\"dialog\", { name: \"自定义连接器\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+      "action": "page.getByRole(\"dialog\", { name: \"配置 MCP\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
-    "expect( page.getByRole(\"dialog\", { name: \"自定义连接器\" }).getByRole(\"alert\"), ).toContainText(\"https\")",
+    "expect( page.getByRole(\"dialog\", { name: \"配置 MCP\" }).getByRole(\"alert\"), ).toContainText(\"https\")",
     "expect(page.getByRole(\"button\", { name: /my-server/ })).toBeVisible()",
     "expect(await readMcpLog(mcpLog)).toHaveLength(0)"
   ],
@@ -93,7 +93,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-D6D4387BF72067",
+      "requirement_id": "REQ-ED9AD2260AC6C0",
       "type": "return",
       "assertion": "rejects an invalid config, then accepts a corrected one"
     }
@@ -154,10 +154,10 @@
       "entrypoint": "connectors",
       "steps": [
         {
-          "action": "page.getByRole(\"dialog\", { name: \"自定义连接器\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+          "action": "page.getByRole(\"dialog\", { name: \"配置 MCP\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
         },
         {
-          "action": "page.getByRole(\"dialog\", { name: \"自定义连接器\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+          "action": "page.getByRole(\"dialog\", { name: \"配置 MCP\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -178,13 +178,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/connectors-custom.spec.ts",
-        "line_start": 78,
-        "line_end": 96,
-        "body_sha256": "sha256:11d45fd1d09bc06805f449faa0792899325026943c5afce6ea867edae179e6a3",
+        "line_start": 140,
+        "line_end": 158,
+        "body_sha256": "sha256:96a78a3417ac16f5c8d8323996a52adb5213f52b3291382c346e35527b927afe",
         "assertion_count": 3,
         "action_count": 2,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:60df48f4820859375bce894365f3c009b133f1bedd7bd74690d6c28cd4c023aa"
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:5e2146fe1fba53e75cefc23102c3ec684379de0665569cefe03878613c15783a"
       }
     },
     "reference_run": {
@@ -206,7 +206,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-D6D4387BF72067"
+      "REQ-ED9AD2260AC6C0"
     ],
     "categories": [
       "negative"
@@ -214,7 +214,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-D6D4387BF72067"
+      "requirement:REQ-ED9AD2260AC6C0"
     ]
   }
 }

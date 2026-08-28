@@ -1,0 +1,269 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-STARTUP-REPLAY-SPEC-0F425A3E",
+  "title": "publishes a restored form bridge before sidecar runtime is ready",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-startup-replay-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/connectors-startup-replay.spec.ts",
+      "locator": "line:691;test:publishes a restored form bridge before sidecar runtime is ready",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:0f425a3ecfd1bbdcac4347c65873f3b898ccb1bf0e1d880d71596add400b7272",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-AA86F0FD2A5222",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-startup-replay-spec-ts:L691:0f425a3ecf"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "publishes a restored form bridge before sidecar runtime is ready",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-startup-replay-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "publishes a restored form bridge before sidecar runtime is ready"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "path.join(home, \"release-mail-bridge-prepare\")"
+    },
+    {
+      "action": "path.join(home, \"release-mail-bridge-ready\")"
+    },
+    {
+      "action": "openApp(home, { E2E_MCP_LOG: mcpLog, WORK_GUI_AUTH_URL_SINK: authUrlSink, })"
+    },
+    {
+      "action": "gotoConnectors(opened.page)"
+    },
+    {
+      "action": "connectQqMail(opened.page)"
+    },
+    {
+      "action": "closeE2EApplication(app)"
+    },
+    {
+      "action": "openApp(home, { E2E_MCP_LOG: mcpLog, WORK_GUI_AUTH_URL_SINK: authUrlSink, E2E_CONNECTOR_PREPARE_GATE_FILE: prepareGate, E2E_SIDECAR_READY_GATE_FILE: readyGate, })"
+    },
+    {
+      "action": "gotoConnectors(opened.page)"
+    },
+    {
+      "action": "fs.writeFile(prepareGate, \"ready\", \"utf8\")"
+    },
+    {
+      "action": "fs.writeFile(readyGate, \"ready\", \"utf8\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( opened.page.getByRole(\"button\", { name: \"QQ邮箱，连接异常\", exact: true, }), ).toBeVisible()",
+    "expect( opened.page.getByRole(\"button\", { name: \"QQ邮箱，已连接\", exact: true, }), ).toBeVisible({ timeout: 4_000 })",
+    "expect( opened.page.getByRole(\"button\", { name: \"QQ邮箱，连接异常\", exact: true, }), ).toHaveCount(0)",
+    "expect(await readLines(authUrlSink)).toEqual([])"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-AA86F0FD2A5222",
+      "type": "return",
+      "assertion": "publishes a restored form bridge before sidecar runtime is ready"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-startup-replay-spec-ts.0f425a3ecf",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-startup-replay.spec.ts -g \"publishes a restored form bridge before sidecar runtime is ready\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "path.join(home, \"release-mail-bridge-prepare\")"
+        },
+        {
+          "action": "path.join(home, \"release-mail-bridge-ready\")"
+        },
+        {
+          "action": "openApp(home, { E2E_MCP_LOG: mcpLog, WORK_GUI_AUTH_URL_SINK: authUrlSink, })"
+        },
+        {
+          "action": "gotoConnectors(opened.page)"
+        },
+        {
+          "action": "connectQqMail(opened.page)"
+        },
+        {
+          "action": "closeE2EApplication(app)"
+        },
+        {
+          "action": "openApp(home, { E2E_MCP_LOG: mcpLog, WORK_GUI_AUTH_URL_SINK: authUrlSink, E2E_CONNECTOR_PREPARE_GATE_FILE: prepareGate, E2E_SIDECAR_READY_GATE_FILE: readyGate, })"
+        },
+        {
+          "action": "gotoConnectors(opened.page)"
+        },
+        {
+          "action": "fs.writeFile(prepareGate, \"ready\", \"utf8\")"
+        },
+        {
+          "action": "fs.writeFile(readyGate, \"ready\", \"utf8\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-startup-replay.spec.ts",
+        "line_start": 691,
+        "line_end": 737,
+        "body_sha256": "sha256:d6345b1bc47e92c3bc4516d9ff5082b8ce05434351bbf9ddb7481a641852d814",
+        "assertion_count": 4,
+        "action_count": 0,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:0ec0c98aec20cb01a07a484ed8edbb861158b6bea26902d5209322c91085fffd"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-AA86F0FD2A5222"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-AA86F0FD2A5222"
+    ]
+  }
+}

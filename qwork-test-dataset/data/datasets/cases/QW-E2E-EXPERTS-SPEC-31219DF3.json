@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/experts.spec.ts",
-      "locator": "line:577;test:expert sample question only prefills the draft",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/experts.spec.ts",
+      "locator": "line:644;test:expert sample question only prefills the draft",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:31219df3bb69e78f69186bc307158ca8361db9743c68ac333a9515a28d58e27f",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-experts-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:cd8f67177fde78ea96cfc8529dbad71afdc0c0c7:e2e/experts.spec.ts",
-      "locator": "line:613;test:expert sample question only prefills the draft",
-      "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
-      "content_hash": "sha256:31219df3bb69e78f69186bc307158ca8361db9743c68ac333a9515a28d58e27f",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-experts-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-7E3F662A1690E3",
+      "requirement_id": "REQ-12A0FE7B013007",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-experts-spec-ts:L577:31219df3bb",
-        "QHEAD-E2E-e2e-experts-spec-ts:L613:31219df3bb"
+        "QDEV-E2E-e2e-experts-spec-ts:L644:31219df3bb"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-experts-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-experts-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -80,11 +60,11 @@
     }
   ],
   "verification": {
-    "last_outcome": "pass",
-    "environment_scope": "isolated Electron Playwright run, case-owned QWork home, deterministic fake sidecar, zero real model calls",
-    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
     "last_verified_at": "2026-08-24T11:47:52.249938+00:00",
-    "status_reason": "hash-verified public Playwright reference run expert-identity-public-reference-cd8f6717-v1 passed"
+    "status_reason": "public Playwright reference expert-identity-public-reference-cd8f6717-v1 does not match current implementation/source contract; rerun this exact Case"
   },
   "preconditions": {
     "repository": "qwork",
@@ -117,7 +97,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-7E3F662A1690E3",
+      "requirement_id": "REQ-12A0FE7B013007",
       "type": "return",
       "assertion": "expert sample question only prefills the draft"
     }
@@ -142,7 +122,7 @@
   },
   "execution_contract": {
     "contract_version": 1,
-    "readiness": "ready",
+    "readiness": "partial",
     "route_id": "qwork.playwright.e2e-experts-spec-ts.31219df3bb",
     "target": {
       "kind": "installed-app",
@@ -205,26 +185,20 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/experts.spec.ts",
-        "line_start": 613,
-        "line_end": 641,
-        "body_sha256": "sha256:d2edba299662e2f9bf95381a65f867a9502aa2a0974356e06afa563d4f8a83b0",
+        "line_start": 644,
+        "line_end": 672,
+        "body_sha256": "sha256:f57506a824f57756a90845ac22fc7bc8a39305b45185545d39813449c399e673",
         "assertion_count": 4,
         "action_count": 3,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:5cfaebd6f1408fa2252ecc623ad3542efa50ed6bc1345c9a0d13e90f35ff3aed"
-      },
-      "reference_authority": {
-        "manifest": "skill://qwork-test-dataset/data/runs/expert-identity-public-reference-cd8f6717-v1/public-playwright-reference.json",
-        "manifest_sha256": "sha256:e1ff2b9ad3eb0ce149f2bc6e8c347c79b759bbcb18510dbfa16fd8b00c43d5fa",
-        "plan_sha256": "01a00070eaf74745ce1bfcebfe35e51abbd9071286cf0f592c18e631e4d3ba83",
-        "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7"
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:c02d81ae7e97edab5454af66429d2c776fcf5699026576cb0822a4a20e494068"
       }
     },
     "reference_run": {
-      "status": "passed",
+      "status": "pending",
       "run_id": "expert-identity-public-reference-cd8f6717-v1",
       "verified_at": "2026-08-24T11:47:52.249938+00:00",
-      "environment": "isolated Electron Playwright run, case-owned QWork home, deterministic fake sidecar, zero real model calls"
+      "environment": "stale deterministic public Playwright reference run"
     },
     "cleanup": {
       "actions": [
@@ -233,11 +207,13 @@
       ],
       "success_oracle": "no case-owned process or temporary state remains"
     },
-    "blockers": []
+    "blockers": [
+      "public Playwright reference expert-identity-public-reference-cd8f6717-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
   },
   "selection": {
     "requirement_ids": [
-      "REQ-7E3F662A1690E3"
+      "REQ-12A0FE7B013007"
     ],
     "categories": [
       "business"
@@ -245,7 +221,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-7E3F662A1690E3"
+      "requirement:REQ-12A0FE7B013007"
     ]
   }
 }

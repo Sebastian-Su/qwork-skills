@@ -17,25 +17,25 @@
   },
   "sources": [
     {
-      "source_id": "QHEAD-E2E-e2e-built-in-media-generation-spec-ts",
+      "source_id": "QDEV-E2E-e2e-built-in-media-generation-spec-ts",
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:93283fefa96fe705465d9a500a9c7def7f93a296:e2e/built-in-media-generation.spec.ts",
-      "locator": "line:129;test:生视频逐次授权并展示阶段，停止只终止本地等待",
-      "revision": "93283fefa96fe705465d9a500a9c7def7f93a296",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/built-in-media-generation.spec.ts",
+      "locator": "line:131;test:生视频逐次授权并展示阶段，停止只终止本地等待",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-26T16:09:42.116737+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:91df4fcd01b74b5350352a384cdc5b2329d24917c0ffdc74a9a964eb7fb56f67",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-C2F5F9105AED42",
+      "requirement_id": "REQ-5626A3D6DA162D",
       "source_atom_ids": [
-        "QHEAD-E2E-e2e-built-in-media-generation-spec-ts:L129:91df4fcd01"
+        "QDEV-E2E-e2e-built-in-media-generation-spec-ts:L131:91df4fcd01"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -48,7 +48,7 @@
       "rule": "生视频逐次授权并展示阶段，停止只终止本地等待",
       "authority_domain": "execution",
       "governing_sources": [
-        "QHEAD-E2E-e2e-built-in-media-generation-spec-ts"
+        "QDEV-E2E-e2e-built-in-media-generation-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -144,6 +144,9 @@
   "expected_outcomes": [
     "expect .poll(() => page.evaluate(() => window.workGui.auth.status().then((status) => status.loggedIn), ), ) .toBe(true)",
     "expect(approval).toContainText(\"VideoGen\")",
+    "expect(approval).toContainText(\"0.05 Credits\")",
+    "expect(approval).toContainText(\"5 秒\")",
+    "expect(approval).toContainText(\"720p\")",
     "expect(page.getByText(\"已提交\", { exact: false })).toBeVisible()",
     "expect(page.getByText(\"生成中\", { exact: false })).toBeVisible()",
     "expect(page.getByText(\"保存到本地\", { exact: false })).toBeVisible()",
@@ -165,7 +168,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-C2F5F9105AED42",
+      "requirement_id": "REQ-5626A3D6DA162D",
       "type": "return",
       "assertion": "生视频逐次授权并展示阶段，停止只终止本地等待"
     }
@@ -310,13 +313,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/built-in-media-generation.spec.ts",
-        "line_start": 129,
-        "line_end": 269,
-        "body_sha256": "sha256:a59b6011f2085efcf85e27a149f9bfdcc869a51b36637599b508edf90b37cb0a",
-        "assertion_count": 15,
+        "line_start": 131,
+        "line_end": 274,
+        "body_sha256": "sha256:8b4abd1fe8a838a329ba0026fae5c96ecead768632e35d302a0ea08e1f992539",
+        "assertion_count": 18,
         "action_count": 22,
-        "execution_revision": "93283fefa96fe705465d9a500a9c7def7f93a296",
-        "spec_sha256": "sha256:7e203bd9cfb28cd7ac847fb1ef96a3feb7c1a62d433606154e501a27cfb1c57f"
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:9039c8e5cb10024bc0b0b97e64076e1e4d915342a5e4673b688f007baa130b7a"
       }
     },
     "reference_run": {
@@ -338,7 +341,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-C2F5F9105AED42"
+      "REQ-5626A3D6DA162D"
     ],
     "categories": [
       "business"
@@ -346,7 +349,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-C2F5F9105AED42"
+      "requirement:REQ-5626A3D6DA162D"
     ]
   }
 }

@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/changes/CHG-home-practice-cases-20260819/phase-2-requirements.md",
-      "locator": "line:60;heading:5.1 打开 / 关闭详情",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/changes/CHG-home-practice-cases-20260819/phase-2-requirements.md",
+      "locator": "line:62;heading:5.1 打开 / 关闭详情",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:1f87d4a0cdf3fd6761ee9ef31ed213dce637ec3e4f2cbfffa92762f8e2049d87",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-63479FEC0F9E52",
+      "requirement_id": "REQ-B984EA0A938883",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-08ef7e84:L60:1f87d4a0cd"
+        "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-08ef7e84:L62:1f87d4a0cd"
       ],
       "content_facets": [
         "business-rule"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-2-requirements.md · 5.1 打开 / 关闭详情 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-63479FEC0F9E52] exactly: 可见摘要来自目录 `summary`；若有 `expertKey`，展示该专家的 QWork 显示名（Oracle 案例允许 `expertKey=null`，此时不渲染专家 chip）。"
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-B984EA0A938883] exactly: 可见摘要来自目录 `summary`；若有 `expertKey`，展示该专家的 QWork 显示名（Oracle 案例允许 `expertKey=null`，此时不渲染专家 chip）。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "可见摘要来自目录 `summary`；若有 `expertKey`，展示该专家的 QWork 显示名（Oracle 案例允许 `expertKey=null`，此时不渲染专家 chip）。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-63479FEC0F9E52]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 可见摘要来自目录 `summary`；若有 `expertKey`，展示该专家的 QWork 显示名（Oracle 案例允许 `expertKey=null`，此时不渲染专家 chip）。",
+    "FAIL [REQ-B984EA0A938883]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 可见摘要来自目录 `summary`；若有 `expertKey`，展示该专家的 QWork 显示名（Oracle 案例允许 `expertKey=null`，此时不渲染专家 chip）。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-63479FEC0F9E52",
+      "requirement_id": "REQ-B984EA0A938883",
       "type": "ui",
       "assertion": "可见摘要来自目录 `summary`；若有 `expertKey`，展示该专家的 QWork 显示名（Oracle 案例允许 `expertKey=null`，此时不渲染专家 chip）。"
     }
@@ -170,7 +170,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-2-requirements.md · 5.1 打开 / 关闭详情 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-63479FEC0F9E52] exactly: 可见摘要来自目录 `summary`；若有 `expertKey`，展示该专家的 QWork 显示名（Oracle 案例允许 `expertKey=null`，此时不渲染专家 chip）。"
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-B984EA0A938883] exactly: 可见摘要来自目录 `summary`；若有 `expertKey`，展示该专家的 QWork 显示名（Oracle 案例允许 `expertKey=null`，此时不渲染专家 chip）。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -216,7 +216,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-63479FEC0F9E52"
+      "REQ-B984EA0A938883"
     ],
     "categories": [
       "business"
@@ -224,12 +224,12 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-63479FEC0F9E52"
+      "requirement:REQ-B984EA0A938883"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-63479FEC0F9E52",
+      "requirement_id": "REQ-B984EA0A938883",
       "oracle_type": "ui",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-2-requirements.md · 5.1 打开 / 关闭详情 产品契约 exactly once and retain its correlation identity",

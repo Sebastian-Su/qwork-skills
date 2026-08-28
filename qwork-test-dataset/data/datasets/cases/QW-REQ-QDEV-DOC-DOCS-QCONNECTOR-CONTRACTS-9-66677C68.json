@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/01-oauth.md",
-      "locator": "line:248;heading:9. 真实服务验证",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/qconnector/contracts/01-oauth.md",
+      "locator": "line:345;heading:9. 真实服务验证",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:9e38a9fae95651b31cdd344878110e4bb604f85e7bbc1f37f9586e1230318a30",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-4E9C7CA99B327D",
+      "requirement_id": "REQ-A9AFFA27ED05AB",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-01-oauth-md:L248:9e38a9fae9"
+        "QDEV-DOC-docs-qconnector-contracts-01-oauth-md:L345:9e38a9fae9"
       ],
       "content_facets": [
         "role-permission"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 9. 真实服务验证 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-4E9C7CA99B327D] exactly: **2026-08-07 对 `https://mcp.notion.com/mcp` 实测**，用例见 `src/main/connectors/oauth/notion.live.test.ts`（默认 skip，`QWORK_LIVE=1` 启用）。"
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-A9AFFA27ED05AB] exactly: **2026-08-07 对 `https://mcp.notion.com/mcp` 实测**，用例见 `src/main/connectors/oauth/notion.live.test.ts`（默认 skip，`QWORK_LIVE=1` 启用）。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "**2026-08-07 对 `https://mcp.notion.com/mcp` 实测**，用例见 `src/main/connectors/oauth/notion.live.test.ts`（默认 skip，`QWORK_LIVE=1` 启用）。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-4E9C7CA99B327D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **2026-08-07 对 `https://mcp.notion.com/mcp` 实测**，用例见 `src/main/connectors/oauth/notion.live.test.ts`（默认 skip，`QWORK_LIVE=1` 启用）。",
+    "FAIL [REQ-A9AFFA27ED05AB]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **2026-08-07 对 `https://mcp.notion.com/mcp` 实测**，用例见 `src/main/connectors/oauth/notion.live.test.ts`（默认 skip，`QWORK_LIVE=1` 启用）。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-4E9C7CA99B327D",
+      "requirement_id": "REQ-A9AFFA27ED05AB",
       "type": "api",
       "assertion": "**2026-08-07 对 `https://mcp.notion.com/mcp` 实测**，用例见 `src/main/connectors/oauth/notion.live.test.ts`（默认 skip，`QWORK_LIVE=1` 启用）。"
     }
@@ -157,7 +157,7 @@
           "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 9. 真实服务验证 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-4E9C7CA99B327D] exactly: **2026-08-07 对 `https://mcp.notion.com/mcp` 实测**，用例见 `src/main/connectors/oauth/notion.live.test.ts`（默认 skip，`QWORK_LIVE=1` 启用）。"
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-A9AFFA27ED05AB] exactly: **2026-08-07 对 `https://mcp.notion.com/mcp` 实测**，用例见 `src/main/connectors/oauth/notion.live.test.ts`（默认 skip，`QWORK_LIVE=1` 启用）。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -200,7 +200,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-4E9C7CA99B327D"
+      "REQ-A9AFFA27ED05AB"
     ],
     "categories": [
       "permission"
@@ -208,12 +208,12 @@
     "suite_ids": [
       "category:permission",
       "full",
-      "requirement:REQ-4E9C7CA99B327D"
+      "requirement:REQ-A9AFFA27ED05AB"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-4E9C7CA99B327D",
+      "requirement_id": "REQ-A9AFFA27ED05AB",
       "oracle_type": "api",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 9. 真实服务验证 产品契约 exactly once and retain its correlation identity",

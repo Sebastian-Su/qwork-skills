@@ -1,0 +1,269 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-CONVERSATION-SPEC-96001CCC",
+  "title": "keeps multiline text inside the compact conversation composer",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-conversation-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/workbuddy-conversation.spec.ts",
+      "locator": "line:238;test:keeps multiline text inside the compact conversation composer",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:96001ccceae60ecddf572415706da37a2b73266bfb80ff5a4c8f135ed82da59f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-05B7AE54EBABCD",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts:L238:96001cccea"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "keeps multiline text inside the compact conversation composer",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps multiline text inside the compact conversation composer"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"建立多行输入测试会话\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "composer.fill(multiline)"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"展开输入框\" }).click()"
+    },
+    {
+      "action": "composer.fill(`${multiline}\\n展开后继续编辑，草稿不能丢失`)"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收起输入框\" }).click()"
+    },
+    {
+      "action": "composer.press(\"ControlOrMeta+Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"收到：建立多行输入测试会话\", { exact: true })).toBeVisible()",
+    "expect(geometry.editor.height).toBe(128)",
+    "expect(geometry.editorOverflow).toBe(\"hidden\")",
+    "expect(geometry.textarea.height).toBe(80)",
+    "expect(geometry.textarea.bottom).toBeLessThanOrEqual(geometry.toolbar.top - 4)",
+    "expect(geometry.textarea.scrollHeight).toBeGreaterThan(geometry.textarea.clientHeight)",
+    "expect(geometry.textarea.overflowY).toBe(\"auto\")",
+    "expect(geometry.toolbar.top).toBeGreaterThanOrEqual(geometry.editor.top)",
+    "expect(geometry.toolbar.bottom).toBeLessThanOrEqual(geometry.editor.bottom + 0.5)",
+    "expect(page.getByRole(\"button\", { name: \"收起输入框\" })).toHaveAttribute( \"aria-expanded\", \"true\", )",
+    "expect(expandedGeometry.editor.height).toBeGreaterThanOrEqual(300)",
+    "expect(Math.abs(expandedGeometry.editor.bottom - collapsedBottom)).toBeLessThanOrEqual(2)",
+    "expect(expandedGeometry.textarea.bottom).toBeLessThanOrEqual(expandedGeometry.toolbar.top - 4)",
+    "expect(page.getByRole(\"button\", { name: \"展开输入框\" })).toHaveAttribute( \"aria-expanded\", \"false\", )",
+    "expect(composer).toHaveValue(`${multiline}\\n展开后继续编辑，草稿不能丢失`)",
+    "expect( page.getByText(\"展开后继续编辑，草稿不能丢失\", { exact: false }), ).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-05B7AE54EBABCD",
+      "type": "ui",
+      "assertion": "keeps multiline text inside the compact conversation composer"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-conversation-spec-ts.96001cccea",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-conversation.spec.ts -g \"keeps multiline text inside the compact conversation composer\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"建立多行输入测试会话\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "composer.fill(multiline)"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"展开输入框\" }).click()"
+        },
+        {
+          "action": "composer.fill(`${multiline}\\n展开后继续编辑，草稿不能丢失`)"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收起输入框\" }).click()"
+        },
+        {
+          "action": "composer.press(\"ControlOrMeta+Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-conversation.spec.ts",
+        "line_start": 238,
+        "line_end": 342,
+        "body_sha256": "sha256:aeb2f3e3ad608f96d6594b78725af2153d9502a4ae04326907950cac415c7bc4",
+        "assertion_count": 16,
+        "action_count": 8,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:ca7107bc5e9405b53f88ee94214e10e656189f5bc9b51ff10d4e3ec6cf233468"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-05B7AE54EBABCD"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-05B7AE54EBABCD"
+    ]
+  }
+}

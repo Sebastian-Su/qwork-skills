@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-visual.spec.ts",
-      "locator": "line:74;test:列表页与基线一致",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/connectors-visual.spec.ts",
+      "locator": "line:72;test:列表页与基线一致",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:88e9ec45f1962b25944a4f5e775dbe658158a6bc39ec94b3d1c4e98abaa4d18f",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-6008C6C49D3A9F",
+      "requirement_id": "REQ-4A8E3EAB62E8CA",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-connectors-visual-spec-ts:L74:88e9ec45f1"
+        "QDEV-E2E-e2e-connectors-visual-spec-ts:L72:88e9ec45f1"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -86,6 +86,9 @@
     "expect(page.getByRole(\"button\", { name: \"Alpha 服务，未连接\" })).toBeVisible()",
     "expect(header).toHaveScreenshot(\"connectors-header.png\", { animations: \"disabled\", maxDiffPixelRatio: 0.0025, })",
     "expect(cards).toHaveScreenshot(\"connectors-list.png\", { animations: \"disabled\", maxDiffPixelRatio: 0.0025, })",
+    "expect(expandedColumns).toBeGreaterThan(compactColumns)",
+    "expect(expandedWidth).toBeGreaterThan(compactWidth + 100)",
+    "expect(await cards.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)",
     "expect(cardItems).toHaveCount(3)",
     "expect(boxes.every((box) => box.width > 0 && box.height >= 80)).toBe(true)"
   ],
@@ -96,7 +99,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-6008C6C49D3A9F",
+      "requirement_id": "REQ-4A8E3EAB62E8CA",
       "type": "return",
       "assertion": "列表页与基线一致"
     }
@@ -181,13 +184,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/connectors-visual.spec.ts",
-        "line_start": 74,
-        "line_end": 118,
-        "body_sha256": "sha256:e6eeaf779a3102845b9ec23be111f1824c9803fffab8f413a188be83dfcdc3eb",
-        "assertion_count": 6,
+        "line_start": 72,
+        "line_end": 139,
+        "body_sha256": "sha256:b985ee0531a74a58335b6c97d282e6de1a93f5c56a42395c2b140bd82d6642a0",
+        "assertion_count": 9,
         "action_count": 2,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:3c8fd77d7196c3590608a89de59c0d097b1940338fd1e61ac09fc1d8a7000f76"
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:a1f91a5270acf7670bd6c51f86cecb6474e4e630c197d51cad569addf760133a"
       }
     },
     "reference_run": {
@@ -209,7 +212,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-6008C6C49D3A9F"
+      "REQ-4A8E3EAB62E8CA"
     ],
     "categories": [
       "business"
@@ -217,7 +220,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-6008C6C49D3A9F"
+      "requirement:REQ-4A8E3EAB62E8CA"
     ]
   }
 }

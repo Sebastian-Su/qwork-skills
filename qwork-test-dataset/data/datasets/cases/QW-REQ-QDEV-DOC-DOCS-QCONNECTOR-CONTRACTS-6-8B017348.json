@@ -22,12 +22,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/02-form-credential.md",
-      "locator": "line:223;heading:6. 显示态",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/qconnector/contracts/02-form-credential.md",
+      "locator": "line:229;heading:6. 显示态",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:5f7a6d2c8fe041a767437233b405ab4528347780f8b8a2897cd3096746bcaf84",
       "redaction_status": "minimized"
     },
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/02-form-credential.md",
-      "locator": "line:225;heading:6. 显示态",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/qconnector/contracts/02-form-credential.md",
+      "locator": "line:231;heading:6. 显示态",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:1dd81cafedce31066aaa739fc54a70821f97cd1caf05d101a69f9dea19de6960",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-B5B3A5E9970C0D",
+      "requirement_id": "REQ-64C47E26133F2F",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-02-form-credential-md:L223:5f7a6d2c8f"
+        "QDEV-DOC-docs-qconnector-contracts-02-form-credential-md:L229:5f7a6d2c8f"
       ],
       "content_facets": [
         "role-permission"
@@ -74,9 +74,9 @@
       "oracle": "沿用 plan §3.3。`auth: \"form\"` 与 `oauth` 一样属于「需要凭证」：无凭证 → `available`。"
     },
     {
-      "requirement_id": "REQ-A876AE00B2DB08",
+      "requirement_id": "REQ-315DF52DA2F547",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-02-form-credential-md:L225:1dd81cafed"
+        "QDEV-DOC-docs-qconnector-contracts-02-form-credential-md:L231:1dd81cafed"
       ],
       "content_facets": [
         "role-permission"
@@ -122,10 +122,10 @@
       "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/02-form-credential.md · 6. 显示态 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-B5B3A5E9970C0D] exactly: 沿用 plan §3.3。`auth: \"form\"` 与 `oauth` 一样属于「需要凭证」：无凭证 → `available`。"
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-64C47E26133F2F] exactly: 沿用 plan §3.3。`auth: \"form\"` 与 `oauth` 一样属于「需要凭证」：无凭证 → `available`。"
     },
     {
-      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-A876AE00B2DB08] exactly: `unauthorized`（key 失效）**本切片不主动探测**——远程 MCP 对无效 key 的响应形态各服务不一，等 §8 验证后再定。当前表现为 `error`。"
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-315DF52DA2F547] exactly: `unauthorized`（key 失效）**本切片不主动探测**——远程 MCP 对无效 key 的响应形态各服务不一，等 §8 验证后再定。当前表现为 `error`。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -136,19 +136,19 @@
     "`unauthorized`（key 失效）**本切片不主动探测**——远程 MCP 对无效 key 的响应形态各服务不一，等 §8 验证后再定。当前表现为 `error`。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-B5B3A5E9970C0D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 沿用 plan §3.3。`auth: \"form\"` 与 `oauth` 一样属于「需要凭证」：无凭证 → `available`。",
-    "FAIL [REQ-A876AE00B2DB08]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `unauthorized`（key 失效）**本切片不主动探测**——远程 MCP 对无效 key 的响应形态各服务不一，等 §8 验证后再定。当前表现为 `error`。",
+    "FAIL [REQ-64C47E26133F2F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 沿用 plan §3.3。`auth: \"form\"` 与 `oauth` 一样属于「需要凭证」：无凭证 → `available`。",
+    "FAIL [REQ-315DF52DA2F547]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `unauthorized`（key 失效）**本切片不主动探测**——远程 MCP 对无效 key 的响应形态各服务不一，等 §8 验证后再定。当前表现为 `error`。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-B5B3A5E9970C0D",
+      "requirement_id": "REQ-64C47E26133F2F",
       "type": "api",
       "assertion": "沿用 plan §3.3。`auth: \"form\"` 与 `oauth` 一样属于「需要凭证」：无凭证 → `available`。"
     },
     {
-      "requirement_id": "REQ-A876AE00B2DB08",
+      "requirement_id": "REQ-315DF52DA2F547",
       "type": "api",
       "assertion": "`unauthorized`（key 失效）**本切片不主动探测**——远程 MCP 对无效 key 的响应形态各服务不一，等 §8 验证后再定。当前表现为 `error`。"
     }
@@ -207,10 +207,10 @@
           "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/02-form-credential.md · 6. 显示态 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-B5B3A5E9970C0D] exactly: 沿用 plan §3.3。`auth: \"form\"` 与 `oauth` 一样属于「需要凭证」：无凭证 → `available`。"
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-64C47E26133F2F] exactly: 沿用 plan §3.3。`auth: \"form\"` 与 `oauth` 一样属于「需要凭证」：无凭证 → `available`。"
         },
         {
-          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-A876AE00B2DB08] exactly: `unauthorized`（key 失效）**本切片不主动探测**——远程 MCP 对无效 key 的响应形态各服务不一，等 §8 验证后再定。当前表现为 `error`。"
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-315DF52DA2F547] exactly: `unauthorized`（key 失效）**本切片不主动探测**——远程 MCP 对无效 key 的响应形态各服务不一，等 §8 验证后再定。当前表现为 `error`。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -253,8 +253,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-A876AE00B2DB08",
-      "REQ-B5B3A5E9970C0D"
+      "REQ-315DF52DA2F547",
+      "REQ-64C47E26133F2F"
     ],
     "categories": [
       "permission"
@@ -262,13 +262,13 @@
     "suite_ids": [
       "category:permission",
       "full",
-      "requirement:REQ-A876AE00B2DB08",
-      "requirement:REQ-B5B3A5E9970C0D"
+      "requirement:REQ-315DF52DA2F547",
+      "requirement:REQ-64C47E26133F2F"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-B5B3A5E9970C0D",
+      "requirement_id": "REQ-64C47E26133F2F",
       "oracle_type": "api",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/02-form-credential.md · 6. 显示态 产品契约 exactly once and retain its correlation identity",
@@ -277,7 +277,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-A876AE00B2DB08",
+      "requirement_id": "REQ-315DF52DA2F547",
       "oracle_type": "api",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/02-form-credential.md · 6. 显示态 产品契约 exactly once and retain its correlation identity",

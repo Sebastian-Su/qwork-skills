@@ -1,0 +1,255 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-EXPERT-CLOUD-CATALOG-SPEC-D29E8CD9",
+  "title": "combines bundled and paged cloud experts, then installs and updates on summon",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-expert-cloud-catalog-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/expert-cloud-catalog.spec.ts",
+      "locator": "line:37;test:combines bundled and paged cloud experts, then installs and updates on summon",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:d29e8cd9ea1bd53a4e9678cc4c35069250bcebbfdc0195a2abf08a8f48e01b9f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-049E5F95D12784",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-expert-cloud-catalog-spec-ts:L37:d29e8cd9ea"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "combines bundled and paged cloud experts, then installs and updates on summon",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-expert-cloud-catalog-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "combines bundled and paged cloud experts, then installs and updates on summon"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "opened.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "opened.page.getByRole(\"button\", { name: `下载并召唤${packageName}` }).click()"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "updated.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "updated.page.getByRole(\"button\", { name: `更新并召唤${packageName}` }).click()"
+    },
+    {
+      "action": "server.close((error) => error ? reject(error) : resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(opened.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true })).toBeVisible()",
+    "expect.poll(() => catalogOffsets.length).toBeGreaterThan(0)",
+    "expect.poll(() => catalogOffsets.filter((offset) => offset === 0).length).toBe(2)",
+    "expect(list.getByRole(\"listitem\")).toHaveCount(3)",
+    "expect(opened.page.getByRole(\"heading\", { name: \"高级开发工程师\" })).toBeVisible()",
+    "expect(opened.page.getByRole(\"heading\", { name: packageName })).toBeVisible()",
+    "expect(opened.page.getByRole(\"heading\", { name: \"云端 E2E 第三页\" })).toBeVisible()",
+    "expect(catalogOffsets).toEqual([0, 0, 1, 2])",
+    "expect(opened.page.getByTestId(\"composer-dock\")).toContainText(packageName)",
+    "expect.poll(async () => { const registry = JSON.parse(await fs.readFile( path.join(configHome, \"plugins\", \"installed_plugins.json\"), \"utf8\", )) as { plugins: Record<string, Array<{ version: string }>> }; return registry.plugins[`${packageId}@experts`]?.[0]?.version; }).toBe(\"1.0.0\")",
+    "expect(updated.page.getByTestId(\"composer-dock\")).toContainText(packageName)",
+    "expect.poll(async () => { const registry = JSON.parse(await fs.readFile( path.join(configHome, \"plugins\", \"installed_plugins.json\"), \"utf8\", )) as { plugins: Record<string, Array<{ version: string }>> }; return registry.plugins[`${packageId}@experts`]?.[0]?.version; }).toBe(\"1.1.0\")",
+    "expect.poll(async () => JSON.parse(await fs.readFile( path.join(configHome, \"plugins\", \"marketplaces\", \"experts\", \"plugins\", packageId, \"ziqdo-plugin.json\"), \"utf8\", )).package.version).toBe(\"1.1.0\")",
+    "expect.poll(() => eventTypes).toEqual([\"install\", \"use\", \"update\", \"use\"])"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-049E5F95D12784",
+      "type": "return",
+      "assertion": "combines bundled and paged cloud experts, then installs and updates on summon"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-expert-cloud-catalog-spec-ts.d29e8cd9ea",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/expert-cloud-catalog.spec.ts -g \"combines bundled and paged cloud experts, then installs and updates on summon\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "opened.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "opened.page.getByRole(\"button\", { name: `下载并召唤${packageName}` }).click()"
+        },
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "updated.page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "updated.page.getByRole(\"button\", { name: `更新并召唤${packageName}` }).click()"
+        },
+        {
+          "action": "server.close((error) => error ? reject(error) : resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/expert-cloud-catalog.spec.ts",
+        "line_start": 37,
+        "line_end": 233,
+        "body_sha256": "sha256:8f218c0e44df99f9e636ade4d1d13e10af0f342e2b7ca90b4a80058fa0bda11c",
+        "assertion_count": 14,
+        "action_count": 6,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:413adb954de3d481cb09864d9cabfbfc6b5845080f6431472f213cb5e09d8daa"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-049E5F95D12784"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-049E5F95D12784"
+    ]
+  }
+}

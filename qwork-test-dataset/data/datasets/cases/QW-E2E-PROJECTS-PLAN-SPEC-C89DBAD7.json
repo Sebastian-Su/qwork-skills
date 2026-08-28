@@ -1,0 +1,301 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECTS-PLAN-SPEC-C89DBAD7",
+  "title": "keeps narrow list rows single-line and edits row fields",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-projects-plan-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/projects-plan.spec.ts",
+      "locator": "line:296;test:keeps narrow list rows single-line and edits row fields",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "content_hash": "sha256:c89dbad7ab5ca0b89490a306478b6786ac84aed91fa466ef92108956a0b21648",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-73F5A031CBD854",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-projects-plan-spec-ts:L296:c89dbad7ab"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "keeps narrow list rows single-line and edits row fields",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-projects-plan-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps narrow list rows single-line and edits row fields"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+    },
+    {
+      "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
+    },
+    {
+      "action": "editor.getByPlaceholder(\"请输入标题\").fill(itemTitle)"
+    },
+    {
+      "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+    },
+    {
+      "action": "tagsTrigger.click()"
+    },
+    {
+      "action": "tags.getByPlaceholder(\"搜索或新增标签\").fill(\"窄窗标签\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新增标签「窄窗标签」\" }).click()"
+    },
+    {
+      "action": "assigneeTrigger.click()"
+    },
+    {
+      "action": "assignee.click()"
+    },
+    {
+      "action": "priorityTrigger.click()"
+    },
+    {
+      "action": "page.getByRole(\"option\", { name: \"高\", exact: true }).click()"
+    },
+    {
+      "action": "statusTrigger.click()"
+    },
+    {
+      "action": "statuses.getByRole(\"option\", { name: \"进行中\", exact: true }).click()"
+    },
+    {
+      "action": "list.getByRole(\"button\", { name: \"展开进行中\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"tab\", { name: \"列表\", exact: true })).toHaveAttribute( \"aria-selected\", \"true\", )",
+    "expect(row).toBeVisible()",
+    "expect(layout).toEqual({ height: 44, scrollHeight: 44, whiteSpace: \"nowrap\" })",
+    "expect(tagsTrigger).toBeInViewport()",
+    "expect(tags).toBeVisible()",
+    "expect(row).toContainText(\"窄窗标签\")",
+    "expect(assigneeName).not.toBe(\"\")",
+    "expect(row).toContainText(assigneeName)",
+    "expect(row).toContainText(\"高\")",
+    "expect(statusTrigger).toBeInViewport()",
+    "expect(statuses).toBeVisible()",
+    "expect(list.locator('[draggable=\"true\"]', { hasText: itemTitle })).toContainText(\"进行中\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-73F5A031CBD854",
+      "type": "return",
+      "assertion": "keeps narrow list rows single-line and edits row fields"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-projects-plan-spec-ts.c89dbad7ab",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/projects-plan.spec.ts -g \"keeps narrow list rows single-line and edits row fields\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
+        },
+        {
+          "action": "editor.getByPlaceholder(\"请输入标题\").fill(itemTitle)"
+        },
+        {
+          "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+        },
+        {
+          "action": "tagsTrigger.click()"
+        },
+        {
+          "action": "tags.getByPlaceholder(\"搜索或新增标签\").fill(\"窄窗标签\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新增标签「窄窗标签」\" }).click()"
+        },
+        {
+          "action": "assigneeTrigger.click()"
+        },
+        {
+          "action": "assignee.click()"
+        },
+        {
+          "action": "priorityTrigger.click()"
+        },
+        {
+          "action": "page.getByRole(\"option\", { name: \"高\", exact: true }).click()"
+        },
+        {
+          "action": "statusTrigger.click()"
+        },
+        {
+          "action": "statuses.getByRole(\"option\", { name: \"进行中\", exact: true }).click()"
+        },
+        {
+          "action": "list.getByRole(\"button\", { name: \"展开进行中\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/projects-plan.spec.ts",
+        "line_start": 296,
+        "line_end": 382,
+        "body_sha256": "sha256:c0cda9812d08bf0d756d027a9a1dfb6f07a2b2407523e8b12648431c2760953e",
+        "assertion_count": 12,
+        "action_count": 14,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:39f092a3d14f270b5f9009d6239b9b80edaeca781dbd2ad463f9045f009d1280"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-73F5A031CBD854"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-73F5A031CBD854"
+    ]
+  }
+}

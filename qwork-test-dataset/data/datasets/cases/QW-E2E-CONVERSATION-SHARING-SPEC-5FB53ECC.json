@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/conversation-sharing.spec.ts",
-      "locator": "line:240;test:assistant reuses the task share selection UI and persistent share actions",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/conversation-sharing.spec.ts",
+      "locator": "line:382;test:assistant reuses the task share selection UI and persistent share actions",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:5fb53eccfa55a2fc51d611bddd325aa7717b2e4baedfcd0945202ca564724940",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-50A735625EDEF2",
+      "requirement_id": "REQ-CBD06170012A99",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-conversation-sharing-spec-ts:L240:5fb53eccfa"
+        "QDEV-E2E-e2e-conversation-sharing-spec-ts:L382:5fb53eccfa"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -93,16 +93,25 @@
       "action": "panel.getByRole(\"button\", { name: \"复制链接\" }).click()"
     },
     {
+      "action": "shareButton.click()"
+    },
+    {
+      "action": "panel.getByRole(\"checkbox\", { name: \"全选\" }).click()"
+    },
+    {
       "action": "panel.getByRole(\"button\", { name: \"生成二维码\" }).click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"关闭二维码弹窗\" }).click()"
     },
     {
-      "action": "panel.getByRole(\"button\", { name: \"浏览器打开\" }).click()"
+      "action": "shareButton.click()"
     },
     {
-      "action": "panel.getByRole(\"button\", { name: \"退出分享\" }).click()"
+      "action": "panel.getByRole(\"checkbox\", { name: \"全选\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"button\", { name: \"浏览器打开\" }).click()"
     },
     {
       "action": "server.close(() => resolve())"
@@ -117,15 +126,26 @@
     "expect(page.getByTestId(\"assistant-context-panel\")).toBeVisible()",
     "expect(page.getByTestId(\"composer-dock\")).toHaveCount(0)",
     "expect(panel.getByRole(\"group\", { name: \"选择分享方式\" })).toHaveCSS(\"column-gap\", \"40px\")",
+    "expect(panel.getByRole(\"group\", { name: \"选择分享方式\" }).getByRole(\"button\")).toHaveCount(3)",
+    "expect(panel.getByRole(\"button\", { name: \"分享到微信\" })).toHaveCount(0)",
+    "expect(panel.getByRole(\"button\", { name: \"分享到朋友圈\" })).toHaveCount(0)",
     "expect(panel.getByRole(\"button\", { name: \"复制链接\" })).toBeEnabled()",
     "expect(panel.getByRole(\"button\", { name: \"生成二维码\" })).toBeEnabled()",
     "expect(panel.getByRole(\"button\", { name: \"浏览器打开\" })).toBeEnabled()",
+    "expect(panel.getByRole(\"checkbox\", { name: \"全选\" })).toBeChecked()",
     "expect(selectedSurfaces).toHaveCount(2)",
     "expect(surface).toHaveCSS(\"background-color\", \"rgb(242, 242, 242)\")",
     "expect(page.getByRole(\"dialog\", { name: \"确认公开分享内容\" })).toHaveCount(0)",
     "expect(page.getByRole(\"status\").filter({ hasText: \"链接已复制\" })).toContainText(\"链接已复制\")",
-    "expect(page.getByRole(\"img\", { name: \"分享二维码\" })).toBeVisible()",
+    "expect(panel).toHaveCount(0)",
+    "expect(shareButton).toHaveAttribute(\"aria-pressed\", \"false\")",
+    "expect(page.getByTestId(\"composer-dock\")).toBeVisible()",
+    "expect(panel.getByRole(\"checkbox\", { name: \"全选\" })).toBeChecked()",
+    "expect(page.getByRole(\"img\", { name: \"分享二维码\" })) .toHaveAttribute(\"data-share-url\", \"https://share.example/assistant-token\")",
+    "expect(panel).toHaveCount(0)",
+    "expect(panel.getByRole(\"checkbox\", { name: \"全选\" })).toBeChecked()",
     "expect(page.getByRole(\"status\").filter({ hasText: \"已在浏览器打开\" })).toContainText(\"已在浏览器打开\")",
+    "expect(panel).toHaveCount(0)",
     "expect(requests).toHaveLength(1)",
     "expect(requests[0].body).toMatchObject({ title: \"本地助理\", snapshot: { renderer: \"conversation\", turns: [{ user: { content: [{ type: \"markdown\", markdown: \"助理分享问题\" }] } }], artifacts: [], }, })",
     "expect.poll(() => page.evaluate(() => window.workGui!.clipboard.readText())) .toBe(\"https://share.example/assistant-token\")",
@@ -141,7 +161,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-50A735625EDEF2",
+      "requirement_id": "REQ-CBD06170012A99",
       "type": "return",
       "assertion": "assistant reuses the task share selection UI and persistent share actions"
     }
@@ -220,16 +240,25 @@
           "action": "panel.getByRole(\"button\", { name: \"复制链接\" }).click()"
         },
         {
+          "action": "shareButton.click()"
+        },
+        {
+          "action": "panel.getByRole(\"checkbox\", { name: \"全选\" }).click()"
+        },
+        {
           "action": "panel.getByRole(\"button\", { name: \"生成二维码\" }).click()"
         },
         {
           "action": "page.getByRole(\"button\", { name: \"关闭二维码弹窗\" }).click()"
         },
         {
-          "action": "panel.getByRole(\"button\", { name: \"浏览器打开\" }).click()"
+          "action": "shareButton.click()"
         },
         {
-          "action": "panel.getByRole(\"button\", { name: \"退出分享\" }).click()"
+          "action": "panel.getByRole(\"checkbox\", { name: \"全选\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"button\", { name: \"浏览器打开\" }).click()"
         },
         {
           "action": "server.close(() => resolve())"
@@ -253,13 +282,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/conversation-sharing.spec.ts",
-        "line_start": 240,
-        "line_end": 358,
-        "body_sha256": "sha256:18831db98f6cdf5ea67992fef0379317ea53fe25331699985bb188072a9e0aad",
-        "assertion_count": 24,
-        "action_count": 11,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:19a7b3d76c56169ae25fc61ad289e6df5ac13590a98c6b26059320ee223e7984"
+        "line_start": 382,
+        "line_end": 517,
+        "body_sha256": "sha256:5fdb8f4490c6af561be5a8fb42066480b219e15bbc28ffc214e58ada3133fa37",
+        "assertion_count": 35,
+        "action_count": 14,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:f4b571c299aa816d0cf6ea6cbe6f496943e058f172c4332dcd982d83cb1525a5"
       }
     },
     "reference_run": {
@@ -281,7 +310,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-50A735625EDEF2"
+      "REQ-CBD06170012A99"
     ],
     "categories": [
       "business"
@@ -289,7 +318,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-50A735625EDEF2"
+      "requirement:REQ-CBD06170012A99"
     ]
   }
 }

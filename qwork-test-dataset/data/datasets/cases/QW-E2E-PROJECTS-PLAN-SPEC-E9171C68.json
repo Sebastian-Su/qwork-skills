@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-plan.spec.ts",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/projects-plan.spec.ts",
       "locator": "line:43;test:creates a plan item, advances its status and restores it after restart",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:e9171c6860b64a001455b00723ebcaf4687c38ad0c7f92d8f5ee2a1c5af02848",
       "redaction_status": "minimized"
     }
@@ -82,12 +82,6 @@
     },
     {
       "action": "newViewButton.click()"
-    },
-    {
-      "action": "newViewButton.click()"
-    },
-    {
-      "action": "page.getByRole(\"menuitem\", { name: \"列表\", exact: true }).click()"
     },
     {
       "action": "planViews.getByRole(\"tab\", { name: \"列表\", exact: true }).click({ button: \"right\", })"
@@ -147,10 +141,10 @@
       "action": "detail.getByRole(\"button\", { name: \"编辑状态\" }).click()"
     },
     {
-      "action": "detail.getByRole(\"option\", { name: \"进行中\", exact: true }).click()"
+      "action": "page.getByRole(\"option\", { name: \"进行中\", exact: true }).click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"关闭\" }).click()"
+      "action": "detail.getByRole(\"button\", { name: \"关闭\" }).click()"
     },
     {
       "action": "page.getByRole(\"tab\", { name: \"看板\", exact: true }).click()"
@@ -162,10 +156,10 @@
       "action": "page.getByRole(\"dialog\", { name: \"待办详情\" }).getByRole(\"button\", { name: \"编辑状态\" }).click()"
     },
     {
-      "action": "page.getByRole(\"dialog\", { name: \"待办详情\" }).getByRole(\"option\", { name: \"已完成\", exact: true }).click()"
+      "action": "page.getByRole(\"option\", { name: \"已完成\", exact: true }).click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"关闭\" }).click()"
+      "action": "detail.getByRole(\"button\", { name: \"关闭\" }).click()"
     },
     {
       "action": "page.getByRole(\"tab\", { name: \"看板\", exact: true }).click()"
@@ -190,12 +184,10 @@
     }
   ],
   "expected_outcomes": [
-    "expect(planViews.getByRole(\"tab\", { name: \"表格\", exact: true })).toHaveAttribute( \"aria-selected\", \"true\", )",
+    "expect(planViews.getByRole(\"tab\", { name: \"列表\", exact: true })).toHaveAttribute( \"aria-selected\", \"true\", )",
     "expect(planViews.getByRole(\"tab\", { name: label, exact: true })).toBeVisible()",
-    "expect(planViews.getByRole(\"tab\", { name: \"列表\", exact: true })).toHaveCount(0)",
     "expect(page.getByRole(\"menu\")).toBeVisible()",
     "expect(page.getByRole(\"menu\")).toBeHidden()",
-    "expect(planViews.getByRole(\"tab\", { name: \"列表\", exact: true })).toHaveAttribute( \"aria-selected\", \"true\", )",
     "expect(viewMenu.getByRole(\"menuitem\", { name: \"重命名\", exact: true })).toBeVisible()",
     "expect(viewMenu.getByRole(\"menuitem\", { name: \"创建副本\", exact: true })).toBeVisible()",
     "expect(viewMenu.getByRole(\"menuitem\", { name: \"删除\", exact: true })).toBeVisible()",
@@ -206,6 +198,7 @@
     "expect(card).toBeVisible()",
     "expect(card.getByTitle(/移至/)).toHaveCount(0)",
     "expect(card.locator(\"h4\")).toHaveClass(/line-clamp-2/)",
+    "expect(card.locator(\"h4\")).toHaveAttribute(\"title\", itemTitle)",
     "expect( page.getByRole(\"group\", { name: \"进行中\" }), ).toContainText(itemTitle)",
     "expect( page.getByRole(\"group\", { name: \"已完成\" }), ).toContainText(itemTitle)",
     "expect(detailDialog.getByRole(\"heading\", { name: \"待办详情\" })).toBeVisible()",
@@ -288,12 +281,6 @@
           "action": "newViewButton.click()"
         },
         {
-          "action": "newViewButton.click()"
-        },
-        {
-          "action": "page.getByRole(\"menuitem\", { name: \"列表\", exact: true }).click()"
-        },
-        {
           "action": "planViews.getByRole(\"tab\", { name: \"列表\", exact: true }).click({ button: \"right\", })"
         },
         {
@@ -351,10 +338,10 @@
           "action": "detail.getByRole(\"button\", { name: \"编辑状态\" }).click()"
         },
         {
-          "action": "detail.getByRole(\"option\", { name: \"进行中\", exact: true }).click()"
+          "action": "page.getByRole(\"option\", { name: \"进行中\", exact: true }).click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: \"关闭\" }).click()"
+          "action": "detail.getByRole(\"button\", { name: \"关闭\" }).click()"
         },
         {
           "action": "page.getByRole(\"tab\", { name: \"看板\", exact: true }).click()"
@@ -366,10 +353,10 @@
           "action": "page.getByRole(\"dialog\", { name: \"待办详情\" }).getByRole(\"button\", { name: \"编辑状态\" }).click()"
         },
         {
-          "action": "page.getByRole(\"dialog\", { name: \"待办详情\" }).getByRole(\"option\", { name: \"已完成\", exact: true }).click()"
+          "action": "page.getByRole(\"option\", { name: \"已完成\", exact: true }).click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: \"关闭\" }).click()"
+          "action": "detail.getByRole(\"button\", { name: \"关闭\" }).click()"
         },
         {
           "action": "page.getByRole(\"tab\", { name: \"看板\", exact: true }).click()"
@@ -412,12 +399,12 @@
       "source_contract": {
         "spec": "e2e/projects-plan.spec.ts",
         "line_start": 43,
-        "line_end": 181,
-        "body_sha256": "sha256:f5c6efc3ba04066d1ee44641653e092069e2ba97c387e755a147abcbd364da0b",
-        "assertion_count": 20,
-        "action_count": 38,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:e52eb9cb17908f5ac19d6612f0e92543e08a9e8c9ad5127c02c85c0eeed5a6d0"
+        "line_end": 175,
+        "body_sha256": "sha256:4efe1478844be0a510573b3f046fbf2129c28b4a9ac8fcfa45020d942f9169d0",
+        "assertion_count": 19,
+        "action_count": 36,
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:39f092a3d14f270b5f9009d6239b9b80edaeca781dbd2ad463f9045f009d1280"
       }
     },
     "reference_run": {

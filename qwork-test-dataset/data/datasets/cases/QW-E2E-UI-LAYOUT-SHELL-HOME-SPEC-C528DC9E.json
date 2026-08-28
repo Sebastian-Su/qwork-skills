@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-layout-shell-home.spec.ts",
-      "locator": "line:420;test:UI-LAYOUT-PERMISSION-001 | 输入区默认权限选择器与完全访问开关对齐",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/ui-layout-shell-home.spec.ts",
+      "locator": "line:439;test:UI-LAYOUT-PERMISSION-001 | 输入区默认权限选择器与完全访问开关对齐",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:c528dc9e1e6ae883bd8dcde84c1f669b9f0ca3b6799540043699dc61678fe797",
       "redaction_status": "minimized"
     },
@@ -35,21 +35,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-journey-phase2-plan.md",
+      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:docs/expert-journey-phase2-plan.md",
       "locator": "line:19;heading:已冻结决策",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
       "content_hash": "sha256:0aadd128475c9c627c87a7de296d4bfbcca75acfde88e7e9929cb73d9df03bd5",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-427F16CCB3115B",
+      "requirement_id": "REQ-034C55FB0A3045",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts:L420:c528dc9e1e"
+        "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts:L439:c528dc9e1e"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -102,7 +102,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "implementation_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
     "last_verified_at": "2026-08-18T17:50:37.259595+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -129,9 +129,12 @@
   ],
   "expected_outcomes": [
     "uiExpect.soft(permission).toBeVisible()",
-    "uiExpect.soft(panel).toContainText(\"默认在安全沙箱内运行\")",
-    "uiExpect.soft(panel).toContainText(\"开启完全访问后，将允许访问互联网与工作空间外文件，并减少操作前确认\")",
+    "uiExpect .soft(panel) .toContainText( \"当前为默认权限，所有操作都会在安全沙箱约束内进行，超出范围会请求你的允许。\", )",
     "uiExpect.soft(panel.getByText(\"允许完全访问\", { exact: true })).toBeVisible()",
+    "expect(panelBox?.width).toBeGreaterThanOrEqual(198)",
+    "expect(panelBox?.width).toBeLessThanOrEqual(202)",
+    "expect(panelBox?.height).toBeGreaterThanOrEqual(133)",
+    "expect(panelBox?.height).toBeLessThanOrEqual(137)",
     "uiExpect.soft(fullAccess).not.toBeChecked()",
     "uiExpect.soft(dialog).toBeVisible()",
     "uiExpect.soft(dialog).toContainText(\"AI 将减少确认步骤\")",
@@ -151,7 +154,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-427F16CCB3115B",
+      "requirement_id": "REQ-034C55FB0A3045",
       "type": "return",
       "assertion": "UI-LAYOUT-PERMISSION-001 | 输入区默认权限选择器与完全访问开关对齐"
     },
@@ -247,13 +250,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/ui-layout-shell-home.spec.ts",
-        "line_start": 420,
-        "line_end": 451,
-        "body_sha256": "sha256:374ea760199705b1aa13017dea2a80dac98659d83893a3c1269dc9822e219f70",
-        "assertion_count": 15,
+        "line_start": 439,
+        "line_end": 478,
+        "body_sha256": "sha256:c22eb2c46a1ab2ffbf052845540d32f9d549269f3d4a2ec23d94a37be8536b5f",
+        "assertion_count": 18,
         "action_count": 4,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:178edf5bd7ee72c94282ee866680110da9802652684099416e69e530836213e8"
+        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "spec_sha256": "sha256:504972b12adc9bccba58e7cbc30bfb0b1ed7b735013b064aeeba1b7d6800823a"
       }
     },
     "reference_run": {
@@ -275,8 +278,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-1393FAD1FE11BB",
-      "REQ-427F16CCB3115B"
+      "REQ-034C55FB0A3045",
+      "REQ-1393FAD1FE11BB"
     ],
     "categories": [
       "business",
@@ -286,8 +289,8 @@
       "category:business",
       "category:permission",
       "full",
-      "requirement:REQ-1393FAD1FE11BB",
-      "requirement:REQ-427F16CCB3115B"
+      "requirement:REQ-034C55FB0A3045",
+      "requirement:REQ-1393FAD1FE11BB"
     ]
   }
 }
