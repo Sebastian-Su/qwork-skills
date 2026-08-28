@@ -51,8 +51,13 @@ class ValidatePrivateStorageTest(unittest.TestCase):
             "!/data/sources/**\n",
             encoding="utf-8",
         )
+        (self.skill_repo / ".gitattributes").write_text(
+            "qwork-test-dataset/data/**/*.png filter=lfs diff=lfs merge=lfs -text\n",
+            encoding="utf-8",
+        )
         for relative_path in (
             "data/benchmarks/manifest.json",
+            "data/benchmarks/ui-visual/reference.png",
             "data/datasets/source-acceptance.json",
             "data/e2e/functional-contracts.spec.ts",
             "data/evidence/manifest.json",
@@ -61,7 +66,7 @@ class ValidatePrivateStorageTest(unittest.TestCase):
         ):
             path = self.skill_root / relative_path
             path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text("{}\n", encoding="utf-8")
+            path.write_bytes(b"png fixture\n" if path.suffix == ".png" else b"{}\n")
 
         git(self.skill_repo, "add", "qwork-test-dataset")
         git(self.skill_repo, "-c", "user.name=QWork Test", "-c", "user.email=qwork@example.invalid", "commit", "-m", "test fixture")
@@ -87,14 +92,39 @@ class ValidatePrivateStorageTest(unittest.TestCase):
             "qwork-test-dataset/data/datasets",
             result["versioned_data_roots"],
         )
+        self.assertEqual(result["lfs_file_count"], 1)
 
-    def test_rejects_unignored_runtime_data(self) -> None:
-        with (self.skill_root / ".gitignore").open("a", encoding="utf-8") as ignore_file:
-            ignore_file.write("!/data/runs/\n!/data/runs/**\n")
+    def test_rejects_ignored_runtime_data_inside_repository(self) -> None:
         runtime_file = self.skill_root / "data/runs/run.json"
         runtime_file.parent.mkdir(parents=True)
         runtime_file.write_text("{}\n", encoding="utf-8")
-        with self.assertRaisesRegex(ValueError, "qwork-test-dataset/data/runs"):
+        with self.assertRaisesRegex(ValueError, "runtime data must be outside.*data/runs"):
+            validate(self.team_repo, "qwork-test-dataset", [])
+
+    def test_rejects_ignored_file_inside_versioned_root(self) -> None:
+        with (self.skill_root / ".gitignore").open("a", encoding="utf-8") as ignore_file:
+            ignore_file.write("/data/datasets/ignored.json\n")
+        ignored_file = self.skill_root / "data/datasets/ignored.json"
+        ignored_file.write_text("{}\n", encoding="utf-8")
+
+        with self.assertRaisesRegex(ValueError, "untracked or ignored files.*ignored.json"):
+            validate(self.team_repo, "qwork-test-dataset", [])
+
+    def test_rejects_binary_without_lfs_attribute(self) -> None:
+        (self.skill_repo / ".gitattributes").write_text("", encoding="utf-8")
+        git(self.skill_repo, "add", ".gitattributes", "qwork-test-dataset/data/benchmarks/ui-visual/reference.png")
+        git(
+            self.skill_repo,
+            "-c",
+            "user.name=QWork Test",
+            "-c",
+            "user.email=qwork@example.invalid",
+            "commit",
+            "-m",
+            "remove lfs attribute",
+        )
+
+        with self.assertRaisesRegex(ValueError, "Git LFS.*reference.png"):
             validate(self.team_repo, "qwork-test-dataset", [])
 
 
