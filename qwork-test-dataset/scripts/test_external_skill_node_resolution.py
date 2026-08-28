@@ -8,6 +8,7 @@ import json
 import os
 import re
 import subprocess
+import tempfile
 from pathlib import Path
 
 
@@ -59,23 +60,35 @@ def main() -> int:
     if project_entry.resolve(strict=True) != script_root.parent:
         raise AssertionError(f"unexpected project Skill entry: {project_entry}")
     node_options = f"{os.environ.get('NODE_OPTIONS', '')} --preserve-symlinks".strip()
-    list_probe = subprocess.run(
-        [
-            str(repo / "node_modules/.bin/playwright"),
-            "test",
-            "--config",
-            str(project_entry / "scripts/playwright-private.config.ts"),
-            "--list",
-        ],
-        cwd=repo,
-        env={
-            **os.environ,
-            "NODE_OPTIONS": node_options,
-            "QWORK_E2E_APP_ROOT": "/tmp/qwork-private-list-probe",
-        },
-        text=True,
-        capture_output=True,
+    # npm publishes a POSIX shell stub plus a `.cmd` wrapper; only the wrapper is a
+    # valid Win32 entrypoint, so the launcher must be selected per platform.
+    playwright_bin = repo / "node_modules/.bin" / (
+        "playwright.cmd" if os.name == "nt" else "playwright"
     )
+    if not playwright_bin.is_file():
+        raise AssertionError(f"private Playwright launcher is missing: {playwright_bin}")
+    # The private config refuses to run without an explicit run root outside every Git
+    # worktree, so the list probe allocates its own throwaway external directory.
+    with tempfile.TemporaryDirectory(prefix="qwork-private-list-probe-") as probe_root_value:
+        probe_root = Path(probe_root_value)
+        list_probe = subprocess.run(
+            [
+                str(playwright_bin),
+                "test",
+                "--config",
+                str(project_entry / "scripts/playwright-private.config.ts"),
+                "--list",
+            ],
+            cwd=repo,
+            env={
+                **os.environ,
+                "NODE_OPTIONS": node_options,
+                "QWORK_E2E_APP_ROOT": str(probe_root / "app"),
+                "QWORK_E2E_OUTPUT_DIR": str(probe_root / "output"),
+            },
+            text=True,
+            capture_output=True,
+        )
     if list_probe.returncode != 0 or "Total:" not in list_probe.stdout:
         raise AssertionError(
             list_probe.stderr.strip() or list_probe.stdout.strip() or "private Playwright list failed"
