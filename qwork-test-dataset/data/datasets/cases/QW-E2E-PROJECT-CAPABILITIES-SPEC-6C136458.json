@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/project-capabilities.spec.ts",
-      "locator": "line:46;test:selects real connectors, experts and skills and persists them",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/project-capabilities.spec.ts",
+      "locator": "line:50;test:selects real connectors, experts and skills and persists them",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:6c1364584064eb3a1388db2d4b70ddb56e88bd1b5f56d2ce3d43a8264856de5a",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-FE6CE0E360B4DB",
+      "requirement_id": "REQ-12BFAC94648AE1",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-project-capabilities-spec-ts:L46:6c13645840"
+        "QDEV-E2E-e2e-project-capabilities-spec-ts:L50:6c13645840"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -102,7 +102,7 @@
       "action": "createDialog.getByRole(\"button\", { name: \"添加技能\" }).click()"
     },
     {
-      "action": "skillDialog.getByRole(\"checkbox\", { name: \"选择天气查询\" }).click()"
+      "action": "skillDialog.getByRole(\"checkbox\", { name: \"选择环境健康检查\" }).click()"
     },
     {
       "action": "skillDialog.getByRole(\"button\", { name: \"确认\", exact: true }).click()"
@@ -115,6 +115,9 @@
     },
     {
       "action": "createDialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByText(\"能力协作项目\", { exact: true }).first().click()"
     }
   ],
   "expected_outcomes": [
@@ -128,9 +131,23 @@
     "expect(skillDialog.getByPlaceholder(\"搜索技能\")).toBeVisible()",
     "expect(createDialog).toContainText(\"腾讯文档\")",
     "expect(createDialog).toContainText(\"高级开发工程师\")",
-    "expect(createDialog).toContainText(\"天气查询\")",
+    "expect(createDialog).toContainText(\"环境健康检查\")",
+    "expect(createDialog).toHaveCount(0)",
     "expect(page.getByText(\"能力协作项目\", { exact: true }).first()).toBeVisible()",
-    "expect(persisted).toMatchObject({ instruction: \"统一使用已选项目能力\", connectorIds: [\"project-docs\"], expertIds: [\"senior-developer@qwork-builtin\"], skillIds: [\"weather\"], })"
+    "expect(persisted).toMatchObject({ instruction: \"统一使用已选项目能力\", connectorIds: [\"project-docs\"], expertIds: [\"senior-developer@qwork-builtin\"], skillIds: [\"healthcheck\"], })",
+    "expect(connectorCard).toContainText(\"连接器 1\")",
+    "expect(connectorCard.getByTitle(\"腾讯文档\").locator(\"img\")).toBeVisible()",
+    "expect(expertCard).toContainText(\"专家 1\")",
+    "expect(expertCard.getByTitle(\"高级开发工程师\")).toBeVisible()",
+    "expect(expertCard).toBeVisible()",
+    "expect(skillCard).toBeVisible()",
+    "expect(skillCard.getByTestId(\"project-skill-avatars\")).toBeVisible()",
+    "expect(expertCardBox).not.toBeNull()",
+    "expect(expertAvatarBox).not.toBeNull()",
+    "expect(skillCardBox).not.toBeNull()",
+    "expect(skillAvatarBox).not.toBeNull()",
+    "expect(expertCardBox!.y + expertCardBox!.height - (expertAvatarBox!.y + expertAvatarBox!.height)) .toBeGreaterThanOrEqual(10)",
+    "expect(skillCardBox!.y + skillCardBox!.height - (skillAvatarBox!.y + skillAvatarBox!.height)) .toBeGreaterThanOrEqual(10)"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -139,7 +156,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-FE6CE0E360B4DB",
+      "requirement_id": "REQ-12BFAC94648AE1",
       "type": "return",
       "assertion": "selects real connectors, experts and skills and persists them"
     }
@@ -227,7 +244,7 @@
           "action": "createDialog.getByRole(\"button\", { name: \"添加技能\" }).click()"
         },
         {
-          "action": "skillDialog.getByRole(\"checkbox\", { name: \"选择天气查询\" }).click()"
+          "action": "skillDialog.getByRole(\"checkbox\", { name: \"选择环境健康检查\" }).click()"
         },
         {
           "action": "skillDialog.getByRole(\"button\", { name: \"确认\", exact: true }).click()"
@@ -240,6 +257,9 @@
         },
         {
           "action": "createDialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByText(\"能力协作项目\", { exact: true }).first().click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -260,13 +280,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/project-capabilities.spec.ts",
-        "line_start": 46,
-        "line_end": 129,
-        "body_sha256": "sha256:c588f6e5b456d70e67917b01c7ca2e9978be0db618b15af28b0393d35b292bd6",
-        "assertion_count": 13,
-        "action_count": 14,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:f8c40caa7f58dbe8ddf0c5e16b38f3efcc296119d82ebec8cfdf022e1eafdd56"
+        "line_start": 50,
+        "line_end": 161,
+        "body_sha256": "sha256:7e12a803758b2d2c3a5394262a5a38fda3f69544a03cebd617fd5f87ae7500a7",
+        "assertion_count": 27,
+        "action_count": 15,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:9f699a77341e449d8c77f1f822c5d2a1b1e32b690c45e70e2b6e11399e0c143a"
       }
     },
     "reference_run": {
@@ -288,7 +308,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-FE6CE0E360B4DB"
+      "REQ-12BFAC94648AE1"
     ],
     "categories": [
       "business"
@@ -296,7 +316,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-FE6CE0E360B4DB"
+      "requirement:REQ-12BFAC94648AE1"
     ]
   }
 }

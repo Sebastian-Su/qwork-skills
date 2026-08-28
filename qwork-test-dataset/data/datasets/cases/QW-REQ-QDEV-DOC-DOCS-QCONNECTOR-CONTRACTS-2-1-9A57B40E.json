@@ -22,12 +22,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/04-cli-login.md",
-      "locator": "line:109;heading:2.1 三平台并列，不是覆盖",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/qconnector/contracts/04-cli-login.md",
+      "locator": "line:167;heading:2.1 三平台并列，不是覆盖",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:f0214e16550c0e4269cd40e517e85e508592e9fcb3bb58e38293390d14cc6b4f",
       "redaction_status": "minimized"
     },
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/04-cli-login.md",
-      "locator": "line:111;heading:2.1 三平台并列，不是覆盖",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/qconnector/contracts/04-cli-login.md",
+      "locator": "line:169;heading:2.1 三平台并列，不是覆盖",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:e61be4e831b4b4202f6b5d968c9137ed0f34be82ec34e19aa2c2b9c264f91bc1",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-2D4ADA5078BF22",
+      "requirement_id": "REQ-841B1FD1173569",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md:L109:f0214e1655"
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md:L167:f0214e1655"
       ],
       "content_facets": [
         "negative-rule"
@@ -74,9 +74,9 @@
       "oracle": "每个命令都要写全 `darwin` / `linux` / `win32`。**缺任一平台即该条目校验失败**。"
     },
     {
-      "requirement_id": "REQ-3DCF47960F2165",
+      "requirement_id": "REQ-D998DEB545B243",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md:L111:e61be4e831"
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md:L169:e61be4e831"
       ],
       "content_facets": [
         "business-rule"
@@ -122,10 +122,10 @@
       "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 2.1 三平台并列，不是覆盖 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-2D4ADA5078BF22] exactly: 每个命令都要写全 `darwin` / `linux` / `win32`。**缺任一平台即该条目校验失败**。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-841B1FD1173569] exactly: 每个命令都要写全 `darwin` / `linux` / `win32`。**缺任一平台即该条目校验失败**。"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-3DCF47960F2165] exactly: 比「基础值 + 差异覆盖」啰嗦，但换来的是不可能出现「忘了覆盖某平台，运行时才发现命令是错的」。Windows 上的 `.cmd` 后缀正是最容易忘的那个。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-D998DEB545B243] exactly: 比「基础值 + 差异覆盖」啰嗦，但换来的是不可能出现「忘了覆盖某平台，运行时才发现命令是错的」。Windows 上的 `.cmd` 后缀正是最容易忘的那个。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -136,19 +136,19 @@
     "比「基础值 + 差异覆盖」啰嗦，但换来的是不可能出现「忘了覆盖某平台，运行时才发现命令是错的」。Windows 上的 `.cmd` 后缀正是最容易忘的那个。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-2D4ADA5078BF22]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 每个命令都要写全 `darwin` / `linux` / `win32`。**缺任一平台即该条目校验失败**。",
-    "FAIL [REQ-3DCF47960F2165]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 比「基础值 + 差异覆盖」啰嗦，但换来的是不可能出现「忘了覆盖某平台，运行时才发现命令是错的」。Windows 上的 `.cmd` 后缀正是最容易忘的那个。",
+    "FAIL [REQ-841B1FD1173569]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 每个命令都要写全 `darwin` / `linux` / `win32`。**缺任一平台即该条目校验失败**。",
+    "FAIL [REQ-D998DEB545B243]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 比「基础值 + 差异覆盖」啰嗦，但换来的是不可能出现「忘了覆盖某平台，运行时才发现命令是错的」。Windows 上的 `.cmd` 后缀正是最容易忘的那个。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-2D4ADA5078BF22",
+      "requirement_id": "REQ-841B1FD1173569",
       "type": "return",
       "assertion": "每个命令都要写全 `darwin` / `linux` / `win32`。**缺任一平台即该条目校验失败**。"
     },
     {
-      "requirement_id": "REQ-3DCF47960F2165",
+      "requirement_id": "REQ-D998DEB545B243",
       "type": "return",
       "assertion": "比「基础值 + 差异覆盖」啰嗦，但换来的是不可能出现「忘了覆盖某平台，运行时才发现命令是错的」。Windows 上的 `.cmd` 后缀正是最容易忘的那个。"
     }
@@ -207,10 +207,10 @@
           "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 2.1 三平台并列，不是覆盖 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-2D4ADA5078BF22] exactly: 每个命令都要写全 `darwin` / `linux` / `win32`。**缺任一平台即该条目校验失败**。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-841B1FD1173569] exactly: 每个命令都要写全 `darwin` / `linux` / `win32`。**缺任一平台即该条目校验失败**。"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-3DCF47960F2165] exactly: 比「基础值 + 差异覆盖」啰嗦，但换来的是不可能出现「忘了覆盖某平台，运行时才发现命令是错的」。Windows 上的 `.cmd` 后缀正是最容易忘的那个。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-D998DEB545B243] exactly: 比「基础值 + 差异覆盖」啰嗦，但换来的是不可能出现「忘了覆盖某平台，运行时才发现命令是错的」。Windows 上的 `.cmd` 后缀正是最容易忘的那个。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -253,8 +253,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-2D4ADA5078BF22",
-      "REQ-3DCF47960F2165"
+      "REQ-841B1FD1173569",
+      "REQ-D998DEB545B243"
     ],
     "categories": [
       "business",
@@ -264,13 +264,13 @@
       "category:business",
       "category:negative",
       "full",
-      "requirement:REQ-2D4ADA5078BF22",
-      "requirement:REQ-3DCF47960F2165"
+      "requirement:REQ-841B1FD1173569",
+      "requirement:REQ-D998DEB545B243"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-2D4ADA5078BF22",
+      "requirement_id": "REQ-841B1FD1173569",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 2.1 三平台并列，不是覆盖 产品契约 exactly once and retain its correlation identity",
@@ -279,7 +279,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-3DCF47960F2165",
+      "requirement_id": "REQ-D998DEB545B243",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 2.1 三平台并列，不是覆盖 产品契约 exactly once and retain its correlation identity",

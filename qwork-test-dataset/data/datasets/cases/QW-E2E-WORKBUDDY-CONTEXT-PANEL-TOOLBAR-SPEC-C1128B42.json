@@ -1,0 +1,321 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-CONTEXT-PANEL-TOOLBAR-SPEC-C1128B42",
+  "title": "matches the WorkBuddy context panel header, fullscreen, collapse and view flows",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-context-panel-toolbar-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/workbuddy-context-panel-toolbar.spec.ts",
+      "locator": "line:14;test:matches the WorkBuddy context panel header, fullscreen, collapse and view flows",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:c1128b42c730fcda6b6f60326bdb6db44fab6b9c2c28781fe9e901938791ea26",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-019AC41896FA4C",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-context-panel-toolbar-spec-ts:L14:c1128b42c7"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "matches the WorkBuddy context panel header, fullscreen, collapse and view flows",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-context-panel-toolbar-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches the WorkBuddy context panel header, fullscreen, collapse and view flows"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+    },
+    {
+      "action": "navigationTrigger.click()"
+    },
+    {
+      "action": "navigation.getByRole(\"menuitem\", { name: \"工作空间文件\" }).click()"
+    },
+    {
+      "action": "viewTrigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "viewTrigger.click()"
+    },
+    {
+      "action": "panel.getByRole(\"region\", { name: \"工作空间文件\" }).click()"
+    },
+    {
+      "action": "viewTrigger.click()"
+    },
+    {
+      "action": "viewTrigger.click()"
+    },
+    {
+      "action": "fullscreen.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"全屏查看上下文\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"退出上下文全屏\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收起上下文面板\" }).click()"
+    },
+    {
+      "action": "expand.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"切换上下文视图\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"option\", { name: \"概览\" }).click()"
+    },
+    {
+      "action": "navigationTrigger.hover()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(passed, `${name}: ${JSON.stringify(actual)}; expected ${expected}`).toBe(true)",
+    "expect(panel).toBeVisible()",
+    "expect(toolbar).toBeVisible()",
+    "expect(viewHeader).toBeVisible()",
+    "expect(navigation).toBeVisible()",
+    "expect(page.getByRole(\"listbox\", { name: \"上下文视图\" })).toBeVisible()",
+    "expect(expand).toBeVisible()",
+    "expect(toolbar).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-019AC41896FA4C",
+      "type": "return",
+      "assertion": "matches the WorkBuddy context panel header, fullscreen, collapse and view flows"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-context-panel-toolbar-spec-ts.c1128b42c7",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-context-panel-toolbar.spec.ts -g \"matches the WorkBuddy context panel header, fullscreen, collapse and view flows\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+        },
+        {
+          "action": "navigationTrigger.click()"
+        },
+        {
+          "action": "navigation.getByRole(\"menuitem\", { name: \"工作空间文件\" }).click()"
+        },
+        {
+          "action": "viewTrigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "viewTrigger.click()"
+        },
+        {
+          "action": "panel.getByRole(\"region\", { name: \"工作空间文件\" }).click()"
+        },
+        {
+          "action": "viewTrigger.click()"
+        },
+        {
+          "action": "viewTrigger.click()"
+        },
+        {
+          "action": "fullscreen.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"全屏查看上下文\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"退出上下文全屏\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收起上下文面板\" }).click()"
+        },
+        {
+          "action": "expand.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"切换上下文视图\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"option\", { name: \"概览\" }).click()"
+        },
+        {
+          "action": "navigationTrigger.hover()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-context-panel-toolbar.spec.ts",
+        "line_start": 14,
+        "line_end": 302,
+        "body_sha256": "sha256:64fe8f7b3659d30b939d1b07975ecb2d8556099f0a7c9c0df6e71feaafaf85f7",
+        "assertion_count": 8,
+        "action_count": 18,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:48d0a1739e60fd5e2a84f3fa665f5a1c06c4b29db577af2ed8ca0e52f803f71f"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-019AC41896FA4C"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-019AC41896FA4C"
+    ]
+  }
+}

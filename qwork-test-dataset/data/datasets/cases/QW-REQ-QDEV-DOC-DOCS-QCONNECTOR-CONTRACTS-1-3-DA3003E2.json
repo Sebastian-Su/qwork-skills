@@ -22,12 +22,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/01-oauth.md",
-      "locator": "line:51;heading:1.3 回退",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/qconnector/contracts/01-oauth.md",
+      "locator": "line:54;heading:1.3 回退",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:9926ed80c99b70ffc4049dd7af592b6016b1fca1a41a3c86a63c2d836fcf39e5",
       "redaction_status": "minimized"
     },
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/01-oauth.md",
-      "locator": "line:52;heading:1.3 回退",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/qconnector/contracts/01-oauth.md",
+      "locator": "line:55;heading:1.3 回退",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:66420e47ba3ba624db4f2e1eef6961bd768905d70e5d4f298122ad3f018a4be7",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-4E89C707267AA4",
+      "requirement_id": "REQ-5E8E62DE013615",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-01-oauth-md:L51:9926ed80c9"
+        "QDEV-DOC-docs-qconnector-contracts-01-oauth-md:L54:9926ed80c9"
       ],
       "content_facets": [
         "role-permission"
@@ -74,9 +74,9 @@
       "oracle": "步骤 ① 未拿到 `resource_metadata`：直接以 MCP 端点的源做 §1.2 的授权服务器探测"
     },
     {
-      "requirement_id": "REQ-FC01CF7398A0CF",
+      "requirement_id": "REQ-F2C04C96285FD3",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-01-oauth-md:L52:66420e47ba"
+        "QDEV-DOC-docs-qconnector-contracts-01-oauth-md:L55:66420e47ba"
       ],
       "content_facets": [
         "role-permission"
@@ -122,10 +122,10 @@
       "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 1.3 回退 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-4E89C707267AA4] exactly: 步骤 ① 未拿到 `resource_metadata`：直接以 MCP 端点的源做 §1.2 的授权服务器探测"
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-5E8E62DE013615] exactly: 步骤 ① 未拿到 `resource_metadata`：直接以 MCP 端点的源做 §1.2 的授权服务器探测"
     },
     {
-      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-FC01CF7398A0CF] exactly: 全部探测失败：显示态 `error`，消息「该服务未提供标准授权元数据」，**不再尝试注册或授权**"
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-F2C04C96285FD3] exactly: 全部探测失败：显示态 `error`，消息「该服务未提供标准授权元数据」，**不再尝试注册或授权**"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -136,19 +136,19 @@
     "全部探测失败：显示态 `error`，消息「该服务未提供标准授权元数据」，**不再尝试注册或授权**"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-4E89C707267AA4]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 步骤 ① 未拿到 `resource_metadata`：直接以 MCP 端点的源做 §1.2 的授权服务器探测",
-    "FAIL [REQ-FC01CF7398A0CF]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 全部探测失败：显示态 `error`，消息「该服务未提供标准授权元数据」，**不再尝试注册或授权**",
+    "FAIL [REQ-5E8E62DE013615]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 步骤 ① 未拿到 `resource_metadata`：直接以 MCP 端点的源做 §1.2 的授权服务器探测",
+    "FAIL [REQ-F2C04C96285FD3]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 全部探测失败：显示态 `error`，消息「该服务未提供标准授权元数据」，**不再尝试注册或授权**",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-4E89C707267AA4",
+      "requirement_id": "REQ-5E8E62DE013615",
       "type": "api",
       "assertion": "步骤 ① 未拿到 `resource_metadata`：直接以 MCP 端点的源做 §1.2 的授权服务器探测"
     },
     {
-      "requirement_id": "REQ-FC01CF7398A0CF",
+      "requirement_id": "REQ-F2C04C96285FD3",
       "type": "ui",
       "assertion": "全部探测失败：显示态 `error`，消息「该服务未提供标准授权元数据」，**不再尝试注册或授权**"
     }
@@ -220,10 +220,10 @@
           "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 1.3 回退 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-4E89C707267AA4] exactly: 步骤 ① 未拿到 `resource_metadata`：直接以 MCP 端点的源做 §1.2 的授权服务器探测"
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-5E8E62DE013615] exactly: 步骤 ① 未拿到 `resource_metadata`：直接以 MCP 端点的源做 §1.2 的授权服务器探测"
         },
         {
-          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-FC01CF7398A0CF] exactly: 全部探测失败：显示态 `error`，消息「该服务未提供标准授权元数据」，**不再尝试注册或授权**"
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-F2C04C96285FD3] exactly: 全部探测失败：显示态 `error`，消息「该服务未提供标准授权元数据」，**不再尝试注册或授权**"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -269,8 +269,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-4E89C707267AA4",
-      "REQ-FC01CF7398A0CF"
+      "REQ-5E8E62DE013615",
+      "REQ-F2C04C96285FD3"
     ],
     "categories": [
       "permission"
@@ -278,13 +278,13 @@
     "suite_ids": [
       "category:permission",
       "full",
-      "requirement:REQ-4E89C707267AA4",
-      "requirement:REQ-FC01CF7398A0CF"
+      "requirement:REQ-5E8E62DE013615",
+      "requirement:REQ-F2C04C96285FD3"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-4E89C707267AA4",
+      "requirement_id": "REQ-5E8E62DE013615",
       "oracle_type": "api",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 1.3 回退 产品契约 exactly once and retain its correlation identity",
@@ -293,7 +293,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-FC01CF7398A0CF",
+      "requirement_id": "REQ-F2C04C96285FD3",
       "oracle_type": "ui",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/01-oauth.md · 1.3 回退 产品契约 exactly once and retain its correlation identity",

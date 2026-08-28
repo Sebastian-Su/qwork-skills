@@ -8,6 +8,7 @@ import json
 import os
 import re
 import subprocess
+import tempfile
 from pathlib import Path
 
 
@@ -59,23 +60,28 @@ def main() -> int:
     if project_entry.resolve(strict=True) != script_root.parent:
         raise AssertionError(f"unexpected project Skill entry: {project_entry}")
     node_options = f"{os.environ.get('NODE_OPTIONS', '')} --preserve-symlinks".strip()
-    list_probe = subprocess.run(
-        [
-            str(repo / "node_modules/.bin/playwright"),
-            "test",
-            "--config",
-            str(project_entry / "scripts/playwright-private.config.ts"),
-            "--list",
-        ],
-        cwd=repo,
-        env={
-            **os.environ,
-            "NODE_OPTIONS": node_options,
-            "QWORK_E2E_APP_ROOT": "/tmp/qwork-private-list-probe",
-        },
-        text=True,
-        capture_output=True,
-    )
+    with tempfile.TemporaryDirectory(
+        prefix="QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT-"
+    ) as temporary_run:
+        run_root = Path(temporary_run)
+        list_probe = subprocess.run(
+            [
+                str(repo / "node_modules/.bin/playwright"),
+                "test",
+                "--config",
+                str(project_entry / "scripts/playwright-private.config.ts"),
+                "--list",
+            ],
+            cwd=repo,
+            env={
+                **os.environ,
+                "NODE_OPTIONS": node_options,
+                "QWORK_E2E_APP_ROOT": str(run_root / "app"),
+                "QWORK_E2E_OUTPUT_DIR": str(run_root / "playwright"),
+            },
+            text=True,
+            capture_output=True,
+        )
     if list_probe.returncode != 0 or "Total:" not in list_probe.stdout:
         raise AssertionError(
             list_probe.stderr.strip() or list_probe.stdout.strip() or "private Playwright list failed"

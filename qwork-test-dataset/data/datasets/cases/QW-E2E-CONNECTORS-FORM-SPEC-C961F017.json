@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-form.spec.ts",
-      "locator": "line:173;test:shows 已配置 instead of the stored value, and keeps it on a blank resubmit",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/connectors-form.spec.ts",
+      "locator": "line:180;test:shows 已配置 instead of the stored value, and keeps it on a blank resubmit",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:c961f0177b3813974d81fd5ce8be94a61259a495c984050cc1fb636fd27fa1b7",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-EBF40FF9E09C99",
+      "requirement_id": "REQ-37DA4B58E2DB25",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-connectors-form-spec-ts:L173:c961f0177b"
+        "QDEV-E2E-e2e-connectors-form-spec-ts:L180:c961f0177b"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "implementation_revision": "b84f367917c9cc47f265fad746a780495a942c49",
     "last_verified_at": "2026-08-18T17:47:59.847660+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -96,7 +96,7 @@
   "expected_outcomes": [
     "expect( page .getByRole(\"dialog\", { name: \"Demo 地图\" }) .getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible({ timeout: 15000 })",
     "expect(input).toHaveValue(\"\")",
-    "expect(input).toHaveAttribute(\"placeholder\", \"已配置，留空则保持不变\")",
+    "expect(input).toHaveAttribute( \"placeholder\", \"已配置，留空则保持不变\", )",
     "expect(form).toBeHidden()",
     "expect(last.url).toBe(`https://mcp.example.com/sse?key=${SECRET}`)"
   ],
@@ -107,7 +107,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-EBF40FF9E09C99",
+      "requirement_id": "REQ-37DA4B58E2DB25",
       "type": "return",
       "assertion": "shows 已配置 instead of the stored value, and keeps it on a blank resubmit"
     }
@@ -204,13 +204,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/connectors-form.spec.ts",
-        "line_start": 173,
-        "line_end": 206,
-        "body_sha256": "sha256:531b60ae153b5c99d966ccb2bdf97f02d1303bba0bf57d52aa5f89f42f5e5d0f",
+        "line_start": 180,
+        "line_end": 216,
+        "body_sha256": "sha256:7956f1b378077d96a7f63f0828abeff928b47f5b6568ecc8de899fb93597bf4a",
         "assertion_count": 5,
         "action_count": 6,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:2e7e018fa78876f222fa620aea27cd334c79cf56759e0b690a5e2d37160d8601"
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:8132202e61f73c9aeb8389730ff30e108dcda7cff519437ececea5dfb313c250"
       }
     },
     "reference_run": {
@@ -232,7 +232,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-EBF40FF9E09C99"
+      "REQ-37DA4B58E2DB25"
     ],
     "categories": [
       "business"
@@ -240,7 +240,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-EBF40FF9E09C99"
+      "requirement:REQ-37DA4B58E2DB25"
     ]
   }
 }

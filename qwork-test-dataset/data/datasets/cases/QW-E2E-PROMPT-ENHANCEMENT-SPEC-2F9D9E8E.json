@@ -1,0 +1,241 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROMPT-ENHANCEMENT-SPEC-2F9D9E8E",
+  "title": "enhances the current draft without sending and restores the original",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-prompt-enhancement-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/prompt-enhancement.spec.ts",
+      "locator": "line:5;test:enhances the current draft without sending and restores the original",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:2f9d9e8e6dbab494b6bfceeb298e04f55aeaef0340ebd238d43085ad1ce73c3a",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-22C92278A322FA",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-prompt-enhancement-spec-ts:L5:2f9d9e8e6d"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "enhances the current draft without sending and restores the original",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-prompt-enhancement-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "enhances the current draft without sending and restores the original"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "textbox.fill(\"写一个发布计划\")"
+    },
+    {
+      "action": "enhanceButton.hover()"
+    },
+    {
+      "action": "enhanceButton.click()"
+    },
+    {
+      "action": "dock.getByRole(\"button\", { name: \"恢复原文\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(dock.getByRole(\"button\", { name: \"增强提示词\" })).toHaveCount(0)",
+    "expect(enhanceButton).toBeEnabled()",
+    "expect(enhanceButton).toHaveCSS(\"border-radius\", \"9999px\")",
+    "expect(enhanceButton.locator(\"svg\")).toHaveAttribute(\"viewBox\", \"0 0 15.5597 14.8428\")",
+    "expect(await enhanceButton.boundingBox()).toMatchObject({ width: 32, height: 32 })",
+    "expect(page.getByRole(\"tooltip\")).toHaveText(\"增强提示词\")",
+    "expect(textbox).toHaveValue(\"请输出包含负责人、时间与验收标准的发布计划\")",
+    "expect(dock.getByRole(\"button\", { name: \"恢复原文\" })).toBeVisible()",
+    "expect(page.getByText(\"写一个发布计划\", { exact: true })).toHaveCount(0)",
+    "expect(gateway.requests).toHaveLength(1)",
+    "expect(gateway.requests[0]?.messages.at(-1)?.content).toContain(\"写一个发布计划\")",
+    "expect(textbox).toHaveValue(\"写一个发布计划\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-22C92278A322FA",
+      "type": "return",
+      "assertion": "enhances the current draft without sending and restores the original"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-prompt-enhancement-spec-ts.2f9d9e8e6d",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/prompt-enhancement.spec.ts -g \"enhances the current draft without sending and restores the original\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "textbox.fill(\"写一个发布计划\")"
+        },
+        {
+          "action": "enhanceButton.hover()"
+        },
+        {
+          "action": "enhanceButton.click()"
+        },
+        {
+          "action": "dock.getByRole(\"button\", { name: \"恢复原文\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/prompt-enhancement.spec.ts",
+        "line_start": 5,
+        "line_end": 42,
+        "body_sha256": "sha256:b9bd7eda916d88ada74dccbc01e5793836dcfae13f5c5e4ba5f316de171ce33d",
+        "assertion_count": 12,
+        "action_count": 4,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:1184f695a2952a58daebd1b4a2b3c06cb5ae0483007431caaa59bb530bc54f06"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-22C92278A322FA"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-22C92278A322FA"
+    ]
+  }
+}

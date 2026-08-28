@@ -1,0 +1,285 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-AUTH-SERVICE-UNAVAILABLE-LIVE-SPEC-9FC1C5FC",
+  "title": "hides the real upstream error response in Electron",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "auth",
+    "journey": "auth",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-auth-service-unavailable-live-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/auth-service-unavailable.live.spec.ts",
+      "locator": "line:24;test:hides the real upstream error response in Electron",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:9fc1c5fcbf5d38861f0775b4fea9ec4dcae31dfee50cd939b492681383f9b1c4",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-FDD799869B551D",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-auth-service-unavailable-live-spec-ts:L24:9fc1c5fcbf"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "hides the real upstream error response in Electron",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-auth-service-unavailable-live-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "hides the real upstream error response in Electron"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "fetch(`${liveBaseUrl}/auth/status`, { headers: { accept: \"application/json\" }, })"
+    },
+    {
+      "action": "[502, 503, 504].includes(probe.status)"
+    },
+    {
+      "action": "createTestHome(\"auth-live-service-unavailable\")"
+    },
+    {
+      "action": "Object.fromEntries(Object.entries({ ...process.env, ...defaultE2EEnv, QWORK_PROJECT_API_URL: liveBaseUrl, QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"development\", NODE_ENV: \"development\", ZIQDO_CONFIG_HOME: configHome, ZIQDO_BIN: process.execPath, ZIQDO_BIN_ARGS_PREFIX: JSON.stringify([fakeSidecar]), }).filter((entry): entry is [string, string] => entry[1] !== undefined))"
+    },
+    {
+      "action": "Object.entries({ ...process.env, ...defaultE2EEnv, QWORK_PROJECT_API_URL: liveBaseUrl, QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"development\", NODE_ENV: \"development\", ZIQDO_CONFIG_HOME: configHome, ZIQDO_BIN: process.execPath, ZIQDO_BIN_ARGS_PREFIX: JSON.stringify([fakeSidecar]), }).filter((entry): entry is [string, string] => entry[1] !== undefined)"
+    },
+    {
+      "action": "Object.entries({ ...process.env, ...defaultE2EEnv, QWORK_PROJECT_API_URL: liveBaseUrl, QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"development\", NODE_ENV: \"development\", ZIQDO_CONFIG_HOME: configHome, ZIQDO_BIN: process.execPath, ZIQDO_BIN_ARGS_PREFIX: JSON.stringify([fakeSidecar]), })"
+    },
+    {
+      "action": "JSON.stringify([fakeSidecar])"
+    },
+    {
+      "action": "electron.launch({ args: [ ...(process.platform === \"linux\" ? [\"--password-store=basic\"] : []), `--user-data-dir=${path.join(configHome, \"electron-user-data\")}`, root, ], env, })"
+    },
+    {
+      "action": "path.join(configHome, \"electron-user-data\")"
+    },
+    {
+      "action": "app.firstWindow()"
+    },
+    {
+      "action": "page.locator(\"body\").innerText()"
+    },
+    {
+      "action": "page.locator(\"body\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"alert\")).toContainText(\"登录服务暂时不可用\", { timeout: 20_000, })",
+    "expect(page.getByRole(\"button\", { name: \"重新尝试\" })).toBeVisible()",
+    "expect.poll(() => app!.windows().length).toBe(1)",
+    "expect(visibleText).not.toMatch(/503 Service Temporarily Unavailable|nginx/i)",
+    "expect(status).toEqual({ loggedIn: false, loginPhase: \"unavailable\", loginFailure: \"service_unavailable\", })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-FDD799869B551D",
+      "type": "return",
+      "assertion": "hides the real upstream error response in Electron"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-auth-service-unavailable-live-spec-ts.9fc1c5fcbf",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": true,
+      "scopes": [
+        "real external account/service/model route named by the source test"
+      ]
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/auth-service-unavailable.live.spec.ts -g \"hides the real upstream error response in Electron\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "auth",
+      "steps": [
+        {
+          "action": "fetch(`${liveBaseUrl}/auth/status`, { headers: { accept: \"application/json\" }, })"
+        },
+        {
+          "action": "[502, 503, 504].includes(probe.status)"
+        },
+        {
+          "action": "createTestHome(\"auth-live-service-unavailable\")"
+        },
+        {
+          "action": "Object.fromEntries(Object.entries({ ...process.env, ...defaultE2EEnv, QWORK_PROJECT_API_URL: liveBaseUrl, QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"development\", NODE_ENV: \"development\", ZIQDO_CONFIG_HOME: configHome, ZIQDO_BIN: process.execPath, ZIQDO_BIN_ARGS_PREFIX: JSON.stringify([fakeSidecar]), }).filter((entry): entry is [string, string] => entry[1] !== undefined))"
+        },
+        {
+          "action": "Object.entries({ ...process.env, ...defaultE2EEnv, QWORK_PROJECT_API_URL: liveBaseUrl, QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"development\", NODE_ENV: \"development\", ZIQDO_CONFIG_HOME: configHome, ZIQDO_BIN: process.execPath, ZIQDO_BIN_ARGS_PREFIX: JSON.stringify([fakeSidecar]), }).filter((entry): entry is [string, string] => entry[1] !== undefined)"
+        },
+        {
+          "action": "Object.entries({ ...process.env, ...defaultE2EEnv, QWORK_PROJECT_API_URL: liveBaseUrl, QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"development\", NODE_ENV: \"development\", ZIQDO_CONFIG_HOME: configHome, ZIQDO_BIN: process.execPath, ZIQDO_BIN_ARGS_PREFIX: JSON.stringify([fakeSidecar]), })"
+        },
+        {
+          "action": "JSON.stringify([fakeSidecar])"
+        },
+        {
+          "action": "electron.launch({ args: [ ...(process.platform === \"linux\" ? [\"--password-store=basic\"] : []), `--user-data-dir=${path.join(configHome, \"electron-user-data\")}`, root, ], env, })"
+        },
+        {
+          "action": "path.join(configHome, \"electron-user-data\")"
+        },
+        {
+          "action": "app.firstWindow()"
+        },
+        {
+          "action": "page.locator(\"body\").innerText()"
+        },
+        {
+          "action": "page.locator(\"body\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home plus separately authorized real external fixture",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/auth-service-unavailable.live.spec.ts",
+        "line_start": 24,
+        "line_end": 114,
+        "body_sha256": "sha256:565d3fed9dce8991fa94e834a7649225d747ef1b6972b74b11957699c9707536",
+        "assertion_count": 5,
+        "action_count": 0,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:9057ff9424e6097d47ccb653cadbddb5eb92453c3763da9ce4c78c915a13af63"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "independent authorization for real external route pending",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-FDD799869B551D"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-FDD799869B551D"
+    ]
+  }
+}

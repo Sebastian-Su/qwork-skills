@@ -1,0 +1,328 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-ASSISTANT-CONTEXT-PANEL-SPEC-3D521EF5",
+  "title": "matches WorkBuddy assistant context panel views and toolbar",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-assistant-context-panel-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/workbuddy-assistant-context-panel.spec.ts",
+      "locator": "line:19;test:matches WorkBuddy assistant context panel views and toolbar",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:3d521ef5ba6f7b9da84579ddd19abf7ea22e60d8204044fac507e77fae6fd134",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-9F97689C3DC084",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-assistant-context-panel-spec-ts:L19:3d521ef5ba"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "matches WorkBuddy assistant context panel views and toolbar",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-assistant-context-panel-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches WorkBuddy assistant context panel views and toolbar"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+    },
+    {
+      "action": "viewButton.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "toolbarMenuButton.click()"
+    },
+    {
+      "action": "toolbarMenuButton.click()"
+    },
+    {
+      "action": "viewButton.click()"
+    },
+    {
+      "action": "page.getByTestId(\"assistant-page\").click({ position: { x: 16, y: 80 } })"
+    },
+    {
+      "action": "viewButton.click()"
+    },
+    {
+      "action": "listbox.getByRole(\"option\", { name: \"工作空间文件\" }).click()"
+    },
+    {
+      "action": "workspaceRegion.getByRole(\"button\", { name: \"nested\" }).click()"
+    },
+    {
+      "action": "viewButton.click()"
+    },
+    {
+      "action": "listbox.getByRole(\"option\", { name: \"浏览器\" }).click()"
+    },
+    {
+      "action": "viewButton.click()"
+    },
+    {
+      "action": "listbox.getByRole(\"option\", { name: \"变更\" }).click()"
+    },
+    {
+      "action": "toolbar.getByRole(\"button\", { name: \"全屏查看上下文\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "toolbar.getByRole(\"button\", { name: \"收起上下文面板\" }).click()"
+    },
+    {
+      "action": "reopen.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(passed, `${id}: expected ${expected}; actual ${actual}`).toBe(true)",
+    "expect.poll(() => page.evaluate(() => localStorage.getItem(\"ziqdo:assistant-session-id\"))).not.toBeNull()",
+    "expect(panel).toBeVisible()",
+    "expect(toolbar).toBeVisible()",
+    "expect(navigationMenu).toBeVisible()",
+    "expect(workspaceRegion.getByText(\"guide.md\")).toBeVisible()",
+    "expect(workspaceRegion.getByText(\"nested\")).toBeVisible()",
+    "expect(workspaceRegion.getByText(\"result.md\")).toBeVisible()",
+    "expect(browserRegion.getByPlaceholder(\"搜索或输入网址\")).toBeVisible()",
+    "expect(panel.getByText(\"暂无变更\")).toBeVisible()",
+    "expect(panel).toHaveAttribute(\"data-fullscreen\", \"true\")",
+    "expect(panel).toHaveAttribute(\"data-fullscreen\", \"false\")",
+    "expect(panel).toHaveCount(0)",
+    "expect(reopen).toBeVisible()",
+    "expect(page.getByTestId(\"assistant-context-panel\")).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-9F97689C3DC084",
+      "type": "return",
+      "assertion": "matches WorkBuddy assistant context panel views and toolbar"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-assistant-context-panel-spec-ts.3d521ef5ba",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-assistant-context-panel.spec.ts -g \"matches WorkBuddy assistant context panel views and toolbar\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+        },
+        {
+          "action": "viewButton.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "toolbarMenuButton.click()"
+        },
+        {
+          "action": "toolbarMenuButton.click()"
+        },
+        {
+          "action": "viewButton.click()"
+        },
+        {
+          "action": "page.getByTestId(\"assistant-page\").click({ position: { x: 16, y: 80 } })"
+        },
+        {
+          "action": "viewButton.click()"
+        },
+        {
+          "action": "listbox.getByRole(\"option\", { name: \"工作空间文件\" }).click()"
+        },
+        {
+          "action": "workspaceRegion.getByRole(\"button\", { name: \"nested\" }).click()"
+        },
+        {
+          "action": "viewButton.click()"
+        },
+        {
+          "action": "listbox.getByRole(\"option\", { name: \"浏览器\" }).click()"
+        },
+        {
+          "action": "viewButton.click()"
+        },
+        {
+          "action": "listbox.getByRole(\"option\", { name: \"变更\" }).click()"
+        },
+        {
+          "action": "toolbar.getByRole(\"button\", { name: \"全屏查看上下文\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "toolbar.getByRole(\"button\", { name: \"收起上下文面板\" }).click()"
+        },
+        {
+          "action": "reopen.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-assistant-context-panel.spec.ts",
+        "line_start": 19,
+        "line_end": 195,
+        "body_sha256": "sha256:afab1489eb05b4040ab3cc0255a23875863319841bd869519c86fb69832da2c2",
+        "assertion_count": 15,
+        "action_count": 18,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:94b2b0aa910aa0cce647c77b0c1847e437290034daf64e93516d452fcf891e3d"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-9F97689C3DC084"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-9F97689C3DC084"
+    ]
+  }
+}

@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-public-auth.spec.ts",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/connectors-public-auth.spec.ts",
       "locator": "line:120;test:turns a successful Tongzhou CLI login into its shipped stdio MCP registration",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:1f45a39dfdb2aec77c4ee8c51bde0abd9b11f0bbee95cf8dc553ffbeeeb31d88",
       "redaction_status": "minimized"
     }
@@ -79,11 +79,16 @@
     },
     {
       "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
     "expect(detail.getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible({ timeout: 15_000, })",
-    "expect.poll(async () => (await readMcpLog(mcpLog)).find( (entry) => entry.type === \"mcp_server_upsert\", )).toMatchObject({ server: { name: \"tongzhou-fin-research\", transport: \"stdio\", command: \"npx\", args: [\"-y\", \"tongzhou-fin-research-expert@0.25.1\", \"proxy\", \"--stdio\"], }, })"
+    "expect.poll(async () => (await readMcpLog(mcpLog)).find( (entry) => entry.type === \"mcp_server_upsert\", )).toMatchObject({ server: { name: \"tongzhou-fin-research\", transport: \"stdio\", command: \"npx\", args: [\"-y\", \"tongzhou-fin-research-expert@0.25.1\", \"proxy\", \"--stdio\"], }, })",
+    "expect( page.getByRole(\"button\", { name: \"同舟金融研究，未连接\", exact: true }), ).toBeVisible({ timeout: 15_000 })",
+    "expect.poll(async () => (await readMcpLog(mcpLog)).some( (entry) => entry.type === \"mcp_server_remove\" && entry.name === \"tongzhou-fin-research\", ), ).toBe(true)"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -157,6 +162,9 @@
         },
         {
           "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -178,12 +186,12 @@
       "source_contract": {
         "spec": "e2e/connectors-public-auth.spec.ts",
         "line_start": 120,
-        "line_end": 192,
-        "body_sha256": "sha256:2468065d5d344cff316921639c55832313c1e4d7ca9baab8680a559a2a5bf77d",
-        "assertion_count": 2,
-        "action_count": 2,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:c11e3fd29f085758670f1679ee5a8e14936c11aae4afb48d7ae4c356e2ee1735"
+        "line_end": 226,
+        "body_sha256": "sha256:52434d8b9e2d5ad84c3df51b9ee61c0be01ba1c0a034463d1f81469aec9795fb",
+        "assertion_count": 4,
+        "action_count": 3,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:5046f161fe753f756638b8e8518171237cb27127742a04be7ed5ebeb037b125a"
       }
     },
     "reference_run": {

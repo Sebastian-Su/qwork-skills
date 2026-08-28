@@ -1,0 +1,263 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKSPACE-CREATE-SPEC-135A1491",
+  "title": "按名称创建、选中并拒绝重复工作空间",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "files",
+    "journey": "files",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workspace-create-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/workspace-create.spec.ts",
+      "locator": "line:25;test:按名称创建、选中并拒绝重复工作空间",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:135a14910d347aac4e1190985c27bef6ba444fe55a4a5b65b1a27bdd62914670",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-6D89B9E133C664",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workspace-create-spec-ts:L25:135a14910d"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "按名称创建、选中并拒绝重复工作空间",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workspace-create-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "按名称创建、选中并拒绝重复工作空间"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"选择工作空间\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建工作空间\" }).click()"
+    },
+    {
+      "action": "input.fill(\"产品分析\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确认\" }).click()"
+    },
+    {
+      "action": "workspaceTrigger.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建工作空间\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"textbox\", { name: \"工作空间名称\" }).fill(\"产品分析\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"确认\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(dialog).toBeVisible()",
+    "expect(await computedStyle(dialog, [\"padding\", \"border-radius\"])).toMatchObject({ padding: \"24px\", \"border-radius\": \"24px\", })",
+    "expect(await computedStyle(title, [\"font-size\", \"line-height\"])).toMatchObject({ \"font-size\": \"16px\", \"line-height\": \"24px\", })",
+    "expect(await computedStyle(description, [\"font-size\", \"line-height\", \"margin-bottom\"])).toMatchObject({ \"font-size\": \"14px\", \"line-height\": \"22px\", \"margin-bottom\": \"16px\", })",
+    "expect(confirm).toBeDisabled()",
+    "expect(dialog).toBeHidden()",
+    "expect(workspaceTrigger).toContainText(\"产品分析\")",
+    "expect .poll(async () => (await fs.stat(path.join(workspaceRoot, \"产品分析\"))).isDirectory()) .toBe(true)",
+    "expect(page.getByRole(\"alert\")).toHaveText(\"工作空间“产品分析”已存在\")",
+    "expect(page.getByRole(\"dialog\", { name: \"新建工作空间\" })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-6D89B9E133C664",
+      "type": "return",
+      "assertion": "按名称创建、选中并拒绝重复工作空间"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workspace-create-spec-ts.135a14910d",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workspace-create.spec.ts -g \"按名称创建、选中并拒绝重复工作空间\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "files",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"选择工作空间\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建工作空间\" }).click()"
+        },
+        {
+          "action": "input.fill(\"产品分析\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确认\" }).click()"
+        },
+        {
+          "action": "workspaceTrigger.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建工作空间\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"textbox\", { name: \"工作空间名称\" }).fill(\"产品分析\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"确认\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workspace-create.spec.ts",
+        "line_start": 25,
+        "line_end": 73,
+        "body_sha256": "sha256:5950cb6806e8659399b4bd60aaedeaa1da8e39ab411fe3f4702dc98edac28a70",
+        "assertion_count": 10,
+        "action_count": 8,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:61522bdfa266f8125bbd657e1984ad8129f8ee8fcdfbcd3cb855f333d3ea7f7d"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-6D89B9E133C664"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-6D89B9E133C664"
+    ]
+  }
+}

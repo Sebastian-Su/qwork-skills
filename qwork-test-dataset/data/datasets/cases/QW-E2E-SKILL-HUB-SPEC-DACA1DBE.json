@@ -1,0 +1,278 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SKILL-HUB-SPEC-DACA1DBE",
+  "title": "keeps an installed recommendation in place with WorkBuddy-style management and trial actions",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-skill-hub-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/skill-hub.spec.ts",
+      "locator": "line:662;test:keeps an installed recommendation in place with WorkBuddy-style management and trial actions",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:daca1dbe085bf3019c4ec2e0b2289e7f925cfe319af174fe08c71da2f2e16bbf",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-66D783B6297486",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L662:daca1dbe08"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "keeps an installed recommendation in place with WorkBuddy-style management and trial actions",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-skill-hub-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps an installed recommendation in place with WorkBuddy-style management and trial actions"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "card.getByRole(\"button\", { name: \"安装 推荐目录技能 1\" }).click()"
+    },
+    {
+      "action": "card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 1\" }).click()"
+    },
+    {
+      "action": "menu.getByRole(\"menuitem\", { name: \"关闭\" }).click()"
+    },
+    {
+      "action": "card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 1\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"推荐目录技能 1 更多操作\" }).getByRole(\"menuitem\", { name: \"启用\" }).click()"
+    },
+    {
+      "action": "trial.hover()"
+    },
+    {
+      "action": "trial.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(recommended.getByRole(\"article\")).toHaveCount(30)",
+    "expect(card).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"我安装的 (1)\" })).toBeVisible()",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(30)",
+    "expect(card).toContainText(\"推荐目录技能 1\")",
+    "expect(card.getByRole(\"button\", { name: \"安装 推荐目录技能 1\" })).toHaveCount(0)",
+    "expect(card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 1\" })).toBeVisible()",
+    "expect(trial).toBeVisible()",
+    "expect(card.getByTestId(\"recommended-skill-installed-icon\")).toBeVisible()",
+    "expect(Math.abs(moreBox.y - trialBox.y)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(trialBox.x - moreBox.right - 6)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(cardBox.right - trialBox.right - 20)).toBeLessThanOrEqual(2)",
+    "expect(menu.getByRole(\"menuitem\", { name: \"关闭\" })).toBeVisible()",
+    "expect(menu.getByRole(\"menuitem\", { name: \"卸载\" })).toBeVisible()",
+    "expect(disabledAction).toBeVisible()",
+    "expect(card).toHaveCSS(\"background-color\", \"rgb(255, 255, 255)\")",
+    "expect(card.getByTestId(\"recommended-skill-avatar\")).toHaveCSS(\"opacity\", \"0.35\")",
+    "expect(card.getByTestId(\"recommended-skill-title\")).toHaveCSS(\"opacity\", \"0.55\")",
+    "expect(card.getByTestId(/recommended-skill-description-/)).toHaveCSS(\"opacity\", \"0.55\")",
+    "expect(disabledAction).toHaveCSS(\"opacity\", \"1\")",
+    "expect(disabledAction).toHaveCSS(\"background-color\", \"rgba(0, 0, 0, 0)\")",
+    "expect(trial).toBeEnabled()",
+    "expect(page.getByRole(\"tooltip\", { name: \"试一试\" })).toBeVisible()",
+    "expect(card.getByTestId(\"recommended-skill-try-icon\")).toBeVisible()",
+    "expect(page.getByTestId(\"composer-editor\").getByTestId(\"selected-skill-token\")) .toContainText(\"推荐目录技能 1\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-66D783B6297486",
+      "type": "return",
+      "assertion": "keeps an installed recommendation in place with WorkBuddy-style management and trial actions"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-skill-hub-spec-ts.daca1dbe08",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/skill-hub.spec.ts -g \"keeps an installed recommendation in place with WorkBuddy-style management and trial actions\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "card.getByRole(\"button\", { name: \"安装 推荐目录技能 1\" }).click()"
+        },
+        {
+          "action": "card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 1\" }).click()"
+        },
+        {
+          "action": "menu.getByRole(\"menuitem\", { name: \"关闭\" }).click()"
+        },
+        {
+          "action": "card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 1\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"推荐目录技能 1 更多操作\" }).getByRole(\"menuitem\", { name: \"启用\" }).click()"
+        },
+        {
+          "action": "trial.hover()"
+        },
+        {
+          "action": "trial.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/skill-hub.spec.ts",
+        "line_start": 662,
+        "line_end": 719,
+        "body_sha256": "sha256:edda04f2024abc2657ffeb9f8062098a275f919812782636720c417c2eb6004c",
+        "assertion_count": 25,
+        "action_count": 8,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:0b685b94df77a3dc0f0995c858a81a6ad4039a3d0ec6d57688d6a61ef41052a4"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-66D783B6297486"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-66D783B6297486"
+    ]
+  }
+}

@@ -22,12 +22,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-journey-secondary-surfaces.spec.ts",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/ui-journey-secondary-surfaces.spec.ts",
       "locator": "line:41;test:UI-JOURNEY-MARKET-001 | 专家中心技能页显示当前能力边界",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:0d6ae10ee99caea141bfb5b5f6d4a29525b07c6c8def7cfe40e6df976ed7463b",
       "redaction_status": "minimized"
     }
@@ -97,6 +97,10 @@
     "uiExpect.soft(page.getByRole(\"button\", { name: /我安装的 \\(\\d+\\)/ })).toBeVisible()",
     "expect(await computedStyle(dragSurface, [\"-webkit-app-region\"])) .toEqual({ \"-webkit-app-region\": \"drag\" })",
     "expect(toolbar).toHaveAttribute(\"data-main-content-toolbar\", \"true\")",
+    "expect(toolbar).toHaveAttribute(\"data-no-drag\", \"true\")",
+    "expect(toolbar).not.toHaveAttribute(\"data-tauri-drag-region\")",
+    "expect(toolbar).toHaveAttribute(\"data-windows-page-toolbar\", \"true\")",
+    "expect(toolbar).not.toHaveAttribute(\"data-windows-page-toolbar\")",
     "expect(toolbarBox.y).toBeGreaterThanOrEqual(chromeBox.bottom)",
     "expect(toolbarBox.x).toBeCloseTo(mainBox.x, 0)",
     "expect(toolbarBox.width).toBeCloseTo(mainBox.width, 0)",
@@ -204,12 +208,12 @@
       "source_contract": {
         "spec": "e2e/ui-journey-secondary-surfaces.spec.ts",
         "line_start": 41,
-        "line_end": 112,
-        "body_sha256": "sha256:de40b10009184586f6f6314ab4e3eaac465c256c0facd9b8a29e8da0ae42642b",
-        "assertion_count": 20,
+        "line_end": 119,
+        "body_sha256": "sha256:21c2964c9eb501c0e8e34126229f35882adfe37f5f383e2b5890fad5fed95d6c",
+        "assertion_count": 24,
         "action_count": 2,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:1e821148ce17710ec14a9d139d59a30502f2f7af87d1b278b78201a6c81d07a1"
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:2cbf120310fb7e732abc83aa61cf9cc472993d3551ab8cc8422d7fa42330a95a"
       }
     },
     "reference_run": {

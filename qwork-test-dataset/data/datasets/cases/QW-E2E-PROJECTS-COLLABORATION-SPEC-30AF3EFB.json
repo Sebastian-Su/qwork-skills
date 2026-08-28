@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-collaboration.spec.ts",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/projects-collaboration.spec.ts",
       "locator": "line:20;test:logs in and runs the server-backed project vertical slice",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:30af3efba41e457c342ce46d36300e8f93e6ebba194c19d30114d1015fbde459",
       "redaction_status": "minimized"
     }
@@ -99,6 +99,9 @@
       "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
     },
     {
+      "action": "planViews.getByRole(\"tab\", { name: \"表格\", exact: true }).click()"
+    },
+    {
       "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
     },
     {
@@ -111,7 +114,19 @@
       "action": "page.getByRole(\"tab\", { name: \"看板\", exact: true }).click()"
     },
     {
-      "action": "todoCard.getByTitle(\"移至进行中\").click()"
+      "action": "todoCard.getByRole(\"button\", { name: \"E2E 待办\", exact: true }).click()"
+    },
+    {
+      "action": "todoDetail.getByRole(\"button\", { name: \"编辑状态\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"option\", { name: \"进行中\", exact: true }).click()"
+    },
+    {
+      "action": "todoDetail.getByRole(\"button\", { name: \"关闭\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"看板\", exact: true }).click()"
     },
     {
       "action": "newViewButton.click()"
@@ -169,11 +184,13 @@
     "expect( page.getByRole(\"paragraph\").filter({ hasText: \"第一条 E2E 留言\" }), ).toBeVisible()",
     "expect(tabs.getByRole(\"tab\", { name, exact: true })).toBeVisible()",
     "expect(page.getByRole(\"button\", { name: \"发布留言\" })).toHaveCount(0)",
+    "expect( planViews.getByRole(\"tab\", { name: \"列表\", exact: true }), ).toHaveAttribute(\"aria-selected\", \"true\")",
+    "expect(page.getByRole(\"region\", { name: \"列表\" })).toBeVisible()",
     "expect(page.getByRole(\"table\", { name: \"待办表格\" })).toContainText( \"E2E 待办\", )",
     "expect(board.getByRole(\"group\", { name: \"待开始\" })).toContainText( \"E2E 待办\", )",
     "expect(board.getByRole(\"group\", { name: \"进行中\" })).toContainText( \"E2E 待办\", )",
     "expect(gantt.getByText(\"标题\")).toBeVisible()",
-    "expect(gantt.getByRole(\"button\", { name: /E2E 排期/ })).toBeVisible()",
+    "expect( gantt.getByRole(\"button\", { name: \"E2E 排期 甘特条\", exact: true }), ).toBeVisible()",
     "expect(calendar).toBeVisible()",
     "expect(calendar.getByText(\"E2E 排期\")).toBeVisible()",
     "expect( page.getByText(\"你的任务是私密的，除非你共享它们\"), ).toBeVisible()",
@@ -282,6 +299,9 @@
           "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
         },
         {
+          "action": "planViews.getByRole(\"tab\", { name: \"表格\", exact: true }).click()"
+        },
+        {
           "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
         },
         {
@@ -294,7 +314,19 @@
           "action": "page.getByRole(\"tab\", { name: \"看板\", exact: true }).click()"
         },
         {
-          "action": "todoCard.getByTitle(\"移至进行中\").click()"
+          "action": "todoCard.getByRole(\"button\", { name: \"E2E 待办\", exact: true }).click()"
+        },
+        {
+          "action": "todoDetail.getByRole(\"button\", { name: \"编辑状态\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"option\", { name: \"进行中\", exact: true }).click()"
+        },
+        {
+          "action": "todoDetail.getByRole(\"button\", { name: \"关闭\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"看板\", exact: true }).click()"
         },
         {
           "action": "newViewButton.click()"
@@ -364,12 +396,12 @@
       "source_contract": {
         "spec": "e2e/projects-collaboration.spec.ts",
         "line_start": 20,
-        "line_end": 170,
-        "body_sha256": "sha256:52fb258b04e410c50725b65756552da8e09d4f2814c03195a2b3c0b61ec9b5fc",
-        "assertion_count": 26,
-        "action_count": 29,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:d2d75617a681348e8355ca0bf55aecb6294ad2f25005ad1ce6bc1cb56108ee06"
+        "line_end": 183,
+        "body_sha256": "sha256:9a5fbb5b976fb2bd5dca4438b80f2cdff199aed1b42abcbc1b5dc7fd3b48e9b9",
+        "assertion_count": 28,
+        "action_count": 34,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:a13942a67f0ab77b9ef0f458cd3f131a898bc07855fbecbb4478839465dd6118"
       }
     },
     "reference_run": {

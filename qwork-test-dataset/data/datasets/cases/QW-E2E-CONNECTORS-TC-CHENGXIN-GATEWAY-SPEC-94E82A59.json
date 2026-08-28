@@ -1,0 +1,285 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-TC-CHENGXIN-GATEWAY-SPEC-94E82A59",
+  "title": "uses Tongcheng's fixed HTTPS gateway callback and restores the adapter without reopening login",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-tc-chengxin-gateway-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/connectors-tc-chengxin-gateway.spec.ts",
+      "locator": "line:290;test:uses Tongcheng's fixed HTTPS gateway callback and restores the adapter without reopening login",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:94e82a59eb92ff348ec4c778499420437a0ca3726b0dcd5c9bf6df7074bf1132",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D2289688052C95",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-tc-chengxin-gateway-spec-ts:L290:94e82a59eb"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "uses Tongcheng's fixed HTTPS gateway callback and restores the adapter without reopening login",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-tc-chengxin-gateway-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "uses Tongcheng's fixed HTTPS gateway callback and restores the adapter without reopening login"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: \"同程程心，未连接\", exact: true }) .click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"查询下周出行建议\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: \"同程程心，已连接\", exact: true }) .click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
+    },
+    {
+      "action": "gateway.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(async () => readLines(authUrlSink)).toHaveLength(1)",
+    "expect(authorize.origin).toBe(\"https://m.ly.com\")",
+    "expect(authorize.pathname).toBe(\"/memberauth/oauth2/authorize\")",
+    "expect(authorize.searchParams.get(\"response_type\")).toBe(\"code\")",
+    "expect(authorize.searchParams.get(\"redirect_uri\")).toBe(GATEWAY_CALLBACK)",
+    "expect(authorize.href).not.toContain(\"qwork:\")",
+    "expect(authorize.href).not.toContain(\"127.0.0.1\")",
+    "expect.poll(() => gateway.pollCalls, { timeout: 15_000 }).toBe(2)",
+    "expect( detail.getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible({ timeout: 20_000 })",
+    "expect .poll(async () => readAdapterProjection(configHome)) .toEqual({ credentialFile: expect.any(String), credential: ACCESS_TOKEN, })",
+    "expect(tools.map(({ name }) => name)).toEqual([\"tc_chengxin\"])",
+    "expect((await fs.stat(firstProjection.credentialFile)).mode & 0o777).toBe( 0o600, )",
+    "expect(await readVaultRecordKeys(configHome)).toHaveLength(1)",
+    "expect( page.getByRole(\"button\", { name: \"同程程心，已连接\", exact: true }), ).toBeVisible({ timeout: 4_000 })",
+    "expect(await readLines(authUrlSink)).toHaveLength(1)",
+    "expect(gateway.startCalls).toBe(1)",
+    "expect .poll(async () => readAdapterProjection(configHome)) .toEqual({ credentialFile: expect.any(String), credential: ACCESS_TOKEN, })",
+    "expect( page.getByText(\"收到：查询下周出行建议\", { exact: true }), ).toBeVisible()",
+    "expect(JSON.stringify(prompt)).toContain(\"MCP 连接器：tc-chengxin\")",
+    "expect( page.getByRole(\"button\", { name: \"同程程心，未连接\", exact: true }), ).toBeVisible()",
+    "expect.poll(() => gateway.revokeCalls).toBe(1)",
+    "expect(gateway.revokeRequests).toEqual([ { access_token: ACCESS_TOKEN, refresh_token: REFRESH_TOKEN, }, ])",
+    "expect.poll(async () => readAdapterProjection(configHome)).toBeNull()",
+    "expect(bridgeAfterUnbind.mcpServers).not.toHaveProperty(CONNECTOR_ID)",
+    "expect .poll(async () => readVaultRecordKeys(configHome)) .toHaveLength(0)",
+    "expect( fs.access(firstProjection.credentialFile), ).rejects.toMatchObject({ code: \"ENOENT\", })",
+    "expect(state.data?.connectors).not.toHaveProperty(CONNECTOR_ID)",
+    "expect( page.getByRole(\"button\", { name: \"同程程心，未连接\", exact: true }), ).toBeVisible()",
+    "expect(gateway.startCalls).toBe(1)",
+    "expect(gateway.revokeCalls).toBe(1)",
+    "expect(await readAdapterProjection(configHome)).toBeNull()",
+    "expect(diagnosticText).not.toContain(secret)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D2289688052C95",
+      "type": "return",
+      "assertion": "uses Tongcheng's fixed HTTPS gateway callback and restores the adapter without reopening login"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-tc-chengxin-gateway-spec-ts.94e82a59eb",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-tc-chengxin-gateway.spec.ts -g \"uses Tongcheng's fixed HTTPS gateway callback and restores the adapter without reopening login\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "page .getByRole(\"button\", { name: \"同程程心，未连接\", exact: true }) .click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"查询下周出行建议\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: \"同程程心，已连接\", exact: true }) .click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
+        },
+        {
+          "action": "gateway.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-tc-chengxin-gateway.spec.ts",
+        "line_start": 290,
+        "line_end": 464,
+        "body_sha256": "sha256:3b010393e4cfc547e29f82c12e9f10a216c80ff6c2f476444c632fed48cab843",
+        "assertion_count": 32,
+        "action_count": 8,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:fe8e093f7b60f5890dd4917881675bf2a26f9b562c82e5e81288c2b97ce14bdc"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-D2289688052C95"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-D2289688052C95"
+    ]
+  }
+}

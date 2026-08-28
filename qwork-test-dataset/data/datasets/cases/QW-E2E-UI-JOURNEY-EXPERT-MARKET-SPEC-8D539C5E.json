@@ -1,0 +1,274 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-UI-JOURNEY-EXPERT-MARKET-SPEC-8D539C5E",
+  "title": "UI-JOURNEY-EXPERT-004 | 专家卡在 320px 以上自适应列宽、头像、标签与召唤按钮对齐",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-ui-journey-expert-market-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/ui-journey-expert-market.spec.ts",
+      "locator": "line:143;test:UI-JOURNEY-EXPERT-004 | 专家卡在 320px 以上自适应列宽、头像、标签与召唤按钮对齐",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:8d539c5e37c145f1efb2e8051f80100d3a796b72849d32360718e310f9228036",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-4882EFD2C19DD1",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-ui-journey-expert-market-spec-ts:L143:8d539c5e37"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "UI-JOURNEY-EXPERT-004 | 专家卡在 320px 以上自适应列宽、头像、标签与召唤按钮对齐",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-ui-journey-expert-market-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-JOURNEY-EXPERT-004 | 专家卡在 320px 以上自适应列宽、头像、标签与召唤按钮对齐"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "setContentSize(app, page, { width: 1440, height: 900 })"
+    },
+    {
+      "action": "page.getByRole(\"list\", { name: \"专家列表\" })"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /高级开发工程师.*从证据出发/ })"
+    },
+    {
+      "action": "card.getByRole(\"button\", { name: \"召唤高级开发工程师\" })"
+    },
+    {
+      "action": "attachUiState(page, testInfo, \"final-expert-card\")"
+    },
+    {
+      "action": "expectBox(await boxOf(card), { height: 154 })"
+    },
+    {
+      "action": "boxOf(card)"
+    },
+    {
+      "action": "setContentSize(app, page)"
+    },
+    {
+      "action": "expectBox(await boxOf(summon), { width: 44.5, height: 24 })"
+    },
+    {
+      "action": "boxOf(summon)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect((await boxOf(card)).width).toBeGreaterThan(334)",
+    "expect.poll(() => list.evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(\" \").length)).toBe(3)",
+    "expect.poll(() => list.evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(\" \").length)).toBe(4)",
+    "expect((await boxOf(card)).width).toBeGreaterThan(320)",
+    "uiExpect.soft(await computedStyle(card, [\"border-radius\", \"padding\", \"box-shadow\"])).toEqual({ \"border-radius\": \"16px\", padding: \"16px 20px\", \"box-shadow\": \"rgba(0, 0, 0, 0.03) 0px 16px 32px -8px\", })",
+    "uiExpect.soft(card.getByText(\"qwork · 研发\", { exact: true })).toBeVisible()",
+    "uiExpect.soft(summon).toBeVisible()",
+    "uiExpect.soft(await computedStyle(summon, [\"background-color\", \"color\", \"border-radius\"])).toEqual({ \"background-color\": \"rgba(0, 0, 0, 0.9)\", color: \"rgb(255, 255, 255)\", \"border-radius\": \"8px\", })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-4882EFD2C19DD1",
+      "type": "ui",
+      "assertion": "UI-JOURNEY-EXPERT-004 | 专家卡在 320px 以上自适应列宽、头像、标签与召唤按钮对齐"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-ui-journey-expert-market-spec-ts.8d539c5e37",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/ui-journey-expert-market.spec.ts -g \"UI-JOURNEY-EXPERT-004 | 专家卡在 320px 以上自适应列宽、头像、标签与召唤按钮对齐\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "setContentSize(app, page, { width: 1440, height: 900 })"
+        },
+        {
+          "action": "page.getByRole(\"list\", { name: \"专家列表\" })"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /高级开发工程师.*从证据出发/ })"
+        },
+        {
+          "action": "card.getByRole(\"button\", { name: \"召唤高级开发工程师\" })"
+        },
+        {
+          "action": "attachUiState(page, testInfo, \"final-expert-card\")"
+        },
+        {
+          "action": "expectBox(await boxOf(card), { height: 154 })"
+        },
+        {
+          "action": "boxOf(card)"
+        },
+        {
+          "action": "setContentSize(app, page)"
+        },
+        {
+          "action": "expectBox(await boxOf(summon), { width: 44.5, height: 24 })"
+        },
+        {
+          "action": "boxOf(summon)"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/ui-journey-expert-market.spec.ts",
+        "line_start": 143,
+        "line_end": 169,
+        "body_sha256": "sha256:58b38b18a002828845b20241baf01e6e5a91f19846dbc85759ac890d7a976f9c",
+        "assertion_count": 8,
+        "action_count": 0,
+        "execution_revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+        "spec_sha256": "sha256:c9dcff7a5b23f91f8126a09297dc6738fba76cc44f75ba4f36c5354d50277481"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-4882EFD2C19DD1"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-4882EFD2C19DD1"
+    ]
+  }
+}

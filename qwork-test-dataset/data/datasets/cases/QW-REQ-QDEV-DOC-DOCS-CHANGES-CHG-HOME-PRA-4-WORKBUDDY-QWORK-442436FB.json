@@ -1,0 +1,225 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-HOME-PRA-4-WORKBUDDY-QWORK-442436FB",
+  "title": "docs/changes/CHG-home-practice-prefill-parity-20260824/requirements.md · 4. WorkBuddy 与 QWork 差异 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-home-practice-prefill-parity-202608-76e3f533",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/changes/CHG-home-practice-prefill-parity-20260824/requirements.md",
+      "locator": "line:43;heading:4. WorkBuddy 与 QWork 差异",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:fb2ea61ec577b1c5f86ada98218a4dfec7ae51be538dd8eb45f9767c15d3e86c",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-B4937559BB5214",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-home-practice-prefill-parity-202608-76e3f533:L43:fb2ea61ec5"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "| 案例数据 | 真实封面、完整摘要、完整 prompt、专家头像/名称、预览产物 | 内置项多为纯色封面、通用摘要和通用 prompt，`expertKey=null` | QWork 自有目录提供同等完整字段与资产，不依赖 WorkBuddy COS |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-home-practice-prefill-parity-202608-76e3f533"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 案例数据 | 真实封面、完整摘要、完整 prompt、专家头像/名称、预览产物 | 内置项多为纯色封面、通用摘要和通用 prompt，`expertKey=null` | QWork 自有目录提供同等完整字段与资产，不依赖 WorkBuddy COS |"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-prefill-parity-20260824/requirements.md · 4. WorkBuddy 与 QWork 差异 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-B4937559BB5214] exactly: | 案例数据 | 真实封面、完整摘要、完整 prompt、专家头像/名称、预览产物 | 内置项多为纯色封面、通用摘要和通用 prompt，`expertKey=null` | QWork 自有目录提供同等完整字段与资产，不依赖 WorkBuddy COS |"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "| 案例数据 | 真实封面、完整摘要、完整 prompt、专家头像/名称、预览产物 | 内置项多为纯色封面、通用摘要和通用 prompt，`expertKey=null` | QWork 自有目录提供同等完整字段与资产，不依赖 WorkBuddy COS |"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-B4937559BB5214]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 案例数据 | 真实封面、完整摘要、完整 prompt、专家头像/名称、预览产物 | 内置项多为纯色封面、通用摘要和通用 prompt，`expertKey=null` | QWork 自有目录提供同等完整字段与资产，不依赖 WorkBuddy COS |",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-B4937559BB5214",
+      "type": "return",
+      "assertion": "| 案例数据 | 真实封面、完整摘要、完整 prompt、专家头像/名称、预览产物 | 内置项多为纯色封面、通用摘要和通用 prompt，`expertKey=null` | QWork 自有目录提供同等完整字段与资产，不依赖 WorkBuddy COS |"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-home-pract.4-workbuddy-qwork-442436fbeb",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-prefill-parity-20260824/requirements.md · 4. WorkBuddy 与 QWork 差异 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-B4937559BB5214] exactly: | 案例数据 | 真实封面、完整摘要、完整 prompt、专家头像/名称、预览产物 | 内置项多为纯色封面、通用摘要和通用 prompt，`expertKey=null` | QWork 自有目录提供同等完整字段与资产，不依赖 WorkBuddy COS |"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B4937559BB5214"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-B4937559BB5214"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-B4937559BB5214",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-prefill-parity-20260824/requirements.md · 4. WorkBuddy 与 QWork 差异 产品契约 exactly once and retain its correlation identity",
+      "then": "| 案例数据 | 真实封面、完整摘要、完整 prompt、专家头像/名称、预览产物 | 内置项多为纯色封面、通用摘要和通用 prompt，`expertKey=null` | QWork 自有目录提供同等完整字段与资产，不依赖 WorkBuddy COS |",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

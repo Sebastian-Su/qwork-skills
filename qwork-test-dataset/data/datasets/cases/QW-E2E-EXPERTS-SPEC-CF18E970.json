@@ -17,25 +17,25 @@
   },
   "sources": [
     {
-      "source_id": "QHEAD-E2E-e2e-experts-spec-ts",
+      "source_id": "QDEV-E2E-e2e-experts-spec-ts",
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:cd8f67177fde78ea96cfc8529dbad71afdc0c0c7:e2e/experts.spec.ts",
-      "locator": "line:577;test:Runtime without SessionStart context capability blocks expert creation and keeps the draft",
-      "revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/experts.spec.ts",
+      "locator": "line:608;test:Runtime without SessionStart context capability blocks expert creation and keeps the draft",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:cf18e970f9ebffccfe2212b28fe88cc82dd9a0decfb6229de77eb9418111a336",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-1A1B57DA6A6AB5",
+      "requirement_id": "REQ-038FAB6EA9385E",
       "source_atom_ids": [
-        "QHEAD-E2E-e2e-experts-spec-ts:L577:cf18e970f9"
+        "QDEV-E2E-e2e-experts-spec-ts:L608:cf18e970f9"
       ],
       "content_facets": [
         "negative-rule"
@@ -48,7 +48,7 @@
       "rule": "Runtime without SessionStart context capability blocks expert creation and keeps the draft",
       "authority_domain": "execution",
       "governing_sources": [
-        "QHEAD-E2E-e2e-experts-spec-ts"
+        "QDEV-E2E-e2e-experts-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -60,11 +60,11 @@
     }
   ],
   "verification": {
-    "last_outcome": "pass",
-    "environment_scope": "isolated Electron Playwright run, case-owned QWork home, deterministic fake sidecar, zero real model calls",
-    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "b84f367917c9cc47f265fad746a780495a942c49",
     "last_verified_at": "2026-08-24T11:48:10.573724+00:00",
-    "status_reason": "hash-verified public Playwright reference run expert-identity-public-reference-cd8f6717-v1 passed"
+    "status_reason": "public Playwright reference expert-identity-public-reference-cd8f6717-v1 does not match current implementation/source contract; rerun this exact Case"
   },
   "preconditions": {
     "repository": "qwork",
@@ -97,7 +97,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-1A1B57DA6A6AB5",
+      "requirement_id": "REQ-038FAB6EA9385E",
       "type": "return",
       "assertion": "Runtime without SessionStart context capability blocks expert creation and keeps the draft"
     }
@@ -122,7 +122,7 @@
   },
   "execution_contract": {
     "contract_version": 1,
-    "readiness": "ready",
+    "readiness": "partial",
     "route_id": "qwork.playwright.e2e-experts-spec-ts.cf18e970f9",
     "target": {
       "kind": "installed-app",
@@ -182,26 +182,20 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/experts.spec.ts",
-        "line_start": 577,
-        "line_end": 611,
+        "line_start": 608,
+        "line_end": 642,
         "body_sha256": "sha256:ee41101e8187b400e892d3927ab0ddd74e29e362f6241ca1dd51de536c50d104",
         "assertion_count": 7,
         "action_count": 2,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:5cfaebd6f1408fa2252ecc623ad3542efa50ed6bc1345c9a0d13e90f35ff3aed"
-      },
-      "reference_authority": {
-        "manifest": "skill://qwork-test-dataset/data/runs/expert-identity-public-reference-cd8f6717-v1/public-playwright-reference.json",
-        "manifest_sha256": "sha256:e1ff2b9ad3eb0ce149f2bc6e8c347c79b759bbcb18510dbfa16fd8b00c43d5fa",
-        "plan_sha256": "01a00070eaf74745ce1bfcebfe35e51abbd9071286cf0f592c18e631e4d3ba83",
-        "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7"
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:c02d81ae7e97edab5454af66429d2c776fcf5699026576cb0822a4a20e494068"
       }
     },
     "reference_run": {
-      "status": "passed",
+      "status": "pending",
       "run_id": "expert-identity-public-reference-cd8f6717-v1",
       "verified_at": "2026-08-24T11:48:10.573724+00:00",
-      "environment": "isolated Electron Playwright run, case-owned QWork home, deterministic fake sidecar, zero real model calls"
+      "environment": "stale deterministic public Playwright reference run"
     },
     "cleanup": {
       "actions": [
@@ -210,11 +204,13 @@
       ],
       "success_oracle": "no case-owned process or temporary state remains"
     },
-    "blockers": []
+    "blockers": [
+      "public Playwright reference expert-identity-public-reference-cd8f6717-v1 does not match current implementation/source contract; rerun this exact Case"
+    ]
   },
   "selection": {
     "requirement_ids": [
-      "REQ-1A1B57DA6A6AB5"
+      "REQ-038FAB6EA9385E"
     ],
     "categories": [
       "negative"
@@ -222,7 +218,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-1A1B57DA6A6AB5"
+      "requirement:REQ-038FAB6EA9385E"
     ]
   }
 }

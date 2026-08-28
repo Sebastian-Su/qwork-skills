@@ -1,0 +1,318 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONVERSATION-SHARING-SPEC-B39043D0",
+  "title": "publishes text, PDF, and Office bytes once while all share actions reuse the link",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-conversation-sharing-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/conversation-sharing.spec.ts",
+      "locator": "line:139;test:publishes text, PDF, and Office bytes once while all share actions reuse the link",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:b39043d0ce961b9690d7f6a006abb9ec3a5e82a54eabb3f83a9efa5bc7ae1afc",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-A8B7062D637201",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-conversation-sharing-spec-ts:L139:b39043d0ce"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "publishes text, PDF, and Office bytes once while all share actions reuse the link",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-conversation-sharing-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "publishes text, PDF, and Office bytes once while all share actions reuse the link"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_PUBLIC_SHARE_ARTIFACTS__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭 public-report.docx\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭 public-report.pdf\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"分享任务\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"checkbox\", { name: \"全选\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"button\", { name: \"复制链接\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"分享任务\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"checkbox\", { name: \"全选\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"button\", { name: \"生成二维码\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭二维码\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"分享任务\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"checkbox\", { name: \"全选\" }).click()"
+    },
+    {
+      "action": "panel.getByRole(\"button\", { name: \"浏览器打开\" }).click()"
+    },
+    {
+      "action": "server.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: \"打开产出物 public-summary.md\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"打开产出物 public-report.pdf\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"打开产出物 public-report.docx\" })).toBeVisible()",
+    "expect(page.getByRole(\"status\").filter({ hasText: \"链接已复制\" })).toContainText(\"链接已复制\")",
+    "expect(panel).toBeHidden()",
+    "expect(page.getByRole(\"img\", { name: \"分享二维码\" })).toBeVisible()",
+    "expect(page.getByRole(\"status\").filter({ hasText: \"已在浏览器打开\" })).toContainText(\"已在浏览器打开\")",
+    "expect(drafts).toHaveLength(1)",
+    "expect(artifacts.map(({ filename, media_type, preview_mode }) => ({ filename, media_type, preview_mode }))) .toEqual([ { filename: \"public-summary.md\", media_type: \"text/markdown; charset=utf-8\", preview_mode: \"text\" }, { filename: \"public-report.pdf\", media_type: \"application/pdf\", preview_mode: \"pdf\" }, { filename: \"public-report.docx\", media_type: \"application/vnd.openxmlformats-officedocument.wordprocessingml.do…",
+    "expect(uploads).toHaveLength(3)",
+    "expect(upload).toBeDefined()",
+    "expect(upload!.headers.authorization).toBeUndefined()",
+    "expect(upload!.headers.referer).toBeUndefined()",
+    "expect(upload!.body.byteLength).toBe(artifact.size_bytes)",
+    "expect(crypto.createHash(\"sha256\").update(upload!.body).digest(\"hex\")).toBe(artifact.sha256)",
+    "expect(uploads.find(({ artifactId }) => artifactId === artifacts[1].artifact_id)!.body.subarray(0, 5).toString(\"ascii\")) .toBe(\"%PDF-\")",
+    "expect(uploads.find(({ artifactId }) => artifactId === artifacts[2].artifact_id)!.body.subarray(0, 2).toString(\"ascii\")) .toBe(\"PK\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-A8B7062D637201",
+      "type": "return",
+      "assertion": "publishes text, PDF, and Office bytes once while all share actions reuse the link"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-conversation-sharing-spec-ts.b39043d0ce",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/conversation-sharing.spec.ts -g \"publishes text, PDF, and Office bytes once while all share actions reuse the link\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_PUBLIC_SHARE_ARTIFACTS__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭 public-report.docx\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭 public-report.pdf\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"分享任务\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"checkbox\", { name: \"全选\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"button\", { name: \"复制链接\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"分享任务\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"checkbox\", { name: \"全选\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"button\", { name: \"生成二维码\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭二维码\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"分享任务\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"checkbox\", { name: \"全选\" }).click()"
+        },
+        {
+          "action": "panel.getByRole(\"button\", { name: \"浏览器打开\" }).click()"
+        },
+        {
+          "action": "server.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/conversation-sharing.spec.ts",
+        "line_start": 139,
+        "line_end": 260,
+        "body_sha256": "sha256:9b895d5d3ac479ced3c4587bd79c57fb4b00ba3a2ee8411a7947047608964006",
+        "assertion_count": 17,
+        "action_count": 16,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:f4b571c299aa816d0cf6ea6cbe6f496943e058f172c4332dcd982d83cb1525a5"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-A8B7062D637201"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-A8B7062D637201"
+    ]
+  }
+}

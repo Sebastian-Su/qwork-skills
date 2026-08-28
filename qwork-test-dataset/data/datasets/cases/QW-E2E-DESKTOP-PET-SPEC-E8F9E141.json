@@ -1,0 +1,289 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-DESKTOP-PET-SPEC-E8F9E141",
+  "title": "growth toggle opens a compact draggable pet and real companion conversation",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-desktop-pet-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/desktop-pet.spec.ts",
+      "locator": "line:16;test:growth toggle opens a compact draggable pet and real companion conversation",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:e8f9e141188d32de2822f0e8d680f5e60c30b48247b6bec09b53bcbca9ce61ad",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-14B9ED1A7CEC60",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-desktop-pet-spec-ts:L16:e8f9e14118"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "growth toggle opens a compact draggable pet and real companion conversation",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-desktop-pet-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "growth toggle opens a compact draggable pet and real companion conversation"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: /成长计划/ }).click()"
+    },
+    {
+      "action": "desktopPetSwitch.click()"
+    },
+    {
+      "action": "petPage.getByRole(\"button\", { name: \"唤醒被窝团子\" }).click()"
+    },
+    {
+      "action": "petPage.getByRole(\"button\", { name: \"桌宠设置\" }).click()"
+    },
+    {
+      "action": "petPage.getByLabel(\"桌宠名字\").fill(\"困困\")"
+    },
+    {
+      "action": "petPage.getByLabel(\"桌宠性格\").selectOption(\"sharp\")"
+    },
+    {
+      "action": "petPage.getByLabel(\"性别表达\").selectOption(\"male\")"
+    },
+    {
+      "action": "petPage.getByRole(\"button\", { name: \"保存设置\" }).click()"
+    },
+    {
+      "action": "petPage.getByRole(\"textbox\", { name: \"和困困说话\" }).fill(\"陪我把今天熬过去\")"
+    },
+    {
+      "action": "petPage.getByRole(\"button\", { name: \"发送\" }).click()"
+    },
+    {
+      "action": "petPage.getByRole(\"button\", { name: \"收起桌宠对话\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(switchBoxBefore).not.toBeNull()",
+    "expect.poll(async () => Math.round((await desktopPetSwitch.boundingBox())?.y ?? -1)) .toBe(Math.round(switchBoxBefore?.y ?? -1))",
+    "expect(petPage.getByRole(\"button\", { name: \"唤醒被窝团子\" })).toBeVisible()",
+    "expect(petPage.locator(\"[data-action-count='20']\")).toBeVisible()",
+    "expect(petPage.getByRole(\"region\", { name: \"桌宠对话\" })).toBeVisible()",
+    "expect(expandedBounds.x + expandedBounds.width).toBe(closedBounds.x + closedBounds.width)",
+    "expect(expandedBounds.y + expandedBounds.height).toBe(closedBounds.y + closedBounds.height)",
+    "expect(petPage.getByRole(\"button\", { name: \"唤醒困困\" })).toBeVisible()",
+    "expect(petPage.getByText(/收到：.*陪我把今天熬过去/)).toBeVisible({ timeout: 10_000 })",
+    "expect((await state).sessionId).toBeTruthy()",
+    "expect((await state).profile).toEqual({ name: \"困困\", personality: \"sharp\", genderExpression: \"male\", })",
+    "expect.poll(async () => { const next = await petPage.evaluate(() => window.workGui.desktopPet.get()); return next.position; }).toEqual(moved)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-14B9ED1A7CEC60",
+      "type": "return",
+      "assertion": "growth toggle opens a compact draggable pet and real companion conversation"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-desktop-pet-spec-ts.e8f9e14118",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/desktop-pet.spec.ts -g \"growth toggle opens a compact draggable pet and real companion conversation\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: /成长计划/ }).click()"
+        },
+        {
+          "action": "desktopPetSwitch.click()"
+        },
+        {
+          "action": "petPage.getByRole(\"button\", { name: \"唤醒被窝团子\" }).click()"
+        },
+        {
+          "action": "petPage.getByRole(\"button\", { name: \"桌宠设置\" }).click()"
+        },
+        {
+          "action": "petPage.getByLabel(\"桌宠名字\").fill(\"困困\")"
+        },
+        {
+          "action": "petPage.getByLabel(\"桌宠性格\").selectOption(\"sharp\")"
+        },
+        {
+          "action": "petPage.getByLabel(\"性别表达\").selectOption(\"male\")"
+        },
+        {
+          "action": "petPage.getByRole(\"button\", { name: \"保存设置\" }).click()"
+        },
+        {
+          "action": "petPage.getByRole(\"textbox\", { name: \"和困困说话\" }).fill(\"陪我把今天熬过去\")"
+        },
+        {
+          "action": "petPage.getByRole(\"button\", { name: \"发送\" }).click()"
+        },
+        {
+          "action": "petPage.getByRole(\"button\", { name: \"收起桌宠对话\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/desktop-pet.spec.ts",
+        "line_start": 16,
+        "line_end": 96,
+        "body_sha256": "sha256:6a42ce4494beb774ffcc5141684484854aa94dc2984d8b51c868118e7a5aa8ca",
+        "assertion_count": 12,
+        "action_count": 12,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:9207ec3c57e24aa068794e82a14bbb06d7124ae2bf910d2d4682f3475b4129cc"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-14B9ED1A7CEC60"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-14B9ED1A7CEC60"
+    ]
+  }
+}

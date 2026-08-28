@@ -1,0 +1,260 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-LEMONCLAW-PRIVATE-INSTALL-SPEC-891CB34B",
+  "title": "installs LemonClaw into QWork-owned persistent storage and only removes private credentials",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-lemonclaw-private-install-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/connectors-lemonclaw-private-install.spec.ts",
+      "locator": "line:254;test:installs LemonClaw into QWork-owned persistent storage and only removes private credentials",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:891cb34b44ccbc784322a22af9a7667f6b6763d36ce42d57b4e4faf2afbcca90",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-58F7A97F395BBE",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-lemonclaw-private-install-spec-ts:L254:891cb34b44"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "installs LemonClaw into QWork-owned persistent storage and only removes private credentials",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-lemonclaw-private-install-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "installs LemonClaw into QWork-owned persistent storage and only removes private credentials"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "launched.page .getByRole(\"button\", { name: \"LemonClaw，未连接\", exact: true }) .click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+    },
+    {
+      "action": "launched.page .getByRole(\"button\", { name: \"LemonClaw，已连接\", exact: true }) .click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(installToast).toBeVisible()",
+    "expect( detail.getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible({ timeout: 30_000 })",
+    "expect(installToast).not.toBeVisible()",
+    "expect(fs.readFile(outsideSentinel, \"utf8\")).resolves.toBe( \"outside-home-must-stay-untouched\", )",
+    "expect( fs.access(path.join(providerHome, \".lemonclaw-cli\")), ).rejects.toMatchObject({ code: \"ENOENT\", })",
+    "expect(fs.access(installedPackage)).resolves.toBeUndefined()",
+    "expect(fs.access(privateRuntime)).resolves.toBeUndefined()",
+    "expect(fs.access(activePrivateCredentials)).resolves.toBeUndefined()",
+    "expect(readLines(authUrlSink)).resolves.toEqual([AUTH_URL])",
+    "expect( events.filter(({ action }) => action === \"runtime-install\"), ).toHaveLength(1)",
+    "expect(events.filter(({ action }) => action === \"auth-login\")).toHaveLength( 1, )",
+    "expect(events.every(({ home }) => home === privateHome)).toBe(true)",
+    "expect(readLines(authUrlSink)).resolves.toEqual([AUTH_URL])",
+    "expect( events.filter(({ action }) => action === \"runtime-install\"), ).toHaveLength(1)",
+    "expect(events.filter(({ action }) => action === \"auth-login\")).toHaveLength( 1, )",
+    "expect( events .slice(beforeRestart) .every(({ action }) => action === \"auth-status\"), ).toBe(true)",
+    "expect( launched.page.getByRole(\"button\", { name: \"LemonClaw，未连接\", exact: true, }), ).toBeVisible()",
+    "expect .poll(async () => ( await Promise.all( privateCredentialFiles.map((file) => fs.access(file).then( () => true, () => false, ), ), ) ).some(Boolean), ) .toBe(false)",
+    "expect(fs.readFile(privateRuntime, \"utf8\")).resolves.toBe( brokenRuntime, )",
+    "expect(fs.access(installedPackage)).resolves.toBeUndefined()",
+    "expect(fs.readFile(outsideSentinel, \"utf8\")).resolves.toBe( \"outside-home-must-stay-untouched\", )",
+    "expect( fs.access(path.join(providerHome, \".lemonclaw-cli\")), ).rejects.toMatchObject({ code: \"ENOENT\", })",
+    "Promise.all( outsideCredentialFiles.map((file, index) => expect(fs.readFile(file, \"utf8\")).resolves.toBe( `outside-credential-${index}`, ), ), )",
+    "expect( events.filter(({ action }) => action === \"auth-logout\"), ).toHaveLength(1)",
+    "expect( events.filter(({ action }) => action === \"runtime-install\"), ).toHaveLength(1)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-58F7A97F395BBE",
+      "type": "return",
+      "assertion": "installs LemonClaw into QWork-owned persistent storage and only removes private credentials"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-lemonclaw-private-install-spec-ts.891cb34b44",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-lemonclaw-private-install.spec.ts -g \"installs LemonClaw into QWork-owned persistent storage and only removes private credentials\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "launched.page .getByRole(\"button\", { name: \"LemonClaw，未连接\", exact: true }) .click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
+        },
+        {
+          "action": "launched.page .getByRole(\"button\", { name: \"LemonClaw，已连接\", exact: true }) .click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-lemonclaw-private-install.spec.ts",
+        "line_start": 254,
+        "line_end": 475,
+        "body_sha256": "sha256:ffd69e1dde30b11117680fbeb888e34afb4f7eb729fcf6cc9b1d899942cf95b5",
+        "assertion_count": 25,
+        "action_count": 5,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:11f324215e31288753dad54ebf35d8b0bac1376a2203797bcd86272b8daa4598"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-58F7A97F395BBE"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-58F7A97F395BBE"
+    ]
+  }
+}

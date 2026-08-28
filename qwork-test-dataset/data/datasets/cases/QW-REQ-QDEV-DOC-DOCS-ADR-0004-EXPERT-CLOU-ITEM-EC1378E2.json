@@ -1,0 +1,244 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-ADR-0004-EXPERT-CLOU-ITEM-EC1378E2",
+  "title": "docs/adr/0004-expert-cloud-catalog-and-summon-install.md · 只显示云端卡片，另做“安装”按钮 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-adr-0004-expert-cloud-catalog-and-summon-instal",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/adr/0004-expert-cloud-catalog-and-summon-install.md",
+      "locator": "line:109;heading:只显示云端卡片，另做“安装”按钮",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:facf2e5ea0667c1760dc3f0200e0b37b34dbea00ab7cc58d45bc936e5ec9632e",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-26FF6B91CCF30F",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-adr-0004-expert-cloud-catalog-and-summon-instal:L109:facf2e5ea0"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "能把下载状态显式化，但增加一次没有用户价值的中间任务，并偏离已经确认的 WorkBuddy 召唤体验。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-adr-0004-expert-cloud-catalog-and-summon-instal"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "能把下载状态显式化，但增加一次没有用户价值的中间任务，并偏离已经确认的 WorkBuddy 召唤体验。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/adr/0004-expert-cloud-catalog-and-summon-install.md · 只显示云端卡片，另做“安装”按钮 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer interaction state after the trigger and assert [REQ-26FF6B91CCF30F] exactly: 能把下载状态显式化，但增加一次没有用户价值的中间任务，并偏离已经确认的 WorkBuddy 召唤体验。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "能把下载状态显式化，但增加一次没有用户价值的中间任务，并偏离已经确认的 WorkBuddy 召唤体验。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-26FF6B91CCF30F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 能把下载状态显式化，但增加一次没有用户价值的中间任务，并偏离已经确认的 WorkBuddy 召唤体验。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-26FF6B91CCF30F",
+      "type": "ui-state",
+      "assertion": "能把下载状态显式化，但增加一次没有用户价值的中间任务，并偏离已经确认的 WorkBuddy 召唤体验。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-adr-0004-expert-cloud.item-ec1378e258",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/adr/0004-expert-cloud-catalog-and-summon-install.md · 只显示云端卡片，另做“安装”按钮 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer interaction state after the trigger and assert [REQ-26FF6B91CCF30F] exactly: 能把下载状态显式化，但增加一次没有用户价值的中间任务，并偏离已经确认的 WorkBuddy 召唤体验。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-26FF6B91CCF30F"
+    ],
+    "categories": [
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-26FF6B91CCF30F"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-26FF6B91CCF30F",
+      "oracle_type": "ui-state",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/adr/0004-expert-cloud-catalog-and-summon-install.md · 只显示云端卡片，另做“安装”按钮 产品契约 exactly once and retain its correlation identity",
+      "then": "能把下载状态显式化，但增加一次没有用户价值的中间任务，并偏离已经确认的 WorkBuddy 召唤体验。",
+      "observation_boundary": "renderer interaction state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

@@ -1,0 +1,341 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-ARTIFACT-SHARING-SPEC-74FF5119",
+  "title": "shares one active artifact without conversation content and matches the compact modal contract",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "files",
+    "journey": "files",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-artifact-sharing-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/artifact-sharing.spec.ts",
+      "locator": "line:8;test:shares one active artifact without conversation content and matches the compact modal contract",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:74ff5119cf64c7979970ef366915e026b9156f7b5b26e55d2bc2c947bd09b331",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-6B0A2B3FCCC697",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-artifact-sharing-spec-ts:L8:74ff5119cf"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "shares one active artifact without conversation content and matches the compact modal contract",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-artifact-sharing-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "shares one active artifact without conversation content and matches the compact modal contract"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_ARTIFACT__:public-report.html\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "artifactCard.click()"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"复制链接\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"生成二维码\" }).click()"
+    },
+    {
+      "action": "qrDialog.getByRole(\"button\", { name: \"关闭二维码\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"浏览器打开\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"关闭分享\" }).click()"
+    },
+    {
+      "action": "artifactCard.click()"
+    },
+    {
+      "action": "window.workGui!.window.close()"
+    },
+    {
+      "action": "window.focus()"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "server.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(artifactCard).toBeVisible()",
+    "expect.poll(() => nativeHtmlPreviewCount(app!)).toBeGreaterThan(0)",
+    "expect.poll(() => nativeHtmlPreviewVisible(app!)).toBe(true)",
+    "expect.poll(() => nativeHtmlPreviewVisible(app!)).toBe(false)",
+    "expect(dialog).toBeVisible()",
+    "expect( page.getByRole(\"img\", { name: \"public-report.html 静态预览\" }), ).toBeVisible()",
+    "expect(dialog.getByRole(\"heading\", { name: \"分享\" })).toBeVisible()",
+    "expect(dialog.getByText(\"public-report.html\")).toBeVisible()",
+    "expect(dialog.getByRole(\"button\", { name: \"复制链接\" })).toBeVisible()",
+    "expect(dialog.getByRole(\"button\", { name: \"生成二维码\" })).toBeVisible()",
+    "expect(dialog.getByRole(\"button\", { name: \"浏览器打开\" })).toBeVisible()",
+    "expect(dialog.getByText(\"分享到微信\")).toHaveCount(0)",
+    "expect(dialog.getByText(\"分享到朋友圈\")).toHaveCount(0)",
+    "expect(dialog).toHaveCSS(\"width\", \"452px\")",
+    "expect(dialog).toHaveCSS(\"border-radius\", \"24px\")",
+    "expect(dialogBox).not.toBeNull()",
+    "expect(Math.abs(dialogBox!.x + dialogBox!.width / 2 - viewport.width / 2)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(dialogBox!.y + dialogBox!.height / 2 - viewport.height / 2)).toBeLessThanOrEqual(2)",
+    "expect(page.getByRole(\"status\").filter({ hasText: \"链接已复制\" })).toBeVisible()",
+    "expect(page.getByRole(\"img\", { name: \"分享二维码\" })).toBeVisible()",
+    "expect(page.getByRole(\"img\", { name: \"分享二维码\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"status\").filter({ hasText: \"已在浏览器打开\" })).toBeVisible()",
+    "expect(drafts).toHaveLength(1)",
+    "expect(drafts[0]).toMatchObject({ title: \"public-report.html\", snapshot: { renderer: \"artifact\", turns: [], artifacts: [{ filename: \"public-report.html\", media_type: \"text/html; charset=utf-8\", preview_mode: \"sandbox_html\", }], }, })",
+    "expect(drafts[0].snapshot.artifacts).toHaveLength(1)",
+    "expect(JSON.stringify(drafts[0])).not.toContain(\"__E2E_PUBLIC_SHARE_ARTIFACTS__\")",
+    "expect(uploads).toHaveLength(1)",
+    "expect(uploads[0].artifactId).toBe(artifact.artifact_id)",
+    "expect(uploads[0].body.toString(\"utf8\")).toContain(\"E2E workspace file\")",
+    "expect(crypto.createHash(\"sha256\").update(uploads[0].body).digest(\"hex\")).toBe(artifact.sha256)",
+    "expect.poll(() => page.evaluate(() => window.workGui!.clipboard.readText())) .toBe(\"https://share.example/artifact-only-token\")",
+    "expect.poll(() => app!.evaluate(() => { const state = globalThis as typeof globalThis & { __qworkOpenedExternalUrls?: string[] }; return state.__qworkOpenedExternalUrls; })).toEqual([\"https://share.example/artifact-only-token\"])",
+    "expect(dialog).toHaveCount(0)",
+    "expect.poll(() => nativeHtmlPreviewVisible(app!)).toBe(true)",
+    "expect(trigger).toBeFocused()",
+    "expect.poll(() => nativeHtmlPreviewCount(app!)).toBe(0)",
+    "expect( page.getByRole(\"region\", { name: \"动态网页预览 public-report.html\" }), ).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"分享产物\" })).toHaveCount(0)",
+    "expect.poll(() => nativeHtmlPreviewCount(app!)).toBeGreaterThan(0)",
+    "expect.poll(() => mainWindowVisible(app!)).toBe(false)",
+    "expect.poll(() => nativeHtmlPreviewCount(app!)).toBe(0)",
+    "expect.poll(() => mainWindowVisible(app!)).toBe(true)",
+    "expect( page.getByRole(\"region\", { name: \"动态网页预览 public-report.html\" }), ).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"分享产物\" })).toHaveCount(0)",
+    "expect( restarted.page.getByRole(\"region\", { name: \"动态网页预览 public-report.html\", }), ).toHaveCount(0)",
+    "expect( restarted.page.getByRole(\"button\", { name: \"分享产物\" }), ).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-6B0A2B3FCCC697",
+      "type": "return",
+      "assertion": "shares one active artifact without conversation content and matches the compact modal contract"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-artifact-sharing-spec-ts.74ff5119cf",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/artifact-sharing.spec.ts -g \"shares one active artifact without conversation content and matches the compact modal contract\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "files",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_ARTIFACT__:public-report.html\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "artifactCard.click()"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"复制链接\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"生成二维码\" }).click()"
+        },
+        {
+          "action": "qrDialog.getByRole(\"button\", { name: \"关闭二维码\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"浏览器打开\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"关闭分享\" }).click()"
+        },
+        {
+          "action": "artifactCard.click()"
+        },
+        {
+          "action": "window.workGui!.window.close()"
+        },
+        {
+          "action": "window.focus()"
+        },
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "server.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/artifact-sharing.spec.ts",
+        "line_start": 8,
+        "line_end": 215,
+        "body_sha256": "sha256:b6f3aaba971bcd4128577d35591749ebc216b75cc322bb48be6e789a6dbc945d",
+        "assertion_count": 46,
+        "action_count": 15,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:0a21dfed14ece537eafe798594ba8d98947460a5c0ccceb34f997d1cfb6bb694"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-6B0A2B3FCCC697"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-6B0A2B3FCCC697"
+    ]
+  }
+}

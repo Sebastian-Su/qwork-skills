@@ -1,0 +1,426 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-SLS-LOGGING-MD-ITEM-CBD5C206",
+  "title": "docs/sls-logging.md · 行为与隐私边界 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-sls-logging-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/sls-logging.md",
+      "locator": "line:17;heading:行为与隐私边界",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:a60fd9671b7cd4042c8707a2b5243f1584772d3750554458fdfd0136a76cbb74",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-sls-logging-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/sls-logging.md",
+      "locator": "line:21;heading:行为与隐私边界",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:0778203cbdcc08e40c185685eb34c2c3392867c92bc5c752ab734e386faaf16d",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-sls-logging-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/sls-logging.md",
+      "locator": "line:22;heading:行为与隐私边界",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:988d467043296a6adcab8c67800749efa881f29fcf1a1af424c848e941539d6b",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-sls-logging-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/sls-logging.md",
+      "locator": "line:25;heading:行为与隐私边界",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:5f6a2b33f3d41961713fa05989000fccd22f5f4acbfc1f3dc90e2f015cb1e39c",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-746C9D9893B7AB",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-sls-logging-md:L17:a60fd9671b"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "`system.telemetry=true` 时，主窗口 renderer 完成加载后上报 `action=app_startup attr=renderer_ready`。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-sls-logging-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`system.telemetry=true` 时，主窗口 renderer 完成加载后上报 `action=app_startup attr=renderer_ready`。"
+    },
+    {
+      "requirement_id": "REQ-E26C0EBA654A99",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-sls-logging-md:L21:0778203cbd"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "`mid` 是机器级稳定标识：Windows 优先读取 `Win32_ComputerSystemProduct.UUID`，macOS 读取 `IOPlatformUUID`，Linux 优先读取 DMI `product_uuid`；Windows CIM 或 Linux DMI 不可用时分别降级到 `MachineGuid`、`/etc/machine-id`。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-sls-logging-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`mid` 是机器级稳定标识：Windows 优先读取 `Win32_ComputerSystemProduct.UUID`，macOS 读取 `IOPlatformUUID`，Linux 优先读取 DMI `product_uuid`；Windows CIM 或 Linux DMI 不可用时分别降级到 `MachineGuid`、`/etc/machine-id`。"
+    },
+    {
+      "requirement_id": "REQ-841F876E47E18D",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-sls-logging-md:L22:988d467043"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "原始机器标识只在主进程内存中短暂参与 `SHA-256(\"qwork-desktop/hardware-mid/v1\" + platform + 原始标识)` 派生；SLS、日志、renderer、preload、sidecar 和本地文件均只接触不到原始值。MID 不需要落盘，同一机器每次启动得到相同的 64 位十六进制字符串。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-sls-logging-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "原始机器标识只在主进程内存中短暂参与 `SHA-256(\"qwork-desktop/hardware-mid/v1\" + platform + 原始标识)` 派生；SLS、日志、renderer、preload、sidecar 和本地文件均只接触不到原始值。MID 不需要落盘，同一机器每次启动得到相同的 64 位十六进制字符串。"
+    },
+    {
+      "requirement_id": "REQ-7CF77BA057634D",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-sls-logging-md:L25:5f6a2b33f3"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "`auth_state` 取值为 `anonymous`、`authenticated`、`offline` 或 `unavailable`；`launch_id` 每次主进程启动重新生成。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-sls-logging-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`auth_state` 取值为 `anonymous`、`authenticated`、`offline` 或 `unavailable`；`launch_id` 每次主进程启动重新生成。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for window-runtime at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/sls-logging.md · 行为与隐私边界 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-746C9D9893B7AB] exactly: `system.telemetry=true` 时，主窗口 renderer 完成加载后上报 `action=app_startup attr=renderer_ready`。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-E26C0EBA654A99] exactly: `mid` 是机器级稳定标识：Windows 优先读取 `Win32_ComputerSystemProduct.UUID`，macOS 读取 `IOPlatformUUID`，Linux 优先读取 DMI `product_uuid`；Windows CIM 或 Linux DMI 不可用时分别降级到 `MachineGuid`、`/etc/machine-id`。"
+    },
+    {
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-841F876E47E18D] exactly: 原始机器标识只在主进程内存中短暂参与 `SHA-256(\"qwork-desktop/hardware-mid/v1\" + platform + 原始标识)` 派生；SLS、日志、renderer、preload、sidecar 和本地文件均只接触不到原始值。MID 不需要落盘，同一机器每次启动得到相同的 64 位十六进制字符串。"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-7CF77BA057634D] exactly: `auth_state` 取值为 `anonymous`、`authenticated`、`offline` 或 `unavailable`；`launch_id` 每次主进程启动重新生成。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "`system.telemetry=true` 时，主窗口 renderer 完成加载后上报 `action=app_startup attr=renderer_ready`。",
+    "`mid` 是机器级稳定标识：Windows 优先读取 `Win32_ComputerSystemProduct.UUID`，macOS 读取 `IOPlatformUUID`，Linux 优先读取 DMI `product_uuid`；Windows CIM 或 Linux DMI 不可用时分别降级到 `MachineGuid`、`/etc/machine-id`。",
+    "原始机器标识只在主进程内存中短暂参与 `SHA-256(\"qwork-desktop/hardware-mid/v1\" + platform + 原始标识)` 派生；SLS、日志、renderer、preload、sidecar 和本地文件均只接触不到原始值。MID 不需要落盘，同一机器每次启动得到相同的 64 位十六进制字符串。",
+    "`auth_state` 取值为 `anonymous`、`authenticated`、`offline` 或 `unavailable`；`launch_id` 每次主进程启动重新生成。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-746C9D9893B7AB]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `system.telemetry=true` 时，主窗口 renderer 完成加载后上报 `action=app_startup attr=renderer_ready`。",
+    "FAIL [REQ-E26C0EBA654A99]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `mid` 是机器级稳定标识：Windows 优先读取 `Win32_ComputerSystemProduct.UUID`，macOS 读取 `IOPlatformUUID`，Linux 优先读取 DMI `product_uuid`；Windows CIM 或 Linux DMI 不可用时分别降级到 `MachineGuid`、`/etc/machine-id`。",
+    "FAIL [REQ-841F876E47E18D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 原始机器标识只在主进程内存中短暂参与 `SHA-256(\"qwork-desktop/hardware-mid/v1\" + platform + 原始标识)` 派生；SLS、日志、renderer、preload、sidecar 和本地文件均只接触不到原始值。MID 不需要落盘，同一机器每次启动得到相同的 64 位十六进制字符串。",
+    "FAIL [REQ-7CF77BA057634D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `auth_state` 取值为 `anonymous`、`authenticated`、`offline` 或 `unavailable`；`launch_id` 每次主进程启动重新生成。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-746C9D9893B7AB",
+      "type": "event",
+      "assertion": "`system.telemetry=true` 时，主窗口 renderer 完成加载后上报 `action=app_startup attr=renderer_ready`。"
+    },
+    {
+      "requirement_id": "REQ-E26C0EBA654A99",
+      "type": "return",
+      "assertion": "`mid` 是机器级稳定标识：Windows 优先读取 `Win32_ComputerSystemProduct.UUID`，macOS 读取 `IOPlatformUUID`，Linux 优先读取 DMI `product_uuid`；Windows CIM 或 Linux DMI 不可用时分别降级到 `MachineGuid`、`/etc/machine-id`。"
+    },
+    {
+      "requirement_id": "REQ-841F876E47E18D",
+      "type": "database",
+      "assertion": "原始机器标识只在主进程内存中短暂参与 `SHA-256(\"qwork-desktop/hardware-mid/v1\" + platform + 原始标识)` 派生；SLS、日志、renderer、preload、sidecar 和本地文件均只接触不到原始值。MID 不需要落盘，同一机器每次启动得到相同的 64 位十六进制字符串。"
+    },
+    {
+      "requirement_id": "REQ-7CF77BA057634D",
+      "type": "api",
+      "assertion": "`auth_state` 取值为 `anonymous`、`authenticated`、`offline` 或 `unavailable`；`launch_id` 每次主进程启动重新生成。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-sls-logging-md.item-cbd5c20635",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for window-runtime at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/sls-logging.md · 行为与隐私边界 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-746C9D9893B7AB] exactly: `system.telemetry=true` 时，主窗口 renderer 完成加载后上报 `action=app_startup attr=renderer_ready`。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-E26C0EBA654A99] exactly: `mid` 是机器级稳定标识：Windows 优先读取 `Win32_ComputerSystemProduct.UUID`，macOS 读取 `IOPlatformUUID`，Linux 优先读取 DMI `product_uuid`；Windows CIM 或 Linux DMI 不可用时分别降级到 `MachineGuid`、`/etc/machine-id`。"
+        },
+        {
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-841F876E47E18D] exactly: 原始机器标识只在主进程内存中短暂参与 `SHA-256(\"qwork-desktop/hardware-mid/v1\" + platform + 原始标识)` 派生；SLS、日志、renderer、preload、sidecar 和本地文件均只接触不到原始值。MID 不需要落盘，同一机器每次启动得到相同的 64 位十六进制字符串。"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-7CF77BA057634D] exactly: `auth_state` 取值为 `anonymous`、`authenticated`、`offline` 或 `unavailable`；`launch_id` 每次主进程启动重新生成。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-746C9D9893B7AB",
+      "REQ-7CF77BA057634D",
+      "REQ-841F876E47E18D",
+      "REQ-E26C0EBA654A99"
+    ],
+    "categories": [
+      "business",
+      "data",
+      "permission",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:data",
+      "category:permission",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-746C9D9893B7AB",
+      "requirement:REQ-7CF77BA057634D",
+      "requirement:REQ-841F876E47E18D",
+      "requirement:REQ-E26C0EBA654A99"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-746C9D9893B7AB",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/sls-logging.md · 行为与隐私边界 产品契约 exactly once and retain its correlation identity",
+      "then": "`system.telemetry=true` 时，主窗口 renderer 完成加载后上报 `action=app_startup attr=renderer_ready`。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-E26C0EBA654A99",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/sls-logging.md · 行为与隐私边界 产品契约 exactly once and retain its correlation identity",
+      "then": "`mid` 是机器级稳定标识：Windows 优先读取 `Win32_ComputerSystemProduct.UUID`，macOS 读取 `IOPlatformUUID`，Linux 优先读取 DMI `product_uuid`；Windows CIM 或 Linux DMI 不可用时分别降级到 `MachineGuid`、`/etc/machine-id`。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-841F876E47E18D",
+      "oracle_type": "database",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/sls-logging.md · 行为与隐私边界 产品契约 exactly once and retain its correlation identity",
+      "then": "原始机器标识只在主进程内存中短暂参与 `SHA-256(\"qwork-desktop/hardware-mid/v1\" + platform + 原始标识)` 派生；SLS、日志、renderer、preload、sidecar 和本地文件均只接触不到原始值。MID 不需要落盘，同一机器每次启动得到相同的 64 位十六进制字符串。",
+      "observation_boundary": "case-owned durable database state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-7CF77BA057634D",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/sls-logging.md · 行为与隐私边界 产品契约 exactly once and retain its correlation identity",
+      "then": "`auth_state` 取值为 `anonymous`、`authenticated`、`offline` 或 `unavailable`；`launch_id` 每次主进程启动重新生成。",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

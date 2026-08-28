@@ -1,0 +1,226 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-EXPERT-SEARCH-EMPTY-SPEC-D0A064DE",
+  "title": "search miss replaces the expert catalog with an independent empty state",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-expert-search-empty-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/expert-search-empty.spec.ts",
+      "locator": "line:11;test:search miss replaces the expert catalog with an independent empty state",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:d0a064de39da7cc0e2c9059a6db6e0ebbf29f7c6b652d05ad5444a28222d5fa4",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-FA192BF96DFC6B",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-expert-search-empty-spec-ts:L11:d0a064de39"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "search miss replaces the expert catalog with an independent empty state",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-expert-search-empty-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "search miss replaces the expert catalog with an independent empty state"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByPlaceholder(\"搜索专家职称或描述\").fill(\"zzzz-no-such-expert-xxx\")"
+    },
+    {
+      "action": "page.getByPlaceholder(\"搜索专家职称或描述\").fill(\"\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"heading\", { name: \"精选场景\", exact: true })).toBeVisible()",
+    "expect(page.getByText(\"没有找到与「zzzz-no-such-expert-xxx」匹配的专家\")).toBeVisible()",
+    "expect(page.getByText(\"试试其他关键词\")).toBeVisible()",
+    "expect(page.getByRole(\"heading\", { name: \"精选场景\", exact: true })).toHaveCount(0)",
+    "expect(page.getByText(\"暂无专家\", { exact: true })).toHaveCount(0)",
+    "expect(page.getByText(\"暂无专家团\", { exact: true })).toHaveCount(0)",
+    "expect(page.getByPlaceholder(\"搜索专家职称或描述\")).toBeVisible()",
+    "expect(page.getByRole(\"heading\", { name: \"精选场景\", exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"list\", { name: \"专家列表\" }).getByRole(\"listitem\").first()).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-FA192BF96DFC6B",
+      "type": "return",
+      "assertion": "search miss replaces the expert catalog with an independent empty state"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-expert-search-empty-spec-ts.d0a064de39",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/expert-search-empty.spec.ts -g \"search miss replaces the expert catalog with an independent empty state\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "page.getByPlaceholder(\"搜索专家职称或描述\").fill(\"zzzz-no-such-expert-xxx\")"
+        },
+        {
+          "action": "page.getByPlaceholder(\"搜索专家职称或描述\").fill(\"\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/expert-search-empty.spec.ts",
+        "line_start": 11,
+        "line_end": 34,
+        "body_sha256": "sha256:f0fba7fc61d10918fcf8978fd3c523a7ef580809fe74922f4407cffe7fec7132",
+        "assertion_count": 9,
+        "action_count": 2,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:a9b2fff59b236ef5386b4df06cbb0adae6cc02afae1b88c421edc8ae87a5c094"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-FA192BF96DFC6B"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-FA192BF96DFC6B"
+    ]
+  }
+}

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/composer-capabilities.spec.ts",
-      "locator": "line:361;test:new conversation exposes expert, skill, and connector menus",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/composer-capabilities.spec.ts",
+      "locator": "line:567;test:new conversation exposes expert, skill, and connector menus",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:801651e8f3751d9c821512e0bea7af092d518940e9bbae3d4283148ab0ba3e76",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-6F6174CD75E3FA",
+      "requirement_id": "REQ-86D75FB0E79EC4",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L361:801651e8f3"
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L567:801651e8f3"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "implementation_revision": "b84f367917c9cc47f265fad746a780495a942c49",
     "last_verified_at": "2026-08-18T17:47:35.582172+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -91,6 +91,9 @@
     },
     {
       "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"ArrowDown\")"
     },
     {
       "action": "page.keyboard.press(\"ArrowDown\")"
@@ -150,7 +153,7 @@
       "action": "skillSearch.click()"
     },
     {
-      "action": "qqMusic.click({ force: true })"
+      "action": "humanizer.click({ force: true })"
     },
     {
       "action": "selectedSkillToken.hover()"
@@ -230,9 +233,10 @@
     "expect(rootMenu).toHaveCSS(\"border-radius\", \"16px\")",
     "expect(rootMenu).toBeFocused()",
     "expect(rootMenu.getByRole(\"menuitem\", { name: \"添加文件\", exact: true })).toBeFocused()",
+    "expect(rootMenu.getByRole(\"menuitem\", { name: \"引用对话中的文件\", exact: true })).toBeFocused()",
     "expect(rootMenu.getByRole(\"menuitem\", { name: \"模式\", exact: true })).toBeFocused()",
     "expect(fileMenu).toBeVisible()",
-    "expect(fileMenu.getByRole(\"menuitem\")).toHaveText([ \"本地文件\", \"引用对话中的文件\", \"360知识库\", ])",
+    "expect(fileMenu.getByRole(\"menuitem\")).toHaveText([ \"本地文件\", \"360知识库\", ])",
     "expect(modeMenu).toBeVisible()",
     "expect(modeMenu).toContainText(\"当前为默认模式，可高效执行并完成任务。\")",
     "expect(modeMenu.getByRole(\"switch\", { name: \"计划 Plan\" })).toHaveAttribute(\"aria-checked\", \"false\")",
@@ -250,8 +254,8 @@
     "expect(skillMenu).toBeVisible()",
     "expect(page.getByRole(\"menu\", { name: \"更多操作\" })).toBeVisible()",
     "expect(skillSearch).toBeFocused()",
-    "expect(qqMusic).toBeVisible()",
-    "expect(page.getByTestId(\"composer-editor\")).toContainText(/QQ Music|QQ音乐|qqmusic/i)",
+    "expect(humanizer).toBeVisible()",
+    "expect(page.getByTestId(\"composer-editor\")).toContainText(/文本自然化编辑|humanizer/i)",
     "expect(cancelSkill).toHaveCSS(\"opacity\", \"0\")",
     "expect(cancelSkill).toHaveCSS(\"opacity\", \"1\")",
     "expect(selectedSkillToken).toHaveCount(0)",
@@ -274,7 +278,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-6F6174CD75E3FA",
+      "requirement_id": "REQ-86D75FB0E79EC4",
       "type": "return",
       "assertion": "new conversation exposes expert, skill, and connector menus"
     }
@@ -359,6 +363,9 @@
           "action": "page.keyboard.press(\"ArrowDown\")"
         },
         {
+          "action": "page.keyboard.press(\"ArrowDown\")"
+        },
+        {
           "action": "rootMenu.getByRole(\"menuitem\", { name: \"添加文件\", exact: true }).hover()"
         },
         {
@@ -410,7 +417,7 @@
           "action": "skillSearch.click()"
         },
         {
-          "action": "qqMusic.click({ force: true })"
+          "action": "humanizer.click({ force: true })"
         },
         {
           "action": "selectedSkillToken.hover()"
@@ -488,13 +495,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/composer-capabilities.spec.ts",
-        "line_start": 361,
-        "line_end": 566,
-        "body_sha256": "sha256:26328df016338bb16e7167af99bb4da819174437e07ddeda0bda9c9e7d057a0c",
-        "assertion_count": 55,
-        "action_count": 45,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:ef0fe5eafdb3d02943778765fba214b59a44606545516c81b2b6e65bba93bb7a"
+        "line_start": 567,
+        "line_end": 773,
+        "body_sha256": "sha256:7b4ec86cc16753dce4312169a34b2405bb4c1c304013e5d6d2d9a11ec81058c8",
+        "assertion_count": 56,
+        "action_count": 46,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:6a35800ab5dff917d8c637254eb2a882d7887488452b9a164bd23761648fa7c7"
       }
     },
     "reference_run": {
@@ -516,7 +523,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-6F6174CD75E3FA"
+      "REQ-86D75FB0E79EC4"
     ],
     "categories": [
       "business"
@@ -524,7 +531,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-6F6174CD75E3FA"
+      "requirement:REQ-86D75FB0E79EC4"
     ]
   }
 }

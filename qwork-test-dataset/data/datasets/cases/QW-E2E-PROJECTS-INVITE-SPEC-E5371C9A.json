@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-invite.spec.ts",
-      "locator": "line:80;test:direct join admits a guest immediately, and a bad token is rejected",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/projects-invite.spec.ts",
+      "locator": "line:108;test:direct join admits a guest immediately, and a bad token is rejected",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:e5371c9ab6c817b4627586618cf67886326c0a499001bed72f5a8869d60bc5ee",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-1CBAC32F1D31E5",
+      "requirement_id": "REQ-06D944A75AFB7E",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-projects-invite-spec-ts:L80:e5371c9ab6"
+        "QDEV-E2E-e2e-projects-invite-spec-ts:L108:e5371c9ab6"
       ],
       "content_facets": [
         "negative-rule"
@@ -87,6 +87,12 @@
       "action": "guestPage.getByRole(\"button\", { name: \"知道了\", exact: true }).click()"
     },
     {
+      "action": "ownerPanel.getByRole(\"button\", { name: \"直接加入\" }).click()"
+    },
+    {
+      "action": "ownerPage .getByRole(\"menu\", { name: \"项目加入方式\" }) .getByRole(\"menuitem\", { name: \"申请后加入\" }) .click()"
+    },
+    {
       "action": "guestPage.getByRole(\"button\", { name: \"管理技能\" }).click()"
     },
     {
@@ -102,6 +108,8 @@
     "expect( guestPage.getByRole(\"dialog\", { name: \"已加入项目\" }), ).toBeVisible()",
     "expect( guestPage.getByTestId(\"project-detail-header\"), ).toContainText(\"E2E 邀请直加项目\")",
     "expect(guestPage.getByRole(\"button\", { name: \"发布留言\" })).toBeVisible()",
+    "expect(ownerPanel.getByRole(\"button\", { name: \"申请后加入\" })).toBeVisible()",
+    "expect(ownerPage.getByTestId(\"project-detail-header\")).toContainText(\"E2E 邀请直加项目\")",
     "expect(guestSkillDialog).toBeVisible()",
     "expect(guestSkillDialog.getByRole(\"button\", { name: \"添加\" })).toHaveCount(0)"
   ],
@@ -112,7 +120,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-1CBAC32F1D31E5",
+      "requirement_id": "REQ-06D944A75AFB7E",
       "type": "return",
       "assertion": "direct join admits a guest immediately, and a bad token is rejected"
     }
@@ -185,6 +193,12 @@
           "action": "guestPage.getByRole(\"button\", { name: \"知道了\", exact: true }).click()"
         },
         {
+          "action": "ownerPanel.getByRole(\"button\", { name: \"直接加入\" }).click()"
+        },
+        {
+          "action": "ownerPage .getByRole(\"menu\", { name: \"项目加入方式\" }) .getByRole(\"menuitem\", { name: \"申请后加入\" }) .click()"
+        },
+        {
           "action": "guestPage.getByRole(\"button\", { name: \"管理技能\" }).click()"
         },
         {
@@ -209,13 +223,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/projects-invite.spec.ts",
-        "line_start": 80,
-        "line_end": 142,
-        "body_sha256": "sha256:675ea6d1c346b2e26596bf584eb14c9688846e557973b91a94dc11daf9b1ce5e",
-        "assertion_count": 10,
-        "action_count": 6,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:67dc7b856c7e257f38553b97f03c760c9f4a10b2c7ea886ba94a3f179ec2d8fd"
+        "line_start": 108,
+        "line_end": 180,
+        "body_sha256": "sha256:2d3ffc566de3a0a767c352a55f58db1dfee077ebe0f5e997f71dcfd8ab379ef9",
+        "assertion_count": 12,
+        "action_count": 8,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:e235ceaf37e305fa56819a753cf9b9e57b48011dca021b6e42465eb386d38b91"
       }
     },
     "reference_run": {
@@ -237,7 +251,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-1CBAC32F1D31E5"
+      "REQ-06D944A75AFB7E"
     ],
     "categories": [
       "negative"
@@ -245,7 +259,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-1CBAC32F1D31E5"
+      "requirement:REQ-06D944A75AFB7E"
     ]
   }
 }

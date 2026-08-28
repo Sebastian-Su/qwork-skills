@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/inspiration.spec.ts",
-      "locator": "line:95;test:matches the WorkBuddy list contract and exposes true capability types",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/inspiration.spec.ts",
+      "locator": "line:104;test:matches the WorkBuddy list contract and exposes true capability types",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:50b78ee5484e721cde1854ee482684c662e2683d50a2d6dc6fa4a01b9f393216",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-438AFE9ABEE4C6",
+      "requirement_id": "REQ-862F7903D44818",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-inspiration-spec-ts:L95:50b78ee548"
+        "QDEV-E2E-e2e-inspiration-spec-ts:L104:50b78ee548"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -156,7 +156,7 @@
       "action": "mcpDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
     },
     {
-      "action": "page.getByRole(\"searchbox\", { name: \"搜索灵感\" }).fill(\"合同\")"
+      "action": "page.getByRole(\"searchbox\", { name: \"搜索灵感\" }).fill(\"协议\")"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"收藏 SaaS 服务协议差异报告\" }).click()"
@@ -184,7 +184,8 @@
     "expect(page.getByRole(\"tab\")).toHaveCount(14)",
     "expect(page.getByRole(\"searchbox\", { name: \"搜索灵感\" })).toBeVisible()",
     "expect(page.getByRole(\"button\", { name: \"我的收藏\" })).toBeVisible()",
-    "expect(cards).toHaveCount(29)",
+    "expect(cards).toHaveCount(18)",
+    "expect(page.getByText(cloud.pending[0].title, { exact: true })).toHaveCount(0)",
     "expect(new Set(firstRow.map((box) => box.y)).size).toBe(1)",
     "expect(box.width).toBeGreaterThanOrEqual(201.5)",
     "expect(box.width).toBeLessThanOrEqual(205.5)",
@@ -199,10 +200,10 @@
     "expect(favoritesButtonStyle).toMatchObject({ fontSize: \"13px\", color: \"rgb(0, 0, 0)\", backgroundColor: \"rgb(255, 255, 255)\", })",
     "expect(Math.abs( Number.parseFloat(favoritesButtonStyle.borderTopWidth) * favoritesButtonStyle.devicePixelRatio - 1, )) .toBeLessThanOrEqual(0.25)",
     "expect(page.getByRole(\"tab\")).toHaveCount(14)",
-    "expect(cards).toHaveCount(29)",
+    "expect(cards).toHaveCount(18)",
     "expect(cards).toHaveCount(8)",
     "expect(cards.first()).toHaveAccessibleName(\"打工人小账本\")",
-    "expect(cards).toHaveCount(29)",
+    "expect(cards).toHaveCount(18)",
     "expect(shoufuDialog.getByText(\"工作台搭建师\")).toBeVisible()",
     "expect(shoufuDialog.getByText(\"个人工作台\")).toHaveCount(0)",
     "expect(shoufuDialog.getByText(\"Scene\", { exact: true })).toHaveCount(0)",
@@ -258,7 +259,7 @@
     "expect(lifeDialog).toHaveAttribute(\"data-preview-mode\", \"maximized\")",
     "expect(lifeDemo.getByRole(\"heading\", { name: \"今天，慢慢来\" })).toBeVisible()",
     "expect.poll(() => cards.count()).toBeGreaterThanOrEqual(2)",
-    "expect(cards).toHaveCount(29)",
+    "expect(cards).toHaveCount(18)",
     "expect(dialog).toBeVisible()",
     "expect(dialog.getByText(\"Skill\", { exact: true })).toBeVisible()",
     "expect(dialog.getByText(\"Expert\", { exact: true })).toHaveCount(0)",
@@ -272,12 +273,15 @@
     "expect(cards).toHaveCount(1)",
     "expect(cards).toHaveCount(1)",
     "expect(page.getByRole(\"tablist\", { name: \"灵感分类\" })).toHaveCount(0)",
-    "expect(cards).toHaveCount(29)",
+    "expect(cards).toHaveCount(18)",
     "expect(responsiveCards[0].y).toBe(responsiveCards[1].y)",
     "expect(responsiveCards[2].y).toBeGreaterThan(responsiveCards[0].bottom)",
     "expect(page.getByRole(\"heading\", { name: \"灵感\", level: 1 })).not.toBeVisible()",
     "expect(page.getByRole(\"textbox\")).not.toHaveValue(\"\")",
-    "expect(page.getByRole(\"status\", { name: \"灵感回填状态\" })).toContainText(\"来自灵感「仓储管理工作台」\")"
+    "expect(page.getByRole(\"status\", { name: \"灵感回填状态\" })).toContainText(\"来自灵感「仓储管理工作台」\")",
+    "expect(instantiateRequests).toHaveLength(2)",
+    "expect(instantiateRequests.every((request) => Boolean(request.idempotencyKey))).toBe(true)",
+    "expect(new Set(instantiateRequests.map((request) => request.idempotencyKey)).size).toBe(2)"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -286,7 +290,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-438AFE9ABEE4C6",
+      "requirement_id": "REQ-862F7903D44818",
       "type": "return",
       "assertion": "matches the WorkBuddy list contract and exposes true capability types"
     }
@@ -428,7 +432,7 @@
           "action": "mcpDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
         },
         {
-          "action": "page.getByRole(\"searchbox\", { name: \"搜索灵感\" }).fill(\"合同\")"
+          "action": "page.getByRole(\"searchbox\", { name: \"搜索灵感\" }).fill(\"协议\")"
         },
         {
           "action": "page.getByRole(\"button\", { name: \"收藏 SaaS 服务协议差异报告\" }).click()"
@@ -470,13 +474,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/inspiration.spec.ts",
-        "line_start": 95,
-        "line_end": 380,
-        "body_sha256": "sha256:bb2afca9ef9b89c725c719ed6c986f9bda9679b15a3a6f2eeec3dfb00c2d0bcc",
-        "assertion_count": 97,
+        "line_start": 104,
+        "line_end": 394,
+        "body_sha256": "sha256:8f938c18bd4968c3ead4da4052be8d2a1fa01c5c293e6dda9cfd07473f54b2b0",
+        "assertion_count": 101,
         "action_count": 35,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:31208ec86625619dc0415ddae5e10f058fd5f3b6e973cbdf69f51cafa9d17d7a"
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:76581d8dad7061464aaa9ef71a63d52354789e8f5d093a01a3cb4787a58b86c9"
       }
     },
     "reference_run": {
@@ -498,7 +502,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-438AFE9ABEE4C6"
+      "REQ-862F7903D44818"
     ],
     "categories": [
       "business"
@@ -506,7 +510,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-438AFE9ABEE4C6"
+      "requirement:REQ-862F7903D44818"
     ]
   }
 }

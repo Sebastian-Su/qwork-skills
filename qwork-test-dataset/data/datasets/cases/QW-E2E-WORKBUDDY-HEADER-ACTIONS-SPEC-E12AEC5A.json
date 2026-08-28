@@ -1,0 +1,499 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-HEADER-ACTIONS-SPEC-E12AEC5A",
+  "title": "aligns the assistant header actions with the WorkBuddy oracle",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-header-actions-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/workbuddy-header-actions.spec.ts",
+      "locator": "line:10;test:aligns the assistant header actions with the WorkBuddy oracle",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:e12aec5a7107fecd52fb4a6739728d2c1bf003aa13570126081f45cc0e998c7f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-E1484DA5245263",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-header-actions-spec-ts:L10:e12aec5a71"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "aligns the assistant header actions with the WorkBuddy oracle",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-header-actions-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "aligns the assistant header actions with the WorkBuddy oracle"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+    },
+    {
+      "action": "buttons[2].click()"
+    },
+    {
+      "action": "page.getByPlaceholder(/今天帮你做些什么/).click()"
+    },
+    {
+      "action": "composer.fill(\"历史问题 needle 🚀\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.keyboard.press(process.platform === \"darwin\" ? \"Meta+f\" : \"Control+f\")"
+    },
+    {
+      "action": "search.fill(\"不存在的匹配词\")"
+    },
+    {
+      "action": "search.fill(\"needle\")"
+    },
+    {
+      "action": "search.press(\"Escape\")"
+    },
+    {
+      "action": "buttons[2].click()"
+    },
+    {
+      "action": "history.press(\"End\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "buttons[2].click()"
+    },
+    {
+      "action": "page.getByTestId(\"conversation-scroll\").click({ position: { x: 12, y: 200 } })"
+    },
+    {
+      "action": "buttons[2].click()"
+    },
+    {
+      "action": "buttons[2].click()"
+    },
+    {
+      "action": "buttons[2].click()"
+    },
+    {
+      "action": "page.getByRole(\"option\", { name: \"历史问题 needle 🚀\" }).click()"
+    },
+    {
+      "action": "buttons[1].click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"复制链接\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"checkbox\", { name: /选择完整回合/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"复制链接\" }).click()"
+    },
+    {
+      "action": "copyLinkButton.click()"
+    },
+    {
+      "action": "page.getByTestId(\"conversation-scroll\").click({ position: { x: 20, y: 20 } })"
+    },
+    {
+      "action": "buttons[1].click()"
+    },
+    {
+      "action": "buttons[1].click()"
+    },
+    {
+      "action": "buttons[1].click()"
+    },
+    {
+      "action": "buttons[1].click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收起上下文面板\" }).click()"
+    },
+    {
+      "action": "composer.fill(\"第二个历史问题\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "buttons[2].click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "restartedPage.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+    },
+    {
+      "action": "restartedHistoryButton.click()"
+    },
+    {
+      "action": "restartedHistory.getByRole(\"option\", { name: \"历史问题 needle 🚀\" }).click()"
+    },
+    {
+      "action": "shareServer.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(() => page.evaluate(() => localStorage.getItem(\"ziqdo:assistant-session-id\"))).not.toBeNull()",
+    "expect(page.getByRole(\"group\", { name: \"会话操作\" })).toBeVisible()",
+    "expect(passed, `${id}: expected ${JSON.stringify(expected)}, actual ${JSON.stringify(actual)}`).toBe(true)",
+    "expect(actionGroup).toHaveAttribute(\"data-anchor\", \"main-content-end\")",
+    "expect(contextToolbar).toBeVisible()",
+    "expect(actionGroupBox).not.toBeNull()",
+    "expect(contextPanelBox).not.toBeNull()",
+    "expect(contextToolbarBox).not.toBeNull()",
+    "expect(outletBox).not.toBeNull()",
+    "expect(page.getByRole(\"combobox\", { name: \"历史提问\" })).toHaveCount(1)",
+    "expect(page.getByRole(\"listbox\", { name: \"历史提问（0）\" })).toBeVisible()",
+    "expect(page.getByText(\"暂无历史提问\")).toBeVisible()",
+    "expect(page.getByRole(\"listbox\", { name: \"历史提问（0）\" })).toHaveCount(0)",
+    "expect(page.getByText(/收到：\\s*历史问题 needle 🚀/)).toBeVisible()",
+    "expect(actionGroup).toHaveAttribute(\"data-anchor\", \"main-content-end\")",
+    "expect(statusBar.getByRole(\"button\", { name: /对话内搜索/ })).toHaveCount(0)",
+    "expect(statusBar).toBeVisible()",
+    "expect(statusBar.getByRole(\"button\", { name: \"助理设置\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: /对话内搜索/ })).toHaveCount(1)",
+    "expect(page.getByRole(\"button\", { name: \"分享任务\" })).toHaveCount(1)",
+    "expect(page.getByRole(\"combobox\", { name: \"历史提问\" })).toHaveCount(1)",
+    "expect(button).toHaveCSS(\"width\", \"32px\")",
+    "expect(boxes[1]!.x - boxes[0]!.x - boxes[0]!.width).toBe(4)",
+    "expect(boxes[2]!.x - boxes[1]!.x - boxes[1]!.width).toBe(4)",
+    "expect(search).toBeFocused()",
+    "expect(page.getByRole(\"status\", { name: \"搜索结果\" })).toContainText(\"无结果\")",
+    "expect(page.getByRole(\"button\", { name: \"上一个（Shift+Enter）\" })).toBeDisabled()",
+    "expect(page.getByRole(\"status\", { name: \"搜索结果\" })).toContainText(\"1/2\")",
+    "expect(highlights).toHaveCount(2)",
+    "expect(page.locator('[data-search-highlight=\"active\"]')).toHaveCount(1)",
+    "expect(page.locator('[data-message-id].bg-yellow-100\\\\/50')).toHaveCount(0)",
+    "expect(page.locator('[data-message-id].ring-2')).toHaveCount(0)",
+    "expect(buttons[0]).toBeFocused()",
+    "expect(history).toBeVisible()",
+    "expect(historyOption.locator(\"time\")).toBeVisible()",
+    "expect(historyOption).toBeFocused()",
+    "expect(buttons[2]).toBeFocused()",
+    "expect(history).toHaveCount(0)",
+    "expect(locatedMessage).toHaveAttribute(\"data-location-highlight\", \"true\")",
+    "expect(sharePanel).toBeVisible()",
+    "expect(sharePanel).toHaveAttribute(\"data-no-drag\")",
+    "expect(sharePanel).toHaveCSS(\"height\", \"120px\")",
+    "expect(sharePanel).toHaveCSS(\"background-color\", \"rgb(250, 250, 250)\")",
+    "expect(sharePanel.getByRole(\"checkbox\", { name: \"全选\" })).not.toBeChecked()",
+    "expect(page.getByRole(\"button\", { name: \"分享到微信\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"分享到朋友圈\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"生成二维码\" })).toBeEnabled()",
+    "expect(page.getByRole(\"button\", { name: \"浏览器打开\" })).toBeEnabled()",
+    "expect(shareError).toBeVisible()",
+    "expect(shareError).toHaveCount(0)",
+    "expect.poll(() => shareRequests.length).toBe(1)",
+    "expect(apiError).toContainText(\"分享服务暂不可用，请重试\")",
+    "expect(sharePanel).toBeVisible()",
+    "expect(page.getByRole(\"checkbox\", { name: /选择完整回合/ })).toBeChecked()",
+    "expect(sharePanel).toHaveAttribute(\"aria-busy\", \"true\")",
+    "expect(copyLinkButton).toBeDisabled()",
+    "expect(page.getByText(\"链接已复制\", { exact: true })).toBeVisible()",
+    "expect(sharePanel).toHaveCount(0)",
+    "expect(sharePanel).toBeVisible()",
+    "expect(sharePanel).toHaveCount(0)",
+    "expect(page.locator(\"html\")).toHaveAttribute(\"data-theme\", \"dark\")",
+    "expect(sharePanel).toBeVisible()",
+    "expect(buttons[0]).toBeVisible()",
+    "expect(lastNarrowChannel).toBeVisible()",
+    "expect(sharePanel).toHaveCount(0)",
+    "expect(buttons[0]).toBeVisible()",
+    "expect(contextToolbar).toHaveCount(0)",
+    "expect(contextPanel).toHaveCount(0)",
+    "expect(page.getByText(/收到：\\s*第二个历史问题/)).toBeVisible()",
+    "expect(multiHistory.getByRole(\"option\")).toHaveCount(2)",
+    "expect(restartedOptions).toHaveCount(2)",
+    "expect(restartedLocated).toHaveAttribute(\"data-location-highlight\", \"true\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-E1484DA5245263",
+      "type": "return",
+      "assertion": "aligns the assistant header actions with the WorkBuddy oracle"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-header-actions-spec-ts.e12aec5a71",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-header-actions.spec.ts -g \"aligns the assistant header actions with the WorkBuddy oracle\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+        },
+        {
+          "action": "buttons[2].click()"
+        },
+        {
+          "action": "page.getByPlaceholder(/今天帮你做些什么/).click()"
+        },
+        {
+          "action": "composer.fill(\"历史问题 needle 🚀\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.keyboard.press(process.platform === \"darwin\" ? \"Meta+f\" : \"Control+f\")"
+        },
+        {
+          "action": "search.fill(\"不存在的匹配词\")"
+        },
+        {
+          "action": "search.fill(\"needle\")"
+        },
+        {
+          "action": "search.press(\"Escape\")"
+        },
+        {
+          "action": "buttons[2].click()"
+        },
+        {
+          "action": "history.press(\"End\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "buttons[2].click()"
+        },
+        {
+          "action": "page.getByTestId(\"conversation-scroll\").click({ position: { x: 12, y: 200 } })"
+        },
+        {
+          "action": "buttons[2].click()"
+        },
+        {
+          "action": "buttons[2].click()"
+        },
+        {
+          "action": "buttons[2].click()"
+        },
+        {
+          "action": "page.getByRole(\"option\", { name: \"历史问题 needle 🚀\" }).click()"
+        },
+        {
+          "action": "buttons[1].click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"复制链接\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"checkbox\", { name: /选择完整回合/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"复制链接\" }).click()"
+        },
+        {
+          "action": "copyLinkButton.click()"
+        },
+        {
+          "action": "page.getByTestId(\"conversation-scroll\").click({ position: { x: 20, y: 20 } })"
+        },
+        {
+          "action": "buttons[1].click()"
+        },
+        {
+          "action": "buttons[1].click()"
+        },
+        {
+          "action": "buttons[1].click()"
+        },
+        {
+          "action": "buttons[1].click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收起上下文面板\" }).click()"
+        },
+        {
+          "action": "composer.fill(\"第二个历史问题\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "buttons[2].click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "restartedPage.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+        },
+        {
+          "action": "restartedHistoryButton.click()"
+        },
+        {
+          "action": "restartedHistory.getByRole(\"option\", { name: \"历史问题 needle 🚀\" }).click()"
+        },
+        {
+          "action": "shareServer.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-header-actions.spec.ts",
+        "line_start": 10,
+        "line_end": 389,
+        "body_sha256": "sha256:b940391d7ee043c54cfec616a38c092b9dd8c896d88902e2c27ec7bcd12f624b",
+        "assertion_count": 72,
+        "action_count": 37,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:fa88977b18a95103632d5179e2c31bb726b0bd952ed9dcf8703a3348bb459e9d"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-E1484DA5245263"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-E1484DA5245263"
+    ]
+  }
+}

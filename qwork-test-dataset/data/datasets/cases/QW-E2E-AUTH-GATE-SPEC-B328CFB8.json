@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/auth-gate.spec.ts",
-      "locator": "line:120;test:enters the app shell without an auth server",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/auth-gate.spec.ts",
+      "locator": "line:118;test:enters the app shell without an auth server",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:b328cfb86fe45b32aefc0a1f754accc7d4cf2724b8698ae17bfe099771b4dff9",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-8BE0C2E60B5A59",
+      "requirement_id": "REQ-72856C46F32D92",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-auth-gate-spec-ts:L120:b328cfb86f"
+        "QDEV-E2E-e2e-auth-gate-spec-ts:L118:b328cfb86f"
       ],
       "content_facets": [
         "negative-rule"
@@ -75,13 +75,46 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"离线登录\", exact: true }).click()"
+      "action": "createTestHome(\"auth-offline\")"
+    },
+    {
+      "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: \"http://127.0.0.1:1\", QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"test\", NODE_ENV: \"test\", })"
+    },
+    {
+      "action": "app.firstWindow()"
+    },
+    {
+      "action": "process.env.QWORK_E2E_ARTIFACT_DIR?.trim()"
+    },
+    {
+      "action": "fs.mkdir(artifactDir, { recursive: true })"
+    },
+    {
+      "action": "path.join(artifactDir, \"AUTH-OFFLINE-001-01-entry.png\")"
+    },
+    {
+      "action": "testInfo.outputPath(\"offline-login-gate.png\")"
+    },
+    {
+      "action": "page.screenshot({ path: loginGateScreenshot, fullPage: true })"
+    },
+    {
+      "action": "testInfo.attach(\"offline-login-gate\", { path: loginGateScreenshot, contentType: \"image/png\", })"
+    },
+    {
+      "action": "page.evaluate(() => (window as typeof window & { workGui?: WorkGuiApi }).workGui!.auth.loginOffline(), )"
+    },
+    {
+      "action": "(window as typeof window & { workGui?: WorkGuiApi }).workGui!.auth.loginOffline()"
+    },
+    {
+      "action": "path.join(artifactDir, \"AUTH-OFFLINE-001-02-final-state.png\")"
     }
   ],
   "expected_outcomes": [
-    "expect(page.getByRole(\"heading\", { name: \"Qwork Welcome\" })).toBeVisible()",
+    "expect(page.getByRole(\"heading\", { name: \"QWork，我帮你\" })).toBeVisible()",
     "expect(page.getByRole(\"button\", { name: \"项目\", exact: true })).toBeVisible()",
-    "expect(page.getByRole(\"heading\", { name: \"Qwork Welcome\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"heading\", { name: \"QWork，我帮你\" })).toHaveCount(0)",
     "expect .poll(() => page.evaluate(() => (window as typeof window & { workGui?: WorkGuiApi }).workGui!.auth.status(), ), ) .toEqual({ loggedIn: true, userId: \"offline-user\", displayName: \"离线用户\", })"
   ],
   "forbidden_outcomes": [
@@ -91,7 +124,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-8BE0C2E60B5A59",
+      "requirement_id": "REQ-72856C46F32D92",
       "type": "return",
       "assertion": "enters the app shell without an auth server"
     }
@@ -152,7 +185,40 @@
       "entrypoint": "auth",
       "steps": [
         {
-          "action": "page.getByRole(\"button\", { name: \"离线登录\", exact: true }).click()"
+          "action": "createTestHome(\"auth-offline\")"
+        },
+        {
+          "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: \"http://127.0.0.1:1\", QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"test\", NODE_ENV: \"test\", })"
+        },
+        {
+          "action": "app.firstWindow()"
+        },
+        {
+          "action": "process.env.QWORK_E2E_ARTIFACT_DIR?.trim()"
+        },
+        {
+          "action": "fs.mkdir(artifactDir, { recursive: true })"
+        },
+        {
+          "action": "path.join(artifactDir, \"AUTH-OFFLINE-001-01-entry.png\")"
+        },
+        {
+          "action": "testInfo.outputPath(\"offline-login-gate.png\")"
+        },
+        {
+          "action": "page.screenshot({ path: loginGateScreenshot, fullPage: true })"
+        },
+        {
+          "action": "testInfo.attach(\"offline-login-gate\", { path: loginGateScreenshot, contentType: \"image/png\", })"
+        },
+        {
+          "action": "page.evaluate(() => (window as typeof window & { workGui?: WorkGuiApi }).workGui!.auth.loginOffline(), )"
+        },
+        {
+          "action": "(window as typeof window & { workGui?: WorkGuiApi }).workGui!.auth.loginOffline()"
+        },
+        {
+          "action": "path.join(artifactDir, \"AUTH-OFFLINE-001-02-final-state.png\")"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -173,13 +239,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/auth-gate.spec.ts",
-        "line_start": 120,
+        "line_start": 118,
         "line_end": 168,
-        "body_sha256": "sha256:6dc70984455823c8b8830b92bd8da2fcd8bdcab5f01c397b94ddbcebcc04898d",
+        "body_sha256": "sha256:20e525da37fececba12d6153a366489a106ae1f0b93da46ff12fb2f21cd95233",
         "assertion_count": 4,
-        "action_count": 1,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:0e9007b6e51348d70c4ee301ba21c8f2dea5972d860c3c977c8a807e7a13e24f"
+        "action_count": 0,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:c80973b048d1290c404495c17d15c7f33ca39243a626eea792dd92d2775655b3"
       }
     },
     "reference_run": {
@@ -201,7 +267,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-8BE0C2E60B5A59"
+      "REQ-72856C46F32D92"
     ],
     "categories": [
       "negative"
@@ -209,7 +275,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-8BE0C2E60B5A59"
+      "requirement:REQ-72856C46F32D92"
     ]
   }
 }

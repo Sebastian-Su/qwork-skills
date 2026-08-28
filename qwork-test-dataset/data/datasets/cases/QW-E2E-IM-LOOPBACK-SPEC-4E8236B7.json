@@ -1,0 +1,267 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-IM-LOOPBACK-SPEC-4E8236B7",
+  "title": "sends only the managed IM turn artifact and hydrates its desktop card",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-im-loopback-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/im-loopback.spec.ts",
+      "locator": "line:145;test:sends only the managed IM turn artifact and hydrates its desktop card",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:4e8236b73cd3eadeb460984997727f856170ae7eb3ef5eb93c582c9eff028003",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-AC0FA85A9AA08F",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-im-loopback-spec-ts:L145:4e8236b73c"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "sends only the managed IM turn artifact and hydrates its desktop card",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-im-loopback-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "sends only the managed IM turn artifact and hydrates its desktop card"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "createTestHome(\"im-managed-artifact\")"
+    },
+    {
+      "action": "createWorkspace(configHome)"
+    },
+    {
+      "action": "seedEnabledQq(configHome)"
+    },
+    {
+      "action": "path.join(configHome, \"im-inbox.json\")"
+    },
+    {
+      "action": "path.join(configHome, \"im-outbox.json\")"
+    },
+    {
+      "action": "writeInbox( inboxFile, qqMessage({ messageId: \"qq-managed-artifact-1\", conversationId: \"qq-managed-artifact\", content, }), )"
+    },
+    {
+      "action": "qqMessage({ messageId: \"qq-managed-artifact-1\", conversationId: \"qq-managed-artifact\", content, })"
+    },
+    {
+      "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, E2E_IM_OUTBOX_FILE: outboxFile, })"
+    },
+    {
+      "action": "openInjectedConversation( launched.page, \"qq-managed-artifact\", content, )"
+    },
+    {
+      "action": "cleanupTestHome(app, configHome)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect .poll(() => readOutboxAttachments(outboxFile)) .toEqual([ expect.objectContaining({ displayName: \"managed-report.txt\" }), ])",
+    "expect( launched.page.getByRole(\"button\", { name: \"打开产出物 managed-report.txt\", }), ).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-AC0FA85A9AA08F",
+      "type": "return",
+      "assertion": "sends only the managed IM turn artifact and hydrates its desktop card"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-im-loopback-spec-ts.4e8236b73c",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/im-loopback.spec.ts -g \"sends only the managed IM turn artifact and hydrates its desktop card\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "createTestHome(\"im-managed-artifact\")"
+        },
+        {
+          "action": "createWorkspace(configHome)"
+        },
+        {
+          "action": "seedEnabledQq(configHome)"
+        },
+        {
+          "action": "path.join(configHome, \"im-inbox.json\")"
+        },
+        {
+          "action": "path.join(configHome, \"im-outbox.json\")"
+        },
+        {
+          "action": "writeInbox( inboxFile, qqMessage({ messageId: \"qq-managed-artifact-1\", conversationId: \"qq-managed-artifact\", content, }), )"
+        },
+        {
+          "action": "qqMessage({ messageId: \"qq-managed-artifact-1\", conversationId: \"qq-managed-artifact\", content, })"
+        },
+        {
+          "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, E2E_IM_OUTBOX_FILE: outboxFile, })"
+        },
+        {
+          "action": "openInjectedConversation( launched.page, \"qq-managed-artifact\", content, )"
+        },
+        {
+          "action": "cleanupTestHome(app, configHome)"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/im-loopback.spec.ts",
+        "line_start": 145,
+        "line_end": 189,
+        "body_sha256": "sha256:3cc294714e89d2304ad7a8afbbfe501167dc6a364095561306c5da96793c967b",
+        "assertion_count": 2,
+        "action_count": 0,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:7aabc579f5219d106d684b1100adf82f8ab62e33c330bc527fe0db23cfae4b3e"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-AC0FA85A9AA08F"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-AC0FA85A9AA08F"
+    ]
+  }
+}

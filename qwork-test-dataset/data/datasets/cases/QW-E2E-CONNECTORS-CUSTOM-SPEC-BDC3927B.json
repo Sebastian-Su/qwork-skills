@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-custom.spec.ts",
-      "locator": "line:145;test:disable keeps the config, unbind removes it, and state survives restart",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/connectors-custom.spec.ts",
+      "locator": "line:270;test:disable keeps the config, unbind removes it, and state survives restart",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:bdc3927b238d5e5b4b7f30ac4be598d8fe39edfed51826b455af85eb856fe390",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-10F5A6B96EDA22",
+      "requirement_id": "REQ-98F2A11BE713DF",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-connectors-custom-spec-ts:L145:bdc3927b23"
+        "QDEV-E2E-e2e-connectors-custom-spec-ts:L270:bdc3927b23"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,25 +75,25 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "page.getByRole(\"dialog\", { name: \"自定义连接器\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+      "action": "page.getByRole(\"dialog\", { name: \"配置 MCP\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"my-server，未连接\" }).click()"
     },
     {
-      "action": "detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+      "action": "detailDialog(page, \"my-server\") .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"信任并启用\", exact: true }).click()"
     },
     {
-      "action": "detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"停用\", exact: true }).click()"
+      "action": "detailDialog(page, \"my-server\") .getByRole(\"button\", { name: \"停用\", exact: true }) .click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"my-server，已停用\" }).click()"
     },
     {
-      "action": "detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
+      "action": "detailDialog(page, \"my-server\") .getByRole(\"button\", { name: \"解绑\", exact: true }) .click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
@@ -106,12 +106,12 @@
     }
   ],
   "expected_outcomes": [
-    "expect(detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible()",
-    "expect(detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"启用\", exact: true })).toBeVisible()",
-    "expect( (await readMcpLog(mcpLog)).some((entry) => entry.type === \"mcp_server_remove\"), ).toBe(true)",
-    "expect(page.getByRole(\"button\", { name: \"my-server，已停用\" })).toBeVisible()",
-    "expect(page.getByRole(\"button\", { name: /my-server/ })).toHaveCount(0)",
-    "expect(page.getByText(\"收到：解绑后继续对话\", { exact: true })).toBeVisible()"
+    "expect( detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"停用\", exact: true, }), ).toBeVisible()",
+    "expect( detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"启用\", exact: true, }), ).toBeVisible()",
+    "expect( (await readMcpLog(mcpLog)).some( (entry) => entry.type === \"mcp_server_remove\", ), ).toBe(true)",
+    "expect( page.getByRole(\"button\", { name: \"my-server，已停用\" }), ).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: /my-server/ })).toHaveCount( 0, )",
+    "expect( page.getByText(\"收到：解绑后继续对话\", { exact: true }), ).toBeVisible()"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -120,7 +120,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-10F5A6B96EDA22",
+      "requirement_id": "REQ-98F2A11BE713DF",
       "type": "return",
       "assertion": "disable keeps the config, unbind removes it, and state survives restart"
     }
@@ -181,25 +181,25 @@
       "entrypoint": "connectors",
       "steps": [
         {
-          "action": "page.getByRole(\"dialog\", { name: \"自定义连接器\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+          "action": "page.getByRole(\"dialog\", { name: \"配置 MCP\" }).getByRole(\"button\", { name: \"保存\", exact: true }).click()"
         },
         {
           "action": "page.getByRole(\"button\", { name: \"my-server，未连接\" }).click()"
         },
         {
-          "action": "detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+          "action": "detailDialog(page, \"my-server\") .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
         },
         {
           "action": "page.getByRole(\"button\", { name: \"信任并启用\", exact: true }).click()"
         },
         {
-          "action": "detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"停用\", exact: true }).click()"
+          "action": "detailDialog(page, \"my-server\") .getByRole(\"button\", { name: \"停用\", exact: true }) .click()"
         },
         {
           "action": "page.getByRole(\"button\", { name: \"my-server，已停用\" }).click()"
         },
         {
-          "action": "detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
+          "action": "detailDialog(page, \"my-server\") .getByRole(\"button\", { name: \"解绑\", exact: true }) .click()"
         },
         {
           "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
@@ -229,13 +229,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/connectors-custom.spec.ts",
-        "line_start": 145,
-        "line_end": 182,
-        "body_sha256": "sha256:2df48f90c28c1fbb18c21b81def7c7090d28432104128aaeb3aa1e6503f5c575",
+        "line_start": 270,
+        "line_end": 331,
+        "body_sha256": "sha256:a6c9e230824d2823a393a5fc0ea4f2c7c9c644280f4e9a4c11cc8cdb582d9d7b",
         "assertion_count": 6,
         "action_count": 10,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:60df48f4820859375bce894365f3c009b133f1bedd7bd74690d6c28cd4c023aa"
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:5e2146fe1fba53e75cefc23102c3ec684379de0665569cefe03878613c15783a"
       }
     },
     "reference_run": {
@@ -257,7 +257,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-10F5A6B96EDA22"
+      "REQ-98F2A11BE713DF"
     ],
     "categories": [
       "business"
@@ -265,7 +265,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-10F5A6B96EDA22"
+      "requirement:REQ-98F2A11BE713DF"
     ]
   }
 }

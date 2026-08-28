@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/assistant.spec.ts",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/assistant.spec.ts",
       "locator": "line:15;test:configures an IM assistant, restores it and keeps its secret encrypted",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:2044639d7cd450e994b42582f968a69ff7086c720bd26cd28f45af0c1794ec42",
       "redaction_status": "minimized"
     }
@@ -148,7 +148,9 @@
     "expect.poll(() => page.evaluate(() => localStorage.getItem(\"ziqdo:assistant-session-id\")), ).not.toBeNull()",
     "expect(page.getByRole(\"heading\", { name: \"本地助理\" })).toBeVisible()",
     "expect(contextPanel).toBeVisible()",
-    "expect(contextPanel.getByRole(\"heading\", { name: \"概览\" })).toBeVisible()",
+    "expect(page.getByRole(\"toolbar\", { name: \"上下文面板工具栏\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"切换上下文视图\" })).toContainText(\"概览\")",
+    "expect(contextPanel.getByRole(\"heading\", { name: \"概览\" })).toHaveCount(0)",
     "expect(contextPanel.getByRole(\"heading\", { name: \"任务进程\" })).toBeVisible()",
     "expect(contextPanel.getByText(\"暂无任务进程\")).toBeVisible()",
     "expect(contextPanel.getByRole(\"heading\", { name: \"产物\" })).toBeVisible()",
@@ -346,12 +348,12 @@
       "source_contract": {
         "spec": "e2e/assistant.spec.ts",
         "line_start": 15,
-        "line_end": 146,
-        "body_sha256": "sha256:7a652b6a530fc7c05f795aa82eefedbc38f7f873b21159aa20a80631e8467e34",
-        "assertion_count": 44,
+        "line_end": 148,
+        "body_sha256": "sha256:9ffe8086cb5dcb83f037d548b9ef330786a53da047b36ba6111ccb3d2d496780",
+        "assertion_count": 46,
         "action_count": 23,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:b419f117ab4704650073005614779001446fa41b2285da999e552aba3e2d38e8"
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:0ef85d4c688c3faa4e465bd82802e6a34c6e8f27f1bafb9e20cbec4c1cbbceaf"
       }
     },
     "reference_run": {

@@ -1,0 +1,251 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-OAUTH-SPEC-B84DB822",
+  "title": "unbind stays disconnected across restart and starts a fresh authorization",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-oauth-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/connectors-oauth.spec.ts",
+      "locator": "line:653;test:unbind stays disconnected across restart and starts a fresh authorization",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:b84db8223c6fb8c926a0bc15dc0996db326a558703043666d6bb4d7ccfe90a8f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-A310BC6C95FB0A",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-oauth-spec-ts:L653:b84db8223c"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "unbind stays disconnected across restart and starts a fresh authorization",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-oauth-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "unbind stays disconnected across restart and starts a fresh authorization"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"Demo 服务，未连接\" }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"Demo 服务，未连接\" }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"停止连接\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect .poll(async () => (await readLines(authUrlSink)).length, { timeout: 15_000, }) .toBe(1)",
+    "expect( detail.getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible({ timeout: 15_000 })",
+    "expect( page.getByRole(\"button\", { name: \"Demo 服务，未连接\", exact: true }), ).toBeVisible()",
+    "expect(vault.records ?? {}).toEqual({})",
+    "expect( page.getByRole(\"button\", { name: \"Demo 服务，未连接\", exact: true }), ).toBeVisible({ timeout: 15_000 })",
+    "expect(await readLines(authUrlSink)).toHaveLength(1)",
+    "expect(auth!.tokenRequests).toHaveLength(1)",
+    "expect .poll(async () => (await readLines(authUrlSink)).length, { timeout: 15_000, }) .toBe(2)",
+    "expect(secondState).toBeTruthy()",
+    "expect(secondState).not.toBe(firstState)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-A310BC6C95FB0A",
+      "type": "return",
+      "assertion": "unbind stays disconnected across restart and starts a fresh authorization"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-oauth-spec-ts.b84db8223c",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-oauth.spec.ts -g \"unbind stays disconnected across restart and starts a fresh authorization\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"Demo 服务，未连接\" }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"解绑\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"Demo 服务，未连接\" }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"停止连接\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-oauth.spec.ts",
+        "line_start": 653,
+        "line_end": 712,
+        "body_sha256": "sha256:46b8a4da162e89d9ecfc8d07b9f09ba667305d8dda072820a719c41ff4d49fd5",
+        "assertion_count": 10,
+        "action_count": 6,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:3cdd19ec6fd215e12b27a19274126c3ca1085589ce267a586e07be439a5678a1"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-A310BC6C95FB0A"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-A310BC6C95FB0A"
+    ]
+  }
+}

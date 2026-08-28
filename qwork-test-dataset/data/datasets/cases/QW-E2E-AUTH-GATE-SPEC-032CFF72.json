@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/auth-gate.spec.ts",
-      "locator": "line:69;test:auth bypass reaches the app shell without a login click",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/auth-gate.spec.ts",
+      "locator": "line:67;test:auth bypass reaches the app shell without a login click",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:032cff72245711227355e2be8ce1234a0818302459217965436acd6e03dd1b2e",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-014953549BE018",
+      "requirement_id": "REQ-F6D4E10ADA09E8",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-auth-gate-spec-ts:L69:032cff7224"
+        "QDEV-E2E-e2e-auth-gate-spec-ts:L67:032cff7224"
       ],
       "content_facets": [
         "negative-rule"
@@ -86,7 +86,7 @@
   ],
   "expected_outcomes": [
     "expect(page.getByRole(\"button\", { name: \"项目\", exact: true })).toBeVisible()",
-    "expect(page.getByRole(\"button\", { name: \"登录\", exact: true })).toHaveCount(0)"
+    "expect(page.getByRole(\"button\", { name: \"登录 QWork\", exact: true })).toHaveCount(0)"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -95,7 +95,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-014953549BE018",
+      "requirement_id": "REQ-F6D4E10ADA09E8",
       "type": "return",
       "assertion": "auth bypass reaches the app shell without a login click"
     }
@@ -183,13 +183,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/auth-gate.spec.ts",
-        "line_start": 69,
-        "line_end": 85,
-        "body_sha256": "sha256:f70ff3c0dd475b76f2f889a4baac80a1b90cf2094c051213cea69ba98106284e",
+        "line_start": 67,
+        "line_end": 83,
+        "body_sha256": "sha256:3746913c8760081682d02e6f77350948fed13557d703ecb2544e55eac3aa2a69",
         "assertion_count": 2,
         "action_count": 0,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:0e9007b6e51348d70c4ee301ba21c8f2dea5972d860c3c977c8a807e7a13e24f"
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:c80973b048d1290c404495c17d15c7f33ca39243a626eea792dd92d2775655b3"
       }
     },
     "reference_run": {
@@ -211,7 +211,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-014953549BE018"
+      "REQ-F6D4E10ADA09E8"
     ],
     "categories": [
       "negative"
@@ -219,7 +219,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-014953549BE018"
+      "requirement:REQ-F6D4E10ADA09E8"
     ]
   }
 }

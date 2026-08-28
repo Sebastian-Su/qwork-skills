@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/changes/CHG-home-practice-cases-20260819/phase-2-requirements.md",
-      "locator": "line:94;heading:5.4 失败",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/changes/CHG-home-practice-cases-20260819/phase-2-requirements.md",
+      "locator": "line:96;heading:5.4 失败",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:99c0430de0e7a4232e96b6c7e9f121cf356790486a69983243db95496de33fd6",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-6EF6DC414D7068",
+      "requirement_id": "REQ-6FDC9D13227483",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-08ef7e84:L94:99c0430de0"
+        "QDEV-DOC-docs-changes-chg-home-practice-cases-20260819-phase-08ef7e84:L96:99c0430de0"
       ],
       "content_facets": [
         "negative-rule"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-2-requirements.md · 5.4 失败 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-6EF6DC414D7068] exactly: | `promptSession` 失败 | 会话若已创建必须对用户可见且草稿/失败态可重试；不得假装启动成功 |"
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-6FDC9D13227483] exactly: | `promptSession` 失败 | 会话若已创建必须对用户可见且草稿/失败态可重试；不得假装启动成功 |"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "| `promptSession` 失败 | 会话若已创建必须对用户可见且草稿/失败态可重试；不得假装启动成功 |"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-6EF6DC414D7068]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | `promptSession` 失败 | 会话若已创建必须对用户可见且草稿/失败态可重试；不得假装启动成功 |",
+    "FAIL [REQ-6FDC9D13227483]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | `promptSession` 失败 | 会话若已创建必须对用户可见且草稿/失败态可重试；不得假装启动成功 |",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-6EF6DC414D7068",
+      "requirement_id": "REQ-6FDC9D13227483",
       "type": "ui",
       "assertion": "| `promptSession` 失败 | 会话若已创建必须对用户可见且草稿/失败态可重试；不得假装启动成功 |"
     }
@@ -170,7 +170,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-2-requirements.md · 5.4 失败 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-6EF6DC414D7068] exactly: | `promptSession` 失败 | 会话若已创建必须对用户可见且草稿/失败态可重试；不得假装启动成功 |"
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-6FDC9D13227483] exactly: | `promptSession` 失败 | 会话若已创建必须对用户可见且草稿/失败态可重试；不得假装启动成功 |"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -216,7 +216,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-6EF6DC414D7068"
+      "REQ-6FDC9D13227483"
     ],
     "categories": [
       "negative"
@@ -224,12 +224,12 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-6EF6DC414D7068"
+      "requirement:REQ-6FDC9D13227483"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-6EF6DC414D7068",
+      "requirement_id": "REQ-6FDC9D13227483",
       "oracle_type": "ui",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-home-practice-cases-20260819/phase-2-requirements.md · 5.4 失败 产品契约 exactly once and retain its correlation identity",

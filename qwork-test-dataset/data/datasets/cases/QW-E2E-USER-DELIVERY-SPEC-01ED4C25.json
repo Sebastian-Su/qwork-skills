@@ -1,0 +1,272 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-USER-DELIVERY-SPEC-01ED4C25",
+  "title": "双 ID 会话完全重启后仍显示并打开原 HTML 产物",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "persistence",
+    "journey": "persistence",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-user-delivery-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/user-delivery.spec.ts",
+      "locator": "line:248;test:双 ID 会话完全重启后仍显示并打开原 HTML 产物",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:01ed4c252b7b6b81badedd4cb00bbc892baabc9dc2eea41afd1c00ea78939392",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-F35724DD789DF5",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-user-delivery-spec-ts:L248:01ed4c252b"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "persistence",
+      "priority": "P1",
+      "rule": "双 ID 会话完全重启后仍显示并打开原 HTML 产物",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-user-delivery-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "双 ID 会话完全重启后仍显示并打开原 HTML 产物"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+    },
+    {
+      "action": "composer.fill(`__E2E_RESTART_ARTIFACT__:${fileName}`)"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "card.click()"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: /跨重启产物恢复/ }) .click()"
+    },
+    {
+      "action": "restoredCard.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( page.getByRole(\"complementary\").getByRole(\"button\", { name: /跨重启产物恢复/, }), ).toBeVisible()",
+    "expect(card).toBeVisible()",
+    "expect(page.getByRole(\"tab\", { name: fileName, exact: true })).toBeVisible()",
+    "expect(page.getByLabel(`动态网页预览 ${fileName}`)).toBeVisible()",
+    "expect(identityFiles).toHaveLength(1)",
+    "expect .poll(() => page.evaluate( async (sessionId) => (await window.workGui.sessions.deliveries(sessionId)).length, identity.canonicalSessionId, ), ) .toBe(1)",
+    "expect( page.getByText(`__E2E_RESTART_ARTIFACT__:${fileName}`, { exact: true }), ).toBeVisible()",
+    "expect(restoredCard).toBeVisible()",
+    "expect( page.getByRole(\"button\", { name: `打开产出物 ${deliveryFileName}`, exact: true, }), ).toBeVisible()",
+    "expect(page.getByRole(\"tab\", { name: fileName, exact: true })).toBeVisible()",
+    "expect(page.getByLabel(`动态网页预览 ${fileName}`)).toBeVisible()",
+    "expect(identity.canonicalSessionId).toMatch(/^wg-/)",
+    "expect(path.basename(identity.sessionPath)).toMatch(/^session-/)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-F35724DD789DF5",
+      "type": "ui",
+      "assertion": "双 ID 会话完全重启后仍显示并打开原 HTML 产物"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-user-delivery-spec-ts.01ed4c252b",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/user-delivery.spec.ts -g \"双 ID 会话完全重启后仍显示并打开原 HTML 产物\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "persistence",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+        },
+        {
+          "action": "composer.fill(`__E2E_RESTART_ARTIFACT__:${fileName}`)"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "card.click()"
+        },
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: /跨重启产物恢复/ }) .click()"
+        },
+        {
+          "action": "restoredCard.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/user-delivery.spec.ts",
+        "line_start": 248,
+        "line_end": 354,
+        "body_sha256": "sha256:751855e0564f9f5d9b7c01f5d1631e756375b2317e4730684a9557d3bcdc27ea",
+        "assertion_count": 13,
+        "action_count": 9,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:e71c0968379c8b2812058b7e5de8ad54544932e4910c009dc2e396fe1bb55d04"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-F35724DD789DF5"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-F35724DD789DF5"
+    ]
+  }
+}

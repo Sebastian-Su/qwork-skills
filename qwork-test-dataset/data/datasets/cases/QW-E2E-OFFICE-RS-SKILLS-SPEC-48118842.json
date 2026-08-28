@@ -1,0 +1,268 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-OFFICE-RS-SKILLS-SPEC-48118842",
+  "title": "XLSX formulas, sparse exports, and error exits follow the documented contract",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-office-rs-skills-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/office-rs-skills.spec.ts",
+      "locator": "line:105;test:XLSX formulas, sparse exports, and error exits follow the documented contract",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:481188420d9ade98ae3a5c0de05f9285a61840fe7435e465681f3c1a59a8ec35",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-C97DF758AFD5E3",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-office-rs-skills-spec-ts:L105:481188420d"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "XLSX formulas, sparse exports, and error exits follow the documented contract",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-office-rs-skills-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "XLSX formulas, sparse exports, and error exits follow the documented contract"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "platformDirectory()"
+    },
+    {
+      "action": "installedSkills()"
+    },
+    {
+      "action": "path.join( skillsRoot, \"xlsx-rs\", \"scripts\", platform, process.platform === \"win32\" ? \"xlsx-rw.exe\" : \"xlsx-rw\", )"
+    },
+    {
+      "action": "path.join(root, \"spec.json\")"
+    },
+    {
+      "action": "path.join(root, \"input.xlsx\")"
+    },
+    {
+      "action": "path.join(root, \"output.xlsx\")"
+    },
+    {
+      "action": "path.join(root, \"edit.json\")"
+    },
+    {
+      "action": "path.join(root, \"edited.xlsx\")"
+    },
+    {
+      "action": "path.join(root, \"edited-output.xlsx\")"
+    },
+    {
+      "action": "path.join(root, \"output.csv\")"
+    },
+    {
+      "action": "writeFile( spec, JSON.stringify({ sheets: [ { name: \"Summary\", cells: [ { ref: \"A1\", value: \"Label\" }, { ref: \"B1\", value: \"Unit\" }, { ref: \"C1\", value: \"Count\" }, { ref: \"D1\", value: \"Result\" }, { ref: \"A2\", value: \"State\" }, { ref: \"C2\", value: 1 }, { ref: \"D2\", formula: '=IF(C2>0,\"达标\",\"未达标\")' }, { ref: \"A4\", value: \"Total\" }, { ref: \"D4\", formula: \"=SUM(C2:C3)\" }, ], }, ], }), \"utf8\", )"
+    },
+    {
+      "action": "JSON.stringify({ sheets: [ { name: \"Summary\", cells: [ { ref: \"A1\", value: \"Label\" }, { ref: \"B1\", value: \"Unit\" }, { ref: \"C1\", value: \"Count\" }, { ref: \"D1\", value: \"Result\" }, { ref: \"A2\", value: \"State\" }, { ref: \"C2\", value: 1 }, { ref: \"D2\", formula: '=IF(C2>0,\"达标\",\"未达标\")' }, { ref: \"A4\", value: \"Total\" }, { ref: \"D4\", formula: \"=SUM(C2:C3)\" }, ], }, ], })"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(JSON.parse(recalculated.stdout).status).toBe(\"success\")",
+    "expect(csvText).toContain(\"State,,1,达标\")",
+    "expect(csvText).toContain(\"\\n,,,\\n\")",
+    "expect(csvText).toContain(\"Total,,,1\")",
+    "expect(JSON.parse(validated.stdout).status).toBe(\"success\")",
+    "expect(runFile(binary, [\"recalc\", broken], { cwd: root })).rejects.toMatchObject({ code: 1, })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-C97DF758AFD5E3",
+      "type": "return",
+      "assertion": "XLSX formulas, sparse exports, and error exits follow the documented contract"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-office-rs-skills-spec-ts.481188420d",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/office-rs-skills.spec.ts -g \"XLSX formulas, sparse exports, and error exits follow the documented contract\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "platformDirectory()"
+        },
+        {
+          "action": "installedSkills()"
+        },
+        {
+          "action": "path.join( skillsRoot, \"xlsx-rs\", \"scripts\", platform, process.platform === \"win32\" ? \"xlsx-rw.exe\" : \"xlsx-rw\", )"
+        },
+        {
+          "action": "path.join(root, \"spec.json\")"
+        },
+        {
+          "action": "path.join(root, \"input.xlsx\")"
+        },
+        {
+          "action": "path.join(root, \"output.xlsx\")"
+        },
+        {
+          "action": "path.join(root, \"edit.json\")"
+        },
+        {
+          "action": "path.join(root, \"edited.xlsx\")"
+        },
+        {
+          "action": "path.join(root, \"edited-output.xlsx\")"
+        },
+        {
+          "action": "path.join(root, \"output.csv\")"
+        },
+        {
+          "action": "writeFile( spec, JSON.stringify({ sheets: [ { name: \"Summary\", cells: [ { ref: \"A1\", value: \"Label\" }, { ref: \"B1\", value: \"Unit\" }, { ref: \"C1\", value: \"Count\" }, { ref: \"D1\", value: \"Result\" }, { ref: \"A2\", value: \"State\" }, { ref: \"C2\", value: 1 }, { ref: \"D2\", formula: '=IF(C2>0,\"达标\",\"未达标\")' }, { ref: \"A4\", value: \"Total\" }, { ref: \"D4\", formula: \"=SUM(C2:C3)\" }, ], }, ], }), \"utf8\", )"
+        },
+        {
+          "action": "JSON.stringify({ sheets: [ { name: \"Summary\", cells: [ { ref: \"A1\", value: \"Label\" }, { ref: \"B1\", value: \"Unit\" }, { ref: \"C1\", value: \"Count\" }, { ref: \"D1\", value: \"Result\" }, { ref: \"A2\", value: \"State\" }, { ref: \"C2\", value: 1 }, { ref: \"D2\", formula: '=IF(C2>0,\"达标\",\"未达标\")' }, { ref: \"A4\", value: \"Total\" }, { ref: \"D4\", formula: \"=SUM(C2:C3)\" }, ], }, ], })"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/office-rs-skills.spec.ts",
+        "line_start": 105,
+        "line_end": 186,
+        "body_sha256": "sha256:e88e5490916f8454e3bc6da284a236102a67392d87ec76050e7b653524eeb967",
+        "assertion_count": 6,
+        "action_count": 0,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:5c17474c6311485a6dfecf3c4420549ed59d882693e43060011220fa9553e5f9"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-C97DF758AFD5E3"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-C97DF758AFD5E3"
+    ]
+  }
+}

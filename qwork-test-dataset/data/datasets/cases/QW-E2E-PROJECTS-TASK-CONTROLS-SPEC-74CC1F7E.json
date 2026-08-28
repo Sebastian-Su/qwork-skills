@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-task-controls.spec.ts",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/projects-task-controls.spec.ts",
       "locator": "line:12;test:matches WorkBuddy task target, workspace history, and dismiss behavior",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:74cc1f7e0ebc3dd6e2b247f84be2484b2ab18ef0b4e5bfd90b741c9af13c4b15",
       "redaction_status": "minimized"
     }
@@ -87,7 +87,10 @@
       "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
     },
     {
-      "action": "reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }).click()"
+      "action": "reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"添加文件\" }).hover()"
+    },
+    {
+      "action": "referenceFileMenu.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }).click()"
     },
     {
       "action": "page.keyboard.press(\"Escape\")"
@@ -195,8 +198,8 @@
     "expect(modeMenu).toHaveClass(/bg-bg-1/)",
     "expect(modeMenu).toHaveClass(/border-border/)",
     "expect(modeSurface.background).not.toBe(modeSurface.color)",
-    "expect(modeSurface.rect.width).toBeGreaterThan(200)",
-    "expect(modeSurface.rect.height).toBeGreaterThan(100)",
+    "expect(modeSurface.rect.width).toBe(200)",
+    "expect(modeSurface.rect.height).toBe(148)",
     "expect(modeMenu).toBeHidden()",
     "expect(moreMenu).toBeHidden()",
     "expect(composer.getByRole(\"button\", { name: \"打开工具菜单\" })).toBeFocused()",
@@ -212,13 +215,14 @@
     "expect(composerSurface.footerBackground).not.toBe(\"rgb(255, 255, 255)\")",
     "expect(composerSurface.textareaColor).toBe(\"rgb(255, 255, 255)\")",
     "expect(composerSurface.footerControlColor).toBe(\"rgb(255, 255, 255)\")",
-    "expect(reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"添加文件\" })).toBeVisible()",
-    "expect( reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }), ).toBeVisible()",
+    "expect( referenceFileMenu.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }), ).toBeVisible()",
     "expect(page.getByRole(\"dialog\", { name: \"引用文件与对话\" })).toBeVisible()",
     "expect(page.getByRole(\"dialog\", { name: \"引用文件与对话\" })).toBeHidden()",
     "expect(reopenedMoreMenuAfterReference).toBeVisible()",
-    "expect(fileMenu.getByRole(\"menuitem\")).toHaveCount(1)",
+    "expect(fileMenu.getByRole(\"menuitem\")).toHaveCount(3)",
     "expect(fileMenu.getByRole(\"menuitem\", { name: \"本地文件\" })).toBeVisible()",
+    "expect(fileMenu.getByRole(\"menuitem\", { name: \"引用对话中的文件\" })).toBeVisible()",
+    "expect(fileMenu.getByRole(\"menuitem\", { name: \"360知识库\" })).toBeVisible()",
     "expect(projectSkillMenu).toBeVisible()",
     "expect(projectSkillMenu.getByRole(\"status\")).toHaveText(\"未找到匹配的技能，换个关键词试试\")",
     "expect(projectConnectorMenu).toBeVisible()",
@@ -322,7 +326,10 @@
           "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
         },
         {
-          "action": "reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }).click()"
+          "action": "reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"添加文件\" }).hover()"
+        },
+        {
+          "action": "referenceFileMenu.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }).click()"
         },
         {
           "action": "page.keyboard.press(\"Escape\")"
@@ -434,12 +441,12 @@
       "source_contract": {
         "spec": "e2e/projects-task-controls.spec.ts",
         "line_start": 12,
-        "line_end": 219,
-        "body_sha256": "sha256:e39ba4d599a93e053c6a04414e51b40ac01f2d78245c9b6026956292ed32fda9",
-        "assertion_count": 60,
-        "action_count": 35,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:287f911211f6f2a3463ebc0e7dbbb59abdf52414e8d50b903456302d55d4b5ac"
+        "line_end": 243,
+        "body_sha256": "sha256:8dded0eed665250764ca365f4c1971b2c3abfeea1c98b1a8076bc1ba29348510",
+        "assertion_count": 61,
+        "action_count": 36,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:9bd8e31e327c95e3d41d77b25432963487e97d1cee0ae831b1f5baedb71fcc35"
       }
     },
     "reference_run": {

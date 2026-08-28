@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/im-loopback.spec.ts",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/im-loopback.spec.ts",
       "locator": "line:24;test:injects a QQ message into the assistant and renders the sidecar reply",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:d8ca1e86c329860a39a9b852ef618ee9c9a99fad2c46f31da3b8878ce84c7be0",
       "redaction_status": "minimized"
     }
@@ -96,7 +96,7 @@
       "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, })"
     },
     {
-      "action": "openInjectedConversation( launched.page, \"qq-conversation-1\", content, )"
+      "action": "openInjectedConversation(launched.page, \"qq-conversation-1\", content)"
     },
     {
       "action": "expectInboundText(launched.page, content)"
@@ -109,7 +109,7 @@
     }
   ],
   "expected_outcomes": [
-    "expect(launched.page.getByRole(\"heading\", { name: \"本地助理\" })).toBeVisible()"
+    "expect( launched.page.getByRole(\"heading\", { name: \"本地助理\" }), ).toBeVisible()"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -200,7 +200,7 @@
           "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, })"
         },
         {
-          "action": "openInjectedConversation( launched.page, \"qq-conversation-1\", content, )"
+          "action": "openInjectedConversation(launched.page, \"qq-conversation-1\", content)"
         },
         {
           "action": "expectInboundText(launched.page, content)"
@@ -231,12 +231,12 @@
       "source_contract": {
         "spec": "e2e/im-loopback.spec.ts",
         "line_start": 24,
-        "line_end": 59,
-        "body_sha256": "sha256:7757decc13510571a4a13dd6566af63481f4d532634f6ecfc4b1d9b81dda81f6",
+        "line_end": 57,
+        "body_sha256": "sha256:d7769be2415eab3774c0b3d7539133d1193a77b76dd002c0db9cf689ea7b67e4",
         "assertion_count": 1,
         "action_count": 0,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:73c646b3d06da3b72f1b6a9891f48ee6f7df4c4c461e3bdff7c4d64a3a410b64"
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:7aabc579f5219d106d684b1100adf82f8ab62e33c330bc527fe0db23cfae4b3e"
       }
     },
     "reference_run": {

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/conversation-sharing.spec.ts",
-      "locator": "line:183;test:non-production desktop mode uses cookie-only authentication for a remote share API",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/conversation-sharing.spec.ts",
+      "locator": "line:321;test:non-production desktop mode uses cookie-only authentication for a remote share API",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:15aa498cb4d55cb1cc07de801140f708b977fb4b55e5ef387fde00d8231418ff",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-C235B3C1F353CD",
+      "requirement_id": "REQ-E6833F38397578",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-conversation-sharing-spec-ts:L183:15aa498cb4"
+        "QDEV-E2E-e2e-conversation-sharing-spec-ts:L321:15aa498cb4"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -98,6 +98,7 @@
   ],
   "expected_outcomes": [
     "expect(page.getByText(\"收到：验证开发态云端分享\", { exact: true })).toBeVisible()",
+    "expect(panel.getByRole(\"checkbox\", { name: \"全选\" })).toBeChecked()",
     "expect(page.getByRole(\"status\").filter({ hasText: \"链接已复制\" })).toContainText(\"链接已复制\")",
     "expect(authorizationHeaders).toEqual([undefined, undefined])"
   ],
@@ -108,7 +109,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-C235B3C1F353CD",
+      "requirement_id": "REQ-E6833F38397578",
       "type": "return",
       "assertion": "non-production desktop mode uses cookie-only authentication for a remote share API"
     }
@@ -208,13 +209,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/conversation-sharing.spec.ts",
-        "line_start": 183,
-        "line_end": 238,
-        "body_sha256": "sha256:3bf601a08947f6f378d69be1708d8c1a86d1d9c014c7a52c4f3e980eb71106c4",
-        "assertion_count": 3,
+        "line_start": 321,
+        "line_end": 380,
+        "body_sha256": "sha256:584c4a05e6ec722eeb1f14906196845249a0ac06cf4ec286912586f0e68f4cdf",
+        "assertion_count": 4,
         "action_count": 7,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:19a7b3d76c56169ae25fc61ad289e6df5ac13590a98c6b26059320ee223e7984"
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:f4b571c299aa816d0cf6ea6cbe6f496943e058f172c4332dcd982d83cb1525a5"
       }
     },
     "reference_run": {
@@ -236,7 +237,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-C235B3C1F353CD"
+      "REQ-E6833F38397578"
     ],
     "categories": [
       "business"
@@ -244,7 +245,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-C235B3C1F353CD"
+      "requirement:REQ-E6833F38397578"
     ]
   }
 }

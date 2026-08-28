@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/skill-hub.spec.ts",
-      "locator": "line:490;test:matches the WorkBuddy catalog cards and detail layout",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/skill-hub.spec.ts",
+      "locator": "line:520;test:matches the WorkBuddy catalog cards and detail layout",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:b1e553c6545a6021c4edd7ab0ec8e3b777a7fc956606407ed255fafb8d495326",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-2A3A2BA12A0828",
+      "requirement_id": "REQ-14AB277569D4F8",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-skill-hub-spec-ts:L490:b1e553c654"
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L520:b1e553c654"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -118,7 +118,7 @@
     "expect.poll(async () => ( categoryRail.getByRole(\"tab\", { name: \"办公效率\", exact: true }).evaluate( (element) => getComputedStyle(element).backgroundColor, ) )).not.toBe(\"rgba(0, 0, 0, 0)\")",
     "expect(scrollPosition.scrollWidth).toBeGreaterThan(scrollPosition.clientWidth)",
     "expect(scrollPosition.left).toBeGreaterThan(0)",
-    "expect(cards).toHaveCount(100)",
+    "expect(cards).toHaveCount(30)",
     "expect(first.width).toBeGreaterThanOrEqual(290)",
     "expect(first.width).toBeLessThanOrEqual(380)",
     "expect(first.height).toBeGreaterThanOrEqual(124)",
@@ -168,7 +168,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-2A3A2BA12A0828",
+      "requirement_id": "REQ-14AB277569D4F8",
       "type": "return",
       "assertion": "matches the WorkBuddy catalog cards and detail layout"
     }
@@ -283,13 +283,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/skill-hub.spec.ts",
-        "line_start": 490,
-        "line_end": 604,
-        "body_sha256": "sha256:6c9ec867a1cf8a372d4105e2449e3fe9e967709e48c68ff8b64168332c28c683",
+        "line_start": 520,
+        "line_end": 634,
+        "body_sha256": "sha256:5616d86ffd5c6d6d05c6b4e6a99b86afc0306c7270f643b74d546fae5b20934e",
         "assertion_count": 48,
         "action_count": 12,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:2273637235cd224c143cf062c061be89c5ed2ae5359c59746276110f31e8c03f"
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:0b685b94df77a3dc0f0995c858a81a6ad4039a3d0ec6d57688d6a61ef41052a4"
       }
     },
     "reference_run": {
@@ -311,7 +311,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-2A3A2BA12A0828"
+      "REQ-14AB277569D4F8"
     ],
     "categories": [
       "business"
@@ -319,7 +319,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-2A3A2BA12A0828"
+      "requirement:REQ-14AB277569D4F8"
     ]
   }
 }

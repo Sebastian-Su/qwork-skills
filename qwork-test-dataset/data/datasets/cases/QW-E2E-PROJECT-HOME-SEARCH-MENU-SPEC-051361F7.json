@@ -1,0 +1,261 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECT-HOME-SEARCH-MENU-SPEC-051361F7",
+  "title": "filters the project list by search and renames via the card menu",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-project-home-search-menu-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/project-home-search-menu.spec.ts",
+      "locator": "line:10;test:filters the project list by search and renames via the card menu",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:051361f7f573874d0c0e18332ef36201a7870f6da91102278e34e67ace183458",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0CD52D238EFD09",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-project-home-search-menu-spec-ts:L10:051361f7f5"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "filters the project list by search and renames via the card menu",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-project-home-search-menu-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "filters the project list by search and renames via the card menu"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "search.fill(\"harness\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"清空搜索\" }).click()"
+    },
+    {
+      "action": "card.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"重命名\" }).click()"
+    },
+    {
+      "action": "renameDialog.getByLabel(\"项目名称\").fill(\"harness 重命名后\")"
+    },
+    {
+      "action": "renameDialog.getByRole(\"button\", { name: \"保存\" }).click()"
+    },
+    {
+      "action": "projectServer.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"harness 学习计划\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"QWork 入门示例\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"harness 学习计划\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"QWork 入门示例\", { exact: true })).toHaveCount(0)",
+    "expect(page.getByText(\"QWork 入门示例\", { exact: true })).toBeVisible()",
+    "expect(renameDialog).toBeHidden()",
+    "expect(grid.getByRole(\"heading\", { name: \"harness 重命名后\", exact: true })).toBeVisible()",
+    "expect(grid.getByRole(\"heading\", { name: \"harness 学习计划\", exact: true })).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0CD52D238EFD09",
+      "type": "return",
+      "assertion": "filters the project list by search and renames via the card menu"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-project-home-search-menu-spec-ts.051361f7f5",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/project-home-search-menu.spec.ts -g \"filters the project list by search and renames via the card menu\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "search.fill(\"harness\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"清空搜索\" }).click()"
+        },
+        {
+          "action": "card.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"重命名\" }).click()"
+        },
+        {
+          "action": "renameDialog.getByLabel(\"项目名称\").fill(\"harness 重命名后\")"
+        },
+        {
+          "action": "renameDialog.getByRole(\"button\", { name: \"保存\" }).click()"
+        },
+        {
+          "action": "projectServer.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/project-home-search-menu.spec.ts",
+        "line_start": 10,
+        "line_end": 160,
+        "body_sha256": "sha256:12d8537f8b64764b2dda277c92d9c6c888a2d36af8ad192eb0af8b85f6077255",
+        "assertion_count": 8,
+        "action_count": 8,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:450154d4b052563063147fc06e80cc85078a5dfb9519005f0a46bffbaa37fba4"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0CD52D238EFD09"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-0CD52D238EFD09"
+    ]
+  }
+}

@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-journey-sidebar-account.spec.ts",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/ui-journey-sidebar-account.spec.ts",
       "locator": "line:429;test:UI-JOURNEY-SIDEBAR-FOOTER-002 | message center keeps scrolling open and matches the reference card geometry",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:3ecac18588dc9a0423a553aaa77c452a7d7e158325e502034aef5aca86c0e5b0",
       "redaction_status": "minimized"
     }
@@ -115,12 +115,35 @@
     },
     {
       "action": "center.getByRole(\"button\", { name: /查看 任务运行失败/ }).first().click()"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: /E2E 确定性失败 8/ }) .click()"
+    },
+    {
+      "action": "restartedComposer.fill(\"__E2E_ERROR__:8\")"
+    },
+    {
+      "action": "restartedComposer.press(\"Enter\")"
+    },
+    {
+      "action": "restartedTrigger.click()"
     }
   ],
   "expected_outcomes": [
     "expect(page.getByTestId(\"dialog-thread-title\")).toHaveText( `E2E 确定性失败 ${index}`, )",
+    "expect(trigger.getByLabel(\"有未读消息\")).toBeVisible()",
     "expect(center).toBeVisible()",
     "expect(center.getByRole(\"listitem\")).toHaveCount(8)",
+    "expect(center.getByLabel(\"未读\")).toHaveCount(8)",
     "expect(dateLabel).toBeVisible()",
     "expect(center).not.toContainText(\"最近\")",
     "expect(await computedStyle(center, [\"border-radius\", \"border-color\", \"background-color\"])).toEqual({ \"border-radius\": `${MESSAGE_CENTER_REFERENCE.panel.radius}px`, \"border-color\": \"rgb(242, 242, 242)\", \"background-color\": \"rgb(255, 255, 255)\", })",
@@ -139,7 +162,19 @@
     "expect(trigger).toBeFocused()",
     "expect.soft(responsiveListBox.height).toBeLessThanOrEqual(viewport.height * 0.7 + 2)",
     "expect(center).toBeHidden()",
-    "expect(page.getByTestId(\"dialog-thread-title\")).toHaveText(\"E2E 确定性失败 8\")"
+    "expect(page.getByTestId(\"dialog-thread-title\")).toHaveText(\"E2E 确定性失败 8\")",
+    "expect(trigger.getByLabel(\"有未读消息\")).toBeVisible()",
+    "expect(center.getByRole(\"listitem\")).toHaveCount(8)",
+    "expect(center.getByLabel(\"未读\")).toHaveCount(7)",
+    "expect(viewedCard.getByLabel(\"未读\")).toHaveCount(0)",
+    "expect(persistedReadState).toContain('\"version\":1')",
+    "expect(persistedReadState).toContain('\"signature\":\"errored:')",
+    "expect(await page.evaluate(() => localStorage.getItem(\"ziqdo.taskNotificationReadState.v1\"), )).toBe(persistedReadState)",
+    "expect(page.getByText(\"E2E 确定性失败 8\", { exact: true }).first()).toBeVisible()",
+    "expect(page.getByTestId(\"dialog-thread-title\")).toHaveText(\"E2E 确定性失败 8\")",
+    "expect(restartedTrigger.getByLabel(\"有未读消息\")).toBeVisible()",
+    "expect(restartedCenter.getByLabel(\"未读\")).toHaveCount(1)",
+    "expect( restartedCenter .getByText(\"E2E 确定性失败 8\", { exact: true }) .locator('xpath=ancestor::*[@role=\"listitem\"]') .getByLabel(\"未读\"), ).toBeVisible()"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -249,6 +284,27 @@
         },
         {
           "action": "center.getByRole(\"button\", { name: /查看 任务运行失败/ }).first().click()"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: /E2E 确定性失败 8/ }) .click()"
+        },
+        {
+          "action": "restartedComposer.fill(\"__E2E_ERROR__:8\")"
+        },
+        {
+          "action": "restartedComposer.press(\"Enter\")"
+        },
+        {
+          "action": "restartedTrigger.click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -270,12 +326,12 @@
       "source_contract": {
         "spec": "e2e/ui-journey-sidebar-account.spec.ts",
         "line_start": 429,
-        "line_end": 569,
-        "body_sha256": "sha256:13bcfea87512e180932352c250c21d77cbcfe8706af2cc8bcef144a3869177cd",
-        "assertion_count": 22,
-        "action_count": 14,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:047431073ce7b9ab48e52418d325e4db86a1ea0d15b882f6f7d4eff7b9d17a29"
+        "line_end": 619,
+        "body_sha256": "sha256:40ac7896d9b0051b9fbac2536d60b535e68cee9ac273ed9a40a382cc5a91d92f",
+        "assertion_count": 36,
+        "action_count": 21,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:683161dfabdd8adf87cc37614e340f7df7562f7cffee6f5ecb5aa22bb1379eb2"
       }
     },
     "reference_run": {

@@ -1,0 +1,224 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-BUG-1000381-NEW-TASK-LONG-TEXT-LAYOUT-SPEC-F6ADCE9E",
+  "title": "BUG-1000381 | long new-task text stays clear of the bottom operation bar",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-bug-1000381-new-task-long-text-layout-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/bug-1000381-new-task-long-text-layout.spec.ts",
+      "locator": "line:5;test:BUG-1000381 | long new-task text stays clear of the bottom operation bar",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:f6adce9e6bed742b3502f5b5fa6f9a4a78fa67983be10cc8db8a670df2781750",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-A91A7226CD6D31",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-bug-1000381-new-task-long-text-layout-spec-ts:L5:f6adce9e6b"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "BUG-1000381 | long new-task text stays clear of the bottom operation bar",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-bug-1000381-new-task-long-text-layout-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "BUG-1000381 | long new-task text stays clear of the bottom operation bar"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "textarea.fill( Array.from({ length: 40 }, (_, index) => `第 ${index + 1} 行：这是一段用于验证新建任务长文本滚动和底部操作栏避让的内容。`).join(\"\\n\"), )"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(textarea).toBeVisible()",
+    "expect.poll(async () => textarea.evaluate((element) => getComputedStyle(element).overflowY)).toBe(\"auto\")",
+    "expect(metrics.scrollHeight).toBeGreaterThan(metrics.clientHeight)",
+    "expect(metrics.scrollTop).toBeGreaterThanOrEqual(metrics.maxScrollTop - 1)",
+    "expect(metrics.toolbarBottom).toBeLessThanOrEqual(metrics.editorBottom + 1)",
+    "expect(metrics.paddingBottom).toBeGreaterThanOrEqual(metrics.scrimHeight)",
+    "expect(metrics.editorBottom - metrics.paddingBottom).toBeLessThanOrEqual(metrics.scrimTop + 0.5)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-A91A7226CD6D31",
+      "type": "return",
+      "assertion": "BUG-1000381 | long new-task text stays clear of the bottom operation bar"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-bug-1000381-new-task-long-text-layout-spec-ts.f6adce9e6b",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/bug-1000381-new-task-long-text-layout.spec.ts -g \"BUG-1000381 | long new-task text stays clear of the bottom operation bar\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "textarea.fill( Array.from({ length: 40 }, (_, index) => `第 ${index + 1} 行：这是一段用于验证新建任务长文本滚动和底部操作栏避让的内容。`).join(\"\\n\"), )"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/bug-1000381-new-task-long-text-layout.spec.ts",
+        "line_start": 5,
+        "line_end": 62,
+        "body_sha256": "sha256:c97b640ec8eaf2d3f60be04149d471c537d2eeced9c1fcbf972a46944c787977",
+        "assertion_count": 7,
+        "action_count": 2,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:ba9fc694df7146f3528049de9a5091786dc23982086fe17d612a7ab7d7d633b2"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-A91A7226CD6D31"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-A91A7226CD6D31"
+    ]
+  }
+}

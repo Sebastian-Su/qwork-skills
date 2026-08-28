@@ -17,25 +17,25 @@
   },
   "sources": [
     {
-      "source_id": "QHEAD-E2E-e2e-built-in-media-generation-spec-ts",
+      "source_id": "QDEV-E2E-e2e-built-in-media-generation-spec-ts",
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:93283fefa96fe705465d9a500a9c7def7f93a296:e2e/built-in-media-generation.spec.ts",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/built-in-media-generation.spec.ts",
       "locator": "line:14;test:登录用户用自然语言生图后只看到保存到工作区的本地产物",
-      "revision": "93283fefa96fe705465d9a500a9c7def7f93a296",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-26T16:09:42.116737+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:d975026d18a0d7e41db16d399566acb00466fa1b6f7f23ac32400ab0aa6ad832",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-C879B09125A693",
+      "requirement_id": "REQ-D869F74E50701E",
       "source_atom_ids": [
-        "QHEAD-E2E-e2e-built-in-media-generation-spec-ts:L14:d975026d18"
+        "QDEV-E2E-e2e-built-in-media-generation-spec-ts:L14:d975026d18"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -48,7 +48,7 @@
       "rule": "登录用户用自然语言生图后只看到保存到工作区的本地产物",
       "authority_domain": "execution",
       "governing_sources": [
-        "QHEAD-E2E-e2e-built-in-media-generation-spec-ts"
+        "QDEV-E2E-e2e-built-in-media-generation-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -64,7 +64,7 @@
     "environment_scope": "isolated Electron fixture",
     "implementation_revision": null,
     "last_verified_at": null,
-    "status_reason": "generated baseline has not completed its reference run"
+    "status_reason": "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution"
   },
   "preconditions": {
     "repository": "qwork",
@@ -97,6 +97,8 @@
     "expect .poll(() => page.evaluate(() => window.workGui.auth.status().then((status) => status.loggedIn), ), ) .toBe(true)",
     "expect(approval).toContainText(\"允许后才会创建任务并扣费\")",
     "expect(approval).toContainText(\"ImageGen\")",
+    "expect(approval).toContainText(\"0.01 Credits\")",
+    "expect(approval).toContainText(\"1024x1024\")",
     "expect(page.getByText(\"生成中\", { exact: false })).toBeVisible()",
     "expect .poll(async () => { return (await readControls()) .filter((message) => message.type === \"create_session\") .map((message) => message.qwork_api); }) .toContainEqual({ base_url: server.baseUrl, access_token: \"[REDACTED]\", })",
     "expect .poll(async () => { try { return (await fs.stat(artifactPath)).size; } catch (error) { if ((error as NodeJS.ErrnoException).code === \"ENOENT\") return 0; throw error; } }) .toBeGreaterThan(0)",
@@ -112,7 +114,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-C879B09125A693",
+      "requirement_id": "REQ-D869F74E50701E",
       "type": "ui",
       "assertion": "登录用户用自然语言生图后只看到保存到工作区的本地产物"
     }
@@ -210,12 +212,12 @@
       "source_contract": {
         "spec": "e2e/built-in-media-generation.spec.ts",
         "line_start": 14,
-        "line_end": 127,
-        "body_sha256": "sha256:61134ed6536ac8c978dbcaf20d4f49201eb5c6bda47a94356975130880392a18",
-        "assertion_count": 10,
+        "line_end": 129,
+        "body_sha256": "sha256:f20f03de156adee3cf5a9d35eda9b1e6c113d4c506a6edb68ddcbcb5b4b60f56",
+        "assertion_count": 12,
         "action_count": 6,
-        "execution_revision": "93283fefa96fe705465d9a500a9c7def7f93a296",
-        "spec_sha256": "sha256:7e203bd9cfb28cd7ac847fb1ef96a3feb7c1a62d433606154e501a27cfb1c57f"
+        "execution_revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+        "spec_sha256": "sha256:9039c8e5cb10024bc0b0b97e64076e1e4d915342a5e4673b688f007baa130b7a"
       }
     },
     "reference_run": {
@@ -232,12 +234,13 @@
       "success_oracle": "no case-owned process or temporary state remains"
     },
     "blockers": [
+      "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution",
       "reference run pending"
     ]
   },
   "selection": {
     "requirement_ids": [
-      "REQ-C879B09125A693"
+      "REQ-D869F74E50701E"
     ],
     "categories": [
       "business"
@@ -245,7 +248,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-C879B09125A693"
+      "requirement:REQ-D869F74E50701E"
     ]
   }
 }

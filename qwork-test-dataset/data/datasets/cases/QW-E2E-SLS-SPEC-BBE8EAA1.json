@@ -1,0 +1,212 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SLS-SPEC-BBE8EAA1",
+  "title": "reports renderer_ready and honors the persisted opt-out",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "persistence",
+    "journey": "persistence",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-sls-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/sls.spec.ts",
+      "locator": "line:12;test:reports renderer_ready and honors the persisted opt-out",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:bbe8eaa11181772ac786ceac59eeae97655b9f66ecbd78e014b4732bab6d2b55",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-565DC4EE40E63D",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-sls-spec-ts:L12:bbe8eaa111"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "persistence",
+      "priority": "P1",
+      "rule": "reports renderer_ready and honors the persisted opt-out",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-sls-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "reports renderer_ready and honors the persisted opt-out"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "server.close((error) => (error ? reject(error) : resolve()))"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(() => requests.length).toBe(1)",
+    "expect(enabledBody.__logs__[0]).toMatchObject({ key: \"qwork-desktop\", platform: \"qwork_desktop\", schema_version: \"1\", qid: \"3127743018\", auth_state: \"authenticated\", channel: \"test\", mode: \"test\", packaged: \"false\", os: process.platform, arch: process.arch, core_version: \"fixture-core\", action: \"app_startup\", attr: \"renderer_ready\", })",
+    "expect(enabledBody.__logs__[0].mid).toMatch(/^[0-9a-f]{64}$/)",
+    "expect(enabledBody.__logs__[0].launch_id).toMatch(/^[0-9a-f-]{36}$/)",
+    "expect(enabledBody.__logs__[0].os_version).toBeTruthy()",
+    "expect(enabledBody.__logs__[0].electron).toBeTruthy()",
+    "expect(enabledBody.__logs__[0]).not.toHaveProperty(\"build_id\")",
+    "expect(enabledBody.__logs__[0]).not.toHaveProperty(\"git_sha\")",
+    "expect(enabledBody.__logs__[0]).not.toHaveProperty(\"core_git_sha\")",
+    "expect(enabledBody.__logs__[0]).not.toHaveProperty(\"url\")",
+    "expect(enabledBody.__logs__[0]).not.toHaveProperty(\"path\")",
+    "expect.poll(() => requests.length).toBe(2)",
+    "expect(restartedBody.__logs__[0].mid).toBe(enabledBody.__logs__[0].mid)",
+    "expect(restartedBody.__logs__[0].launch_id).not.toBe( enabledBody.__logs__[0].launch_id, )",
+    "expect( fs.access(`${enabledHome}/qwork/telemetry/identity.json`), ).rejects.toThrow()",
+    "expect(requests).toHaveLength(2)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-565DC4EE40E63D",
+      "type": "return",
+      "assertion": "reports renderer_ready and honors the persisted opt-out"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-sls-spec-ts.bbe8eaa111",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/sls.spec.ts -g \"reports renderer_ready and honors the persisted opt-out\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "persistence",
+      "steps": [
+        {
+          "action": "server.close((error) => (error ? reject(error) : resolve()))"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/sls.spec.ts",
+        "line_start": 12,
+        "line_end": 123,
+        "body_sha256": "sha256:f26bd6722c7598a19f14d63c07c94a72bac4efee43ddd5a1011803ca45c48313",
+        "assertion_count": 16,
+        "action_count": 1,
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:8e287098376cf6eb0b2f0df3c5fd5c1a86583e875c729c7937f87c7a89147506"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-565DC4EE40E63D"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-565DC4EE40E63D"
+    ]
+  }
+}

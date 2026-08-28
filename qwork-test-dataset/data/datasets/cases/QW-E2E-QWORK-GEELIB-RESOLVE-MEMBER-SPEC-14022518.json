@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/qwork-geelib-resolve-member.spec.ts",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/qwork-geelib-resolve-member.spec.ts",
       "locator": "line:17;test:qwork-geelib lists members from an executor outside the current workspace",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:140225186a425409de5574b00bba77c4bf5d075a1916468863b2ac4a44bc8c05",
       "redaction_status": "minimized"
     }
@@ -90,22 +90,22 @@
       "action": "path.join(fixture, \"external-cwd\")"
     },
     {
+      "action": "path.join(fixture, \"fake-sso-cli.js\")"
+    },
+    {
       "action": "fs.mkdirSync(executorDir, { recursive: true })"
     },
     {
       "action": "fs.mkdirSync(externalCwd, { recursive: true })"
     },
     {
+      "action": "fs.writeFileSync(fakeSso, \"\\n\")"
+    },
+    {
       "action": "fs.writeFileSync( path.join(executorDir, \"package.json\"), JSON.stringify({ private: true, scripts: { \"matter:fields\": \"node fake-fields.mjs\" }, }), )"
     },
     {
       "action": "path.join(executorDir, \"package.json\")"
-    },
-    {
-      "action": "JSON.stringify({ private: true, scripts: { \"matter:fields\": \"node fake-fields.mjs\" }, })"
-    },
-    {
-      "action": "fs.writeFileSync( path.join(executorDir, \"fake-fields.mjs\"), `console.log(JSON.stringify({ data: [{ matterCustomAttribute: { cf_name: \"执行人\", type_options: JSON.stringify([{ id: \"9\", text: \"测试成员\", mail: \"member@example.test\" }]) } }] }, null, 2))\\n`, )"
     }
   ],
   "expected_outcomes": [
@@ -185,22 +185,22 @@
           "action": "path.join(fixture, \"external-cwd\")"
         },
         {
+          "action": "path.join(fixture, \"fake-sso-cli.js\")"
+        },
+        {
           "action": "fs.mkdirSync(executorDir, { recursive: true })"
         },
         {
           "action": "fs.mkdirSync(externalCwd, { recursive: true })"
         },
         {
+          "action": "fs.writeFileSync(fakeSso, \"\\n\")"
+        },
+        {
           "action": "fs.writeFileSync( path.join(executorDir, \"package.json\"), JSON.stringify({ private: true, scripts: { \"matter:fields\": \"node fake-fields.mjs\" }, }), )"
         },
         {
           "action": "path.join(executorDir, \"package.json\")"
-        },
-        {
-          "action": "JSON.stringify({ private: true, scripts: { \"matter:fields\": \"node fake-fields.mjs\" }, })"
-        },
-        {
-          "action": "fs.writeFileSync( path.join(executorDir, \"fake-fields.mjs\"), `console.log(JSON.stringify({ data: [{ matterCustomAttribute: { cf_name: \"执行人\", type_options: JSON.stringify([{ id: \"9\", text: \"测试成员\", mail: \"member@example.test\" }]) } }] }, null, 2))\\n`, )"
         }
       ],
       "locator_strategy": "source-bound process assertion",
@@ -222,12 +222,12 @@
       "source_contract": {
         "spec": "e2e/qwork-geelib-resolve-member.spec.ts",
         "line_start": 17,
-        "line_end": 59,
-        "body_sha256": "sha256:e3c92567c14e73c9173aa92b8ea2d6d74cc15594688e85f04d62b859f0002aa7",
+        "line_end": 65,
+        "body_sha256": "sha256:6a5cc1ebbad2a1832bb96c5955487d35273c91b38215ea651106cd2c1a81916f",
         "assertion_count": 1,
         "action_count": 0,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:86be8fa059e1c036db6f1770b551a8857519d9a2e3a2c43ad709ad72e088ed63"
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:f09317439856e3100128b7b293e2380b60978bd594ad81cbe5167afb276b713f"
       }
     },
     "reference_run": {

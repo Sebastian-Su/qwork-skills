@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-wps-browser-code.spec.ts",
-      "locator": "line:145;test:uses a fresh public code, shares one grant across both cards, and unbinds both",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/connectors-wps-browser-code.spec.ts",
+      "locator": "line:146;test:uses a fresh public code, shares one grant across both cards, and unbinds both",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:c84e954ae628c5e0d1d72edb303bbaec78db35f23b4fff3dc3c17336ff9910df",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-927F39002265B4",
+      "requirement_id": "REQ-B89DD726D6CB2B",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-connectors-wps-browser-code-spec-ts:L145:c84e954ae6"
+        "QDEV-E2E-e2e-connectors-wps-browser-code-spec-ts:L146:c84e954ae6"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -113,8 +113,12 @@
     "expect(await readVaultRecordKeys(configHome)).toEqual([ expect.stringMatching(/^wps-skill-hub\\|[0-9a-f]{16}$/), ])",
     "expect(page.getByRole(\"button\", { name: \"金山文档，已连接\" })).toBeVisible()",
     "expect(page.getByRole(\"button\", { name: \"WPS知识库，已连接\" })).toBeVisible()",
-    "expect(page.getByRole(\"button\", { name: \"金山文档，未连接\" })).toBeVisible()",
-    "expect(page.getByRole(\"button\", { name: \"WPS知识库，未连接\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"金山文档，已连接\" })).toBeVisible({ timeout: 4_000, })",
+    "expect(page.getByRole(\"button\", { name: \"WPS知识库，已连接\" })).toBeVisible({ timeout: 4_000, })",
+    "expect(await readLines(authUrlSink)).toHaveLength(1)",
+    "expect(exchange!.requests).toHaveLength(2)",
+    "expect(page.getByRole(\"button\", { name: \"金山文档，未连接\" })).toBeVisible({ timeout: 20_000, })",
+    "expect(page.getByRole(\"button\", { name: \"WPS知识库，未连接\" })).toBeVisible({ timeout: 20_000, })",
     "expect(await readVaultRecordKeys(configHome)).toEqual([])",
     "expect(new Set(firstRemovalNames)).toEqual( new Set([\"kdocs\", \"wps-knowledgebase\"]), )",
     "expect.poll(async () => (await readLines(authUrlSink)).length).toBe(2)",
@@ -126,7 +130,8 @@
     "expect(page.getByRole(\"button\", { name: \"金山文档，未连接\" })).toBeVisible()",
     "expect(page.getByRole(\"button\", { name: \"WPS知识库，未连接\" })).toBeVisible()",
     "expect(await readVaultRecordKeys(configHome)).toEqual([])",
-    "expect( mcpEvents .filter(({ type }) => type === \"mcp_server_upsert\") .map(({ server }) => (server as { name: string }).name), ).toEqual([\"kdocs\", \"wps-knowledgebase\", \"kdocs\", \"wps-knowledgebase\"])",
+    "expect(upsertNames).toHaveLength(2)",
+    "expect(new Set(upsertNames)).toEqual(new Set([\"kdocs\", \"wps-knowledgebase\"]))",
     "expect(secondRemovalNames).toEqual( expect.arrayContaining([\"kdocs\", \"wps-knowledgebase\"]), )",
     "expect(new Set(secondRemovalNames)).toEqual( new Set([\"kdocs\", \"wps-knowledgebase\"]), )",
     "expect(await readLines(authUrlSink)).toHaveLength(2)"
@@ -138,7 +143,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-927F39002265B4",
+      "requirement_id": "REQ-B89DD726D6CB2B",
       "type": "return",
       "assertion": "uses a fresh public code, shares one grant across both cards, and unbinds both"
     }
@@ -247,13 +252,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/connectors-wps-browser-code.spec.ts",
-        "line_start": 145,
-        "line_end": 254,
-        "body_sha256": "sha256:dd211642948c04523b4b32cc49af3b765ac2e9ead4b0f8164bf3a0194c904846",
-        "assertion_count": 24,
+        "line_start": 146,
+        "line_end": 286,
+        "body_sha256": "sha256:b36915450103de0508985cf86de506d1c06b794a1643e6650ed3e45ba2edf24b",
+        "assertion_count": 29,
         "action_count": 10,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:430381f84c0087ccd8bcd0fe4cd3484061e7bdb2e91b67c43754996b3d432e02"
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:f2a7bb1222ef6bd2a901446046945811dd7b0bc52b7bb7eabe48ac9adcd3f7b8"
       }
     },
     "reference_run": {
@@ -275,7 +280,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-927F39002265B4"
+      "REQ-B89DD726D6CB2B"
     ],
     "categories": [
       "business"
@@ -283,7 +288,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-927F39002265B4"
+      "requirement:REQ-B89DD726D6CB2B"
     ]
   }
 }

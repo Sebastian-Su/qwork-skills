@@ -1,0 +1,419 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-LLM-BILL-QWORK-QWORK-SERVER-50B2E273",
+  "title": "docs/changes/CHG-llm-billing-audit-config-20260826/implementation-plan.md · qwork → qwork_server 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-llm-billing-audit-config-20260826-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/changes/CHG-llm-billing-audit-config-20260826/implementation-plan.md",
+      "locator": "line:100;heading:qwork → qwork_server",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:8abe164d3ef93f79210a71cef7cb66b73e1163ca35482fbfacb95bb88b8498ef",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-llm-billing-audit-config-20260826-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/changes/CHG-llm-billing-audit-config-20260826/implementation-plan.md",
+      "locator": "line:101;heading:qwork → qwork_server",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:dad7ba2881318b5e678993f91ac90a11c9ff1c6e5123ae8e33a86fd42a8c8b37",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-llm-billing-audit-config-20260826-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/changes/CHG-llm-billing-audit-config-20260826/implementation-plan.md",
+      "locator": "line:102;heading:qwork → qwork_server",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:178a7e091a1e433e391dcbe106e8c1628b5c45193cd77af86183b28b5c260073",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-llm-billing-audit-config-20260826-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/changes/CHG-llm-billing-audit-config-20260826/implementation-plan.md",
+      "locator": "line:103;heading:qwork → qwork_server",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:d4ce07f99dd4c994256baa7429d38c642fb531ef59973410ed29bcfddc41b861",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-7399B06B73468B",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-llm-billing-audit-config-20260826-i:L100:8abe164d3e"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "在现有模型请求上增加两个可选内部元数据：session ID、turn ID。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-llm-billing-audit-config-20260826-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "在现有模型请求上增加两个可选内部元数据：session ID、turn ID。"
+    },
+    {
+      "requirement_id": "REQ-819CC7E7FF2875",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-llm-billing-audit-config-20260826-i:L101:dad7ba2881"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "推荐用受限 `X-QWork-Session-ID`、`X-QWork-Turn-ID` 请求头；若 sidecar 真实 provider seam 只能写请求体，则 Electron 在转发前提取并删除内部字段。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-llm-billing-audit-config-20260826-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "推荐用受限 `X-QWork-Session-ID`、`X-QWork-Turn-ID` 请求头；若 sidecar 真实 provider seam 只能写请求体，则 Electron 在转发前提取并删除内部字段。"
+    },
+    {
+      "requirement_id": "REQ-C138CE2EEEDF6B",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-llm-billing-audit-config-20260826-i:L102:178a7e091a"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "两字段均为 opaque、最大 128 字符，禁止控制字符；非法字段返回稳定参数错误，不进入上游。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-llm-billing-audit-config-20260826-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "两字段均为 opaque、最大 128 字符，禁止控制字符；非法字段返回稳定参数错误，不进入上游。"
+    },
+    {
+      "requirement_id": "REQ-050014275A4C69",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-llm-billing-audit-config-20260826-i:L103:d4ce07f99d"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "旧客户端缺失字段继续成功，账本保存 `NULL`。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-llm-billing-audit-config-20260826-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "旧客户端缺失字段继续成功，账本保存 `NULL`。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-llm-billing-audit-config-20260826/implementation-plan.md · qwork → qwork_server 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7399B06B73468B] exactly: 在现有模型请求上增加两个可选内部元数据：session ID、turn ID。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-819CC7E7FF2875] exactly: 推荐用受限 `X-QWork-Session-ID`、`X-QWork-Turn-ID` 请求头；若 sidecar 真实 provider seam 只能写请求体，则 Electron 在转发前提取并删除内部字段。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-C138CE2EEEDF6B] exactly: 两字段均为 opaque、最大 128 字符，禁止控制字符；非法字段返回稳定参数错误，不进入上游。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-050014275A4C69] exactly: 旧客户端缺失字段继续成功，账本保存 `NULL`。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "在现有模型请求上增加两个可选内部元数据：session ID、turn ID。",
+    "推荐用受限 `X-QWork-Session-ID`、`X-QWork-Turn-ID` 请求头；若 sidecar 真实 provider seam 只能写请求体，则 Electron 在转发前提取并删除内部字段。",
+    "两字段均为 opaque、最大 128 字符，禁止控制字符；非法字段返回稳定参数错误，不进入上游。",
+    "旧客户端缺失字段继续成功，账本保存 `NULL`。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-7399B06B73468B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 在现有模型请求上增加两个可选内部元数据：session ID、turn ID。",
+    "FAIL [REQ-819CC7E7FF2875]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 推荐用受限 `X-QWork-Session-ID`、`X-QWork-Turn-ID` 请求头；若 sidecar 真实 provider seam 只能写请求体，则 Electron 在转发前提取并删除内部字段。",
+    "FAIL [REQ-C138CE2EEEDF6B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 两字段均为 opaque、最大 128 字符，禁止控制字符；非法字段返回稳定参数错误，不进入上游。",
+    "FAIL [REQ-050014275A4C69]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 旧客户端缺失字段继续成功，账本保存 `NULL`。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-7399B06B73468B",
+      "type": "return",
+      "assertion": "在现有模型请求上增加两个可选内部元数据：session ID、turn ID。"
+    },
+    {
+      "requirement_id": "REQ-819CC7E7FF2875",
+      "type": "return",
+      "assertion": "推荐用受限 `X-QWork-Session-ID`、`X-QWork-Turn-ID` 请求头；若 sidecar 真实 provider seam 只能写请求体，则 Electron 在转发前提取并删除内部字段。"
+    },
+    {
+      "requirement_id": "REQ-C138CE2EEEDF6B",
+      "type": "return",
+      "assertion": "两字段均为 opaque、最大 128 字符，禁止控制字符；非法字段返回稳定参数错误，不进入上游。"
+    },
+    {
+      "requirement_id": "REQ-050014275A4C69",
+      "type": "return",
+      "assertion": "旧客户端缺失字段继续成功，账本保存 `NULL`。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-llm-billin.qwork-qwork-server-50b2e2730b",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-llm-billing-audit-config-20260826/implementation-plan.md · qwork → qwork_server 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7399B06B73468B] exactly: 在现有模型请求上增加两个可选内部元数据：session ID、turn ID。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-819CC7E7FF2875] exactly: 推荐用受限 `X-QWork-Session-ID`、`X-QWork-Turn-ID` 请求头；若 sidecar 真实 provider seam 只能写请求体，则 Electron 在转发前提取并删除内部字段。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-C138CE2EEEDF6B] exactly: 两字段均为 opaque、最大 128 字符，禁止控制字符；非法字段返回稳定参数错误，不进入上游。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-050014275A4C69] exactly: 旧客户端缺失字段继续成功，账本保存 `NULL`。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-050014275A4C69",
+      "REQ-7399B06B73468B",
+      "REQ-819CC7E7FF2875",
+      "REQ-C138CE2EEEDF6B"
+    ],
+    "categories": [
+      "business",
+      "negative"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:negative",
+      "full",
+      "requirement:REQ-050014275A4C69",
+      "requirement:REQ-7399B06B73468B",
+      "requirement:REQ-819CC7E7FF2875",
+      "requirement:REQ-C138CE2EEEDF6B"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-7399B06B73468B",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-llm-billing-audit-config-20260826/implementation-plan.md · qwork → qwork_server 产品契约 exactly once and retain its correlation identity",
+      "then": "在现有模型请求上增加两个可选内部元数据：session ID、turn ID。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-819CC7E7FF2875",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-llm-billing-audit-config-20260826/implementation-plan.md · qwork → qwork_server 产品契约 exactly once and retain its correlation identity",
+      "then": "推荐用受限 `X-QWork-Session-ID`、`X-QWork-Turn-ID` 请求头；若 sidecar 真实 provider seam 只能写请求体，则 Electron 在转发前提取并删除内部字段。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-C138CE2EEEDF6B",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-llm-billing-audit-config-20260826/implementation-plan.md · qwork → qwork_server 产品契约 exactly once and retain its correlation identity",
+      "then": "两字段均为 opaque、最大 128 字符，禁止控制字符；非法字段返回稳定参数错误，不进入上游。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-050014275A4C69",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-llm-billing-audit-config-20260826/implementation-plan.md · qwork → qwork_server 产品契约 exactly once and retain its correlation identity",
+      "then": "旧客户端缺失字段继续成功，账本保存 `NULL`。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

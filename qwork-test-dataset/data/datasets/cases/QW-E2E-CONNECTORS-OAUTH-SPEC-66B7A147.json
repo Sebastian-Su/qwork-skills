@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-oauth.spec.ts",
-      "locator": "line:325;test:keeps the grant across a restart",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:e2e/connectors-oauth.spec.ts",
+      "locator": "line:542;test:keeps the grant across a restart",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
       "content_hash": "sha256:66b7a1478a3d25038a6541fcc9f44ccb3302126cd40e4ba8bc5862fde33bdad0",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-F9C48942F2ED9D",
+      "requirement_id": "REQ-061B16BAD97D72",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-connectors-oauth-spec-ts:L325:66b7a1478a"
+        "QDEV-E2E-e2e-connectors-oauth-spec-ts:L542:66b7a1478a"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -88,17 +88,17 @@
     }
   ],
   "expected_outcomes": [
-    "expect .poll(async () => (await readLines(authUrlSink)).length, { timeout: 15000 }) .toBe(1)",
+    "expect .poll(async () => (await readLines(authUrlSink)).length, { timeout: 15000, }) .toBe(1)",
     "expect( page .getByRole(\"dialog\", { name: \"Demo 服务\" }) .getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible({ timeout: 15000 })",
-    "expect(restoredIcon).toBeVisible({ timeout: 20_000 })",
+    "expect(restoredIcon).toBeVisible({ timeout: 4_000 })",
     "expect( page.getByRole(\"img\", { name: \"Demo 服务（需重新连接）\", exact: true }), ).toHaveCount(0)",
     "expect(auth!.tokenRequests).toHaveLength(1)",
     "expect(await readLines(authUrlSink)).toHaveLength(1)",
     "expect(auth!.requests).toHaveLength(providerRequestCount)",
     "expect(enabledSwitch).toBeVisible()",
     "expect(enabledSwitch).toHaveAttribute(\"aria-checked\", \"true\")",
-    "expect(menu.getByRole(\"menuitem\", { name: \"Demo 服务 重新连接\" })) .toHaveCount(0)",
-    "expect.poll(async () => (await readLines(mcpLog)) .map((line) => JSON.parse(line) as Record<string, unknown>) .filter((entry) => entry.type === \"mcp_server_upsert\").length, ).toBe(2)",
+    "expect( menu.getByRole(\"menuitem\", { name: \"Demo 服务 重新连接\" }), ).toHaveCount(0)",
+    "expect .poll( async () => (await readLines(mcpLog)) .map((line) => JSON.parse(line) as Record<string, unknown>) .filter((entry) => entry.type === \"mcp_server_upsert\").length, ) .toBe(2)",
     "expect(iconStyle.opacity).toBe(\"1\")",
     "expect(iconStyle.boxShadow).not.toContain(\"rgb(251, 191, 36)\")",
     "expect(switchBackground).toBe(\"rgb(16, 185, 129)\")",
@@ -112,7 +112,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-F9C48942F2ED9D",
+      "requirement_id": "REQ-061B16BAD97D72",
       "type": "return",
       "assertion": "keeps the grant across a restart"
     }
@@ -203,13 +203,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/connectors-oauth.spec.ts",
-        "line_start": 325,
-        "line_end": 422,
-        "body_sha256": "sha256:6d0ace1b7855f8d1d54566e9161dd8ced83fc5eb3f619347171a95015027a500",
+        "line_start": 542,
+        "line_end": 651,
+        "body_sha256": "sha256:70776295a0c46be9843f01363c339548e1ef5eddb1c815e7f5ff6e0f931350c6",
         "assertion_count": 16,
         "action_count": 4,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:892319a3a8f6e1b3c48b1eb1a6f61c61ec571996b292dae88a3ac7f9b8d2fa52"
+        "execution_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "spec_sha256": "sha256:3cdd19ec6fd215e12b27a19274126c3ca1085589ce267a586e07be439a5678a1"
       }
     },
     "reference_run": {
@@ -231,7 +231,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-F9C48942F2ED9D"
+      "REQ-061B16BAD97D72"
     ],
     "categories": [
       "business"
@@ -239,7 +239,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-F9C48942F2ED9D"
+      "requirement:REQ-061B16BAD97D72"
     ]
   }
 }

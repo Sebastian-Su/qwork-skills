@@ -1,0 +1,294 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-WPS-WEBOFFICE-MD-ITEM-5CC862BF",
+  "title": "docs/wps-weboffice.md · 客户端配置 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-wps-weboffice-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/wps-weboffice.md",
+      "locator": "line:10;heading:客户端配置",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:cdfdceef19b33b1a7794296cacd258d2da0425f490973c71eba7b5d91a9e685c",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-wps-weboffice-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:2d2fca14edb892b7910eec1c64ae452e8db55390:docs/wps-weboffice.md",
+      "locator": "line:12;heading:客户端配置",
+      "revision": "2d2fca14edb892b7910eec1c64ae452e8db55390",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T08:25:23.182315+00:00",
+      "content_hash": "sha256:b33f89b02f88aee825740b2fb92b28a260b7157b9267cb50a98ee35ff8cac00a",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D6345472A9B756",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-wps-weboffice-md:L10:cdfdceef19"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "`QWORK_WPS_QDRIVE_EDIT_ENABLED=1`：启动企业云盘回写 worker。默认关闭，只有真实账号完成同名覆盖、内容和 NID 行为验收后才能开启。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-wps-weboffice-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`QWORK_WPS_QDRIVE_EDIT_ENABLED=1`：启动企业云盘回写 worker。默认关闭，只有真实账号完成同名覆盖、内容和 NID 行为验收后才能开启。"
+    },
+    {
+      "requirement_id": "REQ-929303BF661C5A",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-wps-weboffice-md:L12:b33f89b02f"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "WPS AppID、AppSecret、QWork 业务 Token 签名密钥和回调地址只配置在 qwork_server，不得下发给 Electron。官方 WebOffice Solution SDK 1.1.27 固定在 `resources/vendor/wps-weboffice/1.1.27`，开发态直接读取仓库文件，安装态通过 Electron `extraResources` 读取；启动时必须通过 manifest SHA-256 校验，不依赖远程 SDK U",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-wps-weboffice-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WPS AppID、AppSecret、QWork 业务 Token 签名密钥和回调地址只配置在 qwork_server，不得下发给 Electron。官方 WebOffice Solution SDK 1.1.27 固定在 `resources/vendor/wps-weboffice/1.1.27`，开发态直接读取仓库文件，安装态通过 Electron `extraResources` 读取；启动时必须通过 manifest SHA-256 校验，不依赖远程 SDK U"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for window-runtime at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/wps-weboffice.md · 客户端配置 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-D6345472A9B756] exactly: `QWORK_WPS_QDRIVE_EDIT_ENABLED=1`：启动企业云盘回写 worker。默认关闭，只有真实账号完成同名覆盖、内容和 NID 行为验收后才能开启。"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-929303BF661C5A] exactly: WPS AppID、AppSecret、QWork 业务 Token 签名密钥和回调地址只配置在 qwork_server，不得下发给 Electron。官方 WebOffice Solution SDK 1.1.27 固定在 `resources/vendor/wps-weboffice/1.1.27`，开发态直接读取仓库文件，安装态通过 Electron `extraResources` 读取；启动时必须通过 manifest SHA-256 校验，不依赖远程 SDK U"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "`QWORK_WPS_QDRIVE_EDIT_ENABLED=1`：启动企业云盘回写 worker。默认关闭，只有真实账号完成同名覆盖、内容和 NID 行为验收后才能开启。",
+    "WPS AppID、AppSecret、QWork 业务 Token 签名密钥和回调地址只配置在 qwork_server，不得下发给 Electron。官方 WebOffice Solution SDK 1.1.27 固定在 `resources/vendor/wps-weboffice/1.1.27`，开发态直接读取仓库文件，安装态通过 Electron `extraResources` 读取；启动时必须通过 manifest SHA-256 校验，不依赖远程 SDK U"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-D6345472A9B756]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `QWORK_WPS_QDRIVE_EDIT_ENABLED=1`：启动企业云盘回写 worker。默认关闭，只有真实账号完成同名覆盖、内容和 NID 行为验收后才能开启。",
+    "FAIL [REQ-929303BF661C5A]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: WPS AppID、AppSecret、QWork 业务 Token 签名密钥和回调地址只配置在 qwork_server，不得下发给 Electron。官方 WebOffice Solution SDK 1.1.27 固定在 `resources/vendor/wps-weboffice/1.1.27`，开发态直接读取仓库文件，安装态通过 Electron `extraResources` 读取；启动时必须通过 manifest SHA-256 校验，不依赖远程 SDK U",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D6345472A9B756",
+      "type": "event",
+      "assertion": "`QWORK_WPS_QDRIVE_EDIT_ENABLED=1`：启动企业云盘回写 worker。默认关闭，只有真实账号完成同名覆盖、内容和 NID 行为验收后才能开启。"
+    },
+    {
+      "requirement_id": "REQ-929303BF661C5A",
+      "type": "api",
+      "assertion": "WPS AppID、AppSecret、QWork 业务 Token 签名密钥和回调地址只配置在 qwork_server，不得下发给 Electron。官方 WebOffice Solution SDK 1.1.27 固定在 `resources/vendor/wps-weboffice/1.1.27`，开发态直接读取仓库文件，安装态通过 Electron `extraResources` 读取；启动时必须通过 manifest SHA-256 校验，不依赖远程 SDK U"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-wps-weboffice-md.item-5cc862bf97",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for window-runtime at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/wps-weboffice.md · 客户端配置 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-D6345472A9B756] exactly: `QWORK_WPS_QDRIVE_EDIT_ENABLED=1`：启动企业云盘回写 worker。默认关闭，只有真实账号完成同名覆盖、内容和 NID 行为验收后才能开启。"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-929303BF661C5A] exactly: WPS AppID、AppSecret、QWork 业务 Token 签名密钥和回调地址只配置在 qwork_server，不得下发给 Electron。官方 WebOffice Solution SDK 1.1.27 固定在 `resources/vendor/wps-weboffice/1.1.27`，开发态直接读取仓库文件，安装态通过 Electron `extraResources` 读取；启动时必须通过 manifest SHA-256 校验，不依赖远程 SDK U"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-929303BF661C5A",
+      "REQ-D6345472A9B756"
+    ],
+    "categories": [
+      "permission",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:permission",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-929303BF661C5A",
+      "requirement:REQ-D6345472A9B756"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-D6345472A9B756",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/wps-weboffice.md · 客户端配置 产品契约 exactly once and retain its correlation identity",
+      "then": "`QWORK_WPS_QDRIVE_EDIT_ENABLED=1`：启动企业云盘回写 worker。默认关闭，只有真实账号完成同名覆盖、内容和 NID 行为验收后才能开启。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-929303BF661C5A",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/wps-weboffice.md · 客户端配置 产品契约 exactly once and retain its correlation identity",
+      "then": "WPS AppID、AppSecret、QWork 业务 Token 签名密钥和回调地址只配置在 qwork_server，不得下发给 Electron。官方 WebOffice Solution SDK 1.1.27 固定在 `resources/vendor/wps-weboffice/1.1.27`，开发态直接读取仓库文件，安装态通过 Electron `extraResources` 读取；启动时必须通过 manifest SHA-256 校验，不依赖远程 SDK U",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}
