@@ -10,8 +10,20 @@ import subprocess
 from pathlib import Path
 
 
-def run_git(repo: Path, *args: str) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
+# Execution intermediates must never enter the private repository index, even
+# inside an otherwise versioned asset root.
+FORBIDDEN_ASSET_PARTS = {
+    "runs",
+    "build",
+    "app",
+    "out",
+    "node_modules",
+    ".cache",
+    "__pycache__",
+}
+
+
+def run_git(repo: Path, *args: str) -> subprocess.CompletedProcess[str]:    return subprocess.run(
         ["git", "-C", str(repo), *args],
         check=False,
         capture_output=True,
@@ -84,24 +96,52 @@ def validate(repo: Path, skill_name: str, paths: list[Path]) -> dict[str, object
     private_state_roots = sorted(
         entry for entry in data_root.iterdir() if entry.name != "e2e"
     )
+    # The Skill's own `.gitignore` is the single source of truth for which `data/`
+    # subtrees are versioned test assets and which are mutable run state. The
+    # validator enforces both directions so the two can never drift apart:
+    #   ignored subtree     -> must stay untracked and clean (execution state)
+    #   un-ignored subtree  -> must be a committed, clean versioned asset root
+    #                          and must not contain execution artifacts
     ignored_state_roots: list[str] = []
+    versioned_asset_roots: list[str] = []
     for state_root in private_state_roots:
         relative_state = state_root.relative_to(source_repo).as_posix()
         data_ignored = run_git(
             source_repo, "check-ignore", "-q", "--no-index", "--", relative_state
-        )
-        if data_ignored.returncode != 0:
-            raise ValueError(
-                f"private Dataset mutable data is not ignored by source repository: {relative_state}"
-            )
+        ).returncode == 0
         data_tracked = run_git(source_repo, "ls-files", "--", relative_state)
         if data_tracked.returncode != 0:
             raise RuntimeError(data_tracked.stderr.strip() or "source git ls-files failed")
         tracked_data_files = [line for line in data_tracked.stdout.splitlines() if line]
-        if tracked_data_files:
-            raise ValueError(
-                f"private Dataset mutable data contains tracked files: {tracked_data_files}"
+
+        if data_ignored:
+            if tracked_data_files:
+                raise ValueError(
+                    "private Dataset mutable data is ignored but tracked: "
+                    f"{relative_state}: {tracked_data_files[:5]}"
+                )
+            ignored_state_roots.append(relative_state)
+        else:
+            if not tracked_data_files:
+                raise ValueError(
+                    "private Dataset data root is neither ignored nor tracked; classify it in "
+                    f"the Skill .gitignore: {relative_state}"
+                )
+            forbidden = sorted(
+                {
+                    part
+                    for line in tracked_data_files
+                    for part in Path(line).parts
+                    if part in FORBIDDEN_ASSET_PARTS
+                }
             )
+            if forbidden:
+                raise ValueError(
+                    "private Dataset versioned assets contain execution artifacts: "
+                    f"{relative_state}: {forbidden}"
+                )
+            versioned_asset_roots.append(relative_state)
+
         data_status = run_git(
             source_repo,
             "status",
@@ -115,9 +155,9 @@ def validate(repo: Path, skill_name: str, paths: list[Path]) -> dict[str, object
         visible_data_status = [line for line in data_status.stdout.splitlines() if line]
         if visible_data_status:
             raise ValueError(
-                f"private Dataset mutable data appears in source git status: {visible_data_status}"
+                "private Dataset data is not frozen; commit or remove before deriving: "
+                f"{relative_state}: {visible_data_status[:5]}"
             )
-        ignored_state_roots.append(relative_state)
 
     checked_paths = []
     for path in paths:
@@ -147,8 +187,8 @@ def validate(repo: Path, skill_name: str, paths: list[Path]) -> dict[str, object
         "git_status_entries": [],
         "tracked_fixture_root": str(tracked_fixture_root),
         "ignored_mutable_data_roots": ignored_state_roots,
-        "data_git_ignored": True,
-        "tracked_data_files": [],
+        "versioned_asset_data_roots": versioned_asset_roots,
+        "data_frozen": True,
         "data_git_status_entries": [],
         "checked_paths": checked_paths,
     }
