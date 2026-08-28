@@ -10,6 +10,16 @@ import subprocess
 from pathlib import Path
 
 
+VERSIONED_DATA_ROOTS = {
+    "benchmarks",
+    "datasets",
+    "e2e",
+    "evidence",
+    "reference-runs",
+    "sources",
+}
+
+
 def run_git(repo: Path, *args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         ["git", "-C", str(repo), *args],
@@ -81,12 +91,36 @@ def validate(repo: Path, skill_name: str, paths: list[Path]) -> dict[str, object
     tracked_fixture_root = data_root / "e2e"
     if not tracked_fixture_root.is_dir():
         raise ValueError(f"private Dataset E2E source root does not exist: {tracked_fixture_root}")
-    private_state_roots = sorted(
-        entry for entry in data_root.iterdir() if entry.name != "e2e"
-    )
+    data_roots = sorted(data_root.iterdir())
+    versioned_data_roots: list[str] = []
+    versioned_data_file_count = 0
     ignored_state_roots: list[str] = []
-    for state_root in private_state_roots:
+    for state_root in data_roots:
         relative_state = state_root.relative_to(source_repo).as_posix()
+        if state_root.name in VERSIONED_DATA_ROOTS:
+            data_status = run_git(
+                source_repo,
+                "status",
+                "--short",
+                "--untracked-files=all",
+                "--",
+                relative_state,
+            )
+            if data_status.returncode != 0:
+                raise RuntimeError(data_status.stderr.strip() or "source git status failed")
+            visible_data_status = [line for line in data_status.stdout.splitlines() if line]
+            if visible_data_status:
+                raise ValueError(
+                    f"versioned Dataset data is not clean in source repository: {visible_data_status}"
+                )
+            tracked = run_git(source_repo, "ls-files", "--", relative_state)
+            if tracked.returncode != 0:
+                raise RuntimeError(tracked.stderr.strip() or "source git ls-files failed")
+            versioned_data_roots.append(relative_state)
+            versioned_data_file_count += sum(
+                bool(line) for line in tracked.stdout.splitlines()
+            )
+            continue
         data_ignored = run_git(
             source_repo, "check-ignore", "-q", "--no-index", "--", relative_state
         )
@@ -146,6 +180,8 @@ def validate(repo: Path, skill_name: str, paths: list[Path]) -> dict[str, object
         "tracked_files": [],
         "git_status_entries": [],
         "tracked_fixture_root": str(tracked_fixture_root),
+        "versioned_data_roots": versioned_data_roots,
+        "versioned_data_file_count": versioned_data_file_count,
         "ignored_mutable_data_roots": ignored_state_roots,
         "data_git_ignored": True,
         "tracked_data_files": [],
