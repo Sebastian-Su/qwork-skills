@@ -1,0 +1,48 @@
+version: 1
+bindings:
+  - case_id: QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-BUILT-IN-ITEM-DDA10753
+    repository: qwork_server
+    revision: 0515595090ee51d2d45e87eeb51f91d415a9e69b
+    requirement_ids:
+      - REQ-0434376B617382
+      - REQ-52137F8A9117B4
+      - REQ-AF07573B724E5D
+      - REQ-C61AB7C37F5701
+      - REQ-C7034C12A22C6A
+      - REQ-D4BAF33BEDF31C
+      - REQ-E7E585B13A70DD
+      - REQ-F44D8A50FC7479
+    packages:
+      - ./internal/media
+      - ./internal/api
+    tests:
+      - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+      - TestKlingImageToVideoQuoteAndCreateUseTheSamePricedOperation
+      - TestQuoteAndCreateRejectUnpricedMediaCombinationsBeforeProviderCall
+      - TestMediaQuoteRequiresSidecarBearerAndDoesNotCallProvider
+      - TestMediaQuoteReturnsKlingImageToVideoOperationBeforeProviderCall
+      - TestMediaQuoteRejectsInvalidAndUnpricedRequestsBeforeProviderCall
+    requirement_tests:
+      REQ-C7034C12A22C6A:
+        - TestMediaQuoteRequiresSidecarBearerAndDoesNotCallProvider
+      REQ-52137F8A9117B4:
+        - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+        - TestMediaQuoteReturnsKlingImageToVideoOperationBeforeProviderCall
+      REQ-E7E585B13A70DD:
+        - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+      REQ-F44D8A50FC7479:
+        - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+      REQ-D4BAF33BEDF31C:
+        - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+      REQ-AF07573B724E5D:
+        - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+      REQ-C61AB7C37F5701:
+        - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+      REQ-0434376B617382:
+        - TestQuoteAndCreateRejectUnpricedMediaCombinationsBeforeProviderCall
+        - TestMediaQuoteRejectsInvalidAndUnpricedRequestsBeforeProviderCall
+    authority_files:
+      - path: internal/media/service_test.go
+        sha256: sha256:e32c794f76ca2592a788fecb30e063b5e1f9eb31a3d8c15e65dc5ca044e3d209
+      - path: internal/api/media_handler_test.go
+        sha256: sha256:eb7190724e082ef514b1124e56f608c096f270d6613911d45ae800fd5708c54e

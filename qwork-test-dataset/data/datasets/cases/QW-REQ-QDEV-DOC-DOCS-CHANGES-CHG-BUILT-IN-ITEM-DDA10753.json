@@ -342,14 +342,15 @@
   ],
   "verification": {
     "last_outcome": "pending",
-    "environment_scope": "isolated Electron fixture",
-    "implementation_revision": null,
+    "environment_scope": "isolated qwork_server in-memory integration fixtures",
+    "implementation_revision": "b84f367917c9cc47f265fad746a780495a942c49",
     "last_verified_at": null,
-    "status_reason": "generated baseline has not completed its reference run"
+    "status_reason": "exact cross-repository runner implemented; reference run pending"
   },
   "preconditions": {
-    "repository": "qwork",
-    "isolated_config_home": true
+    "repository": "qwork_server",
+    "frozen_git_revision": "0515595090ee51d2d45e87eeb51f91d415a9e69b",
+    "isolated_config_home": false
   },
   "steps": [
     {
@@ -457,13 +458,13 @@
     "action": "close Electron and remove the case-owned temporary state"
   },
   "evidence": [
-    "protocol, process, return-value or durable-state evidence",
-    "machine-readable assertion result"
+    "machine-readable cross-repository test result",
+    "exact repository revision and authority file hashes"
   ],
   "execution_contract": {
     "contract_version": 1,
     "readiness": "partial",
-    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-built-in-m.item-dda107539c",
+    "route_id": "qwork.dataset.source-integration.qw-req-qdev-doc-docs-changes-chg-built-in-item-dda10753",
     "target": {
       "kind": "process",
       "platforms": [
@@ -471,7 +472,7 @@
         "win32",
         "linux"
       ],
-      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+      "artifact": "repo://qwork_server"
     },
     "authorization": {
       "required": false,
@@ -479,19 +480,19 @@
     },
     "preflight": [
       {
-        "action": "resolve repo revision and dependency lock",
-        "oracle": "revision and lock hashes are recorded"
+        "action": "resolve the exact qwork_server checkout",
+        "oracle": "HEAD equals 0515595090ee51d2d45e87eeb51f91d415a9e69b and the worktree is clean"
       },
       {
-        "action": "allocate isolated QWork home",
-        "oracle": "fixture path is unique and outside ~/.qwork"
+        "action": "verify every declared authority file hash",
+        "oracle": "the bound test implementation matches the registry"
       }
     ],
     "launch": {
-      "strategy": "manual-blocked",
-      "command_or_tool": null,
-      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
-      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+      "strategy": "command",
+      "command_or_tool": "python3 .agents/skills/qwork-test-dataset/scripts/validate_source_integration_case.py --repo . --skill-root .agents/skills/qwork-test-dataset --case-id QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-BUILT-IN-ITEM-DDA10753",
+      "success_oracle": "every bound source integration test passes at the declared repository revision",
+      "failure_action": "preserve the machine-readable test result and repair the product or binding; never substitute static source scans"
     },
     "navigation": {
       "kind": "process-protocol",
@@ -534,39 +535,101 @@
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
         }
       ],
-      "locator_strategy": "source-bound process/protocol/persistence identifier",
-      "success_oracle": "every declared non-UI oracle is directly observed",
-      "failure_action": "capture structured boundary evidence and repair the integration runner"
+      "locator_strategy": "repository + revision + package + exact Go test name",
+      "success_oracle": "every declared requirement is backed by at least one passing exact test",
+      "failure_action": "repair the failing repository test or the requirement-to-test binding"
     },
     "fixtures": {
-      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
-      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
-      "cleanup": "close app and remove temp home"
+      "setup": "case-bound qwork_server checkout with in-memory router/service fixtures",
+      "isolation": "no real account, provider, database or production data",
+      "cleanup": "Go test process exits without durable external state"
     },
     "observability": {
       "artifacts": [
         "integration-result.json"
       ],
-      "correlation": "case_id + run_id + revision",
-      "failure_classification": "product|fixture|route|environment",
-      "source_contract": null
+      "correlation": "case_id + QWork revision + qwork_server revision + exact Go test names",
+      "failure_classification": "repository-drift|authority-drift|test-failure|requirement-gap",
+      "source_contract": {
+        "repository": "qwork_server",
+        "revision": "0515595090ee51d2d45e87eeb51f91d415a9e69b",
+        "qwork_revision": "b84f367917c9cc47f265fad746a780495a942c49",
+        "requirement_ids": [
+          "REQ-0434376B617382",
+          "REQ-52137F8A9117B4",
+          "REQ-AF07573B724E5D",
+          "REQ-C61AB7C37F5701",
+          "REQ-C7034C12A22C6A",
+          "REQ-D4BAF33BEDF31C",
+          "REQ-E7E585B13A70DD",
+          "REQ-F44D8A50FC7479"
+        ],
+        "packages": [
+          "./internal/media",
+          "./internal/api"
+        ],
+        "tests": [
+          "TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask",
+          "TestKlingImageToVideoQuoteAndCreateUseTheSamePricedOperation",
+          "TestQuoteAndCreateRejectUnpricedMediaCombinationsBeforeProviderCall",
+          "TestMediaQuoteRequiresSidecarBearerAndDoesNotCallProvider",
+          "TestMediaQuoteReturnsKlingImageToVideoOperationBeforeProviderCall",
+          "TestMediaQuoteRejectsInvalidAndUnpricedRequestsBeforeProviderCall"
+        ],
+        "requirement_tests": {
+          "REQ-C7034C12A22C6A": [
+            "TestMediaQuoteRequiresSidecarBearerAndDoesNotCallProvider"
+          ],
+          "REQ-52137F8A9117B4": [
+            "TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask",
+            "TestMediaQuoteReturnsKlingImageToVideoOperationBeforeProviderCall"
+          ],
+          "REQ-E7E585B13A70DD": [
+            "TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask"
+          ],
+          "REQ-F44D8A50FC7479": [
+            "TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask"
+          ],
+          "REQ-D4BAF33BEDF31C": [
+            "TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask"
+          ],
+          "REQ-AF07573B724E5D": [
+            "TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask"
+          ],
+          "REQ-C61AB7C37F5701": [
+            "TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask"
+          ],
+          "REQ-0434376B617382": [
+            "TestQuoteAndCreateRejectUnpricedMediaCombinationsBeforeProviderCall",
+            "TestMediaQuoteRejectsInvalidAndUnpricedRequestsBeforeProviderCall"
+          ]
+        },
+        "authority_files": [
+          {
+            "path": "internal/media/service_test.go",
+            "sha256": "sha256:e32c794f76ca2592a788fecb30e063b5e1f9eb31a3d8c15e65dc5ca044e3d209"
+          },
+          {
+            "path": "internal/api/media_handler_test.go",
+            "sha256": "sha256:eb7190724e082ef514b1124e56f608c096f270d6613911d45ae800fd5708c54e"
+          }
+        ]
+      }
     },
     "reference_run": {
       "status": "pending",
       "run_id": null,
       "verified_at": null,
-      "environment": "not yet independently replayed"
+      "environment": "exact cross-repository integration replay pending"
     },
     "cleanup": {
       "actions": [
-        "close Electron application",
-        "remove case-owned temporary directory"
+        "assert the test process exited and no real provider was called"
       ],
-      "success_oracle": "no case-owned process or temporary state remains"
+      "success_oracle": "only the requested report artifact was created"
     },
     "blockers": [
-      "dedicated source-bound non-UI integration runner is not implemented",
-      "reference run pending"
+      "source integration reference run pending"
     ]
   },
   "selection": {

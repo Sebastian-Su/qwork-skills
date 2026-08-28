@@ -44,12 +44,16 @@ for (const file of files) {
   const sourceContract = execution.observability?.source_contract;
   const isPlaywright = String(execution.route_id ?? "").startsWith("qwork.playwright.") ||
     String(execution.route_id ?? "").startsWith("qwork.private-playwright.");
+  const isSourceIntegration = String(execution.route_id ?? "").startsWith("qwork.dataset.source-integration.");
   const isRequirementCase = String(execution.route_id ?? "").startsWith("qwork.requirement.");
   if (isPlaywright && !sourceContract) {
     errors.push(`${value.id}: Playwright route requires a source_contract`);
   }
-  if (!isPlaywright && sourceContract !== null) {
-    errors.push(`${value.id}: source requirement route must not invent a Playwright source_contract`);
+  if (isSourceIntegration && (!sourceContract || sourceContract.repository !== "qwork_server")) {
+    errors.push(`${value.id}: source integration route requires a qwork_server source_contract`);
+  }
+  if (!isPlaywright && !isSourceIntegration && sourceContract !== null) {
+    errors.push(`${value.id}: non-executable source route must not invent a source_contract`);
   }
   if (isRequirementCase) {
     const requirements = new Map((value.derived_requirements ?? []).map((item) => [item.requirement_id, item]));
@@ -103,7 +107,7 @@ for (const file of files) {
   if (markedLive && execution.authorization?.required !== true) {
     errors.push(`${value.id}: live-marked Playwright Case must require authorization`);
   }
-  if (sourceContract && sourceContract.line_end < sourceContract.line_start) {
+  if (isPlaywright && sourceContract && sourceContract.line_end < sourceContract.line_start) {
     errors.push(`${value.id}: source_contract line_end precedes line_start`);
   }
 }

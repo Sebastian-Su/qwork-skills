@@ -305,6 +305,35 @@ def classify(plan: dict[str, Any], cases: dict[str, dict[str, Any]]) -> dict[str
                 "case_id": case_id,
                 "artifact_name": "structured-source-result.json",
             }
+        elif str(contract["route_id"]).startswith("qwork.dataset.source-integration."):
+            expected = (
+                "python3 .agents/skills/qwork-test-dataset/scripts/"
+                "validate_source_integration_case.py --repo . "
+                "--skill-root .agents/skills/qwork-test-dataset "
+                f"--case-id {case_id}"
+            )
+            source = contract["observability"].get("source_contract") or {}
+            requirement_ids = sorted(
+                str(value) for value in case.get("selection", {}).get("requirement_ids") or []
+            )
+            mapped_requirement_ids = sorted(
+                str(value) for value in (source.get("requirement_tests") or {})
+            )
+            if (
+                command != expected
+                or source.get("repository") != "qwork_server"
+                or not re.fullmatch(r"[0-9a-f]{40}", str(source.get("revision") or ""))
+                or mapped_requirement_ids != requirement_ids
+            ):
+                raise ValueError(f"source integration verifier contract drift: {case_id}")
+            coordinates[item_id] = {
+                "category": "dataset-verifier",
+                "command": command,
+                "argv": shlex.split(command),
+                "case_id": case_id,
+                "artifact_name": "integration-result.json",
+                "source_integration": True,
+            }
         elif str(contract["route_id"]).startswith("qwork.playwright."):
             argv = shlex.split(command)
             source = contract["observability"].get("source_contract")
@@ -545,6 +574,11 @@ def execute_coordinate(repo: Path, run_root: Path, item_id: str, coordinate: dic
     exit_code = 0
     for argv in steps:
         environment = os.environ.copy()
+        if coordinate.get("source_integration"):
+            server_dir = resolve_qwork_server_dir(repo)
+            if server_dir is None:
+                raise ValueError("qwork_server checkout is unavailable for source integration")
+            environment["QWORK_SERVER_DIR"] = str(server_dir)
         if coordinate.get("category") == "deterministic-playwright" and not coordinate.get("private_playwright"):
             environment["QWORK_RELEASE_GATE_EVIDENCE_DIR"] = str(
                 repo / "test-results" / "release-gate-capture"

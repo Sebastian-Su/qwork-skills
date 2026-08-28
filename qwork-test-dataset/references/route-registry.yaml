@@ -1,4 +1,4 @@
-generated_at: '2026-08-28T08:26:46.664286+00:00'
+generated_at: '2026-08-28T08:58:30.876595+00:00'
 policy:
   case_to_route: one-to-one
   playwright_contract: test body SHA, line range, action and assertion count are mandatory
@@ -8,6 +8,116 @@ policy:
   workbuddy_oracle: read-only Electron CDP only; never mutate account or product data
 route_count: 3105
 routes:
+  qwork.dataset.source-integration.qw-req-qdev-doc-docs-changes-chg-built-in-item-dda10753:
+    authorization:
+      required: false
+      scopes: []
+    capability_id: media-generation
+    case_id: QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-BUILT-IN-ITEM-DDA10753
+    evidence:
+    - integration-result.json
+    fixtures:
+      cleanup: Go test process exits without durable external state
+      isolation: no real account, provider, database or production data
+      setup: case-bound qwork_server checkout with in-memory router/service fixtures
+    launch:
+      command_or_tool: python3 .agents/skills/qwork-test-dataset/scripts/validate_source_integration_case.py
+        --repo . --skill-root .agents/skills/qwork-test-dataset --case-id QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-BUILT-IN-ITEM-DDA10753
+      failure_action: preserve the machine-readable test result and repair the product
+        or binding; never substitute static source scans
+      strategy: command
+      success_oracle: every bound source integration test passes at the declared repository
+        revision
+    navigation:
+      entrypoint: media-generation
+      failure_action: repair the failing repository test or the requirement-to-test
+        binding
+      kind: process-protocol
+      locator_strategy: repository + revision + package + exact Go test name
+      steps:
+      - action: start the isolated process, protocol or persistence fixture
+      - action: capture the pre-trigger baseline for media-generation at every source-bound
+          observation boundary
+      - action: perform the source-defined scenario trigger for docs/changes/CHG-built-in-media-generation-998538-20260825/implementation-plan.md
+          · 报价接口 产品契约 exactly once; record the action, route and correlation identity
+      - action: 'observe typed return value and side-effect ledger after the trigger
+          and assert [REQ-C7034C12A22C6A] exactly: 新增向后兼容接口：'
+      - action: 'observe typed return value and side-effect ledger after the trigger
+          and assert [REQ-52137F8A9117B4] exactly: `normalizedParameters`'
+      - action: 'observe typed return value and side-effect ledger after the trigger
+          and assert [REQ-E7E585B13A70DD] exactly: `estimatedCostMicrocredits`'
+      - action: 'observe typed return value and side-effect ledger after the trigger
+          and assert [REQ-F44D8A50FC7479] exactly: `maximumCostMicrocredits`（阶段 0
+          与 estimated 相等）'
+      - action: 'observe typed return value and side-effect ledger after the trigger
+          and assert [REQ-D4BAF33BEDF31C] exactly: `exact=true`'
+      - action: 'observe typed return value and side-effect ledger after the trigger
+          and assert [REQ-AF07573B724E5D] exactly: `pricingVersion`'
+      - action: 'observe typed return value and side-effect ledger after the trigger
+          and assert [REQ-C61AB7C37F5701] exactly: `expiresAt`'
+      - action: 'observe typed return value and side-effect ledger after the trigger
+          and assert [REQ-0434376B617382] exactly: 失败使用现有稳定错误结构；未定价组合返回 `pricing_not_found`，非法参数返回
+          `invalid_argument`，余额不在报价阶段冻结。'
+      - action: compare the pre-trigger and post-trigger evidence, reject unrelated
+          prior state, and preserve the per-Requirement causal verdict
+      success_oracle: every declared requirement is backed by at least one passing
+        exact test
+    oracle_contract: null
+    readiness: partial
+    source_contract:
+      authority_files:
+      - path: internal/media/service_test.go
+        sha256: sha256:e32c794f76ca2592a788fecb30e063b5e1f9eb31a3d8c15e65dc5ca044e3d209
+      - path: internal/api/media_handler_test.go
+        sha256: sha256:eb7190724e082ef514b1124e56f608c096f270d6613911d45ae800fd5708c54e
+      packages:
+      - ./internal/media
+      - ./internal/api
+      qwork_revision: b84f367917c9cc47f265fad746a780495a942c49
+      repository: qwork_server
+      requirement_ids:
+      - REQ-0434376B617382
+      - REQ-52137F8A9117B4
+      - REQ-AF07573B724E5D
+      - REQ-C61AB7C37F5701
+      - REQ-C7034C12A22C6A
+      - REQ-D4BAF33BEDF31C
+      - REQ-E7E585B13A70DD
+      - REQ-F44D8A50FC7479
+      requirement_tests:
+        REQ-0434376B617382:
+        - TestQuoteAndCreateRejectUnpricedMediaCombinationsBeforeProviderCall
+        - TestMediaQuoteRejectsInvalidAndUnpricedRequestsBeforeProviderCall
+        REQ-52137F8A9117B4:
+        - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+        - TestMediaQuoteReturnsKlingImageToVideoOperationBeforeProviderCall
+        REQ-AF07573B724E5D:
+        - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+        REQ-C61AB7C37F5701:
+        - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+        REQ-C7034C12A22C6A:
+        - TestMediaQuoteRequiresSidecarBearerAndDoesNotCallProvider
+        REQ-D4BAF33BEDF31C:
+        - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+        REQ-E7E585B13A70DD:
+        - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+        REQ-F44D8A50FC7479:
+        - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+      revision: 0515595090ee51d2d45e87eeb51f91d415a9e69b
+      tests:
+      - TestQuoteReturnsExactServerPriceWithoutCreatingProviderTask
+      - TestKlingImageToVideoQuoteAndCreateUseTheSamePricedOperation
+      - TestQuoteAndCreateRejectUnpricedMediaCombinationsBeforeProviderCall
+      - TestMediaQuoteRequiresSidecarBearerAndDoesNotCallProvider
+      - TestMediaQuoteReturnsKlingImageToVideoOperationBeforeProviderCall
+      - TestMediaQuoteRejectsInvalidAndUnpricedRequestsBeforeProviderCall
+    target:
+      artifact: repo://qwork_server
+      kind: process
+      platforms:
+      - darwin
+      - win32
+      - linux
   qwork.dataset.structured-oracle-source.qw-req-workbuddy-oracle-5-3-5-automation-evidence-editor-prompttoolbar-e38b7c12:
     authorization:
       required: false
@@ -52825,70 +52935,6 @@ routes:
           [REQ-EC26D20514B0A4] exactly: 阶段 0 不新增表和迁移。'
       - action: 'observe typed return value and side-effect ledger after the trigger
           and assert [REQ-1216BA57A3E855] exactly: Prompt 和参考图不为报价重复发送或记录。'
-      - action: compare the pre-trigger and post-trigger evidence, reject unrelated
-          prior state, and preserve the per-Requirement causal verdict
-      success_oracle: every declared non-UI oracle is directly observed
-    oracle_contract: null
-    readiness: partial
-    source_contract: null
-    target:
-      artifact: repo://QWork process/protocol/persistence boundary named by the source
-      kind: process
-      platforms:
-      - darwin
-      - win32
-      - linux
-  qwork.requirement.qdev-doc-docs-changes-chg-built-in-m.item-dda107539c:
-    authorization:
-      required: false
-      scopes: []
-    capability_id: media-generation
-    case_id: QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-BUILT-IN-ITEM-DDA10753
-    evidence:
-    - integration-result.json
-    fixtures:
-      cleanup: close app and remove temp home
-      isolation: no reuse of ~/.qwork, real account, or production data without explicit
-        Case authority
-      setup: case-owned temp home and deterministic fake sidecar unless live authority
-        is explicit
-    launch:
-      command_or_tool: null
-      failure_action: implement a source-bound integration runner; do not substitute
-        a screenshot or static text scan
-      strategy: manual-blocked
-      success_oracle: the source-bound non-UI contract is directly observed at its
-        process, protocol or persistence boundary
-    navigation:
-      entrypoint: media-generation
-      failure_action: capture structured boundary evidence and repair the integration
-        runner
-      kind: process-protocol
-      locator_strategy: source-bound process/protocol/persistence identifier
-      steps:
-      - action: start the isolated process, protocol or persistence fixture
-      - action: capture the pre-trigger baseline for media-generation at every source-bound
-          observation boundary
-      - action: perform the source-defined scenario trigger for docs/changes/CHG-built-in-media-generation-998538-20260825/implementation-plan.md
-          · 报价接口 产品契约 exactly once; record the action, route and correlation identity
-      - action: 'observe typed return value and side-effect ledger after the trigger
-          and assert [REQ-C7034C12A22C6A] exactly: 新增向后兼容接口：'
-      - action: 'observe typed return value and side-effect ledger after the trigger
-          and assert [REQ-52137F8A9117B4] exactly: `normalizedParameters`'
-      - action: 'observe typed return value and side-effect ledger after the trigger
-          and assert [REQ-E7E585B13A70DD] exactly: `estimatedCostMicrocredits`'
-      - action: 'observe typed return value and side-effect ledger after the trigger
-          and assert [REQ-F44D8A50FC7479] exactly: `maximumCostMicrocredits`（阶段 0
-          与 estimated 相等）'
-      - action: 'observe typed return value and side-effect ledger after the trigger
-          and assert [REQ-D4BAF33BEDF31C] exactly: `exact=true`'
-      - action: 'observe typed return value and side-effect ledger after the trigger
-          and assert [REQ-AF07573B724E5D] exactly: `pricingVersion`'
-      - action: 'observe typed return value and side-effect ledger after the trigger
-          and assert [REQ-C61AB7C37F5701] exactly: `expiresAt`'
-      - action: 'observe typed return value and side-effect ledger after the trigger
-          and assert [REQ-0434376B617382] exactly: 失败使用现有稳定错误结构；未定价组合返回 `pricing_not_found`，非法参数返回
-          `invalid_argument`，余额不在报价阶段冻结。'
       - action: compare the pre-trigger and post-trigger evidence, reject unrelated
           prior state, and preserve the per-Requirement causal verdict
       success_oracle: every declared non-UI oracle is directly observed

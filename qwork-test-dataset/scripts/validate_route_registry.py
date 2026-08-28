@@ -279,6 +279,24 @@ def main() -> int:
                     errors.append(f"structured source verifier route {route_id} command drifted")
                 if case.get("execution_type") != "integration" or case.get("ui_acceptance") is not None:
                     errors.append(f"structured source verifier route {route_id} must be non-UI integration")
+            elif route_id.startswith("qwork.dataset.source-integration."):
+                expected = (
+                    "python3 .agents/skills/qwork-test-dataset/scripts/"
+                    "validate_source_integration_case.py --repo . "
+                    "--skill-root .agents/skills/qwork-test-dataset "
+                    f"--case-id {case['id']}"
+                )
+                source = contract.get("observability", {}).get("source_contract") or {}
+                requirement_ids = sorted(str(value) for value in case.get("selection", {}).get("requirement_ids") or [])
+                mapped_requirement_ids = sorted(str(value) for value in (source.get("requirement_tests") or {}))
+                if contract["launch"].get("strategy") != "command" or contract["launch"].get("command_or_tool") != expected:
+                    errors.append(f"source integration route {route_id} command drifted")
+                if source.get("repository") != "qwork_server" or not re.fullmatch(r"[0-9a-f]{40}", str(source.get("revision") or "")):
+                    errors.append(f"source integration route {route_id} repository authority drifted")
+                if mapped_requirement_ids != requirement_ids:
+                    errors.append(f"source integration route {route_id} requirement map is incomplete")
+                if case.get("execution_type") != "integration" or case.get("ui_acceptance") is not None:
+                    errors.append(f"source integration route {route_id} must be non-UI integration")
             elif any(
                 re.fullmatch(r"WORKBUDDY-CDP-\d+(?:-\d+)+-V\d+", source_id)
                 for source_id in source_ids
