@@ -18,7 +18,7 @@ VERSIONED_DATA_ROOTS = {
     "reference-runs",
     "sources",
 }
-LFS_SUFFIXES = {".jpeg", ".jpg", ".png", ".webp", ".zip"}
+LFS_SUFFIXES = {".jpeg", ".jpg", ".png", ".trace", ".webp", ".zip"}
 
 
 def run_git(repo: Path, *args: str) -> subprocess.CompletedProcess[str]:
@@ -103,19 +103,22 @@ def validate(repo: Path, skill_name: str, paths: list[Path]) -> dict[str, object
     tracked_fixture_root = data_root / "e2e"
     if not tracked_fixture_root.is_dir():
         raise ValueError(f"private Dataset E2E source root does not exist: {tracked_fixture_root}")
-    data_roots = sorted(data_root.iterdir())
+    data_roots = {entry.name: entry for entry in data_root.iterdir()}
+    unexpected_data_roots = sorted(set(data_roots) - VERSIONED_DATA_ROOTS)
+    if unexpected_data_roots:
+        unexpected_path = (data_root / unexpected_data_roots[0]).relative_to(source_repo)
+        raise ValueError(
+            f"Dataset runtime data must be outside source repository: {unexpected_path}"
+        )
     versioned_data_roots: list[str] = []
     versioned_data_file_count = 0
     lfs_file_count = 0
-    for state_root in data_roots:
+    for root_name in sorted(VERSIONED_DATA_ROOTS):
+        state_root = data_root / root_name
         relative_state = state_root.relative_to(source_repo).as_posix()
-        if state_root.name not in VERSIONED_DATA_ROOTS:
-            raise ValueError(
-                f"Dataset runtime data must be outside source repository: {relative_state}"
-            )
         if not state_root.is_dir():
             raise ValueError(
-                f"versioned Dataset root must be a directory: {relative_state}"
+                f"versioned Dataset root is missing or not a directory: {relative_state}"
             )
         visible_data_status = visible_status(source_repo, relative_state)
         if visible_data_status:

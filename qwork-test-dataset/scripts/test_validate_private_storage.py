@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 import tempfile
 import unittest
@@ -52,7 +53,8 @@ class ValidatePrivateStorageTest(unittest.TestCase):
             encoding="utf-8",
         )
         (self.skill_repo / ".gitattributes").write_text(
-            "qwork-test-dataset/data/**/*.png filter=lfs diff=lfs merge=lfs -text\n",
+            "qwork-test-dataset/data/**/*.png filter=lfs diff=lfs merge=lfs -text\n"
+            "qwork-test-dataset/data/**/*.trace filter=lfs diff=lfs merge=lfs -text\n",
             encoding="utf-8",
         )
         for relative_path in (
@@ -62,11 +64,14 @@ class ValidatePrivateStorageTest(unittest.TestCase):
             "data/e2e/functional-contracts.spec.ts",
             "data/evidence/manifest.json",
             "data/reference-runs/reference/report.json",
+            "data/reference-runs/reference/execution.trace",
             "data/sources/source/manifest.json",
         ):
             path = self.skill_root / relative_path
             path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_bytes(b"png fixture\n" if path.suffix == ".png" else b"{}\n")
+            path.write_bytes(
+                b"binary fixture\n" if path.suffix in {".png", ".trace"} else b"{}\n"
+            )
 
         git(self.skill_repo, "add", "qwork-test-dataset")
         git(self.skill_repo, "-c", "user.name=QWork Test", "-c", "user.email=qwork@example.invalid", "commit", "-m", "test fixture")
@@ -92,7 +97,13 @@ class ValidatePrivateStorageTest(unittest.TestCase):
             "qwork-test-dataset/data/datasets",
             result["versioned_data_roots"],
         )
-        self.assertEqual(result["lfs_file_count"], 1)
+        self.assertEqual(result["lfs_file_count"], 2)
+
+    def test_rejects_missing_versioned_root(self) -> None:
+        shutil.rmtree(self.skill_root / "data/sources")
+
+        with self.assertRaisesRegex(ValueError, "versioned Dataset root.*data/sources"):
+            validate(self.team_repo, "qwork-test-dataset", [])
 
     def test_rejects_ignored_runtime_data_inside_repository(self) -> None:
         runtime_file = self.skill_root / "data/runs/run.json"
@@ -125,6 +136,31 @@ class ValidatePrivateStorageTest(unittest.TestCase):
         )
 
         with self.assertRaisesRegex(ValueError, "Git LFS.*reference.png"):
+            validate(self.team_repo, "qwork-test-dataset", [])
+
+    def test_rejects_trace_without_lfs_attribute(self) -> None:
+        (self.skill_repo / ".gitattributes").write_text(
+            "qwork-test-dataset/data/**/*.png filter=lfs diff=lfs merge=lfs -text\n",
+            encoding="utf-8",
+        )
+        git(
+            self.skill_repo,
+            "add",
+            ".gitattributes",
+            "qwork-test-dataset/data/reference-runs/reference/execution.trace",
+        )
+        git(
+            self.skill_repo,
+            "-c",
+            "user.name=QWork Test",
+            "-c",
+            "user.email=qwork@example.invalid",
+            "commit",
+            "-m",
+            "remove trace lfs attribute",
+        )
+
+        with self.assertRaisesRegex(ValueError, "Git LFS.*execution.trace"):
             validate(self.team_repo, "qwork-test-dataset", [])
 
 
