@@ -2642,6 +2642,133 @@ def apply_public_playwright_reference_authority(
     }
 
 
+def apply_source_integration_reference_authority(
+    *,
+    case: dict[str, Any],
+    reference: dict[str, Any],
+    skill_root: pathlib.Path,
+    head: str,
+) -> None:
+    """Apply a hash-bound, non-UI cross-repository integration reference."""
+
+    prefix = "skill://qwork-test-dataset/"
+
+    def verified_json(locator_key: str, hash_key: str) -> dict[str, Any]:
+        locator = str(reference.get(locator_key) or "")
+        if not locator.startswith(prefix):
+            raise ValueError(f"source integration {locator_key} must use the Dataset Skill locator")
+        path = (skill_root / locator.removeprefix(prefix)).resolve()
+        path.relative_to(skill_root.resolve())
+        if not path.is_file():
+            raise ValueError(f"source integration authority is missing: {case['id']} {locator}")
+        actual = f"sha256:{sha256_bytes(path.read_bytes())}"
+        if actual != str(reference.get(hash_key) or ""):
+            raise ValueError(f"source integration authority hash drifted: {case['id']} {locator_key}")
+        value = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(value, dict):
+            raise ValueError(f"source integration authority must be an object: {case['id']} {locator_key}")
+        return value
+
+    plan = verified_json("plan", "plan_file_sha256")
+    state = verified_json("runner_state", "runner_state_sha256")
+    preflight = verified_json("preflight", "preflight_sha256")
+    report = verified_json("report", "report_sha256")
+    contract = case["execution_contract"]
+    source = contract.get("observability", {}).get("source_contract") or {}
+    source_hash = sha256_text(
+        json.dumps(source, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    )
+    verifier_hash = f"sha256:{sha256_bytes((skill_root / 'scripts/validate_source_integration_case.py').read_bytes())}"
+    item_id = f"case:{case['id']}"
+    items = {str(item.get("item_id")): item for item in plan.get("required_items", [])}
+    item = items.get(item_id)
+    coordinate = (state.get("coordinates") or {}).get(item_id)
+    plan_sha = str(reference.get("plan_sha256") or "")
+    if (
+        plan.get("plan_sha256") != plan_sha
+        or state.get("plan_sha256") != plan_sha
+        or preflight.get("plan_sha256") != plan_sha
+        or plan.get("implementation_revision") != reference.get("implementation_revision")
+        or state.get("implementation_revision") != reference.get("implementation_revision")
+        or preflight.get("implementation_revision") != reference.get("implementation_revision")
+        or preflight.get("live_execution_allowed") is not False
+        or reference.get("verifier_sha256") != verifier_hash
+        or reference.get("source_contract_sha256") != source_hash
+    ):
+        raise ValueError(f"source integration plan/verifier/source authority mismatch: {case['id']}")
+    if (
+        not item
+        or not coordinate
+        or item.get("case_id") != case["id"]
+        or item.get("route_id") != contract.get("route_id")
+        or item.get("command") != contract.get("launch", {}).get("command_or_tool")
+        or item.get("source_contract") != source
+        or coordinate.get("category") != "dataset-verifier"
+        or coordinate.get("status") != "pass"
+        or coordinate.get("exit_code") != 0
+        or coordinate.get("finished_at") != reference.get("verified_at")
+    ):
+        raise ValueError(f"source integration Case/coordinate authority mismatch: {case['id']}")
+    expected_tests = sorted(str(value) for value in source.get("tests") or [])
+    expected_requirements = sorted(str(value) for value in source.get("requirement_ids") or [])
+    report_tests = sorted(
+        str(value.get("name"))
+        for value in report.get("tests") or []
+        if value.get("status") == "pass"
+    )
+    report_requirements = sorted(
+        str(value.get("requirement_id"))
+        for value in report.get("requirements") or []
+        if value.get("status") == "pass"
+    )
+    cleanup = report.get("cleanup") or {}
+    valid_report = (
+        report.get("status") == "pass"
+        and report.get("case_id") == case["id"]
+        and report.get("qwork_revision") == reference.get("implementation_revision")
+        and report.get("expected_revision") == source.get("revision")
+        and report.get("actual_revision") == source.get("revision")
+        and report.get("worktree_clean") is True
+        and report.get("zero_real_provider_calls") is True
+        and report_tests == expected_tests
+        and report_requirements == expected_requirements
+        and cleanup.get("test_process_exited") is True
+        and cleanup.get("external_state_created") is False
+        and not report.get("failures")
+        and reference.get("qwork_server_revision") == source.get("revision")
+    )
+    if not valid_report:
+        raise ValueError(f"source integration report authority mismatch: {case['id']}")
+    if reference.get("implementation_revision") != head:
+        contract["readiness"] = "partial"
+        contract["reference_run"] = {
+            "status": "pending",
+            "run_id": str(reference["run_id"]),
+            "verified_at": str(reference["verified_at"]),
+            "environment": "stale source integration reference run",
+        }
+        contract["blockers"] = [
+            f"source integration reference {reference['run_id']} targets another QWork revision"
+        ]
+        return
+    environment = "isolated qwork_server in-memory integration fixtures, zero real provider calls"
+    contract["reference_run"] = {
+        "status": "passed",
+        "run_id": str(reference["run_id"]),
+        "verified_at": str(reference["verified_at"]),
+        "environment": environment,
+    }
+    contract["readiness"] = "ready"
+    contract["blockers"] = []
+    case["verification"] = {
+        "last_outcome": "pass",
+        "environment_scope": environment,
+        "implementation_revision": head,
+        "last_verified_at": str(reference["verified_at"]),
+        "status_reason": f"hash-verified source integration reference {reference['run_id']} passed",
+    }
+
+
 def expand_deterministic_reference_batches(
     registry: dict[str, Any], skill_root: pathlib.Path
 ) -> None:
@@ -4961,6 +5088,14 @@ def main() -> int:
             apply_public_playwright_reference_authority(
                 case=case,
                 reference=public_playwright_reference,
+                skill_root=skill_root,
+                head=head,
+            )
+        source_integration_reference = deterministic_reference_runs.get("source_integration_runs", {}).get(str(case["id"]))
+        if source_integration_reference:
+            apply_source_integration_reference_authority(
+                case=case,
+                reference=source_integration_reference,
                 skill_root=skill_root,
                 head=head,
             )

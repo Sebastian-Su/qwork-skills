@@ -4,7 +4,10 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
+import json
 from pathlib import Path
+import tempfile
 
 
 def load_builder():
@@ -82,6 +85,101 @@ def main() -> int:
             raise
     else:
         raise AssertionError("binding accepted an incomplete requirement set")
+
+    with tempfile.TemporaryDirectory() as directory:
+        skill_root = Path(directory)
+        reference_root = skill_root / "data/reference-runs/source-integration-v1"
+        reference_root.mkdir(parents=True)
+        verifier = skill_root / "scripts/validate_source_integration_case.py"
+        verifier.parent.mkdir(parents=True)
+        verifier.write_text("# frozen verifier\n", encoding="utf-8")
+        source_contract = source
+        item_id = f"case:{case_id}"
+        plan = {
+            "plan_sha256": "d" * 64,
+            "implementation_revision": "c" * 40,
+            "required_items": [{
+                "item_id": item_id,
+                "case_id": case_id,
+                "route_id": contract["route_id"],
+                "command": expected_command,
+                "source_contract": source_contract,
+            }],
+        }
+        state = {
+            "plan_sha256": "d" * 64,
+            "implementation_revision": "c" * 40,
+            "coordinates": {item_id: {
+                "category": "dataset-verifier",
+                "status": "pass",
+                "exit_code": 0,
+                "finished_at": "2026-08-28T00:00:00+00:00",
+            }},
+        }
+        preflight = {
+            "plan_sha256": "d" * 64,
+            "implementation_revision": "c" * 40,
+            "live_execution_allowed": False,
+        }
+        report = {
+            "status": "pass",
+            "case_id": case_id,
+            "qwork_revision": "c" * 40,
+            "expected_revision": "a" * 40,
+            "actual_revision": "a" * 40,
+            "worktree_clean": True,
+            "zero_real_provider_calls": True,
+            "tests": [
+                {"name": "TestQuotePrice", "status": "pass"},
+                {"name": "TestQuoteRejectsInvalid", "status": "pass"},
+            ],
+            "requirements": [
+                {"requirement_id": "REQ-NEGATIVE", "tests": ["TestQuoteRejectsInvalid"], "status": "pass"},
+                {"requirement_id": "REQ-PRICE", "tests": ["TestQuotePrice"], "status": "pass"},
+            ],
+            "cleanup": {"test_process_exited": True, "external_state_created": False},
+            "failures": [],
+        }
+
+        def write(name: str, value: dict) -> str:
+            path = reference_root / name
+            path.write_text(json.dumps(value, sort_keys=True) + "\n", encoding="utf-8")
+            return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+        plan_sha = write("plan.json", plan)
+        state_sha = write("runner-state.json", state)
+        preflight_sha = write("execution-preflight.json", preflight)
+        report_sha = write("integration-result.json", report)
+        verifier_sha = "sha256:" + hashlib.sha256(verifier.read_bytes()).hexdigest()
+        contract_sha = hashlib.sha256(
+            json.dumps(source_contract, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest()
+        prefix = "skill://qwork-test-dataset/data/reference-runs/source-integration-v1/"
+        reference = {
+            "run_id": "source-integration-v1",
+            "report": prefix + "integration-result.json",
+            "report_sha256": report_sha,
+            "plan": prefix + "plan.json",
+            "plan_file_sha256": plan_sha,
+            "runner_state": prefix + "runner-state.json",
+            "runner_state_sha256": state_sha,
+            "preflight": prefix + "execution-preflight.json",
+            "preflight_sha256": preflight_sha,
+            "verifier_sha256": verifier_sha,
+            "source_contract_sha256": contract_sha,
+            "implementation_revision": "c" * 40,
+            "qwork_server_revision": "a" * 40,
+            "plan_sha256": "d" * 64,
+            "verified_at": "2026-08-28T00:00:00+00:00",
+        }
+        builder.apply_source_integration_reference_authority(
+            case=case,
+            reference=reference,
+            skill_root=skill_root,
+            head="c" * 40,
+        )
+        if contract["readiness"] != "ready" or contract["reference_run"]["status"] != "passed":
+            raise AssertionError("passing source integration reference was not promoted")
 
     print("source integration binding test: PASS")
     return 0
