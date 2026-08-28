@@ -423,6 +423,19 @@ def coordinate_steps(
     return [coordinate["argv"]], []
 
 
+def coordinate_environment(repo: Path, coordinate: dict[str, Any]) -> dict[str, str]:
+    """Build an isolated environment for one frozen execution coordinate."""
+
+    environment = os.environ.copy()
+    environment.pop("QWORK_SERVER_DIR", None)
+    if coordinate.get("source_integration"):
+        server_dir = resolve_qwork_server_dir(repo)
+        if server_dir is None:
+            raise ValueError("qwork_server checkout is unavailable for source integration")
+        environment["QWORK_SERVER_DIR"] = str(server_dir)
+    return environment
+
+
 def write_private_attestation(
     *, run_root: Path, coordinate: dict[str, Any], private_artifacts: list[Path]
 ) -> Path:
@@ -573,12 +586,7 @@ def execute_coordinate(repo: Path, run_root: Path, item_id: str, coordinate: dic
     errors: list[str] = []
     exit_code = 0
     for argv in steps:
-        environment = os.environ.copy()
-        if coordinate.get("source_integration"):
-            server_dir = resolve_qwork_server_dir(repo)
-            if server_dir is None:
-                raise ValueError("qwork_server checkout is unavailable for source integration")
-            environment["QWORK_SERVER_DIR"] = str(server_dir)
+        environment = coordinate_environment(repo, coordinate)
         if coordinate.get("category") == "deterministic-playwright" and not coordinate.get("private_playwright"):
             environment["QWORK_RELEASE_GATE_EVIDENCE_DIR"] = str(
                 repo / "test-results" / "release-gate-capture"

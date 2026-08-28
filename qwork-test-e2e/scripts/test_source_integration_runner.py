@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import importlib.util
+import os
 from pathlib import Path
 
 
@@ -62,6 +63,28 @@ def main() -> int:
         raise AssertionError(f"unexpected artifact: {coordinate}")
     if coordinate.get("source_integration") is not True:
         raise AssertionError(f"source integration marker missing: {coordinate}")
+
+    original_override = os.environ.get("QWORK_SERVER_DIR")
+    os.environ["QWORK_SERVER_DIR"] = "/private/tmp/qwork-server-override"
+    try:
+        regular_environment = runner.coordinate_environment(Path("."), {})
+        if "QWORK_SERVER_DIR" in regular_environment:
+            raise AssertionError("qwork_server runner override leaked into a regular coordinate")
+        original_resolver = runner.resolve_qwork_server_dir
+        runner.resolve_qwork_server_dir = lambda _repo: Path("/private/tmp/qwork-server-override")
+        try:
+            source_environment = runner.coordinate_environment(
+                Path("."), {"source_integration": True}
+            )
+        finally:
+            runner.resolve_qwork_server_dir = original_resolver
+        if source_environment.get("QWORK_SERVER_DIR") != "/private/tmp/qwork-server-override":
+            raise AssertionError("source integration coordinate lost its qwork_server override")
+    finally:
+        if original_override is None:
+            os.environ.pop("QWORK_SERVER_DIR", None)
+        else:
+            os.environ["QWORK_SERVER_DIR"] = original_override
 
     case["execution_contract"]["observability"]["source_contract"]["requirement_tests"].pop("REQ-B")
     try:
