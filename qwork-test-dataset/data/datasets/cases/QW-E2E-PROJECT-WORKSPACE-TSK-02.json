@@ -1,0 +1,241 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECT-WORKSPACE-TSK-02",
+  "title": "项目任务工作空间语义 · TSK-02",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "hybrid",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "entry",
+      "binding-created",
+      "retry"
+    ],
+    "risk_ids": [
+      "workspace-binding-drift"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "QWORK-PRD-WORKSPACE-7C768BE1",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:7c768be1512aaeb7f508d218cc700a4834d73982:docs/project-prd.md",
+      "locator": "line:518;requirement:TSK-02",
+      "revision": "7c768be1512aaeb7f508d218cc700a4834d73982",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T07:13:55.126378+00:00",
+      "content_hash": "sha256:cc0d2ba5a2e844f628baf1628db34d10455983e42fcef366f0a6fb1faf4890ef",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-TSK-02-WORKSPACE-BINDING",
+      "source_atom_ids": [
+        "QWORK-PRD-WORKSPACE-7C768BE1:L518:tsk-02"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P0",
+      "rule": "每个任务只绑定一个稳定执行工作空间；默认创建新的托管目录，用户显式选择既有目录时该目录就是实际 cwd，多个任务可以复用同一目录且会话仍相互独立。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QWORK-PRD-WORKSPACE-7C768BE1"
+      ],
+      "supporting_sources": [],
+      "conflicts": [
+        "SRC-CONFLICT-TSK02-PHYSICAL-ISOLATION-RESOLVED"
+      ],
+      "resolution": {
+        "status": "resolved",
+        "reason": "user-approved WorkBuddy workspace semantics supersede the physical-isolation inference"
+      },
+      "oracle": "每个任务只绑定一个稳定执行工作空间；默认创建新的托管目录，用户显式选择既有目录时该目录就是实际 cwd，多个任务可以复用同一目录且会话仍相互独立。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture and provider-neutral server contract",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "reference run has not completed; real cloud provider remains external"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron and server contract fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for task, workspace and path identity"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for TSK-02 exactly once"
+    },
+    {
+      "action": "observe the post-trigger boundary and assert [REQ-TSK-02-WORKSPACE-BINDING] exactly: 每个任务只绑定一个稳定执行工作空间；默认创建新的托管目录，用户显式选择既有目录时该目录就是实际 cwd，多个任务可以复用同一目录且会话仍相互独立。"
+    },
+    {
+      "action": "restart or retry where applicable and compare the persisted binding with the original"
+    }
+  ],
+  "expected_outcomes": [
+    "每个任务只绑定一个稳定执行工作空间；默认创建新的托管目录，用户显式选择既有目录时该目录就是实际 cwd，多个任务可以复用同一目录且会话仍相互独立。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-TSK-02-WORKSPACE-BINDING]: evidence contradicts or cannot causally prove the exact workspace oracle: 每个任务只绑定一个稳定执行工作空间；默认创建新的托管目录，用户显式选择既有目录时该目录就是实际 cwd，多个任务可以复用同一目录且会话仍相互独立。",
+    "task_id is used as workspace_id",
+    "a user-selected directory is replaced by a task-derived child directory",
+    "local path data is uploaded for cloud execution"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-TSK-02-WORKSPACE-BINDING",
+      "type": "return",
+      "assertion": "每个任务只绑定一个稳定执行工作空间；默认创建新的托管目录，用户显式选择既有目录时该目录就是实际 cwd，多个任务可以复用同一目录且会话仍相互独立。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove only case-owned temporary state"
+  },
+  "evidence": [
+    "report.json",
+    "trace.zip",
+    "workspace binding snapshot"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qwork-prd-workspace-7c768be1.tsk-02",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron and qwork_server"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve client and server revisions",
+        "oracle": "both revisions are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture is outside user state"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/projects-task-controls.spec.ts -g \"matches WorkBuddy task target, workspace history, and dismiss behavior\"",
+      "delegate_case_id": "QW-E2E-PROJECTS-TASK-CONTROLS-SPEC-74CC1F7E",
+      "success_oracle": "the delegated local-client workspace sub-oracle passes; blocked retry, cloud and platform scopes remain partial",
+      "failure_action": "repair the delegated Electron route; do not weaken the full requirement oracle"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "capture the pre-trigger binding"
+        },
+        {
+          "action": "perform TSK-02 exactly once"
+        },
+        {
+          "action": "assert [REQ-TSK-02-WORKSPACE-BINDING] after the trigger"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; IPC and persistence identity for binding assertions",
+      "success_oracle": "每个任务只绑定一个稳定执行工作空间；默认创建新的托管目录，用户显式选择既有目录时该目录就是实际 cwd，多个任务可以复用同一目录且会话仍相互独立。",
+      "failure_action": "preserve UI, IPC, database and provider evidence"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home, deterministic fake sidecar and provider-neutral server fixture",
+      "isolation": "no reuse of ~/.qwork, real account or production data",
+      "cleanup": "close processes and remove only case-owned state"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip",
+        "workspace-binding.json"
+      ],
+      "correlation": "case_id + task_id + run_id + workspace binding identity",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron and server fixtures",
+        "remove case-owned temporary state"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "the delegated route covers the local-client creation sub-oracle only; restart and retry are not part of this reference run",
+      "real cloud provider and three-platform reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-TSK-02-WORKSPACE-BINDING"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-TSK-02-WORKSPACE-BINDING"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-TSK-02-WORKSPACE-BINDING",
+      "oracle_type": "return",
+      "given": "the isolated task has no pre-existing workspace binding and baseline evidence is captured",
+      "when": "perform TSK-02 exactly once and retain task, run and workspace identities",
+      "then": "每个任务只绑定一个稳定执行工作空间；默认创建新的托管目录，用户显式选择既有目录时该目录就是实际 cwd，多个任务可以复用同一目录且会话仍相互独立。",
+      "observation_boundary": "renderer UI, IPC payload and durable workspace binding",
+      "failure_if": "the result is absent, contradicted, pre-existing or bound to a different workspace identity"
+    }
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  }
+}

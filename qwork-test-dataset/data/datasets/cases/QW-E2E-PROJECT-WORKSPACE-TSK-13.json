@@ -1,0 +1,228 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECT-WORKSPACE-TSK-13",
+  "title": "项目任务工作空间语义 · TSK-13",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "entry",
+      "binding-created",
+      "retry"
+    ],
+    "risk_ids": [
+      "workspace-binding-drift"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "QWORK-PRD-WORKSPACE-7C768BE1",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:7c768be1512aaeb7f508d218cc700a4834d73982:docs/project-prd.md",
+      "locator": "line:529;requirement:TSK-13",
+      "revision": "7c768be1512aaeb7f508d218cc700a4834d73982",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-28T07:13:55.126378+00:00",
+      "content_hash": "sha256:cc0d2ba5a2e844f628baf1628db34d10455983e42fcef366f0a6fb1faf4890ef",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-TSK-13-EXECUTION-TARGET",
+      "source_atom_ids": [
+        "QWORK-PRD-WORKSPACE-7C768BE1:L529:tsk-13"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state"
+      ],
+      "surface": "projects",
+      "priority": "P0",
+      "rule": "任务首次提交时固定本地或云端执行目标，重试和重启恢复必须复用原绑定，不得静默切换目标或工作空间。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QWORK-PRD-WORKSPACE-7C768BE1"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "user-approved WorkBuddy workspace semantics supersede the physical-isolation inference"
+      },
+      "oracle": "任务首次提交时固定本地或云端执行目标，重试和重启恢复必须复用原绑定，不得静默切换目标或工作空间。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture and provider-neutral server contract",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "reference run has not completed; real cloud provider remains external"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron and server contract fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for task, workspace and path identity"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for TSK-13 exactly once"
+    },
+    {
+      "action": "observe the post-trigger boundary and assert [REQ-TSK-13-EXECUTION-TARGET] exactly: 任务首次提交时固定本地或云端执行目标，重试和重启恢复必须复用原绑定，不得静默切换目标或工作空间。"
+    },
+    {
+      "action": "restart or retry where applicable and compare the persisted binding with the original"
+    }
+  ],
+  "expected_outcomes": [
+    "任务首次提交时固定本地或云端执行目标，重试和重启恢复必须复用原绑定，不得静默切换目标或工作空间。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-TSK-13-EXECUTION-TARGET]: evidence contradicts or cannot causally prove the exact workspace oracle: 任务首次提交时固定本地或云端执行目标，重试和重启恢复必须复用原绑定，不得静默切换目标或工作空间。",
+    "task_id is used as workspace_id",
+    "a user-selected directory is replaced by a task-derived child directory",
+    "local path data is uploaded for cloud execution"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-TSK-13-EXECUTION-TARGET",
+      "type": "database",
+      "assertion": "任务首次提交时固定本地或云端执行目标，重试和重启恢复必须复用原绑定，不得静默切换目标或工作空间。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove only case-owned temporary state"
+  },
+  "evidence": [
+    "report.json",
+    "trace.zip",
+    "workspace binding snapshot"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qwork-prd-workspace-7c768be1.tsk-13",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron and qwork_server"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve client and server revisions",
+        "oracle": "both revisions are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture is outside user state"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/projects-task-controls.spec.ts -g \"matches WorkBuddy task target, workspace history, and dismiss behavior\"",
+      "delegate_case_id": "QW-E2E-PROJECTS-TASK-CONTROLS-SPEC-74CC1F7E",
+      "success_oracle": "the delegated local-client workspace sub-oracle passes; server retry and cloud scopes remain blocked",
+      "failure_action": "repair the delegated Electron route; do not weaken the full execution-target oracle"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "capture the pre-trigger binding"
+        },
+        {
+          "action": "perform TSK-13 exactly once"
+        },
+        {
+          "action": "assert [REQ-TSK-13-EXECUTION-TARGET] after the trigger"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; IPC and persistence identity for binding assertions",
+      "success_oracle": "任务首次提交时固定本地或云端执行目标，重试和重启恢复必须复用原绑定，不得静默切换目标或工作空间。",
+      "failure_action": "preserve UI, IPC, database and provider evidence"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home, deterministic fake sidecar and provider-neutral server fixture",
+      "isolation": "no reuse of ~/.qwork, real account or production data",
+      "cleanup": "close processes and remove only case-owned state"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip",
+        "workspace-binding.json"
+      ],
+      "correlation": "case_id + task_id + run_id + workspace binding identity",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron and server fixtures",
+        "remove case-owned temporary state"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "the delegated route does not execute qwork_server retry atomicity or cloud workspace identity tests",
+      "client restart recovery and server retry have not yet been replayed in one cross-platform reference run",
+      "real cloud provider and three-platform reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-TSK-13-EXECUTION-TARGET"
+    ],
+    "categories": [
+      "state"
+    ],
+    "suite_ids": [
+      "category:state",
+      "full",
+      "requirement:REQ-TSK-13-EXECUTION-TARGET"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-TSK-13-EXECUTION-TARGET",
+      "oracle_type": "database",
+      "given": "the isolated task has no pre-existing workspace binding and baseline evidence is captured",
+      "when": "perform TSK-13 exactly once and retain task, run and workspace identities",
+      "then": "任务首次提交时固定本地或云端执行目标，重试和重启恢复必须复用原绑定，不得静默切换目标或工作空间。",
+      "observation_boundary": "durable task and run workspace binding",
+      "failure_if": "the result is absent, contradicted, pre-existing or bound to a different workspace identity"
+    }
+  ]
+}

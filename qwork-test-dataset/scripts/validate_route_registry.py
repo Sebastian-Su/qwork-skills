@@ -322,7 +322,25 @@ def main() -> int:
                 if contract["reference_run"].get("status") != expected_status:
                     errors.append(f"WorkBuddy CDP route {route_id} reference status contradicts report")
             elif contract["launch"].get("strategy") != "manual-blocked":
-                errors.append(f"source requirement route {route_id} cannot claim an unimplemented runner")
+                command = str(contract["launch"].get("command_or_tool") or "")
+                delegate_case_id = str(contract["launch"].get("delegate_case_id") or "")
+                delegate = cases.get(delegate_case_id)
+                delegate_contract = (
+                    delegate.get("execution_contract", {}) if isinstance(delegate, dict) else {}
+                )
+                if not str(delegate_contract.get("route_id", "")).startswith(
+                    ("qwork.playwright.", "qwork.private-playwright.")
+                ):
+                    errors.append(
+                        f"source requirement route {route_id} must delegate to one source-bound Playwright Case"
+                    )
+                elif (
+                    contract["launch"].get("strategy") != "command"
+                    or command != str(delegate_contract.get("launch", {}).get("command_or_tool") or "")
+                ):
+                    errors.append(
+                        f"source requirement route {route_id} command differs from delegated Case {delegate_case_id}"
+                    )
 
     if errors:
         print("route registry gate failed:", file=sys.stderr)

@@ -47,7 +47,7 @@ def main() -> int:
         "policy": {
             "case_to_route": "one-to-one",
             "playwright_contract": "test body SHA, line range, action and assertion count are mandatory",
-            "source_requirement_routes": "manual-blocked until a dedicated runner exists; WorkBuddy storage uses an exact per-Case verifier; executable Oracle routes retain failing reference truth",
+            "source_requirement_routes": "manual-blocked until a dedicated runner exists; delegated command routes must name one source-bound Playwright Case and reuse its exact command; executable Oracle routes retain failing reference truth",
             "workbuddy_oracle": "read-only Electron CDP only; never mutate account or product data",
         },
         "route_count": len(routes),
