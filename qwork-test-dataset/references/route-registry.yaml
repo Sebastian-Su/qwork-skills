@@ -1,4 +1,4 @@
-generated_at: '2026-08-28T07:51:23.475679+00:00'
+generated_at: '2026-08-28T09:26:54.043851+00:00'
 policy:
   case_to_route: one-to-one
   playwright_contract: test body SHA, line range, action and assertion count are mandatory
@@ -120992,10 +120992,22 @@ routes:
       setup: case-owned temp home, deterministic fake sidecar and provider-neutral
         server fixture
     launch:
-      command_or_tool: null
-      failure_action: implement the dedicated runner; do not weaken the oracle
-      strategy: manual-blocked
-      success_oracle: the target workspace scenario is observable end to end
+      command_or_tool: npx playwright test e2e/projects-task-controls.spec.ts -g "creates
+        a cloud task with an opaque server workspace and no local path controls"
+      failure_action: repair the source-bound Electron and qwork_server route; do
+        not weaken the cloud workspace oracle
+      source_contract:
+        body_sha256: sha256:15d26288eb9921e093b0d545af07f84236902c6802afad900623719df285cf28
+        execution_revision: 994b5cdca4be337748099ee06a03d797111eff56
+        line_end: 398
+        line_start: 339
+        spec: e2e/projects-task-controls.spec.ts
+        spec_sha256: sha256:c494a107586cbaa8b4b452fa4dbd0b16afdf9cdb77d8d9b7f83892164f98606b
+        title: creates a cloud task with an opaque server workspace and no local path
+          controls
+      strategy: command
+      success_oracle: the Electron route starts the current local qwork_server, hides
+        local controls and observes a distinct opaque cloud workspace identity
     navigation:
       entrypoint: projects
       failure_action: preserve UI, IPC, database and provider evidence

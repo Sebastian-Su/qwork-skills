@@ -25,6 +25,66 @@ def resolve_skill_ref(root: Path, value: str) -> Path:
     return root / value.removeprefix(prefix)
 
 
+def validate_requirement_source_contract(
+    *,
+    route_id: str,
+    launch: dict[str, Any],
+    repo: Path,
+    head: str,
+    root: Path,
+    errors: list[str],
+) -> None:
+    """Bind a requirement route directly to one immutable public Playwright test."""
+    source_contract = launch.get("source_contract")
+    if not isinstance(source_contract, dict):
+        errors.append(f"source requirement route {route_id} has no source contract")
+        return
+    spec = str(source_contract.get("spec") or "")
+    title = str(source_contract.get("title") or "")
+    expected_command = f"npx playwright test {spec} -g {json.dumps(title, ensure_ascii=False)}"
+    if launch.get("strategy") != "command" or launch.get("command_or_tool") != expected_command:
+        errors.append(f"source requirement route {route_id} command differs from its source contract")
+    revision = str(source_contract.get("execution_revision") or "")
+    if revision != head:
+        errors.append(f"source requirement route {route_id} must bind the current repository HEAD")
+        return
+    if not spec or Path(spec).is_absolute() or ".." in Path(spec).parts:
+        errors.append(f"source requirement route {route_id} has an unsafe spec path")
+        return
+    result = subprocess.run(
+        ["git", "show", f"{revision}:{spec}"], cwd=repo, capture_output=True
+    )
+    if result.returncode:
+        errors.append(f"source requirement route {route_id} source cannot be read: {revision}:{spec}")
+        return
+    spec_bytes = result.stdout
+    worktree_path = repo / spec
+    if not worktree_path.is_file() or worktree_path.read_bytes() != spec_bytes:
+        errors.append(f"source requirement route {route_id} worktree spec differs from HEAD")
+    expected_spec_hash = "sha256:" + hashlib.sha256(spec_bytes).hexdigest()
+    if source_contract.get("spec_sha256") != expected_spec_hash:
+        errors.append(f"source requirement route {route_id} full spec hash drifted")
+    parsed = subprocess.run(
+        ["node", str(root / "scripts/extract_playwright_contracts.mjs"), spec],
+        input=spec_bytes.decode("utf-8"),
+        text=True,
+        capture_output=True,
+        cwd=repo,
+    )
+    if parsed.returncode:
+        errors.append(f"source requirement route {route_id} source extraction failed")
+        return
+    matches = [item for item in json.loads(parsed.stdout)["tests"] if item["title"] == title]
+    if len(matches) != 1:
+        errors.append(f"source requirement route {route_id} title must select exactly one source test")
+        return
+    test = matches[0]
+    if f"sha256:{test['body_sha256']}" != source_contract.get("body_sha256"):
+        errors.append(f"source requirement route {route_id} source body hash drifted")
+    if test["line_start"] != source_contract.get("line_start") or test["line_end"] != source_contract.get("line_end"):
+        errors.append(f"source requirement route {route_id} source line range drifted")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", type=Path, required=True)
@@ -324,6 +384,22 @@ def main() -> int:
             elif contract["launch"].get("strategy") != "manual-blocked":
                 command = str(contract["launch"].get("command_or_tool") or "")
                 delegate_case_id = str(contract["launch"].get("delegate_case_id") or "")
+                direct_source_contract = contract["launch"].get("source_contract")
+                if delegate_case_id and direct_source_contract:
+                    errors.append(
+                        f"source requirement route {route_id} cannot both delegate and bind a direct source contract"
+                    )
+                    continue
+                if isinstance(direct_source_contract, dict):
+                    validate_requirement_source_contract(
+                        route_id=route_id,
+                        launch=contract["launch"],
+                        repo=repo,
+                        head=head,
+                        root=root,
+                        errors=errors,
+                    )
+                    continue
                 delegate = cases.get(delegate_case_id)
                 delegate_contract = (
                     delegate.get("execution_contract", {}) if isinstance(delegate, dict) else {}
