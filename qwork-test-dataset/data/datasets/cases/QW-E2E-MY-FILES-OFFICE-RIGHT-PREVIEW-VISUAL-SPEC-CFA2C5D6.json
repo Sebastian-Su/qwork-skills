@@ -1,0 +1,292 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-MY-FILES-OFFICE-RIGHT-PREVIEW-VISUAL-SPEC-CFA2C5D6",
+  "title": "我的文件三种 Office 成果进入右侧 compact 预览的视觉契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "files",
+    "journey": "files",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-my-files-office-right-preview-visual-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/my-files-office-right-preview-visual.spec.ts",
+      "locator": "line:15;test:我的文件三种 Office 成果进入右侧 compact 预览的视觉契约",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:cfa2c5d61ec7b7b163e2bcc7b42789fa2fa5b5876f8d28019d7dbe7fe9de0755",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-1344C53CEA1872",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-my-files-office-right-preview-visual-spec-ts:L15:cfa2c5d61e"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "我的文件三种 Office 成果进入右侧 compact 预览的视觉契约",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-my-files-office-right-preview-visual-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "我的文件三种 Office 成果进入右侧 compact 预览的视觉契约"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+    },
+    {
+      "action": "composer.fill( \"__E2E_OFFICE_ARTIFACTS__:复盘报告.docx,预算明细.xlsx,汇报方案.pptx\", )"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page .getByTestId(\"left-rail-shell\") .getByRole(\"button\", { name: \"更多\", exact: true }) .click()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"更多\" }) .getByRole(\"menuitem\", { name: \"我的文件\", exact: true }) .click()"
+    },
+    {
+      "action": "fileButton.dblclick()"
+    },
+    {
+      "action": "fileRow.hover()"
+    },
+    {
+      "action": "page .locator(\"header\") .getByRole(\"button\", { name: \"云端网盘\", exact: true }) .click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"文件已生成\", { exact: true })).toBeVisible()",
+    "expect( page.getByRole(\"complementary\", { name: \"工件预览\" }), ).not.toBeVisible()",
+    "expect(page.getByRole(\"heading\", { name: \"我的文件\" })).toBeVisible()",
+    "expect(panel).toBeVisible()",
+    "expect( panel .getByRole(\"tablist\", { name: \"工件标签\" }) .locator('[role=\"tab\"][aria-selected=\"true\"]'), ).toHaveText(name)",
+    "expect(page.getByTestId(\"office-compact-shell\")).toBeVisible()",
+    "expect(page.getByLabel(`${format.toUpperCase()} 编辑器`)).toBeVisible({ timeout: 60_000, })",
+    "expect( page.getByRole(\"heading\", { name: \"我的文件\" }), ).toBeVisible()",
+    "expect( page.getByRole(\"button\", { name: \"返回我的文件\" }), ).toHaveCount(0)",
+    "expect( fileRow.getByRole(\"button\", { name: \"用系统应用打开\" }), ).toBeVisible()",
+    "expect(panelBox).not.toBeNull()",
+    "expect(editorBox).not.toBeNull()",
+    "expect(panelBox!.width).toBeCloseTo(560, 0)",
+    "expect(editorBox!.x).toBeGreaterThanOrEqual(panelBox!.x)",
+    "expect(editorBox!.y).toBeGreaterThanOrEqual(panelBox!.y)",
+    "expect(editorBox!.x + editorBox!.width).toBeLessThanOrEqual( panelBox!.x + panelBox!.width + 2, )",
+    "expect(editorBox!.y + editorBox!.height).toBeLessThanOrEqual( panelBox!.y + panelBox!.height + 2, )",
+    "expect(pageHorizontalOverflow).toBe(false)",
+    "expect( page.getByText(/可使用 WPS 在线预览/), ).toBeVisible()",
+    "expect( page.getByRole(\"region\", { name: \"360企业云盘个人空间\" }), ).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-1344C53CEA1872",
+      "type": "return",
+      "assertion": "我的文件三种 Office 成果进入右侧 compact 预览的视觉契约"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-my-files-office-right-preview-visual-spec-ts.cfa2c5d61e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/my-files-office-right-preview-visual.spec.ts -g \"我的文件三种 Office 成果进入右侧 compact 预览的视觉契约\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "files",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+        },
+        {
+          "action": "composer.fill( \"__E2E_OFFICE_ARTIFACTS__:复盘报告.docx,预算明细.xlsx,汇报方案.pptx\", )"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByTestId(\"left-rail-shell\") .getByRole(\"button\", { name: \"更多\", exact: true }) .click()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"更多\" }) .getByRole(\"menuitem\", { name: \"我的文件\", exact: true }) .click()"
+        },
+        {
+          "action": "fileButton.dblclick()"
+        },
+        {
+          "action": "fileRow.hover()"
+        },
+        {
+          "action": "page .locator(\"header\") .getByRole(\"button\", { name: \"云端网盘\", exact: true }) .click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/my-files-office-right-preview-visual.spec.ts",
+        "line_start": 15,
+        "line_end": 189,
+        "body_sha256": "sha256:840ab618eb662c0c4da79b54dd0fa6a9ce55fba95ad09c4a4811ede268cf9f01",
+        "assertion_count": 20,
+        "action_count": 11,
+        "execution_revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+        "spec_sha256": "sha256:c0074bb96434804ca680c1e5f6a7e77991d075cb9f0fe86030d51795a2aedb00"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-1344C53CEA1872"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-1344C53CEA1872"
+    ]
+  }
+}

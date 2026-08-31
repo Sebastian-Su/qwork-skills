@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/settings-production.spec.ts",
-      "locator": "line:92;test:SETTINGS-T05/T07/T08/T10/T21-T25 | system consumers and safety flows expose honest effective states",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/settings-production.spec.ts",
+      "locator": "line:95;test:SETTINGS-T05/T07/T08/T10/T21-T25 | system consumers and safety flows expose honest effective states",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:19913abaf40c60301bfcf40d8dbff8ae42f882963e7af006fdf9144effc63ca1",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-1006D4785C0FD4",
+      "requirement_id": "REQ-9F98F298EFA60C",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-settings-production-spec-ts:L92:19913abaf4"
+        "QDEV-E2E-e2e-settings-production-spec-ts:L95:19913abaf4"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
     "last_verified_at": "2026-08-18T17:48:42.156769+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -127,7 +127,7 @@
     "expect(dialog.getByRole(\"combobox\", { name: \"主题\" })).toHaveValue(\"system\")",
     "expect(opened.page.locator(\"html\")).toHaveAttribute(\"data-theme\", \"dark\")",
     "expect(dialog.getByTestId(\"setting-state-system.proxy\")).toContainText(\"Electron 回读\")",
-    "expect(dialog).toContainText(\"当前版本没有诊断数据上报消费者\")",
+    "expect(dialog).toContainText(\"开启后仅上报不含用户内容的应用启动诊断，可随时关闭\")",
     "expect(dialog).toContainText(\"请按下新的组合键\")",
     "expect(dialog).toBeVisible()",
     "expect(dialog).not.toContainText(\"请按下新的组合键\")",
@@ -147,7 +147,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-1006D4785C0FD4",
+      "requirement_id": "REQ-9F98F298EFA60C",
       "type": "return",
       "assertion": "SETTINGS-T05/T07/T08/T10/T21-T25 | system consumers and safety flows expose honest effective states"
     }
@@ -274,13 +274,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/settings-production.spec.ts",
-        "line_start": 92,
-        "line_end": 142,
-        "body_sha256": "sha256:d887cca55b894ef7c08f7cf5990dce1cc803c6598399155c5b6862a6ab120ea7",
+        "line_start": 95,
+        "line_end": 145,
+        "body_sha256": "sha256:79e638e1d65893bd238ef256520426db839742700571a0b61e7764c55360af8b",
         "assertion_count": 15,
         "action_count": 16,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:67de347ef3871fe3b96171dfcafdbd0fedc5f0bb4e41f09cc1264c29d7b74044"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:5bbe24e9d488a9430def40811b207564168c2fb876ed57d754e62cfca3d0e0be"
       }
     },
     "reference_run": {
@@ -302,7 +302,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-1006D4785C0FD4"
+      "REQ-9F98F298EFA60C"
     ],
     "categories": [
       "business"
@@ -310,7 +310,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-1006D4785C0FD4"
+      "requirement:REQ-9F98F298EFA60C"
     ]
   }
 }

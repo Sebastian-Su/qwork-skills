@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/knowledge-base.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/knowledge-base.spec.ts",
       "locator": "line:157;test:composer empty picker offers create instead of oauth",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:726eeb65cefbdfdd66a2b356da5bdf198fb5bd99ebf7f202313bcc2ca6f5cd91",
       "redaction_status": "minimized"
     }
@@ -79,7 +79,10 @@
     }
   ],
   "expected_outcomes": [
-    "expect(dialog.getByText(\"暂无知识库\")).toBeVisible()",
+    "expect(dialog.getByRole(\"tab\", { name: \"知识库目录\" })).toBeVisible()",
+    "expect(dialog.getByRole(\"tab\", { name: \"最近使用\" })).toBeVisible()",
+    "expect(dialog.getByLabel(\"搜索知识库、知识\")).toBeVisible()",
+    "expect( dialog.getByRole(\"tabpanel\", { name: \"知识库目录\" }).getByText(\"该目录下暂无内容\"), ).toBeVisible()",
     "expect(dialog.getByRole(\"button\", { name: \"创建\" })).toBeVisible()",
     "expect(page.getByText(\"立即前往授权\")).toHaveCount(0)"
   ],
@@ -173,12 +176,12 @@
       "source_contract": {
         "spec": "e2e/knowledge-base.spec.ts",
         "line_start": 157,
-        "line_end": 172,
-        "body_sha256": "sha256:d15a4d6f5a1ce2d8bc7fec39308eae1757f668d76141736d4ce6a0d7b26801f6",
-        "assertion_count": 3,
+        "line_end": 177,
+        "body_sha256": "sha256:5215115d1f9332632a62c00b2ee8127bbea3a67ea70072a879bce6676321c608",
+        "assertion_count": 6,
         "action_count": 1,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:be8caa865d6e14bea5f0658c690c2cde7e98bda1a2e53fac0220727ae4d8dc3d"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:6b6b2fde89171d2694f2a478323e167ed3e9088bbf7889007660316fcd914d83"
       }
     },
     "reference_run": {

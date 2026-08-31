@@ -1,0 +1,241 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-ARTIFACT-DOWNLOAD-SPEC-46A8EB17",
+  "title": "downloads the active HTML artifact to a chosen path and exposes both share and download actions",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "files",
+    "journey": "files",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-artifact-download-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/artifact-download.spec.ts",
+      "locator": "line:10;test:downloads the active HTML artifact to a chosen path and exposes both share and download actions",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:46a8eb1735e9d43d8e108d1b0d55ac1412f5e99f57993620287880fc8527a363",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-5B805294B24D04",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-artifact-download-spec-ts:L10:46a8eb1735"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "downloads the active HTML artifact to a chosen path and exposes both share and download actions",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-artifact-download-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "downloads the active HTML artifact to a chosen path and exposes both share and download actions"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_ARTIFACT__:download-report.html\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "artifactCard.click()"
+    },
+    {
+      "action": "downloadButton.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(artifactCard).toBeVisible()",
+    "expect(shareButton).toBeVisible()",
+    "expect(downloadButton).toBeVisible()",
+    "expect( page.getByRole(\"status\").filter({ hasText: \"已保存\" }), ).toBeVisible()",
+    "expect(saved).toContain(\"E2E workspace file\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-5B805294B24D04",
+      "type": "return",
+      "assertion": "downloads the active HTML artifact to a chosen path and exposes both share and download actions"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-artifact-download-spec-ts.46a8eb1735",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/artifact-download.spec.ts -g \"downloads the active HTML artifact to a chosen path and exposes both share and download actions\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "files",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_ARTIFACT__:download-report.html\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "artifactCard.click()"
+        },
+        {
+          "action": "downloadButton.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/artifact-download.spec.ts",
+        "line_start": 10,
+        "line_end": 53,
+        "body_sha256": "sha256:8cd25e7aef5fdc5ce6ccde0e3cdd45d1c192a5fdfe7de3e53dd2a75e567f0f98",
+        "assertion_count": 5,
+        "action_count": 5,
+        "execution_revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+        "spec_sha256": "sha256:7ab4dc431642094e839edc4d8092ee453261208f16e2c9399f8ac1da25bfb786"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-5B805294B24D04"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-5B805294B24D04"
+    ]
+  }
+}

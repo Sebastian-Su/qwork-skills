@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-plan.spec.ts",
-      "locator": "line:285;test:matches the WorkBuddy settings menu states and applies list preferences",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-plan.spec.ts",
+      "locator": "line:384;test:matches the WorkBuddy settings menu states and applies list preferences",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:ebff99d8799d87e635e802a42090b79b097d07bc0d71aaea9bf09f10d5782c2a",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-FE051B73DDDB44",
+      "requirement_id": "REQ-D12E4CC9E4B154",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-projects-plan-spec-ts:L285:ebff99d879"
+        "QDEV-E2E-e2e-projects-plan-spec-ts:L384:ebff99d879"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -90,6 +90,27 @@
       "action": "settingsTrigger.click()"
     },
     {
+      "action": "importDataSource.click()"
+    },
+    {
+      "action": "dataSourceDialog.getByRole(\"button\", { name: \"添加\", exact: true }).click()"
+    },
+    {
+      "action": "dataSourceDialog.getByRole(\"button\", { name: \"去授权 TAPD\" }).click()"
+    },
+    {
+      "action": "tapdDialog.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+    },
+    {
+      "action": "dataSourceDialog.getByRole(\"button\", { name: \"选择 GitHub\" }).click()"
+    },
+    {
+      "action": "dataSourceDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+    },
+    {
+      "action": "settingsTrigger.click()"
+    },
+    {
       "action": "settings.getByRole(\"button\", { name: \"字段显示\" }).click()"
     },
     {
@@ -117,7 +138,15 @@
   "expected_outcomes": [
     "expect(settings.getByRole(\"button\", { name: \"视图\" })).toBeDisabled()",
     "expect(settings.getByRole(\"button\", { name: \"筛选\" })).toBeDisabled()",
-    "expect(settings.getByRole(\"button\", { name: \"导入数据源\" })).toBeDisabled()",
+    "expect(importDataSource).toBeEnabled()",
+    "expect(dataSourceDialog.getByText(\"还没有外部数据源\")).toBeVisible()",
+    "expect(dataSourceDialog.getByText(\"选择一个外部系统作为数据来源\")).toBeVisible()",
+    "expect(tapdDialog.getByPlaceholder(\"输入令牌\")).toBeVisible()",
+    "expect(dataSourceDialog.getByText(\"监听事件\")).toBeVisible()",
+    "expect(dataSourceDialog.getByRole(\"checkbox\", { name: \"议题\", exact: true })).toBeChecked()",
+    "expect(dataSourceDialog.getByRole(\"checkbox\", { name: \"合并请求\", exact: true })).toBeChecked()",
+    "expect(dataSourceDialog).toBeHidden()",
+    "expect(settings).toBeVisible()",
     "expect(status).toHaveAttribute(\"aria-pressed\", \"true\")",
     "expect(status).toHaveAttribute(\"aria-pressed\", \"false\")",
     "expect(page.getByRole(\"region\", { name: \"列表\" }).getByRole(\"group\")).toHaveCount(0)",
@@ -131,7 +160,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-FE051B73DDDB44",
+      "requirement_id": "REQ-D12E4CC9E4B154",
       "type": "return",
       "assertion": "matches the WorkBuddy settings menu states and applies list preferences"
     }
@@ -207,6 +236,27 @@
           "action": "settingsTrigger.click()"
         },
         {
+          "action": "importDataSource.click()"
+        },
+        {
+          "action": "dataSourceDialog.getByRole(\"button\", { name: \"添加\", exact: true }).click()"
+        },
+        {
+          "action": "dataSourceDialog.getByRole(\"button\", { name: \"去授权 TAPD\" }).click()"
+        },
+        {
+          "action": "tapdDialog.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+        },
+        {
+          "action": "dataSourceDialog.getByRole(\"button\", { name: \"选择 GitHub\" }).click()"
+        },
+        {
+          "action": "dataSourceDialog.getByRole(\"button\", { name: \"关闭\" }).click()"
+        },
+        {
+          "action": "settingsTrigger.click()"
+        },
+        {
           "action": "settings.getByRole(\"button\", { name: \"字段显示\" }).click()"
         },
         {
@@ -249,13 +299,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/projects-plan.spec.ts",
-        "line_start": 285,
-        "line_end": 337,
-        "body_sha256": "sha256:fbeb9e09bbd156f28a1cb6450e13aa72388f5bdff075dd6db3244464fbfb5bc7",
-        "assertion_count": 8,
-        "action_count": 13,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:e52eb9cb17908f5ac19d6612f0e92543e08a9e8c9ad5127c02c85c0eeed5a6d0"
+        "line_start": 384,
+        "line_end": 458,
+        "body_sha256": "sha256:499fcf6c3b594ccc0e6a60cb23282741d74005a0612d91b8bf4014933d40f17c",
+        "assertion_count": 16,
+        "action_count": 20,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:39f092a3d14f270b5f9009d6239b9b80edaeca781dbd2ad463f9045f009d1280"
       }
     },
     "reference_run": {
@@ -277,7 +327,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-FE051B73DDDB44"
+      "REQ-D12E4CC9E4B154"
     ],
     "categories": [
       "business"
@@ -285,7 +335,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-FE051B73DDDB44"
+      "requirement:REQ-D12E4CC9E4B154"
     ]
   }
 }

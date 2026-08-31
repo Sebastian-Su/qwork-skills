@@ -1,0 +1,321 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SKILL-HUB-SPEC-6E685314",
+  "title": "edits an installed skill through the scoped bridge and exposes the commit only to a new task",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-skill-hub-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/skill-hub.spec.ts",
+      "locator": "line:335;test:edits an installed skill through the scoped bridge and exposes the commit only to a new task",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:6e68531460fdeebc104a08aa862380ea4ec1a845ebb2331e329d14f2c2e626f4",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D00B8B5E913614",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L335:6e68531460"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "edits an installed skill through the scoped bridge and exposes the commit only to a new task",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-skill-hub-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "edits an installed skill through the scoped bridge and exposes the commit only to a new task"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"SkillHub\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByPlaceholder(\"搜索技能\").fill(\"weather\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"安装 Weather\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /我安装的 \\(\\d+\\)/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作 Weather\" }).click()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"Weather 更多操作\" }) .getByRole(\"menuitem\", { name: \"编辑\" }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /我安装的 \\(\\d+\\)/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作 Weather\" }).click()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"Weather 更多操作\" }) .getByRole(\"menuitem\", { name: \"去对话\" }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").fill(\"__E2E_VERIFY_SKILL_CONTENT__:Weather\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(composer).toHaveValue(\"请帮我编辑 `Weather` 这个 skill\")",
+    "expect(page.getByTestId(\"composer-editor\").getByTestId(\"selected-skill-token\")) .toHaveText([\"skill-creator\", \"Weather\"])",
+    "expect.poll(() => createSessionsFromLog(sidecarLog)).toHaveLength(0)",
+    "expect(intentId).toMatch(/^[0-9a-f-]{36}$/i)",
+    "expect(page.getByRole(\"textbox\")).toHaveValue(\"请帮我编辑 `Weather` 这个 skill\")",
+    "expect(page.getByTestId(\"composer-editor\").getByTestId(\"selected-skill-token\")) .toHaveText([\"skill-creator\", \"Weather\"])",
+    "expect(fs.readFile(path.join(activeSkillRoot, \"SKILL.md\"), \"utf8\")) .resolves.toBe(activeBeforeSend)",
+    "expect.poll(() => createSessionsFromLog(sidecarLog)).toHaveLength(1)",
+    "expect(editSession.selected_skills).toEqual([\"skill-creator\", \"Weather\"])",
+    "expect(editSession.additional_roots).toEqual([workspaceRoot])",
+    "expect(editSession.plugin_dirs).toHaveLength(1)",
+    "expect(editSession.host_instructions).toEqual(expect.arrayContaining([ expect.stringContaining(\"editing the QWork-managed Skill\"), expect.stringContaining(\"Call qwork_skill_edit with action=status\"), ]))",
+    "expect.poll(async () => { const intent = JSON.parse( await fs.readFile(path.join(intentRoot, \"intent.json\"), \"utf8\"), ) as { state?: string; sessionId?: string }; return { state: intent.state, sessionId: intent.sessionId }; }).toEqual({ state: \"bound\", sessionId: editSession.session_id })",
+    "expect(initialStatus).toMatchObject({ runtimeSkillId: \"Weather\", workspaceRoot, hasChanges: false, })",
+    "expect(await fs.readFile(path.join(activeSkillRoot, \"SKILL.md\"), \"utf8\")) .toBe(activeBeforeSend)",
+    "expect(callSkillEditTool(pluginRoot, \"validate\")).resolves.toMatchObject({ valid: true, runtimeSkillId: \"Weather\", hasChanges: true, })",
+    "expect(callSkillEditTool(pluginRoot, \"commit\")).resolves.toMatchObject({ committed: true, effectiveIn: \"new-session\", })",
+    "expect(fs.readFile(path.join(activeSkillRoot, \"SKILL.md\"), \"utf8\")) .resolves.toContain(marker)",
+    "expect.poll(async () => { const metadata = JSON.parse( await fs.readFile(path.join(activeSkillRoot, \"_qwork_skillhub_meta.json\"), \"utf8\"), ) as { modificationState?: string }; return metadata.modificationState; }).toBe(\"modified\")",
+    "expect( page.getByTestId(\"composer-editor\").getByTestId(\"selected-skill-token\"), ).toHaveText([\"Weather\"])",
+    "expect(page.getByRole(\"textbox\")).toHaveValue(\"\")",
+    "expect(page.getByRole(\"textbox\")).toHaveValue( \"__E2E_VERIFY_SKILL_CONTENT__:Weather\", )",
+    "expect(page.getByRole(\"button\", { name: \"发送\", exact: true })).toBeEnabled()",
+    "expect.poll(() => createSessionsFromLog(sidecarLog)).toHaveLength(2)",
+    "expect(page.getByText(marker, { exact: true })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D00B8B5E913614",
+      "type": "return",
+      "assertion": "edits an installed skill through the scoped bridge and exposes the commit only to a new task"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-skill-hub-spec-ts.6e68531460",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/skill-hub.spec.ts -g \"edits an installed skill through the scoped bridge and exposes the commit only to a new task\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"SkillHub\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByPlaceholder(\"搜索技能\").fill(\"weather\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"安装 Weather\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /我安装的 \\(\\d+\\)/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作 Weather\" }).click()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"Weather 更多操作\" }) .getByRole(\"menuitem\", { name: \"编辑\" }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /我安装的 \\(\\d+\\)/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作 Weather\" }).click()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"Weather 更多操作\" }) .getByRole(\"menuitem\", { name: \"去对话\" }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").fill(\"__E2E_VERIFY_SKILL_CONTENT__:Weather\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/skill-hub.spec.ts",
+        "line_start": 335,
+        "line_end": 448,
+        "body_sha256": "sha256:ad6569dff7d229d03d51623aa35d8e38e094e5f9d27eb8fe3bf84c9ad66d355f",
+        "assertion_count": 25,
+        "action_count": 15,
+        "execution_revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+        "spec_sha256": "sha256:1d75fbfdb7d5c0352dea0e097da9df9f16d06d84730bedc6c9aa3a195c889ab8"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-D00B8B5E913614"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-D00B8B5E913614"
+    ]
+  }
+}

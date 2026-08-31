@@ -1,0 +1,244 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-BUG-1000-2-3-CHROME-41F42628",
+  "title": "docs/changes/CHG-bug-1000984-in-app-browser-20260827/implementation-plan.md · 2.3 为什么不把“任务结束时关闭 Chrome”作为首选 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "browser",
+    "journey": "browser",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-bug-1000984-in-app-browser-20260827",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-bug-1000984-in-app-browser-20260827/implementation-plan.md",
+      "locator": "line:54;heading:2.3 为什么不把“任务结束时关闭 Chrome”作为首选",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:6306fa7ed2334f98ab0a34df883576a75f67cd4dfd3bb8c62ac9268ed20b2669",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-73CF93F1E1882D",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-bug-1000984-in-app-browser-20260827:L54:6306fa7ed2"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "browser",
+      "priority": "P1",
+      "rule": "原生 Browser 是 ZiqDo 共享浏览器控制面，不天然属于某一个 turn。任务结束、导航超时、用户正在 查看页面、另一个会话仍在使用等状态无法仅凭进程 PID 安全区分。强制杀进程会引入误关页面、并发 会话互相影响和退出竞态，且仍保留首次弹出外部窗口的体验问题。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-bug-1000984-in-app-browser-20260827"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "原生 Browser 是 ZiqDo 共享浏览器控制面，不天然属于某一个 turn。任务结束、导航超时、用户正在 查看页面、另一个会话仍在使用等状态无法仅凭进程 PID 安全区分。强制杀进程会引入误关页面、并发 会话互相影响和退出竞态，且仍保留首次弹出外部窗口的体验问题。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for browser at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-bug-1000984-in-app-browser-20260827/implementation-plan.md · 2.3 为什么不把“任务结束时关闭 Chrome”作为首选 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer interaction state after the trigger and assert [REQ-73CF93F1E1882D] exactly: 原生 Browser 是 ZiqDo 共享浏览器控制面，不天然属于某一个 turn。任务结束、导航超时、用户正在 查看页面、另一个会话仍在使用等状态无法仅凭进程 PID 安全区分。强制杀进程会引入误关页面、并发 会话互相影响和退出竞态，且仍保留首次弹出外部窗口的体验问题。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "原生 Browser 是 ZiqDo 共享浏览器控制面，不天然属于某一个 turn。任务结束、导航超时、用户正在 查看页面、另一个会话仍在使用等状态无法仅凭进程 PID 安全区分。强制杀进程会引入误关页面、并发 会话互相影响和退出竞态，且仍保留首次弹出外部窗口的体验问题。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-73CF93F1E1882D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 原生 Browser 是 ZiqDo 共享浏览器控制面，不天然属于某一个 turn。任务结束、导航超时、用户正在 查看页面、另一个会话仍在使用等状态无法仅凭进程 PID 安全区分。强制杀进程会引入误关页面、并发 会话互相影响和退出竞态，且仍保留首次弹出外部窗口的体验问题。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-73CF93F1E1882D",
+      "type": "ui-state",
+      "assertion": "原生 Browser 是 ZiqDo 共享浏览器控制面，不天然属于某一个 turn。任务结束、导航超时、用户正在 查看页面、另一个会话仍在使用等状态无法仅凭进程 PID 安全区分。强制杀进程会引入误关页面、并发 会话互相影响和退出竞态，且仍保留首次弹出外部窗口的体验问题。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-bug-100098.2-3-chrome-41f4262839",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "browser",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for browser at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-bug-1000984-in-app-browser-20260827/implementation-plan.md · 2.3 为什么不把“任务结束时关闭 Chrome”作为首选 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer interaction state after the trigger and assert [REQ-73CF93F1E1882D] exactly: 原生 Browser 是 ZiqDo 共享浏览器控制面，不天然属于某一个 turn。任务结束、导航超时、用户正在 查看页面、另一个会话仍在使用等状态无法仅凭进程 PID 安全区分。强制杀进程会引入误关页面、并发 会话互相影响和退出竞态，且仍保留首次弹出外部窗口的体验问题。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-73CF93F1E1882D"
+    ],
+    "categories": [
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-73CF93F1E1882D"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-73CF93F1E1882D",
+      "oracle_type": "ui-state",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-bug-1000984-in-app-browser-20260827/implementation-plan.md · 2.3 为什么不把“任务结束时关闭 Chrome”作为首选 产品契约 exactly once and retain its correlation identity",
+      "then": "原生 Browser 是 ZiqDo 共享浏览器控制面，不天然属于某一个 turn。任务结束、导航超时、用户正在 查看页面、另一个会话仍在使用等状态无法仅凭进程 PID 安全区分。强制杀进程会引入误关页面、并发 会话互相影响和退出竞态，且仍保留首次弹出外部窗口的体验问题。",
+      "observation_boundary": "renderer interaction state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

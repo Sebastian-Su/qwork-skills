@@ -22,12 +22,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/expert-concurrency.spec.ts",
-      "locator": "line:13;test:collective session receives the configured effective parallelism",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/expert-concurrency.spec.ts",
+      "locator": "line:22;test:collective session receives the configured effective parallelism",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:35cc25de91d42e41b8e5d47fd6d23e54d01f347f08d7e160f9a48672107401b1",
       "redaction_status": "minimized"
     },
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/expert-team-v1-spec.md",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/expert-team-v1-spec.md",
       "locator": "line:188;heading:6.2 并发",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:599ea623f01872cac2947276e3767bf6c95c8c9ba21cae213a360f465f835c3f",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-9DDDD6F1CCF6BB",
+      "requirement_id": "REQ-FD8BE98C2B3D5F",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-expert-concurrency-spec-ts:L13:35cc25de91"
+        "QDEV-E2E-e2e-expert-concurrency-spec-ts:L22:35cc25de91"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -143,8 +143,8 @@
     "expect .poll(() => page.evaluate( async () => (await window.workGui.settings.get()).agent.teamConcurrencyLimit, ), ) .toBe(3)",
     "expect(page.getByRole(\"navigation\", { name: \"专家团成员\" })).toHaveCount(0)",
     "expect( page.getByRole(\"button\", { name: /游戏开发工作室.*负责人/ }), ).toBeVisible()",
-    "expect .poll(async () => fs.readFile(controlLog, \"utf8\")) .toContain('effective_parallelism=\\\\\"3\\\\\"')",
-    "expect .poll(async () => { const controls = await fs.readFile(controlLog, \"utf8\"); return controls .split(\"\\n\") .filter(Boolean) .map((line) => JSON.parse(line) as Record<string, unknown>) .find((message) => message.type === \"create_session\") ?.subagent_concurrency_limit; }) .toBe(3)"
+    "expect .poll(() => readControlLog(controlLog)) .toContain('effective_parallelism=\\\\\"3\\\\\"')",
+    "expect .poll(async () => { const controls = await readControlLog(controlLog); return controls .split(\"\\n\") .filter(Boolean) .map((line) => JSON.parse(line) as Record<string, unknown>) .find((message) => message.type === \"create_session\") ?.subagent_concurrency_limit; }) .toBe(3)"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -153,7 +153,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-9DDDD6F1CCF6BB",
+      "requirement_id": "REQ-FD8BE98C2B3D5F",
       "type": "return",
       "assertion": "collective session receives the configured effective parallelism"
     },
@@ -265,13 +265,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/expert-concurrency.spec.ts",
-        "line_start": 13,
-        "line_end": 70,
-        "body_sha256": "sha256:2c7c80cd2dbc94740f6e52b1fa1ad704602cb98f2092cf8d65db8b04b5d39116",
+        "line_start": 22,
+        "line_end": 79,
+        "body_sha256": "sha256:2c36eff1813e609cb2a8c692041804fdec75c83d12b3afc27707eb82a3c9167c",
         "assertion_count": 7,
         "action_count": 7,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:9448fd6cdc35b55467c0335c836ed1d425eb38ce714bc16b2a6a34ea47779fae"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:caced46b330431c2eb8d396f389a9baffd0f96d78dd10ea18f8d1a885b9ce6e4"
       }
     },
     "reference_run": {
@@ -295,7 +295,7 @@
   "selection": {
     "requirement_ids": [
       "REQ-53DD3FC2F719FE",
-      "REQ-9DDDD6F1CCF6BB"
+      "REQ-FD8BE98C2B3D5F"
     ],
     "categories": [
       "business",
@@ -306,7 +306,7 @@
       "category:negative",
       "full",
       "requirement:REQ-53DD3FC2F719FE",
-      "requirement:REQ-9DDDD6F1CCF6BB"
+      "requirement:REQ-FD8BE98C2B3D5F"
     ]
   }
 }

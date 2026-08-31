@@ -1,0 +1,250 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-CUSTOM-SPEC-C9F47D8C",
+  "title": "refreshes the current conversation before confirming a connector",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-custom-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-custom.spec.ts",
+      "locator": "line:227;test:refreshes the current conversation before confirming a connector",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:c9f47d8c956bea0eef762fbe6e1bba6a8957affd9d6b059ed767e677a32ac0ec",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-6A5D70570D41AC",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-custom-spec-ts:L227:c9f47d8c95"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "refreshes the current conversation before confirming a connector",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-custom-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "refreshes the current conversation before confirming a connector"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"先创建一个现有会话\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page .getByRole(\"dialog\", { name: \"配置 MCP\" }) .getByRole(\"button\", { name: \"保存\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"my-server，未连接\" }).click()"
+    },
+    {
+      "action": "detailDialog(page, \"my-server\") .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"信任并启用\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( page.getByText(\"收到：先创建一个现有会话\", { exact: true }), ).toBeVisible()",
+    "expect( detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"停用\", exact: true, }), ).toBeVisible()",
+    "expect .poll(async () => (await readMcpLog(mcpLog)).some( (entry) => entry.type === \"reconcile_session_capabilities\" && typeof entry.base_revision === \"string\" && entry.base_revision !== entry.capability_revision, ), ) .toBe(true)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-6A5D70570D41AC",
+      "type": "return",
+      "assertion": "refreshes the current conversation before confirming a connector"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-custom-spec-ts.c9f47d8c95",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-custom.spec.ts -g \"refreshes the current conversation before confirming a connector\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"先创建一个现有会话\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page .getByRole(\"dialog\", { name: \"配置 MCP\" }) .getByRole(\"button\", { name: \"保存\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"my-server，未连接\" }).click()"
+        },
+        {
+          "action": "detailDialog(page, \"my-server\") .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"信任并启用\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-custom.spec.ts",
+        "line_start": 227,
+        "line_end": 268,
+        "body_sha256": "sha256:2d282ee14d183c0c3159e819566e324abf1b0496fa3c5b526607f454726ba5a7",
+        "assertion_count": 3,
+        "action_count": 7,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:5e2146fe1fba53e75cefc23102c3ec684379de0665569cefe03878613c15783a"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-6A5D70570D41AC"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-6A5D70570D41AC"
+    ]
+  }
+}

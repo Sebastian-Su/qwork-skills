@@ -34,7 +34,8 @@ description: 维护 QWork 全产品项目测试集，包括 E2E 数据、需求 
 - WorkBuddy 逐控件交互闭世界：`data/datasets/workbuddy-interaction-inventory.json`
 - WorkBuddy 交互分类政策：`references/workbuddy-interaction-classification-policy.yaml`
 - WorkBuddy 目标版本契约：`references/workbuddy-target-baseline.yaml`
-- WorkBuddy 5.3.8 暗黑主题契约：`references/workbuddy-dark-theme-contract.yaml`
+- WorkBuddy 官方文档闭包：`references/workbuddy-official-docs-contract.yaml`
+- WorkBuddy 暗黑主题契约：`references/workbuddy-dark-theme-contract.yaml`
 - 存储边界：`references/storage-contract.md`
 - Electron Case：`data/e2e/functional-contracts.spec.ts`
 - reference run 注册：`references/private-reference-runs.yaml`
@@ -47,6 +48,8 @@ description: 维护 QWork 全产品项目测试集，包括 E2E 数据、需求 
 ### 1. 冻结来源
 
 来源进入 `data/sources/<source>/<revision-and-hash>/` 后才可派生。Git 来源必须记录 base/head 和 dirty 状态；飞书记录文档 revision 与正文 hash；`~/.workbuddy` 仅记录路径元数据、hash、计数和只读 SQLite schema；WorkBuddy UI 只允许导航、标签、菜单、展开/收起、截图和 DOM/几何检查。
+
+官方网页文档从 `Quickstart` 开始用 Ego Lite 展开导航，并与官方 desktop sitemap 做集合差。sitemap 中每个 URL 都必须保存正文/无正文处置、lastmod、原始 HTML hash 与规范化正文 hash；图片只保存 URL、响应 hash、字节数和物理尺寸。导航未列出但 sitemap 存在的页面仍在闭世界内。每条文档原子必须绑定适用的运行时版本；未取得同版本 bundle、CDP、动效和主题证据前不得把文档声明写成产品或 UI PASS。
 
 该 Skill 的唯一实体源位于专用 `qwork-skills` 仓库；QWork 项目中的 `.agents/.codex/.claude` 都只能是未追踪的相对软链接。脱敏且可复用的 `data/{datasets,sources,evidence,benchmarks,e2e,reference-runs}` 是版本化测试资产；执行中间物必须写到仓库外的 `QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/`，不得写入任何 Git 工作树。
 
@@ -193,13 +196,15 @@ Reference run 通过并完成脱敏审核后，先用 `scripts/promote_reference
 
 ## WorkBuddy Oracle
 
-当前唯一批准的复刻与发布验收目标是 WorkBuddy `5.3.8`。CDP UI、动效和安装包 manifest 必须同时绑定 `references/workbuddy-target-baseline.yaml` 中的版本、bundle ID、`app.asar` SHA-256 和 Electron integrity SHA-256；任何 `5.3.14` 快照仅保留为历史实验/evidence，禁止进入 normative baseline、Case PASS 或发布结论。
+当前批准的复刻与发布验收版本只由 `references/workbuddy-target-baseline.yaml` 决定，不得在脚本或说明中另写第二个固定版本。CDP UI、动效、主题和安装包 manifest 必须同时绑定该文件中的版本、bundle ID、`app.asar` SHA-256 和 Electron integrity SHA-256。新版本先作为候选来源冻结；只有版本匹配的四层证据闭合并通过验证器后，才能原子更新目标契约并使旧计划全部失效。
+
+官方文档按 `references/workbuddy-official-docs-contract.yaml` 进入独立 `workbuddy-official-docs` cohort。只有文档版本与批准的 WorkBuddy runtime 版本一致时，文档原子才可直接成为 normative requirement；更新版本文档必须完整保留为 `context-only` 清单，并逐原子取得目标 runtime 佐证后晋升。QWork 已批准的产品名称、Logo 和品牌素材可以替换；这项豁免不得扩散到功能是否存在、业务含义、交互、状态、错误、权限、数据副作用、无障碍或响应式。文档图片缺 CSS viewport/DPR/字体/动态数据校准时只能作为定性证据，不能生成几何或像素 PASS。
 
 通过 Electron CDP 采集时先读 `references/locator-registry.yaml` 与 `references/route-registry.yaml`。普通网页仍必须使用 Ego Lite；这里仅因目标是本地 Electron 且需要 renderer DOM/几何，才使用 `connectOverCDP`。禁止创建、安装、连接、授权、删除、发送、运行或修改账号；真实 `~/.workbuddy` 全程只读。
 
 视觉 Case 固定 viewport、DPR、字体与平台，保存入口、转移、终态和失败截图。结构/可访问性错误硬失败；几何默认容差 `±2 CSS px`；像素差采用经批准阈值并显式记录 mask，缺少平台 Golden 为 `not_evaluated`，不是 PASS。
 
-### 5.3.8 暗黑模式基线
+### 暗黑模式基线
 
 暗黑调研必须从真实 `用户菜单 -> 外观 -> 深色` 进入；5.3.8 实机只观察到 `浅色`、`深色`，没有“跟随系统”控件，禁止替它补造第三种模式。采集前后分别运行 `scripts/capture_workbuddy_theme_contract.mjs`，冷启动后用 `scripts/capture_workbuddy_theme_state.mjs` 绑定持久化证据；19 个页面用 `capture_workbuddy_surfaces.mjs` 并设置 `WORKBUDDY_EXPECTED_THEME=dark`，使每个 record 自带 resolved-theme 元数据。
 

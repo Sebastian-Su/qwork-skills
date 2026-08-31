@@ -21,21 +21,35 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-journey-secondary-surfaces.spec.ts",
-      "locator": "line:159;test:UI-JOURNEY-SURFACE-002 | 自动化的定时任务、运行记录和模板区对齐",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/ui-journey-secondary-surfaces.spec.ts",
+      "locator": "line:166;test:UI-JOURNEY-SURFACE-002 | 自动化的定时任务、运行记录和模板区对齐",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:61e7ab5bf838108d2c5ec371542d2acb9796b5b0894b361f6491c404aa31ec2f",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-ui-journey-secondary-surfaces-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/ui-journey-secondary-surfaces.spec.ts",
+      "locator": "line:170;test:UI-JOURNEY-SURFACE-002 | 自动化的定时任务、运行记录和模板区对齐",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:61e7ab5bf838108d2c5ec371542d2acb9796b5b0894b361f6491c404aa31ec2f",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-138055B5D09C97",
+      "requirement_id": "REQ-9CF4580C96046E",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-ui-journey-secondary-surfaces-spec-ts:L159:61e7ab5bf8"
+        "QDEV-E2E-e2e-ui-journey-secondary-surfaces-spec-ts:L166:61e7ab5bf8"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -49,6 +63,32 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-ui-journey-secondary-surfaces-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-JOURNEY-SURFACE-002 | 自动化的定时任务、运行记录和模板区对齐"
+    },
+    {
+      "requirement_id": "REQ-DCDBB4C3B2F365",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-ui-journey-secondary-surfaces-spec-ts:L170:61e7ab5bf8"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "UI-JOURNEY-SURFACE-002 | 自动化的定时任务、运行记录和模板区对齐",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-ui-journey-secondary-surfaces-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -81,8 +121,9 @@
   "expected_outcomes": [
     "uiExpect.soft(page.getByRole(\"tab\", { name: \"定时任务\", exact: true })).toBeVisible()",
     "uiExpect.soft(page.getByRole(\"tab\", { name: \"运行记录\", exact: true })).toBeVisible()",
-    "uiExpect.soft(toolbar.getByRole(\"button\", { name: \"添加自动化\", exact: true })).toBeVisible()",
-    "uiExpect.soft(toolbar.getByRole(\"button\", { name: \"从模板添加\", exact: true })).toBeVisible()",
+    "uiExpect.soft(toolbar.getByRole(\"button\", { name: \"添加自动化\", exact: true })).toHaveCount(0)",
+    "uiExpect.soft(toolbar.getByRole(\"button\", { name: \"从模板添加\", exact: true })).toHaveCount(0)",
+    "uiExpect.soft(page.getByRole(\"button\", { name: \"添加自动化\", exact: true })).toBeVisible()",
     "uiExpect.soft(page.getByText(\"每日AI新闻\", { exact: true })).toBeVisible()",
     "uiExpect.soft(page.getByText(\"每周工作周报\", { exact: true })).toBeVisible()",
     "uiExpect.soft(page.getByText(\"会议前准备\", { exact: true })).toBeVisible()"
@@ -94,7 +135,12 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-138055B5D09C97",
+      "requirement_id": "REQ-9CF4580C96046E",
+      "type": "return",
+      "assertion": "UI-JOURNEY-SURFACE-002 | 自动化的定时任务、运行记录和模板区对齐"
+    },
+    {
+      "requirement_id": "REQ-DCDBB4C3B2F365",
       "type": "return",
       "assertion": "UI-JOURNEY-SURFACE-002 | 自动化的定时任务、运行记录和模板区对齐"
     }
@@ -176,13 +222,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/ui-journey-secondary-surfaces.spec.ts",
-        "line_start": 159,
-        "line_end": 171,
-        "body_sha256": "sha256:82cc51b580e757f6f6b26f107555d4cc9f7c8b89b411d2263d9a05415f4da79d",
-        "assertion_count": 7,
+        "line_start": 170,
+        "line_end": 183,
+        "body_sha256": "sha256:4d7c2f6b94f9ccd79f91de9e112634d7e5a84916e1ab1ecaa94d465c6f74f505",
+        "assertion_count": 8,
         "action_count": 1,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:1e821148ce17710ec14a9d139d59a30502f2f7af87d1b278b78201a6c81d07a1"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:0da3a6da628f2acbe739cd40522b88425456671f974ab6f7cdf42b2a0a0a4b54"
       }
     },
     "reference_run": {
@@ -204,7 +250,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-138055B5D09C97"
+      "REQ-9CF4580C96046E",
+      "REQ-DCDBB4C3B2F365"
     ],
     "categories": [
       "business"
@@ -212,7 +259,8 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-138055B5D09C97"
+      "requirement:REQ-9CF4580C96046E",
+      "requirement:REQ-DCDBB4C3B2F365"
     ]
   }
 }

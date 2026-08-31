@@ -1,0 +1,215 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECT-HOME-HERO-TRANSPARENCY-SPEC-E7CEE545",
+  "title": "project home hero illustration blends with a transparent background",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-project-home-hero-transparency-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/project-home-hero-transparency.spec.ts",
+      "locator": "line:11;test:project home hero illustration blends with a transparent background",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:e7cee545c18003393ee1b9a99aaf9873acd886f909247256418d1a486de1280f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-18BD23CB3ECF13",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-project-home-hero-transparency-spec-ts:L11:e7cee545c1"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "project home hero illustration blends with a transparent background",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-project-home-hero-transparency-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "project home hero illustration blends with a transparent background"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(heroImage).toBeVisible()",
+    "expect( await heroImage.evaluate( (image) => image instanceof HTMLImageElement && image.naturalWidth === 2172 && image.naturalHeight === 724, ), ).toBe(true)",
+    "expect( await heroImage.evaluate(async (image) => { if (!(image instanceof HTMLImageElement)) return \"\"; const bytes = await fetch(image.src).then((response) => response.arrayBuffer()); const digest = await crypto.subtle.digest(\"SHA-256\", bytes); return [...new Uint8Array(digest)] .map((byte) => byte.toString(16).padStart(2, \"0\")) .join(\"\"); }), ).toBe(HERO_SHA256)",
+    "expect( await heroImage.evaluate((image) => { if (!(image instanceof HTMLImageElement)) return [-1]; const canvas = document.createElement(\"canvas\"); canvas.width = 1; canvas.height = 1; const context = canvas.getContext(\"2d\"); if (!context) return [-1]; const samples: Array<[number, number]> = [ [0, 0], [image.naturalWidth - 1, 0], [0, image.naturalHeight - 1], [image.naturalWidth - 1, image.naturalHeight - 1], ]; …"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-18BD23CB3ECF13",
+      "type": "return",
+      "assertion": "project home hero illustration blends with a transparent background"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-project-home-hero-transparency-spec-ts.e7cee545c1",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/project-home-hero-transparency.spec.ts -g \"project home hero illustration blends with a transparent background\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/project-home-hero-transparency.spec.ts",
+        "line_start": 11,
+        "line_end": 64,
+        "body_sha256": "sha256:49fc4a7274024972d47c4009f5013a7223c5836e649df9cd1ed93fd31212ad03",
+        "assertion_count": 4,
+        "action_count": 1,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:304bccc4a0953f2cc6fb99745c5949734339bc046ecb65563bda75d0cdb1a1a4"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-18BD23CB3ECF13"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-18BD23CB3ECF13"
+    ]
+  }
+}

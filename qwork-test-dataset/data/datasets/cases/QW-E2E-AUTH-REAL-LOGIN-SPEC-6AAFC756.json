@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/auth-real-login.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/auth-real-login.spec.ts",
       "locator": "line:29;test:serves the embedded QUC form over https://qwork.360.cn without timing out",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:6aafc756ec1beb7794228973e04cf517936a12729350cbff8d650fc45b6490e2",
       "redaction_status": "minimized"
     }
@@ -75,27 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "createTestHome(\"auth-real-login\")"
-    },
-    {
-      "action": "startDevApi({ serverDir, tls: { certFile, keyFile, host: \"qwork.360.cn\" }, })"
-    },
-    {
-      "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: baseUrl, // https://qwork.360.cn QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"development\", NODE_ENV: \"development\", })"
-    },
-    {
-      "action": "app.firstWindow()"
-    },
-    {
-      "action": "cleanupTestHome(app, configHome)"
-    },
-    {
-      "action": "stop()"
+      "action": "page.getByRole(\"button\", { name: \"登录 QWork\" }).click()"
     }
   ],
   "expected_outcomes": [
-    "expect(page.getByRole(\"heading\", { name: /登录 Qwork/ })).toBeVisible()",
-    "expect(page.getByLabelText(\"登录框\")).toBeVisible()",
+    "expect(page.getByRole(\"status\", { name: \"聚合登录状态\" })).toContainText( \"请在浏览器中选择登录方式并完成确认\", )",
+    "expect(page.getByLabelText(\"登录框\")).toHaveCount(0)",
     "expect(page.getByRole(\"button\", { name: \"项目\", exact: true })).toHaveCount(0)"
   ],
   "forbidden_outcomes": [
@@ -168,22 +153,7 @@
       "entrypoint": "auth",
       "steps": [
         {
-          "action": "createTestHome(\"auth-real-login\")"
-        },
-        {
-          "action": "startDevApi({ serverDir, tls: { certFile, keyFile, host: \"qwork.360.cn\" }, })"
-        },
-        {
-          "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: baseUrl, // https://qwork.360.cn QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"development\", NODE_ENV: \"development\", })"
-        },
-        {
-          "action": "app.firstWindow()"
-        },
-        {
-          "action": "cleanupTestHome(app, configHome)"
-        },
-        {
-          "action": "stop()"
+          "action": "page.getByRole(\"button\", { name: \"登录 QWork\" }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -205,12 +175,12 @@
       "source_contract": {
         "spec": "e2e/auth-real-login.spec.ts",
         "line_start": 29,
-        "line_end": 55,
-        "body_sha256": "sha256:18d779c20f281ae05fc443892273402bd809dd6ed0cd5f0d300be172f7dc833b",
+        "line_end": 59,
+        "body_sha256": "sha256:dd049cfab90628ccf9e8263ece3883d2b07a8f44f43ff0c98774c30b72e5e6f9",
         "assertion_count": 3,
-        "action_count": 0,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:b19ced86ceb7858f34130ba42c6293a6519a1c26edf1431ba6918c268cfea94f"
+        "action_count": 1,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:befae851cdf26a91af9719fba3039c920958c44dd87889e0f09f50744a59c514"
       }
     },
     "reference_run": {

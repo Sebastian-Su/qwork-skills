@@ -22,13 +22,13 @@
       "type": "structured-workbuddy-oracle",
       "authority_kind": "normative",
       "authority_domain": "ui-geometry-state-responsive-style",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/visual-baselines/automation-reference.json",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/visual-baselines/automation-reference.json",
       "locator": "json-pointer:/pixelBaseline/status",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
-      "content_hash": "sha256:ec833b19d159ba681e50bda3b3397116bad0053bb383e42149b8ac22a17a580f",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:8b7092cc4b053d88fdfb7df09c11c9242c36aba5d07e422786913868eda34bfc",
       "redaction_status": "minimized"
     }
   ],
@@ -46,7 +46,7 @@
       ],
       "surface": "automations",
       "priority": "P1",
-      "rule": "WorkBuddy structured Oracle /pixelBaseline/status equals \"unavailable\"",
+      "rule": "WorkBuddy structured Oracle /pixelBaseline/status equals \"available\"",
       "authority_domain": "ui-geometry-state-responsive-style",
       "governing_sources": [
         "WORKBUDDY-ORACLE-5-3-5-AUTOMATION-REFERENCE"
@@ -57,19 +57,19 @@
         "status": "resolved",
         "reason": "compiled from the user-approved source hierarchy"
       },
-      "oracle": "WorkBuddy structured Oracle /pixelBaseline/status equals \"unavailable\""
+      "oracle": "WorkBuddy structured Oracle /pixelBaseline/status equals \"available\""
     }
   ],
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "read-only frozen Git and private Dataset",
-    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
     "last_verified_at": null,
     "status_reason": "dedicated source-integrity verifier implemented; reference run pending"
   },
   "preconditions": {
     "repository": "qwork",
-    "frozen_git_revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7"
+    "frozen_git_revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f"
   },
   "steps": [
     {
@@ -88,7 +88,7 @@
     "every canonical scalar value hash matches the atom ledger"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-3B404989B55EE8]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: WorkBuddy structured Oracle /pixelBaseline/status equals \"unavailable\"",
+    "FAIL [REQ-3B404989B55EE8]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: WorkBuddy structured Oracle /pixelBaseline/status equals \"available\"",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
@@ -96,7 +96,7 @@
     {
       "requirement_id": "REQ-3B404989B55EE8",
       "type": "trace",
-      "assertion": "WorkBuddy structured Oracle /pixelBaseline/status equals \"unavailable\""
+      "assertion": "WorkBuddy structured Oracle /pixelBaseline/status equals \"available\""
     }
   ],
   "cleanup": {
@@ -198,7 +198,7 @@
       "oracle_type": "trace",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for WorkBuddy 5.3.5 automations · evidence-pixelBaseline-status 结构化 Oracle exactly once and retain its correlation identity",
-      "then": "WorkBuddy structured Oracle /pixelBaseline/status equals \"unavailable\"",
+      "then": "WorkBuddy structured Oracle /pixelBaseline/status equals \"available\"",
       "observation_boundary": "case-owned execution trace",
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     }

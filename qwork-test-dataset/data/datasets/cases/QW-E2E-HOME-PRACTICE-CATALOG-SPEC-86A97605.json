@@ -21,21 +21,35 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/home-practice-catalog.spec.ts",
-      "locator": "line:47;test:loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/home-practice-catalog.spec.ts",
+      "locator": "line:48;test:loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:86a9760556dd1f80a6c3e49278d5c63c0f0b835073f757c63b5f50202f4353d4",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-home-practice-catalog-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/home-practice-catalog.spec.ts",
+      "locator": "line:48;test:loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:86a9760556dd1f80a6c3e49278d5c63c0f0b835073f757c63b5f50202f4353d4",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-E733978FF3A13B",
+      "requirement_id": "REQ-6F0DE0728CAE7E",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-home-practice-catalog-spec-ts:L47:86a9760556"
+        "QDEV-E2E-e2e-home-practice-catalog-spec-ts:L48:86a9760556"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -49,6 +63,32 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-home-practice-catalog-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS"
+    },
+    {
+      "requirement_id": "REQ-57F526F964CA6B",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-home-practice-catalog-spec-ts:L48:86a9760556"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-home-practice-catalog-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -100,10 +140,11 @@
     "expect(hitsAfterLoad).toBeGreaterThanOrEqual(1)",
     "expect(page.getByRole(\"button\", { name: \"远端案例 6\" })).toBeVisible()",
     "expect(catalog.hits()).toBe(hitsAfterLoad)",
-    "expect(requests.some((url) => /playbook|myqcloud\\.com|workbuddy/i.test(url))).toBe(false)",
+    "expect(requests.some((url) => /playbook|myqcloud\\.com|cos\\./i.test(url))).toBe(false)",
     "expect(detail).toBeVisible()",
     "expect(detail).toContainText(\"远端摘要 6\")",
-    "expect(page.getByText(\"任务 (1)\", { exact: true })).toBeVisible()"
+    "expect(page.getByText(\"任务 (0)\", { exact: true })).toBeVisible()",
+    "expect(page.getByTestId(\"composer-dock\").getByRole(\"textbox\")).toHaveValue( \"请完成远端案例 6。\", )"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -112,7 +153,12 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-E733978FF3A13B",
+      "requirement_id": "REQ-6F0DE0728CAE7E",
+      "type": "return",
+      "assertion": "loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS"
+    },
+    {
+      "requirement_id": "REQ-57F526F964CA6B",
       "type": "return",
       "assertion": "loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS"
     }
@@ -209,13 +255,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/home-practice-catalog.spec.ts",
-        "line_start": 47,
-        "line_end": 83,
-        "body_sha256": "sha256:7a6753fd3c516c22927a6f95cadd337cb313d43477ce6e4b1272174012a69f23",
-        "assertion_count": 10,
+        "line_start": 48,
+        "line_end": 87,
+        "body_sha256": "sha256:4988aae86d3bd672073a9e03592d2d98c6985560caca4b88e59132940ad65074",
+        "assertion_count": 11,
         "action_count": 6,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:a0c2a5ee90b6fd2b15eb399cc55c41182168e23a83b0332881a2fcb2a2de75dd"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:c2830eba7d1279131a7f0e9291bfc3b28e92ca74afb6786e89d899475915d936"
       }
     },
     "reference_run": {
@@ -237,7 +283,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-E733978FF3A13B"
+      "REQ-57F526F964CA6B",
+      "REQ-6F0DE0728CAE7E"
     ],
     "categories": [
       "business"
@@ -245,7 +292,8 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-E733978FF3A13B"
+      "requirement:REQ-57F526F964CA6B",
+      "requirement:REQ-6F0DE0728CAE7E"
     ]
   }
 }

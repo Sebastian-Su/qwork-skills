@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-plan.spec.ts",
-      "locator": "line:183;test:shows every table field after 全部字段 and selects all visible rows",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-plan.spec.ts",
+      "locator": "line:177;test:shows every table field after 全部字段 and selects all visible rows",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:5134d2d45f975a01d17c45286cea8b395c3a34f0d926cb5c3ffb646daab2c1f5",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-B72DE6602F7BDC",
+      "requirement_id": "REQ-7D7990CCA8FBB1",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-projects-plan-spec-ts:L183:5134d2d45f"
+        "QDEV-E2E-e2e-projects-plan-spec-ts:L177:5134d2d45f"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -78,6 +78,9 @@
       "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
     },
     {
+      "action": "page.getByRole(\"tab\", { name: \"表格\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"字段显示\" }).click()"
     },
     {
@@ -99,6 +102,15 @@
       "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
     },
     {
+      "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
+    },
+    {
+      "action": "editor.getByPlaceholder(\"请输入标题\").fill(secondItemTitle)"
+    },
+    {
+      "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"checkbox\", { name: \"全选\" }).check()"
     },
     {
@@ -112,15 +124,18 @@
     "expect(table.getByRole(\"columnheader\", { name: \"标题\", exact: true })).toBeVisible()",
     "expect(table.getByRole(\"columnheader\", { name: \"截止日期\", exact: true })).toHaveCount(0)",
     "expect(dividers.header).toEqual({ width: \"1px\", style: \"solid\" })",
-    "expect(dividers.body.length).toBeGreaterThan(0)",
-    "expect(dividers.body.every((divider) => divider.width === \"1px\" && divider.style === \"solid\" )).toBe(true)",
+    "expect(dividers.body).toEqual([])",
     "expect(fields.getByRole(\"button\", { name: \"全部字段\" })).toBeVisible()",
     "expect(fields.getByText(label, { exact: true })).toBeVisible()",
     "expect(table.getByRole(\"columnheader\", { name: label, exact: true })).toBeVisible()",
     "expect(table).toContainText(itemTitle)",
+    "expect(table).toContainText(secondItemTitle)",
     "expect(table).toContainText(\"待开始\")",
     "expect(table).toContainText(\"手动创建\")",
+    "expect(bodyDividers.length).toBeGreaterThan(0)",
+    "expect(bodyDividers.every((divider) => divider.width === \"1px\" && divider.style === \"solid\" )).toBe(true)",
     "expect(page.getByRole(\"checkbox\", { name: `选择 ${itemTitle}` })).toBeChecked()",
+    "expect(page.getByRole(\"checkbox\", { name: `选择 ${secondItemTitle}` })).toBeChecked()",
     "expect(table.getByRole(\"columnheader\", { name: \"来源\", exact: true })).toBeVisible()"
   ],
   "forbidden_outcomes": [
@@ -130,7 +145,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-B72DE6602F7BDC",
+      "requirement_id": "REQ-7D7990CCA8FBB1",
       "type": "return",
       "assertion": "shows every table field after 全部字段 and selects all visible rows"
     }
@@ -194,6 +209,9 @@
           "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
         },
         {
+          "action": "page.getByRole(\"tab\", { name: \"表格\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"字段显示\" }).click()"
         },
         {
@@ -210,6 +228,15 @@
         },
         {
           "action": "editor.getByPlaceholder(\"请输入标题\").fill(itemTitle)"
+        },
+        {
+          "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
+        },
+        {
+          "action": "editor.getByPlaceholder(\"请输入标题\").fill(secondItemTitle)"
         },
         {
           "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
@@ -242,13 +269,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/projects-plan.spec.ts",
-        "line_start": 183,
-        "line_end": 283,
-        "body_sha256": "sha256:d95bf3ae2b428653c9717e68482e0ee8d42aae8c703a823d8321b0bf122d39b1",
-        "assertion_count": 13,
-        "action_count": 11,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:e52eb9cb17908f5ac19d6612f0e92543e08a9e8c9ad5127c02c85c0eeed5a6d0"
+        "line_start": 177,
+        "line_end": 294,
+        "body_sha256": "sha256:46c54d2cc7b1130c260c1f1b1f74eec06b220ed6bfcae9342169f353843a28e7",
+        "assertion_count": 16,
+        "action_count": 15,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:39f092a3d14f270b5f9009d6239b9b80edaeca781dbd2ad463f9045f009d1280"
       }
     },
     "reference_run": {
@@ -270,7 +297,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-B72DE6602F7BDC"
+      "REQ-7D7990CCA8FBB1"
     ],
     "categories": [
       "business"
@@ -278,7 +305,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-B72DE6602F7BDC"
+      "requirement:REQ-7D7990CCA8FBB1"
     ]
   }
 }

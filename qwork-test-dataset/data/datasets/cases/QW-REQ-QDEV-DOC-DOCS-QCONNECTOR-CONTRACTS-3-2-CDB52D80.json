@@ -1,0 +1,483 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-QCONNECTOR-CONTRACTS-3-2-CDB52D80",
+  "title": "docs/qconnector/contracts/04-cli-login.md · 3.2 用户停止授权与重试 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/qconnector/contracts/04-cli-login.md",
+      "locator": "line:357;heading:3.2 用户停止授权与重试",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:c370f152bc8a88574b616f8af7e2c200353482a0849e62070f89059044acd137",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/qconnector/contracts/04-cli-login.md",
+      "locator": "line:362;heading:3.2 用户停止授权与重试",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:72fecbb37539af24eb8dfc064af318f60c63a13c9580d9828ab15f41a7acf967",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/qconnector/contracts/04-cli-login.md",
+      "locator": "line:371;heading:3.2 用户停止授权与重试",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:f66389a18173a61e9bed002937d66f8da4708ae44bdf3fb20d9a99774f06c85e",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/qconnector/contracts/04-cli-login.md",
+      "locator": "line:384;heading:3.2 用户停止授权与重试",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:9bbe781fe70212f57661ad1a699c0bca85933d0a6df92faa33460948d189a76c",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/qconnector/contracts/04-cli-login.md",
+      "locator": "line:397;heading:3.2 用户停止授权与重试",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:e3da9d3453304965953dbc436d5f9d7c8d04cefcd5a4de4e7086cdf29fe7d7b7",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-7B2A98F1B2E23A",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md:L357:c370f152bc"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "`cancelAuthorization` 只接管当前授权，不是 `disable` 或 `unbind` 的别名。它必须向该授权的 `CliSession` 传递 AbortSignal，按 §3.1 的三平台进程树规则终止正在执行的 auth/status，并等待 旧操作退出。取消后不执行 `unAuth`、`cleanupPaths`、MCP remove，不删除已安装 runtime 或 供应商凭据，不写 `userDisabled`/tombstone，也不把已连接",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`cancelAuthorization` 只接管当前授权，不是 `disable` 或 `unbind` 的别名。它必须向该授权的 `CliSession` 传递 AbortSignal，按 §3.1 的三平台进程树规则终止正在执行的 auth/status，并等待 旧操作退出。取消后不执行 `unAuth`、`cleanupPaths`、MCP remove，不删除已安装 runtime 或 供应商凭据，不写 `userDisabled`/tombstone，也不把已连接"
+    },
+    {
+      "requirement_id": "REQ-8109368233F6FE",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md:L362:72fecbb375"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "新的 authorize 必须等待同一凭据作用域的取消 gate 排空后再执行，以保证新子进程和新浏览器页 不与旧轮询并存。旧进程在 Abort 后迟到的输出、`status` 成功或其他完成信号一律忽略； 只有新授权的当前代际可以写状态或投影 runtime。用户停止及应用退出的 Abort 是正常结算， `connector:authorize` 不得因「连接器命令已取消」向 Electron 报 handler error；其他错误仍正常失败。 若登录态 proof 已",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "新的 authorize 必须等待同一凭据作用域的取消 gate 排空后再执行，以保证新子进程和新浏览器页 不与旧轮询并存。旧进程在 Abort 后迟到的输出、`status` 成功或其他完成信号一律忽略； 只有新授权的当前代际可以写状态或投影 runtime。用户停止及应用退出的 Abort 是正常结算， `connector:authorize` 不得因「连接器命令已取消」向 Electron 报 handler error；其他错误仍正常失败。 若登录态 proof 已"
+    },
+    {
+      "requirement_id": "REQ-D9886CC708EB51",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md:L371:f66389a181"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "`unbind` 是不同于上述停止的破坏性生命周期，它的围栏覆盖 CLI、OAuth、表单与自定义 连接器。Main 必须在首个 runtime/供应商清理之前就持久化 `unbind` cleanup intent，再停止 所有共享 alias 的在途授权和 runtime，删除 credential-bearing 持久投影，最后才忘记加密 vault 与连接事实；该 tombstone 一经写入，首个 runtime/provider cleanup 失败也不得用补偿逻",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`unbind` 是不同于上述停止的破坏性生命周期，它的围栏覆盖 CLI、OAuth、表单与自定义 连接器。Main 必须在首个 runtime/供应商清理之前就持久化 `unbind` cleanup intent，再停止 所有共享 alias 的在途授权和 runtime，删除 credential-bearing 持久投影，最后才忘记加密 vault 与连接事实；该 tombstone 一经写入，首个 runtime/provider cleanup 失败也不得用补偿逻"
+    },
+    {
+      "requirement_id": "REQ-785D1B52C6BA50",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md:L384:9bbe781fe7"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "bridge 的 QWork 私有快照可以按既有所有权删除，但旧版本遗留在共享 settings 的无 marker 精确拷贝 同样必须走上述可恢复隔离。裸 catalog definition、同名、同 URL、同 command、只能解出部分表单值 或 active/suspended projection lease 都不能单独升级成当前 live 值的破坏性所有权证明；无法构造 完整候选且没有私有 marker 时按冲突处理，保留手写配置与围栏。 显式 CLI/dir",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "bridge 的 QWork 私有快照可以按既有所有权删除，但旧版本遗留在共享 settings 的无 marker 精确拷贝 同样必须走上述可恢复隔离。裸 catalog definition、同名、同 URL、同 command、只能解出部分表单值 或 active/suspended projection lease 都不能单独升级成当前 live 值的破坏性所有权证明；无法构造 完整候选且没有私有 marker 时按冲突处理，保留手写配置与围栏。 显式 CLI/dir"
+    },
+    {
+      "requirement_id": "REQ-7CAA66189D62B3",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md:L397:e3da9d3453"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "共享 credential alias 必须由同一 owner-CAS 通过 `forgetMany` 原子写入/完成解绑围栏，旧 owner 不得清掉新一轮 tombstone。WPS 要在打开浏览器前和 provider 响应进入最终提交前检查全部 `credentialAlias` sibling 的围栏，并把共享授权的 state/token 提交视为一个原子结果；任一 sibling 仍 pending-unbind 都 fail-close。自定义连接器的私有 `",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-qconnector-contracts-04-cli-login-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "共享 credential alias 必须由同一 owner-CAS 通过 `forgetMany` 原子写入/完成解绑围栏，旧 owner 不得清掉新一轮 tombstone。WPS 要在打开浏览器前和 provider 响应进入最终提交前检查全部 `credentialAlias` sibling 的围栏，并把共享授权的 state/token 提交视为一个原子结果；任一 sibling 仍 pending-unbind 都 fail-close。自定义连接器的私有 `"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for connectors at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 3.2 用户停止授权与重试 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-7B2A98F1B2E23A] exactly: `cancelAuthorization` 只接管当前授权，不是 `disable` 或 `unbind` 的别名。它必须向该授权的 `CliSession` 传递 AbortSignal，按 §3.1 的三平台进程树规则终止正在执行的 auth/status，并等待 旧操作退出。取消后不执行 `unAuth`、`cleanupPaths`、MCP remove，不删除已安装 runtime 或 供应商凭据，不写 `userDisabled`/tombstone，也不把已连接"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-8109368233F6FE] exactly: 新的 authorize 必须等待同一凭据作用域的取消 gate 排空后再执行，以保证新子进程和新浏览器页 不与旧轮询并存。旧进程在 Abort 后迟到的输出、`status` 成功或其他完成信号一律忽略； 只有新授权的当前代际可以写状态或投影 runtime。用户停止及应用退出的 Abort 是正常结算， `connector:authorize` 不得因「连接器命令已取消」向 Electron 报 handler error；其他错误仍正常失败。 若登录态 proof 已"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-D9886CC708EB51] exactly: `unbind` 是不同于上述停止的破坏性生命周期，它的围栏覆盖 CLI、OAuth、表单与自定义 连接器。Main 必须在首个 runtime/供应商清理之前就持久化 `unbind` cleanup intent，再停止 所有共享 alias 的在途授权和 runtime，删除 credential-bearing 持久投影，最后才忘记加密 vault 与连接事实；该 tombstone 一经写入，首个 runtime/provider cleanup 失败也不得用补偿逻"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-785D1B52C6BA50] exactly: bridge 的 QWork 私有快照可以按既有所有权删除，但旧版本遗留在共享 settings 的无 marker 精确拷贝 同样必须走上述可恢复隔离。裸 catalog definition、同名、同 URL、同 command、只能解出部分表单值 或 active/suspended projection lease 都不能单独升级成当前 live 值的破坏性所有权证明；无法构造 完整候选且没有私有 marker 时按冲突处理，保留手写配置与围栏。 显式 CLI/dir"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-7CAA66189D62B3] exactly: 共享 credential alias 必须由同一 owner-CAS 通过 `forgetMany` 原子写入/完成解绑围栏，旧 owner 不得清掉新一轮 tombstone。WPS 要在打开浏览器前和 provider 响应进入最终提交前检查全部 `credentialAlias` sibling 的围栏，并把共享授权的 state/token 提交视为一个原子结果；任一 sibling 仍 pending-unbind 都 fail-close。自定义连接器的私有 `"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "`cancelAuthorization` 只接管当前授权，不是 `disable` 或 `unbind` 的别名。它必须向该授权的 `CliSession` 传递 AbortSignal，按 §3.1 的三平台进程树规则终止正在执行的 auth/status，并等待 旧操作退出。取消后不执行 `unAuth`、`cleanupPaths`、MCP remove，不删除已安装 runtime 或 供应商凭据，不写 `userDisabled`/tombstone，也不把已连接",
+    "新的 authorize 必须等待同一凭据作用域的取消 gate 排空后再执行，以保证新子进程和新浏览器页 不与旧轮询并存。旧进程在 Abort 后迟到的输出、`status` 成功或其他完成信号一律忽略； 只有新授权的当前代际可以写状态或投影 runtime。用户停止及应用退出的 Abort 是正常结算， `connector:authorize` 不得因「连接器命令已取消」向 Electron 报 handler error；其他错误仍正常失败。 若登录态 proof 已",
+    "`unbind` 是不同于上述停止的破坏性生命周期，它的围栏覆盖 CLI、OAuth、表单与自定义 连接器。Main 必须在首个 runtime/供应商清理之前就持久化 `unbind` cleanup intent，再停止 所有共享 alias 的在途授权和 runtime，删除 credential-bearing 持久投影，最后才忘记加密 vault 与连接事实；该 tombstone 一经写入，首个 runtime/provider cleanup 失败也不得用补偿逻",
+    "bridge 的 QWork 私有快照可以按既有所有权删除，但旧版本遗留在共享 settings 的无 marker 精确拷贝 同样必须走上述可恢复隔离。裸 catalog definition、同名、同 URL、同 command、只能解出部分表单值 或 active/suspended projection lease 都不能单独升级成当前 live 值的破坏性所有权证明；无法构造 完整候选且没有私有 marker 时按冲突处理，保留手写配置与围栏。 显式 CLI/dir",
+    "共享 credential alias 必须由同一 owner-CAS 通过 `forgetMany` 原子写入/完成解绑围栏，旧 owner 不得清掉新一轮 tombstone。WPS 要在打开浏览器前和 provider 响应进入最终提交前检查全部 `credentialAlias` sibling 的围栏，并把共享授权的 state/token 提交视为一个原子结果；任一 sibling 仍 pending-unbind 都 fail-close。自定义连接器的私有 `"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-7B2A98F1B2E23A]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `cancelAuthorization` 只接管当前授权，不是 `disable` 或 `unbind` 的别名。它必须向该授权的 `CliSession` 传递 AbortSignal，按 §3.1 的三平台进程树规则终止正在执行的 auth/status，并等待 旧操作退出。取消后不执行 `unAuth`、`cleanupPaths`、MCP remove，不删除已安装 runtime 或 供应商凭据，不写 `userDisabled`/tombstone，也不把已连接",
+    "FAIL [REQ-8109368233F6FE]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 新的 authorize 必须等待同一凭据作用域的取消 gate 排空后再执行，以保证新子进程和新浏览器页 不与旧轮询并存。旧进程在 Abort 后迟到的输出、`status` 成功或其他完成信号一律忽略； 只有新授权的当前代际可以写状态或投影 runtime。用户停止及应用退出的 Abort 是正常结算， `connector:authorize` 不得因「连接器命令已取消」向 Electron 报 handler error；其他错误仍正常失败。 若登录态 proof 已",
+    "FAIL [REQ-D9886CC708EB51]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `unbind` 是不同于上述停止的破坏性生命周期，它的围栏覆盖 CLI、OAuth、表单与自定义 连接器。Main 必须在首个 runtime/供应商清理之前就持久化 `unbind` cleanup intent，再停止 所有共享 alias 的在途授权和 runtime，删除 credential-bearing 持久投影，最后才忘记加密 vault 与连接事实；该 tombstone 一经写入，首个 runtime/provider cleanup 失败也不得用补偿逻",
+    "FAIL [REQ-785D1B52C6BA50]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: bridge 的 QWork 私有快照可以按既有所有权删除，但旧版本遗留在共享 settings 的无 marker 精确拷贝 同样必须走上述可恢复隔离。裸 catalog definition、同名、同 URL、同 command、只能解出部分表单值 或 active/suspended projection lease 都不能单独升级成当前 live 值的破坏性所有权证明；无法构造 完整候选且没有私有 marker 时按冲突处理，保留手写配置与围栏。 显式 CLI/dir",
+    "FAIL [REQ-7CAA66189D62B3]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 共享 credential alias 必须由同一 owner-CAS 通过 `forgetMany` 原子写入/完成解绑围栏，旧 owner 不得清掉新一轮 tombstone。WPS 要在打开浏览器前和 provider 响应进入最终提交前检查全部 `credentialAlias` sibling 的围栏，并把共享授权的 state/token 提交视为一个原子结果；任一 sibling 仍 pending-unbind 都 fail-close。自定义连接器的私有 `",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-7B2A98F1B2E23A",
+      "type": "api",
+      "assertion": "`cancelAuthorization` 只接管当前授权，不是 `disable` 或 `unbind` 的别名。它必须向该授权的 `CliSession` 传递 AbortSignal，按 §3.1 的三平台进程树规则终止正在执行的 auth/status，并等待 旧操作退出。取消后不执行 `unAuth`、`cleanupPaths`、MCP remove，不删除已安装 runtime 或 供应商凭据，不写 `userDisabled`/tombstone，也不把已连接"
+    },
+    {
+      "requirement_id": "REQ-8109368233F6FE",
+      "type": "api",
+      "assertion": "新的 authorize 必须等待同一凭据作用域的取消 gate 排空后再执行，以保证新子进程和新浏览器页 不与旧轮询并存。旧进程在 Abort 后迟到的输出、`status` 成功或其他完成信号一律忽略； 只有新授权的当前代际可以写状态或投影 runtime。用户停止及应用退出的 Abort 是正常结算， `connector:authorize` 不得因「连接器命令已取消」向 Electron 报 handler error；其他错误仍正常失败。 若登录态 proof 已"
+    },
+    {
+      "requirement_id": "REQ-D9886CC708EB51",
+      "type": "api",
+      "assertion": "`unbind` 是不同于上述停止的破坏性生命周期，它的围栏覆盖 CLI、OAuth、表单与自定义 连接器。Main 必须在首个 runtime/供应商清理之前就持久化 `unbind` cleanup intent，再停止 所有共享 alias 的在途授权和 runtime，删除 credential-bearing 持久投影，最后才忘记加密 vault 与连接事实；该 tombstone 一经写入，首个 runtime/provider cleanup 失败也不得用补偿逻"
+    },
+    {
+      "requirement_id": "REQ-785D1B52C6BA50",
+      "type": "return",
+      "assertion": "bridge 的 QWork 私有快照可以按既有所有权删除，但旧版本遗留在共享 settings 的无 marker 精确拷贝 同样必须走上述可恢复隔离。裸 catalog definition、同名、同 URL、同 command、只能解出部分表单值 或 active/suspended projection lease 都不能单独升级成当前 live 值的破坏性所有权证明；无法构造 完整候选且没有私有 marker 时按冲突处理，保留手写配置与围栏。 显式 CLI/dir"
+    },
+    {
+      "requirement_id": "REQ-7CAA66189D62B3",
+      "type": "api",
+      "assertion": "共享 credential alias 必须由同一 owner-CAS 通过 `forgetMany` 原子写入/完成解绑围栏，旧 owner 不得清掉新一轮 tombstone。WPS 要在打开浏览器前和 provider 响应进入最终提交前检查全部 `credentialAlias` sibling 的围栏，并把共享授权的 state/token 提交视为一个原子结果；任一 sibling 仍 pending-unbind 都 fail-close。自定义连接器的私有 `"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-qconnector-contracts-0.3-2-cdb52d8097",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for connectors at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 3.2 用户停止授权与重试 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-7B2A98F1B2E23A] exactly: `cancelAuthorization` 只接管当前授权，不是 `disable` 或 `unbind` 的别名。它必须向该授权的 `CliSession` 传递 AbortSignal，按 §3.1 的三平台进程树规则终止正在执行的 auth/status，并等待 旧操作退出。取消后不执行 `unAuth`、`cleanupPaths`、MCP remove，不删除已安装 runtime 或 供应商凭据，不写 `userDisabled`/tombstone，也不把已连接"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-8109368233F6FE] exactly: 新的 authorize 必须等待同一凭据作用域的取消 gate 排空后再执行，以保证新子进程和新浏览器页 不与旧轮询并存。旧进程在 Abort 后迟到的输出、`status` 成功或其他完成信号一律忽略； 只有新授权的当前代际可以写状态或投影 runtime。用户停止及应用退出的 Abort 是正常结算， `connector:authorize` 不得因「连接器命令已取消」向 Electron 报 handler error；其他错误仍正常失败。 若登录态 proof 已"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-D9886CC708EB51] exactly: `unbind` 是不同于上述停止的破坏性生命周期，它的围栏覆盖 CLI、OAuth、表单与自定义 连接器。Main 必须在首个 runtime/供应商清理之前就持久化 `unbind` cleanup intent，再停止 所有共享 alias 的在途授权和 runtime，删除 credential-bearing 持久投影，最后才忘记加密 vault 与连接事实；该 tombstone 一经写入，首个 runtime/provider cleanup 失败也不得用补偿逻"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-785D1B52C6BA50] exactly: bridge 的 QWork 私有快照可以按既有所有权删除，但旧版本遗留在共享 settings 的无 marker 精确拷贝 同样必须走上述可恢复隔离。裸 catalog definition、同名、同 URL、同 command、只能解出部分表单值 或 active/suspended projection lease 都不能单独升级成当前 live 值的破坏性所有权证明；无法构造 完整候选且没有私有 marker 时按冲突处理，保留手写配置与围栏。 显式 CLI/dir"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-7CAA66189D62B3] exactly: 共享 credential alias 必须由同一 owner-CAS 通过 `forgetMany` 原子写入/完成解绑围栏，旧 owner 不得清掉新一轮 tombstone。WPS 要在打开浏览器前和 provider 响应进入最终提交前检查全部 `credentialAlias` sibling 的围栏，并把共享授权的 state/token 提交视为一个原子结果；任一 sibling 仍 pending-unbind 都 fail-close。自定义连接器的私有 `"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-785D1B52C6BA50",
+      "REQ-7B2A98F1B2E23A",
+      "REQ-7CAA66189D62B3",
+      "REQ-8109368233F6FE",
+      "REQ-D9886CC708EB51"
+    ],
+    "categories": [
+      "negative",
+      "permission"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "category:permission",
+      "full",
+      "requirement:REQ-785D1B52C6BA50",
+      "requirement:REQ-7B2A98F1B2E23A",
+      "requirement:REQ-7CAA66189D62B3",
+      "requirement:REQ-8109368233F6FE",
+      "requirement:REQ-D9886CC708EB51"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-7B2A98F1B2E23A",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 3.2 用户停止授权与重试 产品契约 exactly once and retain its correlation identity",
+      "then": "`cancelAuthorization` 只接管当前授权，不是 `disable` 或 `unbind` 的别名。它必须向该授权的 `CliSession` 传递 AbortSignal，按 §3.1 的三平台进程树规则终止正在执行的 auth/status，并等待 旧操作退出。取消后不执行 `unAuth`、`cleanupPaths`、MCP remove，不删除已安装 runtime 或 供应商凭据，不写 `userDisabled`/tombstone，也不把已连接",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-8109368233F6FE",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 3.2 用户停止授权与重试 产品契约 exactly once and retain its correlation identity",
+      "then": "新的 authorize 必须等待同一凭据作用域的取消 gate 排空后再执行，以保证新子进程和新浏览器页 不与旧轮询并存。旧进程在 Abort 后迟到的输出、`status` 成功或其他完成信号一律忽略； 只有新授权的当前代际可以写状态或投影 runtime。用户停止及应用退出的 Abort 是正常结算， `connector:authorize` 不得因「连接器命令已取消」向 Electron 报 handler error；其他错误仍正常失败。 若登录态 proof 已",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-D9886CC708EB51",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 3.2 用户停止授权与重试 产品契约 exactly once and retain its correlation identity",
+      "then": "`unbind` 是不同于上述停止的破坏性生命周期，它的围栏覆盖 CLI、OAuth、表单与自定义 连接器。Main 必须在首个 runtime/供应商清理之前就持久化 `unbind` cleanup intent，再停止 所有共享 alias 的在途授权和 runtime，删除 credential-bearing 持久投影，最后才忘记加密 vault 与连接事实；该 tombstone 一经写入，首个 runtime/provider cleanup 失败也不得用补偿逻",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-785D1B52C6BA50",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 3.2 用户停止授权与重试 产品契约 exactly once and retain its correlation identity",
+      "then": "bridge 的 QWork 私有快照可以按既有所有权删除，但旧版本遗留在共享 settings 的无 marker 精确拷贝 同样必须走上述可恢复隔离。裸 catalog definition、同名、同 URL、同 command、只能解出部分表单值 或 active/suspended projection lease 都不能单独升级成当前 live 值的破坏性所有权证明；无法构造 完整候选且没有私有 marker 时按冲突处理，保留手写配置与围栏。 显式 CLI/dir",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-7CAA66189D62B3",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/04-cli-login.md · 3.2 用户停止授权与重试 产品契约 exactly once and retain its correlation identity",
+      "then": "共享 credential alias 必须由同一 owner-CAS 通过 `forgetMany` 原子写入/完成解绑围栏，旧 owner 不得清掉新一轮 tombstone。WPS 要在打开浏览器前和 provider 响应进入最终提交前检查全部 `credentialAlias` sibling 的围栏，并把共享授权的 state/token 提交视为一个原子结果；任一 sibling 仍 pending-unbind 都 fail-close。自定义连接器的私有 `",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

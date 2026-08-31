@@ -1,0 +1,222 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-INSPIRATION-DARK-SPEC-62DFAEBB",
+  "title": "搜索框（998909）空态、有内容、focus 三态都不是白且可读",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "library",
+    "journey": "library",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-inspiration-dark-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/inspiration-dark.spec.ts",
+      "locator": "line:97;test:搜索框（998909）空态、有内容、focus 三态都不是白且可读",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:62dfaebb5c643913852d44bc89e7b6eb09d5c4bf64f3b5979a08d36faa0a9df8",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-A53BD318EE48EB",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-inspiration-dark-spec-ts:L97:62dfaebb5c"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "library",
+      "priority": "P1",
+      "rule": "搜索框（998909）空态、有内容、focus 三态都不是白且可读",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-inspiration-dark-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "搜索框（998909）空态、有内容、focus 三态都不是白且可读"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "searchbox.focus()"
+    },
+    {
+      "action": "searchbox.fill(\"记账\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(LIGHT_BACKGROUNDS.has(emptyBackground)).toBe(false)",
+    "expect(contrastRatio(placeholderColor, emptyBackground)).toBeGreaterThan(2)",
+    "expect(focusBackground).not.toBe(\"rgb(255, 255, 255)\")",
+    "expect(relativeLuminance(parseRgb(focusBackground))).toBeLessThan(0.3)",
+    "expect(contrastRatio(textColor, filledBackground)).toBeGreaterThanOrEqual(4.5)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-A53BD318EE48EB",
+      "type": "return",
+      "assertion": "搜索框（998909）空态、有内容、focus 三态都不是白且可读"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-inspiration-dark-spec-ts.62dfaebb5c",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/inspiration-dark.spec.ts -g \"搜索框（998909）空态、有内容、focus 三态都不是白且可读\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "library",
+      "steps": [
+        {
+          "action": "searchbox.focus()"
+        },
+        {
+          "action": "searchbox.fill(\"记账\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/inspiration-dark.spec.ts",
+        "line_start": 97,
+        "line_end": 118,
+        "body_sha256": "sha256:73380d969b08ae0bc0e5d50e6c2ca2a0cd2c47345ea950b862f4ef80e0d685c4",
+        "assertion_count": 5,
+        "action_count": 2,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:44fee9cdc8a8bb82d2fd2fcd7d90338c44157f4231d866c7338030e5fefcc481"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-A53BD318EE48EB"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-A53BD318EE48EB"
+    ]
+  }
+}

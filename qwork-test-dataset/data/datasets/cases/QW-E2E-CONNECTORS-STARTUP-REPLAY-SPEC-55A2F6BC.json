@@ -1,0 +1,227 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-STARTUP-REPLAY-SPEC-55A2F6BC",
+  "title": "refreshes an expired OAuth grant in the background without blocking the first turn or opening authorization",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-startup-replay-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-startup-replay.spec.ts",
+      "locator": "line:739;test:refreshes an expired OAuth grant in the background without blocking the first turn or opening authorization",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:55a2f6bcf28860115be81aacdbe3f6d812233462569d6cd1e3bfa267baca5dd1",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-CD6846E75545AC",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-startup-replay-spec-ts:L739:55a2f6bcf2"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "refreshes an expired OAuth grant in the background without blocking the first turn or opening authorization",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-startup-replay-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "refreshes an expired OAuth grant in the background without blocking the first turn or opening authorization"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"OAuth 后台刷新时先完成对话\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect .poll(() => refreshServer!.tokenRequests.length, { timeout: 4_000, }) .toBe(1)",
+    "expect( opened.page.getByText(\"收到：OAuth 后台刷新时先完成对话\", { exact: true, }), ).toBeVisible({ timeout: 4_000 })",
+    "expect(await readLines(authUrlSink)).toEqual([])",
+    "expect(refreshServer.paths).not.toContain(\"/authorize\")",
+    "expect(refreshServer.tokenRequests[0].get(\"grant_type\")).toBe( \"refresh_token\", )",
+    "expect(refreshServer.tokenRequests[0].get(\"refresh_token\")).toBe( \"startup-refresh-token\", )",
+    "expect( opened.page.getByRole(\"button\", { name: \"启动刷新 OAuth，连接异常\", exact: true, }), ).toBeVisible()",
+    "expect( opened.page.getByRole(\"button\", { name: \"启动刷新 OAuth，已连接\", exact: true, }), ).toBeVisible({ timeout: 4_000 })",
+    "expect(await readLines(authUrlSink)).toEqual([])",
+    "expect .poll(async () => (await readMcpLog(mcpLog)).some( (entry) => entry.type === \"mcp_server_upsert\" && ( entry.server as { name?: string; static_headers?: unknown } | undefined )?.name === \"startup-refresh-oauth\" && JSON.stringify(entry.server).includes(\"refreshed-access-token\"), ), ) .toBe(true)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-CD6846E75545AC",
+      "type": "return",
+      "assertion": "refreshes an expired OAuth grant in the background without blocking the first turn or opening authorization"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-startup-replay-spec-ts.55a2f6bcf2",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-startup-replay.spec.ts -g \"refreshes an expired OAuth grant in the background without blocking the first turn or opening authorization\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "composer.fill(\"OAuth 后台刷新时先完成对话\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-startup-replay.spec.ts",
+        "line_start": 739,
+        "line_end": 804,
+        "body_sha256": "sha256:60dc23aece8f4eb593d5dc26d4915ada7a408ad1efe451d39c96d4e19a118a5a",
+        "assertion_count": 10,
+        "action_count": 2,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:0ec0c98aec20cb01a07a484ed8edbb861158b6bea26902d5209322c91085fffd"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-CD6846E75545AC"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-CD6846E75545AC"
+    ]
+  }
+}

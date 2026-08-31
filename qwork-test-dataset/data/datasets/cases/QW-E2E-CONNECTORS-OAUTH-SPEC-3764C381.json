@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/connectors-oauth.spec.ts",
-      "locator": "line:294;test:ignores a callback whose state was never issued",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-oauth.spec.ts",
+      "locator": "line:387;test:ignores a callback whose state was never issued",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:3764c3812109bc12e9951d10dfe2724fe91309bbf893637acb0cfa155042e984",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-75171176D8FE45",
+      "requirement_id": "REQ-7D94324B329F09",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-connectors-oauth-spec-ts:L294:3764c38121"
+        "QDEV-E2E-e2e-connectors-oauth-spec-ts:L387:3764c38121"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -79,11 +79,15 @@
     },
     {
       "action": "page .getByRole(\"dialog\", { name: \"Demo 服务\" }) .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
+    },
+    {
+      "action": "stop.click()"
     }
   ],
   "expected_outcomes": [
-    "expect .poll(async () => (await readLines(authUrlSink)).length, { timeout: 15000 }) .toBe(1)",
+    "expect .poll(async () => (await readLines(authUrlSink)).length, { timeout: 15000, }) .toBe(1)",
     "expect(auth!.tokenRequests).toHaveLength(0)",
+    "expect(stop).toBeVisible()",
     "expect( page.getByRole(\"dialog\", { name: \"Demo 服务\" }).getByRole(\"button\", { name: \"连接\", exact: true, }), ).toBeVisible()"
   ],
   "forbidden_outcomes": [
@@ -93,7 +97,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-75171176D8FE45",
+      "requirement_id": "REQ-7D94324B329F09",
       "type": "return",
       "assertion": "ignores a callback whose state was never issued"
     }
@@ -158,6 +162,9 @@
         },
         {
           "action": "page .getByRole(\"dialog\", { name: \"Demo 服务\" }) .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
+        },
+        {
+          "action": "stop.click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -178,13 +185,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/connectors-oauth.spec.ts",
-        "line_start": 294,
-        "line_end": 323,
-        "body_sha256": "sha256:deedd5aff8c013b574b6f4aa547dee96c822711a8f5bb177b130b91c261c289e",
-        "assertion_count": 3,
-        "action_count": 2,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:892319a3a8f6e1b3c48b1eb1a6f61c61ec571996b292dae88a3ac7f9b8d2fa52"
+        "line_start": 387,
+        "line_end": 424,
+        "body_sha256": "sha256:71fa3fbe9b7270c2540d64e58be41d8b12f3ec09ee979fe5ced92bea38946faa",
+        "assertion_count": 4,
+        "action_count": 3,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:3cdd19ec6fd215e12b27a19274126c3ca1085589ce267a586e07be439a5678a1"
       }
     },
     "reference_run": {
@@ -206,7 +213,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-75171176D8FE45"
+      "REQ-7D94324B329F09"
     ],
     "categories": [
       "business"
@@ -214,7 +221,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-75171176D8FE45"
+      "requirement:REQ-7D94324B329F09"
     ]
   }
 }

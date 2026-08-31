@@ -22,13 +22,13 @@
       "type": "structured-workbuddy-oracle",
       "authority_kind": "normative",
       "authority_domain": "ui-geometry-state-responsive-style",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/visual-baselines/automation-reference.json",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/visual-baselines/automation-reference.json",
       "locator": "json-pointer:/pixelBaseline/reason",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
-      "content_hash": "sha256:b82f1f959c6f8306525556d176b37d3944943e1b3d3086157585952610c2fced",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:49e2a8f7e2149c643fae98dca5279cb0d6dd72f8b41fa4638bf5753d58d5f554",
       "redaction_status": "minimized"
     }
   ],
@@ -46,7 +46,7 @@
       ],
       "surface": "automations",
       "priority": "P1",
-      "rule": "WorkBuddy structured Oracle /pixelBaseline/reason equals \"用户提供的 WorkBuddy 截图已作为结构与几何 Oracle 并记录 SHA-256；macOS 遮罩像素 Golden 待生成，Windows/Linux Golden 尚未评估\"",
+      "rule": "WorkBuddy structured Oracle /pixelBaseline/reason equals \"macOS 任务列表 default、hover、menu 使用 WorkBuddy 5.3.5 主内容区遮罩 Golden；Windows/Linux Golden 尚未评估\"",
       "authority_domain": "ui-geometry-state-responsive-style",
       "governing_sources": [
         "WORKBUDDY-ORACLE-5-3-5-AUTOMATION-REFERENCE"
@@ -57,19 +57,19 @@
         "status": "resolved",
         "reason": "compiled from the user-approved source hierarchy"
       },
-      "oracle": "WorkBuddy structured Oracle /pixelBaseline/reason equals \"用户提供的 WorkBuddy 截图已作为结构与几何 Oracle 并记录 SHA-256；macOS 遮罩像素 Golden 待生成，Windows/Linux Golden 尚未评估\""
+      "oracle": "WorkBuddy structured Oracle /pixelBaseline/reason equals \"macOS 任务列表 default、hover、menu 使用 WorkBuddy 5.3.5 主内容区遮罩 Golden；Windows/Linux Golden 尚未评估\""
     }
   ],
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "read-only frozen Git and private Dataset",
-    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
     "last_verified_at": null,
     "status_reason": "dedicated source-integrity verifier implemented; reference run pending"
   },
   "preconditions": {
     "repository": "qwork",
-    "frozen_git_revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7"
+    "frozen_git_revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f"
   },
   "steps": [
     {
@@ -88,7 +88,7 @@
     "every canonical scalar value hash matches the atom ledger"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-6AE2F0945180DF]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: WorkBuddy structured Oracle /pixelBaseline/reason equals \"用户提供的 WorkBuddy 截图已作为结构与几何 Oracle 并记录 SHA-256；macOS 遮罩像素 Golden 待生成，Windows/Linux Golden 尚未评估\"",
+    "FAIL [REQ-6AE2F0945180DF]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: WorkBuddy structured Oracle /pixelBaseline/reason equals \"macOS 任务列表 default、hover、menu 使用 WorkBuddy 5.3.5 主内容区遮罩 Golden；Windows/Linux Golden 尚未评估\"",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
@@ -96,7 +96,7 @@
     {
       "requirement_id": "REQ-6AE2F0945180DF",
       "type": "trace",
-      "assertion": "WorkBuddy structured Oracle /pixelBaseline/reason equals \"用户提供的 WorkBuddy 截图已作为结构与几何 Oracle 并记录 SHA-256；macOS 遮罩像素 Golden 待生成，Windows/Linux Golden 尚未评估\""
+      "assertion": "WorkBuddy structured Oracle /pixelBaseline/reason equals \"macOS 任务列表 default、hover、menu 使用 WorkBuddy 5.3.5 主内容区遮罩 Golden；Windows/Linux Golden 尚未评估\""
     }
   ],
   "cleanup": {
@@ -198,7 +198,7 @@
       "oracle_type": "trace",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for WorkBuddy 5.3.5 automations · evidence-pixelBaseline-reason 结构化 Oracle exactly once and retain its correlation identity",
-      "then": "WorkBuddy structured Oracle /pixelBaseline/reason equals \"用户提供的 WorkBuddy 截图已作为结构与几何 Oracle 并记录 SHA-256；macOS 遮罩像素 Golden 待生成，Windows/Linux Golden 尚未评估\"",
+      "then": "WorkBuddy structured Oracle /pixelBaseline/reason equals \"macOS 任务列表 default、hover、menu 使用 WorkBuddy 5.3.5 主内容区遮罩 Golden；Windows/Linux Golden 尚未评估\"",
       "observation_boundary": "case-owned execution trace",
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     }

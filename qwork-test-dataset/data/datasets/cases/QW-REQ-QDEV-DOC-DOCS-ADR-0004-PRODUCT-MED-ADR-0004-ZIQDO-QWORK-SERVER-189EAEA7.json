@@ -1,0 +1,289 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-ADR-0004-PRODUCT-MED-ADR-0004-ZIQDO-QWORK-SERVER-189EAEA7",
+  "title": "docs/adr/0004-product-media-through-qwork-server.md · ADR-0004：产品媒体能力由 ZiqDo 直连 qwork_server 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "media-generation",
+    "journey": "media-generation",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-adr-0004-product-media-through-qwork-server-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/adr/0004-product-media-through-qwork-server.md",
+      "locator": "line:6;heading:ADR-0004：产品媒体能力由 ZiqDo 直连 qwork_server",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:2b7edc988c34eb77d494a59d2381128f83959b2858337a17d67cea29d91a8888",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-adr-0004-product-media-through-qwork-server-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/adr/0004-product-media-through-qwork-server.md",
+      "locator": "line:7;heading:ADR-0004：产品媒体能力由 ZiqDo 直连 qwork_server",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:0390019b642ab5a04f5337768846ff5ce2550d93d6e7c2e056c0fd2888dbfc5a",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-E17ABFCDC980EC",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-adr-0004-product-media-through-qwork-server-md:L6:2b7edc988c"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "media-generation",
+      "priority": "P1",
+      "rule": "调研：[`WorkBuddy 内置生图 / 生视频能力与 QWork 接入调研`](../research/workbuddy-built-in-media-generation-20260825.md)",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-adr-0004-product-media-through-qwork-server-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "调研：[`WorkBuddy 内置生图 / 生视频能力与 QWork 接入调研`](../research/workbuddy-built-in-media-generation-20260825.md)"
+    },
+    {
+      "requirement_id": "REQ-B81DAD9AFB91ED",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-adr-0004-product-media-through-qwork-server-md:L7:0390019b64"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "media-generation",
+      "priority": "P1",
+      "rule": "Change：[`CHG-built-in-media-generation-998538-20260825`](../team-collaboration/changes/CHG-built-in-media-generation-998538-20260825.yaml)",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-adr-0004-product-media-through-qwork-server-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Change：[`CHG-built-in-media-generation-998538-20260825`](../team-collaboration/changes/CHG-built-in-media-generation-998538-20260825.yaml)"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for media-generation at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/adr/0004-product-media-through-qwork-server.md · ADR-0004：产品媒体能力由 ZiqDo 直连 qwork_server 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-E17ABFCDC980EC] exactly: 调研：[`WorkBuddy 内置生图 / 生视频能力与 QWork 接入调研`](../research/workbuddy-built-in-media-generation-20260825.md)"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-B81DAD9AFB91ED] exactly: Change：[`CHG-built-in-media-generation-998538-20260825`](../team-collaboration/changes/CHG-built-in-media-generation-998538-20260825.yaml)"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "调研：[`WorkBuddy 内置生图 / 生视频能力与 QWork 接入调研`](../research/workbuddy-built-in-media-generation-20260825.md)",
+    "Change：[`CHG-built-in-media-generation-998538-20260825`](../team-collaboration/changes/CHG-built-in-media-generation-998538-20260825.yaml)"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-E17ABFCDC980EC]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 调研：[`WorkBuddy 内置生图 / 生视频能力与 QWork 接入调研`](../research/workbuddy-built-in-media-generation-20260825.md)",
+    "FAIL [REQ-B81DAD9AFB91ED]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Change：[`CHG-built-in-media-generation-998538-20260825`](../team-collaboration/changes/CHG-built-in-media-generation-998538-20260825.yaml)",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-E17ABFCDC980EC",
+      "type": "return",
+      "assertion": "调研：[`WorkBuddy 内置生图 / 生视频能力与 QWork 接入调研`](../research/workbuddy-built-in-media-generation-20260825.md)"
+    },
+    {
+      "requirement_id": "REQ-B81DAD9AFB91ED",
+      "type": "return",
+      "assertion": "Change：[`CHG-built-in-media-generation-998538-20260825`](../team-collaboration/changes/CHG-built-in-media-generation-998538-20260825.yaml)"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-adr-0004-product-media.adr-0004-ziqdo-qwork-server-189eaea7b9",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "media-generation",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for media-generation at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/adr/0004-product-media-through-qwork-server.md · ADR-0004：产品媒体能力由 ZiqDo 直连 qwork_server 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-E17ABFCDC980EC] exactly: 调研：[`WorkBuddy 内置生图 / 生视频能力与 QWork 接入调研`](../research/workbuddy-built-in-media-generation-20260825.md)"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-B81DAD9AFB91ED] exactly: Change：[`CHG-built-in-media-generation-998538-20260825`](../team-collaboration/changes/CHG-built-in-media-generation-998538-20260825.yaml)"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B81DAD9AFB91ED",
+      "REQ-E17ABFCDC980EC"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-B81DAD9AFB91ED",
+      "requirement:REQ-E17ABFCDC980EC"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-E17ABFCDC980EC",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/adr/0004-product-media-through-qwork-server.md · ADR-0004：产品媒体能力由 ZiqDo 直连 qwork_server 产品契约 exactly once and retain its correlation identity",
+      "then": "调研：[`WorkBuddy 内置生图 / 生视频能力与 QWork 接入调研`](../research/workbuddy-built-in-media-generation-20260825.md)",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-B81DAD9AFB91ED",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/adr/0004-product-media-through-qwork-server.md · ADR-0004：产品媒体能力由 ZiqDo 直连 qwork_server 产品契约 exactly once and retain its correlation identity",
+      "then": "Change：[`CHG-built-in-media-generation-998538-20260825`](../team-collaboration/changes/CHG-built-in-media-generation-998538-20260825.yaml)",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

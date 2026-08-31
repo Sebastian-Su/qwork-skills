@@ -58,7 +58,10 @@ def main() -> int:
     project_entry = repo / ".agents/skills/qwork-test-dataset"
     if project_entry.resolve(strict=True) != script_root.parent:
         raise AssertionError(f"unexpected project Skill entry: {project_entry}")
-    node_options = f"{os.environ.get('NODE_OPTIONS', '')} --preserve-symlinks".strip()
+    node_options = (
+        f"{os.environ.get('NODE_OPTIONS', '')} "
+        "--preserve-symlinks --preserve-symlinks-main"
+    ).strip()
     list_probe = subprocess.run(
         [
             str(repo / "node_modules/.bin/playwright"),
@@ -72,6 +75,10 @@ def main() -> int:
             **os.environ,
             "NODE_OPTIONS": node_options,
             "QWORK_E2E_APP_ROOT": "/tmp/qwork-private-list-probe",
+            "QWORK_E2E_OUTPUT_DIR": (
+                "/private/tmp/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/"
+                "qwork-private-list-probe"
+            ),
         },
         text=True,
         capture_output=True,

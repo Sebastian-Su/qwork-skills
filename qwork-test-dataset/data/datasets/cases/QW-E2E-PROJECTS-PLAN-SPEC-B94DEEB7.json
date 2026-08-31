@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-plan.spec.ts",
-      "locator": "line:380;test:hides #, shows the selection toolbar, and edits dates and attachments",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-plan.spec.ts",
+      "locator": "line:501;test:hides #, shows the selection toolbar, and edits dates and attachments",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:b94deeb7084653d248e045adc935f8934c89f57095f197809b89d7df3c36b895",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-036871D1AA05CF",
+      "requirement_id": "REQ-463517F75E0AD0",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-projects-plan-spec-ts:L380:b94deeb708"
+        "QDEV-E2E-e2e-projects-plan-spec-ts:L501:b94deeb708"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -76,6 +76,9 @@
     },
     {
       "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"表格\", exact: true }).click()"
     },
     {
       "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
@@ -130,7 +133,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-036871D1AA05CF",
+      "requirement_id": "REQ-463517F75E0AD0",
       "type": "return",
       "assertion": "hides #, shows the selection toolbar, and edits dates and attachments"
     }
@@ -194,6 +197,9 @@
           "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
         },
         {
+          "action": "page.getByRole(\"tab\", { name: \"表格\", exact: true }).click()"
+        },
+        {
           "action": "page .getByTestId(\"project-detail-content\") .getByRole(\"button\", { name: \"添加\", exact: true }) .click()"
         },
         {
@@ -242,13 +248,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/projects-plan.spec.ts",
-        "line_start": 380,
-        "line_end": 459,
-        "body_sha256": "sha256:e15c1cfa1a2e8dc3f72b41089c62f00b21002573f257d812ec09871a379ca9f5",
+        "line_start": 501,
+        "line_end": 581,
+        "body_sha256": "sha256:8be5c5fdd417dd0754a59bd8642cb5a89b12d2334da3c2d5782fcee5774522a3",
         "assertion_count": 13,
-        "action_count": 11,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:e52eb9cb17908f5ac19d6612f0e92543e08a9e8c9ad5127c02c85c0eeed5a6d0"
+        "action_count": 12,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:39f092a3d14f270b5f9009d6239b9b80edaeca781dbd2ad463f9045f009d1280"
       }
     },
     "reference_run": {
@@ -270,7 +276,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-036871D1AA05CF"
+      "REQ-463517F75E0AD0"
     ],
     "categories": [
       "business"
@@ -278,7 +284,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-036871D1AA05CF"
+      "requirement:REQ-463517F75E0AD0"
     ]
   }
 }

@@ -22,13 +22,13 @@
       "type": "structured-workbuddy-oracle",
       "authority_kind": "normative",
       "authority_domain": "ui-geometry-state-responsive-style",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/visual-baselines/automation-reference.json",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/visual-baselines/automation-reference.json",
       "locator": "json-pointer:/schemaVersion",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
-      "content_hash": "sha256:6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
       "redaction_status": "minimized"
     }
   ],
@@ -46,7 +46,7 @@
       ],
       "surface": "automations",
       "priority": "P1",
-      "rule": "WorkBuddy structured Oracle /schemaVersion equals 1",
+      "rule": "WorkBuddy structured Oracle /schemaVersion equals 2",
       "authority_domain": "ui-geometry-state-responsive-style",
       "governing_sources": [
         "WORKBUDDY-ORACLE-5-3-5-AUTOMATION-REFERENCE"
@@ -57,19 +57,19 @@
         "status": "resolved",
         "reason": "compiled from the user-approved source hierarchy"
       },
-      "oracle": "WorkBuddy structured Oracle /schemaVersion equals 1"
+      "oracle": "WorkBuddy structured Oracle /schemaVersion equals 2"
     }
   ],
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "read-only frozen Git and private Dataset",
-    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
     "last_verified_at": null,
     "status_reason": "dedicated source-integrity verifier implemented; reference run pending"
   },
   "preconditions": {
     "repository": "qwork",
-    "frozen_git_revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7"
+    "frozen_git_revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f"
   },
   "steps": [
     {
@@ -88,7 +88,7 @@
     "every canonical scalar value hash matches the atom ledger"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-02A055317CC108]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: WorkBuddy structured Oracle /schemaVersion equals 1",
+    "FAIL [REQ-02A055317CC108]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: WorkBuddy structured Oracle /schemaVersion equals 2",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
@@ -96,7 +96,7 @@
     {
       "requirement_id": "REQ-02A055317CC108",
       "type": "trace",
-      "assertion": "WorkBuddy structured Oracle /schemaVersion equals 1"
+      "assertion": "WorkBuddy structured Oracle /schemaVersion equals 2"
     }
   ],
   "cleanup": {
@@ -198,7 +198,7 @@
       "oracle_type": "trace",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for WorkBuddy 5.3.5 automations · evidence-schemaVersion 结构化 Oracle exactly once and retain its correlation identity",
-      "then": "WorkBuddy structured Oracle /schemaVersion equals 1",
+      "then": "WorkBuddy structured Oracle /schemaVersion equals 2",
       "observation_boundary": "case-owned execution trace",
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     }

@@ -1,0 +1,235 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-REMAINING-TYPES-SPEC-6006638F",
+  "title": "starts an expired OAuth refresh in the background without blocking the first turn",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-remaining-types-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-remaining-types.spec.ts",
+      "locator": "line:505;test:starts an expired OAuth refresh in the background without blocking the first turn",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:6006638f83cf5097d67616ffc73aae553bd8e32fdbdf473278b9eea096fe4b4a",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-F0F3F3ADD3110D",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-remaining-types-spec-ts:L505:6006638f83"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "starts an expired OAuth refresh in the background without blocking the first turn",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-remaining-types-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "starts an expired OAuth refresh in the background without blocking the first turn"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "opened.page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"过期凭据也不能阻塞启动\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "probe.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( opened.page.getByText(\"收到：过期凭据也不能阻塞启动\", { exact: true }), ).toBeVisible({ timeout: 5000 })",
+    "expect.poll(() => probe.requests(), { timeout: 3000 }).toBe(1)",
+    "expect(settings.mcpServers?.[\"stale-oauth\"]).toBeUndefined()",
+    "expect(settings.mcpServers?.[\"valid-oauth\"]?.headersHelper).toEqual( expect.any(String), )",
+    "expect(JSON.parse(await fs.readFile(validHeaderFile, \"utf8\"))).toEqual({ Authorization: \"Bearer valid-access-token\", })",
+    "expect( opened.page.getByRole(\"button\", { name: \"过期 OAuth，连接异常\" }), ).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-F0F3F3ADD3110D",
+      "type": "return",
+      "assertion": "starts an expired OAuth refresh in the background without blocking the first turn"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-remaining-types-spec-ts.6006638f83",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-remaining-types.spec.ts -g \"starts an expired OAuth refresh in the background without blocking the first turn\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "opened.page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"过期凭据也不能阻塞启动\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "probe.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-remaining-types.spec.ts",
+        "line_start": 505,
+        "line_end": 555,
+        "body_sha256": "sha256:5000e435e86da67f75aa9aad907e2c95115939c14ce2aa7a300d04fed752fc55",
+        "assertion_count": 6,
+        "action_count": 4,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:44edade7183524ded01be4499a9cdadc6e387aea7eebcc674767718eec3e2e3e"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-F0F3F3ADD3110D"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-F0F3F3ADD3110D"
+    ]
+  }
+}

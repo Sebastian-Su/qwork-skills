@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/im-loopback.spec.ts",
-      "locator": "line:61;test:keeps the QQ conversation mapping across app restarts",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/im-loopback.spec.ts",
+      "locator": "line:59;test:keeps the QQ conversation mapping across app restarts",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:2a560bef4c074c5eda914b626b3577cb0e53aeed6f57a2131fa136bd1466c3cc",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-17696F84F8102C",
+      "requirement_id": "REQ-5E2D800F0796E0",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-im-loopback-spec-ts:L61:2a560bef4c"
+        "QDEV-E2E-e2e-im-loopback-spec-ts:L59:2a560bef4c"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -84,13 +84,19 @@
       "action": "path.join(configHome, \"im-inbox.json\")"
     },
     {
+      "action": "path.join( configHome, \"im-outbox-before-restart.json\", )"
+    },
+    {
+      "action": "path.join( configHome, \"im-outbox-after-restart.json\", )"
+    },
+    {
       "action": "writeInbox( inboxFile, qqMessage({ messageId: \"qq-mapping-1\", conversationId: \"qq-persisted-conversation\", content: firstContent, }), )"
     },
     {
       "action": "qqMessage({ messageId: \"qq-mapping-1\", conversationId: \"qq-persisted-conversation\", content: firstContent, })"
     },
     {
-      "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, })"
+      "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, E2E_IM_OUTBOX_FILE: firstOutboxFile, })"
     },
     {
       "action": "openInjectedConversation( launched.page, \"qq-persisted-conversation\", firstContent, )"
@@ -100,19 +106,15 @@
     },
     {
       "action": "expectSidecarReply(launched.page, firstContent)"
-    },
-    {
-      "action": "readOnlyMapping(configHome)"
-    },
-    {
-      "action": "closeE2EApplication(app)"
     }
   ],
   "expected_outcomes": [
+    "expect.poll(() => readOutboxAttachments(firstOutboxFile)).toEqual([])",
+    "expect .poll(() => readOutboxAttachments(secondOutboxFile)) .toEqual([])",
     "expect(afterRestart.scopeId).toBe(beforeRestart.scopeId)",
     "expect(afterRestart.sessionId).toMatch(/^wg-/)",
     "expect(afterRestart.createdAt).toBe(beforeRestart.createdAt)",
-    "expect(afterRestart.lastActiveAt).toBeGreaterThanOrEqual(beforeRestart.lastActiveAt)"
+    "expect(afterRestart.lastActiveAt).toBeGreaterThanOrEqual( beforeRestart.lastActiveAt, )"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -121,7 +123,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-17696F84F8102C",
+      "requirement_id": "REQ-5E2D800F0796E0",
       "type": "return",
       "assertion": "keeps the QQ conversation mapping across app restarts"
     }
@@ -182,13 +184,19 @@
           "action": "path.join(configHome, \"im-inbox.json\")"
         },
         {
+          "action": "path.join( configHome, \"im-outbox-before-restart.json\", )"
+        },
+        {
+          "action": "path.join( configHome, \"im-outbox-after-restart.json\", )"
+        },
+        {
           "action": "writeInbox( inboxFile, qqMessage({ messageId: \"qq-mapping-1\", conversationId: \"qq-persisted-conversation\", content: firstContent, }), )"
         },
         {
           "action": "qqMessage({ messageId: \"qq-mapping-1\", conversationId: \"qq-persisted-conversation\", content: firstContent, })"
         },
         {
-          "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, })"
+          "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, E2E_IM_OUTBOX_FILE: firstOutboxFile, })"
         },
         {
           "action": "openInjectedConversation( launched.page, \"qq-persisted-conversation\", firstContent, )"
@@ -198,12 +206,6 @@
         },
         {
           "action": "expectSidecarReply(launched.page, firstContent)"
-        },
-        {
-          "action": "readOnlyMapping(configHome)"
-        },
-        {
-          "action": "closeE2EApplication(app)"
         }
       ],
       "locator_strategy": "source-bound process assertion",
@@ -224,13 +226,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/im-loopback.spec.ts",
-        "line_start": 61,
-        "line_end": 129,
-        "body_sha256": "sha256:5ac409eb45f2bef6c8c085850d1ea736376d9e620a52015871dc3479c788d83c",
-        "assertion_count": 4,
+        "line_start": 59,
+        "line_end": 143,
+        "body_sha256": "sha256:dd2e26aab9426072b0337683ee65f5c7ab25ccdf8aa25b682dcd69b926198e7b",
+        "assertion_count": 6,
         "action_count": 0,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:73c646b3d06da3b72f1b6a9891f48ee6f7df4c4c461e3bdff7c4d64a3a410b64"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:7aabc579f5219d106d684b1100adf82f8ab62e33c330bc527fe0db23cfae4b3e"
       }
     },
     "reference_run": {
@@ -252,7 +254,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-17696F84F8102C"
+      "REQ-5E2D800F0796E0"
     ],
     "categories": [
       "business"
@@ -260,7 +262,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-17696F84F8102C"
+      "requirement:REQ-5E2D800F0796E0"
     ]
   }
 }

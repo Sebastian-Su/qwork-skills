@@ -1,0 +1,257 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONVERSATION-RELIABILITY-JOURNEY-SPEC-A9130C33",
+  "title": "isolates hanging, failed, and successful conversations during concurrent use",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-conversation-reliability-journey-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/conversation-reliability-journey.spec.ts",
+      "locator": "line:374;test:isolates hanging, failed, and successful conversations during concurrent use",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:a9130c33e393d7b9a7670240df5731d0c2b8ee0917fcff3f793de904e78f4e14",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-B796796EFA3822",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-conversation-reliability-journey-spec-ts:L374:a9130c33e3"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "isolates hanging, failed, and successful conversations during concurrent use",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-conversation-reliability-journey-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "isolates hanging, failed, and successful conversations during concurrent use"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "rail.getByRole(\"button\", { name: /E2E 确定性失败 503/u }).click()"
+    },
+    {
+      "action": "rail.getByRole(\"button\", { name: \"挂起隔离会话 A\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"停止生成\", exact: true }).click()"
+    },
+    {
+      "action": "rail.getByRole(\"button\", { name: \"成功隔离会话 C\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"收到：挂起隔离会话 A\", { exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"停止生成\", exact: true })).toBeVisible()",
+    "expect(page.getByText(\"E2E 确定性失败 503\", { exact: false }).first()).toBeVisible()",
+    "expect(page.getByText(\"收到：成功隔离会话 C\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"E2E 确定性失败 503\", { exact: false }).first()).toBeVisible()",
+    "expect(page.getByText(\"收到：成功隔离会话 C\", { exact: true })).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"停止生成\", exact: true })).toBeVisible()",
+    "expect(page.getByText(\"已取消\", { exact: false })).toBeVisible()",
+    "expect(page.getByText(\"收到：成功隔离会话 C\", { exact: true })).toBeVisible()",
+    "expect( page.getByTestId(\"conversation-content\").getByText(\"E2E 确定性失败 503\", { exact: false, }), ).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-B796796EFA3822",
+      "type": "return",
+      "assertion": "isolates hanging, failed, and successful conversations during concurrent use"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-conversation-reliability-journey-spec-ts.a9130c33e3",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/conversation-reliability-journey.spec.ts -g \"isolates hanging, failed, and successful conversations during concurrent use\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "rail.getByRole(\"button\", { name: /E2E 确定性失败 503/u }).click()"
+        },
+        {
+          "action": "rail.getByRole(\"button\", { name: \"挂起隔离会话 A\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"停止生成\", exact: true }).click()"
+        },
+        {
+          "action": "rail.getByRole(\"button\", { name: \"成功隔离会话 C\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/conversation-reliability-journey.spec.ts",
+        "line_start": 374,
+        "line_end": 425,
+        "body_sha256": "sha256:16725b52a670a2f0e0bf8aa38d3d7cb27a68ef1731a805f2d7401fff011c1931",
+        "assertion_count": 10,
+        "action_count": 7,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:a8950bdef5ecdc9f664cbc8c74f3cfea1c977d8f710b3866774552a0829b7528"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B796796EFA3822"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-B796796EFA3822"
+    ]
+  }
+}

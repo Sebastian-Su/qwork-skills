@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/conversation-sharing.spec.ts",
-      "locator": "line:125;test:recovers the share controls when a long cloud request never responds",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/conversation-sharing.spec.ts",
+      "locator": "line:262;test:recovers the share controls when a long cloud request never responds",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:1402be2103a4eb2f14fc3c3e17b29be1e99cbe770614aca9c8201672da05d475",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-C89CBA95B9BAA5",
+      "requirement_id": "REQ-D3791333E9C171",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-conversation-sharing-spec-ts:L125:1402be2103"
+        "QDEV-E2E-e2e-conversation-sharing-spec-ts:L262:1402be2103"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -101,6 +101,7 @@
   ],
   "expected_outcomes": [
     "expect(page.getByText(/^收到：长对话/)).toBeVisible()",
+    "expect(panel.getByRole(\"checkbox\", { name: \"全选\" })).toBeChecked()",
     "expect( page.getByRole(\"status\").filter({ hasText: \"创建分享链接超时，请重试\" }), ).toContainText(\"创建分享链接超时，请重试\", { timeout: 2_000 })",
     "expect(panel.getByRole(\"button\", { name: \"复制链接\" })).toBeEnabled()",
     "expect(requests).toHaveLength(1)",
@@ -115,7 +116,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-C89CBA95B9BAA5",
+      "requirement_id": "REQ-D3791333E9C171",
       "type": "return",
       "assertion": "recovers the share controls when a long cloud request never responds"
     }
@@ -218,13 +219,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/conversation-sharing.spec.ts",
-        "line_start": 125,
-        "line_end": 181,
-        "body_sha256": "sha256:84cb810454e2b9316da7ff1e78cb74ff7da3d5263de0923f46f1824729edf1d0",
-        "assertion_count": 7,
+        "line_start": 262,
+        "line_end": 319,
+        "body_sha256": "sha256:0fbcb87f38b1a5d922ef62b789bb9468a1bfa5ae30110b642610b08405f69ee9",
+        "assertion_count": 8,
         "action_count": 8,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:19a7b3d76c56169ae25fc61ad289e6df5ac13590a98c6b26059320ee223e7984"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:f4b571c299aa816d0cf6ea6cbe6f496943e058f172c4332dcd982d83cb1525a5"
       }
     },
     "reference_run": {
@@ -246,7 +247,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-C89CBA95B9BAA5"
+      "REQ-D3791333E9C171"
     ],
     "categories": [
       "business"
@@ -254,7 +255,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-C89CBA95B9BAA5"
+      "requirement:REQ-D3791333E9C171"
     ]
   }
 }

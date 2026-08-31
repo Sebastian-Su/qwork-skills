@@ -21,21 +21,39 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/my-files.spec.ts",
-      "locator": "line:165;test:shows all task artifacts in one unified category",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/my-files.spec.ts",
+      "locator": "line:210;test:shows all task artifacts in one unified category",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:d032af3b54e2a1696af816433cb9a89be46168adceced4957369729f76281266",
       "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-my-files-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/my-files.spec.ts",
+      "locator": "line:174;test:shows all task artifacts in one unified category",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:d032af3b54e2a1696af816433cb9a89be46168adceced4957369729f76281266",
+      "redaction_status": "minimized",
+      "supports": [
+        "QDEV-E2E-e2e-my-files-spec-ts"
+      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-59352ED4AAC426",
+      "requirement_id": "REQ-9661261CF6222D",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-my-files-spec-ts:L165:d032af3b54"
+        "QDEV-E2E-e2e-my-files-spec-ts:L210:d032af3b54",
+        "QHEAD-E2E-e2e-my-files-spec-ts:L174:d032af3b54"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -50,7 +68,9 @@
       "governing_sources": [
         "QDEV-E2E-e2e-my-files-spec-ts"
       ],
-      "supporting_sources": [],
+      "supporting_sources": [
+        "QHEAD-E2E-e2e-my-files-spec-ts"
+      ],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -106,6 +126,12 @@
     },
     {
       "action": "taskOutputRow.hover()"
+    },
+    {
+      "action": "taskOutputRow.getByRole(\"button\", { name: \"分享文件\" }).click()"
+    },
+    {
+      "action": "shareDialog.getByRole(\"button\", { name: \"关闭分享\" }).click()"
     }
   ],
   "expected_outcomes": [
@@ -123,7 +149,16 @@
     "expect(page.getByText(\"助理产出.md\", { exact: true })).toBeVisible()",
     "expect( page.locator(\"header\").getByRole(\"button\", { name: \"助理\", exact: true }), ).toHaveCount(0)",
     "expect(page.getByRole(\"status\", { name: \"云端同步说明\" })).toContainText( \"任务成果仍安全保存在本地\", )",
-    "expect( taskOutputRow.getByRole(\"button\", { name: \"云端网盘尚未配置\", }), ).toBeDisabled()"
+    "expect( taskOutputRow.getByRole(\"button\", { name: \"云端网盘尚未配置\", }), ).toBeDisabled()",
+    "expect(shareDialog).toBeVisible()",
+    "expect( shareDialog.getByText(\"任务产出.md\", { exact: true }), ).toBeVisible()",
+    "expect( shareDialog.getByRole(\"button\", { name: \"复制链接\" }), ).toBeVisible()",
+    "expect( shareDialog.getByRole(\"button\", { name: \"生成二维码\" }), ).toBeVisible()",
+    "expect( shareDialog.getByRole(\"button\", { name: \"浏览器打开\" }), ).toBeVisible()",
+    "expect(Math.abs(geometry.width - 452)).toBeLessThanOrEqual(2)",
+    "expect( Math.abs(geometry.x + geometry.width / 2 - geometry.viewportWidth / 2), ).toBeLessThanOrEqual(2)",
+    "expect( Math.abs(geometry.y + geometry.height / 2 - geometry.viewportHeight / 2), ).toBeLessThanOrEqual(2)",
+    "expect(geometry.borderRadius).toBe(\"24px\")"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -132,7 +167,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-59352ED4AAC426",
+      "requirement_id": "REQ-9661261CF6222D",
       "type": "return",
       "assertion": "shows all task artifacts in one unified category"
     }
@@ -224,6 +259,12 @@
         },
         {
           "action": "taskOutputRow.hover()"
+        },
+        {
+          "action": "taskOutputRow.getByRole(\"button\", { name: \"分享文件\" }).click()"
+        },
+        {
+          "action": "shareDialog.getByRole(\"button\", { name: \"关闭分享\" }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -244,13 +285,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/my-files.spec.ts",
-        "line_start": 165,
-        "line_end": 249,
-        "body_sha256": "sha256:bd2a0f8eed5161494a16e46003ef8a8cb3184ca3a480c11d17c644dfc81f6a3d",
-        "assertion_count": 15,
-        "action_count": 11,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:eca30f412573b91ea792a4338c8d673694efe8aba5dce21caf063c686d33453c"
+        "line_start": 174,
+        "line_end": 314,
+        "body_sha256": "sha256:9e0b879655939b8c461cda5d4c127cfe7998d9aecc2a3b15f9c962eef4b516eb",
+        "assertion_count": 24,
+        "action_count": 13,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:3068a49646cff8db4076d3e7ce8e8b4f4e6e4c8660259ee6ce65dc62f3f1a84a"
       }
     },
     "reference_run": {
@@ -272,7 +313,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-59352ED4AAC426"
+      "REQ-9661261CF6222D"
     ],
     "categories": [
       "business"
@@ -280,7 +321,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-59352ED4AAC426"
+      "requirement:REQ-9661261CF6222D"
     ]
   }
 }

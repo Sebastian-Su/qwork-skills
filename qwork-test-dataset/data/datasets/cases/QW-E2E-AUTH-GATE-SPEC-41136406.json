@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/auth-gate.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/auth-gate.spec.ts",
       "locator": "line:22;test:shows the root login gate until test login completes, then logout returns",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:4113640648da456312813cf7bde98c94eae6e210ad273578eaeb32438a8c122f",
       "redaction_status": "minimized"
     }
@@ -75,22 +75,49 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"登录\", exact: true }).click()"
+      "action": "createTestHome(\"auth-gate\")"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"登录\", exact: true }).click()"
+      "action": "startDevApi({ serverDir })"
+    },
+    {
+      "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: baseUrl, QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"test\", NODE_ENV: \"test\", WORK_GUI_AUTH_URL_SINK: path.join(configHome, \"auth-urls.txt\"), })"
+    },
+    {
+      "action": "path.join(configHome, \"auth-urls.txt\")"
+    },
+    {
+      "action": "app.firstWindow()"
+    },
+    {
+      "action": "page.evaluate( (qid) => (window as typeof window & { workGui?: WorkGuiApi }) .workGui!.auth.completeLoginForTest!(qid), TEST_QID, )"
+    },
+    {
+      "action": "(window as typeof window & { workGui?: WorkGuiApi }) .workGui!.auth.completeLoginForTest!(qid)"
+    },
+    {
+      "action": "page.evaluate(async () => { await (window as typeof window & { workGui?: WorkGuiApi }).workGui!.auth.logout(); })"
+    },
+    {
+      "action": "(window as typeof window & { workGui?: WorkGuiApi }).workGui!.auth.logout()"
+    },
+    {
+      "action": "cleanupTestHome(app, configHome)"
+    },
+    {
+      "action": "stop()"
     }
   ],
   "expected_outcomes": [
-    "expect(page.getByRole(\"heading\", { name: \"Qwork Welcome\" })).toBeVisible()",
-    "expect(page.getByRole(\"dialog\", { name: \"登录 Qwork\" })).toBeVisible()",
-    "expect(page.getByLabel(\"登录框\")).toBeVisible()",
+    "expect(page.getByRole(\"heading\", { name: \"QWork，我帮你\" })).toBeVisible()",
+    "expect(page.getByRole(\"status\", { name: \"聚合登录状态\" })).toBeVisible()",
+    "expect(page.getByLabel(\"登录框\")).toHaveCount(0)",
     "expect(page.getByRole(\"button\", { name: \"项目\", exact: true })).toHaveCount(0)",
     "expect( page.getByRole(\"button\", { name: \"暂不登录，使用本地项目\", exact: true }), ).toHaveCount(0)",
     "expect(page.getByRole(\"button\", { name: \"项目\", exact: true })).toBeVisible()",
-    "expect(page.getByRole(\"heading\", { name: \"Qwork Welcome\" })).toBeVisible()",
-    "expect(page.getByRole(\"dialog\", { name: \"登录 Qwork\" })).toBeVisible()",
-    "expect(page.getByLabel(\"登录框\")).toBeVisible()",
+    "expect(page.getByRole(\"heading\", { name: \"QWork，我帮你\" })).toBeVisible()",
+    "expect(page.getByRole(\"status\", { name: \"聚合登录状态\" })).toBeVisible()",
+    "expect(page.getByLabel(\"登录框\")).toHaveCount(0)",
     "expect(page.getByRole(\"button\", { name: \"项目\", exact: true })).toHaveCount(0)"
   ],
   "forbidden_outcomes": [
@@ -161,10 +188,37 @@
       "entrypoint": "auth",
       "steps": [
         {
-          "action": "page.getByRole(\"button\", { name: \"登录\", exact: true }).click()"
+          "action": "createTestHome(\"auth-gate\")"
         },
         {
-          "action": "page.getByRole(\"button\", { name: \"登录\", exact: true }).click()"
+          "action": "startDevApi({ serverDir })"
+        },
+        {
+          "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: baseUrl, QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"test\", NODE_ENV: \"test\", WORK_GUI_AUTH_URL_SINK: path.join(configHome, \"auth-urls.txt\"), })"
+        },
+        {
+          "action": "path.join(configHome, \"auth-urls.txt\")"
+        },
+        {
+          "action": "app.firstWindow()"
+        },
+        {
+          "action": "page.evaluate( (qid) => (window as typeof window & { workGui?: WorkGuiApi }) .workGui!.auth.completeLoginForTest!(qid), TEST_QID, )"
+        },
+        {
+          "action": "(window as typeof window & { workGui?: WorkGuiApi }) .workGui!.auth.completeLoginForTest!(qid)"
+        },
+        {
+          "action": "page.evaluate(async () => { await (window as typeof window & { workGui?: WorkGuiApi }).workGui!.auth.logout(); })"
+        },
+        {
+          "action": "(window as typeof window & { workGui?: WorkGuiApi }).workGui!.auth.logout()"
+        },
+        {
+          "action": "cleanupTestHome(app, configHome)"
+        },
+        {
+          "action": "stop()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -186,12 +240,12 @@
       "source_contract": {
         "spec": "e2e/auth-gate.spec.ts",
         "line_start": 22,
-        "line_end": 67,
-        "body_sha256": "sha256:3400c8c59b2036fe614673dd0b4b71ae9c4a57843b5c67e7520acef69958977e",
+        "line_end": 65,
+        "body_sha256": "sha256:bc00cdc2d0d37c0806ef75d71e334f304026e5f4115dc040fe09bdd432c6466c",
         "assertion_count": 10,
-        "action_count": 2,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:0e9007b6e51348d70c4ee301ba21c8f2dea5972d860c3c977c8a807e7a13e24f"
+        "action_count": 0,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:c80973b048d1290c404495c17d15c7f33ca39243a626eea792dd92d2775655b3"
       }
     },
     "reference_run": {

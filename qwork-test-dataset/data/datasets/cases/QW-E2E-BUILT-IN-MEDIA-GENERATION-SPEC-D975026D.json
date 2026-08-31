@@ -17,25 +17,25 @@
   },
   "sources": [
     {
-      "source_id": "QHEAD-E2E-e2e-built-in-media-generation-spec-ts",
+      "source_id": "QDEV-E2E-e2e-built-in-media-generation-spec-ts",
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:93283fefa96fe705465d9a500a9c7def7f93a296:e2e/built-in-media-generation.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/built-in-media-generation.spec.ts",
       "locator": "line:14;test:登录用户用自然语言生图后只看到保存到工作区的本地产物",
-      "revision": "93283fefa96fe705465d9a500a9c7def7f93a296",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-26T16:09:42.116737+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:d975026d18a0d7e41db16d399566acb00466fa1b6f7f23ac32400ab0aa6ad832",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-C879B09125A693",
+      "requirement_id": "REQ-D869F74E50701E",
       "source_atom_ids": [
-        "QHEAD-E2E-e2e-built-in-media-generation-spec-ts:L14:d975026d18"
+        "QDEV-E2E-e2e-built-in-media-generation-spec-ts:L14:d975026d18"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -48,7 +48,7 @@
       "rule": "登录用户用自然语言生图后只看到保存到工作区的本地产物",
       "authority_domain": "execution",
       "governing_sources": [
-        "QHEAD-E2E-e2e-built-in-media-generation-spec-ts"
+        "QDEV-E2E-e2e-built-in-media-generation-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -97,8 +97,10 @@
     "expect .poll(() => page.evaluate(() => window.workGui.auth.status().then((status) => status.loggedIn), ), ) .toBe(true)",
     "expect(approval).toContainText(\"允许后才会创建任务并扣费\")",
     "expect(approval).toContainText(\"ImageGen\")",
+    "expect(approval).toContainText(\"0.01 Credits\")",
+    "expect(approval).toContainText(\"1024x1024\")",
     "expect(page.getByText(\"生成中\", { exact: false })).toBeVisible()",
-    "expect .poll(async () => { return (await readControls()) .filter((message) => message.type === \"create_session\") .map((message) => message.qwork_api); }) .toContainEqual({ base_url: server.baseUrl, access_token: \"[REDACTED]\", })",
+    "expect .poll(async () => { return (await readControls()) .filter((message) => message.type === \"create_session\") .map((message) => message.qwork_api); }) .toContainEqual({ base_url: server.baseUrl, access_token: \"[REDACTED]\", scopes: [\"media.generate\"], })",
     "expect .poll(async () => { try { return (await fs.stat(artifactPath)).size; } catch (error) { if ((error as NodeJS.ErrnoException).code === \"ENOENT\") return 0; throw error; } }) .toBeGreaterThan(0)",
     "expect( page.getByRole(\"button\", { name: \"打开产出物 QWork_robot.png\" }), ).toBeVisible()",
     "expect( page.getByRole(\"img\", { name: \"预览 QWork_robot.png\" }), ).toBeVisible()",
@@ -112,7 +114,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-C879B09125A693",
+      "requirement_id": "REQ-D869F74E50701E",
       "type": "ui",
       "assertion": "登录用户用自然语言生图后只看到保存到工作区的本地产物"
     }
@@ -210,12 +212,12 @@
       "source_contract": {
         "spec": "e2e/built-in-media-generation.spec.ts",
         "line_start": 14,
-        "line_end": 127,
-        "body_sha256": "sha256:61134ed6536ac8c978dbcaf20d4f49201eb5c6bda47a94356975130880392a18",
-        "assertion_count": 10,
+        "line_end": 130,
+        "body_sha256": "sha256:7ea05c863913f0699b7017a5ae2d5db8dfca41909cbe5954e3261f06bab9008f",
+        "assertion_count": 12,
         "action_count": 6,
-        "execution_revision": "93283fefa96fe705465d9a500a9c7def7f93a296",
-        "spec_sha256": "sha256:7e203bd9cfb28cd7ac847fb1ef96a3feb7c1a62d433606154e501a27cfb1c57f"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:06fdb8ff92fb1ff83f1ef53f7a7629f30c5531f70a36cceb9b5bd25d04f23168"
       }
     },
     "reference_run": {
@@ -237,7 +239,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-C879B09125A693"
+      "REQ-D869F74E50701E"
     ],
     "categories": [
       "business"
@@ -245,7 +247,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-C879B09125A693"
+      "requirement:REQ-D869F74E50701E"
     ]
   }
 }

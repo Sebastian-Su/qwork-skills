@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/composer-capabilities.spec.ts",
-      "locator": "line:59;test:shows the managed Skill catalog before a delayed MCP status reply",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/composer-capabilities.spec.ts",
+      "locator": "line:79;test:shows the managed Skill catalog before a delayed MCP status reply",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:a7857a0d2ece92434a1b8b900f704f21fe871638b8f0fa5f1a468848d81c6b5e",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-6C5FB7AB0E134E",
+      "requirement_id": "REQ-E691DABCFED903",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L59:a7857a0d2e"
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L79:a7857a0d2e"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
     "last_verified_at": "2026-08-18T17:47:44.972878+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -83,7 +83,7 @@
   ],
   "expected_outcomes": [
     "expect( page.getByRole(\"dialog\", { name: \"技能选择\" }).getByRole(\"option\").first(), ).toBeVisible({ timeout: 1_500 })",
-    "expect( page.getByRole(\"dialog\", { name: \"技能选择\" }).getByRole(\"option\", { name: /AndonQ/ }), ).toBeEnabled()",
+    "expect( page.getByRole(\"dialog\", { name: \"技能选择\" }).getByRole(\"option\", { name: /环境健康检查/ }), ).toBeEnabled()",
     "expect(page.getByText(\"正在加载技能…\", { exact: true })).toHaveCount(0)"
   ],
   "forbidden_outcomes": [
@@ -93,7 +93,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-6C5FB7AB0E134E",
+      "requirement_id": "REQ-E691DABCFED903",
       "type": "return",
       "assertion": "shows the managed Skill catalog before a delayed MCP status reply"
     }
@@ -178,13 +178,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/composer-capabilities.spec.ts",
-        "line_start": 59,
-        "line_end": 84,
-        "body_sha256": "sha256:05ec4102df7ed4fb2d69b5556ec58fc0740ded2d1f4276061a87945310a7126c",
+        "line_start": 79,
+        "line_end": 104,
+        "body_sha256": "sha256:b0a6440931bf2886f20fda422c8e434df0dd8234f03d12bc3a51e159a3d2a7e8",
         "assertion_count": 3,
         "action_count": 2,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:ef0fe5eafdb3d02943778765fba214b59a44606545516c81b2b6e65bba93bb7a"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:6a35800ab5dff917d8c637254eb2a882d7887488452b9a164bd23761648fa7c7"
       }
     },
     "reference_run": {
@@ -206,7 +206,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-6C5FB7AB0E134E"
+      "REQ-E691DABCFED903"
     ],
     "categories": [
       "business"
@@ -214,7 +214,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-6C5FB7AB0E134E"
+      "requirement:REQ-E691DABCFED903"
     ]
   }
 }

@@ -1,0 +1,331 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-COMPOSER-CAPABILITIES-SPEC-FD50A09C",
+  "title": "restored connector icons automatically recover after the current runtime confirms them",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-composer-capabilities-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/composer-capabilities.spec.ts",
+      "locator": "line:843;test:restored connector icons automatically recover after the current runtime confirms them",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:fd50a09c77da4dd95670c15de0186d12043ea7e5903a759c26e65305c50a5b12",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-F72A7E85627472",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L843:fd50a09c77"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "restored connector icons automatically recover after the current runtime confirms them",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "restored connector icons automatically recover after the current runtime confirms them"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page .getByTestId(\"composer-menu-anchor-tools\") .getByRole(\"button\", { name: \"更多操作\" }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"连接器\", exact: true }).hover()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"管理当前对话连接器\" }).click()"
+    },
+    {
+      "action": "activeConnectorSwitches.nth(0).click()"
+    },
+    {
+      "action": "activeConnectorSwitches.nth(0).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"连接器\", exact: true }).hover()"
+    },
+    {
+      "action": "reopenedSwitch.click()"
+    },
+    {
+      "action": "reopenedSwitch.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").fill(\"使用当前对话连接器\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+    },
+    {
+      "action": "page .getByTestId(\"composer-menu-anchor-tools\") .getByRole(\"button\", { name: \"更多操作\" }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"连接器\", exact: true }).hover()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(preloadedConnectorManager).toBeVisible()",
+    "expect(preloadedIcons).toHaveCount(2)",
+    "expect( page.getByRole(\"img\", { name: \"e2e-connected\", exact: true }), ).toBeVisible()",
+    "expect( page.getByRole(\"img\", { name: \"e2e-connected-two\", exact: true }), ).toBeVisible()",
+    "expect(connectorSwitch).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect( page.getByLabel(\"当前对话连接器\", { exact: true }).getByRole(\"img\", { name: \"e2e-connected\", exact: true, }), ).toBeVisible()",
+    "expect(activeConnectorIcons).toHaveCount(2)",
+    "expect(firstIcon).not.toBeNull()",
+    "expect(secondIcon).not.toBeNull()",
+    "expect(secondIcon!.x).toBeLessThan(firstIcon!.x + firstIcon!.width)",
+    "expect(connectorMenu).toBeHidden()",
+    "expect(activeConnectorMenu).toHaveCSS(\"width\", \"206px\")",
+    "expect(activeConnectorSwitches).toHaveCount(2)",
+    "expect(activeConnectorSwitches.nth(0)).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect(page.getByLabel(\"当前对话连接器\", { exact: true }).getByRole(\"img\")).toHaveCount(1)",
+    "expect(page.getByLabel(\"当前对话连接器\", { exact: true }).getByRole(\"img\")).toHaveCount(2)",
+    "expect(reopenedSwitch).toHaveAttribute(\"aria-checked\", \"false\")",
+    "expect(reopenedSwitch).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect(page.getByRole(\"status\", { name: \"连接器状态\" })).toHaveText( \"连接器 e2e-connected 已连接\", )",
+    "expect(reopenedConnectorMenu).toBeVisible()",
+    "expect(reopenedConnectorMenu).toBeHidden()",
+    "expect(page.getByText(\"收到：使用当前对话连接器\", { exact: true })).toBeVisible()",
+    "expect.poll(async () => { const saved = JSON.parse(await fs.readFile( path.join(home, \"qwork-session-selections.json\"), \"utf8\", )) as Record<string, { connectors?: string[] }>; return Object.values(saved).some((selection) => selection.connectors?.includes(\"e2e-connected\"), ); }).toBe(true)",
+    "expect(refreshedConnectorMenu.getByRole(\"button\", { name: /取消连接 e2e-connected/ })) .toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-F72A7E85627472",
+      "type": "return",
+      "assertion": "restored connector icons automatically recover after the current runtime confirms them"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-composer-capabilities-spec-ts.fd50a09c77",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/composer-capabilities.spec.ts -g \"restored connector icons automatically recover after the current runtime confirms them\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByTestId(\"composer-menu-anchor-tools\") .getByRole(\"button\", { name: \"更多操作\" }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"连接器\", exact: true }).hover()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"管理当前对话连接器\" }).click()"
+        },
+        {
+          "action": "activeConnectorSwitches.nth(0).click()"
+        },
+        {
+          "action": "activeConnectorSwitches.nth(0).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"连接器\", exact: true }).hover()"
+        },
+        {
+          "action": "reopenedSwitch.click()"
+        },
+        {
+          "action": "reopenedSwitch.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").fill(\"使用当前对话连接器\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+        },
+        {
+          "action": "page .getByTestId(\"composer-menu-anchor-tools\") .getByRole(\"button\", { name: \"更多操作\" }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"更多操作\" }).getByRole(\"menuitem\", { name: \"连接器\", exact: true }).hover()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/composer-capabilities.spec.ts",
+        "line_start": 843,
+        "line_end": 951,
+        "body_sha256": "sha256:9087170dffe82cfcb1d33df431f89be8db2f2a2de10cca48c783f7696e096adf",
+        "assertion_count": 24,
+        "action_count": 17,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:6a35800ab5dff917d8c637254eb2a882d7887488452b9a164bd23761648fa7c7"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-F72A7E85627472"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-F72A7E85627472"
+    ]
+  }
+}

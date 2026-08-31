@@ -1,0 +1,254 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SKILL-HUB-SPEC-D6DBB682",
+  "title": "progressively loads Recommended and SkillHub pages and reveals a back-to-top shortcut",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-skill-hub-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/skill-hub.spec.ts",
+      "locator": "line:843;test:progressively loads Recommended and SkillHub pages and reveals a back-to-top shortcut",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:d6dbb68221d9dd1973198ff14f9feec178583e411feed45c78c35f0b5d258775",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-skill-hub-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/skill-hub.spec.ts",
+      "locator": "line:721;test:progressively loads Recommended and SkillHub pages and reveals a back-to-top shortcut",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:d6dbb68221d9dd1973198ff14f9feec178583e411feed45c78c35f0b5d258775",
+      "redaction_status": "minimized",
+      "supports": [
+        "QDEV-E2E-e2e-skill-hub-spec-ts"
+      ]
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-2E037110FED4F7",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L843:d6dbb68221",
+        "QHEAD-E2E-e2e-skill-hub-spec-ts:L721:d6dbb68221"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "progressively loads Recommended and SkillHub pages and reveals a back-to-top shortcut",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-skill-hub-spec-ts"
+      ],
+      "supporting_sources": [
+        "QHEAD-E2E-e2e-skill-hub-spec-ts"
+      ],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "progressively loads Recommended and SkillHub pages and reveals a back-to-top shortcut"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "skillHubTab.click()"
+    },
+    {
+      "action": "backToTop.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(recommended.getByRole(\"article\")).toHaveCount(30)",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(32)",
+    "expect(skillHubTab).toHaveAttribute(\"aria-busy\", \"false\")",
+    "expect.poll(() => viewport.evaluate((element) => element.scrollTop)).toBeLessThanOrEqual(1)",
+    "expect(await page.getByTestId(\"skill-card\").count()).toBe(30)",
+    "expect(page.getByRole(\"button\", { name: \"返回顶部\" })).toHaveCount(0)",
+    "expect(page.getByTestId(\"skill-card\")).toHaveCount(60)",
+    "expect(backToTop).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: /加载更多/ })).toHaveCount(0)",
+    "expect.poll(() => viewport.evaluate((element) => element.scrollTop)).toBeLessThanOrEqual(1)",
+    "expect(backToTop).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-2E037110FED4F7",
+      "type": "return",
+      "assertion": "progressively loads Recommended and SkillHub pages and reveals a back-to-top shortcut"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-skill-hub-spec-ts.d6dbb68221",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/skill-hub.spec.ts -g \"progressively loads Recommended and SkillHub pages and reveals a back-to-top shortcut\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "skillHubTab.click()"
+        },
+        {
+          "action": "backToTop.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/skill-hub.spec.ts",
+        "line_start": 721,
+        "line_end": 747,
+        "body_sha256": "sha256:f173eba697595990dfcd51c7fcf3a551ad72a1d40a357c54e890a2cebd633f00",
+        "assertion_count": 11,
+        "action_count": 3,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:0b685b94df77a3dc0f0995c858a81a6ad4039a3d0ec6d57688d6a61ef41052a4"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-2E037110FED4F7"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-2E037110FED4F7"
+    ]
+  }
+}

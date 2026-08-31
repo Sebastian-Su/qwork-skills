@@ -1,0 +1,205 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-QBUILD-RELEASE-SPEC-B540C1DC",
+  "title": "qbuild skill exposes the Windows release command without exposing secrets",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-qbuild-release-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/qbuild-release.spec.ts",
+      "locator": "line:5;test:qbuild skill exposes the Windows release command without exposing secrets",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:b540c1dce3d6189b49d4fc474356f3392af8d50a14c770b3dc938787a79ea067",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-2B2F4A2C849D19",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-qbuild-release-spec-ts:L5:b540c1dce3"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "qbuild skill exposes the Windows release command without exposing secrets",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-qbuild-release-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "qbuild skill exposes the Windows release command without exposing secrets"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "execFileSync( process.execPath, [\".agents/skills/qbuild/scripts/qbuild.mjs\", \"help\"], { cwd: path.resolve(import.meta.dirname, \"..\"), encoding: \"utf8\" }, )"
+    },
+    {
+      "action": "path.resolve(import.meta.dirname, \"..\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(output).toContain(\"publish-windows\")",
+    "expect(output).toContain(\"--resume <compile-id>\")",
+    "expect(output).toContain(\"极库云审核\")",
+    "expect(output).not.toMatch(/QBUILD_PRIVATE_TOKEN=\\S+/)",
+    "expect(output).not.toMatch(/QWORK_RELEASE_S3_SECRET_KEY=\\S+/)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-2B2F4A2C849D19",
+      "type": "return",
+      "assertion": "qbuild skill exposes the Windows release command without exposing secrets"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-qbuild-release-spec-ts.b540c1dce3",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "win32"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/qbuild-release.spec.ts -g \"qbuild skill exposes the Windows release command without exposing secrets\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "execFileSync( process.execPath, [\".agents/skills/qbuild/scripts/qbuild.mjs\", \"help\"], { cwd: path.resolve(import.meta.dirname, \"..\"), encoding: \"utf8\" }, )"
+        },
+        {
+          "action": "path.resolve(import.meta.dirname, \"..\")"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/qbuild-release.spec.ts",
+        "line_start": 5,
+        "line_end": 17,
+        "body_sha256": "sha256:b461025559041c8e443535dc4346fa61e0ef380aebdb84fa15aa62fa51007f59",
+        "assertion_count": 5,
+        "action_count": 0,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:9155cce1910a9df6deb16ffef691147e3010ba36bbc5497a1468151cd3c75156"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-2B2F4A2C849D19"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-2B2F4A2C849D19"
+    ]
+  }
+}

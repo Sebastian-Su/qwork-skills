@@ -21,35 +21,53 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/ui-layout-shell-home.spec.ts",
-      "locator": "line:453;test:UI-LAYOUT-HOME-005 | 浅深主题与三档窗口保持首页框架",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/ui-layout-shell-home.spec.ts",
+      "locator": "line:480;test:UI-LAYOUT-HOME-005 | 浅深主题与三档窗口保持首页框架",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:44a9ba11f2798733c887a54331c12ca99bed08f9f130673727b962f7a6e58815",
       "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-ui-layout-shell-home-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/ui-layout-shell-home.spec.ts",
+      "locator": "line:504;test:UI-LAYOUT-HOME-005 | 浅深主题与三档窗口保持首页框架",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:44a9ba11f2798733c887a54331c12ca99bed08f9f130673727b962f7a6e58815",
+      "redaction_status": "minimized",
+      "supports": [
+        "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts"
+      ]
     },
     {
       "source_id": "WORKBUDDY-ORACLE-5-3-5-SHELL-HOME-REFERENCE",
       "type": "structured-workbuddy-oracle",
       "authority_kind": "normative",
       "authority_domain": "ui-geometry-state-responsive-style",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/visual-baselines/shell-home-reference.json",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/visual-baselines/shell-home-reference.json",
       "locator": "json-pointer:/dark/bodyBackground",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:6b4253a85a4f50d98bc18d3d72531738201ab142b0f7bf7c2d86a1df0993f0d4",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-59B3BED8FBCD17",
+      "requirement_id": "REQ-7F766CF71B6809",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts:L453:44a9ba11f2"
+        "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts:L480:44a9ba11f2",
+        "QHEAD-E2E-e2e-ui-layout-shell-home-spec-ts:L504:44a9ba11f2"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -64,7 +82,9 @@
       "governing_sources": [
         "QDEV-E2E-e2e-ui-layout-shell-home-spec-ts"
       ],
-      "supporting_sources": [],
+      "supporting_sources": [
+        "QHEAD-E2E-e2e-ui-layout-shell-home-spec-ts"
+      ],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -102,7 +122,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
     "last_verified_at": "2026-08-18T17:50:14.507922+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -126,7 +146,9 @@
     "uiExpect.soft(account).toHaveAttribute(\"aria-expanded\", \"false\")",
     "uiExpect.soft((await computedStyle(sidebar, [\"background-color\"]))[\"background-color\"]) .toBe(\"rgb(24, 24, 24)\")",
     "uiExpect.soft((await computedStyle(main, [\"background-color\"]))[\"background-color\"]) .toBe(\"rgb(24, 24, 24)\")",
-    "uiExpect.soft(page.getByRole(\"heading\", { name: \"QWork, 我帮你\" })).toBeVisible()",
+    "uiExpect.soft(heading).toBeVisible()",
+    "uiExpect.soft(headingColor).not.toBe(\"rgb(0, 0, 0)\")",
+    "uiExpect.soft(contrastRatio(headingColor, mainBackground)).toBeGreaterThanOrEqual(3)",
     "uiExpect.soft(page.getByRole(\"textbox\")).toBeVisible()"
   ],
   "forbidden_outcomes": [
@@ -136,7 +158,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-59B3BED8FBCD17",
+      "requirement_id": "REQ-7F766CF71B6809",
       "type": "ui",
       "assertion": "UI-LAYOUT-HOME-005 | 浅深主题与三档窗口保持首页框架"
     },
@@ -226,17 +248,17 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/ui-layout-shell-home.spec.ts",
-        "line_start": 453,
-        "line_end": 476,
-        "body_sha256": "sha256:627118de98a0611dca4970eef10c59af592f97fb68796ca25a41704e0b436b06",
-        "assertion_count": 6,
+        "line_start": 504,
+        "line_end": 533,
+        "body_sha256": "sha256:99bfacf0cdece8161a7f6835a25a3eed1bc4a126dda48cc8c3d5cb39cf602aa8",
+        "assertion_count": 8,
         "action_count": 2,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:178edf5bd7ee72c94282ee866680110da9802652684099416e69e530836213e8",
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:b2996c27aedde7e5431bf539c8c9a774d6987fdadb138aaf0dc05b7777c76529",
         "supporting_contracts": [
           {
             "path": "e2e/visual-baselines/shell-home-reference.json",
-            "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+            "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
             "sha256": "sha256:5ee37ba72432e3bf6269dd113207d17a8df6cc177250aafbb9f373389050411e",
             "purpose": "frozen structured WorkBuddy product Oracle governing the mapped pointers"
           }
@@ -263,7 +285,7 @@
   "selection": {
     "requirement_ids": [
       "REQ-3F2DB00CE26A33",
-      "REQ-59B3BED8FBCD17"
+      "REQ-7F766CF71B6809"
     ],
     "categories": [
       "business",
@@ -274,7 +296,7 @@
       "category:ui-state",
       "full",
       "requirement:REQ-3F2DB00CE26A33",
-      "requirement:REQ-59B3BED8FBCD17"
+      "requirement:REQ-7F766CF71B6809"
     ]
   }
 }

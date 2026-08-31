@@ -1,0 +1,243 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-STARTUP-REPLAY-SPEC-1013ECD0",
+  "title": "replays a connector enabled in this process after the sidecar crashes",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-startup-replay-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-startup-replay.spec.ts",
+      "locator": "line:520;test:replays a connector enabled in this process after the sidecar crashes",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:1013ecd0c1448c9b0b2dfac6c8ff170e5fd0f5d8b44165fee844b67fcd30fef8",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-7E3FFD1492349C",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-startup-replay-spec-ts:L520:1013ecd0c1"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "replays a connector enabled in this process after the sidecar crashes",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-startup-replay-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "replays a connector enabled in this process after the sidecar crashes"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "opened.page .getByRole(\"button\", { name: \"新建任务\", exact: true }) .click()"
+    },
+    {
+      "action": "composer.fill(\"为连接器重放建立会话\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "composer.fill(\"__E2E_CRASH__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( opened.page.getByText(\"收到：为连接器重放建立会话\", { exact: true }), ).toBeVisible()",
+    "expect .poll( () => opened.page.evaluate(() => { const target = window as typeof window & { __e2eSidecarStates?: string[]; }; const states = target.__e2eSidecarStates ?? []; const restarting = states.lastIndexOf(\"restarting\"); return restarting >= 0 && states.slice(restarting + 1).includes(\"ready\"); }), { timeout: 10_000 }, ) .toBe(true)",
+    "expect .poll( async () => (await readMcpLog(mcpLog)).some( (entry) => entry.type === \"mcp_server_upsert\" && (entry.server as { name?: string } | undefined)?.name === \"fbs-connector\", ), { timeout: 10_000 }, ) .toBe(true)",
+    "expect(controlOrderByCwd.size).toBe(2)",
+    "expect(controls).toEqual([ \"mcp_server_remove\", \"mcp_server_upsert\", ])",
+    "expect .poll(async () => { const effective = JSON.parse( await fs.readFile(effectiveState, \"utf8\"), ) as Array<{ name?: string; static_headers?: Record<string, string>; }>; return effective.find((entry) => entry.name === \"fbs-connector\") ?.static_headers; }) .toEqual(FBS_HEADERS)",
+    "expect(await readLines(authUrlSink)).toEqual([])",
+    "expect( opened.page.getByRole(\"button\", { name: \"福帮手，已连接\", exact: true, }), ).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-7E3FFD1492349C",
+      "type": "return",
+      "assertion": "replays a connector enabled in this process after the sidecar crashes"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-startup-replay-spec-ts.1013ecd0c1",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-startup-replay.spec.ts -g \"replays a connector enabled in this process after the sidecar crashes\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "opened.page .getByRole(\"button\", { name: \"新建任务\", exact: true }) .click()"
+        },
+        {
+          "action": "composer.fill(\"为连接器重放建立会话\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "composer.fill(\"__E2E_CRASH__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-startup-replay.spec.ts",
+        "line_start": 520,
+        "line_end": 638,
+        "body_sha256": "sha256:f63787f20981d959e6bcd4a5144afec8201781ac535240e493949511193cc0b9",
+        "assertion_count": 8,
+        "action_count": 5,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:0ec0c98aec20cb01a07a484ed8edbb861158b6bea26902d5209322c91085fffd"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-7E3FFD1492349C"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-7E3FFD1492349C"
+    ]
+  }
+}

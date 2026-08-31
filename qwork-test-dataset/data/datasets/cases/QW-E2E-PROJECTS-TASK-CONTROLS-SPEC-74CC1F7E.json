@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/projects-task-controls.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-task-controls.spec.ts",
       "locator": "line:12;test:matches WorkBuddy task target, workspace history, and dismiss behavior",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:74cc1f7e0ebc3dd6e2b247f84be2484b2ab18ef0b4e5bfd90b741c9af13c4b15",
       "redaction_status": "minimized"
     }
@@ -87,7 +87,10 @@
       "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
     },
     {
-      "action": "reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }).click()"
+      "action": "reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"添加文件\" }).hover()"
+    },
+    {
+      "action": "referenceFileMenu.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }).click()"
     },
     {
       "action": "page.keyboard.press(\"Escape\")"
@@ -153,7 +156,13 @@
       "action": "taskMenu.getByRole(\"menuitemradio\", { name: \"云端任务\" }).click()"
     },
     {
-      "action": "composer.getByRole(\"button\", { name: \"选择工作空间\", exact: true }).click()"
+      "action": "composer.getByRole(\"button\", { name: \"云端任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"任务类型\" }) .getByRole(\"menuitemradio\", { name: \"本地任务\" }) .click()"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"从新工作空间开始\", exact: true }).click()"
     },
     {
       "action": "workspaceMenu.getByRole(\"menuitem\", { name: \"oracle-workspace\" }).click()"
@@ -178,6 +187,30 @@
     },
     {
       "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"从新工作空间开始\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"工作空间\" }) .getByRole(\"menuitem\", { name: \"oracle-workspace\" }) .click()"
+    },
+    {
+      "action": "prompt.fill(\"共享目录中的第二个独立任务\")"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
+    },
+    {
+      "action": "prompt.fill(\"默认托管工作空间任务\")"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
@@ -195,8 +228,8 @@
     "expect(modeMenu).toHaveClass(/bg-bg-1/)",
     "expect(modeMenu).toHaveClass(/border-border/)",
     "expect(modeSurface.background).not.toBe(modeSurface.color)",
-    "expect(modeSurface.rect.width).toBeGreaterThan(200)",
-    "expect(modeSurface.rect.height).toBeGreaterThan(100)",
+    "expect(modeSurface.rect.width).toBe(200)",
+    "expect(modeSurface.rect.height).toBe(148)",
     "expect(modeMenu).toBeHidden()",
     "expect(moreMenu).toBeHidden()",
     "expect(composer.getByRole(\"button\", { name: \"打开工具菜单\" })).toBeFocused()",
@@ -212,13 +245,14 @@
     "expect(composerSurface.footerBackground).not.toBe(\"rgb(255, 255, 255)\")",
     "expect(composerSurface.textareaColor).toBe(\"rgb(255, 255, 255)\")",
     "expect(composerSurface.footerControlColor).toBe(\"rgb(255, 255, 255)\")",
-    "expect(reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"添加文件\" })).toBeVisible()",
-    "expect( reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }), ).toBeVisible()",
+    "expect( referenceFileMenu.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }), ).toBeVisible()",
     "expect(page.getByRole(\"dialog\", { name: \"引用文件与对话\" })).toBeVisible()",
     "expect(page.getByRole(\"dialog\", { name: \"引用文件与对话\" })).toBeHidden()",
     "expect(reopenedMoreMenuAfterReference).toBeVisible()",
-    "expect(fileMenu.getByRole(\"menuitem\")).toHaveCount(1)",
+    "expect(fileMenu.getByRole(\"menuitem\")).toHaveCount(3)",
     "expect(fileMenu.getByRole(\"menuitem\", { name: \"本地文件\" })).toBeVisible()",
+    "expect(fileMenu.getByRole(\"menuitem\", { name: \"引用对话中的文件\" })).toBeVisible()",
+    "expect(fileMenu.getByRole(\"menuitem\", { name: \"360知识库\" })).toBeVisible()",
     "expect(projectSkillMenu).toBeVisible()",
     "expect(projectSkillMenu.getByRole(\"status\")).toHaveText(\"未找到匹配的技能，换个关键词试试\")",
     "expect(projectConnectorMenu).toBeVisible()",
@@ -233,6 +267,9 @@
     "expect(composer.getByRole(\"button\", { name: \"云端任务\", exact: true })).toBeVisible()",
     "expect(composer.getByTestId(\"project-composer-model-trigger\")).toBeDisabled()",
     "expect(composer.getByTestId(\"project-composer-model-trigger\")).toContainText(\"Auto\")",
+    "expect(composer.getByTestId(\"project-composer-workspace-trigger\")).toHaveCount(0)",
+    "expect(composer.getByTestId(\"project-composer-permission-trigger\")).toHaveCount(0)",
+    "expect(workspaceMenu.getByRole(\"searchbox\", { name: \"搜索工作空间\" })).toBeVisible()",
     "expect(workspaceMenu.getByRole(\"menuitem\", { name: \"oracle-workspace\" })).toBeVisible()",
     "expect(composer.getByRole(\"button\", { name: \"oracle-workspace\", exact: true })).toBeVisible()",
     "expect(mentionPicker.getByRole(\"option\", { name: \"spec.md\" })).toBeVisible()",
@@ -240,7 +277,22 @@
     "expect(slashPicker).toBeVisible()",
     "expect(managedSkillIds.length).toBeGreaterThan(0)",
     "expect([...slashSkillIds].sort()).toEqual([...managedSkillIds].sort())",
-    "expect(page.getByRole(\"list\", { name: \"任务列表\" })).toContainText( \"WorkBuddy 控件回归任务\", )"
+    "expect(page.getByRole(\"list\", { name: \"任务列表\" })).toContainText( \"WorkBuddy 控件回归任务\", )",
+    "expect.poll(async () => (await readSidecarControls(sidecarLog)).findLast( (message) => message.type === \"create_session\" && message.title === \"WorkBuddy 控件回归任务\", ), ).toMatchObject({ cwd: realWorkspace, host_instructions: [expect.stringContaining(\"# Project instructions\")], })",
+    "expect(firstSession?.session_id).toBeTruthy()",
+    "expect(firstSession?.additional_roots).toHaveLength(1)",
+    "expect(internalContextRoot).toBeTruthy()",
+    "expect(await fs.realpath(internalContextRoot!)).not.toBe(realWorkspace)",
+    "expect(projectContext).toMatchObject({ taskId: expect.any(String), workspaceBindingKind: \"local_selected\", })",
+    "expect(internalContextRoot).toContain(projectContext.taskId!)",
+    "expect.poll(async () => (await readSidecarControls(sidecarLog)).findLast( (message) => message.type === \"user_message\" && message.session_id === firstSession.session_id, )?.content, ).toBe(\"WorkBuddy 控件回归任务\")",
+    "expect(page.getByRole(\"list\", { name: \"任务列表\" })).toContainText( \"共享目录中的第二个独立任务\", )",
+    "expect.poll(async () => { return (await readSidecarControls(sidecarLog)).findLast( (message) => message.type === \"create_session\" && message.title === \"共享目录中的第二个独立任务\", ); }).toMatchObject({ cwd: realWorkspace })",
+    "expect(secondSession?.session_id).toBeTruthy()",
+    "expect(secondSession?.session_id).not.toBe(firstSession?.session_id)",
+    "expect( composer.getByRole(\"button\", { name: \"从新工作空间开始\", exact: true }), ).toBeVisible()",
+    "expect(page.getByRole(\"list\", { name: \"任务列表\" })).toContainText( \"默认托管工作空间任务\", )",
+    "expect.poll(async () => { return (await readSidecarControls(sidecarLog)).findLast( (message) => message.type === \"create_session\" && message.title === \"默认托管工作空间任务\", )?.cwd; }).not.toBe(realWorkspace)"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -322,7 +374,10 @@
           "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
         },
         {
-          "action": "reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }).click()"
+          "action": "reopenedMoreMenuForTheme.getByRole(\"menuitem\", { name: \"添加文件\" }).hover()"
+        },
+        {
+          "action": "referenceFileMenu.getByRole(\"menuitem\", { name: \"引用对话中的文件\" }).click()"
         },
         {
           "action": "page.keyboard.press(\"Escape\")"
@@ -388,7 +443,13 @@
           "action": "taskMenu.getByRole(\"menuitemradio\", { name: \"云端任务\" }).click()"
         },
         {
-          "action": "composer.getByRole(\"button\", { name: \"选择工作空间\", exact: true }).click()"
+          "action": "composer.getByRole(\"button\", { name: \"云端任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"任务类型\" }) .getByRole(\"menuitemradio\", { name: \"本地任务\" }) .click()"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"从新工作空间开始\", exact: true }).click()"
         },
         {
           "action": "workspaceMenu.getByRole(\"menuitem\", { name: \"oracle-workspace\" }).click()"
@@ -407,6 +468,30 @@
         },
         {
           "action": "prompt.fill(\"WorkBuddy 控件回归任务\")"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"从新工作空间开始\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"工作空间\" }) .getByRole(\"menuitem\", { name: \"oracle-workspace\" }) .click()"
+        },
+        {
+          "action": "prompt.fill(\"共享目录中的第二个独立任务\")"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
+        },
+        {
+          "action": "prompt.fill(\"默认托管工作空间任务\")"
         },
         {
           "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
@@ -434,12 +519,12 @@
       "source_contract": {
         "spec": "e2e/projects-task-controls.spec.ts",
         "line_start": 12,
-        "line_end": 219,
-        "body_sha256": "sha256:e39ba4d599a93e053c6a04414e51b40ac01f2d78245c9b6026956292ed32fda9",
-        "assertion_count": 60,
-        "action_count": 35,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:287f911211f6f2a3463ebc0e7dbbb59abdf52414e8d50b903456302d55d4b5ac"
+        "line_end": 337,
+        "body_sha256": "sha256:9c2a7608c6314001130eff711c917beffccaec57a07904661a8359423fc6ae91",
+        "assertion_count": 79,
+        "action_count": 46,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:c494a107586cbaa8b4b452fa4dbd0b16afdf9cdb77d8d9b7f83892164f98606b"
       }
     },
     "reference_run": {

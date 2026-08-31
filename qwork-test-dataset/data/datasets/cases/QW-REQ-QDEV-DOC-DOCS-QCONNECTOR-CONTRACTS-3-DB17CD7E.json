@@ -22,12 +22,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/03-local-process.md",
-      "locator": "line:84;heading:3. 凭证注入",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/qconnector/contracts/03-local-process.md",
+      "locator": "line:89;heading:3. 凭证注入",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:f6758c8910063d0956ead5377ea3ff2c80cbf68206ba5adc8bbba5a0ed430e21",
       "redaction_status": "minimized"
     },
@@ -36,12 +36,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/03-local-process.md",
-      "locator": "line:86;heading:3. 凭证注入",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/qconnector/contracts/03-local-process.md",
+      "locator": "line:91;heading:3. 凭证注入",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:3cfd51dc56ce48e830cc39905f3199dc1e4b894e73d7842ddc4188a97eda4a38",
       "redaction_status": "minimized"
     },
@@ -50,21 +50,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:docs/qconnector/contracts/03-local-process.md",
-      "locator": "line:88;heading:3. 凭证注入",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/qconnector/contracts/03-local-process.md",
+      "locator": "line:93;heading:3. 凭证注入",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:cc048e5d97c5336a48dc63f9b30415c67f0f675c37acf7707a5bad6720f80811",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-5F4FC9E0F2A2AE",
+      "requirement_id": "REQ-817771913FA80B",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-03-local-process-md:L84:f6758c8910"
+        "QDEV-DOC-docs-qconnector-contracts-03-local-process-md:L89:f6758c8910"
       ],
       "content_facets": [
         "business-rule"
@@ -88,9 +88,9 @@
       "oracle": "**本期无可用的注入位置。** stdio 唯一合理的凭证载体是 `env`，而它传不过去。"
     },
     {
-      "requirement_id": "REQ-B09EC747A27CA1",
+      "requirement_id": "REQ-53C2B91A6FD3B2",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-03-local-process-md:L86:3cfd51dc56"
+        "QDEV-DOC-docs-qconnector-contracts-03-local-process-md:L91:3cfd51dc56"
       ],
       "content_facets": [
         "negative-rule"
@@ -114,9 +114,9 @@
       "oracle": "`command` 与 `args` 里的模板在清单加载期就被拒绝（切片 2 已实现并有测试）——那些位置会被交给进程启动器，把凭证放进去还会暴露在进程列表里。"
     },
     {
-      "requirement_id": "REQ-EF775DD358786D",
+      "requirement_id": "REQ-F75DFB8F6017A0",
       "source_atom_ids": [
-        "QDEV-DOC-docs-qconnector-contracts-03-local-process-md:L88:cc048e5d97"
+        "QDEV-DOC-docs-qconnector-contracts-03-local-process-md:L93:cc048e5d97"
       ],
       "content_facets": [
         "role-permission"
@@ -162,13 +162,13 @@
       "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/03-local-process.md · 3. 凭证注入 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-5F4FC9E0F2A2AE] exactly: **本期无可用的注入位置。** stdio 唯一合理的凭证载体是 `env`，而它传不过去。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-817771913FA80B] exactly: **本期无可用的注入位置。** stdio 唯一合理的凭证载体是 `env`，而它传不过去。"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-B09EC747A27CA1] exactly: `command` 与 `args` 里的模板在清单加载期就被拒绝（切片 2 已实现并有测试）——那些位置会被交给进程启动器，把凭证放进去还会暴露在进程列表里。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-53C2B91A6FD3B2] exactly: `command` 与 `args` 里的模板在清单加载期就被拒绝（切片 2 已实现并有测试）——那些位置会被交给进程启动器，把凭证放进去还会暴露在进程列表里。"
     },
     {
-      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-EF775DD358786D] exactly: 因此 stdio MCP 目前不能从表单/OAuth 注入进程环境。`auth: \"cli\"` 是独立路径：供应商 CLI 把登录状态存入自己的用户级配置，MCP 进程按供应商契约读取该状态；QWork 不把凭据拼进 command/args。协议补上 `env` 之后，表单注入规则与切片 2 完全一致：`${form.KEY}` 只能出现 在 `env` 的**值**里。"
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-F75DFB8F6017A0] exactly: 因此 stdio MCP 目前不能从表单/OAuth 注入进程环境。`auth: \"cli\"` 是独立路径：供应商 CLI 把登录状态存入自己的用户级配置，MCP 进程按供应商契约读取该状态；QWork 不把凭据拼进 command/args。协议补上 `env` 之后，表单注入规则与切片 2 完全一致：`${form.KEY}` 只能出现 在 `env` 的**值**里。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -180,25 +180,25 @@
     "因此 stdio MCP 目前不能从表单/OAuth 注入进程环境。`auth: \"cli\"` 是独立路径：供应商 CLI 把登录状态存入自己的用户级配置，MCP 进程按供应商契约读取该状态；QWork 不把凭据拼进 command/args。协议补上 `env` 之后，表单注入规则与切片 2 完全一致：`${form.KEY}` 只能出现 在 `env` 的**值**里。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-5F4FC9E0F2A2AE]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **本期无可用的注入位置。** stdio 唯一合理的凭证载体是 `env`，而它传不过去。",
-    "FAIL [REQ-B09EC747A27CA1]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `command` 与 `args` 里的模板在清单加载期就被拒绝（切片 2 已实现并有测试）——那些位置会被交给进程启动器，把凭证放进去还会暴露在进程列表里。",
-    "FAIL [REQ-EF775DD358786D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 因此 stdio MCP 目前不能从表单/OAuth 注入进程环境。`auth: \"cli\"` 是独立路径：供应商 CLI 把登录状态存入自己的用户级配置，MCP 进程按供应商契约读取该状态；QWork 不把凭据拼进 command/args。协议补上 `env` 之后，表单注入规则与切片 2 完全一致：`${form.KEY}` 只能出现 在 `env` 的**值**里。",
+    "FAIL [REQ-817771913FA80B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **本期无可用的注入位置。** stdio 唯一合理的凭证载体是 `env`，而它传不过去。",
+    "FAIL [REQ-53C2B91A6FD3B2]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `command` 与 `args` 里的模板在清单加载期就被拒绝（切片 2 已实现并有测试）——那些位置会被交给进程启动器，把凭证放进去还会暴露在进程列表里。",
+    "FAIL [REQ-F75DFB8F6017A0]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 因此 stdio MCP 目前不能从表单/OAuth 注入进程环境。`auth: \"cli\"` 是独立路径：供应商 CLI 把登录状态存入自己的用户级配置，MCP 进程按供应商契约读取该状态；QWork 不把凭据拼进 command/args。协议补上 `env` 之后，表单注入规则与切片 2 完全一致：`${form.KEY}` 只能出现 在 `env` 的**值**里。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-5F4FC9E0F2A2AE",
+      "requirement_id": "REQ-817771913FA80B",
       "type": "return",
       "assertion": "**本期无可用的注入位置。** stdio 唯一合理的凭证载体是 `env`，而它传不过去。"
     },
     {
-      "requirement_id": "REQ-B09EC747A27CA1",
+      "requirement_id": "REQ-53C2B91A6FD3B2",
       "type": "return",
       "assertion": "`command` 与 `args` 里的模板在清单加载期就被拒绝（切片 2 已实现并有测试）——那些位置会被交给进程启动器，把凭证放进去还会暴露在进程列表里。"
     },
     {
-      "requirement_id": "REQ-EF775DD358786D",
+      "requirement_id": "REQ-F75DFB8F6017A0",
       "type": "api",
       "assertion": "因此 stdio MCP 目前不能从表单/OAuth 注入进程环境。`auth: \"cli\"` 是独立路径：供应商 CLI 把登录状态存入自己的用户级配置，MCP 进程按供应商契约读取该状态；QWork 不把凭据拼进 command/args。协议补上 `env` 之后，表单注入规则与切片 2 完全一致：`${form.KEY}` 只能出现 在 `env` 的**值**里。"
     }
@@ -257,13 +257,13 @@
           "action": "perform the source-defined scenario trigger for docs/qconnector/contracts/03-local-process.md · 3. 凭证注入 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-5F4FC9E0F2A2AE] exactly: **本期无可用的注入位置。** stdio 唯一合理的凭证载体是 `env`，而它传不过去。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-817771913FA80B] exactly: **本期无可用的注入位置。** stdio 唯一合理的凭证载体是 `env`，而它传不过去。"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-B09EC747A27CA1] exactly: `command` 与 `args` 里的模板在清单加载期就被拒绝（切片 2 已实现并有测试）——那些位置会被交给进程启动器，把凭证放进去还会暴露在进程列表里。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-53C2B91A6FD3B2] exactly: `command` 与 `args` 里的模板在清单加载期就被拒绝（切片 2 已实现并有测试）——那些位置会被交给进程启动器，把凭证放进去还会暴露在进程列表里。"
         },
         {
-          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-EF775DD358786D] exactly: 因此 stdio MCP 目前不能从表单/OAuth 注入进程环境。`auth: \"cli\"` 是独立路径：供应商 CLI 把登录状态存入自己的用户级配置，MCP 进程按供应商契约读取该状态；QWork 不把凭据拼进 command/args。协议补上 `env` 之后，表单注入规则与切片 2 完全一致：`${form.KEY}` 只能出现 在 `env` 的**值**里。"
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-F75DFB8F6017A0] exactly: 因此 stdio MCP 目前不能从表单/OAuth 注入进程环境。`auth: \"cli\"` 是独立路径：供应商 CLI 把登录状态存入自己的用户级配置，MCP 进程按供应商契约读取该状态；QWork 不把凭据拼进 command/args。协议补上 `env` 之后，表单注入规则与切片 2 完全一致：`${form.KEY}` 只能出现 在 `env` 的**值**里。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -306,9 +306,9 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-5F4FC9E0F2A2AE",
-      "REQ-B09EC747A27CA1",
-      "REQ-EF775DD358786D"
+      "REQ-53C2B91A6FD3B2",
+      "REQ-817771913FA80B",
+      "REQ-F75DFB8F6017A0"
     ],
     "categories": [
       "business",
@@ -320,14 +320,14 @@
       "category:negative",
       "category:permission",
       "full",
-      "requirement:REQ-5F4FC9E0F2A2AE",
-      "requirement:REQ-B09EC747A27CA1",
-      "requirement:REQ-EF775DD358786D"
+      "requirement:REQ-53C2B91A6FD3B2",
+      "requirement:REQ-817771913FA80B",
+      "requirement:REQ-F75DFB8F6017A0"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-5F4FC9E0F2A2AE",
+      "requirement_id": "REQ-817771913FA80B",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/03-local-process.md · 3. 凭证注入 产品契约 exactly once and retain its correlation identity",
@@ -336,7 +336,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-B09EC747A27CA1",
+      "requirement_id": "REQ-53C2B91A6FD3B2",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/03-local-process.md · 3. 凭证注入 产品契约 exactly once and retain its correlation identity",
@@ -345,7 +345,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-EF775DD358786D",
+      "requirement_id": "REQ-F75DFB8F6017A0",
       "oracle_type": "api",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/qconnector/contracts/03-local-process.md · 3. 凭证注入 产品契约 exactly once and retain its correlation identity",

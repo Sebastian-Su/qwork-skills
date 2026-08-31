@@ -1,0 +1,305 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-WORKBUDDY-SKILL-EDIT-2-A6AB4E4A",
+  "title": "docs/workbuddy-skill-edit-requirements.md · 2. 请求、截图与外部文档的边界 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/workbuddy-skill-edit-requirements.md",
+      "locator": "line:41;heading:2. 请求、截图与外部文档的边界",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:c434d36458aca014142aabf73cd5d5fde42056dfb44da00fa3224cf044decfef",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/workbuddy-skill-edit-requirements.md",
+      "locator": "line:43;heading:2. 请求、截图与外部文档的边界",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:f031ed5ce20afdbc1a3df4f4e1a2177c1f222a5eb4eef888ea07db36111d83fe",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-8D050CFC94142C",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md:L41:c434d36458"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "本次用户请求是：实际操作 WorkBuddy 的技能编辑入口，梳理完整链路，并基于 QWork 当前代码输出实现需求。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "本次用户请求是：实际操作 WorkBuddy 的技能编辑入口，梳理完整链路，并基于 QWork 当前代码输出实现需求。"
+    },
+    {
+      "requirement_id": "REQ-640644F4571670",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md:L43:f031ed5ce2"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "WorkBuddy 安装包中的前端代码和本机安装的 `skill-creator/SKILL.md` 只作为竞品行为与实现语义的证据，不是 QWork 仓库规则，也不会直接复制第三方内部代码。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WorkBuddy 安装包中的前端代码和本机安装的 `skill-creator/SKILL.md` 只作为竞品行为与实现语义的证据，不是 QWork 仓库规则，也不会直接复制第三方内部代码。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/workbuddy-skill-edit-requirements.md · 2. 请求、截图与外部文档的边界 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-8D050CFC94142C] exactly: 本次用户请求是：实际操作 WorkBuddy 的技能编辑入口，梳理完整链路，并基于 QWork 当前代码输出实现需求。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-640644F4571670] exactly: WorkBuddy 安装包中的前端代码和本机安装的 `skill-creator/SKILL.md` 只作为竞品行为与实现语义的证据，不是 QWork 仓库规则，也不会直接复制第三方内部代码。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "本次用户请求是：实际操作 WorkBuddy 的技能编辑入口，梳理完整链路，并基于 QWork 当前代码输出实现需求。",
+    "WorkBuddy 安装包中的前端代码和本机安装的 `skill-creator/SKILL.md` 只作为竞品行为与实现语义的证据，不是 QWork 仓库规则，也不会直接复制第三方内部代码。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-8D050CFC94142C]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 本次用户请求是：实际操作 WorkBuddy 的技能编辑入口，梳理完整链路，并基于 QWork 当前代码输出实现需求。",
+    "FAIL [REQ-640644F4571670]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: WorkBuddy 安装包中的前端代码和本机安装的 `skill-creator/SKILL.md` 只作为竞品行为与实现语义的证据，不是 QWork 仓库规则，也不会直接复制第三方内部代码。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-8D050CFC94142C",
+      "type": "ui",
+      "assertion": "本次用户请求是：实际操作 WorkBuddy 的技能编辑入口，梳理完整链路，并基于 QWork 当前代码输出实现需求。"
+    },
+    {
+      "requirement_id": "REQ-640644F4571670",
+      "type": "return",
+      "assertion": "WorkBuddy 安装包中的前端代码和本机安装的 `skill-creator/SKILL.md` 只作为竞品行为与实现语义的证据，不是 QWork 仓库规则，也不会直接复制第三方内部代码。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-workbuddy-skill-edit-r.2-a6ab4e4ac7",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/workbuddy-skill-edit-requirements.md · 2. 请求、截图与外部文档的边界 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-8D050CFC94142C] exactly: 本次用户请求是：实际操作 WorkBuddy 的技能编辑入口，梳理完整链路，并基于 QWork 当前代码输出实现需求。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-640644F4571670] exactly: WorkBuddy 安装包中的前端代码和本机安装的 `skill-creator/SKILL.md` 只作为竞品行为与实现语义的证据，不是 QWork 仓库规则，也不会直接复制第三方内部代码。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-640644F4571670",
+      "REQ-8D050CFC94142C"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-640644F4571670",
+      "requirement:REQ-8D050CFC94142C"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-8D050CFC94142C",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-skill-edit-requirements.md · 2. 请求、截图与外部文档的边界 产品契约 exactly once and retain its correlation identity",
+      "then": "本次用户请求是：实际操作 WorkBuddy 的技能编辑入口，梳理完整链路，并基于 QWork 当前代码输出实现需求。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-640644F4571670",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-skill-edit-requirements.md · 2. 请求、截图与外部文档的边界 产品契约 exactly once and retain its correlation identity",
+      "then": "WorkBuddy 安装包中的前端代码和本机安装的 `skill-creator/SKILL.md` 只作为竞品行为与实现语义的证据，不是 QWork 仓库规则，也不会直接复制第三方内部代码。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

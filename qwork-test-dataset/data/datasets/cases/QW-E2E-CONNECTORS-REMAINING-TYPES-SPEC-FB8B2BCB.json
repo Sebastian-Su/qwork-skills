@@ -1,0 +1,232 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-REMAINING-TYPES-SPEC-FB8B2BCB",
+  "title": "automatically restores a saved MCP connector without status polling or a reconnect click",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-remaining-types-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-remaining-types.spec.ts",
+      "locator": "line:448;test:automatically restores a saved MCP connector without status polling or a reconnect click",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:fb8b2bcb76ffcc3d1a6ebbe223948ffb6cc17df997693121a77d66e75ea1b4f1",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-CDF2CA52018D6F",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-remaining-types-spec-ts:L448:fb8b2bcb76"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "automatically restores a saved MCP connector without status polling or a reconnect click",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-remaining-types-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "automatically restores a saved MCP connector without status polling or a reconnect click"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "opened.page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"自动恢复后使用连接器\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( opened.page .getByLabel(\"当前对话连接器\", { exact: true }) .getByRole(\"img\", { name: connectorId, exact: true }), ).toBeVisible()",
+    "expect.poll( async () => (await readMcpLog(mcpLog)).some( (entry) => entry.type === \"mcp_server_upsert\" && (entry.server as { name?: string } | undefined)?.name === connectorId, ), ).toBe(true)",
+    "expect(runtimeEvents.some((entry) => entry.type === \"mcp_status\")).toBe(false)",
+    "expect(upserts.length).toBeGreaterThan(0)",
+    "expect(upserts.every( (entry) => (entry.server as { name?: string } | undefined)?.name === connectorId, )).toBe(true)",
+    "expect(new Set(upserts.map((entry) => entry.cwd)).size).toBe(upserts.length)",
+    "expect.poll( async () => (await readMcpLog(controlLog)).some( (entry) => entry.type === \"user_message\", ), { timeout: 7000 }, ).toBe(true)",
+    "expect( opened.page.getByText(\"收到：自动恢复后使用连接器\", { exact: true }), ).toBeVisible()",
+    "expect(JSON.stringify(prompts.at(-1))).toContain(`MCP 连接器：${connectorId}`)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-CDF2CA52018D6F",
+      "type": "return",
+      "assertion": "automatically restores a saved MCP connector without status polling or a reconnect click"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-remaining-types-spec-ts.fb8b2bcb76",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-remaining-types.spec.ts -g \"automatically restores a saved MCP connector without status polling or a reconnect click\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "opened.page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"自动恢复后使用连接器\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-remaining-types.spec.ts",
+        "line_start": 448,
+        "line_end": 503,
+        "body_sha256": "sha256:e4049a9435ba73be39cb1ee13afed4eb1a6a00fc8311a722b648656d6844324c",
+        "assertion_count": 9,
+        "action_count": 3,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:44edade7183524ded01be4499a9cdadc6e387aea7eebcc674767718eec3e2e3e"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-CDF2CA52018D6F"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-CDF2CA52018D6F"
+    ]
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-BUILT-IN-WEB-SEARCH-SPEC-20D9B68B",
+  "title": "登录用户的 WebSearch scope 随会话下发并显示可点击来源",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "auth",
+    "journey": "auth",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-built-in-web-search-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/built-in-web-search.spec.ts",
+      "locator": "line:10;test:登录用户的 WebSearch scope 随会话下发并显示可点击来源",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:20d9b68be97aa29eed6de0a285f066df3b430731ccd629a597a9267f3a2ecc97",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-DAFDC200B6483B",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-built-in-web-search-spec-ts:L10:20d9b68be9"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "登录用户的 WebSearch scope 随会话下发并显示可点击来源",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-built-in-web-search-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "登录用户的 WebSearch scope 随会话下发并显示可点击来源"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+    },
+    {
+      "action": "composer.fill(\"请搜索 QWork 官方网站，并给出一个可点击的来源链接\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect .poll(() => page.evaluate(() => window.workGui.auth.status().then((status) => status.loggedIn), ), ) .toBe(true)",
+    "expect(page.getByRole(\"link\", { name: \"QWork 官方网站\" })).toHaveAttribute( \"href\", \"https://qwork.360.cn/\", )",
+    "expect(page.getByText(\"WebSearch\", { exact: true })).toHaveCount(0)",
+    "expect( controls .filter((message) => message.type === \"create_session\") .map((message) => message.qwork_api), ).toContainEqual({ base_url: server.baseUrl, access_token: \"[REDACTED]\", scopes: [\"media.generate\", \"search.query\"], })",
+    "expect(controls).toContainEqual({ type: \"e2e_qwork_search_completed\", result_count: 1, })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-DAFDC200B6483B",
+      "type": "ui",
+      "assertion": "登录用户的 WebSearch scope 随会话下发并显示可点击来源"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-built-in-web-search-spec-ts.20d9b68be9",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/built-in-web-search.spec.ts -g \"登录用户的 WebSearch scope 随会话下发并显示可点击来源\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "auth",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+        },
+        {
+          "action": "composer.fill(\"请搜索 QWork 官方网站，并给出一个可点击的来源链接\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/built-in-web-search.spec.ts",
+        "line_start": 10,
+        "line_end": 97,
+        "body_sha256": "sha256:9e3adf5737b108305205fa90cec34acaffcca2e1c132c85cd8d2d467cec78a84",
+        "assertion_count": 5,
+        "action_count": 5,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:ef45f6344ac1b3651b9b431c9a470129d0460f01995e9435706f89693187d8d9"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-DAFDC200B6483B"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-DAFDC200B6483B"
+    ]
+  }
+}

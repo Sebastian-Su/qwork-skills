@@ -1,0 +1,305 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-QUC-WECH-ITEM-701B8ACA",
+  "title": "docs/changes/CHG-quc-wechat-quick-login-20260827/implementation-plan.md · 资源门禁 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "auth",
+    "journey": "auth",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-quc-wechat-quick-login-20260827-imp",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-quc-wechat-quick-login-20260827/implementation-plan.md",
+      "locator": "line:50;heading:资源门禁",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:b550254be3557ed381ef3ddf10c0c20001c446635434809b0e491faef5e9c3ce",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-quc-wechat-quick-login-20260827-imp",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-quc-wechat-quick-login-20260827/implementation-plan.md",
+      "locator": "line:52;heading:资源门禁",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:9983ce84a2c52f2ca2cd6af321b28151341681499714da0cc3c9e74d16eb0a0f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-2CFAF01FB10B3E",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-quc-wechat-quick-login-20260827-imp:L50:b550254be3"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "| 微信绑定账号与已登录客户端 | ready | 用户明确确认 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-quc-wechat-quick-login-20260827-imp"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 微信绑定账号与已登录客户端 | ready | 用户明确确认 |"
+    },
+    {
+      "requirement_id": "REQ-7F0A8F478F1F5E",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-quc-wechat-quick-login-20260827-imp:L52:9983ce84a2"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "| 真实登录服务 503 Oracle | ready | 2026-08-27 对 `https://qwork.360.cn/auth/status` 与 `/auth/login?mode=embedded` 受限 GET 均稳定返回 HTTP 503，可用真实 Electron/CDP 验证失败展示 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-quc-wechat-quick-login-20260827-imp"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 真实登录服务 503 Oracle | ready | 2026-08-27 对 `https://qwork.360.cn/auth/status` 与 `/auth/login?mode=embedded` 受限 GET 均稳定返回 HTTP 503，可用真实 Electron/CDP 验证失败展示 |"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for auth at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-quc-wechat-quick-login-20260827/implementation-plan.md · 资源门禁 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-2CFAF01FB10B3E] exactly: | 微信绑定账号与已登录客户端 | ready | 用户明确确认 |"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-7F0A8F478F1F5E] exactly: | 真实登录服务 503 Oracle | ready | 2026-08-27 对 `https://qwork.360.cn/auth/status` 与 `/auth/login?mode=embedded` 受限 GET 均稳定返回 HTTP 503，可用真实 Electron/CDP 验证失败展示 |"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "| 微信绑定账号与已登录客户端 | ready | 用户明确确认 |",
+    "| 真实登录服务 503 Oracle | ready | 2026-08-27 对 `https://qwork.360.cn/auth/status` 与 `/auth/login?mode=embedded` 受限 GET 均稳定返回 HTTP 503，可用真实 Electron/CDP 验证失败展示 |"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-2CFAF01FB10B3E]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 微信绑定账号与已登录客户端 | ready | 用户明确确认 |",
+    "FAIL [REQ-7F0A8F478F1F5E]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 真实登录服务 503 Oracle | ready | 2026-08-27 对 `https://qwork.360.cn/auth/status` 与 `/auth/login?mode=embedded` 受限 GET 均稳定返回 HTTP 503，可用真实 Electron/CDP 验证失败展示 |",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-2CFAF01FB10B3E",
+      "type": "ui",
+      "assertion": "| 微信绑定账号与已登录客户端 | ready | 用户明确确认 |"
+    },
+    {
+      "requirement_id": "REQ-7F0A8F478F1F5E",
+      "type": "api",
+      "assertion": "| 真实登录服务 503 Oracle | ready | 2026-08-27 对 `https://qwork.360.cn/auth/status` 与 `/auth/login?mode=embedded` 受限 GET 均稳定返回 HTTP 503，可用真实 Electron/CDP 验证失败展示 |"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-quc-wechat.item-701b8aca03",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "auth",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for auth at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-quc-wechat-quick-login-20260827/implementation-plan.md · 资源门禁 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-2CFAF01FB10B3E] exactly: | 微信绑定账号与已登录客户端 | ready | 用户明确确认 |"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-7F0A8F478F1F5E] exactly: | 真实登录服务 503 Oracle | ready | 2026-08-27 对 `https://qwork.360.cn/auth/status` 与 `/auth/login?mode=embedded` 受限 GET 均稳定返回 HTTP 503，可用真实 Electron/CDP 验证失败展示 |"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-2CFAF01FB10B3E",
+      "REQ-7F0A8F478F1F5E"
+    ],
+    "categories": [
+      "permission"
+    ],
+    "suite_ids": [
+      "category:permission",
+      "full",
+      "requirement:REQ-2CFAF01FB10B3E",
+      "requirement:REQ-7F0A8F478F1F5E"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-2CFAF01FB10B3E",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-quc-wechat-quick-login-20260827/implementation-plan.md · 资源门禁 产品契约 exactly once and retain its correlation identity",
+      "then": "| 微信绑定账号与已登录客户端 | ready | 用户明确确认 |",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-7F0A8F478F1F5E",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-quc-wechat-quick-login-20260827/implementation-plan.md · 资源门禁 产品契约 exactly once and retain its correlation identity",
+      "then": "| 真实登录服务 503 Oracle | ready | 2026-08-27 对 `https://qwork.360.cn/auth/status` 与 `/auth/login?mode=embedded` 受限 GET 均稳定返回 HTTP 503，可用真实 Electron/CDP 验证失败展示 |",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

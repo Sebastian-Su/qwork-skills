@@ -1,0 +1,267 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-OVERVIEW-BACKGROUND-998490-SPEC-C4532192",
+  "title": "matches WorkBuddy overview and conversation background in both themes",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "settings",
+    "journey": "settings",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-overview-background-998490-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/workbuddy-overview-background-998490.spec.ts",
+      "locator": "line:6;test:matches WorkBuddy overview and conversation background in both themes",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:c4532192591f0612c558c2195d30e0c19bca410e74e81eab7eef52fe242f3ee0",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-workbuddy-overview-background-998490-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/workbuddy-overview-background-998490.spec.ts",
+      "locator": "line:6;test:matches WorkBuddy overview and conversation background in both themes",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:c4532192591f0612c558c2195d30e0c19bca410e74e81eab7eef52fe242f3ee0",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D85EB221D9FF39",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-overview-background-998490-spec-ts:L6:c453219259"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "settings",
+      "priority": "P1",
+      "rule": "matches WorkBuddy overview and conversation background in both themes",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-overview-background-998490-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches WorkBuddy overview and conversation background in both themes"
+    },
+    {
+      "requirement_id": "REQ-8524015E9B065B",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-workbuddy-overview-background-998490-spec-ts:L6:c453219259"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "settings",
+      "priority": "P1",
+      "rule": "matches WorkBuddy overview and conversation background in both themes",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-workbuddy-overview-background-998490-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches WorkBuddy overview and conversation background in both themes"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+    },
+    {
+      "action": "initialExpand.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(initialExpand).toBeVisible()",
+    "expect(panel).toBeVisible()",
+    "expect(passed, `${theme} main=${result.main}; panel=${result.panel}`).toBe(true)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D85EB221D9FF39",
+      "type": "return",
+      "assertion": "matches WorkBuddy overview and conversation background in both themes"
+    },
+    {
+      "requirement_id": "REQ-8524015E9B065B",
+      "type": "return",
+      "assertion": "matches WorkBuddy overview and conversation background in both themes"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-overview-background-998490-spec-ts.c453219259",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-overview-background-998490.spec.ts -g \"matches WorkBuddy overview and conversation background in both themes\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "settings",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+        },
+        {
+          "action": "initialExpand.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-overview-background-998490.spec.ts",
+        "line_start": 6,
+        "line_end": 48,
+        "body_sha256": "sha256:99283ed5949539c8900c3e517b93f29e5e8ffd4039190be4be911330b6a8e2d1",
+        "assertion_count": 3,
+        "action_count": 2,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:4f7924a431be04015d54f947aa6196204d6985b554483dd8b03a0ab4cbc2dda2"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-8524015E9B065B",
+      "REQ-D85EB221D9FF39"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-8524015E9B065B",
+      "requirement:REQ-D85EB221D9FF39"
+    ]
+  }
+}

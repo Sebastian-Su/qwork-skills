@@ -1,0 +1,299 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-KNOWLEDGE-BASE-SPEC-C5BCBEDC",
+  "title": "project cloud send keeps chips but does not host-search",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-knowledge-base-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/knowledge-base.spec.ts",
+      "locator": "line:259;test:project cloud send keeps chips but does not host-search",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:c5bcbedc71aab27d9809503eb9bfd26a393450d817524b268442f046a5d75e93",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-3983C786B9AD53",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-knowledge-base-spec-ts:L259:c5bcbedc71"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "project cloud send keeps chips but does not host-search",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-knowledge-base-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "project cloud send keeps chips but does not host-search"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "create.getByPlaceholder(\"请输入项目名称\").fill(\"知识库项目\")"
+    },
+    {
+      "action": "create.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"本地任务\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitemradio\", { name: \"云端任务\" }).click()"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"添加文件\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"360知识库\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"tab\", { name: \"知识库目录\" }).click()"
+    },
+    {
+      "action": "dialog.getByLabel(\"选择知识库 产品手册\").check()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
+      "action": "composer.getByPlaceholder(/今天帮你做些什么/).fill(\"客服电话\")"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"发送\" }).click()"
+    },
+    {
+      "action": "bff.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"知识库项目\", { exact: true }).first()).toBeVisible()",
+    "expect(composer.getByLabel(\"移除知识 产品手册\")).toBeVisible()",
+    "expect(composer.getByPlaceholder(/今天帮你做些什么/)).toHaveValue(\"\")",
+    "expect.poll(() => bff.searchCalls).toBe(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-3983C786B9AD53",
+      "type": "return",
+      "assertion": "project cloud send keeps chips but does not host-search"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-knowledge-base-spec-ts.c5bcbedc71",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/knowledge-base.spec.ts -g \"project cloud send keeps chips but does not host-search\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "create.getByPlaceholder(\"请输入项目名称\").fill(\"知识库项目\")"
+        },
+        {
+          "action": "create.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"本地任务\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitemradio\", { name: \"云端任务\" }).click()"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"添加文件\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"360知识库\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"tab\", { name: \"知识库目录\" }).click()"
+        },
+        {
+          "action": "dialog.getByLabel(\"选择知识库 产品手册\").check()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
+          "action": "composer.getByPlaceholder(/今天帮你做些什么/).fill(\"客服电话\")"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"发送\" }).click()"
+        },
+        {
+          "action": "bff.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/knowledge-base.spec.ts",
+        "line_start": 259,
+        "line_end": 294,
+        "body_sha256": "sha256:fc22f663868ac55ced32c5b275068ba5c9be3972745566783796708e023c03ca",
+        "assertion_count": 4,
+        "action_count": 15,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:6b6b2fde89171d2694f2a478323e167ed3e9088bbf7889007660316fcd914d83"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-3983C786B9AD53"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-3983C786B9AD53"
+    ]
+  }
+}

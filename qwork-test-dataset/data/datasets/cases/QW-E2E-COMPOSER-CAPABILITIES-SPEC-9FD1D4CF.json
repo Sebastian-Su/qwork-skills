@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/composer-capabilities.spec.ts",
-      "locator": "line:765;test:switching models keeps old reply labels and marks the switch boundary",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/composer-capabilities.spec.ts",
+      "locator": "line:953;test:switching models keeps old reply labels and marks the switch boundary",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:9fd1d4cfeb7cebe095b9ec786418a9fe481622064a93e39f5e28a42e083893f1",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-A84A68F1B9B242",
+      "requirement_id": "REQ-610008D093F044",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L765:9fd1d4cfeb"
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L953:9fd1d4cfeb"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
+    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
     "last_verified_at": "2026-08-18T17:47:42.185586+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -99,15 +99,15 @@
   "expected_outcomes": [
     "expect(page.getByText(\"收到：第一轮\", { exact: true })).toBeVisible()",
     "expect(replyMeta).toHaveCount(1)",
-    "expect(replyMeta.nth(0)).toContainText(\"共消耗 ◇1500\")",
+    "expect(replyMeta.nth(0)).toContainText(\"共使用 1,500 Token\")",
     "expect(replyMeta.nth(0)).toContainText(\"GLM-5.2\")",
     "expect(page.getByText(\"模型已从 GLM-5.2 更改为 Kimi-K3\")).toBeVisible()",
     "expect(replyMeta.nth(0)).toContainText(\"GLM-5.2\")",
     "expect(page.getByText(\"收到：第二轮\", { exact: true })).toBeVisible()",
     "expect(replyMeta).toHaveCount(2)",
-    "expect(replyMeta.nth(0)).toContainText(\"共消耗 ◇1500\")",
+    "expect(replyMeta.nth(0)).toContainText(\"共使用 1,500 Token\")",
     "expect(replyMeta.nth(0)).toContainText(\"GLM-5.2\")",
-    "expect(replyMeta.nth(1)).toContainText(\"共消耗 ◇3000\")",
+    "expect(replyMeta.nth(1)).toContainText(\"共使用 3,000 Token\")",
     "expect(replyMeta.nth(1)).toContainText(\"Kimi-K3\")"
   ],
   "forbidden_outcomes": [
@@ -117,7 +117,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-A84A68F1B9B242",
+      "requirement_id": "REQ-610008D093F044",
       "type": "return",
       "assertion": "switching models keeps old reply labels and marks the switch boundary"
     }
@@ -217,13 +217,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/composer-capabilities.spec.ts",
-        "line_start": 765,
-        "line_end": 797,
-        "body_sha256": "sha256:9b40a2aabd0739b16acb1dfc20b64cccab659505f3f47bec925229a7bf417467",
+        "line_start": 953,
+        "line_end": 985,
+        "body_sha256": "sha256:86c04f68e2ec5e83049a21bd15e5f753f84b0b89171e5f279c2ae9a75591add9",
         "assertion_count": 12,
         "action_count": 7,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:ef0fe5eafdb3d02943778765fba214b59a44606545516c81b2b6e65bba93bb7a"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:6a35800ab5dff917d8c637254eb2a882d7887488452b9a164bd23761648fa7c7"
       }
     },
     "reference_run": {
@@ -245,7 +245,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-A84A68F1B9B242"
+      "REQ-610008D093F044"
     ],
     "categories": [
       "business"
@@ -253,7 +253,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-A84A68F1B9B242"
+      "requirement:REQ-610008D093F044"
     ]
   }
 }

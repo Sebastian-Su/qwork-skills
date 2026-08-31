@@ -1,0 +1,46 @@
+schema_version: 1
+product: WorkBuddy
+source:
+  entry_url: https://www.workbuddy.cn/docs/workbuddy/Quickstart
+  sitemap_url: https://www.workbuddy.cn/docs/sitemap-workbuddy-workbuddy.xml
+  snapshot: skill://qwork-test-dataset/data/sources/workbuddy-official-docs/sitemap-20260831-sha256-2f505afc04288b1f/manifest.json
+  sitemap_lastmod_max: 2026-08-31
+  sitemap_sha256: 2f505afc04288b1ff9dd88467724dcf75395e51b6400f5ba0a5c399e55541cdc
+  inventory_sha256: 8d72a370c6f59be43ee2233db95a2a1d5a51fba66b63c64add81f7c74d329a60
+  browser_navigation_observation_sha256: 27f9e2a94d834609164514d4d842970b9d7fd95ee40a48263a0140612976fe28
+closure:
+  sitemap_pages: 85
+  article_pages: 84
+  no_article_pages: 1
+  expanded_navigation_urls: 78
+  sitemap_only_urls: 7
+  image_urls: 457
+authority:
+  kind: context-only
+  domains: [product, behavior, interaction, ui, support]
+  runtime_applicability:
+    documented_version: 5.3.14
+    approved_target_version: 5.3.8
+    policy: retain the complete 5.3.14 inventory, but promote an atom only after 5.3.8 runtime corroboration
+brand_substitution:
+  policy: name-and-asset-differences-exempt-only
+  exempt: [approved QWork product names, approved QWork logos, approved QWork brand assets]
+  never_exempt: [feature availability, business meaning, interaction, state transition, error semantics, permission semantics, data side effect, accessibility, responsive behavior]
+images:
+  storage: hash-and-physical-metadata-only
+  copied_bytes: false
+  calibration_status: missing
+  acceptance: qualitative evidence only; never a CSS geometry or pixel PASS without viewport, DPR, font and dynamic-data calibration
+capture:
+  browser: ego-browser
+  task_space: 43
+  page_body_selector: .vp-doc
+  mutation_policy: navigation and read-only expansion only
+acceptance_status:
+  source_capture: pass
+  source_atomization: pass
+  installed_bundle_5_3_8: pass
+  runtime_cdp_5_3_8: pass
+  documentation_runtime_version_match: false
+  per_atom_5_3_8_promotion: pending
+  normative_target_promotion: blocked-until-5.3.8-runtime-corroboration

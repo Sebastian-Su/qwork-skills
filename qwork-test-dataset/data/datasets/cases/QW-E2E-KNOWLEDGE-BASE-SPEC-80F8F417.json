@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/knowledge-base.spec.ts",
-      "locator": "line:174;test:composer knowledge chips search on send and show citation sources",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/knowledge-base.spec.ts",
+      "locator": "line:179;test:composer knowledge chips search on send and show citation sources",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:80f8f417d3b4666f0e0b260cf5dbb09965e0f8733e89c4dec042623f0301eed5",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-604046A2AE0256",
+      "requirement_id": "REQ-DBD8D77BDC0C68",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-knowledge-base-spec-ts:L174:80f8f417d3"
+        "QDEV-E2E-e2e-knowledge-base-spec-ts:L179:80f8f417d3"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,6 +75,9 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "dialog.getByRole(\"tab\", { name: \"知识库目录\" }).click()"
+    },
+    {
       "action": "dialog.getByLabel(\"选择知识库 产品手册\").check()"
     },
     {
@@ -85,7 +88,9 @@
     }
   ],
   "expected_outcomes": [
+    "expect(dialog.getByRole(\"tab\", { name: \"知识库目录\" })).toBeVisible()",
     "expect(page.getByLabel(\"移除知识 产品手册\")).toBeVisible()",
+    "expect.poll(() => bff.searchCalls).toBeGreaterThanOrEqual(1)",
     "expect(page.getByTestId(\"knowledge-citations\")).toContainText(\"手册.md\")",
     "expect(page.getByTitle(\"qwork-kb:kb-1/doc-1\")).toBeVisible()"
   ],
@@ -96,7 +101,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-604046A2AE0256",
+      "requirement_id": "REQ-DBD8D77BDC0C68",
       "type": "ui",
       "assertion": "composer knowledge chips search on send and show citation sources"
     }
@@ -157,6 +162,9 @@
       "entrypoint": "shell-home",
       "steps": [
         {
+          "action": "dialog.getByRole(\"tab\", { name: \"知识库目录\" }).click()"
+        },
+        {
           "action": "dialog.getByLabel(\"选择知识库 产品手册\").check()"
         },
         {
@@ -184,13 +192,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/knowledge-base.spec.ts",
-        "line_start": 174,
-        "line_end": 192,
-        "body_sha256": "sha256:cd79510af3115a2f71a3e7017caa32227d74f51993ee705bb75f3234d8951ccc",
-        "assertion_count": 3,
-        "action_count": 3,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:be8caa865d6e14bea5f0658c690c2cde7e98bda1a2e53fac0220727ae4d8dc3d"
+        "line_start": 179,
+        "line_end": 200,
+        "body_sha256": "sha256:c67408ae21c1bebbeacdd47fc1ee20237a355bd2d7ac5d4591ee8201e934b6d0",
+        "assertion_count": 5,
+        "action_count": 4,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:6b6b2fde89171d2694f2a478323e167ed3e9088bbf7889007660316fcd914d83"
       }
     },
     "reference_run": {
@@ -212,7 +220,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-604046A2AE0256"
+      "REQ-DBD8D77BDC0C68"
     ],
     "categories": [
       "business"
@@ -220,7 +228,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-604046A2AE0256"
+      "requirement:REQ-DBD8D77BDC0C68"
     ]
   }
 }

@@ -41,6 +41,33 @@ def main() -> int:
         assert "source/path mismatch" in str(error)
     else:
         raise AssertionError("cross-version WorkBuddy binding was accepted")
+
+    dataset_runner = (
+        Path(__file__).resolve().parents[2]
+        / "qwork-test-dataset/scripts/run_qwork_workbuddy_oracle.mjs"
+    ).read_text(encoding="utf-8")
+    assert '"ima知识库": "知识库"' in dataset_runner
+    assert '"乐享知识库": "知识库"' in dataset_runner
+    assert 'requestedState === "all"' in dataset_runner
+    assert 'QWORK_E2E_PROCESS: "1"' in dataset_runner
+    assert 'QWORK_E2E_BUILTIN_MARKETPLACE: "plugins-only"' in dataset_runner
+    assert "startProjectFixture" in dataset_runner
+    assert "expertCatalogFixture" in dataset_runner
+    assert '"/expert/api/v1/client/experts/catalog"' in dataset_runner
+    assert "inspirationCatalogFixture" in dataset_runner
+    assert '"/api/v1/inspirations"' in dataset_runner
+    assert "oracleProjectFixtures" in dataset_runner
+    assert 'response.end(JSON.stringify({ items: projectItems }))' in dataset_runner
+    assert 'response.end(JSON.stringify({ members: [] }))' in dataset_runner
+    assert 'response.end(JSON.stringify({ tasks: [] }))' in dataset_runner
+    assert "ensureFrozenTheme" in dataset_runner
+    assert 'wbManifest.theme_coverage?.expected_theme' in dataset_runner
+    assert "ensureFinalState" in dataset_runner
+    workbuddy_capture = (
+        Path(__file__).resolve().parents[2]
+        / "qwork-test-dataset/scripts/capture_workbuddy_surfaces.mjs"
+    ).read_text(encoding="utf-8")
+    assert "returnToTopSurface" in workbuddy_capture
     print("WorkBuddy Oracle runner binding: ok")
     return 0
 

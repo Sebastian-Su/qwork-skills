@@ -1,0 +1,441 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-PROJECT-5-5F2678AB",
+  "title": "docs/changes/CHG-project-task-workspace-alignment-20260828/implementation-plan.md · 5. 生命周期、失败与迁移 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-project-task-workspace-alignment-20",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-project-task-workspace-alignment-20260828/implementation-plan.md",
+      "locator": "line:76;heading:5. 生命周期、失败与迁移",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:05f726630252d0a9caaa1d03d909a31a130a1f458e457d1012e9ac080b6e9499",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-project-task-workspace-alignment-20",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-project-task-workspace-alignment-20260828/implementation-plan.md",
+      "locator": "line:77;heading:5. 生命周期、失败与迁移",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:1c74d727521c1f7d9ea445b7d2353ab631dce80c26a1f2b7f7e25caeaa3cd66e",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-project-task-workspace-alignment-20",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-project-task-workspace-alignment-20260828/implementation-plan.md",
+      "locator": "line:78;heading:5. 生命周期、失败与迁移",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:1730d481619e3b8ca957309eab982838f8ad29c785d27f223de253c035d205fc",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-project-task-workspace-alignment-20",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-project-task-workspace-alignment-20260828/implementation-plan.md",
+      "locator": "line:79;heading:5. 生命周期、失败与迁移",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:6212b2279c13e26a08f8ca7ddd2b0c6604478c41d4f69decd65ff513fff97268",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-A0B51469DD3E6D",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-project-task-workspace-alignment-20:L76:05f7266302"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "固定首次提交后 execution target/binding 不可变；跨资源域需求通过新建任务完成。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-project-task-workspace-alignment-20"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "固定首次提交后 execution target/binding 不可变；跨资源域需求通过新建任务完成。"
+    },
+    {
+      "requirement_id": "REQ-A30505864989E2",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-project-task-workspace-alignment-20:L77:1c74d72752"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "selected 本地目录不可用时保留草稿并大声失败；不得自动改用 managed 目录。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-project-task-workspace-alignment-20"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "selected 本地目录不可用时保留草稿并大声失败；不得自动改用 managed 目录。"
+    },
+    {
+      "requirement_id": "REQ-7F8858CDFC4B4F",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-project-task-workspace-alignment-20:L78:1730d48161"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "删除 selected 任务永不递归删除用户目录；managed 本地与 cloud managed 按二次确认和所有权策略清理。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-project-task-workspace-alignment-20"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "删除 selected 任务永不递归删除用户目录；managed 本地与 cloud managed 按二次确认和所有权策略清理。"
+    },
+    {
+      "requirement_id": "REQ-ED2D41B8976231",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-project-task-workspace-alignment-20:L79:6212b2279c"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "应用重启、Sidecar 重启、云 Worker 重试、客户端离线恢复均回读原 binding。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-project-task-workspace-alignment-20"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "应用重启、Sidecar 重启、云 Worker 重试、客户端离线恢复均回读原 binding。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-project-task-workspace-alignment-20260828/implementation-plan.md · 5. 生命周期、失败与迁移 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-A0B51469DD3E6D] exactly: 固定首次提交后 execution target/binding 不可变；跨资源域需求通过新建任务完成。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-A30505864989E2] exactly: selected 本地目录不可用时保留草稿并大声失败；不得自动改用 managed 目录。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-7F8858CDFC4B4F] exactly: 删除 selected 任务永不递归删除用户目录；managed 本地与 cloud managed 按二次确认和所有权策略清理。"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-ED2D41B8976231] exactly: 应用重启、Sidecar 重启、云 Worker 重试、客户端离线恢复均回读原 binding。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "固定首次提交后 execution target/binding 不可变；跨资源域需求通过新建任务完成。",
+    "selected 本地目录不可用时保留草稿并大声失败；不得自动改用 managed 目录。",
+    "删除 selected 任务永不递归删除用户目录；managed 本地与 cloud managed 按二次确认和所有权策略清理。",
+    "应用重启、Sidecar 重启、云 Worker 重试、客户端离线恢复均回读原 binding。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-A0B51469DD3E6D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 固定首次提交后 execution target/binding 不可变；跨资源域需求通过新建任务完成。",
+    "FAIL [REQ-A30505864989E2]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: selected 本地目录不可用时保留草稿并大声失败；不得自动改用 managed 目录。",
+    "FAIL [REQ-7F8858CDFC4B4F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 删除 selected 任务永不递归删除用户目录；managed 本地与 cloud managed 按二次确认和所有权策略清理。",
+    "FAIL [REQ-ED2D41B8976231]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 应用重启、Sidecar 重启、云 Worker 重试、客户端离线恢复均回读原 binding。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-A0B51469DD3E6D",
+      "type": "event",
+      "assertion": "固定首次提交后 execution target/binding 不可变；跨资源域需求通过新建任务完成。"
+    },
+    {
+      "requirement_id": "REQ-A30505864989E2",
+      "type": "return",
+      "assertion": "selected 本地目录不可用时保留草稿并大声失败；不得自动改用 managed 目录。"
+    },
+    {
+      "requirement_id": "REQ-7F8858CDFC4B4F",
+      "type": "ui",
+      "assertion": "删除 selected 任务永不递归删除用户目录；managed 本地与 cloud managed 按二次确认和所有权策略清理。"
+    },
+    {
+      "requirement_id": "REQ-ED2D41B8976231",
+      "type": "event",
+      "assertion": "应用重启、Sidecar 重启、云 Worker 重试、客户端离线恢复均回读原 binding。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-project-ta.5-5f2678ab4b",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-project-task-workspace-alignment-20260828/implementation-plan.md · 5. 生命周期、失败与迁移 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-A0B51469DD3E6D] exactly: 固定首次提交后 execution target/binding 不可变；跨资源域需求通过新建任务完成。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-A30505864989E2] exactly: selected 本地目录不可用时保留草稿并大声失败；不得自动改用 managed 目录。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-7F8858CDFC4B4F] exactly: 删除 selected 任务永不递归删除用户目录；managed 本地与 cloud managed 按二次确认和所有权策略清理。"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-ED2D41B8976231] exactly: 应用重启、Sidecar 重启、云 Worker 重试、客户端离线恢复均回读原 binding。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-7F8858CDFC4B4F",
+      "REQ-A0B51469DD3E6D",
+      "REQ-A30505864989E2",
+      "REQ-ED2D41B8976231"
+    ],
+    "categories": [
+      "business",
+      "negative",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:negative",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-7F8858CDFC4B4F",
+      "requirement:REQ-A0B51469DD3E6D",
+      "requirement:REQ-A30505864989E2",
+      "requirement:REQ-ED2D41B8976231"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-A0B51469DD3E6D",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-project-task-workspace-alignment-20260828/implementation-plan.md · 5. 生命周期、失败与迁移 产品契约 exactly once and retain its correlation identity",
+      "then": "固定首次提交后 execution target/binding 不可变；跨资源域需求通过新建任务完成。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-A30505864989E2",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-project-task-workspace-alignment-20260828/implementation-plan.md · 5. 生命周期、失败与迁移 产品契约 exactly once and retain its correlation identity",
+      "then": "selected 本地目录不可用时保留草稿并大声失败；不得自动改用 managed 目录。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-7F8858CDFC4B4F",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-project-task-workspace-alignment-20260828/implementation-plan.md · 5. 生命周期、失败与迁移 产品契约 exactly once and retain its correlation identity",
+      "then": "删除 selected 任务永不递归删除用户目录；managed 本地与 cloud managed 按二次确认和所有权策略清理。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-ED2D41B8976231",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-project-task-workspace-alignment-20260828/implementation-plan.md · 5. 生命周期、失败与迁移 产品契约 exactly once and retain its correlation identity",
+      "then": "应用重启、Sidecar 重启、云 Worker 重试、客户端离线恢复均回读原 binding。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

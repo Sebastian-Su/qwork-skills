@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/dev-renderer-cache.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/dev-renderer-cache.spec.ts",
       "locator": "line:13;test:development renderer bypasses stale HTTP cache and paints the app",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:ce3782e3bbb3ce92f24f82fa16b1de09755cf4d180bb51f22404a1f7856b9742",
       "redaction_status": "minimized"
     }
@@ -80,6 +80,7 @@
   ],
   "expected_outcomes": [
     "expect( page.getByRole(\"button\", { name: \"新建任务\", exact: true }), ).toBeVisible({ timeout: 30_000 })",
+    "expect .poll(() => page.evaluate(() => window.workGui.auth.status())) .toMatchObject({ loggedIn: true })",
     "expect(rendererRequestHeaders).toContainEqual({ cacheControl: \"no-cache\", pragma: \"no-cache\", })"
   ],
   "forbidden_outcomes": [
@@ -172,12 +173,12 @@
       "source_contract": {
         "spec": "e2e/dev-renderer-cache.spec.ts",
         "line_start": 13,
-        "line_end": 99,
-        "body_sha256": "sha256:a7fe77c382a466bd03359a432d7b3c696904143528a72395c45a96dccd18ea5b",
-        "assertion_count": 2,
+        "line_end": 105,
+        "body_sha256": "sha256:f757444807d4a034a736d5d8f2cf992304282488b004ae137ee7a518d7cd35bb",
+        "assertion_count": 3,
         "action_count": 1,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:9e60526872a07ce65f2a6045f66fa736c7fe25a9c95e76436807b3f3de428238"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:959795e48ee1a9dfb3b42750bc44e52019ff17c970fe66bd750eb82fb736868d"
       }
     },
     "reference_run": {

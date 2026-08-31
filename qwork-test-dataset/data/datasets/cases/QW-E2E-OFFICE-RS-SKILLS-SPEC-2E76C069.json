@@ -1,0 +1,267 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-OFFICE-RS-SKILLS-SPEC-2E76C069",
+  "title": "DOCX output has page setup and accepted revisions preserve structure",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-office-rs-skills-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/office-rs-skills.spec.ts",
+      "locator": "line:39;test:DOCX output has page setup and accepted revisions preserve structure",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:2e76c06973bf5cba318d1c983fc16f9e226642f49937fb6d4cc6784e903e394a",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-EDE4F93A37BE1A",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-office-rs-skills-spec-ts:L39:2e76c06973"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "DOCX output has page setup and accepted revisions preserve structure",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-office-rs-skills-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "DOCX output has page setup and accepted revisions preserve structure"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "platformDirectory()"
+    },
+    {
+      "action": "installedSkills()"
+    },
+    {
+      "action": "path.join( skillsRoot, \"docx-rs\", \"scripts\", platform, process.platform === \"win32\" ? \"docx-rw.exe\" : \"docx-rw\", )"
+    },
+    {
+      "action": "path.join(root, \"input.md\")"
+    },
+    {
+      "action": "path.join(root, \"input.docx\")"
+    },
+    {
+      "action": "path.join(root, \"redlined.docx\")"
+    },
+    {
+      "action": "path.join(root, \"plan.json\")"
+    },
+    {
+      "action": "path.join(root, \"accepted.md\")"
+    },
+    {
+      "action": "path.join(root, \"unpacked\")"
+    },
+    {
+      "action": "path.join(root, \"edit.json\")"
+    },
+    {
+      "action": "path.join(root, \"edited.docx\")"
+    },
+    {
+      "action": "path.join(root, \"edited-package\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(documentXml).toContain(\"<w:sectPr\")",
+    "expect(acceptedMarkdown).toContain(\"# Contract\")",
+    "expect(acceptedMarkdown).toContain(\"- First\")",
+    "expect(acceptedMarkdown).toContain(\"Term: 60 days.\")",
+    "expect(await readFile(extracted, \"utf8\")).toContain(\"Term: 45 days.\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-EDE4F93A37BE1A",
+      "type": "return",
+      "assertion": "DOCX output has page setup and accepted revisions preserve structure"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-office-rs-skills-spec-ts.2e76c06973",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/office-rs-skills.spec.ts -g \"DOCX output has page setup and accepted revisions preserve structure\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "platformDirectory()"
+        },
+        {
+          "action": "installedSkills()"
+        },
+        {
+          "action": "path.join( skillsRoot, \"docx-rs\", \"scripts\", platform, process.platform === \"win32\" ? \"docx-rw.exe\" : \"docx-rw\", )"
+        },
+        {
+          "action": "path.join(root, \"input.md\")"
+        },
+        {
+          "action": "path.join(root, \"input.docx\")"
+        },
+        {
+          "action": "path.join(root, \"redlined.docx\")"
+        },
+        {
+          "action": "path.join(root, \"plan.json\")"
+        },
+        {
+          "action": "path.join(root, \"accepted.md\")"
+        },
+        {
+          "action": "path.join(root, \"unpacked\")"
+        },
+        {
+          "action": "path.join(root, \"edit.json\")"
+        },
+        {
+          "action": "path.join(root, \"edited.docx\")"
+        },
+        {
+          "action": "path.join(root, \"edited-package\")"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/office-rs-skills.spec.ts",
+        "line_start": 39,
+        "line_end": 103,
+        "body_sha256": "sha256:26a760a5c6f783230df4b59a011e70c3c48eeeb5e49d1afec86cb503c42fc830",
+        "assertion_count": 5,
+        "action_count": 0,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:5c17474c6311485a6dfecf3c4420549ed59d882693e43060011220fa9553e5f9"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-EDE4F93A37BE1A"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-EDE4F93A37BE1A"
+    ]
+  }
+}

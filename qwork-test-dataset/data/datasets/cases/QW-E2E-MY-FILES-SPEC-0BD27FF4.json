@@ -21,21 +21,39 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/my-files.spec.ts",
-      "locator": "line:141;test:explains when an account has no personal cloud-drive package",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/my-files.spec.ts",
+      "locator": "line:186;test:explains when an account has no personal cloud-drive package",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:0bd27ff40ffd5d2ecf271021ef60c75f5856a0ce07340ef3607dae6c6b4295dd",
       "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-my-files-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/my-files.spec.ts",
+      "locator": "line:150;test:explains when an account has no personal cloud-drive package",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:0bd27ff40ffd5d2ecf271021ef60c75f5856a0ce07340ef3607dae6c6b4295dd",
+      "redaction_status": "minimized",
+      "supports": [
+        "QDEV-E2E-e2e-my-files-spec-ts"
+      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-92B67FC005F036",
+      "requirement_id": "REQ-3D112F7195C3AA",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-my-files-spec-ts:L141:0bd27ff40f"
+        "QDEV-E2E-e2e-my-files-spec-ts:L186:0bd27ff40f",
+        "QHEAD-E2E-e2e-my-files-spec-ts:L150:0bd27ff40f"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -50,7 +68,9 @@
       "governing_sources": [
         "QDEV-E2E-e2e-my-files-spec-ts"
       ],
-      "supporting_sources": [],
+      "supporting_sources": [
+        "QHEAD-E2E-e2e-my-files-spec-ts"
+      ],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -101,7 +121,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-92B67FC005F036",
+      "requirement_id": "REQ-3D112F7195C3AA",
       "type": "return",
       "assertion": "explains when an account has no personal cloud-drive package"
     }
@@ -192,13 +212,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/my-files.spec.ts",
-        "line_start": 141,
-        "line_end": 163,
+        "line_start": 150,
+        "line_end": 172,
         "body_sha256": "sha256:ec1c61742cd623512a0f085ed55f45652c8e5baf7e46ad257750ff568d32c75f",
         "assertion_count": 5,
         "action_count": 4,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:eca30f412573b91ea792a4338c8d673694efe8aba5dce21caf063c686d33453c"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:3068a49646cff8db4076d3e7ce8e8b4f4e6e4c8660259ee6ce65dc62f3f1a84a"
       }
     },
     "reference_run": {
@@ -220,7 +240,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-92B67FC005F036"
+      "REQ-3D112F7195C3AA"
     ],
     "categories": [
       "business"
@@ -228,7 +248,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-92B67FC005F036"
+      "requirement:REQ-3D112F7195C3AA"
     ]
   }
 }

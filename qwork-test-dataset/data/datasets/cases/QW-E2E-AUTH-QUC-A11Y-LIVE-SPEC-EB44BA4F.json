@@ -1,0 +1,224 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-AUTH-QUC-A11Y-LIVE-SPEC-EB44BA4F",
+  "title": "tabs to QQ, WeChat and the SMS code action and activates each key once",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "auth",
+    "journey": "auth",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-auth-quc-a11y-live-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/auth-quc-a11y.live.spec.ts",
+      "locator": "line:9;test:tabs to QQ, WeChat and the SMS code action and activates each key once",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:eb44ba4f86fb6780a5bf86dcc8cb855e630b67da6adee115819041264568969f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-3140B4E2EF0FBF",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-auth-quc-a11y-live-spec-ts:L9:eb44ba4f86"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "tabs to QQ, WeChat and the SMS code action and activates each key once",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-auth-quc-a11y-live-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "tabs to QQ, WeChat and the SMS code action and activates each key once"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "modal.getByText(\"短信登录\", { exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(() => app!.windows().length).toBe(2)",
+    "expect(modal.getByRole(\"button\", { name: \"QQ\" })).toBeVisible()",
+    "expect(modal.getByRole(\"button\", { name: \"微信\" })).toBeVisible()",
+    "expect(control).toHaveAttribute(\"tabindex\", \"0\")",
+    "expect(control).toHaveAttribute(\"data-qwork-a11y-ready\", \"true\")",
+    "expect(providerActivationCounts).toEqual({ QQ: 2, 微信: 2 })",
+    "expect(code).toBeVisible()",
+    "expect(code).toHaveAttribute(\"tabindex\", \"0\")",
+    "expect(code).toHaveAttribute(\"data-qwork-a11y-ready\", \"true\")",
+    "expect(await activationCounts(modal, [\"获取验证码\"])).toEqual({ 获取验证码: 2 })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-3140B4E2EF0FBF",
+      "type": "return",
+      "assertion": "tabs to QQ, WeChat and the SMS code action and activates each key once"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-auth-quc-a11y-live-spec-ts.eb44ba4f86",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": true,
+      "scopes": [
+        "real external account/service/model route named by the source test"
+      ]
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/auth-quc-a11y.live.spec.ts -g \"tabs to QQ, WeChat and the SMS code action and activates each key once\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "auth",
+      "steps": [
+        {
+          "action": "modal.getByText(\"短信登录\", { exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home plus separately authorized real external fixture",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/auth-quc-a11y.live.spec.ts",
+        "line_start": 9,
+        "line_end": 54,
+        "body_sha256": "sha256:9c3b9ec0d79bb9c129c89d3f8d98019b5b8d51a86a53778558383c0d6ded4fc1",
+        "assertion_count": 10,
+        "action_count": 1,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:4cd3b1f11d4b2ad24589b5e84018726af0321c35b98edb2c25dee08d951e626c"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "independent authorization for real external route pending",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-3140B4E2EF0FBF"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-3140B4E2EF0FBF"
+    ]
+  }
+}

@@ -22,6 +22,7 @@ source_acceptance_manifest: skill://qwork-test-dataset/data/datasets/source-acce
 dataset_manifest: skill://qwork-test-dataset/data/datasets/dataset.json
 workbuddy_target_baseline: skill://qwork-test-dataset/references/workbuddy-target-baseline.yaml
 workbuddy_dark_theme_contract: skill://qwork-test-dataset/references/workbuddy-dark-theme-contract.yaml
+workbuddy_official_docs_contract: skill://qwork-test-dataset/references/workbuddy-official-docs-contract.yaml
 selection_modes: [requirement, category, affected, full]
 release_gate_policy: references/release-gate-policy.yaml
 release_gate_contract: references/release-gate-contract.md
@@ -32,9 +33,9 @@ screenshot_checkpoints: [entry, major-state-transition, before-and-after-importa
 
 执行前必须运行 `scripts/validate_source_acceptance.py`，并通过 Dataset Skill 的 `validate_source_dispositions.py` 与 `validate_route_registry.py`。任何 unmapped source atom、未覆盖 P0/P1 requirement、develop 文档/E2E 处置缺口、Case/route 不闭合、Playwright test body hash 漂移、错误 suite index 或用户可见需求没有真实 UI route 均为 `repair-required`。详细几何要求使用 `ui-geometry` Oracle：固定 viewport/DPR/坐标空间/target/容差；默认几何容差 `±2 CSS px`，像素阈值与 mask 必须来自批准基线。
 
-Full plan 还必须把 Dataset 的复合文档 Case 映射、结构化 WorkBuddy Oracle 映射、WorkBuddy 控件闭世界清单和真实 provider Case 授权边界列为独立 required gate。控件清单必须逐一绑定冻结 UI 状态与 DOM 坐标，并明确标记 covered、pending 或 blocked；仅有 Dataset tree hash 不足以向报告解释这些治理约束是否通过。
+Full plan 还必须把 Dataset 的复合文档 Case 映射、`workbuddy-official-docs` cohort、结构化 WorkBuddy Oracle 映射、WorkBuddy 控件闭世界清单和真实 provider Case 授权边界列为独立 required gate。官方文档 cohort 必须证明 sitemap 页面全处置、文档原子全映射、品牌豁免未扩散到功能语义；文档版本与目标 runtime 不一致时必须保持 `context-only` 并逐原子仲裁，禁止以新版文档直接判定旧版功能或 UI。控件清单必须逐一绑定冻结 UI 状态与 DOM 坐标，并明确标记 covered、pending 或 blocked。仅有 Dataset tree hash 不足以说明这些治理约束通过。
 
-产品声明支持浅深主题、变更命中颜色/token/input/heading/overlay 或用户要求暗黑走查时，plan 必须增加 `ui-theme-dark` 横切 cohort。执行前读 `references/dark-mode-ui-walkthrough.md`；它要求真实主题入口、逐页面 resolved-theme 绑定、query/input effective background、标题/正文/placeholder 对比度、overlay 状态、冷启动持久化和恢复原主题。WorkBuddy 5.3.8 没有观察到“跟随系统”控件，不得把 QWork 自有第三种模式冒充 WorkBuddy 对齐。
+产品声明支持浅深主题、变更命中颜色/token/input/heading/overlay 或用户要求暗黑走查时，plan 必须增加 `ui-theme-dark` 横切 cohort。执行前读 `references/dark-mode-ui-walkthrough.md`；它要求真实主题入口、逐页面 resolved-theme 绑定、query/input effective background、标题/正文/placeholder 对比度、overlay 状态、冷启动持久化和恢复原主题。可选主题模式必须来自当前批准版本的运行态观察，不得跨版本继承或替 WorkBuddy 补造控件。
 
 ## 1. 构建影响闭包
 

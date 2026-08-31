@@ -22,12 +22,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/builtin-marketplace.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/builtin-marketplace.spec.ts",
       "locator": "line:12;test:startup materializes builtin skills but keeps them disabled by default",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:22f862700bf6ccff4a692a99123c746cc723a2f910395aaa5728c7c6e523f834",
       "redaction_status": "minimized"
     }
@@ -86,7 +86,9 @@
     "expect .poll(async () => { const registry = JSON.parse(await fs.readFile(registryPath, \"utf8\")); return registry.plugins[\"skill-skill-creator@qwork-builtin\"]?.[0]; }) .toEqual( expect.objectContaining({ scope: \"user\", version: expect.any(String), qworkSeedManaged: true, }), )",
     "expect(marketplace.plugins.map((entry: { name?: string }) => entry.name)).not.toContain( retiredPluginName, )",
     "expect(skill).toEqual(expect.objectContaining({ category: \"skill\" }))",
-    "expect(authorizedSkill).toEqual( expect.objectContaining({ category: \"skill\", version: \"authorized-528daec0df6e\", }), )",
+    "expect(authorizedSkill).toEqual( expect.objectContaining({ category: \"skill\", version: \"authorized-5f3b787c33da\", }), )",
+    "expect(visibleBuiltinSkills).toHaveLength(53)",
+    "expect(connectorRuntimeSkills.map((entry: { name?: string }) => entry.name).sort()).toEqual([ \"skill-360-knowledge\", \"skill-awesun-cli\", \"skill-dws\", \"skill-emr-query-cli\", \"skill-lark-unified\", \"skill-lemonclaw-cli\", \"skill-lovrabet-cli\", \"skill-tencent-meeting-skill\", \"skill-textin-xparse\", \"skill-wecom-cli\", \"skill-zsxq-cli\", ])",
     "expect(fs.readFile(cacheSkill, \"utf8\")).resolves.toContain(\"# Skill Creator\")",
     "expect(scanned.map((entry) => entry.id)).not.toEqual( expect.arrayContaining(retiredIds), )",
     "expect(scannedSkill).toBeUndefined()",
@@ -192,12 +194,12 @@
       "source_contract": {
         "spec": "e2e/builtin-marketplace.spec.ts",
         "line_start": 12,
-        "line_end": 102,
-        "body_sha256": "sha256:875f1070a83a3e2b03387521f4fca23e6f674907f3c8bc0dc3b47e645dfa6679",
-        "assertion_count": 8,
+        "line_end": 124,
+        "body_sha256": "sha256:0f7e5ebb128b066a7d2d6585f78d2483ac3c1e621347e4ac587464c722c4c7e7",
+        "assertion_count": 10,
         "action_count": 2,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:749b3d04f9bbecb2845517c8eefb9a3c653f065e491d9352b6cc716df2de371c"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:8e948ce9f5714ec1a76ad2729976af61aeba2c1099be1f55e6e3cc764aa95bd7"
       }
     },
     "reference_run": {

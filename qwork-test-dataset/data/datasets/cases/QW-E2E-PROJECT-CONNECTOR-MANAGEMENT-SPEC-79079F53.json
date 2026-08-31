@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/project-connector-management.spec.ts",
-      "locator": "line:14;test:opens the full connector catalog from the project connector footer",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/project-connector-management.spec.ts",
+      "locator": "line:43;test:opens the full connector catalog from the project connector footer",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:79079f532f22b615b9576449b4fbd3138f6ef10ab86a6730aca98b15b699eaee",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-DC7A6C0A88A1B2",
+      "requirement_id": "REQ-404A72FA22956C",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-project-connector-management-spec-ts:L14:79079f532f"
+        "QDEV-E2E-e2e-project-connector-management-spec-ts:L43:79079f532f"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -84,6 +84,9 @@
       "action": "createDialog.getByPlaceholder(\"请输入项目名称\").fill(\"连接器管理项目\")"
     },
     {
+      "action": "createDialog .getByPlaceholder(/提供当前项目的背景信息/) .fill(\"验证项目连接器管理\")"
+    },
+    {
       "action": "createDialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
     },
     {
@@ -94,7 +97,7 @@
     }
   ],
   "expected_outcomes": [
-    "expect(page.getByText(\"连接器管理项目\", { exact: true }).first()).toBeVisible()",
+    "expect(createDialog).toHaveCount(0)",
     "expect(dialog.getByRole(\"button\", { name: \"连接器管理\" })).toBeVisible()",
     "expect(dialog.getByRole(\"button\", { name: \"取消\", exact: true })).toBeVisible()",
     "expect(dialog.getByRole(\"button\", { name: \"保存\", exact: true })).toBeDisabled()",
@@ -108,7 +111,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-DC7A6C0A88A1B2",
+      "requirement_id": "REQ-404A72FA22956C",
       "type": "return",
       "assertion": "opens the full connector catalog from the project connector footer"
     }
@@ -178,6 +181,9 @@
           "action": "createDialog.getByPlaceholder(\"请输入项目名称\").fill(\"连接器管理项目\")"
         },
         {
+          "action": "createDialog .getByPlaceholder(/提供当前项目的背景信息/) .fill(\"验证项目连接器管理\")"
+        },
+        {
           "action": "createDialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
         },
         {
@@ -205,13 +211,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/project-connector-management.spec.ts",
-        "line_start": 14,
-        "line_end": 45,
-        "body_sha256": "sha256:6ca54d65eae15a6e31467bb6e38f0d9e8ac5a87cbc94cd7a17eea3b753a9ba33",
+        "line_start": 43,
+        "line_end": 77,
+        "body_sha256": "sha256:26a7016765e346551fce61681236fa853433332aa5e79c00aabf62ce71d12dfd",
         "assertion_count": 6,
-        "action_count": 6,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:777b2f3dc3d295880d8a040a3f99bf319cb25cb4adddc8e2de36af2dc571b6fe"
+        "action_count": 7,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:7095e44985b8d975dc374506a457f0e2dc48a19585258fee806ca5b57ce9c722"
       }
     },
     "reference_run": {
@@ -233,7 +239,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-DC7A6C0A88A1B2"
+      "REQ-404A72FA22956C"
     ],
     "categories": [
       "business"
@@ -241,7 +247,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-DC7A6C0A88A1B2"
+      "requirement:REQ-404A72FA22956C"
     ]
   }
 }

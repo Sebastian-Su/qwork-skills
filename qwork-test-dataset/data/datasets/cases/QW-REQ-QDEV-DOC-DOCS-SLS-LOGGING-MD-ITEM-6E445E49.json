@@ -1,0 +1,289 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-SLS-LOGGING-MD-ITEM-6E445E49",
+  "title": "docs/sls-logging.md · 行为与隐私边界 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "auth",
+    "journey": "auth",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-sls-logging-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/sls-logging.md",
+      "locator": "line:19;heading:行为与隐私边界",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:c76bf67fe1fddef1385c3c68a4e08084ab7f75b2280ce04acfd1dac0ef4199ac",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-sls-logging-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/sls-logging.md",
+      "locator": "line:24;heading:行为与隐私边界",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:988465726df0af0aa8a1225129d1cb73db6b20083aebe3c71f3390cf6c457600",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-DEA71281158A7D",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-sls-logging-md:L19:c76bf67fe1"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "每条记录的公共字段为：`key`、`platform`、`schema_version`、`mid`、`qid`、`auth_state`、`launch_id`、`version`、`channel`、`mode`、`packaged`、`os`、`os_version`、`arch`、`electron`、`core_version` 和 `_ts`。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-sls-logging-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "每条记录的公共字段为：`key`、`platform`、`schema_version`、`mid`、`qid`、`auth_state`、`launch_id`、`version`、`channel`、`mode`、`packaged`、`os`、`os_version`、`arch`、`electron`、`core_version` 和 `_ts`。"
+    },
+    {
+      "requirement_id": "REQ-E81CB6B0812390",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-sls-logging-md:L24:988465726d"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "`qid` 只取自服务端 `/auth/status` 的显式登录字段；未登录、离线或服务端未提供时为 `unknown`。退出登录后，后续事件立即清除旧 `qid`。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-sls-logging-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`qid` 只取自服务端 `/auth/status` 的显式登录字段；未登录、离线或服务端未提供时为 `unknown`。退出登录后，后续事件立即清除旧 `qid`。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for auth at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/sls-logging.md · 行为与隐私边界 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-DEA71281158A7D] exactly: 每条记录的公共字段为：`key`、`platform`、`schema_version`、`mid`、`qid`、`auth_state`、`launch_id`、`version`、`channel`、`mode`、`packaged`、`os`、`os_version`、`arch`、`electron`、`core_version` 和 `_ts`。"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-E81CB6B0812390] exactly: `qid` 只取自服务端 `/auth/status` 的显式登录字段；未登录、离线或服务端未提供时为 `unknown`。退出登录后，后续事件立即清除旧 `qid`。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "每条记录的公共字段为：`key`、`platform`、`schema_version`、`mid`、`qid`、`auth_state`、`launch_id`、`version`、`channel`、`mode`、`packaged`、`os`、`os_version`、`arch`、`electron`、`core_version` 和 `_ts`。",
+    "`qid` 只取自服务端 `/auth/status` 的显式登录字段；未登录、离线或服务端未提供时为 `unknown`。退出登录后，后续事件立即清除旧 `qid`。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-DEA71281158A7D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 每条记录的公共字段为：`key`、`platform`、`schema_version`、`mid`、`qid`、`auth_state`、`launch_id`、`version`、`channel`、`mode`、`packaged`、`os`、`os_version`、`arch`、`electron`、`core_version` 和 `_ts`。",
+    "FAIL [REQ-E81CB6B0812390]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `qid` 只取自服务端 `/auth/status` 的显式登录字段；未登录、离线或服务端未提供时为 `unknown`。退出登录后，后续事件立即清除旧 `qid`。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-DEA71281158A7D",
+      "type": "api",
+      "assertion": "每条记录的公共字段为：`key`、`platform`、`schema_version`、`mid`、`qid`、`auth_state`、`launch_id`、`version`、`channel`、`mode`、`packaged`、`os`、`os_version`、`arch`、`electron`、`core_version` 和 `_ts`。"
+    },
+    {
+      "requirement_id": "REQ-E81CB6B0812390",
+      "type": "api",
+      "assertion": "`qid` 只取自服务端 `/auth/status` 的显式登录字段；未登录、离线或服务端未提供时为 `unknown`。退出登录后，后续事件立即清除旧 `qid`。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-sls-logging-md.item-6e445e49ca",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "auth",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for auth at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/sls-logging.md · 行为与隐私边界 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-DEA71281158A7D] exactly: 每条记录的公共字段为：`key`、`platform`、`schema_version`、`mid`、`qid`、`auth_state`、`launch_id`、`version`、`channel`、`mode`、`packaged`、`os`、`os_version`、`arch`、`electron`、`core_version` 和 `_ts`。"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-E81CB6B0812390] exactly: `qid` 只取自服务端 `/auth/status` 的显式登录字段；未登录、离线或服务端未提供时为 `unknown`。退出登录后，后续事件立即清除旧 `qid`。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-DEA71281158A7D",
+      "REQ-E81CB6B0812390"
+    ],
+    "categories": [
+      "permission"
+    ],
+    "suite_ids": [
+      "category:permission",
+      "full",
+      "requirement:REQ-DEA71281158A7D",
+      "requirement:REQ-E81CB6B0812390"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-DEA71281158A7D",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/sls-logging.md · 行为与隐私边界 产品契约 exactly once and retain its correlation identity",
+      "then": "每条记录的公共字段为：`key`、`platform`、`schema_version`、`mid`、`qid`、`auth_state`、`launch_id`、`version`、`channel`、`mode`、`packaged`、`os`、`os_version`、`arch`、`electron`、`core_version` 和 `_ts`。",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-E81CB6B0812390",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/sls-logging.md · 行为与隐私边界 产品契约 exactly once and retain its correlation identity",
+      "then": "`qid` 只取自服务端 `/auth/status` 的显式登录字段；未登录、离线或服务端未提供时为 `unknown`。退出登录后，后续事件立即清除旧 `qid`。",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

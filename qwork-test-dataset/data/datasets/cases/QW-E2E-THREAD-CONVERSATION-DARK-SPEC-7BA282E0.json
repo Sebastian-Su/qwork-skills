@@ -1,0 +1,283 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-THREAD-CONVERSATION-DARK-SPEC-7BA282E0",
+  "title": "产物卡片在深色下是深色面板、亮色文字、深色图标底，而非浅底黑字",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-thread-conversation-dark-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/thread-conversation-dark.spec.ts",
+      "locator": "line:80;test:产物卡片在深色下是深色面板、亮色文字、深色图标底，而非浅底黑字",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:7ba282e088facebb1d75a69aa5bd34b6b26eafa87c448e322539d28ffbdf7892",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-59BECDF357F2EF",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-thread-conversation-dark-spec-ts:L80:7ba282e088"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "产物卡片在深色下是深色面板、亮色文字、深色图标底，而非浅底黑字",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-thread-conversation-dark-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "产物卡片在深色下是深色面板、亮色文字、深色图标底，而非浅底黑字"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "createTestHome(\"thread-dark-artifact\")"
+    },
+    {
+      "action": "configureWorkspace(configHome)"
+    },
+    {
+      "action": "launchApp(configHome)"
+    },
+    {
+      "action": "app.firstWindow()"
+    },
+    {
+      "action": "enterOfficeArtifactThread(page, workspace, \"报告.docx\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /打开产出物 报告\\.docx/ })"
+    },
+    {
+      "action": "enableDarkTheme(page)"
+    },
+    {
+      "action": "card.evaluate((el) => getComputedStyle(el).backgroundColor)"
+    },
+    {
+      "action": "getComputedStyle(el)"
+    },
+    {
+      "action": "card.getByText(\"报告.docx\", { exact: true })"
+    },
+    {
+      "action": "fileName.evaluate((el) => getComputedStyle(el).color)"
+    },
+    {
+      "action": "getComputedStyle(el)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(card).toBeVisible({ timeout: 60_000 })",
+    "expect(LIGHT_BACKGROUNDS.has(cardBg)).toBe(false)",
+    "expect(relativeLuminance(parseRgb(cardBg))).toBeLessThan(0.2)",
+    "expect(relativeLuminance(parseRgb(nameColor))).toBeGreaterThan(0.5)",
+    "expect(iconSlotBg).not.toBe(\"rgb(255, 255, 255)\")",
+    "expect(relativeLuminance(parseRgb(iconSlotBg))).toBeLessThan(0.3)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-59BECDF357F2EF",
+      "type": "ui",
+      "assertion": "产物卡片在深色下是深色面板、亮色文字、深色图标底，而非浅底黑字"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-thread-conversation-dark-spec-ts.7ba282e088",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/thread-conversation-dark.spec.ts -g \"产物卡片在深色下是深色面板、亮色文字、深色图标底，而非浅底黑字\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "createTestHome(\"thread-dark-artifact\")"
+        },
+        {
+          "action": "configureWorkspace(configHome)"
+        },
+        {
+          "action": "launchApp(configHome)"
+        },
+        {
+          "action": "app.firstWindow()"
+        },
+        {
+          "action": "enterOfficeArtifactThread(page, workspace, \"报告.docx\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /打开产出物 报告\\.docx/ })"
+        },
+        {
+          "action": "enableDarkTheme(page)"
+        },
+        {
+          "action": "card.evaluate((el) => getComputedStyle(el).backgroundColor)"
+        },
+        {
+          "action": "getComputedStyle(el)"
+        },
+        {
+          "action": "card.getByText(\"报告.docx\", { exact: true })"
+        },
+        {
+          "action": "fileName.evaluate((el) => getComputedStyle(el).color)"
+        },
+        {
+          "action": "getComputedStyle(el)"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/thread-conversation-dark.spec.ts",
+        "line_start": 80,
+        "line_end": 116,
+        "body_sha256": "sha256:de31400eaa424837e7feeda5641582a21489b72856d18c39d88aee4ad6dfc0ad",
+        "assertion_count": 6,
+        "action_count": 0,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:5c43b7d350504b4f00475b68d095ed27d1c27c2cda3693f14a2ef6fd65d84b24"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-59BECDF357F2EF"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-59BECDF357F2EF"
+    ]
+  }
+}

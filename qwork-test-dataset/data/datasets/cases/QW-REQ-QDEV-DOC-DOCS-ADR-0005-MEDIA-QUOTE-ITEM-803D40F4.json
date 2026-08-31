@@ -1,0 +1,307 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-ADR-0005-MEDIA-QUOTE-ITEM-803D40F4",
+  "title": "docs/adr/0005-media-quote-pricing-and-settlement.md · 一期约束 产品契约",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-adr-0005-media-quote-pricing-and-settlement-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/adr/0005-media-quote-pricing-and-settlement.md",
+      "locator": "line:25;heading:一期约束",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:fc918df42f9fd0e99ad405e65742e73b53e4aab738b300471e6a06f81a7f6a89",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-adr-0005-media-quote-pricing-and-settlement-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/adr/0005-media-quote-pricing-and-settlement.md",
+      "locator": "line:27;heading:一期约束",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:92a596c7b479daec3acdca8c6d7e34700d9a710e0602fe7d24fc3e1cae27efe4",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-E62004999E8E78",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-adr-0005-media-quote-pricing-and-settlement-md:L25:fc918df42f"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "在报价与价格覆盖完成前，生产只允许业务已确认价格的标准组合：图片一张、单一分辨率；视频固定 5 秒、明确分辨率、声音和模式。其他参数返回 `pricing_not_found`，不得以固定模型价兜底。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-adr-0005-media-quote-pricing-and-settlement-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "在报价与价格覆盖完成前，生产只允许业务已确认价格的标准组合：图片一张、单一分辨率；视频固定 5 秒、明确分辨率、声音和模式。其他参数返回 `pricing_not_found`，不得以固定模型价兜底。"
+    },
+    {
+      "requirement_id": "REQ-DBF1597A2C070C",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-adr-0005-media-quote-pricing-and-settlement-md:L27:92a596c7b4"
+      ],
+      "content_facets": [
+        "ui-interaction"
+      ],
+      "acceptance_categories": [
+        "ui-interaction"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "正式用户默认不直接选择厂商模型；Agent 提交产品质量意图，qwork_server 根据已发布能力和价格路由。内部测试可以保留显式模型参数。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-adr-0005-media-quote-pricing-and-settlement-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "正式用户默认不直接选择厂商模型；Agent 提交产品质量意图，qwork_server 根据已发布能力和价格路由。内部测试可以保留显式模型参数。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/adr/0005-media-quote-pricing-and-settlement.md · 一期约束 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-E62004999E8E78] exactly: 在报价与价格覆盖完成前，生产只允许业务已确认价格的标准组合：图片一张、单一分辨率；视频固定 5 秒、明确分辨率、声音和模式。其他参数返回 `pricing_not_found`，不得以固定模型价兜底。"
+    },
+    {
+      "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-DBF1597A2C070C] exactly: 正式用户默认不直接选择厂商模型；Agent 提交产品质量意图，qwork_server 根据已发布能力和价格路由。内部测试可以保留显式模型参数。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "在报价与价格覆盖完成前，生产只允许业务已确认价格的标准组合：图片一张、单一分辨率；视频固定 5 秒、明确分辨率、声音和模式。其他参数返回 `pricing_not_found`，不得以固定模型价兜底。",
+    "正式用户默认不直接选择厂商模型；Agent 提交产品质量意图，qwork_server 根据已发布能力和价格路由。内部测试可以保留显式模型参数。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-E62004999E8E78]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 在报价与价格覆盖完成前，生产只允许业务已确认价格的标准组合：图片一张、单一分辨率；视频固定 5 秒、明确分辨率、声音和模式。其他参数返回 `pricing_not_found`，不得以固定模型价兜底。",
+    "FAIL [REQ-DBF1597A2C070C]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 正式用户默认不直接选择厂商模型；Agent 提交产品质量意图，qwork_server 根据已发布能力和价格路由。内部测试可以保留显式模型参数。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-E62004999E8E78",
+      "type": "return",
+      "assertion": "在报价与价格覆盖完成前，生产只允许业务已确认价格的标准组合：图片一张、单一分辨率；视频固定 5 秒、明确分辨率、声音和模式。其他参数返回 `pricing_not_found`，不得以固定模型价兜底。"
+    },
+    {
+      "requirement_id": "REQ-DBF1597A2C070C",
+      "type": "ui-interaction",
+      "assertion": "正式用户默认不直接选择厂商模型；Agent 提交产品质量意图，qwork_server 根据已发布能力和价格路由。内部测试可以保留显式模型参数。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-adr-0005-media-quote-p.item-803d40f454",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/adr/0005-media-quote-pricing-and-settlement.md · 一期约束 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-E62004999E8E78] exactly: 在报价与价格覆盖完成前，生产只允许业务已确认价格的标准组合：图片一张、单一分辨率；视频固定 5 秒、明确分辨率、声音和模式。其他参数返回 `pricing_not_found`，不得以固定模型价兜底。"
+        },
+        {
+          "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-DBF1597A2C070C] exactly: 正式用户默认不直接选择厂商模型；Agent 提交产品质量意图，qwork_server 根据已发布能力和价格路由。内部测试可以保留显式模型参数。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-DBF1597A2C070C",
+      "REQ-E62004999E8E78"
+    ],
+    "categories": [
+      "negative",
+      "ui-interaction"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "category:ui-interaction",
+      "full",
+      "requirement:REQ-DBF1597A2C070C",
+      "requirement:REQ-E62004999E8E78"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-E62004999E8E78",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/adr/0005-media-quote-pricing-and-settlement.md · 一期约束 产品契约 exactly once and retain its correlation identity",
+      "then": "在报价与价格覆盖完成前，生产只允许业务已确认价格的标准组合：图片一张、单一分辨率；视频固定 5 秒、明确分辨率、声音和模式。其他参数返回 `pricing_not_found`，不得以固定模型价兜底。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-DBF1597A2C070C",
+      "oracle_type": "ui-interaction",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/adr/0005-media-quote-pricing-and-settlement.md · 一期约束 产品契约 exactly once and retain its correlation identity",
+      "then": "正式用户默认不直接选择厂商模型；Agent 提交产品质量意图，qwork_server 根据已发布能力和价格路由。内部测试可以保留显式模型参数。",
+      "observation_boundary": "renderer input/output interaction boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

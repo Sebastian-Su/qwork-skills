@@ -1,0 +1,314 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-EDGEONE-RESTART-SPEC-75FAF335",
+  "title": "stops and retries EdgeOne login, then restores only after official status succeeds",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-edgeone-restart-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-edgeone-restart.spec.ts",
+      "locator": "line:85;test:stops and retries EdgeOne login, then restores only after official status succeeds",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:75faf335ce104d766bba1ab2f77fdef27d64048c3f5b0cc2cd746b6986c2be3e",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-32372E8B73B803",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-edgeone-restart-spec-ts:L85:75faf335ce"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "stops and retries EdgeOne login, then restores only after official status succeeds",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-edgeone-restart-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "stops and retries EdgeOne login, then restores only after official status succeeds"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "launched.page .getByRole(\"button\", { name: \"EdgeOne Makers，未连接\", exact: true }) .click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"停止连接\", exact: true }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+    },
+    {
+      "action": "launched.page .getByRole(\"button\", { name: \"EdgeOne Makers，已连接\", exact: true }) .click()"
+    },
+    {
+      "action": "linkedDetail .getByRole(\"button\", { name: \"解绑\", exact: true }) .click()"
+    },
+    {
+      "action": "linkedDetail .getByRole(\"button\", { name: \"启用\", exact: true }) .click()"
+    },
+    {
+      "action": "linkedDetail .getByRole(\"button\", { name: \"解绑\", exact: true }) .click()"
+    },
+    {
+      "action": "launched.page .getByRole(\"button\", { name: \"EdgeOne Makers，未连接\", exact: true }) .click()"
+    },
+    {
+      "action": "linkedDetail .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
+    },
+    {
+      "action": "launched.page.reload()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect .poll(async () => readLines(providerCwdSink)) .toEqual([managedLifecycleCwd])",
+    "expect( detail.getByRole(\"button\", { name: \"停止连接\", exact: true }), ).toBeVisible()",
+    "expect(readLines(providerBrowserSink)).resolves.toEqual([])",
+    "expect .poll(async () => readLines(qworkAuthSink)) .toEqual([LOGIN_URLS[0]])",
+    "expect(readLines(installSink)).resolves.toEqual([])",
+    "expect .poll(async () => { const state = JSON.parse(await fs.readFile(providerState, \"utf8\")) as { authenticated: boolean; loginCalls: number; }; return state; }) .toMatchObject({ authenticated: false, loginCalls: 1 })",
+    "expect( detail.getByRole(\"button\", { name: \"连接\", exact: true }), ).toBeVisible()",
+    "expect .poll(async () => readLines(qworkAuthSink)) .toEqual([LOGIN_URLS[0], LOGIN_URLS[1]])",
+    "expect .poll(async () => { const state = JSON.parse(await fs.readFile(providerState, \"utf8\")) as { loginCalls: number; }; return state.loginCalls; }) .toBe(2)",
+    "expect( detail.getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible()",
+    "expect .poll(async () => Promise.all( providerCredentialFiles.map(async (file) => { try { await fs.access(file); return true; } catch { return false; } }), ), ) .toEqual([true, true, true])",
+    "expect .poll(async () => new Set(await readLines(providerCwdSink))) .toEqual(new Set([managedLifecycleCwd]))",
+    "expect .poll(async () => readMcpLog(mcpLog)) .toEqual([ expect.objectContaining({ type: \"mcp_server_upsert\", server: expect.objectContaining({ name: CONNECTOR_ID, command: \"npx\", args: PINNED_ARGS, }), }), ])",
+    "expect( launched.page.getByRole(\"button\", { name: \"EdgeOne Makers，已连接\", exact: true, }), ).not.toBeVisible({ timeout: 4_000 })",
+    "expect .poll(async () => { const state = JSON.parse(await fs.readFile(providerState, \"utf8\")) as { loginCalls: number; statusCalls: number; }; return ( state.loginCalls === beforeRestart.loginCalls && state.statusCalls > beforeRestart.statusCalls ); }) .toBe(true)",
+    "expect(readLines(providerBrowserSink)).resolves.toEqual([])",
+    "expect(readLines(qworkAuthSink)).resolves.toEqual([ LOGIN_URLS[0], LOGIN_URLS[1], ])",
+    "expect.poll(async () => readMcpLog(mcpLog)).toHaveLength(1)",
+    "expect( launched.page.getByRole(\"button\", { name: \"EdgeOne Makers，已连接\", exact: true, }), ).toBeVisible({ timeout: 20_000 })",
+    "expect(linkedDetail.getByRole(\"alert\")).toContainText( \"保留凭据以便重试\", )",
+    "expect( // The retry dialog is modal, so Radix intentionally hides the catalog // from the accessibility tree. Its aria-label remains the stable visual // contract for confirming the refreshed card underneath the dialog. launched.page.locator('button[aria-label=\"EdgeOne Makers，已停用\"]'), ).toBeVisible()",
+    "expect( linkedDetail.getByRole(\"button\", { name: \"启用\", exact: true }), ).toBeVisible()",
+    "expect .poll(async () => Promise.all( providerCredentialFiles.map(async (file) => { try { await fs.access(file); return true; } catch { return false; } }), ), ) .toEqual([false, false, false])",
+    "expect(linkedDetail.getByRole(\"alert\")).toContainText(\"解绑尚未完成\")",
+    "expect(afterRejectedEnable).toMatchObject(failedUnbindState)",
+    "expect( launched.page.getByRole(\"button\", { name: \"EdgeOne Makers，未连接\", exact: true, }), ).toBeVisible()",
+    "expect .poll(async () => { const state = JSON.parse(await fs.readFile(providerState, \"utf8\")) as { authenticated: boolean; logoutCalls: number; }; return state; }) .toMatchObject({ authenticated: false, logoutCalls: beforeUnbind.logoutCalls + 2, })",
+    "expect .poll(async () => readLines(qworkAuthSink)) .toEqual([LOGIN_URLS[0], LOGIN_URLS[1], LOGIN_URLS[2]])",
+    "expect .poll(async () => { const state = JSON.parse(await fs.readFile(providerState, \"utf8\")) as { authenticated: boolean; loginCalls: number; }; return state; }) .toMatchObject({ authenticated: false, loginCalls: beforeUnbind.loginCalls + 1, })",
+    "expect( launched.page.getByRole(\"button\", { name: \"EdgeOne Makers，已连接\", exact: true, }), ).not.toBeVisible()",
+    "expect( (await readMcpLog(mcpLog)).filter( (entry) => entry.type === \"mcp_server_upsert\", ), ).toHaveLength(upsertsBeforeRelink)",
+    "expect( linkedDetail.getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible({ timeout: 20_000 })",
+    "expect .poll( async () => (await readMcpLog(mcpLog)).filter( (entry) => entry.type === \"mcp_server_upsert\", ).length, ) .toBe(upsertsBeforeRelink + 1)",
+    "expect( launched.page.getByRole(\"button\", { name: \"EdgeOne Makers，未连接\", exact: true, }), ).toBeVisible({ timeout: 4_000 })",
+    "expect .poll( async () => (await readMcpLog(mcpLog)).filter( (entry) => entry.type === \"mcp_server_remove\" && entry.name === CONNECTOR_ID, ).length, { timeout: 10_000 }, ) .toBe(removalsBeforeRevocation + 1)",
+    "expect(readMcpLog(mcpLog)).resolves.toEqual( expect.arrayContaining([ expect.objectContaining({ type: \"mcp_server_remove\", name: CONNECTOR_ID, scope: \"user\", }), ]), )",
+    "expect(readLines(providerBrowserSink)).resolves.toEqual([])",
+    "expect .poll(async () => { const state = JSON.parse(await fs.readFile(providerState, \"utf8\")) as { statusCalls: number; }; return state.statusCalls; }) .toBeGreaterThan(statusCallsBeforeInvalidRestart)",
+    "expect( launched.page.getByRole(\"button\", { name: \"EdgeOne Makers，未连接\", exact: true, }), ).toBeVisible({ timeout: 4_000 })",
+    "expect(readMcpLog(mcpLog)).resolves.toEqual([])",
+    "expect(readLines(providerBrowserSink)).resolves.toEqual([])",
+    "expect(readLines(qworkAuthSink)).resolves.toEqual([ LOGIN_URLS[0], LOGIN_URLS[1], LOGIN_URLS[2], ])",
+    "expect( JSON.stringify(await launched.page.locator(\"body\").allTextContents()), ).not.toContain(\"ACCOUNT-\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-32372E8B73B803",
+      "type": "return",
+      "assertion": "stops and retries EdgeOne login, then restores only after official status succeeds"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-edgeone-restart-spec-ts.75faf335ce",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-edgeone-restart.spec.ts -g \"stops and retries EdgeOne login, then restores only after official status succeeds\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "launched.page .getByRole(\"button\", { name: \"EdgeOne Makers，未连接\", exact: true }) .click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"停止连接\", exact: true }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
+        },
+        {
+          "action": "launched.page .getByRole(\"button\", { name: \"EdgeOne Makers，已连接\", exact: true }) .click()"
+        },
+        {
+          "action": "linkedDetail .getByRole(\"button\", { name: \"解绑\", exact: true }) .click()"
+        },
+        {
+          "action": "linkedDetail .getByRole(\"button\", { name: \"启用\", exact: true }) .click()"
+        },
+        {
+          "action": "linkedDetail .getByRole(\"button\", { name: \"解绑\", exact: true }) .click()"
+        },
+        {
+          "action": "launched.page .getByRole(\"button\", { name: \"EdgeOne Makers，未连接\", exact: true }) .click()"
+        },
+        {
+          "action": "linkedDetail .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
+        },
+        {
+          "action": "launched.page.reload()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-edgeone-restart.spec.ts",
+        "line_start": 85,
+        "line_end": 684,
+        "body_sha256": "sha256:fce0efbf00aab2000cb5d6d352d620d5c6e7e807c41532011e9e50a97ba8c290",
+        "assertion_count": 43,
+        "action_count": 11,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:9e544b842956995604cc6436950671e919351c06827c7e853109aeb7567998bf"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-32372E8B73B803"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-32372E8B73B803"
+    ]
+  }
+}

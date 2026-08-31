@@ -21,12 +21,26 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:85ff240e46f46e6489e05c2ca1711896c4bf84d7:e2e/automation-parity.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/automation-parity.spec.ts",
       "locator": "line:176;test:covers template creation, edit controls, manual test, run navigation, archive and batch deletion",
-      "revision": "85ff240e46f46e6489e05c2ca1711896c4bf84d7",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-24T11:49:25.954117+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:305220d08d40424badc2c23e0c0acaa7afc7b5dd4e8ff00843cf856f15569de6",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-automation-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/automation-parity.spec.ts",
+      "locator": "line:177;test:covers template creation, edit controls, manual test, run navigation, archive and batch deletion",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:305220d08d40424badc2c23e0c0acaa7afc7b5dd4e8ff00843cf856f15569de6",
       "redaction_status": "minimized"
     }
@@ -57,6 +71,32 @@
         "reason": "compiled from the user-approved source hierarchy"
       },
       "oracle": "covers template creation, edit controls, manual test, run navigation, archive and batch deletion"
+    },
+    {
+      "requirement_id": "REQ-6AE3D4ABD98092",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-automation-parity-spec-ts:L177:305220d08d"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "covers template creation, edit controls, manual test, run navigation, archive and batch deletion",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-automation-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "covers template creation, edit controls, manual test, run navigation, archive and batch deletion"
     }
   ],
   "verification": {
@@ -78,9 +118,6 @@
       "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"从模板添加\", exact: true }).click()"
-    },
-    {
       "action": "page.getByRole(\"button\", { name: /每日AI新闻/ }).click()"
     },
     {
@@ -96,10 +133,10 @@
       "action": "validity.click()"
     },
     {
-      "action": "calendar.getByRole(\"button\", { name: /2026年8月12日/ }).click()"
+      "action": "selectableDates.nth(11).click()"
     },
     {
-      "action": "calendar.getByRole(\"button\", { name: /2026年8月15日/ }).click()"
+      "action": "selectableDates.nth(14).click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"保存\", exact: true }).click()"
@@ -184,12 +221,10 @@
     }
   ],
   "expected_outcomes": [
-    "expect(addActions).toHaveCount(2)",
+    "expect(addActions).toHaveCount(1)",
     "expect(addActions.nth(index)).toHaveCSS(\"background-color\", \"rgba(0, 0, 0, 0.9)\")",
     "expect(addActions.nth(index)).toHaveCSS(\"color\", \"rgb(255, 255, 255)\")",
     "expect(addActions.nth(index)).toHaveCSS(\"border-radius\", \"8px\")",
-    "expect(page.getByRole(\"toolbar\", { name: \"自动化模板工具栏\" })).toBeVisible()",
-    "expect(page.getByTestId(\"page-surface\")).toHaveAttribute(\"data-page-chrome-mode\", \"integrated\")",
     "expect(page.getByTestId(\"automation-template-card\")).toHaveCount(12)",
     "expect(page.getByRole(\"button\", { name: /每日AI新闻/ })).toBeVisible()",
     "expect(page.getByPlaceholder(\"给自动化任务起个名字\")).toHaveValue(\"每日AI新闻\")",
@@ -202,8 +237,11 @@
     "expect(page.getByRole(\"button\", { name: \"周期频率\" })).toContainText(\"每天\")",
     "expect(calendar).toHaveCSS(\"width\", \"340px\")",
     "expect(calendar).toHaveCSS(\"height\", \"373px\")",
-    "expect(validity).toContainText(\"2026/08/12 —\")",
-    "expect(validity).toContainText(\"2026/08/12 — 2026/08/15\")",
+    "expect(selectableDates).toHaveCount(42)",
+    "expect(startLabel).toBeTruthy()",
+    "expect(endLabel).toBeTruthy()",
+    "expect(validity).toContainText(`${displayDate(startLabel!)} —`)",
+    "expect(validity).toContainText(`${displayDate(startLabel!)} — ${displayDate(endLabel!)}`)",
     "expect(page.getByText(\"每日AI新闻\", { exact: true })).toBeVisible()",
     "expect(moreMenu).toHaveAttribute(\"aria-expanded\", \"true\")",
     "expect(moreMenu).toHaveAttribute(\"aria-expanded\", \"false\")",
@@ -226,6 +264,11 @@
   "oracles": [
     {
       "requirement_id": "REQ-5F10A7331A23A3",
+      "type": "return",
+      "assertion": "covers template creation, edit controls, manual test, run navigation, archive and batch deletion"
+    },
+    {
+      "requirement_id": "REQ-6AE3D4ABD98092",
       "type": "return",
       "assertion": "covers template creation, edit controls, manual test, run navigation, archive and batch deletion"
     }
@@ -289,9 +332,6 @@
           "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: \"从模板添加\", exact: true }).click()"
-        },
-        {
           "action": "page.getByRole(\"button\", { name: /每日AI新闻/ }).click()"
         },
         {
@@ -307,10 +347,10 @@
           "action": "validity.click()"
         },
         {
-          "action": "calendar.getByRole(\"button\", { name: /2026年8月12日/ }).click()"
+          "action": "selectableDates.nth(11).click()"
         },
         {
-          "action": "calendar.getByRole(\"button\", { name: /2026年8月15日/ }).click()"
+          "action": "selectableDates.nth(14).click()"
         },
         {
           "action": "page.getByRole(\"button\", { name: \"保存\", exact: true }).click()"
@@ -412,13 +452,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/automation-parity.spec.ts",
-        "line_start": 176,
-        "line_end": 272,
-        "body_sha256": "sha256:fe812b4ef8bc0bf526501014d4a67993c9201ae063af3bdff986433a76b54da7",
-        "assertion_count": 33,
-        "action_count": 36,
-        "execution_revision": "cd8f67177fde78ea96cfc8529dbad71afdc0c0c7",
-        "spec_sha256": "sha256:79194639bbdbfacae6ee612852a5d73298b2d8fc23a74fe225395923d785e578"
+        "line_start": 177,
+        "line_end": 276,
+        "body_sha256": "sha256:1a01b632b2b9c73216827ae082bb3a73043becd89d877f5134616ea88d45dd3c",
+        "assertion_count": 34,
+        "action_count": 35,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:ecae4b878dd5e7c2de0ccce92010d2674ba8337ecaa22785242690b79386cc30"
       }
     },
     "reference_run": {
@@ -440,7 +480,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-5F10A7331A23A3"
+      "REQ-5F10A7331A23A3",
+      "REQ-6AE3D4ABD98092"
     ],
     "categories": [
       "business"
@@ -448,7 +489,8 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-5F10A7331A23A3"
+      "requirement:REQ-5F10A7331A23A3",
+      "requirement:REQ-6AE3D4ABD98092"
     ]
   }
 }
