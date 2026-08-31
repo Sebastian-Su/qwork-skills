@@ -176,7 +176,7 @@ process.stdout.write(`${JSON.stringify({ status: report.status, report: reportPa
 process.exitCode = report.status === "pass" ? 0 : 1;
 
 function preserveSymlinks(value) {
-  return `${value || ""} --preserve-symlinks`.trim();
+  return `${value || ""} --preserve-symlinks --preserve-symlinks-main`.trim();
 }
 
 function playwrightDebug(value) {

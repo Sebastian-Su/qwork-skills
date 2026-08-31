@@ -50,6 +50,10 @@ def main() -> int:
         "src/shared/protocol.ts",
         "+ qwork_api_credentials: true",
     ) == "media-generation"
+    assert builder.infer_surface(
+        "src/shared/api.ts",
+        "+ resolveDroppedFiles(files: File[]): Promise<string[]>",
+    ) == "composer-file-attachment"
     assert builder.gate_only_item_ids("vitest.config.ts", "") == ["gate:coverage"]
     assert builder.gate_only_item_ids(
         "e2e/fixtures/launch.ts",
@@ -63,6 +67,26 @@ def main() -> int:
         "docs/team-collaboration/interface-ledger.md",
         "+ protocol evidence",
     ) == ["gate:source-dispositions"]
+    assert builder.gate_only_item_ids(
+        "docs/changes/CHG-996386/change-record.yaml",
+        "+ corrected verification evidence",
+    ) == ["gate:source-dispositions"]
+    assert builder.gate_only_item_ids(
+        "docs/expert-journey-phase2-coverage.yaml",
+        "+ corrected acceptance mapping",
+    ) == ["gate:source-dispositions"]
+    assert builder.gate_only_item_ids(
+        "src/renderer/src/components/project/PlanBoard.test.tsx",
+        "+ vi.setSystemTime(new Date(2026, 7, 8, 9, 0, 0))",
+    ) == ["gate:unit-integration"]
+    assert builder.gate_only_item_ids(
+        "src/main/ipc/sessionCreate.integration.test.ts",
+        "+ expect(result).toEqual(expected)",
+    ) == ["gate:unit-integration"]
+    assert builder.gate_only_item_ids(
+        "e2e/composer-file-attachment.spec.ts",
+        "+ test('drops files', async () => {})",
+    ) == []
     semantic, anchors = builder.infer_unique_semantic_cases(
         {
             "EXPERT-CONTEXT": {
@@ -107,6 +131,34 @@ def main() -> int:
     assert media_selected == ["IMAGEGEN", "VIDEOGEN"]
     assert media_excluded == []
     assert media_noncausal == []
+    attachment_selected, attachment_excluded, attachment_noncausal = builder.infer_executable_capability_cases(
+        {
+            "ATTACHMENT": {
+                "coverage": {"capability_id": "files"},
+                "execution_contract": {
+                    "launch": {"strategy": "command"},
+                    "observability": {"source_contract": {
+                        "spec": "e2e/composer-file-attachment.spec.ts",
+                        "action_count": 4,
+                    }},
+                },
+            },
+            "UNRELATED-FILES": {
+                "coverage": {"capability_id": "files"},
+                "execution_contract": {
+                    "launch": {"strategy": "command"},
+                    "observability": {"source_contract": {
+                        "spec": "e2e/user-delivery.spec.ts",
+                        "action_count": 4,
+                    }},
+                },
+            },
+        },
+        "composer-file-attachment",
+    )
+    assert attachment_selected == ["ATTACHMENT"]
+    assert attachment_excluded == []
+    assert attachment_noncausal == []
     assert builder.case_requires_macos_native_fullscreen({
         "title": "macOS 原生全屏移除交通灯偏移",
         "execution_contract": {"observability": {"source_contract": {
@@ -215,14 +267,56 @@ def main() -> int:
                     }
                 },
             },
+            "SOURCE-REQUIREMENT": {
+                "title": "source requirement without a Playwright contract",
+                "execution_contract": {
+                    "observability": {"source_contract": None},
+                },
+            },
         },
-        ["CURRENT", "OLD"],
+        ["CURRENT", "OLD", "SOURCE-REQUIREMENT"],
         head="head",
         path="e2e/model.spec.ts",
         current_content='test("new Auto priority", () => {})',
     )
-    assert retained == ["CURRENT"]
+    assert retained == ["CURRENT", "SOURCE-REQUIREMENT"]
     assert superseded == ["OLD"]
+    changed_cases, changed_atoms, removed_atoms = builder.select_changed_source_cases(
+        path="docs/qwork-expert-team-prd.md",
+        base="base",
+        head="head",
+        sources=[
+            {
+                "source_id": "BASE-PRD",
+                "locator": "git:base:docs/qwork-expert-team-prd.md",
+                "inventory": {"atoms": [
+                    {"atom_id": "BASE:L10:same", "extracted_value_hash": "sha256:same"},
+                    {"atom_id": "BASE:L20:old", "extracted_value_hash": "sha256:old"},
+                ]},
+            },
+            {
+                "source_id": "HEAD-PRD",
+                "locator": "git:head:docs/qwork-expert-team-prd.md",
+                "inventory": {"atoms": [
+                    {"atom_id": "HEAD:L10:same", "extracted_value_hash": "sha256:same"},
+                    {"atom_id": "HEAD:L20:new", "extracted_value_hash": "sha256:new"},
+                ]},
+            },
+        ],
+        requirements=[
+            {"requirement_id": "REQ-UNCHANGED", "source_atoms": [{"source_id": "HEAD-PRD", "atom_id": "HEAD:L10:same"}]},
+            {"requirement_id": "REQ-OLD", "source_atoms": [{"source_id": "BASE-PRD", "atom_id": "BASE:L20:old"}]},
+            {"requirement_id": "REQ-NEW", "source_atoms": [{"source_id": "HEAD-PRD", "atom_id": "HEAD:L20:new"}]},
+        ],
+        requirement_cases={
+            "REQ-UNCHANGED": ["UNRELATED-CASE"],
+            "REQ-OLD": ["OLD-CASE"],
+            "REQ-NEW": ["MARKET-SORT-CASE"],
+        },
+    )
+    assert changed_cases == ["MARKET-SORT-CASE"]
+    assert changed_atoms == ["HEAD:L20:new"]
+    assert removed_atoms == ["BASE:L20:old"]
     print("plan surface inference: ok")
     return 0
 

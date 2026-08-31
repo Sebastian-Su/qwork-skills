@@ -41,7 +41,8 @@ def main() -> int:
     }
 
     configured_atoms: dict[tuple[str, str], dict] = {}
-    for source_id, source_policy in policy["sources"].items():
+    for policy_source_id, source_policy in policy["sources"].items():
+        source_id = str(source_policy.get("source_id") or policy_source_id)
         source_locator = str(source_policy.get("source_locator") or "")
         source_parts = source_locator.split(":", 2)
         source_path = source_parts[2] if len(source_parts) == 3 else ""

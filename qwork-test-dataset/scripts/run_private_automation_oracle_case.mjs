@@ -6,17 +6,21 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { resolvePrivateRunRoot } from "./private-case-authority.mjs";
 
 const scriptRoot = path.dirname(fileURLToPath(import.meta.url));
 const skillRoot = path.resolve(scriptRoot, "..");
 const args = process.argv.slice(2);
 const values = parseArgs(args);
 const repo = path.resolve(values.repo || process.cwd());
-const runRoot = path.resolve(values["run-root"] || "");
-const relative = path.relative(skillRoot, runRoot);
-if (!values["run-root"] || !relative || relative.startsWith("..") || path.isAbsolute(relative)) {
-  throw new Error("--run-root must be inside the private Dataset Skill");
-}
+const skillEntry = path.join(repo, ".agents/skills/qwork-test-dataset");
+if (!values["run-root"]) throw new Error("--run-root is required");
+const runRoot = await resolvePrivateRunRoot({
+  skillEntry,
+  skillRoot,
+  cwd: process.cwd(),
+  value: values["run-root"],
+});
 
 const result = await run(process.execPath, [path.join(scriptRoot, "run_private_playwright_case.mjs"), ...args]);
 const reportPath = path.join(runRoot, "report.json");

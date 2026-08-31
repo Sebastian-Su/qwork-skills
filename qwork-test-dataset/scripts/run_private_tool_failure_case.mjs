@@ -6,15 +6,21 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { resolvePrivateRunRoot } from "./private-case-authority.mjs";
 
 const scriptRoot = path.dirname(fileURLToPath(import.meta.url));
 const skillRoot = path.resolve(scriptRoot, "..");
 const args = process.argv.slice(2);
 const values = Object.fromEntries(Array.from({ length: args.length / 2 }, (_, index) => [args[index * 2].replace(/^--/, ""), args[index * 2 + 1]]));
 const repo = path.resolve(values.repo || process.cwd());
-const runRoot = path.resolve(values["run-root"] || "");
-const relative = path.relative(skillRoot, runRoot);
-if (!values["run-root"] || !relative || relative.startsWith("..") || path.isAbsolute(relative)) throw new Error("--run-root must be inside the private Dataset Skill");
+const skillEntry = path.join(repo, ".agents/skills/qwork-test-dataset");
+if (!values["run-root"]) throw new Error("--run-root is required");
+const runRoot = await resolvePrivateRunRoot({
+  skillEntry,
+  skillRoot,
+  cwd: process.cwd(),
+  value: values["run-root"],
+});
 
 const child = spawn(process.execPath, [path.join(scriptRoot, "run_private_playwright_case.mjs"), ...args], { cwd: repo, env: process.env, stdio: ["ignore", "pipe", "pipe"] });
 let stdout = "";

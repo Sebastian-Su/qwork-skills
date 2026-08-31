@@ -3,7 +3,7 @@ policy:
   disposition: not_applicable
   invariant: "Only exact, hash-locked non-product atoms may leave the executable Case closed world; canonical multi-source requirements must be disposed in full."
 sources:
-  QDEV-DOC-docs-qwork-expert-team-prd-md:
+  QDEV-DOC-docs-qwork-expert-team-prd-md: &qwork_expert_prd_non_product_atoms
     source_locator: "git:12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1:docs/qwork-expert-team-prd.md"
     source_sha256: sha256:9924a1fc6d3c5987ca5e2ea04f8aec0e8d77c4db6cdbcd1afe09b7f15c186dcc
     atoms:
@@ -124,6 +124,18 @@ sources:
       - atom_locator: "line:834;heading:21. 变更记录"
         atom_sha256: sha256:a132e15c990e60234686692d5c5ea78b15455b1ba555b78a26f5ea0fb87b4918
         status_reason: "追溯链接与变更记录属于文档 provenance，不是产品运行时可观察行为"
+  QHEAD-DOC-docs-qwork-expert-team-prd-md:
+    <<: *qwork_expert_prd_non_product_atoms
+    source_locator: "git:12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1:docs/qwork-expert-team-prd.md"
+    source_sha256: sha256:9924a1fc6d3c5987ca5e2ea04f8aec0e8d77c4db6cdbcd1afe09b7f15c186dcc
+  QHEAD-DOC-docs-qwork-expert-team-prd-md-pending-hotness:
+    source_id: QHEAD-DOC-docs-qwork-expert-team-prd-md
+    source_locator: "git:119288a8350819e3ea467681682893cbe8e06034:docs/qwork-expert-team-prd.md"
+    source_sha256: sha256:3e92eb7ec0f8f3dca660b6e798ba3671d1322ab76bc44f5d8a1367190c24666d
+    atoms:
+      - atom_locator: "line:814;heading:19. 待确认项"
+        atom_sha256: sha256:39c1a46d1783d72693f783d22925baa9b5e8582818c2a306f0e5a1ac2aedb629
+        status_reason: "待确认的服务端热度口径、刷新周期与审计字段是后续决策项，不构成当前客户端发布的已批准可执行行为"
   QDEV-DOC-docs-expert-team-v1-spec-md:
     source_locator: "git:12516e70c0d2fefb4a50d5dbb9982586c5b1dbb1:docs/expert-team-v1-spec.md"
     source_sha256: sha256:5db138b45c6731ef5b019200722112157cb9749f8ba0623e0ffb9b987a20c610

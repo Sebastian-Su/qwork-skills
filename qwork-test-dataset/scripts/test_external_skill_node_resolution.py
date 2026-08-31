@@ -58,7 +58,17 @@ def main() -> int:
     project_entry = repo / ".agents/skills/qwork-test-dataset"
     if project_entry.resolve(strict=True) != script_root.parent:
         raise AssertionError(f"unexpected project Skill entry: {project_entry}")
-    node_options = f"{os.environ.get('NODE_OPTIONS', '')} --preserve-symlinks".strip()
+    private_runner = (script_root / "run_private_playwright_case.mjs").read_text(
+        encoding="utf-8"
+    )
+    if "--preserve-symlinks-main" not in private_runner:
+        raise AssertionError(
+            "private Playwright runner does not preserve the symlinked CLI main entry"
+        )
+    node_options = (
+        f"{os.environ.get('NODE_OPTIONS', '')} "
+        "--preserve-symlinks --preserve-symlinks-main"
+    ).strip()
     list_probe = subprocess.run(
         [
             str(repo / "node_modules/.bin/playwright"),
@@ -72,6 +82,7 @@ def main() -> int:
             **os.environ,
             "NODE_OPTIONS": node_options,
             "QWORK_E2E_APP_ROOT": "/tmp/qwork-private-list-probe",
+            "QWORK_E2E_OUTPUT_DIR": "/tmp/qwork-private-list-results",
         },
         text=True,
         capture_output=True,

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import datetime as dt
 import hashlib
 import json
@@ -103,6 +104,20 @@ def source_path(source: dict[str, Any]) -> str | None:
 
 def infer_surface(path: str, changed_content: str = "") -> str | None:
     lower_content = changed_content.lower()
+    if (
+        "droppedfiles" in Path(path).name.lower()
+        or any(
+            marker in lower_content
+            for marker in (
+                "resolvedroppedfilepaths",
+                "resolvedroppedfiles",
+                "onfilesdrop",
+                "onfilesdropped",
+                "data-file-drop-active",
+            )
+        )
+    ):
+        return "composer-file-attachment"
     if any(
         marker in lower_content
         for marker in (
@@ -164,8 +179,15 @@ def infer_surface(path: str, changed_content: str = "") -> str | None:
 
 
 def gate_only_item_ids(path: str, content: str) -> list[str]:
-    if path.startswith("docs/team-collaboration/changes/") or path == "docs/team-collaboration/interface-ledger.md":
+    if (
+        path.startswith("docs/team-collaboration/changes/")
+        or (path.startswith("docs/changes/") and path.endswith("/change-record.yaml"))
+        or path.endswith("-coverage.yaml")
+        or path == "docs/team-collaboration/interface-ledger.md"
+    ):
         return ["gate:source-dispositions"]
+    if path.startswith("src/") and re.search(r"\.test\.tsx?$", path):
+        return ["gate:unit-integration"]
     if path == "vitest.config.ts":
         return ["gate:coverage"]
     if path == "playwright.config.ts":
@@ -277,7 +299,16 @@ def infer_executable_capability_cases(
     excluded_manual_gaps: list[str] = []
     excluded_noncausal: list[str] = []
     for case_id, case in case_files.items():
-        if case.get("coverage", {}).get("capability_id") != surface:
+        source_contract = (
+            case.get("execution_contract", {})
+            .get("observability", {})
+            .get("source_contract")
+            or {}
+        )
+        if surface == "composer-file-attachment":
+            if str(source_contract.get("spec") or "") != "e2e/composer-file-attachment.spec.ts":
+                continue
+        elif case.get("coverage", {}).get("capability_id") != surface:
             continue
         strategy = (
             case.get("execution_contract", {}).get("launch", {}).get("strategy")
@@ -286,10 +317,7 @@ def infer_executable_capability_cases(
             excluded_manual_gaps.append(case_id)
         elif (
             (
-                case.get("execution_contract", {})
-                .get("observability", {})
-                .get("source_contract")
-                or {}
+                source_contract
             )
             .get("action_count") == 0
             and not (case.get("ui_acceptance") or {}).get("required_screenshot_states")
@@ -346,7 +374,7 @@ def partition_exact_cases(
             case.get("execution_contract", {})
             .get("observability", {})
             .get("source_contract", {})
-        )
+        ) or {}
         historical_same_spec = (
             source.get("spec") == path
             and source.get("execution_revision")
@@ -389,6 +417,71 @@ def result_item(item_id: str, kind: str, command: str, layer: str, dimensions: l
     return {"item_id": item_id, "kind": kind, "required": True, "command": command, "layer": layer, "dimensions": dimensions, **extra}
 
 
+def select_changed_source_cases(
+    *,
+    path: str,
+    base: str,
+    head: str,
+    sources: list[dict[str, Any]],
+    requirements: list[dict[str, Any]],
+    requirement_cases: dict[str, list[str]],
+) -> tuple[list[str], list[str], list[str]]:
+    """Return Cases bound to atoms newly introduced by this exact file diff.
+
+    A frozen Dataset contains both base and head sources. Comparing every Case
+    attached to a path turns a one-line PRD edit into a whole-product run, so
+    compare atom fingerprints as multisets and bind only head-only atoms.
+    Removed atoms are reported for audit but their obsolete assertions are not
+    executed against the head revision.
+    """
+
+    base_locator = f"git:{base}:{path}"
+    head_locator = f"git:{head}:{path}"
+    base_source = next((source for source in sources if source.get("locator") == base_locator), None)
+    head_source = next((source for source in sources if source.get("locator") == head_locator), None)
+    if base_source is None or head_source is None:
+        return [], [], []
+
+    def fingerprint(atom: dict[str, Any]) -> str:
+        return str(atom.get("extracted_value_hash") or atom.get("atom_id") or "")
+
+    base_atoms = list((base_source.get("inventory") or {}).get("atoms") or [])
+    head_atoms = list((head_source.get("inventory") or {}).get("atoms") or [])
+    unmatched_base = Counter(fingerprint(atom) for atom in base_atoms)
+    changed_head: list[dict[str, Any]] = []
+    for atom in head_atoms:
+        value = fingerprint(atom)
+        if value and unmatched_base[value] > 0:
+            unmatched_base[value] -= 1
+        else:
+            changed_head.append(atom)
+
+    unmatched_head = Counter(fingerprint(atom) for atom in head_atoms)
+    removed_base: list[dict[str, Any]] = []
+    for atom in base_atoms:
+        value = fingerprint(atom)
+        if value and unmatched_head[value] > 0:
+            unmatched_head[value] -= 1
+        else:
+            removed_base.append(atom)
+
+    changed_ids = {str(atom.get("atom_id")) for atom in changed_head}
+    head_source_id = str(head_source.get("source_id"))
+    selected: set[str] = set()
+    for requirement in requirements:
+        if any(
+            str(atom.get("source_id")) == head_source_id
+            and str(atom.get("atom_id")) in changed_ids
+            for atom in requirement.get("source_atoms", [])
+        ):
+            selected.update(requirement_cases.get(str(requirement.get("requirement_id")), []))
+    return (
+        sorted(selected),
+        sorted(changed_ids),
+        sorted(str(atom.get("atom_id")) for atom in removed_base),
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", type=Path, required=True)
@@ -418,6 +511,11 @@ def main() -> int:
     requirement_cases = {str(key): [str(value) for value in values] for key, values in manifest["suite_index"]["requirement_to_cases"].items()}
     source_by_id = {str(source["source_id"]): source for source in manifest["sources"]}
     path_cases: dict[str, set[str]] = {}
+    path_sources: dict[str, list[dict[str, Any]]] = {}
+    for source in manifest["sources"]:
+        path = source_path(source)
+        if path:
+            path_sources.setdefault(path, []).append(source)
     for requirement in manifest["requirements"]:
         bound = set(requirement_cases.get(str(requirement["requirement_id"]), []))
         for atom in requirement.get("source_atoms", []):
@@ -445,6 +543,40 @@ def main() -> int:
             continue
         exact = sorted(path_cases.get(path, set()))
         if exact:
+            exact_sources = path_sources.get(path, [])
+            has_revision_pair = (
+                any(source.get("locator") == f"git:{base}:{path}" for source in exact_sources)
+                and any(source.get("locator") == f"git:{head}:{path}" for source in exact_sources)
+            )
+            if has_revision_pair:
+                changed_exact, changed_atoms, removed_atoms = select_changed_source_cases(
+                    path=path,
+                    base=base,
+                    head=head,
+                    sources=exact_sources,
+                    requirements=manifest["requirements"],
+                    requirement_cases=requirement_cases,
+                )
+                current_content = git(repo, "show", f"{head}:{path}", check=False)
+                retained, superseded = partition_exact_cases(
+                    case_files,
+                    changed_exact,
+                    head=head,
+                    path=path,
+                    current_content=current_content,
+                )
+                selected.update(retained)
+                if superseded:
+                    superseded_exact_cases.setdefault(path, set()).update(superseded)
+                mappings.append({
+                    "changed_file": path,
+                    "strategy": "source-atom-diff",
+                    "changed_atom_ids": changed_atoms,
+                    "removed_atom_ids": removed_atoms,
+                    "case_ids": retained,
+                    "superseded_case_ids": superseded,
+                })
+                continue
             current_content = git(repo, "show", f"{head}:{path}", check=False)
             retained, superseded = partition_exact_cases(
                 case_files,
