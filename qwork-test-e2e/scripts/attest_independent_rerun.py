@@ -86,6 +86,74 @@ def validate_private_reference(
     return report_path, report, actual
 
 
+def validate_source_integration_reference(
+    *,
+    dataset: Path,
+    item: dict[str, Any],
+    reference: dict[str, Any],
+    run_id: str,
+    current_started: dt.datetime,
+) -> tuple[Path, str, str]:
+    """Validate one registered source-integration reference before attestation."""
+
+    prefix = "skill://qwork-test-dataset/"
+
+    def verified_path(locator_key: str, hash_key: str) -> Path:
+        locator = str(reference.get(locator_key) or "")
+        if not locator.startswith(prefix):
+            raise ValueError(f"source integration {locator_key} is not a Skill locator")
+        path = (dataset / locator.removeprefix(prefix)).resolve()
+        path.relative_to(dataset.resolve())
+        expected = str(reference.get(hash_key) or "").removeprefix("sha256:")
+        if not path.is_file() or sha256(path) != expected:
+            raise ValueError(f"source integration {locator_key} drifted: {item['case_id']}")
+        return path
+
+    if reference.get("run_id") != run_id:
+        raise ValueError(f"source integration reference identity drifted: {item['case_id']}")
+    report_path = verified_path("report", "report_sha256")
+    plan_path = verified_path("plan", "plan_file_sha256")
+    runner_state_path = verified_path("runner_state", "runner_state_sha256")
+    verified_path("preflight", "preflight_sha256")
+    report = load(report_path)
+    reference_plan = load(plan_path)
+    source = item.get("source_contract") if isinstance(item.get("source_contract"), dict) else {}
+    source_hash = canonical_hash(source)
+    passing_tests = sorted(
+        str(value.get("name"))
+        for value in report.get("tests") or []
+        if value.get("status") == "pass"
+    )
+    passing_requirements = sorted(
+        str(value.get("requirement_id"))
+        for value in report.get("requirements") or []
+        if value.get("status") == "pass"
+    )
+    cleanup = report.get("cleanup") or {}
+    if (
+        reference.get("implementation_revision") != source.get("qwork_revision")
+        or reference.get("qwork_server_revision") != source.get("revision")
+        or reference.get("source_contract_sha256") != source_hash
+        or reference_plan.get("plan_sha256") != reference.get("plan_sha256")
+        or report.get("status") != "pass"
+        or report.get("case_id") != item.get("case_id")
+        or report.get("qwork_revision") != reference.get("implementation_revision")
+        or report.get("expected_revision") != source.get("revision")
+        or report.get("actual_revision") != source.get("revision")
+        or report.get("worktree_clean") is not True
+        or report.get("zero_real_provider_calls") is not True
+        or passing_tests != sorted(str(value) for value in source.get("tests") or [])
+        or passing_requirements != sorted(str(value) for value in source.get("requirement_ids") or [])
+        or cleanup.get("test_process_exited") is not True
+        or cleanup.get("external_state_created") is not False
+        or report.get("failures")
+    ):
+        raise ValueError(f"source integration reference authority differs from current Case: {item['case_id']}")
+    if timestamp(str(reference.get("verified_at") or "")) >= current_started:
+        raise ValueError("independent rerun started before the source integration reference finished")
+    return report_path, str(reference["plan_sha256"]), sha256(runner_state_path)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", type=Path, required=True)
@@ -150,6 +218,7 @@ def main() -> int:
     registry = yaml.safe_load(
         (dataset / "references/deterministic-reference-runs.yaml").read_text(encoding="utf-8")
     )
+    source_integration_runs = registry.get("source_integration_runs") or {}
     manifests: dict[str, tuple[Path, dict[str, Any], str]] = {}
     prefix = "skill://qwork-test-dataset/"
     for batch in registry.get("public_playwright_batches", []):
@@ -170,8 +239,29 @@ def main() -> int:
     reference_plan_hashes: set[str] = set()
     reference_run_ids: set[str] = set()
     reference_manifest_evidence: list[dict[str, str]] = []
+    source_reference_runner_hashes: set[str] = set()
     for item in case_items:
         run_id = str(item["reference_run_id"])
+        if str(item.get("route_id") or "").startswith("qwork.dataset.source-integration."):
+            reference = source_integration_runs.get(str(item["case_id"]))
+            if not isinstance(reference, dict):
+                raise ValueError(f"source integration reference is not registered: {item['case_id']}")
+            path, reference_plan_hash, reference_runner_hash = validate_source_integration_reference(
+                dataset=dataset,
+                item=item,
+                reference=reference,
+                run_id=run_id,
+                current_started=current_started,
+            )
+            if reference_plan_hash == current_plan_hash:
+                raise ValueError("independent rerun must use a new post-registration plan hash")
+            reference_plan_hashes.add(reference_plan_hash)
+            reference_run_ids.add(run_id)
+            source_reference_runner_hashes.add(reference_runner_hash)
+            evidence = {"path": str(path), "sha256": sha256(path)}
+            if evidence not in reference_manifest_evidence:
+                reference_manifest_evidence.append(evidence)
+            continue
         if str(item.get("route_id") or "").startswith("qwork.private-playwright."):
             path, _, report_sha = validate_private_reference(
                 dataset=dataset,
@@ -216,7 +306,7 @@ def main() -> int:
         for value in payload.get("authority_files", [])
         if value.get("path") == "runner-state.json"
         and payload.get("run_id") in reference_run_ids
-    }
+    } | source_reference_runner_hashes
     current_runner_hash = sha256(run_root / "runner-state.json")
     if current_runner_hash in reference_runner_hashes:
         raise ValueError("independent rerun reused the registered runner-state artifact")

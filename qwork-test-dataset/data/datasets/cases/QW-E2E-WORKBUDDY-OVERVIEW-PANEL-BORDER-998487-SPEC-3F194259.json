@@ -21,12 +21,26 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/workbuddy-overview-panel-border-998487.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/workbuddy-overview-panel-border-998487.spec.ts",
       "locator": "line:6;test:matches WorkBuddy overview panel divider and header geometry",
-      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:3f1942598806c83d939c7b7a075b831c611b465bafe0046304bf36d5077d234e",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-workbuddy-overview-panel-border-998487-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/workbuddy-overview-panel-border-998487.spec.ts",
+      "locator": "line:6;test:matches WorkBuddy overview panel divider and header geometry",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:3f1942598806c83d939c7b7a075b831c611b465bafe0046304bf36d5077d234e",
       "redaction_status": "minimized"
     }
@@ -57,6 +71,32 @@
         "reason": "compiled from the user-approved source hierarchy"
       },
       "oracle": "matches WorkBuddy overview panel divider and header geometry"
+    },
+    {
+      "requirement_id": "REQ-ED4EF86B2BB99E",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-workbuddy-overview-panel-border-998487-spec-ts:L6:3f19425988"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "matches WorkBuddy overview panel divider and header geometry",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-workbuddy-overview-panel-border-998487-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches WorkBuddy overview panel divider and header geometry"
     }
   ],
   "verification": {
@@ -76,10 +116,14 @@
     },
     {
       "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+    },
+    {
+      "action": "initialExpand.click()"
     }
   ],
   "expected_outcomes": [
     "expect(passed, `${id}: ${JSON.stringify(actual)}; expected ${expected}`).toBe(true)",
+    "expect(initialExpand).toBeVisible()",
     "expect(panel).toBeVisible()",
     "expect(toolbar).toBeVisible()"
   ],
@@ -91,6 +135,11 @@
   "oracles": [
     {
       "requirement_id": "REQ-0819AB2B9AA18C",
+      "type": "return",
+      "assertion": "matches WorkBuddy overview panel divider and header geometry"
+    },
+    {
+      "requirement_id": "REQ-ED4EF86B2BB99E",
       "type": "return",
       "assertion": "matches WorkBuddy overview panel divider and header geometry"
     }
@@ -152,6 +201,9 @@
       "steps": [
         {
           "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+        },
+        {
+          "action": "initialExpand.click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -173,12 +225,12 @@
       "source_contract": {
         "spec": "e2e/workbuddy-overview-panel-border-998487.spec.ts",
         "line_start": 6,
-        "line_end": 63,
-        "body_sha256": "sha256:62b784d14b0963df66d04c40c9ec531008470f23d200402ff6dde0f2941ed211",
-        "assertion_count": 3,
-        "action_count": 1,
-        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
-        "spec_sha256": "sha256:86213cb6bd8184a6c88b28e5762c34c12032d9be0460a34a9df9aaacdef8a967"
+        "line_end": 66,
+        "body_sha256": "sha256:7c91594fb9be15e2fd35ccfed58cee49df4a9be0c5334562483137780d8bb145",
+        "assertion_count": 4,
+        "action_count": 2,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:e5b69e78638925304fd52685be3da4c47e7fed6374e99839b086d2b291b3e65d"
       }
     },
     "reference_run": {
@@ -200,7 +252,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-0819AB2B9AA18C"
+      "REQ-0819AB2B9AA18C",
+      "REQ-ED4EF86B2BB99E"
     ],
     "categories": [
       "business"
@@ -208,7 +261,8 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-0819AB2B9AA18C"
+      "requirement:REQ-0819AB2B9AA18C",
+      "requirement:REQ-ED4EF86B2BB99E"
     ]
   }
 }

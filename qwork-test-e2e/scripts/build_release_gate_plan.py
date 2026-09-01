@@ -265,6 +265,8 @@ def case_requires_qwork_server(repo: Path, case: dict[str, Any]) -> bool:
         .get("source_contract")
         or {}
     )
+    if source.get("repository") == "qwork_server":
+        return True
     spec = str(source.get("spec") or "")
     if not spec or spec.startswith("skill://"):
         return False

@@ -21,21 +21,35 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/skill-hub.spec.ts",
-      "locator": "line:165;test:installs Weather, opens an unsent trial, and completes a conversation",
-      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/skill-hub.spec.ts",
+      "locator": "line:166;test:installs Weather, opens an unsent trial, and completes a conversation",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:f2bcccede3226f8e63992bf1bafbb8292e80e0a80c670ce128725ac658d4ada8",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-skill-hub-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/skill-hub.spec.ts",
+      "locator": "line:165;test:installs Weather, opens an unsent trial, and completes a conversation",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:f2bcccede3226f8e63992bf1bafbb8292e80e0a80c670ce128725ac658d4ada8",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-2705F7B3D16E4C",
+      "requirement_id": "REQ-7D621965E9C86F",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-skill-hub-spec-ts:L165:f2bcccede3"
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L166:f2bcccede3"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -49,6 +63,32 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-skill-hub-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "installs Weather, opens an unsent trial, and completes a conversation"
+    },
+    {
+      "requirement_id": "REQ-BD6D3F8C50BA5F",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-skill-hub-spec-ts:L165:f2bcccede3"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "installs Weather, opens an unsent trial, and completes a conversation",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-skill-hub-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -258,7 +298,12 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-2705F7B3D16E4C",
+      "requirement_id": "REQ-7D621965E9C86F",
+      "type": "return",
+      "assertion": "installs Weather, opens an unsent trial, and completes a conversation"
+    },
+    {
+      "requirement_id": "REQ-BD6D3F8C50BA5F",
       "type": "return",
       "assertion": "installs Weather, opens an unsent trial, and completes a conversation"
     }
@@ -453,10 +498,10 @@
         "spec": "e2e/skill-hub.spec.ts",
         "line_start": 165,
         "line_end": 326,
-        "body_sha256": "sha256:09d613cac42fad4faedfb8d885a71d42a928fae0269490f9103dd228f874b0b6",
+        "body_sha256": "sha256:69ef55e2902a40ca19b202fd9c432d3274ff29e971d39aea7c55b05180d6bb27",
         "assertion_count": 60,
         "action_count": 38,
-        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
         "spec_sha256": "sha256:0b685b94df77a3dc0f0995c858a81a6ad4039a3d0ec6d57688d6a61ef41052a4"
       }
     },
@@ -479,7 +524,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-2705F7B3D16E4C"
+      "REQ-7D621965E9C86F",
+      "REQ-BD6D3F8C50BA5F"
     ],
     "categories": [
       "business"
@@ -487,7 +533,8 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-2705F7B3D16E4C"
+      "requirement:REQ-7D621965E9C86F",
+      "requirement:REQ-BD6D3F8C50BA5F"
     ]
   }
 }

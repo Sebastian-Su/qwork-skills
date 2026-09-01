@@ -21,12 +21,26 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/expert-featured-interactions.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/expert-featured-interactions.spec.ts",
       "locator": "line:229;test:场景卡打开真实专家并明确标记缺失成员",
-      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:aaf52688e22f3e596b78c3ed8e65ca44a0bda6b790b5abb7caf9b927e836f1e2",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-expert-featured-interactions-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/expert-featured-interactions.spec.ts",
+      "locator": "line:229;test:场景卡打开真实专家并明确标记缺失成员",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:aaf52688e22f3e596b78c3ed8e65ca44a0bda6b790b5abb7caf9b927e836f1e2",
       "redaction_status": "minimized"
     }
@@ -49,6 +63,32 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-expert-featured-interactions-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "场景卡打开真实专家并明确标记缺失成员"
+    },
+    {
+      "requirement_id": "REQ-2D4A018160BD25",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-expert-featured-interactions-spec-ts:L229:aaf52688e2"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "场景卡打开真实专家并明确标记缺失成员",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-expert-featured-interactions-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -107,16 +147,16 @@
   ],
   "expected_outcomes": [
     "expect(expertLayout.tabs.map((tab) => tab.iconCount)).toEqual([1, 1, 1])",
-    "expect(expertLayout.tabs.map((tab) => tab.height)).toEqual([32, 32, 32])",
+    "expect(expertLayout.tabs.map((tab) => tab.height)).toEqual([28, 28, 28])",
     "expect(expertLayout.tabs[0]?.width).toBeCloseTo(66, 0)",
     "expect(expertLayout.tabs[1]?.width).toBeCloseTo(66, 0)",
     "expect(expertLayout.tabs[2]?.width).toBeCloseTo(80, 0)",
     "expect(skillTab).toBeFocused()",
     "expect(skillTab).toHaveAttribute(\"aria-selected\", \"true\")",
-    "expect(Math.abs(skillLayout.x - expertLayout.x)).toBeLessThanOrEqual(2)",
+    "expect(skillLayout.x - expertLayout.x).toBeCloseTo(8, 0)",
     "expect(skillLayout.tabs.map((tab) => tab.width)).toEqual(expertLayout.tabs.map((tab) => tab.width))",
     "expect(connectorTab).toHaveAttribute(\"aria-selected\", \"true\")",
-    "expect(Math.abs(connectorLayout.x - expertLayout.x)).toBeLessThanOrEqual(2)",
+    "expect(connectorLayout.x - expertLayout.x).toBeCloseTo(8, 0)",
     "expect(connectorLayout.tabs.map((tab) => tab.width)).toEqual(expertLayout.tabs.map((tab) => tab.width))",
     "expect(connectorSearch).toBeVisible()",
     "expect(customConnector).toBeVisible()",
@@ -144,6 +184,11 @@
   "oracles": [
     {
       "requirement_id": "REQ-1CDF465D353709",
+      "type": "return",
+      "assertion": "场景卡打开真实专家并明确标记缺失成员"
+    },
+    {
+      "requirement_id": "REQ-2D4A018160BD25",
       "type": "return",
       "assertion": "场景卡打开真实专家并明确标记缺失成员"
     }
@@ -254,11 +299,11 @@
         "spec": "e2e/expert-featured-interactions.spec.ts",
         "line_start": 229,
         "line_end": 315,
-        "body_sha256": "sha256:de567f96f5488b5cb7ebfdedc631873ac9888d2506285bfbae2293fdb02fd47f",
+        "body_sha256": "sha256:9b4e00c8b8d4f9dcffc946bf81d888c8d3fc47da6cb8de59d360adb5da688040",
         "assertion_count": 29,
         "action_count": 10,
-        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
-        "spec_sha256": "sha256:225573b0d3ad1f191fbdb3d12efdbecf2d41dbaf52205bfa0d29e1b0c09f24cf"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:e8814780f4423a6db48f87568382418128e76c63359bc5ec2ed60ecb30ad1a67"
       }
     },
     "reference_run": {
@@ -280,7 +325,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-1CDF465D353709"
+      "REQ-1CDF465D353709",
+      "REQ-2D4A018160BD25"
     ],
     "categories": [
       "business"
@@ -288,7 +334,8 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-1CDF465D353709"
+      "requirement:REQ-1CDF465D353709",
+      "requirement:REQ-2D4A018160BD25"
     ]
   }
 }

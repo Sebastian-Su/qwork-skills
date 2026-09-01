@@ -21,12 +21,26 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/workbuddy-assistant-context-panel.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/workbuddy-assistant-context-panel.spec.ts",
       "locator": "line:19;test:matches WorkBuddy assistant context panel views and toolbar",
-      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:3d521ef5ba6f7b9da84579ddd19abf7ea22e60d8204044fac507e77fae6fd134",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-workbuddy-assistant-context-panel-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/workbuddy-assistant-context-panel.spec.ts",
+      "locator": "line:19;test:matches WorkBuddy assistant context panel views and toolbar",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:3d521ef5ba6f7b9da84579ddd19abf7ea22e60d8204044fac507e77fae6fd134",
       "redaction_status": "minimized"
     }
@@ -57,6 +71,32 @@
         "reason": "compiled from the user-approved source hierarchy"
       },
       "oracle": "matches WorkBuddy assistant context panel views and toolbar"
+    },
+    {
+      "requirement_id": "REQ-EF92D60A6260FC",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-workbuddy-assistant-context-panel-spec-ts:L19:3d521ef5ba"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "matches WorkBuddy assistant context panel views and toolbar",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-workbuddy-assistant-context-panel-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches WorkBuddy assistant context panel views and toolbar"
     }
   ],
   "verification": {
@@ -76,6 +116,9 @@
     },
     {
       "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+    },
+    {
+      "action": "initialExpand.click()"
     },
     {
       "action": "viewButton.click()"
@@ -131,6 +174,7 @@
   ],
   "expected_outcomes": [
     "expect(passed, `${id}: expected ${expected}; actual ${actual}`).toBe(true)",
+    "expect(initialExpand).toBeVisible()",
     "expect.poll(() => page.evaluate(() => localStorage.getItem(\"ziqdo:assistant-session-id\"))).not.toBeNull()",
     "expect(panel).toBeVisible()",
     "expect(toolbar).toBeVisible()",
@@ -154,6 +198,11 @@
   "oracles": [
     {
       "requirement_id": "REQ-9F97689C3DC084",
+      "type": "return",
+      "assertion": "matches WorkBuddy assistant context panel views and toolbar"
+    },
+    {
+      "requirement_id": "REQ-EF92D60A6260FC",
       "type": "return",
       "assertion": "matches WorkBuddy assistant context panel views and toolbar"
     }
@@ -215,6 +264,9 @@
       "steps": [
         {
           "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+        },
+        {
+          "action": "initialExpand.click()"
         },
         {
           "action": "viewButton.click()"
@@ -287,12 +339,12 @@
       "source_contract": {
         "spec": "e2e/workbuddy-assistant-context-panel.spec.ts",
         "line_start": 19,
-        "line_end": 195,
-        "body_sha256": "sha256:a28998c87baae2f6f2609b8fdfe4f8f876ef1917a6ef97c8791ce9d0cc8ab050",
-        "assertion_count": 15,
-        "action_count": 18,
-        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
-        "spec_sha256": "sha256:94b2b0aa910aa0cce647c77b0c1847e437290034daf64e93516d452fcf891e3d"
+        "line_end": 198,
+        "body_sha256": "sha256:f2b187a3d8aacc3dd7a6ad9588b757a1507a955df42f7df6f10945ce7a3df46d",
+        "assertion_count": 16,
+        "action_count": 19,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:1f114e286e39fa1719615058a732317063539483eba4563c8bf3a9245e0f79b8"
       }
     },
     "reference_run": {
@@ -314,7 +366,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-9F97689C3DC084"
+      "REQ-9F97689C3DC084",
+      "REQ-EF92D60A6260FC"
     ],
     "categories": [
       "business"
@@ -322,7 +375,8 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-9F97689C3DC084"
+      "requirement:REQ-9F97689C3DC084",
+      "requirement:REQ-EF92D60A6260FC"
     ]
   }
 }

@@ -22,12 +22,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/builtin-marketplace.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/builtin-marketplace.spec.ts",
       "locator": "line:12;test:startup materializes builtin skills but keeps them disabled by default",
-      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:22f862700bf6ccff4a692a99123c746cc723a2f910395aaa5728c7c6e523f834",
       "redaction_status": "minimized"
     }
@@ -87,8 +87,8 @@
     "expect(marketplace.plugins.map((entry: { name?: string }) => entry.name)).not.toContain( retiredPluginName, )",
     "expect(skill).toEqual(expect.objectContaining({ category: \"skill\" }))",
     "expect(authorizedSkill).toEqual( expect.objectContaining({ category: \"skill\", version: \"authorized-5f3b787c33da\", }), )",
-    "expect(visibleBuiltinSkills).toHaveLength(50)",
-    "expect(connectorRuntimeSkills.map((entry: { name?: string }) => entry.name).sort()).toEqual([ \"skill-awesun-cli\", \"skill-dws\", \"skill-lovrabet-cli\", \"skill-tencent-meeting-skill\", \"skill-wecom-cli\", \"skill-zsxq-cli\", ])",
+    "expect(visibleBuiltinSkills).toHaveLength(53)",
+    "expect(connectorRuntimeSkills.map((entry: { name?: string }) => entry.name).sort()).toEqual([ \"skill-360-knowledge\", \"skill-awesun-cli\", \"skill-dws\", \"skill-emr-query-cli\", \"skill-lark-unified\", \"skill-lemonclaw-cli\", \"skill-lovrabet-cli\", \"skill-tencent-meeting-skill\", \"skill-textin-xparse\", \"skill-wecom-cli\", \"skill-zsxq-cli\", ])",
     "expect(fs.readFile(cacheSkill, \"utf8\")).resolves.toContain(\"# Skill Creator\")",
     "expect(scanned.map((entry) => entry.id)).not.toEqual( expect.arrayContaining(retiredIds), )",
     "expect(scannedSkill).toBeUndefined()",
@@ -194,12 +194,12 @@
       "source_contract": {
         "spec": "e2e/builtin-marketplace.spec.ts",
         "line_start": 12,
-        "line_end": 119,
-        "body_sha256": "sha256:beb51303268f3e34a0a93d8bf3d2cfc863b4525567bd65b67fb1754d9d53077d",
+        "line_end": 124,
+        "body_sha256": "sha256:0f7e5ebb128b066a7d2d6585f78d2483ac3c1e621347e4ac587464c722c4c7e7",
         "assertion_count": 10,
         "action_count": 2,
-        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
-        "spec_sha256": "sha256:2a0ce976fdabe969e4cf8dcee89a2ebada24f3471e2b1bc9b82d5b02ba45c4d0"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:8e948ce9f5714ec1a76ad2729976af61aeba2c1099be1f55e6e3cc764aa95bd7"
       }
     },
     "reference_run": {

@@ -79,7 +79,9 @@ def main() -> int:
         raise AssertionError(f"private Playwright launcher is missing: {playwright_bin}")
     # The private config refuses to run without an explicit run root outside every Git
     # worktree, so the list probe allocates its own throwaway external directory.
-    with tempfile.TemporaryDirectory(prefix="qwork-private-list-probe-") as probe_root_value:
+    with tempfile.TemporaryDirectory(
+        prefix="QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT-"
+    ) as probe_root_value:
         probe_root = Path(probe_root_value)
         list_probe = subprocess.run(
             [

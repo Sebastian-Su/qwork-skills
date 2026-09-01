@@ -21,12 +21,26 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/workbuddy-overview-toolbar-actions-998488.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/workbuddy-overview-toolbar-actions-998488.spec.ts",
       "locator": "line:6;test:matches WorkBuddy overview toolbar actions",
-      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:d9cf87c3be097d45253969dfcef03a2925ddec9bc721cb029519852fe75a2d5d",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-workbuddy-overview-toolbar-actions-998488-spec-t",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/workbuddy-overview-toolbar-actions-998488.spec.ts",
+      "locator": "line:6;test:matches WorkBuddy overview toolbar actions",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:d9cf87c3be097d45253969dfcef03a2925ddec9bc721cb029519852fe75a2d5d",
       "redaction_status": "minimized"
     }
@@ -57,6 +71,32 @@
         "reason": "compiled from the user-approved source hierarchy"
       },
       "oracle": "matches WorkBuddy overview toolbar actions"
+    },
+    {
+      "requirement_id": "REQ-13FC3CA6770EA9",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-workbuddy-overview-toolbar-actions-998488-spec-t:L6:d9cf87c3be"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "matches WorkBuddy overview toolbar actions",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-workbuddy-overview-toolbar-actions-998488-spec-t"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches WorkBuddy overview toolbar actions"
     }
   ],
   "verification": {
@@ -78,6 +118,9 @@
       "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
     },
     {
+      "action": "initialExpand.click()"
+    },
+    {
       "action": "toolbar.getByRole(\"button\", { name: \"打开上下文导航\" }).click()"
     },
     {
@@ -95,6 +138,7 @@
   ],
   "expected_outcomes": [
     "expect(passed, `${id}: ${JSON.stringify(actual)}; expected ${expected}`).toBe(true)",
+    "expect(initialExpand).toBeVisible()",
     "expect(panel).toBeVisible()",
     "expect(toolbar).toBeVisible()",
     "expect(page.getByRole(\"menu\", { name: \"上下文导航\" })).toBeVisible()",
@@ -108,6 +152,11 @@
   "oracles": [
     {
       "requirement_id": "REQ-0281535CA7653A",
+      "type": "return",
+      "assertion": "matches WorkBuddy overview toolbar actions"
+    },
+    {
+      "requirement_id": "REQ-13FC3CA6770EA9",
       "type": "return",
       "assertion": "matches WorkBuddy overview toolbar actions"
     }
@@ -171,6 +220,9 @@
           "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
         },
         {
+          "action": "initialExpand.click()"
+        },
+        {
           "action": "toolbar.getByRole(\"button\", { name: \"打开上下文导航\" }).click()"
         },
         {
@@ -205,12 +257,12 @@
       "source_contract": {
         "spec": "e2e/workbuddy-overview-toolbar-actions-998488.spec.ts",
         "line_start": 6,
-        "line_end": 68,
-        "body_sha256": "sha256:9abcb21cb9aa41d08555effd8741fbb717855b62d7b1c1e5e279b810fe096d6b",
-        "assertion_count": 5,
-        "action_count": 6,
-        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
-        "spec_sha256": "sha256:811560d53327ee0430477d48b707653c990d84e0804ad6c1f7bc10a6ebdb4553"
+        "line_end": 71,
+        "body_sha256": "sha256:8f6c611f5b995ed66882345bbb7c45238aae46f6c35cefffcf2f6e88b46abb4d",
+        "assertion_count": 6,
+        "action_count": 7,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:ca68e22307c12aee15fc84b1d998daf0e323882775a15f71282b7eb836f4451e"
       }
     },
     "reference_run": {
@@ -232,7 +284,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-0281535CA7653A"
+      "REQ-0281535CA7653A",
+      "REQ-13FC3CA6770EA9"
     ],
     "categories": [
       "business"
@@ -240,7 +293,8 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-0281535CA7653A"
+      "requirement:REQ-0281535CA7653A",
+      "requirement:REQ-13FC3CA6770EA9"
     ]
   }
 }

@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/prompt-enhancement.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/prompt-enhancement.spec.ts",
       "locator": "line:5;test:enhances the current draft without sending and restores the original",
-      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:2f9d9e8e6dbab494b6bfceeb298e04f55aeaef0340ebd238d43085ad1ce73c3a",
       "redaction_status": "minimized"
     }
@@ -93,6 +93,9 @@
     "expect(enhanceButton).toHaveCSS(\"border-radius\", \"9999px\")",
     "expect(enhanceButton.locator(\"svg\")).toHaveAttribute(\"viewBox\", \"0 0 15.5597 14.8428\")",
     "expect(await enhanceButton.boundingBox()).toMatchObject({ width: 32, height: 32 })",
+    "expect(modelTrigger).toHaveAccessibleName(\"GLM-5.2\")",
+    "expect(modelTrigger.locator(\".lucide-sparkles\")).toHaveCount(0)",
+    "expect(modelTrigger.locator(\"svg\")).toHaveCount(1)",
     "expect(page.getByRole(\"tooltip\")).toHaveText(\"增强提示词\")",
     "expect(textbox).toHaveValue(\"请输出包含负责人、时间与验收标准的发布计划\")",
     "expect(dock.getByRole(\"button\", { name: \"恢复原文\" })).toBeVisible()",
@@ -200,12 +203,12 @@
       "source_contract": {
         "spec": "e2e/prompt-enhancement.spec.ts",
         "line_start": 5,
-        "line_end": 42,
-        "body_sha256": "sha256:b19573a3de9e64340ec879fcdd102157fe5a406ef1e99da34ca31ac719580a53",
-        "assertion_count": 12,
+        "line_end": 50,
+        "body_sha256": "sha256:ebe8d90c593177ccfe17039538f6c022a0ffa295419ee65b03ac97cbcb6414e2",
+        "assertion_count": 15,
         "action_count": 4,
-        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
-        "spec_sha256": "sha256:1184f695a2952a58daebd1b4a2b3c06cb5ae0483007431caaa59bb530bc54f06"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:27632df2a816302f848ef893e15e8dfcc875ab7138834ade8fb1108c3573aeea"
       }
     },
     "reference_run": {

@@ -1754,6 +1754,137 @@ def compile_source_bound_causal_contract(case: dict[str, Any]) -> None:
     )
 
 
+def apply_source_integration_binding(
+    case: dict[str, Any], binding: dict[str, Any], head: str
+) -> None:
+    """Bind one generated non-UI Case to exact cross-repository tests."""
+
+    case_id = str(case["id"])
+    if str(binding.get("case_id") or "") != case_id:
+        raise ValueError(f"source integration binding Case mismatch: {case_id}")
+    expected_requirements = sorted(
+        str(value) for value in case["selection"]["requirement_ids"]
+    )
+    bound_requirements = sorted(
+        str(value) for value in binding.get("requirement_ids") or []
+    )
+    if bound_requirements != expected_requirements:
+        raise ValueError(
+            f"source integration requirement closure mismatch for {case_id}: "
+            f"{bound_requirements} != {expected_requirements}"
+        )
+    repository = str(binding.get("repository") or "")
+    revision = str(binding.get("revision") or "")
+    packages = [str(value) for value in binding.get("packages") or []]
+    tests = [str(value) for value in binding.get("tests") or []]
+    authority_files = list(binding.get("authority_files") or [])
+    if repository != "qwork_server":
+        raise ValueError(f"unsupported source integration repository: {repository}")
+    if not re.fullmatch(r"[0-9a-f]{40}", revision):
+        raise ValueError(f"source integration revision must be a full Git SHA: {case_id}")
+    if not packages or not tests:
+        raise ValueError(f"source integration binding has no exact packages/tests: {case_id}")
+    for authority in authority_files:
+        if not str(authority.get("path") or "") or not re.fullmatch(
+            r"sha256:[0-9a-f]{64}", str(authority.get("sha256") or "")
+        ):
+            raise ValueError(f"source integration authority is incomplete: {case_id}")
+
+    command = (
+        "python3 .agents/skills/qwork-test-dataset/scripts/"
+        "validate_source_integration_case.py --repo . "
+        "--skill-root .agents/skills/qwork-test-dataset "
+        f"--case-id {case_id}"
+    )
+    contract = case["execution_contract"]
+    case["execution_type"] = "integration"
+    case["execution_mode"] = "real-process"
+    case.pop("ui_acceptance", None)
+    case["preconditions"] = {
+        "repository": repository,
+        "frozen_git_revision": revision,
+        "isolated_config_home": False,
+    }
+    case["evidence"] = [
+        "machine-readable cross-repository test result",
+        "exact repository revision and authority file hashes",
+    ]
+    contract.update(
+        {
+            "readiness": "partial",
+            "route_id": f"qwork.dataset.source-integration.{stable_slug(case_id, 80)}",
+            "target": {
+                "kind": "process",
+                "platforms": ["darwin", "win32", "linux"],
+                "artifact": f"repo://{repository}",
+            },
+            "authorization": {"required": False, "scopes": []},
+            "preflight": [
+                {
+                    "action": f"resolve the exact {repository} checkout",
+                    "oracle": f"HEAD equals {revision} and the worktree is clean",
+                },
+                {
+                    "action": "verify every declared authority file hash",
+                    "oracle": "the bound test implementation matches the registry",
+                },
+            ],
+            "launch": {
+                "strategy": "command",
+                "command_or_tool": command,
+                "success_oracle": "every bound source integration test passes at the declared repository revision",
+                "failure_action": "preserve the machine-readable test result and repair the product or binding; never substitute static source scans",
+            },
+            "navigation": {
+                "kind": "process-protocol",
+                "entrypoint": str(case["coverage"]["capability_id"]),
+                "steps": case["steps"],
+                "locator_strategy": "repository + revision + package + exact Go test name",
+                "success_oracle": "every declared requirement is backed by at least one passing exact test",
+                "failure_action": "repair the failing repository test or the requirement-to-test binding",
+            },
+            "fixtures": {
+                "setup": "case-bound qwork_server checkout with in-memory router/service fixtures",
+                "isolation": "no real account, provider, database or production data",
+                "cleanup": "Go test process exits without durable external state",
+            },
+            "observability": {
+                "artifacts": ["integration-result.json"],
+                "correlation": "case_id + QWork revision + qwork_server revision + exact Go test names",
+                "failure_classification": "repository-drift|authority-drift|test-failure|requirement-gap",
+                "source_contract": {
+                    "repository": repository,
+                    "revision": revision,
+                    "qwork_revision": head,
+                    "requirement_ids": bound_requirements,
+                    "packages": packages,
+                    "tests": tests,
+                    "requirement_tests": dict(binding.get("requirement_tests") or {}),
+                    "authority_files": authority_files,
+                },
+            },
+            "reference_run": {
+                "status": "pending",
+                "run_id": None,
+                "verified_at": None,
+                "environment": "exact cross-repository integration replay pending",
+            },
+            "cleanup": {
+                "actions": ["assert the test process exited and no real provider was called"],
+                "success_oracle": "only the requested report artifact was created",
+            },
+            "blockers": ["source integration reference run pending"],
+        }
+    )
+    case["verification"] = {
+        "last_outcome": "pending",
+        "environment_scope": "isolated qwork_server in-memory integration fixtures",
+        "implementation_revision": head,
+        "last_verified_at": None,
+        "status_reason": "exact cross-repository runner implemented; reference run pending",
+    }
+
+
 def mark_private_reference_stale(
     case: dict[str, Any],
     reference: dict[str, Any],
@@ -2518,6 +2649,133 @@ def apply_public_playwright_reference_authority(
     }
 
 
+def apply_source_integration_reference_authority(
+    *,
+    case: dict[str, Any],
+    reference: dict[str, Any],
+    skill_root: pathlib.Path,
+    head: str,
+) -> None:
+    """Apply a hash-bound, non-UI cross-repository integration reference."""
+
+    prefix = "skill://qwork-test-dataset/"
+
+    def verified_json(locator_key: str, hash_key: str) -> dict[str, Any]:
+        locator = str(reference.get(locator_key) or "")
+        if not locator.startswith(prefix):
+            raise ValueError(f"source integration {locator_key} must use the Dataset Skill locator")
+        path = (skill_root / locator.removeprefix(prefix)).resolve()
+        path.relative_to(skill_root.resolve())
+        if not path.is_file():
+            raise ValueError(f"source integration authority is missing: {case['id']} {locator}")
+        actual = f"sha256:{sha256_bytes(path.read_bytes())}"
+        if actual != str(reference.get(hash_key) or ""):
+            raise ValueError(f"source integration authority hash drifted: {case['id']} {locator_key}")
+        value = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(value, dict):
+            raise ValueError(f"source integration authority must be an object: {case['id']} {locator_key}")
+        return value
+
+    plan = verified_json("plan", "plan_file_sha256")
+    state = verified_json("runner_state", "runner_state_sha256")
+    preflight = verified_json("preflight", "preflight_sha256")
+    report = verified_json("report", "report_sha256")
+    contract = case["execution_contract"]
+    source = contract.get("observability", {}).get("source_contract") or {}
+    source_hash = sha256_text(
+        json.dumps(source, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    )
+    verifier_hash = f"sha256:{sha256_bytes((skill_root / 'scripts/validate_source_integration_case.py').read_bytes())}"
+    item_id = f"case:{case['id']}"
+    items = {str(item.get("item_id")): item for item in plan.get("required_items", [])}
+    item = items.get(item_id)
+    coordinate = (state.get("coordinates") or {}).get(item_id)
+    plan_sha = str(reference.get("plan_sha256") or "")
+    if (
+        plan.get("plan_sha256") != plan_sha
+        or state.get("plan_sha256") != plan_sha
+        or preflight.get("plan_sha256") != plan_sha
+        or plan.get("implementation_revision") != reference.get("implementation_revision")
+        or state.get("implementation_revision") != reference.get("implementation_revision")
+        or preflight.get("implementation_revision") != reference.get("implementation_revision")
+        or preflight.get("live_execution_allowed") is not False
+        or reference.get("verifier_sha256") != verifier_hash
+        or reference.get("source_contract_sha256") != source_hash
+    ):
+        raise ValueError(f"source integration plan/verifier/source authority mismatch: {case['id']}")
+    if (
+        not item
+        or not coordinate
+        or item.get("case_id") != case["id"]
+        or item.get("route_id") != contract.get("route_id")
+        or item.get("command") != contract.get("launch", {}).get("command_or_tool")
+        or item.get("source_contract") != source
+        or coordinate.get("category") != "dataset-verifier"
+        or coordinate.get("status") != "pass"
+        or coordinate.get("exit_code") != 0
+        or coordinate.get("finished_at") != reference.get("verified_at")
+    ):
+        raise ValueError(f"source integration Case/coordinate authority mismatch: {case['id']}")
+    expected_tests = sorted(str(value) for value in source.get("tests") or [])
+    expected_requirements = sorted(str(value) for value in source.get("requirement_ids") or [])
+    report_tests = sorted(
+        str(value.get("name"))
+        for value in report.get("tests") or []
+        if value.get("status") == "pass"
+    )
+    report_requirements = sorted(
+        str(value.get("requirement_id"))
+        for value in report.get("requirements") or []
+        if value.get("status") == "pass"
+    )
+    cleanup = report.get("cleanup") or {}
+    valid_report = (
+        report.get("status") == "pass"
+        and report.get("case_id") == case["id"]
+        and report.get("qwork_revision") == reference.get("implementation_revision")
+        and report.get("expected_revision") == source.get("revision")
+        and report.get("actual_revision") == source.get("revision")
+        and report.get("worktree_clean") is True
+        and report.get("zero_real_provider_calls") is True
+        and report_tests == expected_tests
+        and report_requirements == expected_requirements
+        and cleanup.get("test_process_exited") is True
+        and cleanup.get("external_state_created") is False
+        and not report.get("failures")
+        and reference.get("qwork_server_revision") == source.get("revision")
+    )
+    if not valid_report:
+        raise ValueError(f"source integration report authority mismatch: {case['id']}")
+    if reference.get("implementation_revision") != head:
+        contract["readiness"] = "partial"
+        contract["reference_run"] = {
+            "status": "pending",
+            "run_id": str(reference["run_id"]),
+            "verified_at": str(reference["verified_at"]),
+            "environment": "stale source integration reference run",
+        }
+        contract["blockers"] = [
+            f"source integration reference {reference['run_id']} targets another QWork revision"
+        ]
+        return
+    environment = "isolated qwork_server in-memory integration fixtures, zero real provider calls"
+    contract["reference_run"] = {
+        "status": "passed",
+        "run_id": str(reference["run_id"]),
+        "verified_at": str(reference["verified_at"]),
+        "environment": environment,
+    }
+    contract["readiness"] = "ready"
+    contract["blockers"] = []
+    case["verification"] = {
+        "last_outcome": "pass",
+        "environment_scope": environment,
+        "implementation_revision": head,
+        "last_verified_at": str(reference["verified_at"]),
+        "status_reason": f"hash-verified source integration reference {reference['run_id']} passed",
+    }
+
+
 def expand_deterministic_reference_batches(
     registry: dict[str, Any], skill_root: pathlib.Path
 ) -> None:
@@ -2601,6 +2859,10 @@ def main() -> int:
     parser.add_argument("--develop-snapshot", required=True)
     parser.add_argument("--head-snapshot", required=True)
     parser.add_argument(
+        "--generated-at",
+        help="optional frozen ISO-8601 build timestamp for reproducible Dataset recompilation",
+    )
+    parser.add_argument(
         "--qwork-oracle-report",
         help="optional current-revision QWork-to-WorkBuddy Oracle report used to bind reference-run truth",
     )
@@ -2617,7 +2879,11 @@ def main() -> int:
     cases_dir.mkdir(parents=True, exist_ok=True)
     develop = run_git(repo, "rev-parse", args.develop).strip()
     head = run_git(repo, "rev-parse", args.head).strip()
-    created_at = dt.datetime.now(dt.timezone.utc).isoformat()
+    created_at = args.generated_at or dt.datetime.now(dt.timezone.utc).isoformat()
+    try:
+        dt.datetime.fromisoformat(created_at.replace("Z", "+00:00"))
+    except ValueError as error:
+        raise ValueError("--generated-at must be an ISO-8601 timestamp") from error
     skill_root = output.parent.parent
     structured_coverage_map = yaml.safe_load(
         (skill_root / "references/structured-oracle-coverage-map.yaml").read_text(
@@ -2650,6 +2916,19 @@ def main() -> int:
             encoding="utf-8"
         )
     )
+    source_integration_registry = yaml.safe_load(
+        (skill_root / "references/source-integration-runner-map.yaml").read_text(
+            encoding="utf-8"
+        )
+    )
+    if source_integration_registry.get("version") != 1:
+        raise ValueError("unsupported source integration runner map version")
+    source_integration_bindings: dict[str, dict[str, Any]] = {}
+    for binding in source_integration_registry.get("bindings") or []:
+        case_id = str(binding.get("case_id") or "")
+        if not case_id or case_id in source_integration_bindings:
+            raise ValueError(f"missing or duplicate source integration Case: {case_id!r}")
+        source_integration_bindings[case_id] = binding
     expand_deterministic_reference_batches(deterministic_reference_runs, skill_root)
 
     sources: list[dict[str, Any]] = []
@@ -4548,6 +4827,9 @@ def main() -> int:
                 "dedicated source-bound non-UI integration runner is not implemented",
                 "reference run pending",
             ]
+        source_integration_binding = source_integration_bindings.get(str(case["id"]))
+        if source_integration_binding:
+            apply_source_integration_binding(case, source_integration_binding, head)
         structured_evidence_atoms = {
             str(atom_id)
             for requirement in case["derived_requirements"]
@@ -4819,6 +5101,14 @@ def main() -> int:
                 skill_root=skill_root,
                 head=head,
             )
+        source_integration_reference = deterministic_reference_runs.get("source_integration_runs", {}).get(str(case["id"]))
+        if source_integration_reference:
+            apply_source_integration_reference_authority(
+                case=case,
+                reference=source_integration_reference,
+                skill_root=skill_root,
+                head=head,
+            )
         private_reference = private_reference_runs.get("runs", {}).get(str(case["id"]))
         failed_private_reference = private_reference_runs.get("failed_runs", {}).get(str(case["id"]))
         if private_reference and failed_private_reference:
@@ -5081,7 +5371,11 @@ def main() -> int:
         if route.startswith(("qwork.playwright.", "qwork.private-playwright.")):
             cohort_members["playwright-source-bound"].add(case_id)
             cohort_members["live-external-authorization" if required_authority else "deterministic-no-live-authorization"].add(case_id)
-        elif route.startswith(("qwork.dataset.workbuddy-storage.", "qwork.dataset.structured-oracle-source.")):
+        elif route.startswith((
+            "qwork.dataset.workbuddy-storage.",
+            "qwork.dataset.structured-oracle-source.",
+            "qwork.dataset.source-integration.",
+        )):
             cohort_members["dataset-verifier"].add(case_id)
             cohort_members["deterministic-no-live-authorization"].add(case_id)
         elif case["execution_contract"]["launch"]["strategy"] == "manual-blocked":

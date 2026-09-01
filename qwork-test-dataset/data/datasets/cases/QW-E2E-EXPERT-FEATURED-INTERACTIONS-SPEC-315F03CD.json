@@ -21,12 +21,26 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/expert-featured-interactions.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/expert-featured-interactions.spec.ts",
       "locator": "line:317;test:精选技能支持换一换、下载、安装状态和试用",
-      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:315f03cd6826594ebb412284429b2d686d872df4bbceeda4e2043ac0f6371fba",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-expert-featured-interactions-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/expert-featured-interactions.spec.ts",
+      "locator": "line:317;test:精选技能支持换一换、下载、安装状态和试用",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:315f03cd6826594ebb412284429b2d686d872df4bbceeda4e2043ac0f6371fba",
       "redaction_status": "minimized"
     }
@@ -49,6 +63,32 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-expert-featured-interactions-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "精选技能支持换一换、下载、安装状态和试用"
+    },
+    {
+      "requirement_id": "REQ-DEE56D927EE2B7",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-expert-featured-interactions-spec-ts:L317:315f03cd68"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "精选技能支持换一换、下载、安装状态和试用",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-expert-featured-interactions-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -158,10 +198,12 @@
     "expect(page.getByRole(\"tooltip\")).toHaveCount(0)",
     "expect(addMenu.getByRole(\"menuitem\")).toHaveText([\"查找技能\", \"上传技能\", \"创建技能\"])",
     "expect(sourceTabs.getByRole(\"tab\", { name: \"SkillHub\" })).toHaveAttribute(\"aria-selected\", \"true\")",
-    "expect(page.getByTestId(\"skill-card\")).toHaveCount(70)",
+    "expect(page.getByTestId(\"skill-card\")).toHaveCount(30)",
+    "expect(page.getByTestId(\"skill-card\")).toHaveCount(count)",
     "expect(recommended.getByRole(\"article\")).toHaveCount(5)",
-    "expect(recommended.getByText(\"Weather\", { exact: true })).toHaveCount(0)",
-    "expect(recommended.getByRole(\"article\")).toHaveCount(4)",
+    "expect(installedWeather).toBeVisible()",
+    "expect(installedWeather.getByRole(\"button\", { name: \"试一试 Weather\" })).toBeVisible()",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(5)",
     "expect(firstFeatured).toContainText(firstFeaturedName)",
     "expect(trial).toBeVisible()",
     "expect(page.getByRole(\"tooltip\")).toHaveText(\"试一试\")",
@@ -175,6 +217,11 @@
   "oracles": [
     {
       "requirement_id": "REQ-E76BAAD97C4793",
+      "type": "return",
+      "assertion": "精选技能支持换一换、下载、安装状态和试用"
+    },
+    {
+      "requirement_id": "REQ-DEE56D927EE2B7",
       "type": "return",
       "assertion": "精选技能支持换一换、下载、安装状态和试用"
     }
@@ -293,12 +340,12 @@
       "source_contract": {
         "spec": "e2e/expert-featured-interactions.spec.ts",
         "line_start": 317,
-        "line_end": 462,
-        "body_sha256": "sha256:0ecb38e516fff3a9dd64b69b32079f180158de4cf83baa0f0b6c27eba07aacd1",
-        "assertion_count": 51,
+        "line_end": 469,
+        "body_sha256": "sha256:c26abc5606368c1926a13f08bcf74353d13e1440786a9ff9e69622f0528108b5",
+        "assertion_count": 53,
         "action_count": 13,
-        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
-        "spec_sha256": "sha256:225573b0d3ad1f191fbdb3d12efdbecf2d41dbaf52205bfa0d29e1b0c09f24cf"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:e8814780f4423a6db48f87568382418128e76c63359bc5ec2ed60ecb30ad1a67"
       }
     },
     "reference_run": {
@@ -320,6 +367,7 @@
   },
   "selection": {
     "requirement_ids": [
+      "REQ-DEE56D927EE2B7",
       "REQ-E76BAAD97C4793"
     ],
     "categories": [
@@ -328,6 +376,7 @@
     "suite_ids": [
       "category:business",
       "full",
+      "requirement:REQ-DEE56D927EE2B7",
       "requirement:REQ-E76BAAD97C4793"
     ]
   }

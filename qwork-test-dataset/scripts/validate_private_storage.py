@@ -10,8 +10,15 @@ import subprocess
 from pathlib import Path
 
 
-# Execution intermediates must never enter the private repository index, even
-# inside an otherwise versioned asset root.
+VERSIONED_DATA_ROOTS = {
+    "benchmarks",
+    "datasets",
+    "e2e",
+    "evidence",
+    "reference-runs",
+    "sources",
+}
+LFS_SUFFIXES = {".jpeg", ".jpg", ".png", ".trace", ".webp", ".zip"}
 FORBIDDEN_ASSET_PARTS = {
     "runs",
     "build",
@@ -23,12 +30,27 @@ FORBIDDEN_ASSET_PARTS = {
 }
 
 
-def run_git(repo: Path, *args: str) -> subprocess.CompletedProcess[str]:    return subprocess.run(
+def run_git(repo: Path, *args: str) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
         ["git", "-C", str(repo), *args],
         check=False,
         capture_output=True,
         text=True,
     )
+
+
+def visible_status(repo: Path, relative_path: str) -> list[str]:
+    result = run_git(
+        repo,
+        "status",
+        "--short",
+        "--untracked-files=all",
+        "--",
+        relative_path,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(result.stderr.strip() or "git status failed")
+    return [line for line in result.stdout.splitlines() if line]
 
 
 def resolve_without_escape(candidate: Path, skill_root: Path) -> Path:
@@ -80,12 +102,9 @@ def validate(repo: Path, skill_name: str, paths: list[Path]) -> dict[str, object
     if tracked_files:
         raise ValueError(f"private Dataset Skill contains tracked files: {tracked_files}")
 
-    status = run_git(repo, "status", "--short", "--untracked-files=all", "--", relative_skill)
-    if status.returncode != 0:
-        raise RuntimeError(status.stderr.strip() or "git status failed")
-    visible_status = [line for line in status.stdout.splitlines() if line]
-    if visible_status:
-        raise ValueError(f"private Dataset Skill appears in git status: {visible_status}")
+    skill_status = visible_status(repo, relative_skill)
+    if skill_status:
+        raise ValueError(f"private Dataset Skill appears in git status: {skill_status}")
 
     data_root = skill_root / "data"
     if not data_root.is_dir():
@@ -93,71 +112,75 @@ def validate(repo: Path, skill_name: str, paths: list[Path]) -> dict[str, object
     tracked_fixture_root = data_root / "e2e"
     if not tracked_fixture_root.is_dir():
         raise ValueError(f"private Dataset E2E source root does not exist: {tracked_fixture_root}")
-    private_state_roots = sorted(
-        entry for entry in data_root.iterdir() if entry.name != "e2e"
-    )
-    # The Skill's own `.gitignore` is the single source of truth for which `data/`
-    # subtrees are versioned test assets and which are mutable run state. The
-    # validator enforces both directions so the two can never drift apart:
-    #   ignored subtree     -> must stay untracked and clean (execution state)
-    #   un-ignored subtree  -> must be a committed, clean versioned asset root
-    #                          and must not contain execution artifacts
-    ignored_state_roots: list[str] = []
-    versioned_asset_roots: list[str] = []
-    for state_root in private_state_roots:
-        relative_state = state_root.relative_to(source_repo).as_posix()
-        data_ignored = run_git(
-            source_repo, "check-ignore", "-q", "--no-index", "--", relative_state
-        ).returncode == 0
-        data_tracked = run_git(source_repo, "ls-files", "--", relative_state)
-        if data_tracked.returncode != 0:
-            raise RuntimeError(data_tracked.stderr.strip() or "source git ls-files failed")
-        tracked_data_files = [line for line in data_tracked.stdout.splitlines() if line]
-
-        if data_ignored:
-            if tracked_data_files:
-                raise ValueError(
-                    "private Dataset mutable data is ignored but tracked: "
-                    f"{relative_state}: {tracked_data_files[:5]}"
-                )
-            ignored_state_roots.append(relative_state)
-        else:
-            if not tracked_data_files:
-                raise ValueError(
-                    "private Dataset data root is neither ignored nor tracked; classify it in "
-                    f"the Skill .gitignore: {relative_state}"
-                )
-            forbidden = sorted(
-                {
-                    part
-                    for line in tracked_data_files
-                    for part in Path(line).parts
-                    if part in FORBIDDEN_ASSET_PARTS
-                }
-            )
-            if forbidden:
-                raise ValueError(
-                    "private Dataset versioned assets contain execution artifacts: "
-                    f"{relative_state}: {forbidden}"
-                )
-            versioned_asset_roots.append(relative_state)
-
-        data_status = run_git(
-            source_repo,
-            "status",
-            "--short",
-            "--untracked-files=all",
-            "--",
-            relative_state,
+    data_roots = {entry.name: entry for entry in data_root.iterdir()}
+    unexpected_data_roots = sorted(set(data_roots) - VERSIONED_DATA_ROOTS)
+    if unexpected_data_roots:
+        unexpected_path = (data_root / unexpected_data_roots[0]).relative_to(source_repo)
+        raise ValueError(
+            f"Dataset runtime data must be outside source repository: {unexpected_path}"
         )
-        if data_status.returncode != 0:
-            raise RuntimeError(data_status.stderr.strip() or "source git status failed")
-        visible_data_status = [line for line in data_status.stdout.splitlines() if line]
+    versioned_data_roots: list[str] = []
+    versioned_data_file_count = 0
+    lfs_file_count = 0
+    for root_name in sorted(VERSIONED_DATA_ROOTS):
+        state_root = data_root / root_name
+        relative_state = state_root.relative_to(source_repo).as_posix()
+        if not state_root.is_dir():
+            raise ValueError(
+                f"versioned Dataset root is missing or not a directory: {relative_state}"
+            )
+        visible_data_status = visible_status(source_repo, relative_state)
         if visible_data_status:
             raise ValueError(
-                "private Dataset data is not frozen; commit or remove before deriving: "
-                f"{relative_state}: {visible_data_status[:5]}"
+                f"versioned Dataset data is not clean in source repository: {visible_data_status}"
             )
+        tracked_result = run_git(source_repo, "ls-files", "-z", "--", relative_state)
+        if tracked_result.returncode != 0:
+            raise RuntimeError(tracked_result.stderr.strip() or "source git ls-files failed")
+        tracked_files = {path for path in tracked_result.stdout.split("\0") if path}
+        actual_files = {
+            entry.relative_to(source_repo).as_posix()
+            for entry in state_root.rglob("*")
+            if entry.is_file() or entry.is_symlink()
+        }
+        untracked_files = sorted(actual_files - tracked_files)
+        if untracked_files:
+            raise ValueError(
+                "versioned Dataset data contains untracked or ignored files: "
+                f"{untracked_files}"
+            )
+        forbidden_parts = sorted(
+            {
+                part
+                for relative_file in actual_files
+                for part in Path(relative_file).parts
+                if part in FORBIDDEN_ASSET_PARTS
+            }
+        )
+        if forbidden_parts:
+            raise ValueError(
+                "versioned Dataset data contains execution artifacts: "
+                f"{relative_state}: {forbidden_parts}"
+            )
+        for relative_file in sorted(actual_files):
+            if Path(relative_file).suffix.lower() not in LFS_SUFFIXES:
+                continue
+            attribute = run_git(
+                source_repo,
+                "check-attr",
+                "filter",
+                "--",
+                relative_file,
+            )
+            if attribute.returncode != 0:
+                raise RuntimeError(attribute.stderr.strip() or "git check-attr failed")
+            if attribute.stdout.rsplit(": ", 1)[-1].strip() != "lfs":
+                raise ValueError(
+                    f"versioned Dataset binary must use Git LFS: {relative_file}"
+                )
+            lfs_file_count += 1
+        versioned_data_roots.append(relative_state)
+        versioned_data_file_count += len(tracked_files)
 
     checked_paths = []
     for path in paths:
@@ -186,10 +209,9 @@ def validate(repo: Path, skill_name: str, paths: list[Path]) -> dict[str, object
         "tracked_files": [],
         "git_status_entries": [],
         "tracked_fixture_root": str(tracked_fixture_root),
-        "ignored_mutable_data_roots": ignored_state_roots,
-        "versioned_asset_data_roots": versioned_asset_roots,
-        "data_frozen": True,
-        "data_git_status_entries": [],
+        "versioned_data_roots": versioned_data_roots,
+        "versioned_data_file_count": versioned_data_file_count,
+        "lfs_file_count": lfs_file_count,
         "checked_paths": checked_paths,
     }
 

@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/built-in-media-generation.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/built-in-media-generation.spec.ts",
       "locator": "line:14;test:登录用户用自然语言生图后只看到保存到工作区的本地产物",
-      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:d975026d18a0d7e41db16d399566acb00466fa1b6f7f23ac32400ab0aa6ad832",
       "redaction_status": "minimized"
     }
@@ -100,7 +100,7 @@
     "expect(approval).toContainText(\"0.01 Credits\")",
     "expect(approval).toContainText(\"1024x1024\")",
     "expect(page.getByText(\"生成中\", { exact: false })).toBeVisible()",
-    "expect .poll(async () => { return (await readControls()) .filter((message) => message.type === \"create_session\") .map((message) => message.qwork_api); }) .toContainEqual({ base_url: server.baseUrl, access_token: \"[REDACTED]\", })",
+    "expect .poll(async () => { return (await readControls()) .filter((message) => message.type === \"create_session\") .map((message) => message.qwork_api); }) .toContainEqual({ base_url: server.baseUrl, access_token: \"[REDACTED]\", scopes: [\"media.generate\"], })",
     "expect .poll(async () => { try { return (await fs.stat(artifactPath)).size; } catch (error) { if ((error as NodeJS.ErrnoException).code === \"ENOENT\") return 0; throw error; } }) .toBeGreaterThan(0)",
     "expect( page.getByRole(\"button\", { name: \"打开产出物 QWork_robot.png\" }), ).toBeVisible()",
     "expect( page.getByRole(\"img\", { name: \"预览 QWork_robot.png\" }), ).toBeVisible()",
@@ -212,12 +212,12 @@
       "source_contract": {
         "spec": "e2e/built-in-media-generation.spec.ts",
         "line_start": 14,
-        "line_end": 129,
-        "body_sha256": "sha256:52e255b6f32d879d7ab78c17332acbbc23a96feb1ec4e7b2ea8a30b0445a24e8",
+        "line_end": 130,
+        "body_sha256": "sha256:7ea05c863913f0699b7017a5ae2d5db8dfca41909cbe5954e3261f06bab9008f",
         "assertion_count": 12,
         "action_count": 6,
-        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
-        "spec_sha256": "sha256:9039c8e5cb10024bc0b0b97e64076e1e4d915342a5e4673b688f007baa130b7a"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:06fdb8ff92fb1ff83f1ef53f7a7629f30c5531f70a36cceb9b5bd25d04f23168"
       }
     },
     "reference_run": {

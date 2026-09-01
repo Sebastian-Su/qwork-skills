@@ -21,12 +21,26 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/automation-parity.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/automation-parity.spec.ts",
       "locator": "line:48;test:uses the same model, skill, expert, and connector catalog rows as a new task",
-      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:d9028f09ecc0f6b1e765945f9cd30f3494650c270db8178155362098d9afe452",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-automation-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/automation-parity.spec.ts",
+      "locator": "line:48;test:uses the same model, skill, expert, and connector catalog rows as a new task",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:d9028f09ecc0f6b1e765945f9cd30f3494650c270db8178155362098d9afe452",
       "redaction_status": "minimized"
     }
@@ -49,6 +63,32 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-automation-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "uses the same model, skill, expert, and connector catalog rows as a new task"
+    },
+    {
+      "requirement_id": "REQ-65AE90EDDCF232",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-automation-parity-spec-ts:L48:d9028f09ec"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "uses the same model, skill, expert, and connector catalog rows as a new task",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-automation-parity-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -160,6 +200,11 @@
   "oracles": [
     {
       "requirement_id": "REQ-348ED1E23BE2D8",
+      "type": "return",
+      "assertion": "uses the same model, skill, expert, and connector catalog rows as a new task"
+    },
+    {
+      "requirement_id": "REQ-65AE90EDDCF232",
       "type": "return",
       "assertion": "uses the same model, skill, expert, and connector catalog rows as a new task"
     }
@@ -302,12 +347,12 @@
       "source_contract": {
         "spec": "e2e/automation-parity.spec.ts",
         "line_start": 48,
-        "line_end": 113,
-        "body_sha256": "sha256:12d59467e1d63bff16fb1e090110ca41dcddc6ce63f507af058b5fc4f7df65bc",
+        "line_end": 114,
+        "body_sha256": "sha256:765d46a518d23d8795c66c5cb567dbfd04b59ddd61454bd3063f1dd8bdeeb9c0",
         "assertion_count": 12,
         "action_count": 21,
-        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
-        "spec_sha256": "sha256:79194639bbdbfacae6ee612852a5d73298b2d8fc23a74fe225395923d785e578"
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:ecae4b878dd5e7c2de0ccce92010d2674ba8337ecaa22785242690b79386cc30"
       }
     },
     "reference_run": {
@@ -329,7 +374,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-348ED1E23BE2D8"
+      "REQ-348ED1E23BE2D8",
+      "REQ-65AE90EDDCF232"
     ],
     "categories": [
       "business"
@@ -337,7 +383,8 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-348ED1E23BE2D8"
+      "requirement:REQ-348ED1E23BE2D8",
+      "requirement:REQ-65AE90EDDCF232"
     ]
   }
 }

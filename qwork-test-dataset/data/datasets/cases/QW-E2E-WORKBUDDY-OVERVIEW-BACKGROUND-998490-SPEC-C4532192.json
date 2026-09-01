@@ -21,12 +21,26 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/workbuddy-overview-background-998490.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/workbuddy-overview-background-998490.spec.ts",
       "locator": "line:6;test:matches WorkBuddy overview and conversation background in both themes",
-      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:c4532192591f0612c558c2195d30e0c19bca410e74e81eab7eef52fe242f3ee0",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-workbuddy-overview-background-998490-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/workbuddy-overview-background-998490.spec.ts",
+      "locator": "line:6;test:matches WorkBuddy overview and conversation background in both themes",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:c4532192591f0612c558c2195d30e0c19bca410e74e81eab7eef52fe242f3ee0",
       "redaction_status": "minimized"
     }
@@ -57,6 +71,32 @@
         "reason": "compiled from the user-approved source hierarchy"
       },
       "oracle": "matches WorkBuddy overview and conversation background in both themes"
+    },
+    {
+      "requirement_id": "REQ-8524015E9B065B",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-workbuddy-overview-background-998490-spec-ts:L6:c453219259"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "settings",
+      "priority": "P1",
+      "rule": "matches WorkBuddy overview and conversation background in both themes",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-workbuddy-overview-background-998490-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches WorkBuddy overview and conversation background in both themes"
     }
   ],
   "verification": {
@@ -76,9 +116,13 @@
     },
     {
       "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+    },
+    {
+      "action": "initialExpand.click()"
     }
   ],
   "expected_outcomes": [
+    "expect(initialExpand).toBeVisible()",
     "expect(panel).toBeVisible()",
     "expect(passed, `${theme} main=${result.main}; panel=${result.panel}`).toBe(true)"
   ],
@@ -90,6 +134,11 @@
   "oracles": [
     {
       "requirement_id": "REQ-D85EB221D9FF39",
+      "type": "return",
+      "assertion": "matches WorkBuddy overview and conversation background in both themes"
+    },
+    {
+      "requirement_id": "REQ-8524015E9B065B",
       "type": "return",
       "assertion": "matches WorkBuddy overview and conversation background in both themes"
     }
@@ -151,6 +200,9 @@
       "steps": [
         {
           "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+        },
+        {
+          "action": "initialExpand.click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -172,12 +224,12 @@
       "source_contract": {
         "spec": "e2e/workbuddy-overview-background-998490.spec.ts",
         "line_start": 6,
-        "line_end": 45,
-        "body_sha256": "sha256:0d73d6d44257a2ffb9c3d65fb2de05f8d58f1f38f3341cc26727b550b8dc3d2b",
-        "assertion_count": 2,
-        "action_count": 1,
-        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
-        "spec_sha256": "sha256:de07fd62f35a02fb0500399556615dc37f6b2fc01d1e5f1d04cb43239dcbb14b"
+        "line_end": 48,
+        "body_sha256": "sha256:99283ed5949539c8900c3e517b93f29e5e8ffd4039190be4be911330b6a8e2d1",
+        "assertion_count": 3,
+        "action_count": 2,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:4f7924a431be04015d54f947aa6196204d6985b554483dd8b03a0ab4cbc2dda2"
       }
     },
     "reference_run": {
@@ -199,6 +251,7 @@
   },
   "selection": {
     "requirement_ids": [
+      "REQ-8524015E9B065B",
       "REQ-D85EB221D9FF39"
     ],
     "categories": [
@@ -207,6 +260,7 @@
     "suite_ids": [
       "category:business",
       "full",
+      "requirement:REQ-8524015E9B065B",
       "requirement:REQ-D85EB221D9FF39"
     ]
   }

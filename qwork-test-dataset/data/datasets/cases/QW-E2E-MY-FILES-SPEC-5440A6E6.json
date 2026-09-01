@@ -21,21 +21,35 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/my-files.spec.ts",
-      "locator": "line:32;test:opens 360 personal cloud drive and manages its files",
-      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/my-files.spec.ts",
+      "locator": "line:49;test:opens 360 personal cloud drive and manages its files",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:5440a6e6efe56ff25692a51bac5d552c1c02662dfaebeb64e9d5c505bac4e45c",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-my-files-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/my-files.spec.ts",
+      "locator": "line:32;test:opens 360 personal cloud drive and manages its files",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:5440a6e6efe56ff25692a51bac5d552c1c02662dfaebeb64e9d5c505bac4e45c",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-9251F9F4EC8164",
+      "requirement_id": "REQ-AED93DA8A16D1D",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-my-files-spec-ts:L32:5440a6e6ef"
+        "QDEV-E2E-e2e-my-files-spec-ts:L49:5440a6e6ef"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -49,6 +63,32 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-my-files-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "opens 360 personal cloud drive and manages its files"
+    },
+    {
+      "requirement_id": "REQ-48693C28F374E9",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-my-files-spec-ts:L32:5440a6e6ef"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "opens 360 personal cloud drive and manages its files",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-my-files-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -224,7 +264,12 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-9251F9F4EC8164",
+      "requirement_id": "REQ-AED93DA8A16D1D",
+      "type": "return",
+      "assertion": "opens 360 personal cloud drive and manages its files"
+    },
+    {
+      "requirement_id": "REQ-48693C28F374E9",
       "type": "return",
       "assertion": "opens 360 personal cloud drive and manages its files"
     }
@@ -416,10 +461,10 @@
         "spec": "e2e/my-files.spec.ts",
         "line_start": 32,
         "line_end": 148,
-        "body_sha256": "sha256:4176925789aa6fa6f2d9fd65f017967bbd1d37d4f2e19e7a45b29db3729921f5",
+        "body_sha256": "sha256:8b8f12527e41c74421b6aa84e3017ce4a0a55b406fd2eb080b3abe44e26eea36",
         "assertion_count": 29,
         "action_count": 37,
-        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
         "spec_sha256": "sha256:3068a49646cff8db4076d3e7ce8e8b4f4e6e4c8660259ee6ce65dc62f3f1a84a"
       }
     },
@@ -442,7 +487,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-9251F9F4EC8164"
+      "REQ-48693C28F374E9",
+      "REQ-AED93DA8A16D1D"
     ],
     "categories": [
       "business"
@@ -450,7 +496,8 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-9251F9F4EC8164"
+      "requirement:REQ-48693C28F374E9",
+      "requirement:REQ-AED93DA8A16D1D"
     ]
   }
 }

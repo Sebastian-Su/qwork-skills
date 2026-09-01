@@ -21,12 +21,26 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:353007e4b0238f8cd57bc71cffe4a109b65eae3b:e2e/assistant.spec.ts",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/assistant.spec.ts",
       "locator": "line:15;test:configures an IM assistant, restores it and keeps its secret encrypted",
-      "revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T14:10:48.652119+00:00",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:2044639d7cd450e994b42582f968a69ff7086c720bd26cd28f45af0c1794ec42",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-assistant-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/assistant.spec.ts",
+      "locator": "line:15;test:configures an IM assistant, restores it and keeps its secret encrypted",
+      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
       "content_hash": "sha256:2044639d7cd450e994b42582f968a69ff7086c720bd26cd28f45af0c1794ec42",
       "redaction_status": "minimized"
     }
@@ -57,6 +71,32 @@
         "reason": "compiled from the user-approved source hierarchy"
       },
       "oracle": "configures an IM assistant, restores it and keeps its secret encrypted"
+    },
+    {
+      "requirement_id": "REQ-14BBD3776E2EAA",
+      "source_atom_ids": [
+        "QHEAD-E2E-e2e-assistant-spec-ts:L15:2044639d7c"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "configures an IM assistant, restores it and keeps its secret encrypted",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QHEAD-E2E-e2e-assistant-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "configures an IM assistant, restores it and keeps its secret encrypted"
     }
   ],
   "verification": {
@@ -76,6 +116,9 @@
     },
     {
       "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+    },
+    {
+      "action": "expandContext.click()"
     },
     {
       "action": "contextPanel.getByRole(\"button\", { name: \"收起任务进程\" }).click()"
@@ -145,6 +188,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(expandContext).toBeVisible()",
     "expect.poll(() => page.evaluate(() => localStorage.getItem(\"ziqdo:assistant-session-id\")), ).not.toBeNull()",
     "expect(page.getByRole(\"heading\", { name: \"本地助理\" })).toBeVisible()",
     "expect(contextPanel).toBeVisible()",
@@ -200,6 +244,11 @@
   "oracles": [
     {
       "requirement_id": "REQ-9A0F4EA5907D95",
+      "type": "return",
+      "assertion": "configures an IM assistant, restores it and keeps its secret encrypted"
+    },
+    {
+      "requirement_id": "REQ-14BBD3776E2EAA",
       "type": "return",
       "assertion": "configures an IM assistant, restores it and keeps its secret encrypted"
     }
@@ -261,6 +310,9 @@
       "steps": [
         {
           "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+        },
+        {
+          "action": "expandContext.click()"
         },
         {
           "action": "contextPanel.getByRole(\"button\", { name: \"收起任务进程\" }).click()"
@@ -348,12 +400,12 @@
       "source_contract": {
         "spec": "e2e/assistant.spec.ts",
         "line_start": 15,
-        "line_end": 148,
-        "body_sha256": "sha256:19e623b24f03e5c7c9726dd8dc92022a95edd6deb60e3fd22f023d547099d501",
-        "assertion_count": 46,
-        "action_count": 23,
-        "execution_revision": "353007e4b0238f8cd57bc71cffe4a109b65eae3b",
-        "spec_sha256": "sha256:0ef85d4c688c3faa4e465bd82802e6a34c6e8f27f1bafb9e20cbec4c1cbbceaf"
+        "line_end": 151,
+        "body_sha256": "sha256:dfaf4f999eca7b24c19a091586a04b6576b8d616af3e2fde8a5e1119dcf1fdb5",
+        "assertion_count": 47,
+        "action_count": 24,
+        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "spec_sha256": "sha256:05b76318b6671ec5f539585947a6d156702b42845f9d0f11b6b30e63eae720e4"
       }
     },
     "reference_run": {
@@ -375,6 +427,7 @@
   },
   "selection": {
     "requirement_ids": [
+      "REQ-14BBD3776E2EAA",
       "REQ-9A0F4EA5907D95"
     ],
     "categories": [
@@ -383,6 +436,7 @@
     "suite_ids": [
       "category:business",
       "full",
+      "requirement:REQ-14BBD3776E2EAA",
       "requirement:REQ-9A0F4EA5907D95"
     ]
   }
