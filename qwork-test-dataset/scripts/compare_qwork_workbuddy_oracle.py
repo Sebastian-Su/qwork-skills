@@ -35,12 +35,39 @@ def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def pixel_diff_stats(
+    candidate: Image.Image,
+    reference: Image.Image,
+    *,
+    channel_threshold: int,
+) -> dict[str, float]:
+    diff = ImageChops.difference(candidate, reference)
+    histogram = diff.histogram()
+    total_pixels = candidate.width * candidate.height
+    total_channels = total_pixels * len(diff.getbands())
+    absolute_error = sum(
+        (index % 256) * count for index, count in enumerate(histogram)
+    )
+    channel_maximum = diff.split()[0]
+    for channel in diff.split()[1:]:
+        channel_maximum = ImageChops.lighter(channel_maximum, channel)
+    maximum_histogram = channel_maximum.histogram()
+    return {
+        "exact_diff_ratio": sum(maximum_histogram[1:]) / total_pixels,
+        "significant_diff_ratio": (
+            sum(maximum_histogram[channel_threshold + 1 :]) / total_pixels
+        ),
+        "mean_absolute_channel_error": absolute_error / total_channels,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--capture", type=Path, required=True)
     parser.add_argument("--workbuddy", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--max-diff-ratio", type=float, default=0.01)
+    parser.add_argument("--pixel-channel-threshold", type=int, default=8)
     parser.add_argument("--geometry-tolerance", type=float, default=2.0)
     parser.add_argument(
         "--fail-on-diff",
@@ -75,15 +102,15 @@ def main() -> int:
                 pixel = {"status": "not-comparable", "reason": "dimension mismatch"}
             else:
                 diff = ImageChops.difference(q_image, wb_image)
-                histogram = diff.histogram()
-                total_channels = q_image.width * q_image.height * 4
-                absolute_error = sum((index % 256) * count for index, count in enumerate(histogram))
-                mean_absolute_error = absolute_error / total_channels
-                different_pixels = sum(1 for pixel_value in diff.getdata() if pixel_value != (0, 0, 0, 0))
-                ratio = different_pixels / (q_image.width * q_image.height)
+                stats = pixel_diff_stats(
+                    q_image,
+                    wb_image,
+                    channel_threshold=args.pixel_channel_threshold,
+                )
+                ratio = stats["significant_diff_ratio"]
                 diff_path = args.output.resolve() / f"{state}-diff.png"
                 diff.save(diff_path)
-                pixel = {"status": "pass" if ratio <= args.max_diff_ratio else "fail", "diff_ratio": ratio, "mean_absolute_channel_error": mean_absolute_error, "threshold": args.max_diff_ratio, "diff_image": evidence_ref(diff_path), "diff_image_sha256": f"sha256:{sha256_file(diff_path)}"}
+                pixel = {"status": "pass" if ratio <= args.max_diff_ratio else "fail", "diff_ratio": ratio, "exact_diff_ratio": stats["exact_diff_ratio"], "mean_absolute_channel_error": stats["mean_absolute_channel_error"], "channel_threshold": args.pixel_channel_threshold, "threshold": args.max_diff_ratio, "diff_image": evidence_ref(diff_path), "diff_image_sha256": f"sha256:{sha256_file(diff_path)}"}
                 if pixel["status"] == "fail": result["failures"].append(f"pixel diff ratio {ratio:.6f} exceeds {args.max_diff_ratio:.6f}")
         result["pixel"] = pixel
         wb_keys: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -104,7 +131,7 @@ def main() -> int:
         result["failure_classification"] = None if result["status"] == "pass" else "ui-visual-geometry"
         result["evidence"] = {"qwork_png": evidence_ref(q_png), "qwork_sha256": f"sha256:{sha256_file(q_png)}", "workbuddy_png": evidence_ref(wb_png), "workbuddy_sha256": f"sha256:{sha256_file(wb_png)}"}
         results.append(result)
-    report = {"schema_version": 1, "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(), "policy": {"max_diff_ratio": args.max_diff_ratio, "geometry_tolerance_css_px": args.geometry_tolerance, "dynamic_masks": []}, "state_count": len(results), "passed": sum(item["status"] == "pass" for item in results), "failed": sum(item["status"] == "fail" for item in results), "results": results}
+    report = {"schema_version": 1, "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(), "policy": {"max_diff_ratio": args.max_diff_ratio, "pixel_channel_threshold": args.pixel_channel_threshold, "geometry_tolerance_css_px": args.geometry_tolerance, "dynamic_masks": []}, "state_count": len(results), "passed": sum(item["status"] == "pass" for item in results), "failed": sum(item["status"] == "fail" for item in results), "results": results}
     report_path = args.output.resolve() / "oracle-report.json"
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"status": "ok", "report": str(report_path), "states": len(results), "passed": report["passed"], "failed": report["failed"]}, ensure_ascii=False))

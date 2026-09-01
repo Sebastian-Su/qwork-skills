@@ -1,0 +1,206 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-WORKBUDDY-ORACLE-5-3-5-AUTOMATION-EVIDENCE-PIXELBASELINE-THRESHOLD-B397EE78",
+  "title": "WorkBuddy 5.3.5 automations · evidence-pixelBaseline-threshold 结构化 Oracle",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "deterministic-replay",
+  "coverage": {
+    "capability_id": "automations",
+    "journey": "automations",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "WORKBUDDY-ORACLE-5-3-5-AUTOMATION-REFERENCE",
+      "type": "structured-workbuddy-oracle",
+      "authority_kind": "normative",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/visual-baselines/automation-reference.json",
+      "locator": "json-pointer:/pixelBaseline/threshold",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:312b95ee5a344d2f7a16ad817ff70788980da6e30b9bb04b651d53847abd476f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0361711D5414AA",
+      "source_atom_ids": [
+        "WORKBUDDY-ORACLE-5-3-5-AUTOMATION-REFERENCE:PTR:D8C1797483C0EF"
+      ],
+      "content_facets": [
+        "evidence-provenance"
+      ],
+      "acceptance_categories": [
+        "evidence-integrity"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "WorkBuddy structured Oracle /pixelBaseline/threshold equals 0.01",
+      "authority_domain": "ui-geometry-state-responsive-style",
+      "governing_sources": [
+        "WORKBUDDY-ORACLE-5-3-5-AUTOMATION-REFERENCE"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WorkBuddy structured Oracle /pixelBaseline/threshold equals 0.01"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "read-only frozen Git and private Dataset",
+    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "last_verified_at": null,
+    "status_reason": "dedicated source-integrity verifier implemented; reference run pending"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "frozen_git_revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f"
+  },
+  "steps": [
+    {
+      "action": "load the exact frozen Git blob named by the structured Oracle source"
+    },
+    {
+      "action": "resolve every Case-bound JSON Pointer without opening QWork or WorkBuddy"
+    },
+    {
+      "action": "recompute canonical scalar hashes and compare them with the source atom ledger"
+    }
+  ],
+  "expected_outcomes": [
+    "the frozen source blob hash matches its accepted source record",
+    "every Case-bound JSON Pointer resolves exactly once",
+    "every canonical scalar value hash matches the atom ledger"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-0361711D5414AA]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: WorkBuddy structured Oracle /pixelBaseline/threshold equals 0.01",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0361711D5414AA",
+      "type": "trace",
+      "assertion": "WorkBuddy structured Oracle /pixelBaseline/threshold equals 0.01"
+    }
+  ],
+  "cleanup": {
+    "action": "none; verifier is read-only over Git and private Dataset manifests"
+  },
+  "evidence": [
+    "machine-readable structured source integrity result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.dataset.structured-oracle-source.qw-req-workbuddy-oracle-5-3-5-automation-evidence-pixelbaseline-threshold-b397ee",
+    "target": {
+      "kind": "deterministic-runner",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "skill://qwork-test-dataset/scripts/validate_structured_oracle_source_case.py"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve the exact accepted Git source and revision",
+        "oracle": "the source blob hash matches the frozen source ledger"
+      },
+      {
+        "action": "resolve the exact Case atom set",
+        "oracle": "all atoms are evidence-provenance JSON Pointer atoms from one accepted structured source"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "python3 .agents/skills/qwork-test-dataset/scripts/validate_structured_oracle_source_case.py --repo . --skill-root .agents/skills/qwork-test-dataset --case-id QW-REQ-WORKBUDDY-ORACLE-5-3-5-AUTOMATION-EVIDENCE-PIXELBASELINE-THRESHOLD-B397EE78",
+      "success_oracle": "every bound pointer and scalar hash matches the accepted structured source",
+      "failure_action": "preserve pointer-level failures and rebuild the Dataset from the approved source; never reinterpret source metadata as UI behavior"
+    },
+    "navigation": {
+      "kind": "cli-command",
+      "entrypoint": "structured-oracle-source-integrity",
+      "steps": [
+        {
+          "action": "run the exact Case ID through the read-only source verifier"
+        }
+      ],
+      "locator_strategy": "accepted source ID plus JSON Pointer",
+      "success_oracle": "the verifier returns zero with no source, pointer or scalar drift",
+      "failure_action": "repair source capture or Dataset compilation"
+    },
+    "fixtures": {
+      "setup": "accepted Git blob and generated source atom ledger",
+      "isolation": "does not launch Electron or read live user state",
+      "cleanup": "none; all inputs are read-only"
+    },
+    "observability": {
+      "artifacts": [
+        "structured-source-result.json"
+      ],
+      "correlation": "case_id + source_id + revision + source sha256",
+      "failure_classification": "source-drift|pointer-missing|scalar-drift|dataset-drift",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "read-only frozen Git source; reference replay pending"
+    },
+    "cleanup": {
+      "actions": [
+        "assert no Electron process or live user state was opened"
+      ],
+      "success_oracle": "only the requested report artifact was created"
+    },
+    "blockers": [
+      "reference source-integrity replay pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0361711D5414AA"
+    ],
+    "categories": [
+      "evidence-integrity"
+    ],
+    "suite_ids": [
+      "category:evidence-integrity",
+      "full",
+      "requirement:REQ-0361711D5414AA"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-0361711D5414AA",
+      "oracle_type": "trace",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for WorkBuddy 5.3.5 automations · evidence-pixelBaseline-threshold 结构化 Oracle exactly once and retain its correlation identity",
+      "then": "WorkBuddy structured Oracle /pixelBaseline/threshold equals 0.01",
+      "observation_boundary": "case-owned execution trace",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

@@ -1,0 +1,280 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-OFFICE-EDITOR-SPEC-A8F9C3DF",
+  "title": "我的文件任务成果 Office 在统一右侧抽屉使用本地引擎",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-office-editor-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/office-editor.spec.ts",
+      "locator": "line:218;test:我的文件任务成果 Office 在统一右侧抽屉使用本地引擎",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:a8f9c3dfac344115529aa4cb71b7eac49785f98b5dbabf54c4e3646130a54870",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-54C04A3004A1A9",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-office-editor-spec-ts:L218:a8f9c3dfac"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "我的文件任务成果 Office 在统一右侧抽屉使用本地引擎",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-office-editor-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "我的文件任务成果 Office 在统一右侧抽屉使用本地引擎"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_OFFICE_ARTIFACT__:预算.xlsx\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page .getByTestId(\"left-rail-shell\") .getByRole(\"button\", { name: \"更多\", exact: true }) .click()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"更多\" }) .getByRole(\"menuitem\", { name: \"我的文件\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"预算.xlsx\", exact: true }).click()"
+    },
+    {
+      "action": "drawer.getByRole(\"button\", { name: \"关闭预览\" }).click()"
+    },
+    {
+      "action": "page .locator(\"header\") .getByRole(\"button\", { name: \"云端网盘\", exact: true }) .click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: /打开产出物 预算\\.xlsx/ })).toBeVisible()",
+    "expect(page.getByText(\"文件已生成\", { exact: true })).toBeVisible()",
+    "expect( page.getByRole(\"complementary\", { name: \"工件预览\" }), ).not.toBeVisible()",
+    "expect(page.getByText(\"预算.xlsx\", { exact: true })).toBeVisible()",
+    "expect(drawer.getByRole(\"heading\", { name: \"预算.xlsx\" })).toBeVisible()",
+    "expect( drawer.getByRole(\"textbox\", { name: \"Enter a value or formula\" }), ).toHaveValue(\"QWork Office fixture\")",
+    "expect(page.getByText(/支持的 Word、Excel、PPT 和 PDF 可使用 WPS 在线预览/)).toBeVisible()",
+    "expect( page.getByRole(\"region\", { name: \"360企业云盘个人空间\" }), ).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-54C04A3004A1A9",
+      "type": "return",
+      "assertion": "我的文件任务成果 Office 在统一右侧抽屉使用本地引擎"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-office-editor-spec-ts.a8f9c3dfac",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/office-editor.spec.ts -g \"我的文件任务成果 Office 在统一右侧抽屉使用本地引擎\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_OFFICE_ARTIFACT__:预算.xlsx\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByTestId(\"left-rail-shell\") .getByRole(\"button\", { name: \"更多\", exact: true }) .click()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"更多\" }) .getByRole(\"menuitem\", { name: \"我的文件\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"预算.xlsx\", exact: true }).click()"
+        },
+        {
+          "action": "drawer.getByRole(\"button\", { name: \"关闭预览\" }).click()"
+        },
+        {
+          "action": "page .locator(\"header\") .getByRole(\"button\", { name: \"云端网盘\", exact: true }) .click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/office-editor.spec.ts",
+        "line_start": 218,
+        "line_end": 275,
+        "body_sha256": "sha256:1032507229edf88aa31ce136ca68048a177d676003a88068a42ef1fc71e7b74d",
+        "assertion_count": 8,
+        "action_count": 11,
+        "execution_revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+        "spec_sha256": "sha256:7003cf567e666965dae45bd47ad8763d5f6bb71cebfa6d4c87f02cfd0a1907b4"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-54C04A3004A1A9"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-54C04A3004A1A9"
+    ]
+  }
+}

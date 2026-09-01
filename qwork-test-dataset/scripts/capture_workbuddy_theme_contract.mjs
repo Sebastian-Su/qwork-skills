@@ -60,7 +60,16 @@ async function capture(label, elapsedMs = null) {
 const initialTheme = await readTheme();
 await capture("entry-before-theme-menu");
 const viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight, dpr: devicePixelRatio }));
-await page.mouse.click(120, viewport.height - 28);
+const updateToastClose = page.locator("button.update-toast-close").filter({ visible: true }).last();
+if (await updateToastClose.isVisible().catch(() => false)) {
+  await updateToastClose.click();
+  await page.waitForTimeout(150);
+}
+const userMenuTrigger = page.locator("button.user-menu-trigger--workbuddy").filter({ visible: true }).last();
+if (!(await userMenuTrigger.isVisible().catch(() => false))) {
+  throw new Error("WorkBuddy 5.3.8 user menu trigger is unavailable");
+}
+await userMenuTrigger.click();
 await page.waitForTimeout(200);
 const lightControl = page.getByText("浅色", { exact: true }).filter({ visible: true }).last();
 const darkControl = page.getByText("深色", { exact: true }).filter({ visible: true }).last();

@@ -1,0 +1,373 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-BUILT-IN-ITEM-CBB4C6CB",
+  "title": "docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md · 接口、数据与权限 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md",
+      "locator": "line:47;heading:接口、数据与权限",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:43de61485f313d90ca1cf20cdfad506770fa283bc0a7e75b57d9b27198a40767",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md",
+      "locator": "line:48;heading:接口、数据与权限",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:1c58e7913c0e19e59603bc668cbfa50c70242d81340d3c1396dec3bbdcd8a140",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md",
+      "locator": "line:51;heading:接口、数据与权限",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:9ec99366c974ead3c1256899645d05f6b41c76606c8e8ffb161e4658f1dde163",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-27FF8A02F30EB2",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem:L47:43de61485f"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "SerpAPI 也为空时返回 200 空结果；两个 Provider 都不可用时返回 503 `search_unavailable`。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "SerpAPI 也为空时返回 200 空结果；两个 Provider 都不可用时返回 503 `search_unavailable`。"
+    },
+    {
+      "requirement_id": "REQ-B91DFCB6F1BF55",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem:L48:1c58e7913c"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "Redis 按 Asia/Shanghai 日期维护用户和组织计数，并维护用户并发 lease；Provider 已调用后最终失败仍计次，Redis 故障 fail closed。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Redis 按 Asia/Shanghai 日期维护用户和组织计数，并维护用户并发 lease；Provider 已调用后最终失败仍计次，Redis 故障 fail closed。"
+    },
+    {
+      "requirement_id": "REQ-F97C4D7255B7C2",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem:L51:9ec99366c9"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "长期路径中两个 Provider 密钥只经 qwork_admin HTTPS 写入后以 AES-256-GCM 密文落库；qwork_admin 和 qwork_server 复用既有 `QWORK_LLM_CONFIG_KEY_FILE` 仓库外 32 字节主密钥。测试闭环临时复用用户授权的现有凭据，将其只写入容器云 Secret，不进入代码、配置模板、日志或 Evidence；生产前必须删除临时环境密钥并轮换。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "长期路径中两个 Provider 密钥只经 qwork_admin HTTPS 写入后以 AES-256-GCM 密文落库；qwork_admin 和 qwork_server 复用既有 `QWORK_LLM_CONFIG_KEY_FILE` 仓库外 32 字节主密钥。测试闭环临时复用用户授权的现有凭据，将其只写入容器云 Secret，不进入代码、配置模板、日志或 Evidence；生产前必须删除临时环境密钥并轮换。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md · 接口、数据与权限 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-27FF8A02F30EB2] exactly: SerpAPI 也为空时返回 200 空结果；两个 Provider 都不可用时返回 503 `search_unavailable`。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-B91DFCB6F1BF55] exactly: Redis 按 Asia/Shanghai 日期维护用户和组织计数，并维护用户并发 lease；Provider 已调用后最终失败仍计次，Redis 故障 fail closed。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-F97C4D7255B7C2] exactly: 长期路径中两个 Provider 密钥只经 qwork_admin HTTPS 写入后以 AES-256-GCM 密文落库；qwork_admin 和 qwork_server 复用既有 `QWORK_LLM_CONFIG_KEY_FILE` 仓库外 32 字节主密钥。测试闭环临时复用用户授权的现有凭据，将其只写入容器云 Secret，不进入代码、配置模板、日志或 Evidence；生产前必须删除临时环境密钥并轮换。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "SerpAPI 也为空时返回 200 空结果；两个 Provider 都不可用时返回 503 `search_unavailable`。",
+    "Redis 按 Asia/Shanghai 日期维护用户和组织计数，并维护用户并发 lease；Provider 已调用后最终失败仍计次，Redis 故障 fail closed。",
+    "长期路径中两个 Provider 密钥只经 qwork_admin HTTPS 写入后以 AES-256-GCM 密文落库；qwork_admin 和 qwork_server 复用既有 `QWORK_LLM_CONFIG_KEY_FILE` 仓库外 32 字节主密钥。测试闭环临时复用用户授权的现有凭据，将其只写入容器云 Secret，不进入代码、配置模板、日志或 Evidence；生产前必须删除临时环境密钥并轮换。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-27FF8A02F30EB2]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: SerpAPI 也为空时返回 200 空结果；两个 Provider 都不可用时返回 503 `search_unavailable`。",
+    "FAIL [REQ-B91DFCB6F1BF55]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Redis 按 Asia/Shanghai 日期维护用户和组织计数，并维护用户并发 lease；Provider 已调用后最终失败仍计次，Redis 故障 fail closed。",
+    "FAIL [REQ-F97C4D7255B7C2]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 长期路径中两个 Provider 密钥只经 qwork_admin HTTPS 写入后以 AES-256-GCM 密文落库；qwork_admin 和 qwork_server 复用既有 `QWORK_LLM_CONFIG_KEY_FILE` 仓库外 32 字节主密钥。测试闭环临时复用用户授权的现有凭据，将其只写入容器云 Secret，不进入代码、配置模板、日志或 Evidence；生产前必须删除临时环境密钥并轮换。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-27FF8A02F30EB2",
+      "type": "return",
+      "assertion": "SerpAPI 也为空时返回 200 空结果；两个 Provider 都不可用时返回 503 `search_unavailable`。"
+    },
+    {
+      "requirement_id": "REQ-B91DFCB6F1BF55",
+      "type": "ui",
+      "assertion": "Redis 按 Asia/Shanghai 日期维护用户和组织计数，并维护用户并发 lease；Provider 已调用后最终失败仍计次，Redis 故障 fail closed。"
+    },
+    {
+      "requirement_id": "REQ-F97C4D7255B7C2",
+      "type": "ui",
+      "assertion": "长期路径中两个 Provider 密钥只经 qwork_admin HTTPS 写入后以 AES-256-GCM 密文落库；qwork_admin 和 qwork_server 复用既有 `QWORK_LLM_CONFIG_KEY_FILE` 仓库外 32 字节主密钥。测试闭环临时复用用户授权的现有凭据，将其只写入容器云 Secret，不进入代码、配置模板、日志或 Evidence；生产前必须删除临时环境密钥并轮换。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-built-in-w.item-cbb4c6cba5",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md · 接口、数据与权限 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-27FF8A02F30EB2] exactly: SerpAPI 也为空时返回 200 空结果；两个 Provider 都不可用时返回 503 `search_unavailable`。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-B91DFCB6F1BF55] exactly: Redis 按 Asia/Shanghai 日期维护用户和组织计数，并维护用户并发 lease；Provider 已调用后最终失败仍计次，Redis 故障 fail closed。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-F97C4D7255B7C2] exactly: 长期路径中两个 Provider 密钥只经 qwork_admin HTTPS 写入后以 AES-256-GCM 密文落库；qwork_admin 和 qwork_server 复用既有 `QWORK_LLM_CONFIG_KEY_FILE` 仓库外 32 字节主密钥。测试闭环临时复用用户授权的现有凭据，将其只写入容器云 Secret，不进入代码、配置模板、日志或 Evidence；生产前必须删除临时环境密钥并轮换。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-27FF8A02F30EB2",
+      "REQ-B91DFCB6F1BF55",
+      "REQ-F97C4D7255B7C2"
+    ],
+    "categories": [
+      "business",
+      "negative",
+      "permission"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:negative",
+      "category:permission",
+      "full",
+      "requirement:REQ-27FF8A02F30EB2",
+      "requirement:REQ-B91DFCB6F1BF55",
+      "requirement:REQ-F97C4D7255B7C2"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-27FF8A02F30EB2",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md · 接口、数据与权限 产品契约 exactly once and retain its correlation identity",
+      "then": "SerpAPI 也为空时返回 200 空结果；两个 Provider 都不可用时返回 503 `search_unavailable`。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-B91DFCB6F1BF55",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md · 接口、数据与权限 产品契约 exactly once and retain its correlation identity",
+      "then": "Redis 按 Asia/Shanghai 日期维护用户和组织计数，并维护用户并发 lease；Provider 已调用后最终失败仍计次，Redis 故障 fail closed。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-F97C4D7255B7C2",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md · 接口、数据与权限 产品契约 exactly once and retain its correlation identity",
+      "then": "长期路径中两个 Provider 密钥只经 qwork_admin HTTPS 写入后以 AES-256-GCM 密文落库；qwork_admin 和 qwork_server 复用既有 `QWORK_LLM_CONFIG_KEY_FILE` 仓库外 32 字节主密钥。测试闭环临时复用用户授权的现有凭据，将其只写入容器云 Secret，不进入代码、配置模板、日志或 Evidence；生产前必须删除临时环境密钥并轮换。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

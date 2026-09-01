@@ -1,0 +1,307 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-WORKBUDDY-FEISHU-B4QJ-REV95-D-3-1-2026-08-07-CDP-391DF26F",
+  "title": "WorkBuddy 飞书需求 · D.3.1 召唤路径与空白态（2026-08-07 CDP 补充）",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "WORKBUDDY-FEISHU-B4QJ-REV95",
+      "type": "lark-document",
+      "authority_kind": "normative",
+      "authority_domain": "product-ui-storage",
+      "stable_source_id": "https://my.feishu.cn/docx/B4QJdvjXeouLAjx1bNAcGhJdnCg",
+      "locator": "block:doxcn0uDOHtkSW05h2JXckB45wb;heading:D.3.1 召唤路径与空白态（2026-08-07 CDP 补充）",
+      "revision": "95",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:1a5ac1ccd892599d58817c85a35416ba9f295e73d1bf53baf8930310644c72ad",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-FEISHU-B4QJ-REV95",
+      "type": "lark-document",
+      "authority_kind": "normative",
+      "authority_domain": "product-ui-storage",
+      "stable_source_id": "https://my.feishu.cn/docx/B4QJdvjXeouLAjx1bNAcGhJdnCg",
+      "locator": "block:doxcnU8jXjSFsHwIGo9LHyMkT2d;heading:D.3.1 召唤路径与空白态（2026-08-07 CDP 补充）",
+      "revision": "95",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:9477d22de6a1b00d852f46859c2af7cc91bcee5cf30bc88b31d8d701f1aa85e4",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-365FFFD6F2D729",
+      "source_atom_ids": [
+        "WORKBUDDY-FEISHU-B4QJ-REV95:doxcn0uDOHtkSW05h2JXckB45wb:data-side-effect"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "WorkBuddy 5.3.8 的专家卡同时承载两条不同路径。卡片主体用于浏览详情；右上“召唤”按钮用于直接选择。详情页底部仍有最终召唤按钮。无论走哪条选择路径，应用都回到首页空白态：正文没有用户气泡，不新增任务，左侧任务数不变；Composer 保留用户已有草稿，并在底部出现被选专家或专家团的身份胶囊。",
+      "authority_domain": "product-ui-storage",
+      "governing_sources": [
+        "WORKBUDDY-FEISHU-B4QJ-REV95"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WorkBuddy 5.3.8 的专家卡同时承载两条不同路径。卡片主体用于浏览详情；右上“召唤”按钮用于直接选择。详情页底部仍有最终召唤按钮。无论走哪条选择路径，应用都回到首页空白态：正文没有用户气泡，不新增任务，左侧任务数不变；Composer 保留用户已有草稿，并在底部出现被选专家或专家团的身份胶囊。"
+    },
+    {
+      "requirement_id": "REQ-11917A204FA881",
+      "source_atom_ids": [
+        "WORKBUDDY-FEISHU-B4QJ-REV95:doxcnU8jXjSFsHwIGo9LHyMkT2d:negative-rule"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "旧文档曾把卡片主体和右上“召唤”混为同一路径，并把选择专家写成“立即新建会话”。该结论已经 CDP 实机推翻，不得继续作为复刻 Oracle。",
+      "authority_domain": "product-ui-storage",
+      "governing_sources": [
+        "WORKBUDDY-FEISHU-B4QJ-REV95"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "旧文档曾把卡片主体和右上“召唤”混为同一路径，并把选择专家写成“立即新建会话”。该结论已经 CDP 实机推翻，不得继续作为复刻 Oracle。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for WorkBuddy 飞书需求 · D.3.1 召唤路径与空白态（2026-08-07 CDP 补充） exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-365FFFD6F2D729] exactly: WorkBuddy 5.3.8 的专家卡同时承载两条不同路径。卡片主体用于浏览详情；右上“召唤”按钮用于直接选择。详情页底部仍有最终召唤按钮。无论走哪条选择路径，应用都回到首页空白态：正文没有用户气泡，不新增任务，左侧任务数不变；Composer 保留用户已有草稿，并在底部出现被选专家或专家团的身份胶囊。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-11917A204FA881] exactly: 旧文档曾把卡片主体和右上“召唤”混为同一路径，并把选择专家写成“立即新建会话”。该结论已经 CDP 实机推翻，不得继续作为复刻 Oracle。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "WorkBuddy 5.3.8 的专家卡同时承载两条不同路径。卡片主体用于浏览详情；右上“召唤”按钮用于直接选择。详情页底部仍有最终召唤按钮。无论走哪条选择路径，应用都回到首页空白态：正文没有用户气泡，不新增任务，左侧任务数不变；Composer 保留用户已有草稿，并在底部出现被选专家或专家团的身份胶囊。",
+    "旧文档曾把卡片主体和右上“召唤”混为同一路径，并把选择专家写成“立即新建会话”。该结论已经 CDP 实机推翻，不得继续作为复刻 Oracle。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-365FFFD6F2D729]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: WorkBuddy 5.3.8 的专家卡同时承载两条不同路径。卡片主体用于浏览详情；右上“召唤”按钮用于直接选择。详情页底部仍有最终召唤按钮。无论走哪条选择路径，应用都回到首页空白态：正文没有用户气泡，不新增任务，左侧任务数不变；Composer 保留用户已有草稿，并在底部出现被选专家或专家团的身份胶囊。",
+    "FAIL [REQ-11917A204FA881]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 旧文档曾把卡片主体和右上“召唤”混为同一路径，并把选择专家写成“立即新建会话”。该结论已经 CDP 实机推翻，不得继续作为复刻 Oracle。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-365FFFD6F2D729",
+      "type": "database",
+      "assertion": "WorkBuddy 5.3.8 的专家卡同时承载两条不同路径。卡片主体用于浏览详情；右上“召唤”按钮用于直接选择。详情页底部仍有最终召唤按钮。无论走哪条选择路径，应用都回到首页空白态：正文没有用户气泡，不新增任务，左侧任务数不变；Composer 保留用户已有草稿，并在底部出现被选专家或专家团的身份胶囊。"
+    },
+    {
+      "requirement_id": "REQ-11917A204FA881",
+      "type": "ui",
+      "assertion": "旧文档曾把卡片主体和右上“召唤”混为同一路径，并把选择专家写成“立即新建会话”。该结论已经 CDP 实机推翻，不得继续作为复刻 Oracle。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.workbuddy-feishu-b4qj-rev95.d-3-1-2026-08-07-cdp-391df26f67",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for WorkBuddy 飞书需求 · D.3.1 召唤路径与空白态（2026-08-07 CDP 补充） exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-365FFFD6F2D729] exactly: WorkBuddy 5.3.8 的专家卡同时承载两条不同路径。卡片主体用于浏览详情；右上“召唤”按钮用于直接选择。详情页底部仍有最终召唤按钮。无论走哪条选择路径，应用都回到首页空白态：正文没有用户气泡，不新增任务，左侧任务数不变；Composer 保留用户已有草稿，并在底部出现被选专家或专家团的身份胶囊。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-11917A204FA881] exactly: 旧文档曾把卡片主体和右上“召唤”混为同一路径，并把选择专家写成“立即新建会话”。该结论已经 CDP 实机推翻，不得继续作为复刻 Oracle。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-11917A204FA881",
+      "REQ-365FFFD6F2D729"
+    ],
+    "categories": [
+      "data",
+      "negative"
+    ],
+    "suite_ids": [
+      "category:data",
+      "category:negative",
+      "full",
+      "requirement:REQ-11917A204FA881",
+      "requirement:REQ-365FFFD6F2D729"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-365FFFD6F2D729",
+      "oracle_type": "database",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for WorkBuddy 飞书需求 · D.3.1 召唤路径与空白态（2026-08-07 CDP 补充） exactly once and retain its correlation identity",
+      "then": "WorkBuddy 5.3.8 的专家卡同时承载两条不同路径。卡片主体用于浏览详情；右上“召唤”按钮用于直接选择。详情页底部仍有最终召唤按钮。无论走哪条选择路径，应用都回到首页空白态：正文没有用户气泡，不新增任务，左侧任务数不变；Composer 保留用户已有草稿，并在底部出现被选专家或专家团的身份胶囊。",
+      "observation_boundary": "case-owned durable database state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-11917A204FA881",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for WorkBuddy 飞书需求 · D.3.1 召唤路径与空白态（2026-08-07 CDP 补充） exactly once and retain its correlation identity",
+      "then": "旧文档曾把卡片主体和右上“召唤”混为同一路径，并把选择专家写成“立即新建会话”。该结论已经 CDP 实机推翻，不得继续作为复刻 Oracle。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

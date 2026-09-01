@@ -90,12 +90,28 @@ async function dismissReadOnlyOverlays() {
   }
 }
 
-for (const label of topTabs) {
-  await ensureExpandedSidebar(label);
-  const tab = page.getByRole("tab", { name: label, exact: true });
-  if (!(await tab.isVisible().catch(() => false))) throw new Error(`top navigation tab missing: ${label}`);
-  await tab.click();
+async function returnToTopSurface(targetLabel) {
+  if (targetLabel.startsWith("更多 ")) {
+    await ensureExpandedSidebar("新建任务");
+    const home = page.getByRole("tab", { name: "新建任务", exact: true });
+    if (!(await home.isVisible().catch(() => false))) {
+      throw new Error("top navigation tab missing: 新建任务");
+    }
+    await home.click();
+    await page.waitForTimeout(350);
+  }
+  await ensureExpandedSidebar(targetLabel);
+  const target = page.getByRole("tab", { name: targetLabel, exact: true });
+  if (!(await target.isVisible().catch(() => false))) {
+    throw new Error(`top navigation tab missing: ${targetLabel}`);
+  }
+  await target.click();
   await page.waitForTimeout(500);
+  return target;
+}
+
+for (const label of topTabs) {
+  const tab = await returnToTopSurface(label);
   const surface = slug(label);
   records.push(await capture(`surface-${surface}`, { kind: "top-tab", label }));
   if (label === "专家·技能·连接器") {

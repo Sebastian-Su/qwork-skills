@@ -80,6 +80,7 @@ Evaluator 复核 plan/hash、当前 revision、来源新鲜度、所有必需结
 - deterministic Electron：独立临时 `ZIQDO_CONFIG_HOME` + `e2e/fixtures/fake-sidecar.mjs`；证明契约和 UI，不证明真实模型质量。
 - real sidecar/model/account：必须独立授权、限制权限/调用/副作用、保留真实协议证据；未授权时只能按精确 external blocker 处理。
 - WorkBuddy CDP：只读导航/标签/菜单/展开/截图/DOM/几何；禁止 create/install/connect/authorize/delete/send/run。
+- WorkBuddy 官方文档：`Quickstart` 展开导航与 desktop sitemap 集合必须闭合，正文原子全映射到 `workbuddy-official-docs` cohort；品牌名和品牌素材可替换，但功能语义与交互不可豁免；缺 viewport/DPR 校准的文档图片不得成为像素或几何 PASS。
 - 完整平台发布：macOS/Windows/Linux 均需当前 runner 结果；缺平台为未验证，不得用本机代替。
 
 ## 反向门禁

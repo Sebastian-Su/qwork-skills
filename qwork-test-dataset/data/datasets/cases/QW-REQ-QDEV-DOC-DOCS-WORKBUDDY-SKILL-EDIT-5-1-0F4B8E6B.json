@@ -1,0 +1,307 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-WORKBUDDY-SKILL-EDIT-5-1-0F4B8E6B",
+  "title": "docs/workbuddy-skill-edit-requirements.md · 5.1 已可复用能力 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "permissions",
+    "journey": "permissions",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/workbuddy-skill-edit-requirements.md",
+      "locator": "line:154;heading:5.1 已可复用能力",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:f0dcb75d4bffb3350928627a5bf9da93f37af7232e166d0f12f81d1c20d3f489",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/workbuddy-skill-edit-requirements.md",
+      "locator": "line:159;heading:5.1 已可复用能力",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:ac017b1f77f300c5e3ec3c2337aa04c4f269cde796b269f2bc68a04bc3dd6670",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-29699134211614",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md:L154:f0dcb75d4b"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "permissions",
+      "priority": "P0",
+      "rule": "| 用户可控草稿 | `useSkillActionDraft` 只准备 Draft，不自动发送，并保留 cwd、模型和权限模式 | `src/renderer/src/skillHub/useSkillActionDraft.ts` |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 用户可控草稿 | `useSkillActionDraft` 只准备 Draft，不自动发送，并保留 cwd、模型和权限模式 | `src/renderer/src/skillHub/useSkillActionDraft.ts` |"
+    },
+    {
+      "requirement_id": "REQ-4AA03EC132FAC5",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md:L159:ac017b1f77"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "permissions",
+      "priority": "P0",
+      "rule": "| 安全 staging | 单技能安装限制 20 MiB 压缩包、100 MiB 展开、2000 条目，拒绝穿越、符号链接和特殊文件 | `src/main/skillHub/installer.ts` |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 安全 staging | 单技能安装限制 20 MiB 压缩包、100 MiB 展开、2000 条目，拒绝穿越、符号链接和特殊文件 | `src/main/skillHub/installer.ts` |"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for permissions at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/workbuddy-skill-edit-requirements.md · 5.1 已可复用能力 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-29699134211614] exactly: | 用户可控草稿 | `useSkillActionDraft` 只准备 Draft，不自动发送，并保留 cwd、模型和权限模式 | `src/renderer/src/skillHub/useSkillActionDraft.ts` |"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-4AA03EC132FAC5] exactly: | 安全 staging | 单技能安装限制 20 MiB 压缩包、100 MiB 展开、2000 条目，拒绝穿越、符号链接和特殊文件 | `src/main/skillHub/installer.ts` |"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "| 用户可控草稿 | `useSkillActionDraft` 只准备 Draft，不自动发送，并保留 cwd、模型和权限模式 | `src/renderer/src/skillHub/useSkillActionDraft.ts` |",
+    "| 安全 staging | 单技能安装限制 20 MiB 压缩包、100 MiB 展开、2000 条目，拒绝穿越、符号链接和特殊文件 | `src/main/skillHub/installer.ts` |"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-29699134211614]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 用户可控草稿 | `useSkillActionDraft` 只准备 Draft，不自动发送，并保留 cwd、模型和权限模式 | `src/renderer/src/skillHub/useSkillActionDraft.ts` |",
+    "FAIL [REQ-4AA03EC132FAC5]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 安全 staging | 单技能安装限制 20 MiB 压缩包、100 MiB 展开、2000 条目，拒绝穿越、符号链接和特殊文件 | `src/main/skillHub/installer.ts` |",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-29699134211614",
+      "type": "ui",
+      "assertion": "| 用户可控草稿 | `useSkillActionDraft` 只准备 Draft，不自动发送，并保留 cwd、模型和权限模式 | `src/renderer/src/skillHub/useSkillActionDraft.ts` |"
+    },
+    {
+      "requirement_id": "REQ-4AA03EC132FAC5",
+      "type": "return",
+      "assertion": "| 安全 staging | 单技能安装限制 20 MiB 压缩包、100 MiB 展开、2000 条目，拒绝穿越、符号链接和特殊文件 | `src/main/skillHub/installer.ts` |"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-workbuddy-skill-edit-r.5-1-0f4b8e6bdc",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "permissions",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for permissions at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/workbuddy-skill-edit-requirements.md · 5.1 已可复用能力 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-29699134211614] exactly: | 用户可控草稿 | `useSkillActionDraft` 只准备 Draft，不自动发送，并保留 cwd、模型和权限模式 | `src/renderer/src/skillHub/useSkillActionDraft.ts` |"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-4AA03EC132FAC5] exactly: | 安全 staging | 单技能安装限制 20 MiB 压缩包、100 MiB 展开、2000 条目，拒绝穿越、符号链接和特殊文件 | `src/main/skillHub/installer.ts` |"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-29699134211614",
+      "REQ-4AA03EC132FAC5"
+    ],
+    "categories": [
+      "negative",
+      "permission"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "category:permission",
+      "full",
+      "requirement:REQ-29699134211614",
+      "requirement:REQ-4AA03EC132FAC5"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-29699134211614",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-skill-edit-requirements.md · 5.1 已可复用能力 产品契约 exactly once and retain its correlation identity",
+      "then": "| 用户可控草稿 | `useSkillActionDraft` 只准备 Draft，不自动发送，并保留 cwd、模型和权限模式 | `src/renderer/src/skillHub/useSkillActionDraft.ts` |",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-4AA03EC132FAC5",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-skill-edit-requirements.md · 5.1 已可复用能力 产品契约 exactly once and retain its correlation identity",
+      "then": "| 安全 staging | 单技能安装限制 20 MiB 压缩包、100 MiB 展开、2000 条目，拒绝穿越、符号链接和特殊文件 | `src/main/skillHub/installer.ts` |",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

@@ -1,0 +1,310 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-WORKBUDDY-SKILL-EDIT-4-2-C6A65264",
+  "title": "docs/workbuddy-skill-edit-requirements.md · 4.2 提交后的实机链路 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/workbuddy-skill-edit-requirements.md",
+      "locator": "line:74;heading:4.2 提交后的实机链路",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:3655e4c9ee7fe3a92d286bb6e23b852e68849008a5177eb8e35adf632354e6ea",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/workbuddy-skill-edit-requirements.md",
+      "locator": "line:82;heading:4.2 提交后的实机链路",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:c7164827775671b0ef5906ade851dc2bccda72fa832a8599c45b2068c93d62b2",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-CC96FB0DFB91EA",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md:L74:3655e4c9ee"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "左侧任务计数从 20 增加到 21，标题取自“skill-creator 请帮我编辑 ppt 这个 skill”。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "左侧任务计数从 20 增加到 21，标题取自“skill-creator 请帮我编辑 ppt 这个 skill”。"
+    },
+    {
+      "requirement_id": "REQ-EA17BAFCACB856",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md:L82:c716482777"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "第一问使用“跳过”后进入第二问；第二问未代替用户作答，任务保持“等待用户确认”。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-workbuddy-skill-edit-requirements-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "第一问使用“跳过”后进入第二问；第二问未代替用户作答，任务保持“等待用户确认”。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/workbuddy-skill-edit-requirements.md · 4.2 提交后的实机链路 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-CC96FB0DFB91EA] exactly: 左侧任务计数从 20 增加到 21，标题取自“skill-creator 请帮我编辑 ppt 这个 skill”。"
+    },
+    {
+      "action": "observe renderer interaction state after the trigger and assert [REQ-EA17BAFCACB856] exactly: 第一问使用“跳过”后进入第二问；第二问未代替用户作答，任务保持“等待用户确认”。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "左侧任务计数从 20 增加到 21，标题取自“skill-creator 请帮我编辑 ppt 这个 skill”。",
+    "第一问使用“跳过”后进入第二问；第二问未代替用户作答，任务保持“等待用户确认”。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-CC96FB0DFB91EA]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 左侧任务计数从 20 增加到 21，标题取自“skill-creator 请帮我编辑 ppt 这个 skill”。",
+    "FAIL [REQ-EA17BAFCACB856]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 第一问使用“跳过”后进入第二问；第二问未代替用户作答，任务保持“等待用户确认”。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-CC96FB0DFB91EA",
+      "type": "return",
+      "assertion": "左侧任务计数从 20 增加到 21，标题取自“skill-creator 请帮我编辑 ppt 这个 skill”。"
+    },
+    {
+      "requirement_id": "REQ-EA17BAFCACB856",
+      "type": "ui-state",
+      "assertion": "第一问使用“跳过”后进入第二问；第二问未代替用户作答，任务保持“等待用户确认”。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-workbuddy-skill-edit-r.4-2-c6a65264a5",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/workbuddy-skill-edit-requirements.md · 4.2 提交后的实机链路 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-CC96FB0DFB91EA] exactly: 左侧任务计数从 20 增加到 21，标题取自“skill-creator 请帮我编辑 ppt 这个 skill”。"
+        },
+        {
+          "action": "observe renderer interaction state after the trigger and assert [REQ-EA17BAFCACB856] exactly: 第一问使用“跳过”后进入第二问；第二问未代替用户作答，任务保持“等待用户确认”。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-CC96FB0DFB91EA",
+      "REQ-EA17BAFCACB856"
+    ],
+    "categories": [
+      "business",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-CC96FB0DFB91EA",
+      "requirement:REQ-EA17BAFCACB856"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-CC96FB0DFB91EA",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-skill-edit-requirements.md · 4.2 提交后的实机链路 产品契约 exactly once and retain its correlation identity",
+      "then": "左侧任务计数从 20 增加到 21，标题取自“skill-creator 请帮我编辑 ppt 这个 skill”。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-EA17BAFCACB856",
+      "oracle_type": "ui-state",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/workbuddy-skill-edit-requirements.md · 4.2 提交后的实机链路 产品契约 exactly once and retain its correlation identity",
+      "then": "第一问使用“跳过”后进入第二问；第二问未代替用户作答，任务保持“等待用户确认”。",
+      "observation_boundary": "renderer interaction state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

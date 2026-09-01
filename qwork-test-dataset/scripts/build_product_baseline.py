@@ -415,7 +415,7 @@ def classify(text: str, *, ui_hint: bool = False) -> str:
         return "accessibility"
     if any(word in lower for word in RESPONSIVE_WORDS):
         return "responsive"
-    if re.search(r"\b\d+(?:\.\d+)?\s*px\b|\d+\s*[×x]\s*\d+", lower):
+    if re.search(r"\b\d+(?:\.\d+)?\s*px\b|\d+\s*×\s*\d+", lower):
         return "ui-geometry"
     if any(word in lower for word in ERROR_WORDS):
         return "error-copy"
@@ -1318,6 +1318,196 @@ def test_atoms(source_id: str, path: str, content: str) -> list[dict[str, Any]]:
     return atoms
 
 
+OFFICIAL_DOCS_BRAND_TOKENS = (
+    "WorkBuddy",
+    "CodeBuddy",
+    "腾讯",
+    "元宝",
+    "ima",
+    "乐享",
+    "微信",
+    "QQ",
+    "飞书",
+    "钉钉",
+    "企业微信",
+)
+
+
+def _snapshot_member(root: pathlib.Path, value: str) -> pathlib.Path:
+    candidate = (root / value).resolve()
+    try:
+        candidate.relative_to(root.resolve())
+    except ValueError as exc:
+        raise ValueError(f"official docs snapshot member escapes root: {value}") from exc
+    return candidate
+
+
+def load_official_docs_snapshot(
+    snapshot_dir: pathlib.Path,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Load and hash-verify one immutable official documentation snapshot."""
+
+    root = snapshot_dir.resolve()
+    manifest_path = root / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("schema_version") != 1:
+        raise ValueError("unsupported official docs snapshot schema")
+    if manifest.get("source_kind") != "official-web-documentation":
+        raise ValueError("official docs snapshot has the wrong source kind")
+    expected_prefix = str(manifest.get("expected_url_prefix") or "")
+    if not expected_prefix.startswith("https://www.workbuddy.cn/docs/workbuddy/"):
+        raise ValueError("official docs snapshot URL prefix is outside the approved origin")
+
+    inventory_path = _snapshot_member(root, str(manifest["inventory"]))
+    inventory_bytes = inventory_path.read_bytes()
+    if sha256_bytes(inventory_bytes) != str(manifest["inventory_sha256"]):
+        raise ValueError("official docs inventory hash mismatch")
+    inventory = json.loads(inventory_bytes)
+    pages = inventory.get("pages")
+    images = inventory.get("images")
+    if not isinstance(pages, list) or not isinstance(images, list):
+        raise ValueError("official docs inventory pages/images must be lists")
+    if len(pages) != int(manifest["page_count"]):
+        raise ValueError("official docs page count mismatch")
+    if len(images) != int(manifest["image_count"]):
+        raise ValueError("official docs image count mismatch")
+
+    article_count = 0
+    for entry in pages:
+        url = str(entry.get("url") or "")
+        if not url.startswith(expected_prefix):
+            raise ValueError(f"official docs page is outside approved prefix: {url}")
+        page_path = _snapshot_member(root, str(entry["file"]))
+        page_bytes = page_path.read_bytes()
+        if sha256_bytes(page_bytes) != str(entry["sha256"]):
+            raise ValueError(f"official docs page hash mismatch: {url}")
+        page = json.loads(page_bytes)
+        if page.get("url") != url or page.get("article_status") != entry.get("article_status"):
+            raise ValueError(f"official docs page identity mismatch: {url}")
+        if page.get("article_status") == "present":
+            article_count += 1
+            if sha256_text(str(page.get("text") or "")) != str(entry["text_sha256"]):
+                raise ValueError(f"official docs page text hash mismatch: {url}")
+        if str(page.get("raw_html_sha256") or "") != str(entry["raw_html_sha256"]):
+            raise ValueError(f"official docs raw HTML hash mismatch: {url}")
+    if article_count != int(manifest["article_page_count"]):
+        raise ValueError("official docs article page count mismatch")
+    if len(pages) - article_count != int(manifest["non_article_page_count"]):
+        raise ValueError("official docs non-article page count mismatch")
+
+    seen_images: set[str] = set()
+    for image in images:
+        url = str(image.get("url") or "")
+        if not url.startswith("https://www.workbuddy.cn/docs/"):
+            raise ValueError(f"official docs image is outside approved origin: {url}")
+        if url in seen_images:
+            raise ValueError(f"duplicate official docs image inventory entry: {url}")
+        seen_images.add(url)
+        if not re.fullmatch(r"[0-9a-f]{64}", str(image.get("sha256") or "")):
+            raise ValueError(f"official docs image is missing a SHA-256: {url}")
+        if not int(image.get("width") or 0) or not int(image.get("height") or 0):
+            raise ValueError(f"official docs image dimensions are missing: {url}")
+
+    observation = manifest.get("browser_navigation_observation")
+    if observation:
+        observation_path = _snapshot_member(root, str(observation["file"]))
+        if sha256_bytes(observation_path.read_bytes()) != str(observation["sha256"]):
+            raise ValueError("official docs browser navigation observation hash mismatch")
+    return manifest, inventory
+
+
+def official_docs_atoms(
+    source_id: str,
+    snapshot_dir: pathlib.Path,
+    inventory: dict[str, Any],
+    *,
+    runtime_version: str,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Atomize article statements and retain uncalibrated images as evidence only."""
+
+    root = snapshot_dir.resolve()
+    atoms: list[dict[str, Any]] = []
+    dispositions: list[dict[str, Any]] = []
+    for entry in sorted(inventory["pages"], key=lambda item: str(item["url"])):
+        url = str(entry["url"])
+        page = json.loads(_snapshot_member(root, str(entry["file"])).read_text(encoding="utf-8"))
+        if page.get("article_status") != "present":
+            dispositions.append(
+                {
+                    "url": url,
+                    "disposition": "not_applicable-no-article",
+                    "reason": "The sitemap root is a documentation shell without a .vp-doc article body",
+                    "raw_html_sha256": str(page["raw_html_sha256"]),
+                }
+            )
+            continue
+
+        headings = [str(item["text"]) for item in page.get("headings", [])]
+        heading_set = set(headings)
+        current_heading = headings[0] if headings else str(page.get("title") or url)
+        for line_number, raw_line in enumerate(str(page["text"]).splitlines(), start=1):
+            line = normalized(raw_line)
+            if not line:
+                continue
+            if line in heading_set:
+                current_heading = line
+                continue
+            label = re.sub(r"^[-*]\s+", "", line)
+            if len(label) < 8:
+                continue
+            atom_hash = sha256_text(label)
+            page_key = sha256_text(url)[:12]
+            atoms.append(
+                {
+                    "atom_id": f"{source_id}:PAGE:{page_key}:L{line_number}:{atom_hash[:10]}",
+                    "facet": classify(label, ui_hint=True),
+                    "locator": f"url:{url};line:{line_number};heading:{current_heading}",
+                    "label": label,
+                    "extracted_value_hash": f"sha256:{atom_hash}",
+                    "page_url": url,
+                    "page_title": str(page.get("title") or url),
+                    "source_heading": current_heading,
+                    "runtime_applicability": {
+                        "documented_version": runtime_version,
+                        "page_lastmod": str(page["lastmod"]),
+                        "basis": "current official desktop documentation sitemap",
+                    },
+                    "brand_tokens": [
+                        token for token in OFFICIAL_DOCS_BRAND_TOKENS if token in label
+                    ],
+                    "brand_substitution_policy": "name-and-asset-differences-exempt-only",
+                }
+            )
+
+    for image in sorted(inventory["images"], key=lambda item: str(item["url"])):
+        url = str(image["url"])
+        image_hash = str(image["sha256"])
+        atoms.append(
+            {
+                "atom_id": f"{source_id}:IMAGE:{sha256_text(url)[:16]}:{image_hash[:10]}",
+                "facet": "ui-visual",
+                "locator": f"image:{url}",
+                "label": f"WorkBuddy official documentation image {url.rsplit('/', 1)[-1]}",
+                "extracted_value_hash": f"sha256:{image_hash}",
+                "evidence_only": True,
+                "brand_tokens": ["WorkBuddy"],
+                "brand_substitution_policy": "name-and-asset-differences-exempt-only",
+                "source_media": {
+                    "url": url,
+                    "effective_url": str(image.get("effective_url") or url),
+                    "sha256": image_hash,
+                    "bytes": int(image["bytes"]),
+                    "content_type": str(image["content_type"]),
+                    "width": int(image["width"]),
+                    "height": int(image["height"]),
+                    "calibration_status": "missing",
+                    "calibration_reason": "Documentation pixels have no captured CSS viewport or DPR and cannot become a geometry or pixel PASS oracle",
+                },
+            }
+        )
+    return atoms, dispositions
+
+
 def make_source(
     source_id: str,
     source_type: str,
@@ -1343,6 +1533,32 @@ def make_source(
             "atom_count": len(atoms),
             "atoms": atoms,
         },
+    }
+
+
+def official_docs_source_policy(
+    *,
+    documented_version: str,
+    approved_runtime_version: str,
+) -> dict[str, Any]:
+    version_match = documented_version == approved_runtime_version
+    if version_match:
+        return {
+            "authority_kind": "normative",
+            "version_match": True,
+            "requirement_status": "covered",
+            "status_reason": None,
+        }
+    return {
+        "authority_kind": "context-only",
+        "version_match": False,
+        "requirement_status": "not_applicable",
+        "status_reason": (
+            f"WorkBuddy official documentation describes {documented_version}, "
+            f"but the approved runtime target is {approved_runtime_version}; "
+            "retain the atom for inventory and require 5.3.8 runtime corroboration "
+            "before promoting it to a product acceptance requirement"
+        ),
     }
 
 
@@ -2851,6 +3067,7 @@ def main() -> int:
     parser.add_argument("--develop", default="develop")
     parser.add_argument("--head", default="HEAD")
     parser.add_argument("--lark-snapshot", required=True)
+    parser.add_argument("--official-docs-snapshot", required=True)
     parser.add_argument("--storage-snapshot", required=True)
     parser.add_argument("--visual-manifest", required=True)
     parser.add_argument("--cdp-snapshot", required=True)
@@ -2885,6 +3102,24 @@ def main() -> int:
     except ValueError as error:
         raise ValueError("--generated-at must be an ISO-8601 timestamp") from error
     skill_root = output.parent.parent
+    workbuddy_target_baseline = yaml.safe_load(
+        (skill_root / "references/workbuddy-target-baseline.yaml").read_text(
+            encoding="utf-8"
+        )
+    )
+    approved_workbuddy_version = str(
+        workbuddy_target_baseline["approved_target_version"]
+    )
+    workbuddy_official_docs_contract = yaml.safe_load(
+        (skill_root / "references/workbuddy-official-docs-contract.yaml").read_text(
+            encoding="utf-8"
+        )
+    )
+    official_docs_documented_version = str(
+        workbuddy_official_docs_contract["authority"]["runtime_applicability"][
+            "documented_version"
+        ]
+    )
     structured_coverage_map = yaml.safe_load(
         (skill_root / "references/structured-oracle-coverage-map.yaml").read_text(
             encoding="utf-8"
@@ -3640,9 +3875,10 @@ def main() -> int:
     validate_cdp_runtime_identity(cdp_manifest, bundle_manifest, bundle_manifest_path)
     cdp_source_id = cdp_source_identity(cdp_manifest, cdp_dir)
     cdp_version = str(cdp_manifest["version"])
-    if cdp_version != "5.3.8":
+    if cdp_version != approved_workbuddy_version:
         raise ValueError(
-            f"approved WorkBuddy target is 5.3.8; refusing CDP baseline {cdp_version}"
+            f"approved WorkBuddy target is {approved_workbuddy_version}; "
+            f"refusing CDP baseline {cdp_version}"
         )
     cdp_atoms_list, cdp_meta = cdp_atoms(cdp_source_id, cdp_dir, cdp_manifest)
     for atom in cdp_atoms_list:
@@ -3665,6 +3901,100 @@ def main() -> int:
         sha256_bytes(cdp_manifest_path.read_bytes()),
         cdp_atoms_list,
     ))
+
+    # Official desktop documentation is normative only when its documented
+    # version matches the approved WorkBuddy runtime. Newer documentation remains
+    # a complete context inventory until each atom is corroborated on 5.3.8.
+    # Brand-name and brand-asset tokens may be substituted by QWork, but the
+    # surrounding functional claim remains in scope after promotion.
+    official_docs_dir = pathlib.Path(args.official_docs_snapshot).resolve()
+    official_docs_manifest, official_docs_inventory = load_official_docs_snapshot(
+        official_docs_dir
+    )
+    official_docs_source_id = (
+        "WORKBUDDY-OFFICIAL-DOCS-"
+        f"{str(official_docs_manifest['sitemap_lastmod_max']).replace('-', '')}"
+    )
+    official_docs_atoms_list, official_docs_dispositions = official_docs_atoms(
+        official_docs_source_id,
+        official_docs_dir,
+        official_docs_inventory,
+        runtime_version=official_docs_documented_version,
+    )
+    official_docs_policy = official_docs_source_policy(
+        documented_version=official_docs_documented_version,
+        approved_runtime_version=cdp_version,
+    )
+    official_docs_context_case_id: str | None = None
+    if not official_docs_policy["version_match"]:
+        official_docs_context_case_id = case_for_source_group(
+            official_docs_source_id,
+            "version-mismatch-context-inventory",
+            "governance",
+            (
+                f"WorkBuddy 官方文档 {official_docs_documented_version} → "
+                f"{cdp_version} 逐原子版本仲裁"
+            ),
+            ["evidence-provenance"],
+        )
+    for atom in official_docs_atoms_list:
+        if official_docs_context_case_id is not None:
+            source_atom_to_case[str(atom["atom_id"])] = official_docs_context_case_id
+            continue
+        if atom.get("evidence_only"):
+            group = "uncalibrated-documentation-images"
+            surface = "shell-home"
+            title = "WorkBuddy 官方文档 · 未校准图片证据"
+        else:
+            page_url = str(atom["page_url"])
+            heading = str(atom["source_heading"])
+            group = f"{page_url}#{heading}"
+            surface = surface_for(str(atom["label"]), page_url)
+            title = f"WorkBuddy 官方文档 · {atom['page_title']} · {heading}"
+        source_atom_to_case[str(atom["atom_id"])] = case_for_source_group(
+            official_docs_source_id,
+            group,
+            surface,
+            title,
+            FACET_CATEGORIES[str(atom["facet"])],
+        )
+    official_docs_manifest_path = official_docs_dir / "manifest.json"
+    official_docs_source = make_source(
+        official_docs_source_id,
+        "official-web-documentation",
+        str(official_docs_policy["authority_kind"]),
+        "product-behavior-interaction-ui-support",
+        skill_ref(skill_root, official_docs_manifest_path),
+        str(official_docs_manifest["sitemap_lastmod_max"]),
+        str(official_docs_manifest["inventory_sha256"]),
+        official_docs_atoms_list,
+    )
+    official_docs_source["page_dispositions"] = official_docs_dispositions
+    official_docs_source["browser_navigation_observation"] = official_docs_manifest.get(
+        "browser_navigation_observation"
+    )
+    official_docs_source["brand_substitution_policy"] = (
+        "name-and-asset-differences-exempt-only"
+    )
+    official_docs_source["runtime_applicability"] = {
+        "documented_version": official_docs_documented_version,
+        "approved_runtime_version": cdp_version,
+        "version_match": official_docs_policy["version_match"],
+        "runtime_identity_required_for_pass": True,
+        "requirement_status": official_docs_policy["requirement_status"],
+        "status_reason": official_docs_policy["status_reason"],
+    }
+    sources.append(official_docs_source)
+    for disposition in official_docs_dispositions:
+        source_dispositions.append(
+            {
+                "locator": f"url:{disposition['url']}",
+                "path": str(disposition["url"]),
+                "disposition": str(disposition["disposition"]),
+                "reason": str(disposition["reason"]),
+                "content_sha256": str(disposition["raw_html_sha256"]),
+            }
+        )
 
     motion_source_id: str | None = None
     motion_dir: pathlib.Path | None = None
@@ -3987,6 +4317,12 @@ def main() -> int:
             coverage_status = "covered"
             priority = str(atom.get("priority") or ("P0" if surface in {"auth", "assistant", "task-lifecycle", "expert-market", "expert-team", "permissions"} else "P1"))
             status_reason = None
+            if (
+                str(source["source_id"]) == official_docs_source_id
+                and not official_docs_policy["version_match"]
+            ):
+                coverage_status = str(official_docs_policy["requirement_status"])
+                status_reason = str(official_docs_policy["status_reason"])
             if facet == "ui-visual":
                 image = visual_meta.get(atom_id)
                 cdp = cdp_meta.get(atom_id)
@@ -5355,6 +5691,7 @@ def main() -> int:
         "workbuddy-current-cdp": set(),
         "workbuddy-historical-visual": set(),
         "workbuddy-storage": set(),
+        "workbuddy-official-docs": set(),
         "expert-individual": set(),
         "expert-team": set(),
         "projects": set(),
@@ -5392,6 +5729,8 @@ def main() -> int:
             cohort_members["workbuddy-historical-visual"].add(case_id)
         if "WORKBUDDY-STORAGE-LOCAL" in source_ids:
             cohort_members["workbuddy-storage"].add(case_id)
+        if official_docs_source_id in source_ids:
+            cohort_members["workbuddy-official-docs"].add(case_id)
         if capability == "expert-market":
             cohort_members["expert-individual"].add(case_id)
         if capability == "expert-team":
@@ -5439,6 +5778,20 @@ def main() -> int:
             "required_decision": "Align QWork implementation and its E2E expectation to the WorkBuddy Oracle, or explicitly approve a superseding product source before changing the baseline.",
         },
     ]
+    if official_docs_documented_version != cdp_version:
+        conflicts.append(
+            {
+                "conflict_id": "SRC-CONFLICT-WORKBUDDY-OFFICIAL-DOCS-RUNTIME-VERSION",
+                "status": "open-requires-version-matched-runtime-capture",
+                "reason": (
+                    f"official desktop documentation describes WorkBuddy "
+                    f"{official_docs_documented_version}, while the approved runtime "
+                    f"baseline is {cdp_version}; documentation requirements remain "
+                    "mapped but cannot produce behavior or UI PASS"
+                ),
+                "sources": [official_docs_source_id, cdp_source_id],
+            }
+        )
     manifest = {
         "schema_version": 1,
         "project": "qwork",

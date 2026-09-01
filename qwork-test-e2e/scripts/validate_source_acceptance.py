@@ -323,7 +323,7 @@ def validate(data: dict[str, Any]) -> list[str]:
         atoms = [as_dict(value) for value in as_list(inventory.get("atoms"))]
         atom_ids = {str(atom.get("atom_id")) for atom in atoms if str(atom.get("atom_id") or "")}
         facets = {str(value) for value in as_list(source.get("content_facets")) if str(value)}
-        if authority not in {"normative", "evidence"}:
+        if authority not in {"normative", "evidence", "context-only"}:
             errors.append(f"source {source_id} has invalid authority_kind")
         if not str(source.get("authority_domain") or "").strip():
             errors.append(f"source {source_id} has no authority_domain")

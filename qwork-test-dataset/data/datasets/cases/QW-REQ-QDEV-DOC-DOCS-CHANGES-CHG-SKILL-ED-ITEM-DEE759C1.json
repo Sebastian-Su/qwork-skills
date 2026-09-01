@@ -1,0 +1,443 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-SKILL-ED-ITEM-DEE759C1",
+  "title": "docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 状态机与端到端流程 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
+      "locator": "line:40;heading:状态机与端到端流程",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:c803690a6dfb21c3c4dccd12710135de5e426856e1065a9ac29eae0448f7efee",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
+      "locator": "line:41;heading:状态机与端到端流程",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:df7d0391b8c6a315383dffea6736e5a12138c2690d4960ab71fe8d0ae5f4759e",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
+      "locator": "line:42;heading:状态机与端到端流程",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:cf0f6c84ee0504dc9d70fd2093d1ce271eb30d3719f26858fe8f44e25eda5d7c",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
+      "locator": "line:44;heading:状态机与端到端流程",
+      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:979f6bb2190c48c7545b788c9775211dacd3310f3e199828e84076471ecff36f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-9C0F1A048E4C50",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati:L40:c803690a6d"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "卡片 `beginEdit(ref)` 验证目标并创建或恢复唯一活动意图与隔离副本。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "卡片 `beginEdit(ref)` 验证目标并创建或恢复唯一活动意图与隔离副本。"
+    },
+    {
+      "requirement_id": "REQ-E0854D17EBF316",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati:L41:df7d0391b8"
+      ],
+      "content_facets": [
+        "error-copy"
+      ],
+      "acceptance_categories": [
+        "error",
+        "ui-content"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "Renderer 保存 `skill-creator + target`、提示词、cwd/model/permission 和 intent；不创建 session。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Renderer 保存 `skill-creator + target`、提示词、cwd/model/permission 和 intent；不创建 session。"
+    },
+    {
+      "requirement_id": "REQ-105D79E20D4947",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati:L42:cf0f6c84ee"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "发送时 Main 校验必需技能、活动摘要和 intent，把 intent 绑定 session，注入 additional root、host instructions 和独立 plugin dir。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "发送时 Main 校验必需技能、活动摘要和 intent，把 intent 绑定 session，注入 additional root、host instructions 和独立 plugin dir。"
+    },
+    {
+      "requirement_id": "REQ-98204EC7DC2D38",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati:L44:979f6bb219"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "commit 在共享锁内重新校验活动摘要，staging 写权威元数据后原子替换；成功后刷新目录并广播变化。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "commit 在共享锁内重新校验活动摘要，staging 写权威元数据后原子替换；成功后刷新目录并广播变化。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for skills at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 状态机与端到端流程 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer interaction state after the trigger and assert [REQ-9C0F1A048E4C50] exactly: 卡片 `beginEdit(ref)` 验证目标并创建或恢复唯一活动意图与隔离副本。"
+    },
+    {
+      "action": "observe renderer visible content after the trigger and assert [REQ-E0854D17EBF316] exactly: Renderer 保存 `skill-creator + target`、提示词、cwd/model/permission 和 intent；不创建 session。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-105D79E20D4947] exactly: 发送时 Main 校验必需技能、活动摘要和 intent，把 intent 绑定 session，注入 additional root、host instructions 和独立 plugin dir。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-98204EC7DC2D38] exactly: commit 在共享锁内重新校验活动摘要，staging 写权威元数据后原子替换；成功后刷新目录并广播变化。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "卡片 `beginEdit(ref)` 验证目标并创建或恢复唯一活动意图与隔离副本。",
+    "Renderer 保存 `skill-creator + target`、提示词、cwd/model/permission 和 intent；不创建 session。",
+    "发送时 Main 校验必需技能、活动摘要和 intent，把 intent 绑定 session，注入 additional root、host instructions 和独立 plugin dir。",
+    "commit 在共享锁内重新校验活动摘要，staging 写权威元数据后原子替换；成功后刷新目录并广播变化。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-9C0F1A048E4C50]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 卡片 `beginEdit(ref)` 验证目标并创建或恢复唯一活动意图与隔离副本。",
+    "FAIL [REQ-E0854D17EBF316]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Renderer 保存 `skill-creator + target`、提示词、cwd/model/permission 和 intent；不创建 session。",
+    "FAIL [REQ-105D79E20D4947]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 发送时 Main 校验必需技能、活动摘要和 intent，把 intent 绑定 session，注入 additional root、host instructions 和独立 plugin dir。",
+    "FAIL [REQ-98204EC7DC2D38]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: commit 在共享锁内重新校验活动摘要，staging 写权威元数据后原子替换；成功后刷新目录并广播变化。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-9C0F1A048E4C50",
+      "type": "ui-state",
+      "assertion": "卡片 `beginEdit(ref)` 验证目标并创建或恢复唯一活动意图与隔离副本。"
+    },
+    {
+      "requirement_id": "REQ-E0854D17EBF316",
+      "type": "ui-content",
+      "assertion": "Renderer 保存 `skill-creator + target`、提示词、cwd/model/permission 和 intent；不创建 session。"
+    },
+    {
+      "requirement_id": "REQ-105D79E20D4947",
+      "type": "return",
+      "assertion": "发送时 Main 校验必需技能、活动摘要和 intent，把 intent 绑定 session，注入 additional root、host instructions 和独立 plugin dir。"
+    },
+    {
+      "requirement_id": "REQ-98204EC7DC2D38",
+      "type": "return",
+      "assertion": "commit 在共享锁内重新校验活动摘要，staging 写权威元数据后原子替换；成功后刷新目录并广播变化。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-skill-edit.item-dee759c136",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for skills at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 状态机与端到端流程 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer interaction state after the trigger and assert [REQ-9C0F1A048E4C50] exactly: 卡片 `beginEdit(ref)` 验证目标并创建或恢复唯一活动意图与隔离副本。"
+        },
+        {
+          "action": "observe renderer visible content after the trigger and assert [REQ-E0854D17EBF316] exactly: Renderer 保存 `skill-creator + target`、提示词、cwd/model/permission 和 intent；不创建 session。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-105D79E20D4947] exactly: 发送时 Main 校验必需技能、活动摘要和 intent，把 intent 绑定 session，注入 additional root、host instructions 和独立 plugin dir。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-98204EC7DC2D38] exactly: commit 在共享锁内重新校验活动摘要，staging 写权威元数据后原子替换；成功后刷新目录并广播变化。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-105D79E20D4947",
+      "REQ-98204EC7DC2D38",
+      "REQ-9C0F1A048E4C50",
+      "REQ-E0854D17EBF316"
+    ],
+    "categories": [
+      "business",
+      "error",
+      "recovery",
+      "state",
+      "ui-content"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:error",
+      "category:recovery",
+      "category:state",
+      "category:ui-content",
+      "full",
+      "requirement:REQ-105D79E20D4947",
+      "requirement:REQ-98204EC7DC2D38",
+      "requirement:REQ-9C0F1A048E4C50",
+      "requirement:REQ-E0854D17EBF316"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-9C0F1A048E4C50",
+      "oracle_type": "ui-state",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 状态机与端到端流程 产品契约 exactly once and retain its correlation identity",
+      "then": "卡片 `beginEdit(ref)` 验证目标并创建或恢复唯一活动意图与隔离副本。",
+      "observation_boundary": "renderer interaction state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-E0854D17EBF316",
+      "oracle_type": "ui-content",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 状态机与端到端流程 产品契约 exactly once and retain its correlation identity",
+      "then": "Renderer 保存 `skill-creator + target`、提示词、cwd/model/permission 和 intent；不创建 session。",
+      "observation_boundary": "renderer visible content",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-105D79E20D4947",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 状态机与端到端流程 产品契约 exactly once and retain its correlation identity",
+      "then": "发送时 Main 校验必需技能、活动摘要和 intent，把 intent 绑定 session，注入 additional root、host instructions 和独立 plugin dir。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-98204EC7DC2D38",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 状态机与端到端流程 产品契约 exactly once and retain its correlation identity",
+      "then": "commit 在共享锁内重新校验活动摘要，staging 写权威元数据后原子替换；成功后刷新目录并广播变化。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

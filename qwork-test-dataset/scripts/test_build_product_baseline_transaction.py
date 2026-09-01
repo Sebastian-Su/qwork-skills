@@ -32,6 +32,8 @@ def main() -> int:
                 str(output),
                 "--lark-snapshot",
                 str(missing),
+                "--official-docs-snapshot",
+                str(missing),
                 "--storage-snapshot",
                 str(missing),
                 "--visual-manifest",

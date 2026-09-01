@@ -1,0 +1,307 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-WORKBUDDY-FEISHU-B4QJ-REV95-D-2-1-COMPOSING-T01-BEFORE-SEND-A7B92C12",
+  "title": "WorkBuddy 飞书需求 · D+.2 阶段 1 · 发送前 Composing（t01-before-send）",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "WORKBUDDY-FEISHU-B4QJ-REV95",
+      "type": "lark-document",
+      "authority_kind": "normative",
+      "authority_domain": "product-ui-storage",
+      "stable_source_id": "https://my.feishu.cn/docx/B4QJdvjXeouLAjx1bNAcGhJdnCg",
+      "locator": "block:doxcndVdJs09LAyqfrSvcY94iEB;heading:D+.2 阶段 1 · 发送前 Composing（t01-before-send）",
+      "revision": "95",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:e6c500a753b4f5aa1a4317dbdb48937e758d0363cf595942f92c8661d55bbb46",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "WORKBUDDY-FEISHU-B4QJ-REV95",
+      "type": "lark-document",
+      "authority_kind": "normative",
+      "authority_domain": "product-ui-storage",
+      "stable_source_id": "https://my.feishu.cn/docx/B4QJdvjXeouLAjx1bNAcGhJdnCg",
+      "locator": "block:doxcnoWWPUdq0ksAmNUHfsBnrCe;heading:D+.2 阶段 1 · 发送前 Composing（t01-before-send）",
+      "revision": "95",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "content_hash": "sha256:85b735b1681d4339884bd8dc2919dc0c2d2c84549bc913cfdf18573c22c1f7c3",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-B0B699EAAE2529",
+      "source_atom_ids": [
+        "WORKBUDDY-FEISHU-B4QJ-REV95:doxcndVdJs09LAyqfrSvcY94iEB:ui-interaction"
+      ],
+      "content_facets": [
+        "ui-interaction"
+      ],
+      "acceptance_categories": [
+        "ui-interaction"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "触发 ：首页点击输入框聚焦。",
+      "authority_domain": "product-ui-storage",
+      "governing_sources": [
+        "WORKBUDDY-FEISHU-B4QJ-REV95"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "触发 ：首页点击输入框聚焦。"
+    },
+    {
+      "requirement_id": "REQ-EDC3AFECF1669E",
+      "source_atom_ids": [
+        "WORKBUDDY-FEISHU-B4QJ-REV95:doxcnoWWPUdq0ksAmNUHfsBnrCe:ui-geometry"
+      ],
+      "content_facets": [
+        "ui-geometry"
+      ],
+      "acceptance_categories": [
+        "ui-geometry"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "界面 ：输入框（C.4，contenteditable DIV 960×180+ radius18）内显示文本； 发送圆钮由灰（disabled）变黑（enabled） ——空内容时 disabled，有内容时 --cb-button-dark-background #1a1a1a 。",
+      "authority_domain": "product-ui-storage",
+      "governing_sources": [
+        "WORKBUDDY-FEISHU-B4QJ-REV95"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "界面 ：输入框（C.4，contenteditable DIV 960×180+ radius18）内显示文本； 发送圆钮由灰（disabled）变黑（enabled） ——空内容时 disabled，有内容时 --cb-button-dark-background #1a1a1a 。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for shell-home at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for WorkBuddy 飞书需求 · D+.2 阶段 1 · 发送前 Composing（t01-before-send） exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-B0B699EAAE2529] exactly: 触发 ：首页点击输入框聚焦。"
+    },
+    {
+      "action": "observe renderer CSS-pixel geometry at the declared viewport and DPR after the trigger and assert [REQ-EDC3AFECF1669E] exactly: 界面 ：输入框（C.4，contenteditable DIV 960×180+ radius18）内显示文本； 发送圆钮由灰（disabled）变黑（enabled） ——空内容时 disabled，有内容时 --cb-button-dark-background #1a1a1a 。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "触发 ：首页点击输入框聚焦。",
+    "界面 ：输入框（C.4，contenteditable DIV 960×180+ radius18）内显示文本； 发送圆钮由灰（disabled）变黑（enabled） ——空内容时 disabled，有内容时 --cb-button-dark-background #1a1a1a 。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-B0B699EAAE2529]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 触发 ：首页点击输入框聚焦。",
+    "FAIL [REQ-EDC3AFECF1669E]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 界面 ：输入框（C.4，contenteditable DIV 960×180+ radius18）内显示文本； 发送圆钮由灰（disabled）变黑（enabled） ——空内容时 disabled，有内容时 --cb-button-dark-background #1a1a1a 。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-B0B699EAAE2529",
+      "type": "ui-interaction",
+      "assertion": "触发 ：首页点击输入框聚焦。"
+    },
+    {
+      "requirement_id": "REQ-EDC3AFECF1669E",
+      "type": "ui-geometry",
+      "assertion": "界面 ：输入框（C.4，contenteditable DIV 960×180+ radius18）内显示文本； 发送圆钮由灰（disabled）变黑（enabled） ——空内容时 disabled，有内容时 --cb-button-dark-background #1a1a1a 。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.workbuddy-feishu-b4qj-rev95.d-2-1-composing-t01-before-s-a7b92c122f",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for shell-home at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for WorkBuddy 飞书需求 · D+.2 阶段 1 · 发送前 Composing（t01-before-send） exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-B0B699EAAE2529] exactly: 触发 ：首页点击输入框聚焦。"
+        },
+        {
+          "action": "observe renderer CSS-pixel geometry at the declared viewport and DPR after the trigger and assert [REQ-EDC3AFECF1669E] exactly: 界面 ：输入框（C.4，contenteditable DIV 960×180+ radius18）内显示文本； 发送圆钮由灰（disabled）变黑（enabled） ——空内容时 disabled，有内容时 --cb-button-dark-background #1a1a1a 。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B0B699EAAE2529",
+      "REQ-EDC3AFECF1669E"
+    ],
+    "categories": [
+      "ui-geometry",
+      "ui-interaction"
+    ],
+    "suite_ids": [
+      "category:ui-geometry",
+      "category:ui-interaction",
+      "full",
+      "requirement:REQ-B0B699EAAE2529",
+      "requirement:REQ-EDC3AFECF1669E"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-B0B699EAAE2529",
+      "oracle_type": "ui-interaction",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for WorkBuddy 飞书需求 · D+.2 阶段 1 · 发送前 Composing（t01-before-send） exactly once and retain its correlation identity",
+      "then": "触发 ：首页点击输入框聚焦。",
+      "observation_boundary": "renderer input/output interaction boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-EDC3AFECF1669E",
+      "oracle_type": "ui-geometry",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for WorkBuddy 飞书需求 · D+.2 阶段 1 · 发送前 Composing（t01-before-send） exactly once and retain its correlation identity",
+      "then": "界面 ：输入框（C.4，contenteditable DIV 960×180+ radius18）内显示文本； 发送圆钮由灰（disabled）变黑（enabled） ——空内容时 disabled，有内容时 --cb-button-dark-background #1a1a1a 。",
+      "observation_boundary": "renderer CSS-pixel geometry at the declared viewport and DPR",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}
