@@ -41,6 +41,20 @@ def main() -> int:
     assert revision == "feature-sha"
     assert spec_hash == "head-spec-sha"
     assert blockers == []
+
+    renamed_head_atom = contract("renamed current journey", "develop-body")
+    selected, revision, spec_hash, blockers = resolve_develop_e2e_execution(
+        title="new develop journey",
+        develop_atom=develop_atom,
+        develop_revision="develop-sha",
+        develop_content_sha256="develop-spec-sha",
+        head_entry={"atoms": [renamed_head_atom], "content_sha256": "head-spec-sha"},
+        head_revision="feature-sha",
+    )
+    assert selected is renamed_head_atom
+    assert revision == "feature-sha"
+    assert spec_hash == "head-spec-sha"
+    assert blockers == []
     print("develop E2E HEAD drift test: PASS")
     return 0
 

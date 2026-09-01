@@ -1365,14 +1365,21 @@ def resolve_develop_e2e_execution(
     instead of rejecting the entire source closure.
     """
 
+    head_atoms = list((head_entry or {}).get("atoms", []))
     current = next(
-        (
-            item
-            for item in (head_entry or {}).get("atoms", [])
-            if str(item["label"]) == title
-        ),
+        (item for item in head_atoms if str(item["label"]) == title),
         None,
     )
+    if current is None:
+        body_sha256 = str((develop_atom.get("test_contract") or {}).get("body_sha256") or "")
+        same_body = [
+            item
+            for item in head_atoms
+            if body_sha256
+            and str((item.get("test_contract") or {}).get("body_sha256") or "") == body_sha256
+        ]
+        if len(same_body) == 1:
+            current = same_body[0]
     if current is not None:
         return (
             current,
@@ -2773,9 +2780,10 @@ def main() -> int:
             facet = str(atom["facet"])
             categories = sorted(set(FACET_CATEGORIES[facet] + ["ui-interaction", "ui-state"]))
             route_id = f"qwork.playwright.{stable_slug(path)}.{sha256_text(title)[:10]}"
+            execution_title = str(execution_atom.get("label") or title)
             case = default_case(
                 case_id,
-                title,
+                execution_title,
                 surface,
                 route_id,
                 path,
@@ -2793,6 +2801,7 @@ def main() -> int:
             register_case(case)
             source_atom_to_case[str(atom["atom_id"])] = case_id
             e2e_case_by_coordinate[(path, title)] = case_id
+            e2e_case_by_coordinate[(path, execution_title)] = case_id
 
     # Private Dataset E2E is the canonical implementation home for product
     # acceptance routes that must not be committed to the shared repository.
@@ -4200,7 +4209,8 @@ def main() -> int:
     # hash-locked disposition. Canonical requirements that merge develop and
     # HEAD copies must be disposed in full; a partial match is a build error.
     disposition_by_atom: dict[tuple[str, str], dict[str, Any]] = {}
-    for disposition_source_id, source_policy in document_atom_dispositions["sources"].items():
+    for policy_source_id, source_policy in document_atom_dispositions["sources"].items():
+        disposition_source_id = str(source_policy.get("source_id") or policy_source_id)
         disposition_source = source_by_id.get(str(disposition_source_id))
         resolved_disposition_source_id = str(disposition_source_id)
         source_locator = str(source_policy.get("source_locator") or "")

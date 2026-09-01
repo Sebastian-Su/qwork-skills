@@ -51,6 +51,20 @@ try {
     }),
     /protected Git or Skill root/,
   );
+  for (const runner of [
+    "run_private_team_terminal_case.mjs",
+    "run_private_tool_failure_case.mjs",
+    "run_private_automation_oracle_case.mjs",
+    "run_private_sidebar_oracle_case.mjs",
+  ]) {
+    const content = await fs.readFile(new URL(`./${runner}`, import.meta.url), "utf8");
+    assert.match(content, /resolvePrivateRunRoot/, `${runner} must use the shared run-root authority`);
+    assert.doesNotMatch(
+      content,
+      /run root must be inside the private Dataset Skill/,
+      `${runner} must not require mutable evidence inside the Skill`,
+    );
+  }
   console.log("private Case authority test: PASS");
 } finally {
   await fs.rm(root, { recursive: true, force: true });

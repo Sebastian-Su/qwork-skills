@@ -59,7 +59,17 @@ def main() -> int:
     project_entry = repo / ".agents/skills/qwork-test-dataset"
     if project_entry.resolve(strict=True) != script_root.parent:
         raise AssertionError(f"unexpected project Skill entry: {project_entry}")
-    node_options = f"{os.environ.get('NODE_OPTIONS', '')} --preserve-symlinks".strip()
+    private_runner = (script_root / "run_private_playwright_case.mjs").read_text(
+        encoding="utf-8"
+    )
+    if "--preserve-symlinks-main" not in private_runner:
+        raise AssertionError(
+            "private Playwright runner does not preserve the symlinked CLI main entry"
+        )
+    node_options = (
+        f"{os.environ.get('NODE_OPTIONS', '')} "
+        "--preserve-symlinks --preserve-symlinks-main"
+    ).strip()
     # npm publishes a POSIX shell stub plus a `.cmd` wrapper; only the wrapper is a
     # valid Win32 entrypoint, so the launcher must be selected per platform.
     playwright_bin = repo / "node_modules/.bin" / (
