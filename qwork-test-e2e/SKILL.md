@@ -37,6 +37,8 @@ Full plan 还必须把 Dataset 的复合文档 Case 映射、`workbuddy-official
 
 产品声明支持浅深主题、变更命中颜色/token/input/heading/overlay 或用户要求暗黑走查时，plan 必须增加 `ui-theme-dark` 横切 cohort。执行前读 `references/dark-mode-ui-walkthrough.md`；它要求真实主题入口、逐页面 resolved-theme 绑定、query/input effective background、标题/正文/placeholder 对比度、overlay 状态、冷启动持久化和恢复原主题。可选主题模式必须来自当前批准版本的运行态观察，不得跨版本继承或替 WorkBuddy 补造控件。
 
+变更命中用户可见命名、产品文案、Logo、视觉 token、营销表达或用户要求品牌审查时，读取 `$qwork-brand-tone` 生成或审查表达。该 Skill 的建议不能自行成为 PASS Oracle；需要阻断 E2E 的品牌规则必须先在 `$qwork-test-dataset` 中绑定批准来源、Requirement、Case 与 Oracle。
+
 ## 1. 构建影响闭包
 
 ~~~bash
