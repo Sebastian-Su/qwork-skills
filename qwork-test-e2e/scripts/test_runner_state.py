@@ -20,6 +20,122 @@ def load_runner():
 
 def main() -> int:
     runner = load_runner()
+    delegated_cases = {
+        "REQ-CASE": {
+            "sources": [],
+            "execution_contract": {
+                "route_id": "qwork.requirement.prd.req-1",
+                "authorization": {"required": False},
+                "launch": {
+                    "strategy": "command",
+                    "command_or_tool": 'npx playwright test e2e/workspace.spec.ts -g "workspace path"',
+                    "delegate_case_id": "PLAYWRIGHT-CASE",
+                },
+                "observability": {"source_contract": None},
+            },
+        },
+        "PLAYWRIGHT-CASE": {
+            "title": "workspace path",
+            "sources": [],
+            "execution_contract": {
+                "route_id": "qwork.playwright.e2e-workspace-spec-ts.12345678",
+                "launch": {
+                    "strategy": "command",
+                    "command_or_tool": 'npx playwright test e2e/workspace.spec.ts -g "workspace path"',
+                },
+                "observability": {
+                    "source_contract": {"spec": "e2e/workspace.spec.ts"}
+                },
+            },
+        },
+    }
+    delegated = runner.classify(
+        {
+            "implementation_revision": "head",
+            "required_items": [{
+                "item_id": "case:REQ-CASE",
+                "kind": "case",
+                "case_id": "REQ-CASE",
+                "command": 'npx playwright test e2e/workspace.spec.ts -g "workspace path"',
+                "route_id": "qwork.requirement.prd.req-1",
+                "revision_drift": False,
+                "external_dependency_required": False,
+            }],
+        },
+        delegated_cases,
+    )
+    assert delegated["case:REQ-CASE"]["category"] == "deterministic-playwright"
+    assert delegated["case:REQ-CASE"]["delegate_case_id"] == "PLAYWRIGHT-CASE"
+    direct = runner.classify(
+        {
+            "implementation_revision": "head",
+            "required_items": [{
+                "item_id": "case:REQ-DIRECT",
+                "kind": "case",
+                "case_id": "REQ-DIRECT",
+                "command": 'npx playwright test e2e/workspace.spec.ts -g "cloud workspace"',
+                "route_id": "qwork.requirement.prd.req-direct",
+                "revision_drift": False,
+                "external_dependency_required": False,
+            }],
+        },
+        {
+            "REQ-DIRECT": {
+                "sources": [],
+                "execution_contract": {
+                    "route_id": "qwork.requirement.prd.req-direct",
+                    "authorization": {"required": False},
+                    "launch": {
+                        "strategy": "command",
+                        "command_or_tool": 'npx playwright test e2e/workspace.spec.ts -g "cloud workspace"',
+                        "source_contract": {
+                            "spec": "e2e/workspace.spec.ts",
+                            "title": "cloud workspace",
+                            "execution_revision": "head",
+                            "body_sha256": "sha256:" + "a" * 64,
+                            "spec_sha256": "sha256:" + "b" * 64,
+                        },
+                    },
+                    "observability": {"source_contract": None},
+                },
+            }
+        },
+    )
+    assert direct["case:REQ-DIRECT"]["category"] == "deterministic-playwright"
+    try:
+        runner.classify(
+            {
+                "implementation_revision": "head",
+                "required_items": [{
+                    "item_id": "case:REQ-DIRECT",
+                    "kind": "case",
+                    "case_id": "REQ-DIRECT",
+                    "command": "npx playwright test",
+                    "route_id": "qwork.requirement.prd.req-direct",
+                    "revision_drift": False,
+                    "external_dependency_required": False,
+                }],
+            },
+            {
+                "REQ-DIRECT": {
+                    "sources": [],
+                    "execution_contract": {
+                        "route_id": "qwork.requirement.prd.req-direct",
+                        "authorization": {"required": False},
+                        "launch": {
+                            "strategy": "command",
+                            "command_or_tool": "npx playwright test",
+                            "source_contract": {},
+                        },
+                        "observability": {"source_contract": None},
+                    },
+                }
+            },
+        )
+    except ValueError as error:
+        assert "requirement Playwright contract mismatch" in str(error)
+    else:
+        raise AssertionError("malformed requirement route was accepted")
     coordinates = {
         "gate:first": {"category": "gate"},
         "case:second": {"category": "deterministic-playwright"},

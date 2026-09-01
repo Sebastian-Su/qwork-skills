@@ -138,7 +138,7 @@ def infer_surface(path: str, changed_content: str = "") -> str | None:
         "expert-team": ("team", "subagent"),
         "skills": ("skill",),
         "connectors": ("connector", "oauth", "mcp"),
-        "projects": ("project",),
+        "projects": ("project", "workspace"),
         "automations": ("automation", "schedule"),
         "files": ("file", "artifact", "attachment"),
         "browser": ("browser",),

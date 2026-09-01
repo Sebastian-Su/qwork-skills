@@ -54,6 +54,13 @@ def main() -> int:
         "src/shared/api.ts",
         "+ resolveDroppedFiles(files: File[]): Promise<string[]>",
     ) == "composer-file-attachment"
+    assert builder.infer_surface(
+        "package.json",
+        '+ "smoke:workspace-live": "node scripts/workspace-live-smoke.mjs"',
+    ) == "projects"
+    assert builder.infer_surface(
+        "src/renderer/src/lib/workspaces.ts",
+    ) == "projects"
     assert builder.gate_only_item_ids("vitest.config.ts", "") == ["gate:coverage"]
     assert builder.gate_only_item_ids(
         "e2e/fixtures/launch.ts",
@@ -317,6 +324,22 @@ def main() -> int:
     assert changed_cases == ["MARKET-SORT-CASE"]
     assert changed_atoms == ["HEAD:L20:new"]
     assert removed_atoms == ["BASE:L20:old"]
+    retained, superseded = builder.partition_exact_cases(
+        {
+            "REQUIREMENT": {
+                "title": "workspace requirement",
+                "execution_contract": {
+                    "observability": {"source_contract": None}
+                },
+            }
+        },
+        ["REQUIREMENT"],
+        head="head",
+        path="docs/project-prd.md",
+        current_content="workspace requirement",
+    )
+    assert retained == ["REQUIREMENT"]
+    assert superseded == []
     print("plan surface inference: ok")
     return 0
 
