@@ -35,12 +35,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/ui-journey-expert-market.spec.ts",
+      "stable_source_id": "git:e2601f808260d47cfbea4c5afb71fb3edc8abdad:e2e/ui-journey-expert-market.spec.ts",
       "locator": "line:67;test:UI-JOURNEY-EXPERT-002 | 精选场景横向卡片组完整",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "revision": "e2601f808260d47cfbea4c5afb71fb3edc8abdad",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-02T10:23:43Z",
       "content_hash": "sha256:b0863473f8837a50139ffecd2c36895cedbb116ce3bd754e2123499e8dec035f",
       "redaction_status": "minimized"
     },
@@ -244,11 +244,10 @@
   "expected_outcomes": [
     "uiExpect.soft(page.getByRole(\"heading\", { name: \"精选场景\", exact: true })).toBeVisible()",
     "uiExpect.soft(page.getByRole(\"article\").filter({ hasText: title })).toBeVisible()",
-    "uiExpect.soft(sceneCards).toHaveCount(8)",
-    "uiExpect.soft(await sceneCards.evaluateAll((cards) => cards.slice(0, 4).map((card) => card.querySelector(\"h2\")?.textContent))).toEqual([ \"开学季\", \"内容创作\", \"投资分析\", \"法律咨询\", ])",
+    "uiExpect.soft(sceneCards).toHaveCount(10)",
+    "uiExpect.soft(await sceneCards.evaluateAll((cards) => cards.map((card) => card.querySelector(\"h2\")?.textContent))).toEqual(expectedSceneTitles)",
     "uiExpect.soft((await computedStyle(firstScene, [\"border-radius\"]))[\"border-radius\"]).toBe(\"16px\")",
-    "uiExpect.soft(sceneImages).toHaveCount(8)",
-    "uiExpect.soft(await sceneImages.evaluateAll((images) => images.every((image) => image instanceof HTMLImageElement && image.naturalWidth > 0), )).toBe(true)",
+    "uiExpect.soft(sceneImages).toHaveCount(10)",
     "uiExpect.soft(previous).toHaveCount(0)",
     "uiExpect.soft(next).toBeVisible()",
     "uiExpect.soft(arrowStyle[\"background-color\"]).toBe(\"rgba(255, 255, 255, 0.92)\")",
@@ -257,7 +256,9 @@
     "expect.poll(() => sceneList.evaluate((element) => element.scrollLeft)).toBeGreaterThanOrEqual(before + 258)",
     "uiExpect.soft(previous).toBeVisible()",
     "expect.poll(() => sceneList.evaluate((element) => element.scrollLeft)).toBeLessThanOrEqual(before + 1)",
-    "uiExpect.soft(previous).toHaveCount(0)"
+    "uiExpect.soft(previous).toHaveCount(0)",
+    "expect.poll(() => sceneImages.evaluateAll((images) => images.every((image) => image instanceof HTMLImageElement && image.naturalWidth > 0), )).toBe(true)",
+    "expect.poll(() => sceneList.evaluate((element) => element.scrollLeft)).toBeLessThanOrEqual(1)"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -372,12 +373,12 @@
       "source_contract": {
         "spec": "e2e/ui-journey-expert-market.spec.ts",
         "line_start": 67,
-        "line_end": 116,
-        "body_sha256": "sha256:71ffecc0eb2bc51cf876789d2823a3d7f68fba18accc04022cf28f9c3c1b5ad2",
-        "assertion_count": 16,
+        "line_end": 127,
+        "body_sha256": "sha256:9563491e54d4dff38e08e8824a90b65a1e7923d9047d538f0af56ef0c3d81eb8",
+        "assertion_count": 17,
         "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:87bec591eb819032325a30411e0325bee193e3abcd67c93e86f056a8a957a21d"
+        "execution_revision": "e2601f808260d47cfbea4c5afb71fb3edc8abdad",
+        "spec_sha256": "sha256:910fbb82b5aea714134d29a7b36d8511de9165f00375ee280c240d025d1173f5"
       }
     },
     "reference_run": {
