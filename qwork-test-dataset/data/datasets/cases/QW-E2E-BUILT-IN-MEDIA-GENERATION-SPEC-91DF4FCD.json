@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/built-in-media-generation.spec.ts",
-      "locator": "line:132;test:生视频逐次授权并展示阶段，停止只终止本地等待",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/built-in-media-generation.spec.ts",
+      "locator": "line:201;test:生视频逐次授权并展示阶段，停止只终止本地等待",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:91df4fcd01b74b5350352a384cdc5b2329d24917c0ffdc74a9a964eb7fb56f67",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-8CDCE7AD7FBB6E",
+      "requirement_id": "REQ-DCC7ACAD6A612E",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-built-in-media-generation-spec-ts:L132:91df4fcd01"
+        "QDEV-E2E-e2e-built-in-media-generation-spec-ts:L201:91df4fcd01"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -61,10 +61,10 @@
   ],
   "verification": {
     "last_outcome": "pending",
-    "environment_scope": "isolated Electron fixture",
-    "implementation_revision": null,
-    "last_verified_at": null,
-    "status_reason": "generated baseline has not completed its reference run"
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+    "last_verified_at": "2026-08-28T12:53:04.889585+00:00",
+    "status_reason": "public Playwright reference image-media-assets-public-reference-8179e3b6-v1 does not match current implementation/source contract; rerun this exact Case"
   },
   "preconditions": {
     "repository": "qwork",
@@ -135,10 +135,7 @@
       "action": "page.getByRole(\"button\", { name: \"停止\" }).click()"
     },
     {
-      "action": "cancelledTurn.click()"
-    },
-    {
-      "action": "cancelled.click()"
+      "action": "activeVideo.click()"
     }
   ],
   "expected_outcomes": [
@@ -157,8 +154,9 @@
     "expect( page.locator(\"pre\").filter({ hasText: \"QWork Credits are insufficient\" }).last(), ).toBeVisible()",
     "expect(upstreamFailure).toContainText(\"error\")",
     "expect( page.locator(\"pre\").filter({ hasText: \"VideoGen failed with QWork code `upstream_failed`\", }).last(), ).toBeVisible()",
-    "expect(page.getByText(\"生成中\", { exact: false })).toBeVisible()",
-    "expect(cancelled).toContainText(\"cancelled\")",
+    "expect(activeVideo).toContainText(\"生成中\")",
+    "expect(activeTurn.getByRole(\"button\", { name: /已取消/ })).toBeVisible()",
+    "expect(activeVideo).toContainText(\"cancelled\")",
     "expect( page.locator(\"pre\").filter({ hasText: \"stopped waiting; the provider task was not cancelled\", }).last(), ).toBeVisible()"
   ],
   "forbidden_outcomes": [
@@ -168,7 +166,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-8CDCE7AD7FBB6E",
+      "requirement_id": "REQ-DCC7ACAD6A612E",
       "type": "return",
       "assertion": "生视频逐次授权并展示阶段，停止只终止本地等待"
     }
@@ -289,10 +287,7 @@
           "action": "page.getByRole(\"button\", { name: \"停止\" }).click()"
         },
         {
-          "action": "cancelledTurn.click()"
-        },
-        {
-          "action": "cancelled.click()"
+          "action": "activeVideo.click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -313,20 +308,20 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/built-in-media-generation.spec.ts",
-        "line_start": 132,
-        "line_end": 275,
-        "body_sha256": "sha256:5b82d3c312b38a59682a55091cfeb6a00071a344cf2e5f3dad52d75d2cac3cc9",
-        "assertion_count": 18,
-        "action_count": 22,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:06fdb8ff92fb1ff83f1ef53f7a7629f30c5531f70a36cceb9b5bd25d04f23168"
+        "line_start": 201,
+        "line_end": 343,
+        "body_sha256": "sha256:a85f316e5e5e3ef0aed2f5db4ce64ed259540c76b99e842f5089480f8ec1899b",
+        "assertion_count": 19,
+        "action_count": 21,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:33aec57b6f9621acbe0568e7d4f37c6443724f6930c9cf230f0fe6d0cda2da4a"
       }
     },
     "reference_run": {
       "status": "pending",
-      "run_id": null,
-      "verified_at": null,
-      "environment": "not yet independently replayed"
+      "run_id": "image-media-assets-public-reference-8179e3b6-v1",
+      "verified_at": "2026-08-28T12:53:04.889585+00:00",
+      "environment": "stale deterministic public Playwright reference run"
     },
     "cleanup": {
       "actions": [
@@ -336,12 +331,12 @@
       "success_oracle": "no case-owned process or temporary state remains"
     },
     "blockers": [
-      "reference run pending"
+      "public Playwright reference image-media-assets-public-reference-8179e3b6-v1 does not match current implementation/source contract; rerun this exact Case"
     ]
   },
   "selection": {
     "requirement_ids": [
-      "REQ-8CDCE7AD7FBB6E"
+      "REQ-DCC7ACAD6A612E"
     ],
     "categories": [
       "business"
@@ -349,7 +344,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-8CDCE7AD7FBB6E"
+      "requirement:REQ-DCC7ACAD6A612E"
     ]
   }
 }

@@ -1,0 +1,223 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-HTTP-FALLBACK-PROMPT-SPEC-6053DFB7",
+  "title": "startup migrates managed rules and sending injects the bounded HTTP fallback",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-http-fallback-prompt-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/http-fallback-prompt.spec.ts",
+      "locator": "line:6;test:startup migrates managed rules and sending injects the bounded HTTP fallback",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:6053dfb77940e4d6eb0f6c11012254fd5fc157c3b3b48f41e4f4ce69703594c2",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0C2F80E68F38EB",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-http-fallback-prompt-spec-ts:L6:6053dfb779"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "startup migrates managed rules and sending injects the bounded HTTP fallback",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-http-fallback-prompt-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "startup migrates managed rules and sending injects the bounded HTTP fallback"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").fill(\"读取用户提供的公开分享资源\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(async () => { try { return (await fs.readFile(log, \"utf8\")).split(\"\\n\").filter(Boolean).map((line) => JSON.parse(line)).find((entry) => entry.type === \"user_message\")?.content ?? \"\"; } catch { return \"\"; } }).toContain(\"对每个资源执行一次\")",
+    "expect(migrated).toContain(\"用户自定义说明\")",
+    "expect(migrated).toContain(\"兜底失败后停止\")",
+    "expect(migrated).not.toContain(\"不得用 curl\")",
+    "expect((await fs.readdir(root)).filter((name) => name.startsWith(\"CLAUDE.md.http-fallback-\"))).toHaveLength(1)",
+    "expect(page.getByTestId(\"thread-message-list\").getByText(\"读取用户提供的公开分享资源\", { exact: true })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0C2F80E68F38EB",
+      "type": "return",
+      "assertion": "startup migrates managed rules and sending injects the bounded HTTP fallback"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-http-fallback-prompt-spec-ts.6053dfb779",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/http-fallback-prompt.spec.ts -g \"startup migrates managed rules and sending injects the bounded HTTP fallback\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "page.getByRole(\"textbox\").fill(\"读取用户提供的公开分享资源\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/http-fallback-prompt.spec.ts",
+        "line_start": 6,
+        "line_end": 28,
+        "body_sha256": "sha256:0d56bae8de9bd81bf53ba0c3a1717cf08448cadb543f50700fd7879d6e445076",
+        "assertion_count": 6,
+        "action_count": 2,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:fb3cf24ce3af0972f614e38a894f6d0801e6a1920c4d0447460f2b27d1e0016f"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0C2F80E68F38EB"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-0C2F80E68F38EB"
+    ]
+  }
+}

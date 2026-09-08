@@ -1,0 +1,294 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-SKILL-DO-ITEM-DBD7ECFB",
+  "title": "docs/changes/CHG-skill-download-public-host-20260908/acceptance.md · 专用测试租户真实下载 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-skill-download-public-host-20260908",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-skill-download-public-host-20260908/acceptance.md",
+      "locator": "line:28;heading:专用测试租户真实下载",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:3ff7cced7ffd3615114c86f1b594b1db9f8e3138986e112f8eefe4d25976358f",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-skill-download-public-host-20260908",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-skill-download-public-host-20260908/acceptance.md",
+      "locator": "line:34;heading:专用测试租户真实下载",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:4ccc0778ef7ac43febf5f2b97a44d547e29da2d6a76a678db5bd8cc3495cf5d3",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0F58F56E784156",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-skill-download-public-host-20260908:L28:3ff7cced7f"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "默认不运行。由验收执行者通过环境注入 `QWORK_LIVE_SKILL_API_ORIGIN`（测试 API 的 HTTPS origin）、`QWORK_LIVE_SKILL_TOKEN`（测试租户受限令牌）和 `QWORK_LIVE_SKILL_ID`（专用可清理技能）。不得复制个人桌面凭据。令牌和完整签名 URL 不进入日志或证据。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-skill-download-public-host-20260908"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "默认不运行。由验收执行者通过环境注入 `QWORK_LIVE_SKILL_API_ORIGIN`（测试 API 的 HTTPS origin）、`QWORK_LIVE_SKILL_TOKEN`（测试租户受限令牌）和 `QWORK_LIVE_SKILL_ID`（专用可清理技能）。不得复制个人桌面凭据。令牌和完整签名 URL 不进入日志或证据。"
+    },
+    {
+      "requirement_id": "REQ-0A65AE7130A54D",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-skill-download-public-host-20260908:L34:4ccc0778ef"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "用例核对下载响应主机，调用真实 API 和存储完成安装及卸载，最终清理临时本地目录；不创建或删除服务端技能，不调用模型。显式启用却缺少参数时失败，不视为通过。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-skill-download-public-host-20260908"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "用例核对下载响应主机，调用真实 API 和存储完成安装及卸载，最终清理临时本地目录；不创建或删除服务端技能，不调用模型。显式启用却缺少参数时失败，不视为通过。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for skills at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-skill-download-public-host-20260908/acceptance.md · 专用测试租户真实下载 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-0F58F56E784156] exactly: 默认不运行。由验收执行者通过环境注入 `QWORK_LIVE_SKILL_API_ORIGIN`（测试 API 的 HTTPS origin）、`QWORK_LIVE_SKILL_TOKEN`（测试租户受限令牌）和 `QWORK_LIVE_SKILL_ID`（专用可清理技能）。不得复制个人桌面凭据。令牌和完整签名 URL 不进入日志或证据。"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-0A65AE7130A54D] exactly: 用例核对下载响应主机，调用真实 API 和存储完成安装及卸载，最终清理临时本地目录；不创建或删除服务端技能，不调用模型。显式启用却缺少参数时失败，不视为通过。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "默认不运行。由验收执行者通过环境注入 `QWORK_LIVE_SKILL_API_ORIGIN`（测试 API 的 HTTPS origin）、`QWORK_LIVE_SKILL_TOKEN`（测试租户受限令牌）和 `QWORK_LIVE_SKILL_ID`（专用可清理技能）。不得复制个人桌面凭据。令牌和完整签名 URL 不进入日志或证据。",
+    "用例核对下载响应主机，调用真实 API 和存储完成安装及卸载，最终清理临时本地目录；不创建或删除服务端技能，不调用模型。显式启用却缺少参数时失败，不视为通过。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-0F58F56E784156]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 默认不运行。由验收执行者通过环境注入 `QWORK_LIVE_SKILL_API_ORIGIN`（测试 API 的 HTTPS origin）、`QWORK_LIVE_SKILL_TOKEN`（测试租户受限令牌）和 `QWORK_LIVE_SKILL_ID`（专用可清理技能）。不得复制个人桌面凭据。令牌和完整签名 URL 不进入日志或证据。",
+    "FAIL [REQ-0A65AE7130A54D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 用例核对下载响应主机，调用真实 API 和存储完成安装及卸载，最终清理临时本地目录；不创建或删除服务端技能，不调用模型。显式启用却缺少参数时失败，不视为通过。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0F58F56E784156",
+      "type": "api",
+      "assertion": "默认不运行。由验收执行者通过环境注入 `QWORK_LIVE_SKILL_API_ORIGIN`（测试 API 的 HTTPS origin）、`QWORK_LIVE_SKILL_TOKEN`（测试租户受限令牌）和 `QWORK_LIVE_SKILL_ID`（专用可清理技能）。不得复制个人桌面凭据。令牌和完整签名 URL 不进入日志或证据。"
+    },
+    {
+      "requirement_id": "REQ-0A65AE7130A54D",
+      "type": "event",
+      "assertion": "用例核对下载响应主机，调用真实 API 和存储完成安装及卸载，最终清理临时本地目录；不创建或删除服务端技能，不调用模型。显式启用却缺少参数时失败，不视为通过。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-skill-down.item-dbd7ecfb29",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for skills at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-skill-download-public-host-20260908/acceptance.md · 专用测试租户真实下载 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-0F58F56E784156] exactly: 默认不运行。由验收执行者通过环境注入 `QWORK_LIVE_SKILL_API_ORIGIN`（测试 API 的 HTTPS origin）、`QWORK_LIVE_SKILL_TOKEN`（测试租户受限令牌）和 `QWORK_LIVE_SKILL_ID`（专用可清理技能）。不得复制个人桌面凭据。令牌和完整签名 URL 不进入日志或证据。"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-0A65AE7130A54D] exactly: 用例核对下载响应主机，调用真实 API 和存储完成安装及卸载，最终清理临时本地目录；不创建或删除服务端技能，不调用模型。显式启用却缺少参数时失败，不视为通过。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0A65AE7130A54D",
+      "REQ-0F58F56E784156"
+    ],
+    "categories": [
+      "permission",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:permission",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-0A65AE7130A54D",
+      "requirement:REQ-0F58F56E784156"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-0F58F56E784156",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-skill-download-public-host-20260908/acceptance.md · 专用测试租户真实下载 产品契约 exactly once and retain its correlation identity",
+      "then": "默认不运行。由验收执行者通过环境注入 `QWORK_LIVE_SKILL_API_ORIGIN`（测试 API 的 HTTPS origin）、`QWORK_LIVE_SKILL_TOKEN`（测试租户受限令牌）和 `QWORK_LIVE_SKILL_ID`（专用可清理技能）。不得复制个人桌面凭据。令牌和完整签名 URL 不进入日志或证据。",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-0A65AE7130A54D",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-skill-download-public-host-20260908/acceptance.md · 专用测试租户真实下载 产品契约 exactly once and retain its correlation identity",
+      "then": "用例核对下载响应主机，调用真实 API 和存储完成安装及卸载，最终清理临时本地目录；不创建或删除服务端技能，不调用模型。显式启用却缺少参数时失败，不视为通过。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

@@ -1,0 +1,307 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-AUTO-MOD-ITEM-40ED8913",
+  "title": "docs/changes/CHG-auto-model-v1-20260907/implementation.md · 展示与成本取舍 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auto-model-v1-20260907-implementati",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auto-model-v1-20260907/implementation.md",
+      "locator": "line:55;heading:展示与成本取舍",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:f8589e6a85855f5ce4195f085dc2401a1ad81af2b9cda32e6a66253781fcfd8c",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auto-model-v1-20260907-implementati",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auto-model-v1-20260907/implementation.md",
+      "locator": "line:57;heading:展示与成本取舍",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:dae521aa90515cf3b747ba1ae89bc2979c41b6c7bbc0c4e040cd6d6db4d505d8",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-75E6404976E47D",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auto-model-v1-20260907-implementati:L55:f8589e6a85"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "完成标签采用 WorkBuddy 截图给定形式 `Auto（实际模型）`，复用 QWork 现有消息操作栏和主题 token。实际执行事件触发每回合归属记录，历史不从输入框当前模型重建。子 Agent manifest 独立记录实际模型，主消息标签不汇总为子模型。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auto-model-v1-20260907-implementati"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "完成标签采用 WorkBuddy 截图给定形式 `Auto（实际模型）`，复用 QWork 现有消息操作栏和主题 token。实际执行事件触发每回合归属记录，历史不从输入框当前模型重建。子 Agent manifest 独立记录实际模型，主消息标签不汇总为子模型。"
+    },
+    {
+      "requirement_id": "REQ-60BC04491EB8A0",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auto-model-v1-20260907-implementati:L57:dae521aa90"
+      ],
+      "content_facets": [
+        "ui-interaction"
+      ],
+      "acceptance_categories": [
+        "ui-interaction"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "本版选择固定主备，价格由既有服务端目录/计价链路负责，没有逐请求重新计算全模型价格排名、实时缓存预测或学习路由器。成本改善来自最低足够档位、主模型保持以及独立子任务可使用便宜模型。收益需要真实任务与计费数据验证。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auto-model-v1-20260907-implementati"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "本版选择固定主备，价格由既有服务端目录/计价链路负责，没有逐请求重新计算全模型价格排名、实时缓存预测或学习路由器。成本改善来自最低足够档位、主模型保持以及独立子任务可使用便宜模型。收益需要真实任务与计费数据验证。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-auto-model-v1-20260907/implementation.md · 展示与成本取舍 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-75E6404976E47D] exactly: 完成标签采用 WorkBuddy 截图给定形式 `Auto（实际模型）`，复用 QWork 现有消息操作栏和主题 token。实际执行事件触发每回合归属记录，历史不从输入框当前模型重建。子 Agent manifest 独立记录实际模型，主消息标签不汇总为子模型。"
+    },
+    {
+      "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-60BC04491EB8A0] exactly: 本版选择固定主备，价格由既有服务端目录/计价链路负责，没有逐请求重新计算全模型价格排名、实时缓存预测或学习路由器。成本改善来自最低足够档位、主模型保持以及独立子任务可使用便宜模型。收益需要真实任务与计费数据验证。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "完成标签采用 WorkBuddy 截图给定形式 `Auto（实际模型）`，复用 QWork 现有消息操作栏和主题 token。实际执行事件触发每回合归属记录，历史不从输入框当前模型重建。子 Agent manifest 独立记录实际模型，主消息标签不汇总为子模型。",
+    "本版选择固定主备，价格由既有服务端目录/计价链路负责，没有逐请求重新计算全模型价格排名、实时缓存预测或学习路由器。成本改善来自最低足够档位、主模型保持以及独立子任务可使用便宜模型。收益需要真实任务与计费数据验证。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-75E6404976E47D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 完成标签采用 WorkBuddy 截图给定形式 `Auto（实际模型）`，复用 QWork 现有消息操作栏和主题 token。实际执行事件触发每回合归属记录，历史不从输入框当前模型重建。子 Agent manifest 独立记录实际模型，主消息标签不汇总为子模型。",
+    "FAIL [REQ-60BC04491EB8A0]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 本版选择固定主备，价格由既有服务端目录/计价链路负责，没有逐请求重新计算全模型价格排名、实时缓存预测或学习路由器。成本改善来自最低足够档位、主模型保持以及独立子任务可使用便宜模型。收益需要真实任务与计费数据验证。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-75E6404976E47D",
+      "type": "ui",
+      "assertion": "完成标签采用 WorkBuddy 截图给定形式 `Auto（实际模型）`，复用 QWork 现有消息操作栏和主题 token。实际执行事件触发每回合归属记录，历史不从输入框当前模型重建。子 Agent manifest 独立记录实际模型，主消息标签不汇总为子模型。"
+    },
+    {
+      "requirement_id": "REQ-60BC04491EB8A0",
+      "type": "ui-interaction",
+      "assertion": "本版选择固定主备，价格由既有服务端目录/计价链路负责，没有逐请求重新计算全模型价格排名、实时缓存预测或学习路由器。成本改善来自最低足够档位、主模型保持以及独立子任务可使用便宜模型。收益需要真实任务与计费数据验证。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-auto-model.item-40ed8913af",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-auto-model-v1-20260907/implementation.md · 展示与成本取舍 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-75E6404976E47D] exactly: 完成标签采用 WorkBuddy 截图给定形式 `Auto（实际模型）`，复用 QWork 现有消息操作栏和主题 token。实际执行事件触发每回合归属记录，历史不从输入框当前模型重建。子 Agent manifest 独立记录实际模型，主消息标签不汇总为子模型。"
+        },
+        {
+          "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-60BC04491EB8A0] exactly: 本版选择固定主备，价格由既有服务端目录/计价链路负责，没有逐请求重新计算全模型价格排名、实时缓存预测或学习路由器。成本改善来自最低足够档位、主模型保持以及独立子任务可使用便宜模型。收益需要真实任务与计费数据验证。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-60BC04491EB8A0",
+      "REQ-75E6404976E47D"
+    ],
+    "categories": [
+      "permission",
+      "ui-interaction"
+    ],
+    "suite_ids": [
+      "category:permission",
+      "category:ui-interaction",
+      "full",
+      "requirement:REQ-60BC04491EB8A0",
+      "requirement:REQ-75E6404976E47D"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-75E6404976E47D",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auto-model-v1-20260907/implementation.md · 展示与成本取舍 产品契约 exactly once and retain its correlation identity",
+      "then": "完成标签采用 WorkBuddy 截图给定形式 `Auto（实际模型）`，复用 QWork 现有消息操作栏和主题 token。实际执行事件触发每回合归属记录，历史不从输入框当前模型重建。子 Agent manifest 独立记录实际模型，主消息标签不汇总为子模型。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-60BC04491EB8A0",
+      "oracle_type": "ui-interaction",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auto-model-v1-20260907/implementation.md · 展示与成本取舍 产品契约 exactly once and retain its correlation identity",
+      "then": "本版选择固定主备，价格由既有服务端目录/计价链路负责，没有逐请求重新计算全模型价格排名、实时缓存预测或学习路由器。成本改善来自最低足够档位、主模型保持以及独立子任务可使用便宜模型。收益需要真实任务与计费数据验证。",
+      "observation_boundary": "renderer input/output interaction boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

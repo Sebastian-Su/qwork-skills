@@ -1,0 +1,248 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PUBLISHED-APPS-MANAGEMENT-SPEC-F4060577",
+  "title": "PUBLISHED-APPS-T02 | Agent session receives a task-bound publisher capability",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-published-apps-management-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/published-apps-management.spec.ts",
+      "locator": "line:118;test:PUBLISHED-APPS-T02 | Agent session receives a task-bound publisher capability",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:f40605778e788415939a0c6cc330e0bf359875fb5a0aea215104e06a10dec8d0",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-24BDF52081EF19",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-published-apps-management-spec-ts:L118:f40605778e"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "PUBLISHED-APPS-T02 | Agent session receives a task-bound publisher capability",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-published-apps-management-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "PUBLISHED-APPS-T02 | Agent session receives a task-bound publisher capability"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "server.close((error) => error ? reject(error) : resolve())"
+    },
+    {
+      "action": "opened.page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"发布一个静态页面\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "cloud.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(async () => { const lines = await fs.readFile(file, \"utf8\").catch(() => \"\"); created = lines .split(/\\r?\\n/) .filter(Boolean) .map((line) => JSON.parse(line) as Record<string, unknown>) .find((message) => message.type === \"create_session\"); return created; }, { timeout: 30_000 }).toBeTruthy()",
+    "expect(path.dirname(taskWorkspace)).toBe(await fs.realpath(workspace))",
+    "expect(projection.server.env.ZIQDO_PUBLISHED_APP_BRIDGE_TOKEN).toHaveLength(43)",
+    "expect(projection.raw).not.toContain(taskWorkspace)",
+    "expect(response).not.toHaveProperty(\"error\")",
+    "expect(preview).toMatchObject({ status: \"confirmation_required\", fileCount: 2, totalBytes: 24_517_775, })",
+    "expect(preview.confirmationToken).toHaveLength(43)",
+    "expect(confirmedResponse).not.toHaveProperty(\"error\")",
+    "expect(published).toMatchObject({ status: \"published\", app: { id: \"app-e2e\", version: 1, generation: 1, url: \"https://public.example/s/e2e/\", }, })",
+    "expect(published.message).toContain(\"「设置 - 数据管理 - 我发布的应用」\")",
+    "expect(cloud.state.uploadedBytes).toEqual(new Map([ [\"index.html\", 51], [\"screenshot.mp4\", 24_517_724], ]))",
+    "expect(cloud.state.uploadContentLengths).toEqual(new Map([ [\"index.html\", \"51\"], [\"screenshot.mp4\", \"24517724\"], ]))",
+    "expect(cloud.state.commitCount).toBe(1)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-24BDF52081EF19",
+      "type": "return",
+      "assertion": "PUBLISHED-APPS-T02 | Agent session receives a task-bound publisher capability"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-published-apps-management-spec-ts.f40605778e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/published-apps-management.spec.ts -g \"PUBLISHED-APPS-T02 | Agent session receives a task-bound publisher capability\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "server.close((error) => error ? reject(error) : resolve())"
+        },
+        {
+          "action": "opened.page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"发布一个静态页面\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "cloud.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/published-apps-management.spec.ts",
+        "line_start": 118,
+        "line_end": 211,
+        "body_sha256": "sha256:93ee7a1d60567586c6d7427a0d2f14453e9cddd8bde2a98ae6e14d85d48abf06",
+        "assertion_count": 13,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:e28dac69e07f2055cfe4b0c015312bcc1a68053cc3c01ab50377f5b656b8af6e"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-24BDF52081EF19"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-24BDF52081EF19"
+    ]
+  }
+}

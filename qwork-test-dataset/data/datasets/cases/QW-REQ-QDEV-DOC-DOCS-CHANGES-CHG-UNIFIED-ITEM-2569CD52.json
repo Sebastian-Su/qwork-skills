@@ -22,13 +22,13 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:15;heading:结论",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:173;heading:结论",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:4a7515f7f4be090c4f526a3564f1016f1d3474dc596df34c258c68f5d2a20927",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:0bb475c82862826b812fe889c6a48c5cce8be4f0c9d57c2387cd2056b8303924",
       "redaction_status": "minimized"
     },
     {
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:17;heading:结论",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:175;heading:结论",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:930ee7948d8725360559f58f4cf39907ac050453d1ee806ea65916e39759a778",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-15996D9FA56CAC",
+      "requirement_id": "REQ-042B459E902A11",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L15:4a7515f7f4"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L173:0bb475c828"
       ],
       "content_facets": [
         "evidence-provenance"
@@ -60,7 +60,7 @@
       ],
       "surface": "im",
       "priority": "P1",
-      "rule": "本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main；qwork_server 复用 JSON `slog`，",
+      "rule": "本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main。qwork_server 的 stdout 继续服务既有",
       "authority_domain": "product",
       "governing_sources": [
         "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl"
@@ -71,12 +71,12 @@
         "status": "resolved",
         "reason": "compiled from the user-approved source hierarchy"
       },
-      "oracle": "本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main；qwork_server 复用 JSON `slog`，"
+      "oracle": "本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main。qwork_server 的 stdout 继续服务既有"
     },
     {
-      "requirement_id": "REQ-AE8D3B358F751D",
+      "requirement_id": "REQ-29A58A1054B263",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L17:930ee7948d"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L175:930ee7948d"
       ],
       "content_facets": [
         "evidence-provenance"
@@ -122,33 +122,33 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 结论 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe case-owned execution trace after the trigger and assert [REQ-15996D9FA56CAC] exactly: 本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main；qwork_server 复用 JSON `slog`，"
+      "action": "observe case-owned execution trace after the trigger and assert [REQ-042B459E902A11] exactly: 本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main。qwork_server 的 stdout 继续服务既有"
     },
     {
-      "action": "observe case-owned execution trace after the trigger and assert [REQ-AE8D3B358F751D] exactly: 一条成功的用户发送链路使用同一个 `trace_id` 串联："
+      "action": "observe case-owned execution trace after the trigger and assert [REQ-29A58A1054B263] exactly: 一条成功的用户发送链路使用同一个 `trace_id` 串联："
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
     }
   ],
   "expected_outcomes": [
-    "本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main；qwork_server 复用 JSON `slog`，",
+    "本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main。qwork_server 的 stdout 继续服务既有",
     "一条成功的用户发送链路使用同一个 `trace_id` 串联："
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-15996D9FA56CAC]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main；qwork_server 复用 JSON `slog`，",
-    "FAIL [REQ-AE8D3B358F751D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 一条成功的用户发送链路使用同一个 `trace_id` 串联：",
+    "FAIL [REQ-042B459E902A11]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main。qwork_server 的 stdout 继续服务既有",
+    "FAIL [REQ-29A58A1054B263]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 一条成功的用户发送链路使用同一个 `trace_id` 串联：",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-15996D9FA56CAC",
+      "requirement_id": "REQ-042B459E902A11",
       "type": "trace",
-      "assertion": "本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main；qwork_server 复用 JSON `slog`，"
+      "assertion": "本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main。qwork_server 的 stdout 继续服务既有"
     },
     {
-      "requirement_id": "REQ-AE8D3B358F751D",
+      "requirement_id": "REQ-29A58A1054B263",
       "type": "trace",
       "assertion": "一条成功的用户发送链路使用同一个 `trace_id` 串联："
     }
@@ -207,10 +207,10 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 结论 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe case-owned execution trace after the trigger and assert [REQ-15996D9FA56CAC] exactly: 本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main；qwork_server 复用 JSON `slog`，"
+          "action": "observe case-owned execution trace after the trigger and assert [REQ-042B459E902A11] exactly: 本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main。qwork_server 的 stdout 继续服务既有"
         },
         {
-          "action": "observe case-owned execution trace after the trigger and assert [REQ-AE8D3B358F751D] exactly: 一条成功的用户发送链路使用同一个 `trace_id` 串联："
+          "action": "observe case-owned execution trace after the trigger and assert [REQ-29A58A1054B263] exactly: 一条成功的用户发送链路使用同一个 `trace_id` 串联："
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -253,8 +253,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-15996D9FA56CAC",
-      "REQ-AE8D3B358F751D"
+      "REQ-042B459E902A11",
+      "REQ-29A58A1054B263"
     ],
     "categories": [
       "evidence-integrity"
@@ -262,22 +262,22 @@
     "suite_ids": [
       "category:evidence-integrity",
       "full",
-      "requirement:REQ-15996D9FA56CAC",
-      "requirement:REQ-AE8D3B358F751D"
+      "requirement:REQ-042B459E902A11",
+      "requirement:REQ-29A58A1054B263"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-15996D9FA56CAC",
+      "requirement_id": "REQ-042B459E902A11",
       "oracle_type": "trace",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 结论 产品契约 exactly once and retain its correlation identity",
-      "then": "本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main；qwork_server 复用 JSON `slog`，",
+      "then": "本 Change 不把现有 `console.*`、stderr 和任意对象直接搬进 SLS，而是建立一份跨端统一的结构化事件契约。QWork Main 继续作为桌面端唯一 SLS 出口；Renderer 只在现有业务 IPC 中携带受限关联元数据；ZiqDo 复用现有 `telemetry::SessionTracer`，通过新增的只读、脱敏 `observability_event` stdio 事件交给 Main。qwork_server 的 stdout 继续服务既有",
       "observation_boundary": "case-owned execution trace",
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-AE8D3B358F751D",
+      "requirement_id": "REQ-29A58A1054B263",
       "oracle_type": "trace",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 结论 产品契约 exactly once and retain its correlation identity",

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/session-startup-lifecycle.spec.ts",
-      "locator": "line:134;test:historical model selection stays responsive while its cold session restores",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/session-startup-lifecycle.spec.ts",
+      "locator": "line:266;test:historical model selection stays responsive while its cold session restores",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:f9756f3fcd5d1b2ec6846db89dc89c8c910b1c724ed8efc5f6c2e2564227a2be",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-EC89E2F10C87B8",
+      "requirement_id": "REQ-6FE9FEAB0A2D55",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-session-startup-lifecycle-spec-ts:L134:f9756f3fcd"
+        "QDEV-E2E-e2e-session-startup-lifecycle-spec-ts:L266:f9756f3fcd"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:48:37.646151+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -75,28 +75,22 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "composer.fill(\"启动期模型切换历史\")"
-    },
-    {
-      "action": "composer.press(\"Enter\")"
-    },
-    {
       "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: /启动期模型切换历史/ }) .click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"GLM-5.2\", exact: true }).click()"
+      "action": "restoredModelTrigger.click()"
     },
     {
       "action": "page.getByRole(\"menuitemradio\", { name: \"Kimi-K3\", exact: true }).click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"Kimi-K3\", exact: true }).click()"
+      "action": "restoredModelTrigger.click()"
     },
     {
       "action": "page.getByRole(\"menuitemradio\", { name: \"GLM-5.2\", exact: true }).click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"GLM-5.2\", exact: true }).click()"
+      "action": "restoredModelTrigger.click()"
     },
     {
       "action": "page .getByRole(\"menuitemradio\", { name: \"Deepseek-V4-Flash\", exact: true }) .click()"
@@ -106,17 +100,29 @@
     },
     {
       "action": "resumedComposer.press(\"Enter\")"
+    },
+    {
+      "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: /启动期模型切换历史/ }) .click()"
+    },
+    {
+      "action": "hiddenModelComposer.fill(\"隐藏模型继续调用\")"
+    },
+    {
+      "action": "hiddenModelComposer.press(\"Enter\")"
     }
   ],
   "expected_outcomes": [
+    "expect.poll(async () => page.evaluate(async () => (await window.workGui.sessions.list()).some( (session) => session.title === \"启动期模型切换历史\", ), )).toBe(true)",
     "expect(page.getByText(\"收到：启动期模型切换历史\", { exact: true })).toBeVisible()",
-    "expect(page.getByText(\"收到：启动期模型切换历史\", { exact: true })).toBeVisible()",
-    "expect(page.getByRole(\"button\", { name: \"Kimi-K3\", exact: true })) .toBeVisible({ timeout: 1_000 })",
-    "expect( page.getByRole(\"button\", { name: \"Deepseek-V4-Flash\", exact: true }), ).toBeVisible({ timeout: 1_000 })",
+    "expect(restoredModelTrigger).toBeVisible()",
+    "expect(restoredModelTrigger).toHaveAccessibleName(\"Kimi-K3\", { timeout: 1_000 })",
+    "expect(restoredModelTrigger).toHaveAccessibleName(\"GLM-5.2\")",
+    "expect(restoredModelTrigger).toHaveAccessibleName(\"Deepseek-V4-Flash\", { timeout: 1_000, })",
     "expect(page.getByText(\"收到：使用最终模型继续\", { exact: true })) .toBeVisible({ timeout: 15_000 })",
     "expect .poll(async () => { const raw = await fs.readFile(controlLog, \"utf8\").catch(() => \"\"); return raw .split(\"\\n\") .filter(Boolean) .map((line) => JSON.parse(line) as { type?: string; model?: string }) .filter((message) => message.type === \"set_model\"); }, { timeout: 15_000 }) .toHaveLength(2)",
     "expect(modelMessages.at(-1)).toMatchObject({ model: \"qwen/deepseek/deepseek-v4-flash\", })",
-    "expect(messages.findLastIndex((message) => message.type === \"set_model\")) .toBeLessThan(messages.findIndex((message) => message.type === \"user_message\"))"
+    "expect(messages.findLastIndex((message) => message.type === \"set_model\")) .toBeLessThan(messages.findIndex((message) => message.type === \"user_message\"))",
+    "expect(page.getByText(\"收到：隐藏模型继续调用\", { exact: true })) .toBeVisible({ timeout: 15_000 })"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -125,7 +131,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-EC89E2F10C87B8",
+      "requirement_id": "REQ-6FE9FEAB0A2D55",
       "type": "return",
       "assertion": "historical model selection stays responsive while its cold session restores"
     }
@@ -186,28 +192,22 @@
       "entrypoint": "window-runtime",
       "steps": [
         {
-          "action": "composer.fill(\"启动期模型切换历史\")"
-        },
-        {
-          "action": "composer.press(\"Enter\")"
-        },
-        {
           "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: /启动期模型切换历史/ }) .click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: \"GLM-5.2\", exact: true }).click()"
+          "action": "restoredModelTrigger.click()"
         },
         {
           "action": "page.getByRole(\"menuitemradio\", { name: \"Kimi-K3\", exact: true }).click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: \"Kimi-K3\", exact: true }).click()"
+          "action": "restoredModelTrigger.click()"
         },
         {
           "action": "page.getByRole(\"menuitemradio\", { name: \"GLM-5.2\", exact: true }).click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: \"GLM-5.2\", exact: true }).click()"
+          "action": "restoredModelTrigger.click()"
         },
         {
           "action": "page .getByRole(\"menuitemradio\", { name: \"Deepseek-V4-Flash\", exact: true }) .click()"
@@ -217,6 +217,15 @@
         },
         {
           "action": "resumedComposer.press(\"Enter\")"
+        },
+        {
+          "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: /启动期模型切换历史/ }) .click()"
+        },
+        {
+          "action": "hiddenModelComposer.fill(\"隐藏模型继续调用\")"
+        },
+        {
+          "action": "hiddenModelComposer.press(\"Enter\")"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -237,13 +246,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/session-startup-lifecycle.spec.ts",
-        "line_start": 134,
-        "line_end": 219,
-        "body_sha256": "sha256:4333cedeede1b6c4f49463d9e6338c860b857cd172b5ec13c5286e505c78b2c6",
-        "assertion_count": 8,
-        "action_count": 11,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:9a3e1726e4f69fc348569b891ae36f58ba6d731ab88f0862eacc6ed9a60fdc59"
+        "line_start": 266,
+        "line_end": 404,
+        "body_sha256": "sha256:cb93d04cff6e9d4e03497c637c19c6c24432b320c878901711f5fef1f7124e6f",
+        "assertion_count": 11,
+        "action_count": 12,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:06495ea3918133cc34f832fbb7c05aa8b36018ee39a12e8fed07c83552ac14fb"
       }
     },
     "reference_run": {
@@ -265,7 +274,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-EC89E2F10C87B8"
+      "REQ-6FE9FEAB0A2D55"
     ],
     "categories": [
       "business"
@@ -273,7 +282,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-EC89E2F10C87B8"
+      "requirement:REQ-6FE9FEAB0A2D55"
     ]
   }
 }

@@ -1,0 +1,271 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SANDBOX-TOGGLE-SPEC-C9FF7754",
+  "title": "WorkBuddy security-center sandbox switch confirms off, applies on and survives restart",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "permissions",
+    "journey": "permissions",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-sandbox-toggle-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/sandbox-toggle.spec.ts",
+      "locator": "line:5;test:WorkBuddy security-center sandbox switch confirms off, applies on and survives restart",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:c9ff77549315fd29790a254dc40b0d0ec432802344432883970f1c37683878b8",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-9D6C777FADAC06",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-sandbox-toggle-spec-ts:L5:c9ff775493"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "permissions",
+      "priority": "P0",
+      "rule": "WorkBuddy security-center sandbox switch confirms off, applies on and survives restart",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-sandbox-toggle-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WorkBuddy security-center sandbox switch confirms off, applies on and survives restart"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "opened.page.keyboard.press(\"Control+,\")"
+    },
+    {
+      "action": "settings.getByRole(\"button\", { name: \"安全中心\", exact: true }).click()"
+    },
+    {
+      "action": "toggle.click()"
+    },
+    {
+      "action": "confirmation.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+    },
+    {
+      "action": "toggle.click()"
+    },
+    {
+      "action": "confirmation.getByRole(\"button\", { name: \"确认关闭\" }).click()"
+    },
+    {
+      "action": "opened.page.keyboard.press(\"Control+,\")"
+    },
+    {
+      "action": "settings.getByRole(\"button\", { name: \"安全中心\", exact: true }).click()"
+    },
+    {
+      "action": "toggle.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(() => opened.page.evaluate(async () => (await window.workGui.settings.effectsReadback()).find(e => e.key === \"security.sandbox\")?.status)).toBe(\"applied\")",
+    "expect(opened.page.getByRole(\"button\", { name: \"新建任务\", exact: true })).toBeVisible()",
+    "expect(toggle).toBeChecked()",
+    "expect(confirmation).toBeVisible()",
+    "expect(toggle).toBeChecked()",
+    "expect.poll(() => opened.page.evaluate(async () => (await window.workGui.settings.get()).security.sandbox.enabled)).toBe(false)",
+    "expect.poll(() => opened.page.evaluate(async () => (await window.workGui.settings.effectsReadback()).find(e => e.key === \"security.sandbox\")?.effective)).toEqual({ enabled: false })",
+    "expect.poll(() => opened.page.evaluate(async () => (await window.workGui.settings.effectsReadback()).find(e => e.key === \"security.sandbox\")?.effective)).toEqual({ enabled: false })",
+    "expect(opened.page.getByRole(\"button\", { name: \"新建任务\", exact: true })).toBeVisible()",
+    "expect(toggle).not.toBeChecked()",
+    "expect(opened.page.getByRole(\"dialog\", { name: /关闭沙箱安全/ })).toHaveCount(0)",
+    "expect.poll(() => opened.page.evaluate(async () => (await window.workGui.settings.effectsReadback()).find(e => e.key === \"security.sandbox\")?.effective)).toEqual({ enabled: true })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-9D6C777FADAC06",
+      "type": "return",
+      "assertion": "WorkBuddy security-center sandbox switch confirms off, applies on and survives restart"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-sandbox-toggle-spec-ts.c9ff775493",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/sandbox-toggle.spec.ts -g \"WorkBuddy security-center sandbox switch confirms off, applies on and survives restart\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "permissions",
+      "steps": [
+        {
+          "action": "opened.page.keyboard.press(\"Control+,\")"
+        },
+        {
+          "action": "settings.getByRole(\"button\", { name: \"安全中心\", exact: true }).click()"
+        },
+        {
+          "action": "toggle.click()"
+        },
+        {
+          "action": "confirmation.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+        },
+        {
+          "action": "toggle.click()"
+        },
+        {
+          "action": "confirmation.getByRole(\"button\", { name: \"确认关闭\" }).click()"
+        },
+        {
+          "action": "opened.page.keyboard.press(\"Control+,\")"
+        },
+        {
+          "action": "settings.getByRole(\"button\", { name: \"安全中心\", exact: true }).click()"
+        },
+        {
+          "action": "toggle.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/sandbox-toggle.spec.ts",
+        "line_start": 5,
+        "line_end": 46,
+        "body_sha256": "sha256:f7158f0a83b837cc303c5cefba4c933934696e055f2cf764d826053858d3d620",
+        "assertion_count": 12,
+        "action_count": 9,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:8d255e7851ede41d2db9ac074056c990edef5a843098232eb9db1acc25d059d8"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-9D6C777FADAC06"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-9D6C777FADAC06"
+    ]
+  }
+}

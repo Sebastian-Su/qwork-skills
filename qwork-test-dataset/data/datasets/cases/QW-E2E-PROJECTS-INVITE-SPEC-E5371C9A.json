@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-invite.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/projects-invite.spec.ts",
       "locator": "line:108;test:direct join admits a guest immediately, and a bad token is rejected",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:e5371c9ab6c817b4627586618cf67886326c0a499001bed72f5a8869d60bc5ee",
       "redaction_status": "minimized"
     }
@@ -75,19 +75,46 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"邀请\", exact: true }).click()"
+    },
+    {
       "action": "joinMode.click()"
     },
     {
       "action": "ownerPage .getByRole(\"menu\", { name: \"项目加入方式\" }) .getByRole(\"menuitem\", { name: \"直接加入\" }) .click()"
     },
     {
-      "action": "guestPage.getByRole(\"button\", { name: \"知道了\", exact: true }).click()"
+      "action": "page.getByRole(\"button\", { name: \"关闭成员面板\", exact: true }).click()"
+    },
+    {
+      "action": "page .getByTestId(\"project-detail-header\") .getByRole(\"button\", { name: \"项目\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByText(projectName, { exact: true }).first().click()"
+    },
+    {
+      "action": "overlay.getByRole(\"button\", { name: \"复制链接\", exact: true }).click()"
     },
     {
       "action": "guestPage.getByRole(\"button\", { name: \"知道了\", exact: true }).click()"
     },
     {
-      "action": "ownerPanel.getByRole(\"button\", { name: \"直接加入\" }).click()"
+      "action": "guestPage.getByRole(\"button\", { name: \"知道了\", exact: true }).click()"
+    },
+    {
+      "action": "joinModePanel.getByRole(\"button\", { name: \"直接加入\" }).click()"
     },
     {
       "action": "ownerPage .getByRole(\"menu\", { name: \"项目加入方式\" }) .getByRole(\"menuitem\", { name: \"申请后加入\" }) .click()"
@@ -97,21 +124,45 @@
     },
     {
       "action": "guestSkillDialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
+      "action": "guestActions.click()"
+    },
+    {
+      "action": "ownerPage.getByRole(\"menuitem\", { name: \"移除成员\" }).click()"
+    },
+    {
+      "action": "removalDialog.getByRole(\"button\", { name: \"移除成员\" }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"heading\", { name: \"Qwork Welcome\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"项目\", exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"发布留言\" })).toBeVisible()",
+    "expect(overlay).toBeVisible()",
     "expect(joinMode).toBeEnabled()",
     "expect(panel.getByRole(\"button\", { name: \"直接加入\" })).toBeVisible()",
+    "expect(invitePanel(page)).toHaveCount(0)",
+    "expect(page.getByRole(\"heading\", { name: \"项目\", exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"发布留言\" })).toBeVisible()",
     "expect(updated.getByRole(\"button\", { name: \"直接加入\" })).toBeVisible()",
+    "expect(overlay.getByText(\"已复制邀请链接\")).toBeVisible()",
     "expect(rejected).toBeVisible()",
     "expect(rejected).toContainText(\"邀请链接无效或已过期\")",
     "expect( guestPage.getByRole(\"dialog\", { name: \"已加入项目\" }), ).toBeVisible()",
     "expect( guestPage.getByTestId(\"project-detail-header\"), ).toContainText(\"E2E 邀请直加项目\")",
     "expect(guestPage.getByRole(\"button\", { name: \"发布留言\" })).toBeVisible()",
-    "expect(ownerPanel.getByRole(\"button\", { name: \"申请后加入\" })).toBeVisible()",
+    "expect(overlay.getByText(`项目团队成员 · ${count}`)).toBeVisible({ timeout: 15_000, })",
+    "expect(overlay.getByRole(\"img\", { name: /头像/ })).toHaveCount(count)",
+    "expect(joinModePanel.getByRole(\"button\", { name: \"申请后加入\" })).toBeVisible()",
     "expect(ownerPage.getByTestId(\"project-detail-header\")).toContainText(\"E2E 邀请直加项目\")",
     "expect(guestSkillDialog).toBeVisible()",
-    "expect(guestSkillDialog.getByRole(\"button\", { name: \"添加\" })).toHaveCount(0)"
+    "expect(guestSkillDialog.getByRole(\"button\", { name: \"添加\" })).toHaveCount(0)",
+    "expect(guestActions).toBeVisible()",
+    "expect(removalDialog).toContainText(\"确定要移除\")",
+    "expect(removalPanel.getByText(\"项目团队成员 · 1\")).toBeVisible()",
+    "expect(removalPanel.getByRole(\"button\", { name: /成员操作：/ })).toHaveCount(0)",
+    "expect .poll(async () => listProjectNames(guestPage), { timeout: 15_000 }) .not.toContain(\"E2E 邀请直加项目\")"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -181,19 +232,46 @@
       "entrypoint": "projects",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"邀请\", exact: true }).click()"
+        },
+        {
           "action": "joinMode.click()"
         },
         {
           "action": "ownerPage .getByRole(\"menu\", { name: \"项目加入方式\" }) .getByRole(\"menuitem\", { name: \"直接加入\" }) .click()"
         },
         {
-          "action": "guestPage.getByRole(\"button\", { name: \"知道了\", exact: true }).click()"
+          "action": "page.getByRole(\"button\", { name: \"关闭成员面板\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByTestId(\"project-detail-header\") .getByRole(\"button\", { name: \"项目\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByText(projectName, { exact: true }).first().click()"
+        },
+        {
+          "action": "overlay.getByRole(\"button\", { name: \"复制链接\", exact: true }).click()"
         },
         {
           "action": "guestPage.getByRole(\"button\", { name: \"知道了\", exact: true }).click()"
         },
         {
-          "action": "ownerPanel.getByRole(\"button\", { name: \"直接加入\" }).click()"
+          "action": "guestPage.getByRole(\"button\", { name: \"知道了\", exact: true }).click()"
+        },
+        {
+          "action": "joinModePanel.getByRole(\"button\", { name: \"直接加入\" }).click()"
         },
         {
           "action": "ownerPage .getByRole(\"menu\", { name: \"项目加入方式\" }) .getByRole(\"menuitem\", { name: \"申请后加入\" }) .click()"
@@ -203,6 +281,15 @@
         },
         {
           "action": "guestSkillDialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
+          "action": "guestActions.click()"
+        },
+        {
+          "action": "ownerPage.getByRole(\"menuitem\", { name: \"移除成员\" }).click()"
+        },
+        {
+          "action": "removalDialog.getByRole(\"button\", { name: \"移除成员\" }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -224,12 +311,12 @@
       "source_contract": {
         "spec": "e2e/projects-invite.spec.ts",
         "line_start": 108,
-        "line_end": 180,
-        "body_sha256": "sha256:2d3ffc566de3a0a767c352a55f58db1dfee077ebe0f5e997f71dcfd8ab379ef9",
-        "assertion_count": 12,
-        "action_count": 8,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:e235ceaf37e305fa56819a753cf9b9e57b48011dca021b6e42465eb386d38b91"
+        "line_end": 194,
+        "body_sha256": "sha256:0ddf74d2d9d14f9d51a8aaa23924b54cc5e325f075a7178a537706347f14356c",
+        "assertion_count": 27,
+        "action_count": 20,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c92fceb8c4f58acc6349bbedb735d029f2d3f8d69c11b32e6a46e737c3ad8c2f"
       }
     },
     "reference_run": {

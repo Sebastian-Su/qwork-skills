@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/settings-production.spec.ts",
-      "locator": "line:10;test:SETTINGS-T02/T03 | setting shell exposes the roadmap and desired/effective keep-awake state",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/settings-production.spec.ts",
+      "locator": "line:12;test:SETTINGS-T02/T03 | setting shell exposes the roadmap and desired/effective keep-awake state",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:1aabbb80eef2601bd2acb14011d65687b4f8415dfe6598d96ce8626774149b20",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-80DCD6A9B706AB",
+      "requirement_id": "REQ-19987B2A9BC7A2",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-settings-production-spec-ts:L10:1aabbb80ee"
+        "QDEV-E2E-e2e-settings-production-spec-ts:L12:1aabbb80ee"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:48:44.901105+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -75,16 +75,21 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
       "action": "dialog.getByRole(\"button\", { name: \"模型\", exact: true }).click()"
     },
     {
       "action": "dialog.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
     },
     {
-      "action": "dialog.getByRole(\"switch\", { name: \"保持唤醒\" }).click()"
+      "action": "dialog.getByRole(\"switch\", { name: \"锁屏远程\" }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: \"新建任务\", exact: true })).toBeVisible()",
+    "expect(dialog).toBeVisible()",
     "expect(dialog).toContainText(\"自定义模型\")",
     "expect(dialog.getByRole(\"button\", { name: \"添加模型\" })).toBeVisible()",
     "expect(dialog.getByTestId(\"setting-state-system.keepAwake\")).toContainText(\"已保存\")",
@@ -97,7 +102,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-80DCD6A9B706AB",
+      "requirement_id": "REQ-19987B2A9BC7A2",
       "type": "return",
       "assertion": "SETTINGS-T02/T03 | setting shell exposes the roadmap and desired/effective keep-awake state"
     }
@@ -158,13 +163,16 @@
       "entrypoint": "settings",
       "steps": [
         {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
           "action": "dialog.getByRole(\"button\", { name: \"模型\", exact: true }).click()"
         },
         {
           "action": "dialog.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
         },
         {
-          "action": "dialog.getByRole(\"switch\", { name: \"保持唤醒\" }).click()"
+          "action": "dialog.getByRole(\"switch\", { name: \"锁屏远程\" }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -185,13 +193,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/settings-production.spec.ts",
-        "line_start": 10,
-        "line_end": 30,
-        "body_sha256": "sha256:48247e845515dc35ac529a05f7a6f1a567498bb265d9e2a3db991f923eb8eaa4",
-        "assertion_count": 4,
-        "action_count": 3,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:5bbe24e9d488a9430def40811b207564168c2fb876ed57d754e62cfca3d0e0be"
+        "line_start": 12,
+        "line_end": 32,
+        "body_sha256": "sha256:317bb386bee7b2fb48d7616bd1a0be5c693aac3d66e69255b16dc8b4bb76a053",
+        "assertion_count": 6,
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:95e337d0f83652dd6190ee79e83dd7802035b99a27549e29e3e04c066cf6d390"
       }
     },
     "reference_run": {
@@ -213,7 +221,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-80DCD6A9B706AB"
+      "REQ-19987B2A9BC7A2"
     ],
     "categories": [
       "business"
@@ -221,7 +229,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-80DCD6A9B706AB"
+      "requirement:REQ-19987B2A9BC7A2"
     ]
   }
 }

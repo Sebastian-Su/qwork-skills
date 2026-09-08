@@ -21,35 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/home-practice-cases.spec.ts",
-      "locator": "line:40;test:shows scene-filtered practice cases, refreshes a batch, and does not create a session on card click",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/home-practice-cases.spec.ts",
+      "locator": "line:211;test:shows scene-filtered practice cases, refreshes a batch, and does not create a session on card click",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:39af5cdda4dfb4aa10e73ed0ed7837418a195bd55621909b8282d002e61abb21",
-      "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-home-practice-cases-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/home-practice-cases.spec.ts",
-      "locator": "line:40;test:shows scene-filtered practice cases, refreshes a batch, and does not create a session on card click",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:39af5cdda4dfb4aa10e73ed0ed7837418a195bd55621909b8282d002e61abb21",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-53EE9AF19683BB",
+      "requirement_id": "REQ-FC6AE9C576BD9A",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-home-practice-cases-spec-ts:L40:39af5cdda4"
+        "QDEV-E2E-e2e-home-practice-cases-spec-ts:L211:39af5cdda4"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -63,32 +49,6 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-home-practice-cases-spec-ts"
-      ],
-      "supporting_sources": [],
-      "conflicts": [],
-      "resolution": {
-        "status": "resolved",
-        "reason": "compiled from the user-approved source hierarchy"
-      },
-      "oracle": "shows scene-filtered practice cases, refreshes a batch, and does not create a session on card click"
-    },
-    {
-      "requirement_id": "REQ-7C7D25259E26AB",
-      "source_atom_ids": [
-        "QHEAD-E2E-e2e-home-practice-cases-spec-ts:L40:39af5cdda4"
-      ],
-      "content_facets": [
-        "acceptance-criterion"
-      ],
-      "acceptance_categories": [
-        "business"
-      ],
-      "surface": "shell-home",
-      "priority": "P1",
-      "rule": "shows scene-filtered practice cases, refreshes a batch, and does not create a session on card click",
-      "authority_domain": "execution",
-      "governing_sources": [
-        "QHEAD-E2E-e2e-home-practice-cases-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -150,7 +110,7 @@
   ],
   "expected_outcomes": [
     "expect(page.getByText(\"不知道做什么，试试最佳实践案例\")).toHaveCount(0)",
-    "expect(page.getByText(\"不知道做什么，试试最佳实践案例\")).toBeVisible()",
+    "expect(page.getByText(\"不知道做什么，试试最佳实践案例\", { exact: true })).toBeVisible()",
     "expect(Math.abs((composerAfter?.y ?? 0) - (composerBefore?.y ?? 0))).toBeLessThanOrEqual(2)",
     "expect(emptyBox).toBeTruthy()",
     "expect(sectionBox).toBeTruthy()",
@@ -158,10 +118,10 @@
     "expect(page.getByRole(\"button\", { name: \"换一批\" })).toBeVisible()",
     "expect(cards).toHaveCount(5)",
     "expect(cards).toHaveText(BATCH_0)",
-    "expect.poll(async () => firstCard.locator(\"xpath=..\").evaluate((element) => { const animations = element.getAnimations(); return animations.every((animation) => animation.playState === \"finished\"); })).toBe(true)",
+    "expect.poll(async () => firstCard.locator(\"xpath=..\").evaluate((element) => { const animations = element.getAnimations(); return animations.length > 0 && animations.every((animation) => animation.playState === \"finished\"); })).toBe(true)",
     "expect(box).toBeTruthy()",
-    "expect(Math.abs(box.width - 147)).toBeLessThanOrEqual(2)",
-    "expect(Math.abs(box.height - 98)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(box.width - 150.3984375)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(box.height - 100.265625)).toBeLessThanOrEqual(2)",
     "expect(radius).toBe(\"16px\")",
     "expect(firstCard.locator(\"xpath=..\")).toHaveCSS(\"animation-duration\", \"0.32s\")",
     "expect(firstCard.locator(\"xpath=..\")).toHaveCSS(\"transition\", \"transform 0.18s, filter 0.18s\")",
@@ -172,7 +132,6 @@
     "expect.poll(async () => await firstCard.locator(\"xpath=..\").evaluate((element) => getComputedStyle(element).transform)).toBe(\"matrix(1, 0, 0, 1, 0, 0)\")",
     "expect.poll(async () => Math.abs(((await firstCard.boundingBox())?.y ?? 0) - (beforeHover?.y ?? 0))).toBeLessThanOrEqual(10)",
     "expect.poll(async () => cards.evaluateAll((elements) => elements.filter((element) => element.getClientRects().length > 0).length), ).toBe(4)",
-    "expect(await cards.nth(4).evaluate((element) => element.getClientRects().length === 0 || element.tabIndex < 0)).toBe(true)",
     "expect.poll(async () => cards.evaluateAll((elements) => elements.filter((element) => element.getClientRects().length > 0).length), ).toBe(3)",
     "expect(cards).toHaveCount(5)",
     "expect(cards).toHaveText(BATCH_1)",
@@ -186,7 +145,7 @@
     "expect(page.getByRole(\"button\", { name: \"Orders API 接口文档\" })).toHaveCount(0)",
     "expect(page.getByTestId(\"home-practice-card\")).toHaveCount(5)",
     "expect(page.getByRole(\"button\", { name: \"换一批\" })).toHaveCount(0)",
-    "expect(page.getByText(\"不知道做什么，试试最佳实践案例\")).toBeVisible()",
+    "expect(page.getByText(\"不知道做什么，试试最佳实践案例\", { exact: true })).toBeVisible()",
     "expect(requests.some((url) => /playbook|myqcloud\\.com|cos\\./i.test(url))).toBe(false)"
   ],
   "forbidden_outcomes": [
@@ -196,12 +155,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-53EE9AF19683BB",
-      "type": "return",
-      "assertion": "shows scene-filtered practice cases, refreshes a batch, and does not create a session on card click"
-    },
-    {
-      "requirement_id": "REQ-7C7D25259E26AB",
+      "requirement_id": "REQ-FC6AE9C576BD9A",
       "type": "return",
       "assertion": "shows scene-filtered practice cases, refreshes a batch, and does not create a session on card click"
     }
@@ -313,13 +267,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/home-practice-cases.spec.ts",
-        "line_start": 40,
-        "line_end": 181,
-        "body_sha256": "sha256:e3d339923ab21ee2a6748ee8508048b13ab9e9ac21201b76587d8da73ceb6d19",
-        "assertion_count": 39,
+        "line_start": 211,
+        "line_end": 353,
+        "body_sha256": "sha256:5934506946ebab03d45e0596337689ae3f20ad44b6ce2dad26f28b4f32c8052f",
+        "assertion_count": 38,
         "action_count": 11,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:17bb8ec629486d907057f042d1dc56dca9c40965d33497e8fe7510d67ad3e2be"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:437394c5e0d54b6f207c3938cf692957d33fd3ca22f26d8c65f614d257d7bf0e"
       }
     },
     "reference_run": {
@@ -341,8 +295,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-53EE9AF19683BB",
-      "REQ-7C7D25259E26AB"
+      "REQ-FC6AE9C576BD9A"
     ],
     "categories": [
       "business"
@@ -350,8 +303,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-53EE9AF19683BB",
-      "requirement:REQ-7C7D25259E26AB"
+      "requirement:REQ-FC6AE9C576BD9A"
     ]
   }
 }

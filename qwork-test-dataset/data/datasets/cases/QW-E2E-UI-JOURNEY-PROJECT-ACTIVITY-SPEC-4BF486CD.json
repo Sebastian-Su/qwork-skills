@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/ui-journey-project-activity.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/ui-journey-project-activity.spec.ts",
       "locator": "line:271;test:highlights @所有人 in the composer and published feed",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:4bf486cd1c2597f9f2dd53f9e30ca9926d51bb7e8b115e102b7ec46ee4843a44",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,21 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+    },
+    {
+      "action": "dialog .getByPlaceholder(/提供当前项目的背景信息/) .fill(\"验证项目动态 WorkBuddy 交互复刻\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
       "action": "activitySurface.getByRole(\"button\", { name: \"发布留言\" }).click()"
     },
     {
@@ -88,6 +103,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByText(name, { exact: true }).first()).toBeVisible()",
     "expect(page.locator('[data-mention=\"everyone\"]').first()).toHaveText(\"@所有人\")",
     "expect( activitySurface.locator(\"article\").locator('[data-mention=\"everyone\"]'), ).toHaveText(\"@所有人\")"
   ],
@@ -159,6 +175,21 @@
       "entrypoint": "projects",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+        },
+        {
+          "action": "dialog .getByPlaceholder(/提供当前项目的背景信息/) .fill(\"验证项目动态 WorkBuddy 交互复刻\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
           "action": "activitySurface.getByRole(\"button\", { name: \"发布留言\" }).click()"
         },
         {
@@ -192,9 +223,9 @@
         "line_start": 271,
         "line_end": 309,
         "body_sha256": "sha256:31b79acc1859ce5e0099dde1284692a4d14f8c8cb400d38e9a023f50ee7f4d80",
-        "assertion_count": 2,
-        "action_count": 4,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 3,
+        "action_count": 9,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:9b9083ec54da1a09aa1f91214be7dea0c35ce128453aff24d3e14b0b5a1f7137"
       }
     },

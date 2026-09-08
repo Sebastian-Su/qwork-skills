@@ -1,0 +1,304 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-HOME-QUICK-ACTIONS-SPEC-1F04F170",
+  "title": "supports quick-action navigation and draft replacement, and blocks unavailable video capability",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-home-quick-actions-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-home-quick-actions.spec.ts",
+      "locator": "line:6;test:supports quick-action navigation and draft replacement, and blocks unavailable video capability",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:1f04f17076466249c8e19451168c71b3c6b74998950ce79e879d1b46cecf7779",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-FFFFD3ED2B3FEA",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-home-quick-actions-spec-ts:L6:1f04f17076"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "supports quick-action navigation and draft replacement, and blocks unavailable video capability",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-home-quick-actions-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "supports quick-action navigation and draft replacement, and blocks unavailable video capability"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多快捷项\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多快捷项\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"前面的快捷项\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"文档处理\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"MD转PDF文档\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").fill(\"这是我的手工草稿\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"MD转PDF文档\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"MD转PDF文档\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"替换当前草稿\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"移除场景 文档处理\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"视频生成\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(await page.getByRole(\"button\").allTextContents()).toEqual(expect.arrayContaining([ \"文档处理\", \"金融服务\", \"数据分析及可视化\", \"个人工作台\", \"幻灯片\", \"深度研究\", \"视频生成\", \"产品管理\", ]))",
+    "expect(page.getByRole(\"button\", { name: \"文档处理\" }).locator(\"[data-icon-key]\")).toHaveAttribute(\"data-icon-key\", \"file-text\")",
+    "expect(page.getByRole(\"button\", { name: \"金融服务\" }).locator(\"[data-icon-key]\")).toHaveAttribute(\"data-icon-key\", \"wallet-cards\")",
+    "expect(page.getByRole(\"button\", { name: \"个人工作台\" }).locator(\"[data-icon-key]\")).toHaveAttribute(\"data-icon-key\", \"grid-2x2\")",
+    "expect.poll(() => row.getAttribute(\"data-scroll-left\")).toBe(\"0\")",
+    "expect.poll(() => row.getAttribute(\"data-scroll-left\")).toBe(\"120\")",
+    "expect.poll(() => row.getAttribute(\"data-scroll-left\")).toBe(\"0\")",
+    "expect.poll(() => row.getAttribute(\"data-scroll-left\")).toBe(\"200\")",
+    "expect.poll(() => row.getAttribute(\"data-scroll-left\")).toBe(\"232\")",
+    "expect(page.getByRole(\"button\", { name: \"更多快捷项\" })).toHaveCount(0)",
+    "expect.poll(() => row.getAttribute(\"data-scroll-left\")).toBe(\"32\")",
+    "expect.poll(() => row.getAttribute(\"data-scroll-left\")).toBe(\"0\")",
+    "expect(page.getByRole(\"textbox\")).toHaveValue(composeHomeTemplatePrompt( \"daily-01\", \"帮我把【上传的 Markdown 文件】转换成排版精美的 PDF 文档，要求：自定义封面页（标题 + 作者 + 日期）、自动生成目录、代码块带语法高亮、表格有交替行底色、页脚显示页码。\", ))",
+    "expect(page.getByText(\"暂未实现\")).toHaveCount(0)",
+    "expect(page.getByTestId(\"home-quick-action-template\")).toHaveCount(4)",
+    "expect(page.getByRole(\"dialog\", { name: \"替换当前草稿\" })).toBeVisible()",
+    "expect(page.getByRole(\"textbox\")).toHaveValue(\"这是我的手工草稿\")",
+    "expect(page.getByRole(\"textbox\")).toHaveValue(composeHomeTemplatePrompt( \"daily-01\", \"帮我把【上传的 Markdown 文件】转换成排版精美的 PDF 文档，要求：自定义封面页（标题 + 作者 + 日期）、自动生成目录、代码块带语法高亮、表格有交替行底色、页脚显示页码。\", ))",
+    "expect(page.getByText(/能力不可用.*skill-remotion-video-toolkit@qwork-builtin/)).toBeVisible()",
+    "expect(page.getByTestId(\"scene-phrase\")).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"发送\" })).toBeDisabled()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-FFFFD3ED2B3FEA",
+      "type": "return",
+      "assertion": "supports quick-action navigation and draft replacement, and blocks unavailable video capability"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-home-quick-actions-spec-ts.1f04f17076",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-home-quick-actions.spec.ts -g \"supports quick-action navigation and draft replacement, and blocks unavailable video capability\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多快捷项\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多快捷项\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"前面的快捷项\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"文档处理\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"MD转PDF文档\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").fill(\"这是我的手工草稿\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"MD转PDF文档\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"MD转PDF文档\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"替换当前草稿\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"移除场景 文档处理\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"视频生成\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-home-quick-actions.spec.ts",
+        "line_start": 6,
+        "line_end": 70,
+        "body_sha256": "sha256:8accb37fa556db05b29173c077322a74abccc1b2fd54266a4cb24d0fb24d87ba",
+        "assertion_count": 21,
+        "action_count": 13,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1eb829bef2fc14501b003530add667318fbb322457a3513fdd0e335c748fa8eb"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-FFFFD3ED2B3FEA"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-FFFFD3ED2B3FEA"
+    ]
+  }
+}

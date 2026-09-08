@@ -1679,6 +1679,18 @@ def declared_screenshot_states(
                 states.add("transition")
             elif "entry" in lower:
                 states.add("entry")
+        for filename in re.findall(
+            r'capture\([^,]+,\s*["\']([^"\']+\.(?:png|jpe?g|webp))["\']',
+            expression,
+            re.I,
+        ):
+            lower = filename.lower()
+            if "final" in lower:
+                states.add("final-state")
+            elif "transition" in lower:
+                states.add("transition")
+            elif "entry" in lower:
+                states.add("entry")
     order = {"entry": 0, "transition": 1, "final-state": 2}
     return sorted(states, key=lambda value: (order.get(value, 99), value))
 
@@ -1752,6 +1764,7 @@ def default_case(
         ".fill(",
         ".hover()",
         ".press(",
+        ".goto(",
     )
     requires_ui_evidence = (
         spec is None
@@ -2916,9 +2929,22 @@ def apply_source_integration_reference_authority(
         or preflight.get("implementation_revision") != reference.get("implementation_revision")
         or preflight.get("live_execution_allowed") is not False
         or reference.get("verifier_sha256") != verifier_hash
-        or reference.get("source_contract_sha256") != source_hash
     ):
         raise ValueError(f"source integration plan/verifier/source authority mismatch: {case['id']}")
+    if reference.get("implementation_revision") != head:
+        contract["readiness"] = "partial"
+        contract["reference_run"] = {
+            "status": "pending",
+            "run_id": str(reference["run_id"]),
+            "verified_at": str(reference["verified_at"]),
+            "environment": "stale source integration reference run",
+        }
+        contract["blockers"] = [
+            f"source integration reference {reference['run_id']} targets another QWork revision"
+        ]
+        return
+    if reference.get("source_contract_sha256") != source_hash:
+        raise ValueError(f"source integration source contract authority mismatch: {case['id']}")
     if (
         not item
         or not coordinate
@@ -2962,18 +2988,6 @@ def apply_source_integration_reference_authority(
     )
     if not valid_report:
         raise ValueError(f"source integration report authority mismatch: {case['id']}")
-    if reference.get("implementation_revision") != head:
-        contract["readiness"] = "partial"
-        contract["reference_run"] = {
-            "status": "pending",
-            "run_id": str(reference["run_id"]),
-            "verified_at": str(reference["verified_at"]),
-            "environment": "stale source integration reference run",
-        }
-        contract["blockers"] = [
-            f"source integration reference {reference['run_id']} targets another QWork revision"
-        ]
-        return
     environment = "isolated qwork_server in-memory integration fixtures, zero real provider calls"
     contract["reference_run"] = {
         "status": "passed",
@@ -4838,7 +4852,6 @@ def main() -> int:
             develop_source = source_by_id.get(develop_source_id)
             if (
                 develop_source is not None
-                and head == develop
                 and bool(source_path)
             ):
                 disposition_source = develop_source

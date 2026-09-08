@@ -1,0 +1,373 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-BUG-1013-4-AC13569F",
+  "title": "docs/changes/CHG-bug-1013861-data-management-parity-20260905/requirements.md · 4. 服务端与协议需求 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-457bb617",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-bug-1013861-data-management-parity-20260905/requirements.md",
+      "locator": "line:63;heading:4. 服务端与协议需求",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:685878d1bd9abf273344f4e7510439800a3d74c608eeb45a92b4ec74cb2fe4e0",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-457bb617",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-bug-1013861-data-management-parity-20260905/requirements.md",
+      "locator": "line:67;heading:4. 服务端与协议需求",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:543171dbff7ea0d277f995220b69c3497586db0c518d3b953bd12023606c5be3",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-457bb617",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-bug-1013861-data-management-parity-20260905/requirements.md",
+      "locator": "line:68;heading:4. 服务端与协议需求",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:703c3ac31953f6b87b5f1ddd4eb22211f18712bb08b917d3736c03d9f2e18374",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-8F482E31E792C5",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-457bb617:L63:685878d1bd"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "`DELETE /api/v1/shares/{id}`：必须携带 `Idempotency-Key`；对同 Owner 重复撤销幂等；未知、跨 Owner 和跨组织统一为 404。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-457bb617"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`DELETE /api/v1/shares/{id}`：必须携带 `Idempotency-Key`；对同 Owner 重复撤销幂等；未知、跨 Owner 和跨组织统一为 404。"
+    },
+    {
+      "requirement_id": "REQ-B8E9888C6C476F",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-457bb617:L67:543171dbff"
+      ],
+      "content_facets": [
+        "ui-interaction"
+      ],
+      "acceptance_categories": [
+        "ui-interaction"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "旧快照无来源字段、对象暂时不可读或不满足现行创建校验时，分享记录仍必须列出；用户点击下载或公开链接时才按既有规则暴露单条内容不可用。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-457bb617"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "旧快照无来源字段、对象暂时不可读或不满足现行创建校验时，分享记录仍必须列出；用户点击下载或公开链接时才按既有规则暴露单条内容不可用。"
+    },
+    {
+      "requirement_id": "REQ-E92C4FAE04FE20",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-457bb617:L68:703c3ac319"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "新增向后兼容的 nullable 管理元数据列和幂等历史回填，不删除已撤销分享对象，不改变公开 capability-token 路由。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-457bb617"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "新增向后兼容的 nullable 管理元数据列和幂等历史回填，不删除已撤销分享对象，不改变公开 capability-token 路由。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for shell-home at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-bug-1013861-data-management-parity-20260905/requirements.md · 4. 服务端与协议需求 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8F482E31E792C5] exactly: `DELETE /api/v1/shares/{id}`：必须携带 `Idempotency-Key`；对同 Owner 重复撤销幂等；未知、跨 Owner 和跨组织统一为 404。"
+    },
+    {
+      "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-B8E9888C6C476F] exactly: 旧快照无来源字段、对象暂时不可读或不满足现行创建校验时，分享记录仍必须列出；用户点击下载或公开链接时才按既有规则暴露单条内容不可用。"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-E92C4FAE04FE20] exactly: 新增向后兼容的 nullable 管理元数据列和幂等历史回填，不删除已撤销分享对象，不改变公开 capability-token 路由。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "`DELETE /api/v1/shares/{id}`：必须携带 `Idempotency-Key`；对同 Owner 重复撤销幂等；未知、跨 Owner 和跨组织统一为 404。",
+    "旧快照无来源字段、对象暂时不可读或不满足现行创建校验时，分享记录仍必须列出；用户点击下载或公开链接时才按既有规则暴露单条内容不可用。",
+    "新增向后兼容的 nullable 管理元数据列和幂等历史回填，不删除已撤销分享对象，不改变公开 capability-token 路由。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-8F482E31E792C5]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `DELETE /api/v1/shares/{id}`：必须携带 `Idempotency-Key`；对同 Owner 重复撤销幂等；未知、跨 Owner 和跨组织统一为 404。",
+    "FAIL [REQ-B8E9888C6C476F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 旧快照无来源字段、对象暂时不可读或不满足现行创建校验时，分享记录仍必须列出；用户点击下载或公开链接时才按既有规则暴露单条内容不可用。",
+    "FAIL [REQ-E92C4FAE04FE20]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 新增向后兼容的 nullable 管理元数据列和幂等历史回填，不删除已撤销分享对象，不改变公开 capability-token 路由。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-8F482E31E792C5",
+      "type": "return",
+      "assertion": "`DELETE /api/v1/shares/{id}`：必须携带 `Idempotency-Key`；对同 Owner 重复撤销幂等；未知、跨 Owner 和跨组织统一为 404。"
+    },
+    {
+      "requirement_id": "REQ-B8E9888C6C476F",
+      "type": "ui-interaction",
+      "assertion": "旧快照无来源字段、对象暂时不可读或不满足现行创建校验时，分享记录仍必须列出；用户点击下载或公开链接时才按既有规则暴露单条内容不可用。"
+    },
+    {
+      "requirement_id": "REQ-E92C4FAE04FE20",
+      "type": "api",
+      "assertion": "新增向后兼容的 nullable 管理元数据列和幂等历史回填，不删除已撤销分享对象，不改变公开 capability-token 路由。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-bug-101386.4-ac13569f2f",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for shell-home at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-bug-1013861-data-management-parity-20260905/requirements.md · 4. 服务端与协议需求 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8F482E31E792C5] exactly: `DELETE /api/v1/shares/{id}`：必须携带 `Idempotency-Key`；对同 Owner 重复撤销幂等；未知、跨 Owner 和跨组织统一为 404。"
+        },
+        {
+          "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-B8E9888C6C476F] exactly: 旧快照无来源字段、对象暂时不可读或不满足现行创建校验时，分享记录仍必须列出；用户点击下载或公开链接时才按既有规则暴露单条内容不可用。"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-E92C4FAE04FE20] exactly: 新增向后兼容的 nullable 管理元数据列和幂等历史回填，不删除已撤销分享对象，不改变公开 capability-token 路由。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-8F482E31E792C5",
+      "REQ-B8E9888C6C476F",
+      "REQ-E92C4FAE04FE20"
+    ],
+    "categories": [
+      "business",
+      "permission",
+      "ui-interaction"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:permission",
+      "category:ui-interaction",
+      "full",
+      "requirement:REQ-8F482E31E792C5",
+      "requirement:REQ-B8E9888C6C476F",
+      "requirement:REQ-E92C4FAE04FE20"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-8F482E31E792C5",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-bug-1013861-data-management-parity-20260905/requirements.md · 4. 服务端与协议需求 产品契约 exactly once and retain its correlation identity",
+      "then": "`DELETE /api/v1/shares/{id}`：必须携带 `Idempotency-Key`；对同 Owner 重复撤销幂等；未知、跨 Owner 和跨组织统一为 404。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-B8E9888C6C476F",
+      "oracle_type": "ui-interaction",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-bug-1013861-data-management-parity-20260905/requirements.md · 4. 服务端与协议需求 产品契约 exactly once and retain its correlation identity",
+      "then": "旧快照无来源字段、对象暂时不可读或不满足现行创建校验时，分享记录仍必须列出；用户点击下载或公开链接时才按既有规则暴露单条内容不可用。",
+      "observation_boundary": "renderer input/output interaction boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-E92C4FAE04FE20",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-bug-1013861-data-management-parity-20260905/requirements.md · 4. 服务端与协议需求 产品契约 exactly once and retain its correlation identity",
+      "then": "新增向后兼容的 nullable 管理元数据列和幂等历史回填，不删除已撤销分享对象，不改变公开 capability-token 路由。",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

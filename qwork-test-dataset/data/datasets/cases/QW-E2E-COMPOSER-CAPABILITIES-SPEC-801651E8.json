@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/composer-capabilities.spec.ts",
-      "locator": "line:567;test:new conversation exposes expert, skill, and connector menus",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/composer-capabilities.spec.ts",
+      "locator": "line:738;test:new conversation exposes expert, skill, and connector menus",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:801651e8f3751d9c821512e0bea7af092d518940e9bbae3d4283148ab0ba3e76",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-86D75FB0E79EC4",
+      "requirement_id": "REQ-A4399A5E246739",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L567:801651e8f3"
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L738:801651e8f3"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:47:35.582172+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -154,6 +154,9 @@
     },
     {
       "action": "humanizer.click({ force: true })"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\", exact: true }).hover()"
     },
     {
       "action": "selectedSkillToken.hover()"
@@ -256,8 +259,9 @@
     "expect(skillSearch).toBeFocused()",
     "expect(humanizer).toBeVisible()",
     "expect(page.getByTestId(\"composer-editor\")).toContainText(/文本自然化编辑|humanizer/i)",
-    "expect(cancelSkill).toHaveCSS(\"opacity\", \"0\")",
-    "expect(cancelSkill).toHaveCSS(\"opacity\", \"1\")",
+    "expect(cancelSkill).toBeVisible()",
+    "expect(cancelIcon).toHaveCSS(\"opacity\", \"0\")",
+    "expect(cancelIcon).toHaveCSS(\"opacity\", \"1\")",
     "expect(selectedSkillToken).toHaveCount(0)",
     "expect(page.getByRole(\"dialog\", { name: \"导入技能\" })).toBeVisible()",
     "expect(page.getByTestId(\"composer-editor\")).toBeVisible()",
@@ -278,7 +282,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-86D75FB0E79EC4",
+      "requirement_id": "REQ-A4399A5E246739",
       "type": "return",
       "assertion": "new conversation exposes expert, skill, and connector menus"
     }
@@ -420,6 +424,9 @@
           "action": "humanizer.click({ force: true })"
         },
         {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\", exact: true }).hover()"
+        },
+        {
           "action": "selectedSkillToken.hover()"
         },
         {
@@ -495,13 +502,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/composer-capabilities.spec.ts",
-        "line_start": 567,
-        "line_end": 773,
-        "body_sha256": "sha256:7b4ec86cc16753dce4312169a34b2405bb4c1c304013e5d6d2d9a11ec81058c8",
-        "assertion_count": 56,
-        "action_count": 46,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:6a35800ab5dff917d8c637254eb2a882d7887488452b9a164bd23761648fa7c7"
+        "line_start": 738,
+        "line_end": 947,
+        "body_sha256": "sha256:48d7e152e04cc940c5a9a9278c7244979e44782b22ea9ff92f9c7c9d21e96344",
+        "assertion_count": 57,
+        "action_count": 47,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:325acba44377d5983bf1c8f1347e1c9d011cc16f24bcd580f6e3723fda710df1"
       }
     },
     "reference_run": {
@@ -523,7 +530,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-86D75FB0E79EC4"
+      "REQ-A4399A5E246739"
     ],
     "categories": [
       "business"
@@ -531,7 +538,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-86D75FB0E79EC4"
+      "requirement:REQ-A4399A5E246739"
     ]
   }
 }

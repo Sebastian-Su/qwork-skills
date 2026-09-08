@@ -1,0 +1,222 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-INSPIRATION-SPEC-B280067E",
+  "title": "renders the published QWork worker ledger cover and interactive desktop detail",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "library",
+    "journey": "library",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-inspiration-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/inspiration.spec.ts",
+      "locator": "line:461;test:renders the published QWork worker ledger cover and interactive desktop detail",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:b280067ed4e7c105d94738505c7ed0f02014c54fb5e19418a500470c46cab622",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-4A13ED60B08849",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-inspiration-spec-ts:L461:b280067ed4"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "library",
+      "priority": "P1",
+      "rule": "renders the published QWork worker ledger cover and interactive desktop detail",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-inspiration-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "renders the published QWork worker ledger cover and interactive desktop detail"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "card.getByRole(\"button\", { name: \"查看 打工人小账本\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(card.getByRole(\"img\", { name: \"打工人小账本\" })).toHaveAttribute( \"src\", /worker-ledger-cover\\.svg$/, )",
+    "expect(dialog.getByText(/工资看起来还行，却很难回答自己一小时到底值多少钱/)).toBeVisible()",
+    "expect(dialog.getByText(\"工作台搭建师\", { exact: true })).toBeVisible()",
+    "expect(dialog.getByText(\"个人工作台\", { exact: true })).toHaveCount(0)",
+    "expect(frameElement).toHaveAttribute(\"sandbox\", \"allow-scripts allow-same-origin\")",
+    "expect(frameElement).toHaveAttribute(\"data-preview-viewport\", \"desktop\")",
+    "expect(preview.getByRole(\"heading\", { name: \"今日驾驶舱\" })).toBeVisible()",
+    "expect(preview.getByRole(\"navigation\", { name: \"工作台导航\" })).toContainText(\"记账\")",
+    "expect(await preview.locator(\"html\").evaluate(() => innerWidth)).toBe(1180)",
+    "expect(await preview.locator(\"html\").evaluate(() => localStorage.getItem(\"worker-ledger-ready\"))).toBe(\"yes\")",
+    "expect(preview.getByRole(\"status\")).toContainText(\"已记录\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-4A13ED60B08849",
+      "type": "return",
+      "assertion": "renders the published QWork worker ledger cover and interactive desktop detail"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-inspiration-spec-ts.b280067ed4",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/inspiration.spec.ts -g \"renders the published QWork worker ledger cover and interactive desktop detail\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "library",
+      "steps": [
+        {
+          "action": "card.getByRole(\"button\", { name: \"查看 打工人小账本\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/inspiration.spec.ts",
+        "line_start": 461,
+        "line_end": 488,
+        "body_sha256": "sha256:bf6672c4e4e147ca53484d6e9c23b495a95181fd4ba106e2090644acfc992d72",
+        "assertion_count": 11,
+        "action_count": 1,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:fb657fd338eaa49ca2379b834a87cc6e581af3ec943b05add719e035b3c52f32"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-4A13ED60B08849"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-4A13ED60B08849"
+    ]
+  }
+}

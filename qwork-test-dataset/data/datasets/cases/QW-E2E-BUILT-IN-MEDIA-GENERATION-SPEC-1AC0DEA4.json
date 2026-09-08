@@ -17,25 +17,25 @@
   },
   "sources": [
     {
-      "source_id": "QHEAD-E2E-e2e-built-in-media-generation-spec-ts",
+      "source_id": "QDEV-E2E-e2e-built-in-media-generation-spec-ts",
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:8179e3b6c7a91d1414407d6a077c8a64c359ec89:e2e/built-in-media-generation.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/built-in-media-generation.spec.ts",
       "locator": "line:14;test:登录用户用自然语言生图后可拒绝再批准让上一张图生成视频",
-      "revision": "8179e3b6c7a91d1414407d6a077c8a64c359ec89",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-28T13:02:55.690446+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:1ac0dea42d125066ff2e838a3fdf0daa878947141bc35d29bf18e7855cbfb6c9",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-38E6C93C9D7449",
+      "requirement_id": "REQ-282AF6E06F9A24",
       "source_atom_ids": [
-        "QHEAD-E2E-e2e-built-in-media-generation-spec-ts:L14:1ac0dea42d"
+        "QDEV-E2E-e2e-built-in-media-generation-spec-ts:L14:1ac0dea42d"
       ],
       "content_facets": [
         "negative-rule"
@@ -48,7 +48,7 @@
       "rule": "登录用户用自然语言生图后可拒绝再批准让上一张图生成视频",
       "authority_domain": "execution",
       "governing_sources": [
-        "QHEAD-E2E-e2e-built-in-media-generation-spec-ts"
+        "QDEV-E2E-e2e-built-in-media-generation-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -60,11 +60,11 @@
     }
   ],
   "verification": {
-    "last_outcome": "pass",
-    "environment_scope": "isolated Electron Playwright run, case-owned QWork home, deterministic fake sidecar, zero real model calls",
-    "implementation_revision": "8179e3b6c7a91d1414407d6a077c8a64c359ec89",
+    "last_outcome": "pending",
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-28T12:52:49.233916+00:00",
-    "status_reason": "hash-verified public Playwright reference run image-media-assets-public-reference-8179e3b6-v1 passed"
+    "status_reason": "public Playwright reference image-media-assets-public-reference-8179e3b6-v1 does not match current implementation/source contract; rerun this exact Case"
   },
   "preconditions": {
     "repository": "qwork",
@@ -118,7 +118,7 @@
     "expect(approval).toContainText(\"0.01 Credits\")",
     "expect(approval).toContainText(\"1024x1024\")",
     "expect(page.getByText(\"生成中\", { exact: false })).toBeVisible()",
-    "expect .poll(async () => { return (await readControls()) .filter((message) => message.type === \"create_session\") .map((message) => message.qwork_api); }) .toContainEqual({ base_url: server.baseUrl, access_token: \"[REDACTED]\", })",
+    "expect .poll(async () => { return (await readControls()) .filter((message) => message.type === \"create_session\") .map((message) => message.qwork_api); }) .toContainEqual({ base_url: server.baseUrl, access_token: \"[REDACTED]\", scopes: [\"media.generate\"], })",
     "expect .poll(async () => { try { return (await fs.stat(artifactPath)).size; } catch (error) { if ((error as NodeJS.ErrnoException).code === \"ENOENT\") return 0; throw error; } }) .toBeGreaterThan(0)",
     "expect( page.getByRole(\"button\", { name: \"打开产出物 QWork_robot.png\" }), ).toBeVisible()",
     "expect( page.getByRole(\"img\", { name: \"预览 QWork_robot.png\" }), ).toBeVisible()",
@@ -151,7 +151,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-38E6C93C9D7449",
+      "requirement_id": "REQ-282AF6E06F9A24",
       "type": "ui",
       "assertion": "登录用户用自然语言生图后可拒绝再批准让上一张图生成视频"
     }
@@ -267,25 +267,19 @@
       "source_contract": {
         "spec": "e2e/built-in-media-generation.spec.ts",
         "line_start": 14,
-        "line_end": 198,
-        "body_sha256": "sha256:17d2481fd6ad82c099d563acd8197f37e1e4d6ed994fa82806e973410dc0e04f",
+        "line_end": 199,
+        "body_sha256": "sha256:ec60f7ca068e268eb3b76d2fcc11339bb5715e8f09b29b9535a329d7ed970796",
         "assertion_count": 31,
         "action_count": 12,
-        "execution_revision": "8179e3b6c7a91d1414407d6a077c8a64c359ec89",
-        "spec_sha256": "sha256:6acf09ad52d19f4fb682ba90cdc85802b9f94230024104a42e079906f7e20f76"
-      },
-      "reference_authority": {
-        "manifest": "skill://qwork-test-dataset/data/reference-runs/image-media-assets-public-reference-8179e3b6-v1/public-playwright-reference.json",
-        "manifest_sha256": "sha256:8080ca70c08b67376bf85efb9d67507da5db9ce31771b8cb0eb236fa2470827f",
-        "plan_sha256": "b6e88500e464037cd0cb7df470ef8dda8c67f40c2b70b74c5de4befe6f6e6c5e",
-        "implementation_revision": "8179e3b6c7a91d1414407d6a077c8a64c359ec89"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:33aec57b6f9621acbe0568e7d4f37c6443724f6930c9cf230f0fe6d0cda2da4a"
       }
     },
     "reference_run": {
-      "status": "passed",
+      "status": "pending",
       "run_id": "image-media-assets-public-reference-8179e3b6-v1",
       "verified_at": "2026-08-28T12:52:49.233916+00:00",
-      "environment": "isolated Electron Playwright run, case-owned QWork home, deterministic fake sidecar, zero real model calls"
+      "environment": "stale deterministic public Playwright reference run"
     },
     "cleanup": {
       "actions": [
@@ -295,12 +289,12 @@
       "success_oracle": "no case-owned process or temporary state remains"
     },
     "blockers": [
-      "the passed reference run is bound to revision 8179e3b6c7a91d1414407d6a077c8a64c359ec89 and this test is not present in the current feature HEAD"
+      "public Playwright reference image-media-assets-public-reference-8179e3b6-v1 does not match current implementation/source contract; rerun this exact Case"
     ]
   },
   "selection": {
     "requirement_ids": [
-      "REQ-38E6C93C9D7449"
+      "REQ-282AF6E06F9A24"
     ],
     "categories": [
       "negative"
@@ -308,7 +302,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-38E6C93C9D7449"
+      "requirement:REQ-282AF6E06F9A24"
     ]
   }
 }

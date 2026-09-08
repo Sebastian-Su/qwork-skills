@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/settings-production.spec.ts",
-      "locator": "line:95;test:SETTINGS-T05/T07/T08/T10/T21-T25 | system consumers and safety flows expose honest effective states",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/settings-production.spec.ts",
+      "locator": "line:182;test:SETTINGS-T05/T07/T08/T10/T21-T25 | system consumers and safety flows expose honest effective states",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:19913abaf40c60301bfcf40d8dbff8ae42f882963e7af006fdf9144effc63ca1",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-9F98F298EFA60C",
+      "requirement_id": "REQ-0DA773E1C11C93",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-settings-production-spec-ts:L95:19913abaf4"
+        "QDEV-E2E-e2e-settings-production-spec-ts:L182:19913abaf4"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:48:42.156769+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -75,16 +75,25 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
       "action": "dialog.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
     },
     {
-      "action": "dialog.getByRole(\"combobox\", { name: \"主题\" }).selectOption(\"dark\")"
+      "action": "advancedSettings.getByRole(\"combobox\", { name: \"主题\" }).selectOption(\"dark\")"
     },
     {
-      "action": "dialog.getByRole(\"combobox\", { name: \"代理模式\" }).selectOption(\"direct\")"
+      "action": "advancedSettings.getByRole(\"combobox\", { name: \"代理模式\" }).click()"
     },
     {
-      "action": "dialog.getByRole(\"button\", { name: \"保存代理\" }).click()"
+      "action": "dialog.getByRole(\"option\", { name: \"直连（不使用代理）\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"连接与认证\" }).click()"
+    },
+    {
+      "action": "advancedSettings.getByRole(\"button\", { name: \"保存代理\" }).click()"
     },
     {
       "action": "dialog.getByRole(\"button\", { name: \"快捷键\", exact: true }).click()"
@@ -117,17 +126,23 @@
       "action": "feedback.getByPlaceholder(\"你可以描述你遇到的问题\").fill(\"需要恢复的反馈草稿\")"
     },
     {
-      "action": "feedback.getByRole(\"button\", { name: \"保存草稿\" }).click()"
+      "action": "feedback.getByRole(\"button\", { name: \"提交\", exact: true }).click()"
     },
     {
       "action": "reopened.getByRole(\"button\", { name: \"意见反馈\" }).click()"
+    },
+    {
+      "action": "feedbackSls.close()"
     }
   ],
   "expected_outcomes": [
-    "expect(dialog.getByRole(\"combobox\", { name: \"主题\" })).toHaveValue(\"system\")",
+    "expect(page.getByRole(\"button\", { name: \"新建任务\", exact: true })).toBeVisible()",
+    "expect(dialog).toBeVisible()",
+    "expect(advancedSettings.getByRole(\"combobox\", { name: \"主题\" })).toHaveValue(\"system\")",
     "expect(opened.page.locator(\"html\")).toHaveAttribute(\"data-theme\", \"dark\")",
     "expect(dialog.getByTestId(\"setting-state-system.proxy\")).toContainText(\"Electron 回读\")",
-    "expect(dialog).toContainText(\"开启后仅上报不含用户内容的应用启动诊断，可随时关闭\")",
+    "expect(dialog.getByRole(\"switch\", { name: \"体验优化计划\" })).toBeVisible()",
+    "expect(dialog).toContainText(\"我们将采取措施保护您的数据\")",
     "expect(dialog).toContainText(\"请按下新的组合键\")",
     "expect(dialog).toBeVisible()",
     "expect(dialog).not.toContainText(\"请按下新的组合键\")",
@@ -138,6 +153,10 @@
     "expect(reopened).toContainText( new RegExp(`版本 .* · ${process.platform}/${process.arch}`), )",
     "expect(reopened.getByRole(\"button\", { name: \"导出脱敏诊断\" })).toBeVisible()",
     "expect(reopened.getByRole(\"button\", { name: \"意见反馈\" })).toBeVisible()",
+    "expect(feedback).not.toBeVisible()",
+    "expect(opened.page.getByTestId(\"feedback-success-toast\")).toContainText( \"反馈提交成功，感谢您的反馈！\", )",
+    "expect.poll(() => feedbackSls.records.find((record) => ( record.event_name === \"ui.feedback.action\" && record.feedback_source === \"settings_help\" ))).toMatchObject({ feedback_action: \"submit\", feedback_content_length_bucket: \"1_200\", feedback_image_count: \"0\", feedback_include_logs: \"true\", })",
+    "expect(JSON.stringify(feedbackSls.records)).not.toContain(\"需要恢复的反馈草稿\")",
     "expect(feedback.getByPlaceholder(\"你可以描述你遇到的问题\")).toHaveValue(\"需要恢复的反馈草稿\")"
   ],
   "forbidden_outcomes": [
@@ -147,7 +166,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-9F98F298EFA60C",
+      "requirement_id": "REQ-0DA773E1C11C93",
       "type": "return",
       "assertion": "SETTINGS-T05/T07/T08/T10/T21-T25 | system consumers and safety flows expose honest effective states"
     }
@@ -208,16 +227,25 @@
       "entrypoint": "settings",
       "steps": [
         {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
           "action": "dialog.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
         },
         {
-          "action": "dialog.getByRole(\"combobox\", { name: \"主题\" }).selectOption(\"dark\")"
+          "action": "advancedSettings.getByRole(\"combobox\", { name: \"主题\" }).selectOption(\"dark\")"
         },
         {
-          "action": "dialog.getByRole(\"combobox\", { name: \"代理模式\" }).selectOption(\"direct\")"
+          "action": "advancedSettings.getByRole(\"combobox\", { name: \"代理模式\" }).click()"
         },
         {
-          "action": "dialog.getByRole(\"button\", { name: \"保存代理\" }).click()"
+          "action": "dialog.getByRole(\"option\", { name: \"直连（不使用代理）\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"连接与认证\" }).click()"
+        },
+        {
+          "action": "advancedSettings.getByRole(\"button\", { name: \"保存代理\" }).click()"
         },
         {
           "action": "dialog.getByRole(\"button\", { name: \"快捷键\", exact: true }).click()"
@@ -250,10 +278,13 @@
           "action": "feedback.getByPlaceholder(\"你可以描述你遇到的问题\").fill(\"需要恢复的反馈草稿\")"
         },
         {
-          "action": "feedback.getByRole(\"button\", { name: \"保存草稿\" }).click()"
+          "action": "feedback.getByRole(\"button\", { name: \"提交\", exact: true }).click()"
         },
         {
           "action": "reopened.getByRole(\"button\", { name: \"意见反馈\" }).click()"
+        },
+        {
+          "action": "feedbackSls.close()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -274,13 +305,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/settings-production.spec.ts",
-        "line_start": 95,
-        "line_end": 145,
-        "body_sha256": "sha256:79e638e1d65893bd238ef256520426db839742700571a0b61e7764c55360af8b",
-        "assertion_count": 15,
-        "action_count": 16,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:5bbe24e9d488a9430def40811b207564168c2fb876ed57d754e62cfca3d0e0be"
+        "line_start": 182,
+        "line_end": 253,
+        "body_sha256": "sha256:d0e03c7117e22f54c20be923b3881fbc600ce6b087fdc8da962d91141a41279f",
+        "assertion_count": 22,
+        "action_count": 20,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:95e337d0f83652dd6190ee79e83dd7802035b99a27549e29e3e04c066cf6d390"
       }
     },
     "reference_run": {
@@ -302,7 +333,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-9F98F298EFA60C"
+      "REQ-0DA773E1C11C93"
     ],
     "categories": [
       "business"
@@ -310,7 +341,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-9F98F298EFA60C"
+      "requirement:REQ-0DA773E1C11C93"
     ]
   }
 }

@@ -22,21 +22,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/skills.spec.ts",
-      "locator": "line:64;test:manages bundled skills independently without an uninstall entry",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/skills.spec.ts",
+      "locator": "line:81;test:manages bundled skills independently without an uninstall entry",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:66cdef9ddc55c7472237eb0996d801d080fe6d3577b0551aea40037e9951dcca",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-4D8D1CE16761F8",
+      "requirement_id": "REQ-888A509D5D3C0B",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-skills-spec-ts:L64:66cdef9ddc"
+        "QDEV-E2E-e2e-skills-spec-ts:L81:66cdef9ddc"
       ],
       "content_facets": [
         "negative-rule"
@@ -83,6 +83,12 @@
     },
     {
       "action": "page.getByRole(\"button\", { name: /内置技能 \\(\\d+\\)/ }).click()"
+    },
+    {
+      "action": "longNameCard.getByRole(\"button\", { name: `更多操作 ${longestBuiltinName}` }).focus()"
+    },
+    {
+      "action": "(document.activeElement as HTMLElement | null)?.blur()"
     },
     {
       "action": "longNameCard.hover()"
@@ -137,8 +143,15 @@
     "expect(page.getByRole(\"heading\", { name: \"内置技能\", level: 1 })).toBeVisible()",
     "expect(builtinCards.first()).toBeVisible()",
     "expect(longestBuiltinName.length).toBeGreaterThan(20)",
+    "expect(builtinHeader).toHaveCSS(\"padding-right\", \"44px\")",
+    "expect(builtinHeader).toHaveCSS(\"padding-right\", \"88px\")",
+    "expect(builtinHeader).toHaveCSS(\"padding-right\", \"44px\")",
+    "expect(builtinHeader).toHaveCSS(\"padding-right\", \"88px\")",
     "expect(titleBox.right).toBeLessThanOrEqual(badgeBox.x)",
+    "expect(moreBox.x - badgeBox.right).toBeGreaterThanOrEqual(6)",
+    "expect(moreBox.x - badgeBox.right).toBeLessThanOrEqual(10)",
     "expect(badgeBox.right).toBeLessThanOrEqual(pinBox.x)",
+    "expect(builtinHeaderCenterSpread).toBeLessThanOrEqual(2)",
     "expect(toggleBox.x - badgeBox.right).toBeLessThanOrEqual(toggleBox.width * 2.25)",
     "expect(descriptionBox.right).toBeGreaterThanOrEqual(toggleBox.x)",
     "expect(await computedStyle(badge, [\"white-space\"])).toEqual({ \"white-space\": \"nowrap\" })",
@@ -170,7 +183,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-4D8D1CE16761F8",
+      "requirement_id": "REQ-888A509D5D3C0B",
       "type": "return",
       "assertion": "manages bundled skills independently without an uninstall entry"
     }
@@ -245,6 +258,12 @@
           "action": "page.getByRole(\"button\", { name: /内置技能 \\(\\d+\\)/ }).click()"
         },
         {
+          "action": "longNameCard.getByRole(\"button\", { name: `更多操作 ${longestBuiltinName}` }).focus()"
+        },
+        {
+          "action": "(document.activeElement as HTMLElement | null)?.blur()"
+        },
+        {
           "action": "longNameCard.hover()"
         },
         {
@@ -313,13 +332,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/skills.spec.ts",
-        "line_start": 64,
-        "line_end": 183,
-        "body_sha256": "sha256:c3dc02da6d2be6bec98624a0fc809cc4f08a84a7eeac25940aa9327560868693",
-        "assertion_count": 28,
-        "action_count": 19,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:9e8a949ce14a4af0abfbb276520cf4d54927d824d4b7c61a0032dfb3941398ba"
+        "line_start": 81,
+        "line_end": 232,
+        "body_sha256": "sha256:bf21604001a31dbd9696dc52b5f2e7b9145a9e263bfbb00d3b609ceba3e9e8bb",
+        "assertion_count": 35,
+        "action_count": 21,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c8a380b6b1db7db1fa2737c65aa669e6fa9cb62d710593bd2474f61fc77be621"
       }
     },
     "reference_run": {
@@ -342,7 +361,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-4D8D1CE16761F8"
+      "REQ-888A509D5D3C0B"
     ],
     "categories": [
       "negative"
@@ -350,7 +369,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-4D8D1CE16761F8"
+      "requirement:REQ-888A509D5D3C0B"
     ]
   }
 }

@@ -22,21 +22,35 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:66;heading:qwork_server",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:224;heading:qwork_server",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:f0e72bcc90b4bb39f15e1e2b7686df5e79336757e791e23516ea31096f405f9c",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:225;heading:qwork_server",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:e26ef980ff56e8da8bcd92e037bdce3f189e60541b91933f312616066ea3c7d0",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-BBB2AD99C1E727",
+      "requirement_id": "REQ-7B5EFFE1C2EBD7",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L66:f0e72bcc90"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L224:f0e72bcc90"
       ],
       "content_facets": [
         "accessibility"
@@ -58,6 +72,32 @@
         "reason": "compiled from the user-approved source hierarchy"
       },
       "oracle": "`extend`：统一 `service_name/process_role/module/event_name/outcome`，增加访问完成日志、LLM start/first-byte/complete/fail，沿调用链传播 trace context。"
+    },
+    {
+      "requirement_id": "REQ-A66B0BE4F911E8",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L225:e26ef980ff"
+      ],
+      "content_facets": [
+        "evidence-provenance"
+      ],
+      "acceptance_categories": [
+        "evidence-integrity"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "`new`：服务端有界内存 SLS Web Tracking exporter，只接收通过 envelope 校验的 Info 及以上 trace 生命周期事件，固定写入 `cn-beijing/qwork/qwork`；远端投影剥离 `qid/user_id/request_id/provider/model/path/message`，只保留严格审计所需 trace/span、阶段、时间、耗时和 Usage。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`new`：服务端有界内存 SLS Web Tracking exporter，只接收通过 envelope 校验的 Info 及以上 trace 生命周期事件，固定写入 `cn-beijing/qwork/qwork`；远端投影剥离 `qid/user_id/request_id/provider/model/path/message`，只保留严格审计所需 trace/span、阶段、时间、耗时和 Usage。"
     }
   ],
   "verification": {
@@ -82,25 +122,35 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_server 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe accessibility tree and keyboard interaction after the trigger and assert [REQ-BBB2AD99C1E727] exactly: `extend`：统一 `service_name/process_role/module/event_name/outcome`，增加访问完成日志、LLM start/first-byte/complete/fail，沿调用链传播 trace context。"
+      "action": "observe accessibility tree and keyboard interaction after the trigger and assert [REQ-7B5EFFE1C2EBD7] exactly: `extend`：统一 `service_name/process_role/module/event_name/outcome`，增加访问完成日志、LLM start/first-byte/complete/fail，沿调用链传播 trace context。"
+    },
+    {
+      "action": "observe case-owned execution trace after the trigger and assert [REQ-A66B0BE4F911E8] exactly: `new`：服务端有界内存 SLS Web Tracking exporter，只接收通过 envelope 校验的 Info 及以上 trace 生命周期事件，固定写入 `cn-beijing/qwork/qwork`；远端投影剥离 `qid/user_id/request_id/provider/model/path/message`，只保留严格审计所需 trace/span、阶段、时间、耗时和 Usage。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
     }
   ],
   "expected_outcomes": [
-    "`extend`：统一 `service_name/process_role/module/event_name/outcome`，增加访问完成日志、LLM start/first-byte/complete/fail，沿调用链传播 trace context。"
+    "`extend`：统一 `service_name/process_role/module/event_name/outcome`，增加访问完成日志、LLM start/first-byte/complete/fail，沿调用链传播 trace context。",
+    "`new`：服务端有界内存 SLS Web Tracking exporter，只接收通过 envelope 校验的 Info 及以上 trace 生命周期事件，固定写入 `cn-beijing/qwork/qwork`；远端投影剥离 `qid/user_id/request_id/provider/model/path/message`，只保留严格审计所需 trace/span、阶段、时间、耗时和 Usage。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-BBB2AD99C1E727]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `extend`：统一 `service_name/process_role/module/event_name/outcome`，增加访问完成日志、LLM start/first-byte/complete/fail，沿调用链传播 trace context。",
+    "FAIL [REQ-7B5EFFE1C2EBD7]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `extend`：统一 `service_name/process_role/module/event_name/outcome`，增加访问完成日志、LLM start/first-byte/complete/fail，沿调用链传播 trace context。",
+    "FAIL [REQ-A66B0BE4F911E8]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `new`：服务端有界内存 SLS Web Tracking exporter，只接收通过 envelope 校验的 Info 及以上 trace 生命周期事件，固定写入 `cn-beijing/qwork/qwork`；远端投影剥离 `qid/user_id/request_id/provider/model/path/message`，只保留严格审计所需 trace/span、阶段、时间、耗时和 Usage。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-BBB2AD99C1E727",
+      "requirement_id": "REQ-7B5EFFE1C2EBD7",
       "type": "accessibility",
       "assertion": "`extend`：统一 `service_name/process_role/module/event_name/outcome`，增加访问完成日志、LLM start/first-byte/complete/fail，沿调用链传播 trace context。"
+    },
+    {
+      "requirement_id": "REQ-A66B0BE4F911E8",
+      "type": "trace",
+      "assertion": "`new`：服务端有界内存 SLS Web Tracking exporter，只接收通过 envelope 校验的 Info 及以上 trace 生命周期事件，固定写入 `cn-beijing/qwork/qwork`；远端投影剥离 `qid/user_id/request_id/provider/model/path/message`，只保留严格审计所需 trace/span、阶段、时间、耗时和 Usage。"
     }
   ],
   "cleanup": {
@@ -170,7 +220,10 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_server 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe accessibility tree and keyboard interaction after the trigger and assert [REQ-BBB2AD99C1E727] exactly: `extend`：统一 `service_name/process_role/module/event_name/outcome`，增加访问完成日志、LLM start/first-byte/complete/fail，沿调用链传播 trace context。"
+          "action": "observe accessibility tree and keyboard interaction after the trigger and assert [REQ-7B5EFFE1C2EBD7] exactly: `extend`：统一 `service_name/process_role/module/event_name/outcome`，增加访问完成日志、LLM start/first-byte/complete/fail，沿调用链传播 trace context。"
+        },
+        {
+          "action": "observe case-owned execution trace after the trigger and assert [REQ-A66B0BE4F911E8] exactly: `new`：服务端有界内存 SLS Web Tracking exporter，只接收通过 envelope 校验的 Info 及以上 trace 生命周期事件，固定写入 `cn-beijing/qwork/qwork`；远端投影剥离 `qid/user_id/request_id/provider/model/path/message`，只保留严格审计所需 trace/span、阶段、时间、耗时和 Usage。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -216,25 +269,38 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-BBB2AD99C1E727"
+      "REQ-7B5EFFE1C2EBD7",
+      "REQ-A66B0BE4F911E8"
     ],
     "categories": [
-      "accessibility"
+      "accessibility",
+      "evidence-integrity"
     ],
     "suite_ids": [
       "category:accessibility",
+      "category:evidence-integrity",
       "full",
-      "requirement:REQ-BBB2AD99C1E727"
+      "requirement:REQ-7B5EFFE1C2EBD7",
+      "requirement:REQ-A66B0BE4F911E8"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-BBB2AD99C1E727",
+      "requirement_id": "REQ-7B5EFFE1C2EBD7",
       "oracle_type": "accessibility",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_server 产品契约 exactly once and retain its correlation identity",
       "then": "`extend`：统一 `service_name/process_role/module/event_name/outcome`，增加访问完成日志、LLM start/first-byte/complete/fail，沿调用链传播 trace context。",
       "observation_boundary": "accessibility tree and keyboard interaction",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-A66B0BE4F911E8",
+      "oracle_type": "trace",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_server 产品契约 exactly once and retain its correlation identity",
+      "then": "`new`：服务端有界内存 SLS Web Tracking exporter，只接收通过 envelope 校验的 Info 及以上 trace 生命周期事件，固定写入 `cn-beijing/qwork/qwork`；远端投影剥离 `qid/user_id/request_id/provider/model/path/message`，只保留严格审计所需 trace/span、阶段、时间、耗时和 Usage。",
+      "observation_boundary": "case-owned execution trace",
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     }
   ]

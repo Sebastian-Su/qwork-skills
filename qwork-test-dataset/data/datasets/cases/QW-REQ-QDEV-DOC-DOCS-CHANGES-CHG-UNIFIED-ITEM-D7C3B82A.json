@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:373;heading:本地日志生命周期决策",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:559;heading:本地日志生命周期决策",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:5fa3c19b68728e52425ec0102505fadbb40d23aea005b137d73be92725d6c569",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-BABE3D75A130EB",
+      "requirement_id": "REQ-6114B0D4CC63B4",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L373:5fa3c19b68"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L559:5fa3c19b68"
       ],
       "content_facets": [
         "business-rule"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 本地日志生命周期决策 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-BABE3D75A130EB] exactly: **模型首响应（已确认，2026-08-27）**：分别记录响应头、Provider 首个流事件和首段用户可见文本；产品 TTFT 只以后者为准。工具优先场景不提前结束 TTFT，非流式响应在完整到达时记录后两个节点。见 ADR-0012。"
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-6114B0D4CC63B4] exactly: **模型首响应（已确认，2026-08-27）**：分别记录响应头、Provider 首个流事件和首段用户可见文本；产品 TTFT 只以后者为准。工具优先场景不提前结束 TTFT，非流式响应在完整到达时记录后两个节点。见 ADR-0012。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "**模型首响应（已确认，2026-08-27）**：分别记录响应头、Provider 首个流事件和首段用户可见文本；产品 TTFT 只以后者为准。工具优先场景不提前结束 TTFT，非流式响应在完整到达时记录后两个节点。见 ADR-0012。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-BABE3D75A130EB]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **模型首响应（已确认，2026-08-27）**：分别记录响应头、Provider 首个流事件和首段用户可见文本；产品 TTFT 只以后者为准。工具优先场景不提前结束 TTFT，非流式响应在完整到达时记录后两个节点。见 ADR-0012。",
+    "FAIL [REQ-6114B0D4CC63B4]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **模型首响应（已确认，2026-08-27）**：分别记录响应头、Provider 首个流事件和首段用户可见文本；产品 TTFT 只以后者为准。工具优先场景不提前结束 TTFT，非流式响应在完整到达时记录后两个节点。见 ADR-0012。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-BABE3D75A130EB",
+      "requirement_id": "REQ-6114B0D4CC63B4",
       "type": "ui",
       "assertion": "**模型首响应（已确认，2026-08-27）**：分别记录响应头、Provider 首个流事件和首段用户可见文本；产品 TTFT 只以后者为准。工具优先场景不提前结束 TTFT，非流式响应在完整到达时记录后两个节点。见 ADR-0012。"
     }
@@ -170,7 +170,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 本地日志生命周期决策 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-BABE3D75A130EB] exactly: **模型首响应（已确认，2026-08-27）**：分别记录响应头、Provider 首个流事件和首段用户可见文本；产品 TTFT 只以后者为准。工具优先场景不提前结束 TTFT，非流式响应在完整到达时记录后两个节点。见 ADR-0012。"
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-6114B0D4CC63B4] exactly: **模型首响应（已确认，2026-08-27）**：分别记录响应头、Provider 首个流事件和首段用户可见文本；产品 TTFT 只以后者为准。工具优先场景不提前结束 TTFT，非流式响应在完整到达时记录后两个节点。见 ADR-0012。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -216,7 +216,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-BABE3D75A130EB"
+      "REQ-6114B0D4CC63B4"
     ],
     "categories": [
       "business"
@@ -224,12 +224,12 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-BABE3D75A130EB"
+      "requirement:REQ-6114B0D4CC63B4"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-BABE3D75A130EB",
+      "requirement_id": "REQ-6114B0D4CC63B4",
       "oracle_type": "ui",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 本地日志生命周期决策 产品契约 exactly once and retain its correlation identity",

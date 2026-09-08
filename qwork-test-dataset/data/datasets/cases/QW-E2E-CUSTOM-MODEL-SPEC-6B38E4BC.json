@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/custom-model.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/custom-model.spec.ts",
       "locator": "line:218;test:never hands the renderer a usable credential",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:6b38e4bc61e5e21ca88fe512d09836926223c528b04b4121a78b98fd1fcdfcc1",
       "redaction_status": "minimized"
     }
@@ -75,13 +75,36 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"模型\", exact: true }).click()"
+    },
+    {
       "action": "dialog.getByRole(\"button\", { name: \"添加模型\" }).click()"
+    },
+    {
+      "action": "server.close(() => resolve())"
+    },
+    {
+      "action": "provider.close()"
+    },
+    {
+      "action": "dialog.getByLabel(\"接口地址\").fill(values.endpointUrl)"
+    },
+    {
+      "action": "dialog.getByLabel(\"API Key\").fill(values.apiKey)"
+    },
+    {
+      "action": "dialog.getByLabel(\"模型名称\").fill(values.modelName)"
     },
     {
       "action": "editor.getByRole(\"button\", { name: \"保存\" }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect( page.getByRole(\"button\", { name: \"新建任务\", exact: true }), ).toBeVisible()",
+    "expect(dialog).toBeVisible()",
     "expect(editor).toBeHidden()",
     "expect(JSON.stringify(listed)).not.toContain(\"sk-must-not-reach-renderer\")"
   ],
@@ -153,7 +176,28 @@
       "entrypoint": "models",
       "steps": [
         {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"模型\", exact: true }).click()"
+        },
+        {
           "action": "dialog.getByRole(\"button\", { name: \"添加模型\" }).click()"
+        },
+        {
+          "action": "server.close(() => resolve())"
+        },
+        {
+          "action": "provider.close()"
+        },
+        {
+          "action": "dialog.getByLabel(\"接口地址\").fill(values.endpointUrl)"
+        },
+        {
+          "action": "dialog.getByLabel(\"API Key\").fill(values.apiKey)"
+        },
+        {
+          "action": "dialog.getByLabel(\"模型名称\").fill(values.modelName)"
         },
         {
           "action": "editor.getByRole(\"button\", { name: \"保存\" }).click()"
@@ -180,9 +224,9 @@
         "line_start": 218,
         "line_end": 246,
         "body_sha256": "sha256:e7a39a0b1b286bf944942de440d6128d9050cd4621fc0efe405185fbd2b2dcba",
-        "assertion_count": 2,
-        "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 4,
+        "action_count": 9,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:66d4518842206f5606974fcf874ca5d72463fed7a4a677c6ba6046a91f2abdbc"
       }
     },

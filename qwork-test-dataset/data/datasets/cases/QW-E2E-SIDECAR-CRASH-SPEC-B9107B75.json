@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/sidecar-crash.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/sidecar-crash.spec.ts",
       "locator": "line:10;test:restarts a crashed sidecar and resumes the active session",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:b9107b754ad15000a744aae355545ae34988c93322a3385acf2792edd738746f",
       "redaction_status": "minimized"
     }
@@ -98,10 +98,15 @@
   ],
   "expected_outcomes": [
     "expect(page.getByText(\"收到：E2E before sidecar crash\", { exact: true })).toBeVisible()",
+    "expect(toolbar).not.toHaveAttribute(\"data-main-content-toolbar\")",
+    "expect(toolbar).toHaveAttribute(\"data-tauri-drag-region\", \"true\")",
+    "expect(await toolbar.evaluate((element) => element.parentElement?.dataset.testid)) .toBe(\"page-chrome-outlet\")",
+    "expect(toolbarBox?.y).toBe(0)",
     "expect(toolbar).toHaveAttribute(\"data-main-content-toolbar\", \"true\")",
     "expect(toolbarBox?.y).toBeGreaterThanOrEqual(mainBox?.y ?? 0)",
     "expect(toolbarBox && mainBox ? toolbarBox.x + toolbarBox.width : 0).toBe( mainBox ? mainBox.x + mainBox.width : 0, )",
-    "expect( page.getByText(/引擎意外退出，本次回复未完成，请重试/), ).toBeVisible()",
+    "expect(composer).toBeEnabled()",
+    "expect( page.getByText( /执行被中断，运行时未记录完成结果。|引擎意外退出，本次回复未完成，请重试。/, ), ).toBeVisible({ timeout: 15_000 })",
     "expect(composer).toBeEnabled()",
     "expect .poll( () => page.evaluate(() => { const target = window as typeof window & { __e2eSidecarStates?: string[] }; return target.__e2eSidecarStates ?? []; }), { timeout: 10_000 }, ) .toContain(\"restarting\")",
     "expect .poll( () => page.evaluate(() => { const target = window as typeof window & { __e2eSidecarStates?: string[] }; const states = target.__e2eSidecarStates ?? []; const restarting = states.lastIndexOf(\"restarting\"); return restarting >= 0 && states.slice(restarting + 1).includes(\"ready\"); }), { timeout: 10_000 }, ) .toBe(true)",
@@ -217,12 +222,12 @@
       "source_contract": {
         "spec": "e2e/sidecar-crash.spec.ts",
         "line_start": 10,
-        "line_end": 105,
-        "body_sha256": "sha256:6782224a0efd2d5103b65b1532ffd5ea2afddc7318a8240d9c17e55f91cff6d0",
-        "assertion_count": 11,
+        "line_end": 116,
+        "body_sha256": "sha256:d27ef1a74b4f3f7264fada708fd86985f897e5a21973fb5d6db0621d33494bfd",
+        "assertion_count": 16,
         "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:6816d411b3ecbe9bae6673584c5325c0e2d90b367212599c3242d5fcc27f9a5c"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:057d0854166764a5eae67b87066ee7a2f23ad46231caa1bd1537fa4392e5eed7"
       }
     },
     "reference_run": {

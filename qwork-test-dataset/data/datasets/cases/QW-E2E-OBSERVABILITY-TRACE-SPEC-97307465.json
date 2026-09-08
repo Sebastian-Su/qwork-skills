@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/observability-trace.spec.ts",
-      "locator": "line:12;test:a UI send produces one metadata-only desktop and engine trace",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/observability-trace.spec.ts",
+      "locator": "line:13;test:a UI send produces one metadata-only desktop and engine trace",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:97307465d08dd542d336bc9ef48616efeb05c84335e099ea4e2441c89a87c986",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-F1A43A3998102A",
+      "requirement_id": "REQ-92F85C1F9D69AF",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-observability-trace-spec-ts:L12:97307465d0"
+        "QDEV-E2E-e2e-observability-trace-spec-ts:L13:97307465d0"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -82,6 +82,18 @@
     },
     {
       "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "turn.getByRole(\"button\", { name: \"更多\" }).click()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"消息更多操作\" }) .getByRole(\"menuitem\", { name: \"复制诊断 ID\" }) .click()"
+    },
+    {
+      "action": "restarted.page .getByRole(\"complementary\") .getByRole(\"button\", { name: /__E2E_OBSERVABILITY_PRIVATE_PROMPT__/ }) .click()"
+    },
+    {
+      "action": "server.close(() => resolve())"
     }
   ],
   "expected_outcomes": [
@@ -89,10 +101,18 @@
     "expect.poll( () => received.some((record) => record.event_name === \"turn.complete\"), { timeout: 15_000 }, ).toBe(true)",
     "expect( root, `received events: ${received.map((record) => `${record.schema_version}:${record.event_name ?? record.attr ?? \"unknown\"}`).join(\", \")}`, ).toBeDefined()",
     "expect(root!.trace_id).toMatch(/^[0-9a-f]{32}$/)",
-    "expect(trace.map((record) => `${record.event_name}:${record.event_phase}`)).toEqual( expect.arrayContaining([ \"ui.prompt.submit:accepted\", \"engine.turn.dispatch:start\", \"engine.turn.accept:accepted\", \"model.request:start\", \"model.response.first_event:first\", \"model.response.first_text:first\", \"tool.call:complete\", \"tool.result:complete\", \"model.usage:complete\", \"model.request:complete\", \"turn.complete:complete\", ]),…",
+    "expect(trace.map((record) => `${record.event_name}:${record.event_phase}`)).toEqual( expect.arrayContaining([ \"ui.prompt.submit:start\", \"ui.prompt.submit:accepted\", \"engine.turn.dispatch:start\", \"engine.turn.accept:accepted\", \"model.request:start\", \"provider.request.dispatch:start\", \"provider.response.headers:accepted\", \"provider.stream.first_chunk:first\", \"provider.stream.first_sse_event:first\", \"provider.connectio…",
+    "expect(accepted?.duration_ms).toMatch(/^\\d+$/)",
+    "expect(terminal).toMatchObject({ terminal_status: \"idle\", outcome: \"success\", })",
+    "expect(terminal?.duration_ms).toMatch(/^\\d+$/)",
+    "expect(terminal?.received_latency_ms).toMatch(/^\\d+$/)",
     "expect(new Set(trace.map((record) => record.session_id).filter(Boolean)).size).toBe(1)",
+    "expect(trace.find((record) => record.event_name === \"provider.connection.terminated\")).toMatchObject({ disconnect_initiator: \"local\", disconnect_reason: \"local_timeout\", transport_phase: \"response_body\", transport_peer: \"local_gateway\", local_abort_intent: \"true\", terminal_marker_seen: \"false\", request_timeout_ms: \"600000\", read_idle_timeout_ms: \"300000\", })",
     "expect(JSON.stringify(trace)).not.toContain(\"__E2E_OBSERVABILITY_PRIVATE_PROMPT__\")",
-    "expect(JSON.stringify(trace)).not.toContain(\"private tool output\")"
+    "expect(JSON.stringify(trace)).not.toContain(\"private tool output\")",
+    "expect.poll(() => page.evaluate(() => window.workGui!.clipboard.readText())) .toBe(root!.trace_id)",
+    "expect( restarted.page.getByTestId(\"assistant-message\").filter({ hasText: \"可观测链路完成\", }), ).toBeVisible()",
+    "expect.poll( () => restarted.page.evaluate(() => window.workGui!.clipboard.readText()), ).toBe(root!.trace_id)"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -101,7 +121,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-F1A43A3998102A",
+      "requirement_id": "REQ-92F85C1F9D69AF",
       "type": "return",
       "assertion": "a UI send produces one metadata-only desktop and engine trace"
     }
@@ -169,6 +189,18 @@
         },
         {
           "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "turn.getByRole(\"button\", { name: \"更多\" }).click()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"消息更多操作\" }) .getByRole(\"menuitem\", { name: \"复制诊断 ID\" }) .click()"
+        },
+        {
+          "action": "restarted.page .getByRole(\"complementary\") .getByRole(\"button\", { name: /__E2E_OBSERVABILITY_PRIVATE_PROMPT__/ }) .click()"
+        },
+        {
+          "action": "server.close(() => resolve())"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -189,13 +221,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/observability-trace.spec.ts",
-        "line_start": 12,
-        "line_end": 69,
-        "body_sha256": "sha256:d4eb31db62466f3d865264d0e71a9a2ff407262a6f0eac7370096c87b154363c",
-        "assertion_count": 8,
-        "action_count": 3,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:3b480daf3c5ae1406dd694ca747955564d1ff67bc1ed0368aff2dd67d39364a1"
+        "line_start": 13,
+        "line_end": 124,
+        "body_sha256": "sha256:31b9874eb9b8c8539359b760e99588ed14fd02814c979ae2b3759976e16be7a1",
+        "assertion_count": 16,
+        "action_count": 7,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:550f7e3ef2149b012adcac1625f94c2fb5023a10b0421291c880dacf23fbb9f9"
       }
     },
     "reference_run": {
@@ -217,7 +249,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-F1A43A3998102A"
+      "REQ-92F85C1F9D69AF"
     ],
     "categories": [
       "business"
@@ -225,7 +257,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-F1A43A3998102A"
+      "requirement:REQ-92F85C1F9D69AF"
     ]
   }
 }

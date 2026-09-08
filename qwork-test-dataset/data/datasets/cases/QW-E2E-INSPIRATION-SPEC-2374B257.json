@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/inspiration.spec.ts",
-      "locator": "line:396;test:shows a cloud error without local fallback and recovers on retry",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/inspiration.spec.ts",
+      "locator": "line:490;test:shows a cloud error without local fallback and recovers on retry",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:2374b257a5208f2307875ecb477d0bafe5f526915d606297d0c6fe444847f1bd",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-inspiration-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/inspiration.spec.ts",
-      "locator": "line:397;test:shows a cloud error without local fallback and recovers on retry",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:2374b257a5208f2307875ecb477d0bafe5f526915d606297d0c6fe444847f1bd",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-inspiration-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-649845CAEDA51B",
+      "requirement_id": "REQ-2BF48F08077FC6",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-inspiration-spec-ts:L396:2374b257a5",
-        "QHEAD-E2E-e2e-inspiration-spec-ts:L397:2374b257a5"
+        "QDEV-E2E-e2e-inspiration-spec-ts:L490:2374b257a5"
       ],
       "content_facets": [
         "negative-rule"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-inspiration-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-inspiration-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -98,10 +78,17 @@
       "action": "page.reload()"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"灵感\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"重试加载灵感\" }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"heading\", { name: \"灵感\", level: 1 })).toBeVisible()",
     "expect(page.getByRole(\"alert\")).toContainText(\"灵感列表加载失败\")",
     "expect(page.getByTestId(\"inspiration-card\")).toHaveCount(0)",
     "expect(page.getByTestId(\"inspiration-card\")).toHaveCount(18)",
@@ -114,7 +101,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-649845CAEDA51B",
+      "requirement_id": "REQ-2BF48F08077FC6",
       "type": "return",
       "assertion": "shows a cloud error without local fallback and recovers on retry"
     }
@@ -178,6 +165,12 @@
           "action": "page.reload()"
         },
         {
+          "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"灵感\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"重试加载灵感\" }).click()"
         }
       ],
@@ -199,13 +192,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/inspiration.spec.ts",
-        "line_start": 397,
-        "line_end": 408,
+        "line_start": 490,
+        "line_end": 501,
         "body_sha256": "sha256:60ce1a319b6468bc46420a51640d0197673e608aa128bf90c89b421471088e92",
-        "assertion_count": 4,
-        "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:faccb30ed5447d2e37f07bb4253ab0220dc43cea99835f498f0329ee8de60bd8"
+        "assertion_count": 5,
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:fb657fd338eaa49ca2379b834a87cc6e581af3ec943b05add719e035b3c52f32"
       }
     },
     "reference_run": {
@@ -227,7 +220,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-649845CAEDA51B"
+      "REQ-2BF48F08077FC6"
     ],
     "categories": [
       "negative"
@@ -235,7 +228,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-649845CAEDA51B"
+      "requirement:REQ-2BF48F08077FC6"
     ]
   }
 }

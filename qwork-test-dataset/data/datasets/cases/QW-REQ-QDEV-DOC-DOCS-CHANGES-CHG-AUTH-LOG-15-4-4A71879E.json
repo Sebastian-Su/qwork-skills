@@ -1,0 +1,421 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-AUTH-LOG-15-4-4A71879E",
+  "title": "docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 15.4 风险与回滚 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:674;heading:15.4 风险与回滚",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:74002d49576b46f80f08a0c5ca3f328aa50fbc11d53a0a62798f09c8479105e4",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:676;heading:15.4 风险与回滚",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:466d9725263660cfed881ba52405f8b3644a49a7d6fa547399266e2cabb375ed",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:677;heading:15.4 风险与回滚",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:290aa49fe2075433e964b6506f58a9f1192c5f8b982490b4b7a20afbea231681",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:679;heading:15.4 风险与回滚",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:375eccac301a1de2a81e0bcf5ebd1838a98481a53a9244ca473a26e47ea770b7",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-7ED98F9FCA4CC4",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L674:74002d4957"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "| 风险 | 控制 | 回滚 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 风险 | 控制 | 回滚 |"
+    },
+    {
+      "requirement_id": "REQ-987F244776DF03",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L676:466d972526"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "| 敏感认证数据泄露 | schema allowlist、负向测试、禁止 body/query/raw error | 关闭 auth exporter 事件族，保留本地功能 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 敏感认证数据泄露 | schema allowlist、负向测试、禁止 body/query/raw error | 关闭 auth exporter 事件族，保留本地功能 |"
+    },
+    {
+      "requirement_id": "REQ-54C6DD55C8A788",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L677:290aa49fe2"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "| 高频 poll 造成成本上涨 | 终态汇总和采样 | 独立 feature flag 停止中间诊断事件 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 高频 poll 造成成本上涨 | 终态汇总和采样 | 独立 feature flag 停止中间诊断事件 |"
+    },
+    {
+      "requirement_id": "REQ-F6F0215253A1EF",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L679:375eccac30"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "| 双端 trace 断裂 | W3C 契约测试和 `correlation=partial` | 保留各端本地 trace，禁止伪关联 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 双端 trace 断裂 | W3C 契约测试和 `correlation=partial` | 保留各端本地 trace，禁止伪关联 |"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 15.4 风险与回滚 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7ED98F9FCA4CC4] exactly: | 风险 | 控制 | 回滚 |"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-987F244776DF03] exactly: | 敏感认证数据泄露 | schema allowlist、负向测试、禁止 body/query/raw error | 关闭 auth exporter 事件族，保留本地功能 |"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-54C6DD55C8A788] exactly: | 高频 poll 造成成本上涨 | 终态汇总和采样 | 独立 feature flag 停止中间诊断事件 |"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-F6F0215253A1EF] exactly: | 双端 trace 断裂 | W3C 契约测试和 `correlation=partial` | 保留各端本地 trace，禁止伪关联 |"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "| 风险 | 控制 | 回滚 |",
+    "| 敏感认证数据泄露 | schema allowlist、负向测试、禁止 body/query/raw error | 关闭 auth exporter 事件族，保留本地功能 |",
+    "| 高频 poll 造成成本上涨 | 终态汇总和采样 | 独立 feature flag 停止中间诊断事件 |",
+    "| 双端 trace 断裂 | W3C 契约测试和 `correlation=partial` | 保留各端本地 trace，禁止伪关联 |"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-7ED98F9FCA4CC4]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 风险 | 控制 | 回滚 |",
+    "FAIL [REQ-987F244776DF03]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 敏感认证数据泄露 | schema allowlist、负向测试、禁止 body/query/raw error | 关闭 auth exporter 事件族，保留本地功能 |",
+    "FAIL [REQ-54C6DD55C8A788]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 高频 poll 造成成本上涨 | 终态汇总和采样 | 独立 feature flag 停止中间诊断事件 |",
+    "FAIL [REQ-F6F0215253A1EF]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 双端 trace 断裂 | W3C 契约测试和 `correlation=partial` | 保留各端本地 trace，禁止伪关联 |",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-7ED98F9FCA4CC4",
+      "type": "return",
+      "assertion": "| 风险 | 控制 | 回滚 |"
+    },
+    {
+      "requirement_id": "REQ-987F244776DF03",
+      "type": "api",
+      "assertion": "| 敏感认证数据泄露 | schema allowlist、负向测试、禁止 body/query/raw error | 关闭 auth exporter 事件族，保留本地功能 |"
+    },
+    {
+      "requirement_id": "REQ-54C6DD55C8A788",
+      "type": "return",
+      "assertion": "| 高频 poll 造成成本上涨 | 终态汇总和采样 | 独立 feature flag 停止中间诊断事件 |"
+    },
+    {
+      "requirement_id": "REQ-F6F0215253A1EF",
+      "type": "return",
+      "assertion": "| 双端 trace 断裂 | W3C 契约测试和 `correlation=partial` | 保留各端本地 trace，禁止伪关联 |"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-auth-login.15-4-4a71879e53",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 15.4 风险与回滚 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7ED98F9FCA4CC4] exactly: | 风险 | 控制 | 回滚 |"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-987F244776DF03] exactly: | 敏感认证数据泄露 | schema allowlist、负向测试、禁止 body/query/raw error | 关闭 auth exporter 事件族，保留本地功能 |"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-54C6DD55C8A788] exactly: | 高频 poll 造成成本上涨 | 终态汇总和采样 | 独立 feature flag 停止中间诊断事件 |"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-F6F0215253A1EF] exactly: | 双端 trace 断裂 | W3C 契约测试和 `correlation=partial` | 保留各端本地 trace，禁止伪关联 |"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-54C6DD55C8A788",
+      "REQ-7ED98F9FCA4CC4",
+      "REQ-987F244776DF03",
+      "REQ-F6F0215253A1EF"
+    ],
+    "categories": [
+      "business",
+      "negative",
+      "permission"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:negative",
+      "category:permission",
+      "full",
+      "requirement:REQ-54C6DD55C8A788",
+      "requirement:REQ-7ED98F9FCA4CC4",
+      "requirement:REQ-987F244776DF03",
+      "requirement:REQ-F6F0215253A1EF"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-7ED98F9FCA4CC4",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 15.4 风险与回滚 产品契约 exactly once and retain its correlation identity",
+      "then": "| 风险 | 控制 | 回滚 |",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-987F244776DF03",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 15.4 风险与回滚 产品契约 exactly once and retain its correlation identity",
+      "then": "| 敏感认证数据泄露 | schema allowlist、负向测试、禁止 body/query/raw error | 关闭 auth exporter 事件族，保留本地功能 |",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-54C6DD55C8A788",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 15.4 风险与回滚 产品契约 exactly once and retain its correlation identity",
+      "then": "| 高频 poll 造成成本上涨 | 终态汇总和采样 | 独立 feature flag 停止中间诊断事件 |",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-F6F0215253A1EF",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 15.4 风险与回滚 产品契约 exactly once and retain its correlation identity",
+      "then": "| 双端 trace 断裂 | W3C 契约测试和 `correlation=partial` | 保留各端本地 trace，禁止伪关联 |",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

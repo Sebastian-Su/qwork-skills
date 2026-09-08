@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-yonyou-emr-textin.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-yonyou-emr-textin.spec.ts",
       "locator": "line:24;test:connects Yonyou with loopback OAuth and makes EMR/TextIn connect actions observable",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:a1ecb918ec6e5afd3578c886f28057c82da8f7b714aa2620229e303535918467",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "page .getByRole(\"button\", { name: `${name}，未连接`, exact: true }) .click()"
     },
     {
@@ -96,6 +102,7 @@
   "expected_outcomes": [
     "expect(shipped(\"emr-query\").agentSkillId).toBe(\"emr-query-cli\")",
     "expect(shipped(\"textin-xparse\").agentSkillId).toBe(\"textin-xparse\")",
+    "expect( page.getByRole(\"searchbox\", { name: \"搜索连接器\" }), ).toBeVisible()",
     "expect( dialog.getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible({ timeout: 15_000 })",
     "expect .poll(async () => fs.readFile(authorizeSink, \"utf8\").catch(() => \"\")) .not.toBe(\"\")",
     "expect(authorize.pathname).toBe(\"/finance/authorize\")",
@@ -175,6 +182,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "page .getByRole(\"button\", { name: `${name}，未连接`, exact: true }) .click()"
         },
         {
@@ -214,9 +227,9 @@
         "line_start": 24,
         "line_end": 240,
         "body_sha256": "sha256:a35e7db71ffc75b975d3141c2bb64199a80cfa3efbc3d6976307f67433494815",
-        "assertion_count": 12,
-        "action_count": 6,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 13,
+        "action_count": 8,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:5ca9355102439d86412f98fcea2451293127252546edfa8d20ab398f459002aa"
       }
     },

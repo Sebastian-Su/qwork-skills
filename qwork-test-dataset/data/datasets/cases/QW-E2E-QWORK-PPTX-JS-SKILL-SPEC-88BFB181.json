@@ -1,0 +1,247 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-QWORK-PPTX-JS-SKILL-SPEC-88BFB181",
+  "title": "qwork-pptx-js 逐页刷新 SVG 预览并交付可编辑 PPTX",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-qwork-pptx-js-skill-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/qwork-pptx-js-skill.spec.ts",
+      "locator": "line:7;test:qwork-pptx-js 逐页刷新 SVG 预览并交付可编辑 PPTX",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:88bfb181fc716e788a2c8ae87a35e9791fef9b1a2531115b1af61c3659751775",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-B9F1687C038C25",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-qwork-pptx-js-skill-spec-ts:L7:88bfb181fc"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "qwork-pptx-js 逐页刷新 SVG 预览并交付可编辑 PPTX",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-qwork-pptx-js-skill-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "qwork-pptx-js 逐页刷新 SVG 预览并交付可编辑 PPTX"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"选择工作空间\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_PPTX_JS__:视觉提案.pptx\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"打开产出物 视觉提案.pptx\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"tab\", { name: \"preview.html\", exact: true })).toBeVisible({ timeout: 30_000 })",
+    "expect(page.getByRole(\"button\", { name: \"打开产出物 视觉提案.pptx\" })).toBeVisible({ timeout: 45_000 })",
+    "expect(page.getByLabel(\"PPTX 编辑器\")).toBeVisible({ timeout: 30_000 })",
+    "expect(page.getByLabel(\"Slide 1 of 2\", { exact: true })).toBeVisible({ timeout: 30_000 })",
+    "expect(html.match(/data:image\\/png;base64/g)).toHaveLength(3)",
+    "expect((await fs.stat(path.join(workspace, \"视觉提案.pptx\"))).size).toBeGreaterThan(10_000)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-B9F1687C038C25",
+      "type": "return",
+      "assertion": "qwork-pptx-js 逐页刷新 SVG 预览并交付可编辑 PPTX"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-qwork-pptx-js-skill-spec-ts.88bfb181fc",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/qwork-pptx-js-skill.spec.ts -g \"qwork-pptx-js 逐页刷新 SVG 预览并交付可编辑 PPTX\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"选择工作空间\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_PPTX_JS__:视觉提案.pptx\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"打开产出物 视觉提案.pptx\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/qwork-pptx-js-skill.spec.ts",
+        "line_start": 7,
+        "line_end": 38,
+        "body_sha256": "sha256:4efda8c71f33e28679ae0806b9a544b81841a29290baddbbbd0f79acbf8c358f",
+        "assertion_count": 6,
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:32aa555b9e66cfffb4b91b5f865e99d96d7026f540b46eaf8811ee6ca954b0c3"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B9F1687C038C25"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-B9F1687C038C25"
+    ]
+  }
+}

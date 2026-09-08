@@ -21,26 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/workbuddy-header-actions.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-header-actions.spec.ts",
       "locator": "line:10;test:aligns the assistant header actions with the WorkBuddy oracle",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:e12aec5a7107fecd52fb4a6739728d2c1bf003aa13570126081f45cc0e998c7f",
-      "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-workbuddy-header-actions-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/workbuddy-header-actions.spec.ts",
-      "locator": "line:10;test:aligns the assistant header actions with the WorkBuddy oracle",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:e12aec5a7107fecd52fb4a6739728d2c1bf003aa13570126081f45cc0e998c7f",
       "redaction_status": "minimized"
     }
@@ -71,32 +57,6 @@
         "reason": "compiled from the user-approved source hierarchy"
       },
       "oracle": "aligns the assistant header actions with the WorkBuddy oracle"
-    },
-    {
-      "requirement_id": "REQ-02B6606DE2E3C3",
-      "source_atom_ids": [
-        "QHEAD-E2E-e2e-workbuddy-header-actions-spec-ts:L10:e12aec5a71"
-      ],
-      "content_facets": [
-        "acceptance-criterion"
-      ],
-      "acceptance_categories": [
-        "business"
-      ],
-      "surface": "assistant",
-      "priority": "P0",
-      "rule": "aligns the assistant header actions with the WorkBuddy oracle",
-      "authority_domain": "execution",
-      "governing_sources": [
-        "QHEAD-E2E-e2e-workbuddy-header-actions-spec-ts"
-      ],
-      "supporting_sources": [],
-      "conflicts": [],
-      "resolution": {
-        "status": "resolved",
-        "reason": "compiled from the user-approved source hierarchy"
-      },
-      "oracle": "aligns the assistant header actions with the WorkBuddy oracle"
     }
   ],
   "verification": {
@@ -118,9 +78,6 @@
       "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
     },
     {
-      "action": "initialExpand.click()"
-    },
-    {
       "action": "buttons[2].click()"
     },
     {
@@ -131,6 +88,9 @@
     },
     {
       "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "buttons[0].hover()"
     },
     {
       "action": "page.keyboard.press(process.platform === \"darwin\" ? \"Meta+f\" : \"Control+f\")"
@@ -230,7 +190,6 @@
     }
   ],
   "expected_outcomes": [
-    "expect(initialExpand).toBeVisible()",
     "expect.poll(() => page.evaluate(() => localStorage.getItem(\"ziqdo:assistant-session-id\"))).not.toBeNull()",
     "expect(page.getByRole(\"group\", { name: \"会话操作\" })).toBeVisible()",
     "expect(passed, `${id}: expected ${JSON.stringify(expected)}, actual ${JSON.stringify(actual)}`).toBe(true)",
@@ -240,6 +199,7 @@
     "expect(contextPanelBox).not.toBeNull()",
     "expect(contextToolbarBox).not.toBeNull()",
     "expect(outletBox).not.toBeNull()",
+    "expect(passed, `${id}: expected ${JSON.stringify(expected)}, actual ${JSON.stringify(actual)}`).toBe(true)",
     "expect(page.getByRole(\"combobox\", { name: \"历史提问\" })).toHaveCount(1)",
     "expect(page.getByRole(\"listbox\", { name: \"历史提问（0）\" })).toBeVisible()",
     "expect(page.getByText(\"暂无历史提问\")).toBeVisible()",
@@ -255,6 +215,8 @@
     "expect(button).toHaveCSS(\"width\", \"32px\")",
     "expect(boxes[1]!.x - boxes[0]!.x - boxes[0]!.width).toBe(4)",
     "expect(boxes[2]!.x - boxes[1]!.x - boxes[1]!.width).toBe(4)",
+    "expect(searchTooltip).toHaveText(\"对话内搜索（⌘F / Ctrl+F）\")",
+    "expect(page.getByRole(\"searchbox\", { name: \"对话内搜索\" })).toHaveCount(0)",
     "expect(search).toBeFocused()",
     "expect(page.getByRole(\"status\", { name: \"搜索结果\" })).toContainText(\"无结果\")",
     "expect(page.getByRole(\"button\", { name: \"上一个（Shift+Enter）\" })).toBeDisabled()",
@@ -312,11 +274,6 @@
   "oracles": [
     {
       "requirement_id": "REQ-E1484DA5245263",
-      "type": "return",
-      "assertion": "aligns the assistant header actions with the WorkBuddy oracle"
-    },
-    {
-      "requirement_id": "REQ-02B6606DE2E3C3",
       "type": "return",
       "assertion": "aligns the assistant header actions with the WorkBuddy oracle"
     }
@@ -380,9 +337,6 @@
           "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
         },
         {
-          "action": "initialExpand.click()"
-        },
-        {
           "action": "buttons[2].click()"
         },
         {
@@ -393,6 +347,9 @@
         },
         {
           "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "buttons[0].hover()"
         },
         {
           "action": "page.keyboard.press(process.platform === \"darwin\" ? \"Meta+f\" : \"Control+f\")"
@@ -510,12 +467,12 @@
       "source_contract": {
         "spec": "e2e/workbuddy-header-actions.spec.ts",
         "line_start": 10,
-        "line_end": 392,
-        "body_sha256": "sha256:83cbdad78ea09c8511ffb186ed5cd562df1fc763e6433f1eccaab5635980b2e9",
-        "assertion_count": 73,
+        "line_end": 400,
+        "body_sha256": "sha256:3b34e6099776dcbeb97fb38b3f9d8703e43f6f899cf14c2d043906ea867b10c0",
+        "assertion_count": 75,
         "action_count": 38,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:89da3ba3a227b75a31bff15a0590943755ad84c7126e22c6ec60dda72fa4dc59"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:f012a43471203bb1dac6bc12bdf1c1999e0067cedb80b71ee9250b337cd629c4"
       }
     },
     "reference_run": {
@@ -537,7 +494,6 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-02B6606DE2E3C3",
       "REQ-E1484DA5245263"
     ],
     "categories": [
@@ -546,7 +502,6 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-02B6606DE2E3C3",
       "requirement:REQ-E1484DA5245263"
     ]
   }

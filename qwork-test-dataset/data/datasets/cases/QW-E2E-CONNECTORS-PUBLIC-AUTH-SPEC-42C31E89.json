@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-public-auth.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-public-auth.spec.ts",
       "locator": "line:44;test:connects Eastmoney, Qixin, and GitHub through their public credential forms",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:42c31e896c77677b27feac7ef7f9477e7806b4099c27661e2a58712fa653b9e4",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "search.fill(item.name)"
     },
     {
@@ -94,6 +100,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"searchbox\", { name: \"搜索连接器\" })).toBeVisible()",
     "expect(detail.getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible({ timeout: 15_000, })",
     "expect(upserts).toEqual(expect.arrayContaining([ expect.objectContaining({ server: expect.objectContaining({ name: \"mx-ds-mcp\", url: \"https://mxapi.eastmoney.com/mxds/mcp\", static_headers: { em_api_key: \"fixture-eastmoney-key\" }, }), }), expect.objectContaining({ server: expect.objectContaining({ name: \"qixinhuiyan-mcp\", url: \"https://mcp.qixin.com/mcp\", static_headers: { Authorization: \"Bearer mcp-fixture-qixin-tok…",
     "expect(vault).not.toContain(item.value)"
@@ -166,6 +173,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "search.fill(item.name)"
         },
         {
@@ -205,9 +218,9 @@
         "line_start": 44,
         "line_end": 118,
         "body_sha256": "sha256:bd786188d72ec9abe23f7f0d64813e4a2708f24c80ee454aa31dfa767c40266f",
-        "assertion_count": 3,
-        "action_count": 6,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 4,
+        "action_count": 8,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:5046f161fe753f756638b8e8518171237cb27127742a04be7ed5ebeb037b125a"
       }
     },

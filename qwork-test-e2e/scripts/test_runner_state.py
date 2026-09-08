@@ -4,7 +4,10 @@
 from __future__ import annotations
 
 import importlib.util
+import os
 from pathlib import Path
+import shutil
+import sys
 import tempfile
 
 
@@ -140,32 +143,87 @@ def main() -> int:
         "gate:first": {"category": "gate"},
         "case:second": {"category": "deterministic-playwright"},
     }
-    prior = {
-        "schema_version": 1,
-        "plan_sha256": "plan-a",
-        "implementation_revision": "revision-a",
-        "coordinates": {
-            "gate:first": {
-                "category": "gate",
-                "status": "pass",
-                "stdout_sha256": "a" * 64,
-                "stderr_sha256": "b" * 64,
-            }
-        },
-    }
-    prepared = runner.prepare_state(
-        prior=prior,
-        plan_sha256="plan-a",
-        implementation_revision="revision-a",
-        classified_coordinates=coordinates,
-    )
-    assert prepared["coordinates"]["gate:first"] == prior["coordinates"]["gate:first"]
-    assert "case:second" not in prepared["coordinates"]
+    with tempfile.TemporaryDirectory(prefix="qwork-runner-state-") as value:
+        state_root = Path(value).resolve()
+        logs = state_root / "logs"
+        logs.mkdir()
+        stdout = logs / "gate-first.stdout.log"
+        stderr = logs / "gate-first.stderr.log"
+        stdout.write_text("pass\n", encoding="utf-8")
+        stderr.write_text("", encoding="utf-8")
+        prior = {
+            "schema_version": 2,
+            "plan_sha256": "plan-a",
+            "implementation_revision": "revision-a",
+            "coordinates": {
+                "gate:first": {
+                    "category": "gate",
+                    "status": "pass",
+                    "exit_code": 0,
+                    "coordinate_sha256": runner.coordinate_signature(coordinates["gate:first"]),
+                    "stdout": str(stdout.relative_to(state_root)),
+                    "stdout_sha256": runner.sha256_file(stdout),
+                    "stderr": str(stderr.relative_to(state_root)),
+                    "stderr_sha256": runner.sha256_file(stderr),
+                    "artifacts": [],
+                }
+            },
+        }
+        prepared = runner.prepare_state(
+            prior=prior,
+            run_root=state_root,
+            plan_sha256="plan-a",
+            implementation_revision="revision-a",
+            classified_coordinates=coordinates,
+        )
+        assert prepared["coordinates"]["gate:first"] == prior["coordinates"]["gate:first"]
+        assert "case:second" not in prepared["coordinates"]
+
+        for mutation, expected in [
+            ({"plan_sha256": "plan-b"}, "another plan"),
+            ({"implementation_revision": "revision-b"}, "another revision"),
+            ({"coordinates": {"unknown": {"status": "pass", "category": "gate"}}}, "unknown coordinate"),
+            ({"coordinates": {"gate:first": {"status": "pass", "category": "runner-gap"}}}, "category drift"),
+        ]:
+            candidate = {**prior, **mutation}
+            try:
+                runner.prepare_state(
+                    prior=candidate,
+                    run_root=state_root,
+                    plan_sha256="plan-a",
+                    implementation_revision="revision-a",
+                    classified_coordinates=coordinates,
+                )
+            except ValueError as error:
+                assert expected in str(error), (expected, str(error))
+            else:
+                raise AssertionError(f"state mutation was accepted: {mutation}")
     assert runner.coordinate_requires_loopback("gate:unit-integration", coordinates["gate:first"])
     assert runner.coordinate_requires_loopback("case:second", coordinates["case:second"])
     assert not runner.coordinate_requires_loopback("gate:typecheck", {"category": "gate"})
     assert runner.infer_visual_state("expert-final-after-restart.png", failed=False) == "final-state"
     assert runner.infer_visual_state("expert-after-important-mutation.png", failed=False) == "after-important-mutation"
+    environment = runner.coordinate_environment(Path("/repo"), {"category": "gate"})
+    runner_python_dir = str(Path(sys.executable).parent)
+    assert environment["PATH"].split(os.pathsep)[0] == runner_python_dir
+    assert shutil.which("python3", path=environment["PATH"]) == str(
+        Path(runner_python_dir) / "python3"
+    )
+
+    with tempfile.TemporaryDirectory(prefix="qwork-runner-venv-") as value:
+        virtual_bin = Path(value) / "bin"
+        virtual_bin.mkdir()
+        virtual_python = virtual_bin / "python"
+        virtual_python.symlink_to(Path(sys.executable).resolve())
+        previous_executable = sys.executable
+        try:
+            sys.executable = str(virtual_python)
+            virtual_environment = runner.coordinate_environment(
+                Path("/repo"), {"category": "gate"}
+            )
+        finally:
+            sys.executable = previous_executable
+        assert virtual_environment["PATH"].split(os.pathsep)[0] == str(virtual_bin)
 
     with tempfile.TemporaryDirectory(prefix="qwork-dataset-verifier-") as value:
         run_root = Path(value)
@@ -246,25 +304,6 @@ def main() -> int:
             private_root / "report.json",
             private_root / "build-manifest.json",
         ]
-
-    for mutation, expected in [
-        ({"plan_sha256": "plan-b"}, "another plan"),
-        ({"implementation_revision": "revision-b"}, "another revision"),
-        ({"coordinates": {"unknown": {"status": "pass", "category": "gate"}}}, "unknown coordinate"),
-        ({"coordinates": {"gate:first": {"status": "pass", "category": "runner-gap"}}}, "category drift"),
-    ]:
-        candidate = {**prior, **mutation}
-        try:
-            runner.prepare_state(
-                prior=candidate,
-                plan_sha256="plan-a",
-                implementation_revision="revision-a",
-                classified_coordinates=coordinates,
-            )
-        except ValueError as error:
-            assert expected in str(error), (expected, str(error))
-        else:
-            raise AssertionError(f"state mutation was accepted: {mutation}")
 
     print("runner state preservation: ok")
     return 0

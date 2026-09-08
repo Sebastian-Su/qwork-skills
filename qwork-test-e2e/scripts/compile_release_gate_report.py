@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from authorized_live_result import LIVE_RESULTS_NAME, load_authorized_live_coordinates
 from external_artifact_storage import REPORT_JSON_NAME, validate_external_run_root
 
 
@@ -98,6 +99,10 @@ def main() -> int:
     preflight = load(run_root / "execution-preflight.json")
     cases = {path.stem: load(path) for path in (dataset / "data/datasets/cases").glob("*.json")}
     coordinates = state.get("coordinates", {})
+    live_coordinates = load_authorized_live_coordinates(run_root=run_root, plan=plan, repo=repo)
+    overlap = sorted(set(coordinates) & set(live_coordinates))
+    if overlap:
+        raise ValueError(f"local and authorized-live results overlap: {overlap[:10]}")
     results: list[dict[str, Any]] = []
     human_cases: list[dict[str, Any]] = []
     machine_cases: list[dict[str, Any]] = []
@@ -106,12 +111,17 @@ def main() -> int:
 
     for item in plan["required_items"]:
         item_id = item["item_id"]
-        coordinate = coordinates.get(item_id)
+        coordinate = coordinates.get(item_id) or live_coordinates.get(item_id)
         case = cases.get(str(item.get("case_id") or "")) if item.get("kind") == "case" else None
         if coordinate:
             status = coordinate["status"]
             classification = "product" if status == "fail" else "evidence"
-            message = "executed coordinate passed" if status == "pass" else "executed coordinate failed"
+            live = coordinate.get("category") == "live-authorization"
+            message = (
+                "authorized live coordinate passed" if status == "pass" else "authorized live coordinate failed"
+            ) if live else (
+                "executed coordinate passed" if status == "pass" else "executed coordinate failed"
+            )
             artifacts = []
             for key in ("stdout", "stderr"):
                 path = coordinate.get(key)
@@ -121,6 +131,12 @@ def main() -> int:
                 path = run_root / value["path"]
                 if path.is_file():
                     artifacts.append(artifact(run_root, path))
+            if live:
+                artifacts.append(artifact(run_root, run_root / LIVE_RESULTS_NAME))
+                authorization = coordinate.get("authorization") or {}
+                authorization_path = run_root / str(authorization.get("path") or "")
+                if authorization_path.is_file():
+                    artifacts.append(artifact(run_root, authorization_path))
         elif case and item.get("external_dependency_required"):
             status, classification = "external-blocked", "external"
             dependency = str(item.get("external_dependency") or "")
@@ -149,7 +165,7 @@ def main() -> int:
             "implementation_revision": plan["implementation_revision"],
             "failure_classification": classification,
             "message": message,
-            "cleanup_status": "pass" if status in {"pass", "fail"} else "not-run",
+            "cleanup_status": coordinate.get("cleanup_status", "pass") if coordinate else "not-run",
             "artifacts": artifacts,
         }
         if status == "external-blocked":
@@ -288,7 +304,13 @@ def main() -> int:
         "defects": defects,
         "blockers": [f"local runner gaps: {counts.get('runner-gap', 0)}", f"live authorization boundaries: {counts.get('external-blocked', 0)}"],
         "residual_risks": ["macOS result cannot substitute Windows/Linux", "fake sidecar does not prove real model quality"],
-        "cleanup": {"status": "pass", "details": "每个已执行坐标按 runner 合同清理；私有原始证据保留在 Git ignored Dataset", "evidence": [artifact(run_root, run_root / "runner-state.json")]},
+        "cleanup": {
+            "status": "pass",
+            "details": "每个已执行坐标按 runner 合同清理；授权 live 临时状态已删除，脱敏证据保留在外置 run root",
+            "evidence": [artifact(run_root, run_root / "runner-state.json")] + (
+                [artifact(run_root, run_root / LIVE_RESULTS_NAME)] if live_coordinates else []
+            ),
+        },
         "independent_rerun": {"status": "pending", "plan_sha256": plan["plan_sha256"], "evidence": []},
         "checkpoint": {
             "current_implementation_revision": plan["implementation_revision"],

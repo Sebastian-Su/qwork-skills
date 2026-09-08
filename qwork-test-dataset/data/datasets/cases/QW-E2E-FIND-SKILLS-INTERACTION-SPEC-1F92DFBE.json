@@ -1,0 +1,243 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-FIND-SKILLS-INTERACTION-SPEC-1F92DFBE",
+  "title": "find-skills keeps search results in the Agent response without custom candidate or install cards",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-find-skills-interaction-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/find-skills-interaction.spec.ts",
+      "locator": "line:13;test:find-skills keeps search results in the Agent response without custom candidate or install cards",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:1f92dfbee38cb41ed5be3544a3c110aaa49e16907dbb4e4730e2274007ea8d0c",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-E0E7C5066E7A34",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-find-skills-interaction-spec-ts:L13:1f92dfbee3"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "find-skills keeps search results in the Agent response without custom candidate or install cards",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-find-skills-interaction-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "find-skills keeps search results in the Agent response without custom candidate or install cards"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"__E2E_FIND_SKILLS_INTERACTION__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "process.click()"
+    },
+    {
+      "action": "completedSearch.getByRole(\"button\", { name: \"展开技能搜索详情\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(search).toHaveAttribute(\"data-state\", \"running\")",
+    "expect(search).toContainText(\"正在搜索技能\")",
+    "expect(search).not.toContainText(\"mcp__qwork-skillhub\")",
+    "expect(launched.page.getByTestId(\"assistant-message\").last()).toContainText(\"小红薯·笔记文案制作\")",
+    "expect(process).toBeVisible()",
+    "expect(completedSearch).toHaveAttribute(\"data-state\", \"ok\")",
+    "expect(completedSearch).toContainText(\"已检查已安装技能 · 已查询 4 个来源 · 找到 3 个候选\")",
+    "expect(completedSearch.getByRole(\"region\", { name: \"技能搜索详情\" })).toContainText(\"已安装技能：完成\")",
+    "expect(completedSearch.getByRole(\"region\", { name: \"技能搜索详情\" })).toContainText(\"360 SkillHub：部分完成\")",
+    "expect(completedSearch.getByRole(\"region\", { name: \"技能搜索详情\" })).toContainText(\"内网 SkillHub：未登录\")",
+    "expect(launched.page.getByRole(\"region\", { name: \"需要你的确认\" })).toHaveCount(0)",
+    "expect(launched.page.getByRole(\"region\", { name: \"技能候选\" })).toHaveCount(0)",
+    "expect(launched.page.getByRole(\"region\", { name: \"技能安装进度\" })).toHaveCount(0)",
+    "expect(launched.page.getByTestId(\"assistant-message\").last()).toContainText(\"xiaohongshu-write\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-E0E7C5066E7A34",
+      "type": "return",
+      "assertion": "find-skills keeps search results in the Agent response without custom candidate or install cards"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-find-skills-interaction-spec-ts.1f92dfbee3",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/find-skills-interaction.spec.ts -g \"find-skills keeps search results in the Agent response without custom candidate or install cards\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "composer.fill(\"__E2E_FIND_SKILLS_INTERACTION__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "process.click()"
+        },
+        {
+          "action": "completedSearch.getByRole(\"button\", { name: \"展开技能搜索详情\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/find-skills-interaction.spec.ts",
+        "line_start": 13,
+        "line_end": 50,
+        "body_sha256": "sha256:54104f749bfa638ae3db950e18fa3e58de68612612420636c26ba06d3f7127d7",
+        "assertion_count": 14,
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:b994eb667391a9837dc07e08389d232d3e39bbb3d806d507038c61c57c66ec47"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-E0E7C5066E7A34"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-E0E7C5066E7A34"
+    ]
+  }
+}

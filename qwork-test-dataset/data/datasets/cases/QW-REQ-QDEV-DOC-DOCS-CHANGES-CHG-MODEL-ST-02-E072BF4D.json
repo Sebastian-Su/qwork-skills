@@ -1,0 +1,225 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-MODEL-ST-02-E072BF4D",
+  "title": "docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 02 — 跑通托管文本响应的断线回放 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:52;heading:02 — 跑通托管文本响应的断线回放",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:3f70cfb5a5727faadfac6765835dd96dd09dd6268cd5eac7341956dbaa1c5023",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D6AC737C716942",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L52:3f70cfb5a5"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "**What to build:** 对无工具调用的托管模型响应，在首段文字到达后切断客户端下行连接。qwork_server 继续完成原调用并保存租户绑定的加密结果；ZiqDo 使用同一逻辑调用重新取得完整回复，完成本地持久化和回读；QWork 只显示一份完整回复。交付 ACK 成功后只结算一次 Credits，并删除服务端回放正文。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**What to build:** 对无工具调用的托管模型响应，在首段文字到达后切断客户端下行连接。qwork_server 继续完成原调用并保存租户绑定的加密结果；ZiqDo 使用同一逻辑调用重新取得完整回复，完成本地持久化和回读；QWork 只显示一份完整回复。交付 ACK 成功后只结算一次 Credits，并删除服务端回放正文。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 02 — 跑通托管文本响应的断线回放 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-D6AC737C716942] exactly: **What to build:** 对无工具调用的托管模型响应，在首段文字到达后切断客户端下行连接。qwork_server 继续完成原调用并保存租户绑定的加密结果；ZiqDo 使用同一逻辑调用重新取得完整回复，完成本地持久化和回读；QWork 只显示一份完整回复。交付 ACK 成功后只结算一次 Credits，并删除服务端回放正文。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "**What to build:** 对无工具调用的托管模型响应，在首段文字到达后切断客户端下行连接。qwork_server 继续完成原调用并保存租户绑定的加密结果；ZiqDo 使用同一逻辑调用重新取得完整回复，完成本地持久化和回读；QWork 只显示一份完整回复。交付 ACK 成功后只结算一次 Credits，并删除服务端回放正文。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-D6AC737C716942]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **What to build:** 对无工具调用的托管模型响应，在首段文字到达后切断客户端下行连接。qwork_server 继续完成原调用并保存租户绑定的加密结果；ZiqDo 使用同一逻辑调用重新取得完整回复，完成本地持久化和回读；QWork 只显示一份完整回复。交付 ACK 成功后只结算一次 Credits，并删除服务端回放正文。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D6AC737C716942",
+      "type": "database",
+      "assertion": "**What to build:** 对无工具调用的托管模型响应，在首段文字到达后切断客户端下行连接。qwork_server 继续完成原调用并保存租户绑定的加密结果；ZiqDo 使用同一逻辑调用重新取得完整回复，完成本地持久化和回读；QWork 只显示一份完整回复。交付 ACK 成功后只结算一次 Credits，并删除服务端回放正文。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-model-stre.02-e072bf4df3",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for models at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 02 — 跑通托管文本响应的断线回放 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-D6AC737C716942] exactly: **What to build:** 对无工具调用的托管模型响应，在首段文字到达后切断客户端下行连接。qwork_server 继续完成原调用并保存租户绑定的加密结果；ZiqDo 使用同一逻辑调用重新取得完整回复，完成本地持久化和回读；QWork 只显示一份完整回复。交付 ACK 成功后只结算一次 Credits，并删除服务端回放正文。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-D6AC737C716942"
+    ],
+    "categories": [
+      "data"
+    ],
+    "suite_ids": [
+      "category:data",
+      "full",
+      "requirement:REQ-D6AC737C716942"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-D6AC737C716942",
+      "oracle_type": "database",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 02 — 跑通托管文本响应的断线回放 产品契约 exactly once and retain its correlation identity",
+      "then": "**What to build:** 对无工具调用的托管模型响应，在首段文字到达后切断客户端下行连接。qwork_server 继续完成原调用并保存租户绑定的加密结果；ZiqDo 使用同一逻辑调用重新取得完整回复，完成本地持久化和回读；QWork 只显示一份完整回复。交付 ACK 成功后只结算一次 Credits，并删除服务端回放正文。",
+      "observation_boundary": "case-owned durable database state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

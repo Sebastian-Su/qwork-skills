@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/skill-hub.spec.ts",
-      "locator": "line:784;test:keeps an installed recommendation in place with WorkBuddy-style management and trial actions",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/skill-hub.spec.ts",
+      "locator": "line:889;test:keeps an installed recommendation in place with WorkBuddy-style management and trial actions",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:daca1dbe085bf3019c4ec2e0b2289e7f925cfe319af174fe08c71da2f2e16bbf",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-skill-hub-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/skill-hub.spec.ts",
-      "locator": "line:662;test:keeps an installed recommendation in place with WorkBuddy-style management and trial actions",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:daca1dbe085bf3019c4ec2e0b2289e7f925cfe319af174fe08c71da2f2e16bbf",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-skill-hub-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-4A4B530069B485",
+      "requirement_id": "REQ-ED951751541EB4",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-skill-hub-spec-ts:L784:daca1dbe08",
-        "QHEAD-E2E-e2e-skill-hub-spec-ts:L662:daca1dbe08"
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L889:daca1dbe08"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-skill-hub-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-skill-hub-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -98,19 +78,19 @@
       "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
     },
     {
-      "action": "card.getByRole(\"button\", { name: \"安装 推荐目录技能 1\" }).click()"
+      "action": "card.getByRole(\"button\", { name: \"安装 推荐目录技能 6\" }).click()"
     },
     {
-      "action": "card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 1\" }).click()"
+      "action": "card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 6\" }).click()"
     },
     {
       "action": "menu.getByRole(\"menuitem\", { name: \"关闭\" }).click()"
     },
     {
-      "action": "card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 1\" }).click()"
+      "action": "card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 6\" }).click()"
     },
     {
-      "action": "page.getByRole(\"menu\", { name: \"推荐目录技能 1 更多操作\" }).getByRole(\"menuitem\", { name: \"启用\" }).click()"
+      "action": "page.getByRole(\"menu\", { name: \"推荐目录技能 6 更多操作\" }).getByRole(\"menuitem\", { name: \"启用\" }).click()"
     },
     {
       "action": "trial.hover()"
@@ -120,13 +100,13 @@
     }
   ],
   "expected_outcomes": [
-    "expect(recommended.getByRole(\"article\")).toHaveCount(30)",
     "expect(card).toBeVisible()",
+    "expect(initialRecommendedCount).toBeGreaterThan(0)",
     "expect(page.getByRole(\"button\", { name: \"我安装的 (1)\" })).toBeVisible()",
-    "expect(recommended.getByRole(\"article\")).toHaveCount(30)",
-    "expect(card).toContainText(\"推荐目录技能 1\")",
-    "expect(card.getByRole(\"button\", { name: \"安装 推荐目录技能 1\" })).toHaveCount(0)",
-    "expect(card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 1\" })).toBeVisible()",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(initialRecommendedCount)",
+    "expect(card).toContainText(\"推荐目录技能 6\")",
+    "expect(card.getByRole(\"button\", { name: \"安装 推荐目录技能 6\" })).toHaveCount(0)",
+    "expect(card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 6\" })).toBeVisible()",
     "expect(trial).toBeVisible()",
     "expect(card.getByTestId(\"recommended-skill-installed-icon\")).toBeVisible()",
     "expect(Math.abs(moreBox.y - trialBox.y)).toBeLessThanOrEqual(2)",
@@ -144,7 +124,7 @@
     "expect(trial).toBeEnabled()",
     "expect(page.getByRole(\"tooltip\", { name: \"试一试\" })).toBeVisible()",
     "expect(card.getByTestId(\"recommended-skill-try-icon\")).toBeVisible()",
-    "expect(page.getByTestId(\"composer-editor\").getByTestId(\"selected-skill-token\")) .toContainText(\"推荐目录技能 1\")"
+    "expect(page.getByTestId(\"composer-editor\").getByTestId(\"selected-skill-token\")) .toContainText(\"推荐目录技能 6\")"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -153,7 +133,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-4A4B530069B485",
+      "requirement_id": "REQ-ED951751541EB4",
       "type": "return",
       "assertion": "keeps an installed recommendation in place with WorkBuddy-style management and trial actions"
     }
@@ -217,19 +197,19 @@
           "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
         },
         {
-          "action": "card.getByRole(\"button\", { name: \"安装 推荐目录技能 1\" }).click()"
+          "action": "card.getByRole(\"button\", { name: \"安装 推荐目录技能 6\" }).click()"
         },
         {
-          "action": "card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 1\" }).click()"
+          "action": "card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 6\" }).click()"
         },
         {
           "action": "menu.getByRole(\"menuitem\", { name: \"关闭\" }).click()"
         },
         {
-          "action": "card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 1\" }).click()"
+          "action": "card.getByRole(\"button\", { name: \"更多操作 推荐目录技能 6\" }).click()"
         },
         {
-          "action": "page.getByRole(\"menu\", { name: \"推荐目录技能 1 更多操作\" }).getByRole(\"menuitem\", { name: \"启用\" }).click()"
+          "action": "page.getByRole(\"menu\", { name: \"推荐目录技能 6 更多操作\" }).getByRole(\"menuitem\", { name: \"启用\" }).click()"
         },
         {
           "action": "trial.hover()"
@@ -256,13 +236,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/skill-hub.spec.ts",
-        "line_start": 662,
-        "line_end": 719,
-        "body_sha256": "sha256:edda04f2024abc2657ffeb9f8062098a275f919812782636720c417c2eb6004c",
+        "line_start": 889,
+        "line_end": 947,
+        "body_sha256": "sha256:f356b59e14cb99a460fd7e1456ffaa7e52c82e91dddf673ccee9fcfc450cc53b",
         "assertion_count": 25,
         "action_count": 8,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:0b685b94df77a3dc0f0995c858a81a6ad4039a3d0ec6d57688d6a61ef41052a4"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c3af76be63cda91e78dd4f64f43a932a333b3232f75fbcfe7601ec31b5b8e1f3"
       }
     },
     "reference_run": {
@@ -284,7 +264,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-4A4B530069B485"
+      "REQ-ED951751541EB4"
     ],
     "categories": [
       "business"
@@ -292,7 +272,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-4A4B530069B485"
+      "requirement:REQ-ED951751541EB4"
     ]
   }
 }

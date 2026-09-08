@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/windows-titlebar-parity.spec.ts",
-      "locator": "line:7;test:matches the shared QWork title bar across the four sidebar destinations",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/windows-titlebar-parity.spec.ts",
+      "locator": "line:129;test:matches the shared QWork title bar across the four sidebar destinations",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:dce205fdbd780277b145b8e610a3b6fb95b9dd81c0d4f044e4b23edff142bc37",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-6A0B088DA61C06",
+      "requirement_id": "REQ-5E33B6FD6DF77F",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-windows-titlebar-parity-spec-ts:L7:dce205fdbd"
+        "QDEV-E2E-e2e-windows-titlebar-parity-spec-ts:L129:dce205fdbd"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "opened.page.mouse.click(collapseBox!.x + 1, collapseBox!.y + collapseBox!.height / 2)"
+    },
+    {
+      "action": "opened.page.mouse.click(expandBox!.x + 1, expandBox!.y + expandBox!.height / 2)"
+    },
+    {
       "action": "opened.page.getByText(destination, { exact: true }).first().click()"
     },
     {
@@ -82,17 +88,60 @@
     },
     {
       "action": "sidebarControls.locator(\"button\").first().click()"
+    },
+    {
+      "action": "opened.page.getByRole(\"menuitem\", { name: \"帮助(H)\" }).click()"
+    },
+    {
+      "action": "opened.page.getByRole(\"menuitem\", { name: \"诊断工具\" }).click()"
+    },
+    {
+      "action": "opened.page.getByRole(\"button\", { name: \"关闭设置\" }).click()"
+    },
+    {
+      "action": "opened.page.getByRole(\"menuitem\", { name: \"帮助(H)\" }).click()"
+    },
+    {
+      "action": "opened.page.getByRole(\"menuitem\", { name: \"意见反馈\" }).click()"
+    },
+    {
+      "action": "opened.page.getByRole(\"button\", { name: \"关闭意见反馈\" }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect(opened.page.getByTestId(\"home-empty-state\")).toBeVisible()",
+    "expect(opened.page.getByTestId(\"window-chrome\")).toHaveCSS( \"background-color\", \"rgba(0, 0, 0, 0)\", )",
+    "expect(opened.page.getByTestId(\"main-panel-workspace\")).toHaveCSS( \"border-top-left-radius\", \"12px\", )",
+    "expect(opened.page.getByTestId(\"main-panel-workspace\")).toHaveCSS( \"background-color\", \"rgb(255, 255, 255)\", )",
+    "expect(opened.page.getByRole(\"toolbar\", { name: \"对话工具栏\" })).toHaveCount(0)",
+    "expect(opened.page.getByTestId(\"windows-window-controls\")).toHaveCount(0)",
+    "expect(opened.page.getByRole(\"button\", { name })).toHaveCount(0)",
+    "expect(opened.page.getByTestId(\"window-chrome\").locator(\"[data-testid='windows-sidebar-controls']\")) .toHaveCount(0)",
+    "expect(opened.page.getByTestId(\"windows-sidebar-controls\")).toHaveCSS(\"position\", \"absolute\")",
+    "expect(expandedControls).toEqual([ { button: { x: 148, y: 42, width: 32, height: 32 }, icon: { x: 156, y: 50, width: 16, height: 16 } }, { button: { x: 184, y: 42, width: 32, height: 32 }, icon: { x: 192, y: 50, width: 16, height: 16 } }, { button: { x: 220, y: 42, width: 32, height: 32 }, icon: { x: 228, y: 50, width: 16, height: 16 } }, ])",
+    "expect(diagnostics.appVersion).toBe(mainVersion)",
+    "expect(await versionLabel.boundingBox()).toMatchObject({ x: 24, y: 49, height: 18 })",
+    "expect(versionLabel).toHaveCSS(\"font-size\", \"12px\")",
+    "expect(versionLabel).toHaveCSS(\"font-weight\", \"400\")",
+    "expect(versionLabel).toHaveCSS(\"line-height\", \"18px\")",
+    "expect(versionLabel).toHaveCSS(\"color\", \"rgba(0, 0, 0, 0.5)\")",
+    "expect(collapseBox).not.toBeNull()",
+    "expect(collapseBox).toMatchObject({ x: 148, y: 42, width: 32, height: 32 })",
+    "expect .poll(async () => Math.abs((await opened.page.getByTestId(\"main-panel-workspace\").boundingBox())?.x ?? Infinity)) .toBeLessThanOrEqual(1)",
+    "expect(expandBox).not.toBeNull()",
+    "expect(expandBox).toMatchObject({ x: 16, y: 42, width: 32, height: 32 })",
+    "expect(newThreadBox).toMatchObject({ x: 52, y: 42, width: 32, height: 32 })",
+    "expect .poll(async () => Math.abs(((await opened.page.getByTestId(\"main-panel-workspace\").boundingBox())?.x ?? 0) - 264)) .toBeLessThanOrEqual(2)",
     "expect(chrome).toHaveAttribute(\"data-windows-qwork-titlebar\", \"true\")",
+    "expect(chrome).toHaveAttribute(\"data-global-frame\", \"false\")",
     "expect(chrome).toHaveCSS(\"height\", \"30px\")",
-    "expect(opened.page.getByTestId(\"windows-brand-menu\")).toHaveText(\"QWork\")",
-    "expect(opened.page.getByRole(\"button\", { name: \"编辑(E)\" })).toBeVisible()",
-    "expect(opened.page.getByRole(\"button\", { name: \"窗口(W)\" })).toBeVisible()",
-    "expect(opened.page.getByRole(\"button\", { name: \"帮助(H)\" })).toBeVisible()",
-    "expect(chrome.getByRole(\"button\", { name: \"文件\" })).toHaveCount(0)",
-    "expect(chrome.getByRole(\"button\", { name: \"查看\" })).toHaveCount(0)",
+    "expect(globalChrome).toHaveCount(1)",
+    "expect(globalChrome.getByRole(\"menuitem\", { name: \"QWork\" })).toHaveText(\"QWork\")",
+    "expect(opened.page.getByRole(\"menuitem\", { name: \"编辑(E)\" })).toBeVisible()",
+    "expect(opened.page.getByRole(\"menuitem\", { name: \"窗口(W)\" })).toBeVisible()",
+    "expect(opened.page.getByRole(\"menuitem\", { name: \"帮助(H)\" })).toBeVisible()",
+    "expect(globalChrome.getByRole(\"menuitem\", { name: \"文件\" })).toHaveCount(0)",
+    "expect(globalChrome.getByRole(\"menuitem\", { name: \"查看\" })).toHaveCount(0)",
     "expect(chrome.getByRole(\"toolbar\")).toHaveCount(0)",
     "expect(pageToolbar).toHaveCount(0)",
     "expect(pageToolbar).toBeVisible()",
@@ -102,7 +151,6 @@
     "expect(opened.page.getByRole(\"combobox\", { name: \"历史提问\" })).toBeVisible()",
     "expect(opened.page.getByRole(\"button\", { name })).toHaveCount(0)",
     "expect(sidebarControls.locator(\"button\")).toHaveCount(destination === \"项目\" ? 1 : 2)",
-    "expect(pageToolbar).toHaveCount(0)",
     "expect(sidebarBox).not.toBeNull()",
     "expect(toolbarBox).not.toBeNull()",
     "expect(toolbarBox!.x).toBeGreaterThanOrEqual(sidebarBox!.x + sidebarBox!.width + 8)",
@@ -110,14 +158,23 @@
     "expect(headingBox).not.toBeNull()",
     "expect(headingBox!.y).toBeGreaterThanOrEqual(sidebarBox!.y + sidebarBox!.height + 8)",
     "expect(Math.abs(geometry.viewportWidth - 1159)).toBeLessThanOrEqual(2)",
-    "expect(geometry.brand).toEqual({ x: 0, y: 0, width: 92, height: 30 })",
-    "expect(geometry.edit).toEqual({ x: 92, y: 0, width: 55, height: 30 })",
-    "expect(geometry.window).toEqual({ x: 147, y: 0, width: 58, height: 30 })",
-    "expect(geometry.help).toEqual({ x: 205, y: 0, width: 62, height: 30 })",
-    "expect(geometry.controls).toHaveLength(3)",
-    "geometry.controls.forEach((control, index) => { expect(control).toMatchObject({ y: 0, width: 46, height: 30 }); const expectedX = geometry.viewportWidth - (3 - index) * 46; expect(Math.abs(control.x - expectedX)).toBeLessThanOrEqual(2); })",
+    "expect(Math.abs(geometry.brand.x - 4)).toBeLessThanOrEqual(2)",
+    "expect(geometry.brand.y).toBe(0)",
+    "expect(Math.abs(geometry.brand.height - 30)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(geometry.edit.x - (geometry.brand.x + geometry.brand.width))).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(geometry.window.x - (geometry.edit.x + geometry.edit.width))).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(geometry.help.x - (geometry.window.x + geometry.window.width))).toBeLessThanOrEqual(2)",
+    "expect(geometry.controls).toHaveLength(0)",
+    "expect(Math.abs(geometry.nativeControlsReserve.x - (geometry.viewportWidth - 138))).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(geometry.nativeControlsReserve.width - 138)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(geometry.nativeControlsReserve.height - 30)).toBeLessThanOrEqual(2)",
     "expect(button).toHaveCSS(\"white-space\", \"nowrap\")",
-    "expect.poll(async () => (await button.boundingBox())?.height).toBe(30)"
+    "expect(buttonBox).not.toBeNull()",
+    "expect(Math.abs(buttonBox!.height - 30)).toBeLessThanOrEqual(2)",
+    "expect(opened.page.getByTestId(\"settings-layer\")).toBeVisible()",
+    "expect(opened.page.getByRole(\"button\", { name: \"帮助与反馈\" })).toHaveAttribute(\"aria-current\", \"page\")",
+    "expect(opened.page.getByRole(\"heading\", { name: \"运行环境\" })).toBeVisible()",
+    "expect(opened.page.getByRole(\"dialog\", { name: \"意见反馈\" })).toBeVisible()"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -126,7 +183,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-6A0B088DA61C06",
+      "requirement_id": "REQ-5E33B6FD6DF77F",
       "type": "return",
       "assertion": "matches the shared QWork title bar across the four sidebar destinations"
     }
@@ -187,6 +244,12 @@
       "entrypoint": "shell-home",
       "steps": [
         {
+          "action": "opened.page.mouse.click(collapseBox!.x + 1, collapseBox!.y + collapseBox!.height / 2)"
+        },
+        {
+          "action": "opened.page.mouse.click(expandBox!.x + 1, expandBox!.y + expandBox!.height / 2)"
+        },
+        {
           "action": "opened.page.getByText(destination, { exact: true }).first().click()"
         },
         {
@@ -194,6 +257,24 @@
         },
         {
           "action": "sidebarControls.locator(\"button\").first().click()"
+        },
+        {
+          "action": "opened.page.getByRole(\"menuitem\", { name: \"帮助(H)\" }).click()"
+        },
+        {
+          "action": "opened.page.getByRole(\"menuitem\", { name: \"诊断工具\" }).click()"
+        },
+        {
+          "action": "opened.page.getByRole(\"button\", { name: \"关闭设置\" }).click()"
+        },
+        {
+          "action": "opened.page.getByRole(\"menuitem\", { name: \"帮助(H)\" }).click()"
+        },
+        {
+          "action": "opened.page.getByRole(\"menuitem\", { name: \"意见反馈\" }).click()"
+        },
+        {
+          "action": "opened.page.getByRole(\"button\", { name: \"关闭意见反馈\" }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -214,13 +295,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/windows-titlebar-parity.spec.ts",
-        "line_start": 7,
-        "line_end": 109,
-        "body_sha256": "sha256:ce9e780a15903e258fa32c545c7374ef1390fde71328d2fd9e91f8d32124625e",
-        "assertion_count": 33,
-        "action_count": 3,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:0fcb666055b8df4c0100faed301a4bfeec650a0eb24870da39c3417fa2e1614b"
+        "line_start": 129,
+        "line_end": 372,
+        "body_sha256": "sha256:17a49a92ce53eb396e75427cee8794eb93b7f84fde6bfc5ed014b19865b23272",
+        "assertion_count": 66,
+        "action_count": 11,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c37b580271842bea5eca82e21dd94055e345c5d80840d27d0593ab0312cd61a9"
       }
     },
     "reference_run": {
@@ -242,7 +323,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-6A0B088DA61C06"
+      "REQ-5E33B6FD6DF77F"
     ],
     "categories": [
       "business"
@@ -250,7 +331,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-6A0B088DA61C06"
+      "requirement:REQ-5E33B6FD6DF77F"
     ]
   }
 }

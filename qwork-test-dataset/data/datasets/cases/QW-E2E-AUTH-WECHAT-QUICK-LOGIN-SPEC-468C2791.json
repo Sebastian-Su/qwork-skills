@@ -1,0 +1,278 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-AUTH-WECHAT-QUICK-LOGIN-SPEC-468C2791",
+  "title": "recovers after the embedded login window closes and keeps platform menu ownership",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-auth-wechat-quick-login-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/auth-wechat-quick-login.spec.ts",
+      "locator": "line:236;test:recovers after the embedded login window closes and keeps platform menu ownership",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:468c27911899d3f440f891a7080f4d0c236bceb1362940adbd349a1a0d8f0321",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-380EDB7D24B18E",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-auth-wechat-quick-login-spec-ts:L236:468c279118"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "recovers after the embedded login window closes and keeps platform menu ownership",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-auth-wechat-quick-login-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "recovers after the embedded login window closes and keeps platform menu ownership"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "server.close((error) => error ? reject(error) : resolve())"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"登录\", exact: true }).click()"
+    },
+    {
+      "action": "loginWindow.getByRole(\"button\", { name: \"关闭\" }).click({ noWaitAfter: true })"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"帮助(H)\" }).click()"
+    },
+    {
+      "action": "page.mouse.click(80, 240)"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"QWork\" }).click()"
+    },
+    {
+      "action": "aboutMenuItem.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"确定\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(() => app!.windows().length).toBe(2)",
+    "expect.poll(() => app!.windows().length).toBe(1)",
+    "expect(page.getByText(\"已取消登录，可重新发起。\")).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"重新登录\" })).toBeFocused()",
+    "expect(page.getByRole(\"menubar\", { name: \"应用菜单\" })).toHaveCount(0)",
+    "expect(page.getByTestId(\"global-window-chrome\")).toHaveCount(0)",
+    "expect(page.getByTestId(\"window-chrome\")).toHaveCount(0)",
+    "expect(nativeMenu?.map((item) => item.label)).toEqual([\"QWork\", \"编辑\", \"查看\", \"窗口\", \"帮助\"])",
+    "expect(nativeMenu?.[0]?.submenu).toEqual([ \"关于 QWork\", \"检查更新...\", \"separator\", \"服务\", \"separator\", \"隐藏 QWork\", \"隐藏其他\", \"显示全部\", \"separator\", \"退出 QWork\", ])",
+    "expect(page.getByRole(\"menubar\", { name: \"应用菜单\" })).toHaveCSS(\"-webkit-app-region\", \"none\")",
+    "expect(page.getByTestId(\"global-window-drag-surface\")).toHaveCSS(\"-webkit-app-region\", \"drag\")",
+    "expect(page.getByRole(\"region\", { name: \"登录\" })).toHaveCSS(\"-webkit-app-region\", \"none\")",
+    "expect(page.getByTestId(\"global-window-controls\")).toHaveCount(0)",
+    "expect(nativeControlsReserve).toBeVisible()",
+    "expect(reserveBox).not.toBeNull()",
+    "expect(Math.abs(reserveBox!.width - 138)).toBeLessThanOrEqual(2)",
+    "expect(page.getByRole(\"menu\", { name: \"帮助\" })).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"帮助\" })).toHaveCount(0)",
+    "expect(await aboutMenuItem.evaluate((element) => element.closest('[data-testid=\"global-window-chrome\"]') === null, )).toBe(true)",
+    "expect(aboutMenuItem.locator(\"span\").first()).toHaveCSS(\"-webkit-app-region\", \"no-drag\")",
+    "expect(aboutDialog).toBeVisible()",
+    "expect(aboutDialog).toBeVisible()",
+    "expect(aboutDialog).toContainText(\"版本 0.1.0\")",
+    "expect(page.getByLabel(\"Electron\").filter({ hasText: /.+/ })).toBeVisible()",
+    "expect(aboutDialog).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-380EDB7D24B18E",
+      "type": "return",
+      "assertion": "recovers after the embedded login window closes and keeps platform menu ownership"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-auth-wechat-quick-login-spec-ts.468c279118",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/auth-wechat-quick-login.spec.ts -g \"recovers after the embedded login window closes and keeps platform menu ownership\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "server.close((error) => error ? reject(error) : resolve())"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"登录\", exact: true }).click()"
+        },
+        {
+          "action": "loginWindow.getByRole(\"button\", { name: \"关闭\" }).click({ noWaitAfter: true })"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"帮助(H)\" }).click()"
+        },
+        {
+          "action": "page.mouse.click(80, 240)"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"QWork\" }).click()"
+        },
+        {
+          "action": "aboutMenuItem.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"确定\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/auth-wechat-quick-login.spec.ts",
+        "line_start": 236,
+        "line_end": 326,
+        "body_sha256": "sha256:4fff4dc24c74694c9b6f57b02156d56010747ff7f918255c0547b5e671831a48",
+        "assertion_count": 25,
+        "action_count": 8,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:de280d386fcb218652df4e3b635893d97874871e090e7d34d67906daa15cc357"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-380EDB7D24B18E"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-380EDB7D24B18E"
+    ]
+  }
+}

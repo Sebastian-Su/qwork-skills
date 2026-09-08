@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/skill-suite.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/skill-suite.spec.ts",
       "locator": "line:339;test:SUITE-DETAIL-001 | installs and manages a suite from its full-page detail",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:8aef22a4f02e3a36fb47ae3d9433f00895f4b05464e8cdeabf22bed6118a1b65",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,21 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }).click()"
+    },
+    {
+      "action": "composer.fill(\"创建套件市场测试会话\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
       "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
     },
     {
@@ -103,10 +118,12 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByText(/收到：创建套件市场测试会话/)).toBeVisible()",
     "expect(page.getByRole(\"heading\", { name: \"document-skills\", level: 1 })).toBeVisible()",
     "expect(page.getByText(\"市场 (Anthropic example skills)\", { exact: true })).toBeVisible()",
     "expect(page.getByRole(\"article\", { name: /子技能$/ })).toHaveCount(4)",
     "expect(page.getByRole(\"article\", { name: \"document-skills-5 子技能\" })).toHaveCount(0)",
+    "expect.poll(async () => { layout = await page.getByTestId(\"suite-child-grid\").evaluate((grid) => { const cards = [...grid.querySelectorAll<HTMLElement>(\"article\")]; const gap = Number.parseFloat(getComputedStyle(grid).columnGap) || 0; const minimumCardWidth = 300; const observedColumns = new Set(cards.map((card) => Math.round(card.getBoundingClientRect().left))).size; const expectedColumns = Math.min( cards.length, …",
     "expect(compactLayout.observedColumns).toBeLessThanOrEqual(wideLayout.observedColumns)",
     "expect(page.getByText(\"插件 document-skills 安装成功\", { exact: true })).toBeVisible()",
     "expect(page.getByRole(\"button\", { name: \"document-skills 已安装\" })).toBeDisabled()",
@@ -184,6 +201,21 @@
       "entrypoint": "skills",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }).click()"
+        },
+        {
+          "action": "composer.fill(\"创建套件市场测试会话\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
           "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
         },
         {
@@ -232,9 +264,9 @@
         "line_start": 339,
         "line_end": 381,
         "body_sha256": "sha256:5ba677d756f2aa023eb2eeb4741e56e180a35fcae05e8cea36209cdedaae4a37",
-        "assertion_count": 12,
-        "action_count": 9,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 14,
+        "action_count": 14,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:477e7268eafc7cc8cb459ee9c0ca813f6dfe19fc32a250f8cef01d3ee4e7ed14"
       }
     },

@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-lemonclaw-private-install.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-lemonclaw-private-install.spec.ts",
       "locator": "line:254;test:installs LemonClaw into QWork-owned persistent storage and only removes private credentials",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:891cb34b44ccbc784322a22af9a7667f6b6763d36ce42d57b4e4faf2afbcca90",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,18 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "header.fill(0x20, 148, 156)"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
+      "action": "search.fill(\"LemonClaw\")"
+    },
+    {
       "action": "launched.page .getByRole(\"button\", { name: \"LemonClaw，未连接\", exact: true }) .click()"
     },
     {
@@ -91,6 +103,8 @@
     }
   ],
   "expected_outcomes": [
+    "expect(search).toBeVisible()",
+    "expect( page.getByRole(\"button\", { name: `LemonClaw，${state}`, exact: true }), ).toBeVisible({ timeout: 5_000 })",
     "expect(installToast).toBeVisible()",
     "expect( detail.getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible({ timeout: 30_000 })",
     "expect(installToast).not.toBeVisible()",
@@ -185,6 +199,18 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "header.fill(0x20, 148, 156)"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
+          "action": "search.fill(\"LemonClaw\")"
+        },
+        {
           "action": "launched.page .getByRole(\"button\", { name: \"LemonClaw，未连接\", exact: true }) .click()"
         },
         {
@@ -221,9 +247,9 @@
         "line_start": 254,
         "line_end": 475,
         "body_sha256": "sha256:ffd69e1dde30b11117680fbeb888e34afb4f7eb729fcf6cc9b1d899942cf95b5",
-        "assertion_count": 25,
-        "action_count": 5,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 27,
+        "action_count": 9,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:11f324215e31288753dad54ebf35d8b0bac1376a2203797bcd86272b8daa4598"
       }
     },

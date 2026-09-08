@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-remaining-types.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-remaining-types.spec.ts",
       "locator": "line:586;test:dispatches a bundled no-auth local stdio connector without a shell",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:72bee0f6757136714fea15a0fd79bcdb5d27213f2925c178828e50d1c4fb1159",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"MasterGo 莫高设计，未连接\" }).click()"
     },
     {
@@ -82,6 +88,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByLabel(\"搜索连接器\")).toBeVisible()",
     "expect( page .getByRole(\"dialog\", { name: \"MasterGo 莫高设计\" }) .getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible()",
     "expect(upsert?.server).toMatchObject({ name: \"mastergo-vibe-mcp\", transport: \"stdio\", command: \"npx\", args: [\"-y\", \"@mastergo/vibe-mcp\", \"--url=http://localhost:50678\"], })"
   ],
@@ -153,6 +160,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"MasterGo 莫高设计，未连接\" }).click()"
         },
         {
@@ -180,9 +193,9 @@
         "line_start": 586,
         "line_end": 612,
         "body_sha256": "sha256:5477299eb42a0d082f7d2e67202125422deae105559d0dd3a65f89f782d0cc9f",
-        "assertion_count": 2,
-        "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 3,
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:44edade7183524ded01be4499a9cdadc6e387aea7eebcc674767718eec3e2e3e"
       }
     },

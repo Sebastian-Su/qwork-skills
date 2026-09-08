@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/ui-layout-window-content-safe.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/ui-layout-window-content-safe.spec.ts",
       "locator": "line:43;test:UI-LAYOUT-CONTENT-SAFE-001 | collapsed shell keeps list and hub pages outside native and QWork controls",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:6cc56f7c31f62354dcb724924b5739812199fc212518f2d9e82d33e2d02fe972",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,21 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "expand.click()"
+    },
+    {
+      "action": "navigation.hover()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"更多\" }) .getByRole(\"menuitem\", { name: \"我的文件\", exact: true }) .click()"
+    },
+    {
+      "action": "navigation.click()"
+    },
+    {
+      "action": "collapse.click()"
+    },
+    {
       "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
     },
     {
@@ -83,6 +98,28 @@
   ],
   "expected_outcomes": [
     "expect(page.getByRole(\"region\", { name: \"活动通知\" })).toHaveCount(0)",
+    "expect(page.getByTitle(\"收起侧栏\", { exact: true })).toBeVisible()",
+    "expect .poll(() => page.getByTestId(\"left-rail-shell\").evaluate((element) => element.getBoundingClientRect().width)) .toBe(264)",
+    "expect(page.getByTitle(\"展开侧栏\", { exact: true })).toBeVisible()",
+    "expect .poll(() => page.getByTestId(\"left-rail-shell\").evaluate((element) => element.getBoundingClientRect().width)) .toBe(0)",
+    "expect(page.getByTestId(\"page-surface\")).toHaveAttribute( \"data-page-chrome-mode\", \"integrated\", )",
+    "expect(page.getByRole(\"heading\", { name: \"QWork, 我帮你\", exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"toolbar\", { name: \"对话工具栏\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name })).toHaveCount(0)",
+    "expect(page.getByTestId(\"window-drag-surface\")).toHaveAttribute( \"data-tauri-drag-region\", )",
+    "expect(surface).toHaveAttribute( \"data-page-chrome-mode\", \"integrated\", )",
+    "expect(toolbar).toBeVisible()",
+    "expect(toolbar).not.toHaveAttribute(\"data-tauri-drag-region\")",
+    "expect(box).not.toBeNull()",
+    "expect(toolbarBox.y).toBeGreaterThanOrEqual(mainBox.y)",
+    "expect(toolbarBox.x).toBe(mainBox.x)",
+    "expect(toolbarBox.right).toBe(mainBox.right)",
+    "expect(overlapsHorizontally && overlapsVertically).toBe(false)",
+    "expect(toolbar).toHaveAttribute(\"data-tauri-drag-region\")",
+    "expect(toolbar).not.toHaveAttribute(\"data-no-drag\")",
+    "expect(heading).toBeVisible()",
+    "expect([\"below\", \"integrated\"]).toContain(mode)",
+    "expect(box.y).toBeGreaterThanOrEqual(process.platform === \"win32\" ? 30 : 56)",
     "expect(page.getByText(\"推荐技能暂未配置\", { exact: true })).toHaveCount(0)",
     "expect(page.getByText(\"暂无可用推荐技能\", { exact: true })).toBeVisible()",
     "expect(page.getByRole(\"tab\", { name: \"推荐\", exact: true })).toHaveAttribute(\"aria-selected\", \"true\")",
@@ -159,6 +196,21 @@
       "entrypoint": "window-runtime",
       "steps": [
         {
+          "action": "expand.click()"
+        },
+        {
+          "action": "navigation.hover()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"更多\" }) .getByRole(\"menuitem\", { name: \"我的文件\", exact: true }) .click()"
+        },
+        {
+          "action": "navigation.click()"
+        },
+        {
+          "action": "collapse.click()"
+        },
+        {
           "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
         },
         {
@@ -186,10 +238,10 @@
         "line_start": 43,
         "line_end": 74,
         "body_sha256": "sha256:29c9ed0bed373b27a1e93fbaa8d8f83d62abf6d250b1f3a09dd81b3022021c92",
-        "assertion_count": 8,
-        "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:3a57147af3947b16f280b82f9794c1c4b827b75a87662ca6c94ab1024d45b8f3"
+        "assertion_count": 30,
+        "action_count": 7,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:f5c445b940ff24951c25b7f9b4f1eb9d41ae10e484df5b45f5764d09c6d7a822"
       }
     },
     "reference_run": {

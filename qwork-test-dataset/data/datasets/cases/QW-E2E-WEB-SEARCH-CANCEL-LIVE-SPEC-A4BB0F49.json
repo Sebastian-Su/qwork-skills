@@ -1,0 +1,252 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WEB-SEARCH-CANCEL-LIVE-SPEC-A4BB0F49",
+  "title": "真实 Electron + ZiqDo 在两秒内取消延迟 WebSearch HTTP 请求",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-web-search-cancel-live-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/web-search-cancel.live.spec.ts",
+      "locator": "line:39;test:真实 Electron + ZiqDo 在两秒内取消延迟 WebSearch HTTP 请求",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:a4bb0f492e8cbdfa2b427f7cac067b549560afcbac668405d2c53e156c087fa5",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-68E87463DD3343",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-web-search-cancel-live-spec-ts:L39:a4bb0f492e"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "真实 Electron + ZiqDo 在两秒内取消延迟 WebSearch HTTP 请求",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-web-search-cancel-live-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "真实 Electron + ZiqDo 在两秒内取消延迟 WebSearch HTTP 请求"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "server.close(() => resolve())"
+    },
+    {
+      "action": "composer.fill( \"仅使用一次 WebSearch 搜索 OpenAI Codex；搜索开始后等待，不要调用其他工具。\", )"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "stop.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( fs.stat(realZiqdo).then((entry) => entry.isFile()).catch(() => false), `real ZiqDo binary is required at ${realZiqdo}`, ).resolves.toBe(true)",
+    "expect .poll(() => page.evaluate(() => window.workGui!.auth.status().then((status) => status.loggedIn), ), ) .toBe(true)",
+    "expect(page.getByText(\"搜索网页中...\", { exact: true })).toBeVisible({ timeout: 60_000, })",
+    "expect(stop).toBeVisible()",
+    "expect( page.getByText(\"已取消网页搜索\", { exact: true }), ).toBeVisible()",
+    "expect(uiCancelLatencyMs).toBeLessThanOrEqual(2_000)",
+    "expect(requestCloseLatencyMs).toBeGreaterThanOrEqual(0)",
+    "expect(requestCloseLatencyMs).toBeLessThanOrEqual(2_000)",
+    "expect(webSearchCallIds).toEqual( new Set([\"call-web-search-combined-cancel\"]), )",
+    "expect(webSearchResults).toHaveLength(1)",
+    "expect(webSearchResults[0]).toMatchObject({ status: \"cancelled\", is_error: true, })",
+    "expect(controlledApi.metrics.searchRequests).toBe(1)",
+    "expect(controlledApi.metrics.searchClientClosed).toBe(1)",
+    "expect(controlledApi.metrics.delayedReleaseCount).toBe(0)",
+    "expect(controlledApi.metrics.webSearchToolResponses).toBe(1)",
+    "expect( page.getByText(\"已取消网页搜索\", { exact: true }), ).toBeVisible()",
+    "expect( page.getByText(\"组合取消验收\", { exact: true }), ).toHaveCount(0)",
+    "expect(historyResults).toHaveLength(1)",
+    "expect(historyResults[0]).toMatchObject({ is_error: true })",
+    "expect(JSON.stringify(historyResults[0])).toContain(\"cancel\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-68E87463DD3343",
+      "type": "return",
+      "assertion": "真实 Electron + ZiqDo 在两秒内取消延迟 WebSearch HTTP 请求"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-web-search-cancel-live-spec-ts.a4bb0f492e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": true,
+      "scopes": [
+        "real external account/service/model route named by the source test"
+      ]
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/web-search-cancel.live.spec.ts -g \"真实 Electron + ZiqDo 在两秒内取消延迟 WebSearch HTTP 请求\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "server.close(() => resolve())"
+        },
+        {
+          "action": "composer.fill( \"仅使用一次 WebSearch 搜索 OpenAI Codex；搜索开始后等待，不要调用其他工具。\", )"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "stop.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home plus separately authorized real external fixture",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/web-search-cancel.live.spec.ts",
+        "line_start": 39,
+        "line_end": 197,
+        "body_sha256": "sha256:44b9a649ff6fe3d5bdee7802a2997be9f23b8851c3b5af81cee79dbf7d135779",
+        "assertion_count": 20,
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:fd994a54f4b4227a25d9f01177eae8d74f240c47884a3dd20aaca44ea1e9ae61"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "independent authorization for real external route pending",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-68E87463DD3343"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-68E87463DD3343"
+    ]
+  }
+}

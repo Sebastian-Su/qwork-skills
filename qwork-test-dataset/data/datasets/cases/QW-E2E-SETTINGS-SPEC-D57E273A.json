@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/settings.spec.ts",
-      "locator": "line:422;test:escapes dynamic values in the visual contract HTML",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/settings.spec.ts",
+      "locator": "line:425;test:escapes dynamic values in the visual contract HTML",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:d57e273aeae620b93da8a629ade128f6f0b85bbcceb1d6098128f27dc921b14f",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-ED2499D8D4614C",
+      "requirement_id": "REQ-5009A666C16A47",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-settings-spec-ts:L422:d57e273aea"
+        "QDEV-E2E-e2e-settings-spec-ts:L425:d57e273aea"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:49:11.933173+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -75,7 +75,37 @@
       "action": "renderSettingsVisualContractHtml({ generatedAt: '<script>alert(\"date\")</script>', summary: { captures: 1, structuralPass: true, pixelParity: '<img src=x onerror=\"alert(2)\">', releaseParityGate: false, }, baseline: { structural: { status: \"available\", source: \"fixed\" }, pixel: { status: \"unavailable\", reason: injectedReason }, }, captures: [{ state: injectedState, viewport: { width: 1280, height: 752 }, screenshot: {…"
     },
     {
-      "action": "\"a\".repeat(64)"
+      "action": "report.captures.map((capture) => { const screenshotData = screenshotDataByFile.get(capture.screenshot.file); if (!screenshotData) { throw new Error(`Missing screenshot data for ${capture.screenshot.file}`); } const escapedState = escapeHtml(capture.state); return `<article> <h2>${escapedState}</h2> <p>${capture.viewport.width}×${capture.viewport.height} · 几何${capture.geometry.pass ? \"通过\" : \"失败\"} · 像素差未评估</p> <p clas…"
+    },
+    {
+      "action": "report.captures.map((capture) => { const screenshotData = screenshotDataByFile.get(capture.screenshot.file); if (!screenshotData) { throw new Error(`Missing screenshot data for ${capture.screenshot.file}`); } const escapedState = escapeHtml(capture.state); return `<article> <h2>${escapedState}</h2> <p>${capture.viewport.width}×${capture.viewport.height} · 几何${capture.geometry.pass ? \"通过\" : \"失败\"} · 像素差未评估</p> <p clas…"
+    },
+    {
+      "action": "screenshotDataByFile.get(capture.screenshot.file)"
+    },
+    {
+      "action": "escapeHtml(capture.state)"
+    },
+    {
+      "action": "String(value) .replaceAll(\"&\", \"&amp;\") .replaceAll(\"<\", \"&lt;\") .replaceAll(\">\", \"&gt;\") .replaceAll('\"', \"&quot;\") .replaceAll(\"'\", \"&#39;\")"
+    },
+    {
+      "action": "String(value) .replaceAll(\"&\", \"&amp;\") .replaceAll(\"<\", \"&lt;\") .replaceAll(\">\", \"&gt;\") .replaceAll('\"', \"&quot;\")"
+    },
+    {
+      "action": "String(value) .replaceAll(\"&\", \"&amp;\") .replaceAll(\"<\", \"&lt;\") .replaceAll(\">\", \"&gt;\")"
+    },
+    {
+      "action": "String(value) .replaceAll(\"&\", \"&amp;\") .replaceAll(\"<\", \"&lt;\")"
+    },
+    {
+      "action": "String(value) .replaceAll(\"&\", \"&amp;\")"
+    },
+    {
+      "action": "String(value)"
+    },
+    {
+      "action": "escapeHtml(capture.screenshot.sha256)"
     }
   ],
   "expected_outcomes": [
@@ -91,7 +121,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-ED2499D8D4614C",
+      "requirement_id": "REQ-5009A666C16A47",
       "type": "return",
       "assertion": "escapes dynamic values in the visual contract HTML"
     }
@@ -143,7 +173,37 @@
           "action": "renderSettingsVisualContractHtml({ generatedAt: '<script>alert(\"date\")</script>', summary: { captures: 1, structuralPass: true, pixelParity: '<img src=x onerror=\"alert(2)\">', releaseParityGate: false, }, baseline: { structural: { status: \"available\", source: \"fixed\" }, pixel: { status: \"unavailable\", reason: injectedReason }, }, captures: [{ state: injectedState, viewport: { width: 1280, height: 752 }, screenshot: {…"
         },
         {
-          "action": "\"a\".repeat(64)"
+          "action": "report.captures.map((capture) => { const screenshotData = screenshotDataByFile.get(capture.screenshot.file); if (!screenshotData) { throw new Error(`Missing screenshot data for ${capture.screenshot.file}`); } const escapedState = escapeHtml(capture.state); return `<article> <h2>${escapedState}</h2> <p>${capture.viewport.width}×${capture.viewport.height} · 几何${capture.geometry.pass ? \"通过\" : \"失败\"} · 像素差未评估</p> <p clas…"
+        },
+        {
+          "action": "report.captures.map((capture) => { const screenshotData = screenshotDataByFile.get(capture.screenshot.file); if (!screenshotData) { throw new Error(`Missing screenshot data for ${capture.screenshot.file}`); } const escapedState = escapeHtml(capture.state); return `<article> <h2>${escapedState}</h2> <p>${capture.viewport.width}×${capture.viewport.height} · 几何${capture.geometry.pass ? \"通过\" : \"失败\"} · 像素差未评估</p> <p clas…"
+        },
+        {
+          "action": "screenshotDataByFile.get(capture.screenshot.file)"
+        },
+        {
+          "action": "escapeHtml(capture.state)"
+        },
+        {
+          "action": "String(value) .replaceAll(\"&\", \"&amp;\") .replaceAll(\"<\", \"&lt;\") .replaceAll(\">\", \"&gt;\") .replaceAll('\"', \"&quot;\") .replaceAll(\"'\", \"&#39;\")"
+        },
+        {
+          "action": "String(value) .replaceAll(\"&\", \"&amp;\") .replaceAll(\"<\", \"&lt;\") .replaceAll(\">\", \"&gt;\") .replaceAll('\"', \"&quot;\")"
+        },
+        {
+          "action": "String(value) .replaceAll(\"&\", \"&amp;\") .replaceAll(\"<\", \"&lt;\") .replaceAll(\">\", \"&gt;\")"
+        },
+        {
+          "action": "String(value) .replaceAll(\"&\", \"&amp;\") .replaceAll(\"<\", \"&lt;\")"
+        },
+        {
+          "action": "String(value) .replaceAll(\"&\", \"&amp;\")"
+        },
+        {
+          "action": "String(value)"
+        },
+        {
+          "action": "escapeHtml(capture.screenshot.sha256)"
         }
       ],
       "locator_strategy": "source-bound process assertion",
@@ -164,13 +224,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/settings.spec.ts",
-        "line_start": 422,
-        "line_end": 458,
+        "line_start": 425,
+        "line_end": 461,
         "body_sha256": "sha256:75b060ec9a26e3c26785cf91d600f19ed899a52157141c880c16caf1a3d33b1a",
         "assertion_count": 4,
         "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:810b9b0eddf7b6308584c421b22da0a5421cc35c2ea9b09cc8cf6def1910ed26"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:06e0bba09de15e5fb387cafbdcf2531fe0882c4c60378ce523f9078d9d6f7732"
       }
     },
     "reference_run": {
@@ -192,7 +252,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-ED2499D8D4614C"
+      "REQ-5009A666C16A47"
     ],
     "categories": [
       "business"
@@ -200,7 +260,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-ED2499D8D4614C"
+      "requirement:REQ-5009A666C16A47"
     ]
   }
 }

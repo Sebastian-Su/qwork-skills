@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-task-controls.spec.ts",
-      "locator": "line:339;test:creates a cloud task with an opaque server workspace and no local path controls",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/projects-task-controls.spec.ts",
+      "locator": "line:420;test:creates a cloud task with an opaque server workspace and no local path controls",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:a1255ce8c2da5a440ef92d4feca35c4d3e0a1c7c3eaa89ff212c88c9b7ea3ebd",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-B7C6C22152FDBA",
+      "requirement_id": "REQ-076FA891D573C6",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-projects-task-controls-spec-ts:L339:a1255ce8c2"
+        "QDEV-E2E-e2e-projects-task-controls-spec-ts:L420:a1255ce8c2"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,6 +75,21 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+    },
+    {
+      "action": "dialog .getByPlaceholder(/提供当前项目的背景信息/) .fill(\"验证项目输入控件\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
       "action": "composer.getByRole(\"button\", { name: \"本地任务\", exact: true }).click()"
     },
     {
@@ -87,10 +102,20 @@
       "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
     },
     {
+      "action": "rail.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+    },
+    {
+      "action": "rail.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: new RegExp(name) }).first().click()"
+    },
+    {
       "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByText(name, { exact: true }).first()).toBeVisible()",
     "expect(composer.getByTestId(\"project-composer-workspace-trigger\")).toHaveCount(0)",
     "expect(composer.getByTestId(\"project-composer-permission-trigger\")).toHaveCount(0)",
     "expect(composer.getByTestId(\"project-composer-model-trigger\")).toBeDisabled()",
@@ -106,7 +131,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-B7C6C22152FDBA",
+      "requirement_id": "REQ-076FA891D573C6",
       "type": "return",
       "assertion": "creates a cloud task with an opaque server workspace and no local path controls"
     }
@@ -167,6 +192,21 @@
       "entrypoint": "files",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+        },
+        {
+          "action": "dialog .getByPlaceholder(/提供当前项目的背景信息/) .fill(\"验证项目输入控件\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
           "action": "composer.getByRole(\"button\", { name: \"本地任务\", exact: true }).click()"
         },
         {
@@ -177,6 +217,15 @@
         },
         {
           "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "rail.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+        },
+        {
+          "action": "rail.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: new RegExp(name) }).first().click()"
         },
         {
           "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
@@ -200,13 +249,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/projects-task-controls.spec.ts",
-        "line_start": 339,
-        "line_end": 398,
+        "line_start": 420,
+        "line_end": 479,
         "body_sha256": "sha256:15d26288eb9921e093b0d545af07f84236902c6802afad900623719df285cf28",
-        "assertion_count": 7,
-        "action_count": 5,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:c494a107586cbaa8b4b452fa4dbd0b16afdf9cdb77d8d9b7f83892164f98606b"
+        "assertion_count": 8,
+        "action_count": 13,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:e0b331e6311a5e533fd0fd8f2b38edf5534df4742d681bdfef2d4a9f0d8faa63"
       }
     },
     "reference_run": {
@@ -228,7 +277,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-B7C6C22152FDBA"
+      "REQ-076FA891D573C6"
     ],
     "categories": [
       "business"
@@ -236,7 +285,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-B7C6C22152FDBA"
+      "requirement:REQ-076FA891D573C6"
     ]
   }
 }

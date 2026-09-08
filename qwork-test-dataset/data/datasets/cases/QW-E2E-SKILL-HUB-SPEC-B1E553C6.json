@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/skill-hub.spec.ts",
-      "locator": "line:642;test:matches the WorkBuddy catalog cards and detail layout",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/skill-hub.spec.ts",
+      "locator": "line:735;test:matches the WorkBuddy catalog cards and detail layout",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:b1e553c6545a6021c4edd7ab0ec8e3b777a7fc956606407ed255fafb8d495326",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-skill-hub-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/skill-hub.spec.ts",
-      "locator": "line:520;test:matches the WorkBuddy catalog cards and detail layout",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:b1e553c6545a6021c4edd7ab0ec8e3b777a7fc956606407ed255fafb8d495326",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-skill-hub-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-5BF58B7189C32C",
+      "requirement_id": "REQ-D3F27894C13E91",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-skill-hub-spec-ts:L642:b1e553c654",
-        "QHEAD-E2E-e2e-skill-hub-spec-ts:L520:b1e553c654"
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L735:b1e553c654"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-skill-hub-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-skill-hub-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -102,6 +82,9 @@
     },
     {
       "action": "categoryRail.getByRole(\"tab\", { name: \"办公效率\", exact: true }).hover()"
+    },
+    {
+      "action": "skillHubNext.click()"
     },
     {
       "action": "cards.nth(0).hover({ position: { x: 6, y: 6 } })"
@@ -137,7 +120,8 @@
     "expect(categoryStyle[\"scrollbar-width\"]).toBe(\"none\")",
     "expect.poll(async () => ( categoryRail.getByRole(\"tab\", { name: \"办公效率\", exact: true }).evaluate( (element) => getComputedStyle(element).backgroundColor, ) )).not.toBe(\"rgba(0, 0, 0, 0)\")",
     "expect(scrollPosition.scrollWidth).toBeGreaterThan(scrollPosition.clientWidth)",
-    "expect(scrollPosition.left).toBeGreaterThan(0)",
+    "expect(skillHubNext).toBeVisible()",
+    "expect.poll(() => categoryRail.evaluate((element) => element.scrollLeft)).toBeGreaterThan(scrollPosition.left)",
     "expect(cards).toHaveCount(30)",
     "expect(first.width).toBeGreaterThanOrEqual(290)",
     "expect(first.width).toBeLessThanOrEqual(380)",
@@ -188,7 +172,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-5BF58B7189C32C",
+      "requirement_id": "REQ-D3F27894C13E91",
       "type": "return",
       "assertion": "matches the WorkBuddy catalog cards and detail layout"
     }
@@ -258,6 +242,9 @@
           "action": "categoryRail.getByRole(\"tab\", { name: \"办公效率\", exact: true }).hover()"
         },
         {
+          "action": "skillHubNext.click()"
+        },
+        {
           "action": "cards.nth(0).hover({ position: { x: 6, y: 6 } })"
         },
         {
@@ -303,13 +290,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/skill-hub.spec.ts",
-        "line_start": 520,
-        "line_end": 634,
-        "body_sha256": "sha256:5616d86ffd5c6d6d05c6b4e6a99b86afc0306c7270f643b74d546fae5b20934e",
-        "assertion_count": 48,
-        "action_count": 12,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:0b685b94df77a3dc0f0995c858a81a6ad4039a3d0ec6d57688d6a61ef41052a4"
+        "line_start": 735,
+        "line_end": 857,
+        "body_sha256": "sha256:73c40ab118a49064dd02589349bd1de025270270c5598191603a9b539ccc773e",
+        "assertion_count": 49,
+        "action_count": 13,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c3af76be63cda91e78dd4f64f43a932a333b3232f75fbcfe7601ec31b5b8e1f3"
       }
     },
     "reference_run": {
@@ -331,7 +318,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-5BF58B7189C32C"
+      "REQ-D3F27894C13E91"
     ],
     "categories": [
       "business"
@@ -339,7 +326,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-5BF58B7189C32C"
+      "requirement:REQ-D3F27894C13E91"
     ]
   }
 }

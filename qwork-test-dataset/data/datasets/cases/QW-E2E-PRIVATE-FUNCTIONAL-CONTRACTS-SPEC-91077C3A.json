@@ -1,0 +1,271 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-91077C3A",
+  "title": "EXPERT-DESCRIPTOR-002 | 旧包只读回退且保留原字节和运行入口",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QPRIVATE-E2E-expert-descriptor-compatibility-spec-ts",
+      "type": "private-dataset-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "skill://qwork-test-dataset/data/e2e/expert-descriptor-compatibility.spec.ts",
+      "locator": "line:33;test:EXPERT-DESCRIPTOR-002 | 旧包只读回退且保留原字节和运行入口",
+      "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:91077c3aaf51781ddb3209dac918b79962a9a647d98afaa7b1d0c9122418cd1f",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-BB30E266E7BE2A",
+      "source_atom_ids": [
+        "QPRIVATE-E2E-expert-descriptor-compatibility-spec-ts:L33:91077c3aaf"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "EXPERT-DESCRIPTOR-002 | 旧包只读回退且保留原字节和运行入口",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QPRIVATE-E2E-expert-descriptor-compatibility-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "EXPERT-DESCRIPTOR-002 | 旧包只读回退且保留原字节和运行入口"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "JSON.stringify(validExpertManifest(), null, 2)"
+    },
+    {
+      "action": "validExpertManifest()"
+    },
+    {
+      "action": "JSON.stringify({ name: \"contract-expert\", hooks: { SessionStart: [] } })"
+    }
+  ],
+  "expected_outcomes": [
+    "withPackage({ \"ziqdo-plugin.json\": body, \"manifest.json\": body, \".claude-plugin/plugin.json\": runtime }, async (root) => { expect((await loadExpertDescriptor(root)).relativePath).toBe(\"ziqdo-plugin.json\"); expect(await fs.readFile(path.join(root, \"ziqdo-plugin.json\"), \"utf8\")).toBe(body); expect(await fs.readFile(path.join(root, \"manifest.json\"), \"utf8\")).toBe(body); expect(await fs.readFile(path.join(root, \".claude…"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-BB30E266E7BE2A",
+      "type": "return",
+      "assertion": "EXPERT-DESCRIPTOR-002 | 旧包只读回退且保留原字节和运行入口"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.private-playwright.expert-descriptor-compatibility-spec.91077c3aaf",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "external-run://QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/app + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "node .agents/skills/qwork-test-dataset/scripts/run_private_playwright_case.mjs --repo . --case-id QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-91077C3A --case-title \"EXPERT-DESCRIPTOR-002 | 旧包只读回退且保留原字节和运行入口\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "JSON.stringify(validExpertManifest(), null, 2)"
+        },
+        {
+          "action": "validExpertManifest()"
+        },
+        {
+          "action": "JSON.stringify({ name: \"contract-expert\", hooks: { SessionStart: [] } })"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "skill://qwork-test-dataset/data/e2e/expert-descriptor-compatibility.spec.ts",
+        "line_start": 33,
+        "line_end": 43,
+        "body_sha256": "sha256:c103e395099473536b0b81d7e36fd96a49deb271494b19959c97bcc1516c86aa",
+        "assertion_count": 1,
+        "action_count": 0,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:e833178c47cff818c26bcf4b2d1d400226d27bbf97a145387a65b531e5293835",
+        "supporting_contracts": [
+          {
+            "path": "skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+            "sha256": "sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+            "sha256": "sha256:5e1c055763fca3c508d0dd0813c974226be3cddb88bfcdeee1ef3912a113b0e0",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/private-case-authority.mjs",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+            "sha256": "sha256:90618b773c1a38b79a521baebba509c4285782d42498560c31a193a15d8bbe99",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+            "sha256": "sha256:0e9d50f5fec4543f56ef52680833297f4924d0d40ecd43fb7b7a57a27a9e9763",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/build_isolated_electron.mjs",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+            "sha256": "sha256:aedc1f65308bcdc52160337a5055f4d3fc50791173f2008552edc65e826b32f5",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+            "sha256": "sha256:66fa4b44a0febbf4b14d601d6a5fc604c1c06e4c95e68074c9ad1d87b83a0d1a",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/scripts/playwright-private.config.ts",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+            "sha256": "sha256:50737b2a367ee215e00c37e010326aed824b4d9f93c6cbc3539b7e66a5da2ffa",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "skill://qwork-test-dataset/package.json",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+            "sha256": "sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "repo://e2e/fixtures/fake-sidecar.mjs",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+            "sha256": "sha256:588e63be22e5dfb953ec94306cb7b7b198c89826fe77e20d30ef36b738e91016",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          },
+          {
+            "path": "repo://e2e/fixtures/ui-contract.ts",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+            "sha256": "sha256:f2b079f1cf9230958a6fb9de06829a74badc67473d9f76380e348b18ffb18345",
+            "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
+          }
+        ]
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-BB30E266E7BE2A"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-BB30E266E7BE2A"
+    ]
+  }
+}

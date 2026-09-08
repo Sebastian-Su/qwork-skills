@@ -1,0 +1,271 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-FIND-SKILLS-LIVE-SPEC-A942E35D",
+  "title": "@live searches real 360 and ClawHub through the Agent bridge and applies isolated install policy",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-find-skills-live-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/find-skills-live.spec.ts",
+      "locator": "line:15;test:@live searches real 360 and ClawHub through the Agent bridge and applies isolated install policy",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:a942e35d95a2010032952efa65035f966e1604992d14854c3ebaec3f9875c1a6",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-4866E1C92CDA40",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-find-skills-live-spec-ts:L15:a942e35d95"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "@live searches real 360 and ClawHub through the Agent bridge and applies isolated install policy",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-find-skills-live-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "@live searches real 360 and ClawHub through the Agent bridge and applies isolated install policy"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "createTestHome(\"find-skills-live\")"
+    },
+    {
+      "action": "path.join(configHome, \"skillhub-agent-command.json\")"
+    },
+    {
+      "action": "path.join(configHome, \"skillhub-agent-result.json\")"
+    },
+    {
+      "action": "fs.writeFile(commandFile, JSON.stringify([ { operation: \"search_skills\", input: { query: \"小红书文案\", queryHints: [\"xiaohongshu copywriting\", \"社交媒体内容创作\"], limit: 3, }, }, { operation: \"install_skill\", input: \"$previous.candidates.0\" }, ]))"
+    },
+    {
+      "action": "JSON.stringify([ { operation: \"search_skills\", input: { query: \"小红书文案\", queryHints: [\"xiaohongshu copywriting\", \"社交媒体内容创作\"], limit: 3, }, }, { operation: \"install_skill\", input: \"$previous.candidates.0\" }, ])"
+    },
+    {
+      "action": "launchApp(configHome, { WORK_GUI_SKILLHUB_FIXTURE_DIR: undefined, E2E_SKILLHUB_BRIDGE_COMMAND_FILE: commandFile, E2E_SKILLHUB_BRIDGE_RESULT_FILE: resultFile, }, bundledSkillsStartupCapabilities(\"find-skills\"), [\"--remote-debugging-port=0\"])"
+    },
+    {
+      "action": "bundledSkillsStartupCapabilities(\"find-skills\")"
+    },
+    {
+      "action": "JSON.parse(await fs.readFile(resultFile, \"utf8\"))"
+    },
+    {
+      "action": "fs.readFile(resultFile, \"utf8\")"
+    },
+    {
+      "action": "console.info(\"[find-skills-live]\", JSON.stringify({ sources: search.sources, candidates: search.candidates.map(({ source, id }) => ({ source, id })), install: { status: install.status, source: install.skill?.source, id: install.skill?.id, version: install.skill?.version, riskLevel: install.risk?.level, decision: install.risk?.decision, }, verification: install.verification?.status, activation: install.activation?.st…"
+    },
+    {
+      "action": "JSON.stringify({ sources: search.sources, candidates: search.candidates.map(({ source, id }) => ({ source, id })), install: { status: install.status, source: install.skill?.source, id: install.skill?.id, version: install.skill?.version, riskLevel: install.risk?.level, decision: install.risk?.decision, }, verification: install.verification?.status, activation: install.activation?.status, readyToUse: install.readyToUs…"
+    },
+    {
+      "action": "search.candidates.map(({ source, id }) => ({ source, id }))"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(async () => { const raw = await fs.readFile(resultFile, \"utf8\").catch(() => \"\"); return raw ? JSON.parse(raw) : null; }, { timeout: 120_000 }).toMatchObject({ ok: true, complete: true })",
+    "expect(search.sources).toEqual(expect.arrayContaining([ expect.objectContaining({ source: \"skillhub-360\", status: \"ok\" }), expect.objectContaining({ source: \"clawhub-public\", status: \"ok\" }), ]))",
+    "expect(search.candidates.length).toBeGreaterThan(0)",
+    "expect(search.candidates.length).toBeLessThanOrEqual(3)",
+    "expect(document.results[1]).toMatchObject({ status: expect.stringMatching(/^(installed|confirmation_required|blocked|already_installed)$/), })",
+    "expect(install).toMatchObject({ verification: { status: \"package_safe\" }, activation: { status: \"active\" }, readyToUse: true, })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-4866E1C92CDA40",
+      "type": "return",
+      "assertion": "@live searches real 360 and ClawHub through the Agent bridge and applies isolated install policy"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-find-skills-live-spec-ts.a942e35d95",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": true,
+      "scopes": [
+        "real external account/service/model route named by the source test"
+      ]
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/find-skills-live.spec.ts -g \"@live searches real 360 and ClawHub through the Agent bridge and applies isolated install policy\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "createTestHome(\"find-skills-live\")"
+        },
+        {
+          "action": "path.join(configHome, \"skillhub-agent-command.json\")"
+        },
+        {
+          "action": "path.join(configHome, \"skillhub-agent-result.json\")"
+        },
+        {
+          "action": "fs.writeFile(commandFile, JSON.stringify([ { operation: \"search_skills\", input: { query: \"小红书文案\", queryHints: [\"xiaohongshu copywriting\", \"社交媒体内容创作\"], limit: 3, }, }, { operation: \"install_skill\", input: \"$previous.candidates.0\" }, ]))"
+        },
+        {
+          "action": "JSON.stringify([ { operation: \"search_skills\", input: { query: \"小红书文案\", queryHints: [\"xiaohongshu copywriting\", \"社交媒体内容创作\"], limit: 3, }, }, { operation: \"install_skill\", input: \"$previous.candidates.0\" }, ])"
+        },
+        {
+          "action": "launchApp(configHome, { WORK_GUI_SKILLHUB_FIXTURE_DIR: undefined, E2E_SKILLHUB_BRIDGE_COMMAND_FILE: commandFile, E2E_SKILLHUB_BRIDGE_RESULT_FILE: resultFile, }, bundledSkillsStartupCapabilities(\"find-skills\"), [\"--remote-debugging-port=0\"])"
+        },
+        {
+          "action": "bundledSkillsStartupCapabilities(\"find-skills\")"
+        },
+        {
+          "action": "JSON.parse(await fs.readFile(resultFile, \"utf8\"))"
+        },
+        {
+          "action": "fs.readFile(resultFile, \"utf8\")"
+        },
+        {
+          "action": "console.info(\"[find-skills-live]\", JSON.stringify({ sources: search.sources, candidates: search.candidates.map(({ source, id }) => ({ source, id })), install: { status: install.status, source: install.skill?.source, id: install.skill?.id, version: install.skill?.version, riskLevel: install.risk?.level, decision: install.risk?.decision, }, verification: install.verification?.status, activation: install.activation?.st…"
+        },
+        {
+          "action": "JSON.stringify({ sources: search.sources, candidates: search.candidates.map(({ source, id }) => ({ source, id })), install: { status: install.status, source: install.skill?.source, id: install.skill?.id, version: install.skill?.version, riskLevel: install.risk?.level, decision: install.risk?.decision, }, verification: install.verification?.status, activation: install.activation?.status, readyToUse: install.readyToUs…"
+        },
+        {
+          "action": "search.candidates.map(({ source, id }) => ({ source, id }))"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home plus separately authorized real external fixture",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/find-skills-live.spec.ts",
+        "line_start": 15,
+        "line_end": 99,
+        "body_sha256": "sha256:2401209c527bec612bd586915e95718a1b261273ab4afafe7f91b927c3acd443",
+        "assertion_count": 6,
+        "action_count": 0,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:39ea48f552b1f078ad747ea45bbb1a782ed1aa22ac41ee325b8ae5a6c56e0d06"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "independent authorization for real external route pending",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-4866E1C92CDA40"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-4866E1C92CDA40"
+    ]
+  }
+}

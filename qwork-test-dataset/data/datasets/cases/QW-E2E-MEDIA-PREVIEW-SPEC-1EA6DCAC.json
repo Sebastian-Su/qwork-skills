@@ -1,0 +1,363 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-MEDIA-PREVIEW-SPEC-1EA6DCAC",
+  "title": "HTML 中文地址可读且复制回车保留文件和锚点",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "files",
+    "journey": "files",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-media-preview-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/media-preview.spec.ts",
+      "locator": "line:20;test:HTML 中文地址可读且复制回车保留文件和锚点",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:1ea6dcace23c5719a9b1afaa342f31029385479fd91441504c5657d1048d3fd6",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-38CF25D49D361E",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-media-preview-spec-ts:L20:1ea6dcace2"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "HTML 中文地址可读且复制回车保留文件和锚点",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-media-preview-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "HTML 中文地址可读且复制回车保留文件和锚点"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_HTML_PROJECT__:测评题~2/报告 空格（1）.html\")"
+    },
+    {
+      "action": "fixture.page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "input.fill(suffixAddress)"
+    },
+    {
+      "action": "input.press(\"Enter\")"
+    },
+    {
+      "action": "input.click()"
+    },
+    {
+      "action": "input.press(process.platform === \"darwin\" ? \"Meta+a\" : \"Control+a\")"
+    },
+    {
+      "action": "input.press(process.platform === \"darwin\" ? \"Meta+c\" : \"Control+c\")"
+    },
+    {
+      "action": "input.press(process.platform === \"darwin\" ? \"Meta+v\" : \"Control+v\")"
+    },
+    {
+      "action": "input.press(\"Enter\")"
+    },
+    {
+      "action": "fixture.page.getByRole(\"button\", { name: \"刷新\", exact: true }).click()"
+    },
+    {
+      "action": "input.fill(secondDisplay)"
+    },
+    {
+      "action": "input.press(\"Enter\")"
+    },
+    {
+      "action": "fixture.page.getByRole(\"button\", { name: \"后退\", exact: true }).click()"
+    },
+    {
+      "action": "fixture.page.getByRole(\"button\", { name: \"前进\", exact: true }).click()"
+    },
+    {
+      "action": "input.click()"
+    },
+    {
+      "action": "input.press(\"End\")"
+    },
+    {
+      "action": "input.fill(initial.replace(/[^/]+$/, \"不存在.html\"))"
+    },
+    {
+      "action": "input.press(\"Enter\")"
+    },
+    {
+      "action": "input.press(\"Escape\")"
+    },
+    {
+      "action": "fixture.page.getByRole(\"button\", { name: \"关闭错误\", exact: true }).click()"
+    },
+    {
+      "action": "fixture.page.getByRole(\"button\", { name: \"全屏查看右侧栏\" }).click()"
+    },
+    {
+      "action": "fixture.page.getByRole(\"button\", { name: \"退出右侧栏全屏\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(input).toHaveValue(/测评题(?:~|%7E)2\\/报告 空格（1）\\.html$/)",
+    "expect.poll(bodyText).toContain(\"漫潮云逸\")",
+    "expect(fixture.page.getByText(\"漫潮云逸酒店后台页面已生成\", { exact: true })).toBeVisible()",
+    "expect(fixture.page.getByText(\"已完成\", { exact: true })).toBeVisible()",
+    "expect(input).toHaveValue(suffixAddress)",
+    "expect(fixture.page.getByRole(\"alert\")).toHaveCount(0)",
+    "expect.poll(current).toMatch(/\\?q=%E4%B8%AD%E6%96%87#s5$/)",
+    "expect.poll(bodyText).toContain(\"第五节内容\")",
+    "expect(input).toHaveValue(suffixAddress)",
+    "expect.poll(current).toMatch(/#s5$/)",
+    "expect(input).toHaveValue(secondDisplay)",
+    "expect.poll(bodyText).toContain(\"第二份文件\")",
+    "expect(input).toHaveValue(suffixAddress)",
+    "expect.poll(bodyText).toContain(\"第五节内容\")",
+    "expect(input).toHaveValue(secondDisplay)",
+    "expect(fixture.page.getByRole(\"alert\")).toBeVisible()",
+    "expect(input).toHaveValue(secondDisplay)",
+    "expect(input).toHaveValue(secondDisplay)",
+    "expect(input).toBeVisible()",
+    "expect(fixture.page.getByRole(\"button\", { name: \"刷新\", exact: true })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-38CF25D49D361E",
+      "type": "return",
+      "assertion": "HTML 中文地址可读且复制回车保留文件和锚点"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-media-preview-spec-ts.1ea6dcace2",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/media-preview.spec.ts -g \"HTML 中文地址可读且复制回车保留文件和锚点\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "files",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_HTML_PROJECT__:测评题~2/报告 空格（1）.html\")"
+        },
+        {
+          "action": "fixture.page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "input.fill(suffixAddress)"
+        },
+        {
+          "action": "input.press(\"Enter\")"
+        },
+        {
+          "action": "input.click()"
+        },
+        {
+          "action": "input.press(process.platform === \"darwin\" ? \"Meta+a\" : \"Control+a\")"
+        },
+        {
+          "action": "input.press(process.platform === \"darwin\" ? \"Meta+c\" : \"Control+c\")"
+        },
+        {
+          "action": "input.press(process.platform === \"darwin\" ? \"Meta+v\" : \"Control+v\")"
+        },
+        {
+          "action": "input.press(\"Enter\")"
+        },
+        {
+          "action": "fixture.page.getByRole(\"button\", { name: \"刷新\", exact: true }).click()"
+        },
+        {
+          "action": "input.fill(secondDisplay)"
+        },
+        {
+          "action": "input.press(\"Enter\")"
+        },
+        {
+          "action": "fixture.page.getByRole(\"button\", { name: \"后退\", exact: true }).click()"
+        },
+        {
+          "action": "fixture.page.getByRole(\"button\", { name: \"前进\", exact: true }).click()"
+        },
+        {
+          "action": "input.click()"
+        },
+        {
+          "action": "input.press(\"End\")"
+        },
+        {
+          "action": "input.fill(initial.replace(/[^/]+$/, \"不存在.html\"))"
+        },
+        {
+          "action": "input.press(\"Enter\")"
+        },
+        {
+          "action": "input.press(\"Escape\")"
+        },
+        {
+          "action": "fixture.page.getByRole(\"button\", { name: \"关闭错误\", exact: true }).click()"
+        },
+        {
+          "action": "fixture.page.getByRole(\"button\", { name: \"全屏查看右侧栏\" }).click()"
+        },
+        {
+          "action": "fixture.page.getByRole(\"button\", { name: \"退出右侧栏全屏\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/media-preview.spec.ts",
+        "line_start": 20,
+        "line_end": 97,
+        "body_sha256": "sha256:65b82e23c90da203eae33137fe2b4b4ed8670f8042d62a1e4c69e680fa29281d",
+        "assertion_count": 20,
+        "action_count": 23,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:73f2457935799dea8f245dd58d8bc9d50197523a08b9fd6f5f2d110fcf984aa1"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-38CF25D49D361E"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-38CF25D49D361E"
+    ]
+  }
+}

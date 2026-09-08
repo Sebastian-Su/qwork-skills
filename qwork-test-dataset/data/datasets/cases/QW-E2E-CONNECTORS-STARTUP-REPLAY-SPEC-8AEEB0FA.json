@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-startup-replay.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-startup-replay.spec.ts",
       "locator": "line:309;test:restores linked no-auth cards before replacement ready and replays them after ready",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:8aeeb0faaacbb1f2fe649775ca32582e9e3676f8f5bb931417666709d1bd79bb",
       "redaction_status": "minimized"
     }
@@ -75,43 +75,24 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "path.join(home, \"sidecar-failed-before-ready\")"
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
     },
     {
-      "action": "path.join(home, \"release-replacement-ready\")"
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
     },
     {
-      "action": "path.join(home, \"effective-mcp-state.json\")"
+      "action": "page .getByRole(\"button\", { name: `${name}，未连接`, exact: true }) .click()"
     },
     {
-      "action": "openApp(home, { E2E_MCP_LOG: mcpLog, WORK_GUI_AUTH_URL_SINK: authUrlSink, })"
+      "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
     },
     {
-      "action": "gotoConnectors(opened.page)"
-    },
-    {
-      "action": "connectNoAuth(opened.page, \"福帮手\")"
-    },
-    {
-      "action": "connectNoAuth(opened.page, \"MasterGo 莫高设计\")"
-    },
-    {
-      "action": "(await readMcpLog(mcpLog)).find( (entry) => entry.type === \"mcp_server_upsert\" && (entry.server as { name?: string } | undefined)?.name === \"fbs-connector\", )"
-    },
-    {
-      "action": "readMcpLog(mcpLog)"
-    },
-    {
-      "action": "closeE2EApplication(app)"
-    },
-    {
-      "action": "path.join( home, \"qwork\", \"connectors\", \"projection-leases.json\", )"
-    },
-    {
-      "action": "fs.rm(leaseFile, { force: true })"
+      "action": "detail.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByLabel(\"搜索连接器\")).toBeVisible()",
+    "expect( detail.getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible()",
     "expect(initialFbs?.url).toBe(FBS_URL)",
     "expect(fs.access(leaseFile)).rejects.toMatchObject({ code: \"ENOENT\" })",
     "expect .poll(() => fs.access(failBeforeReadyOnce).then( () => true, () => false, ), ) .toBe(true)",
@@ -195,40 +176,19 @@
       "entrypoint": "connectors",
       "steps": [
         {
-          "action": "path.join(home, \"sidecar-failed-before-ready\")"
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
         },
         {
-          "action": "path.join(home, \"release-replacement-ready\")"
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
         },
         {
-          "action": "path.join(home, \"effective-mcp-state.json\")"
+          "action": "page .getByRole(\"button\", { name: `${name}，未连接`, exact: true }) .click()"
         },
         {
-          "action": "openApp(home, { E2E_MCP_LOG: mcpLog, WORK_GUI_AUTH_URL_SINK: authUrlSink, })"
+          "action": "detail.getByRole(\"button\", { name: \"连接\", exact: true }).click()"
         },
         {
-          "action": "gotoConnectors(opened.page)"
-        },
-        {
-          "action": "connectNoAuth(opened.page, \"福帮手\")"
-        },
-        {
-          "action": "connectNoAuth(opened.page, \"MasterGo 莫高设计\")"
-        },
-        {
-          "action": "(await readMcpLog(mcpLog)).find( (entry) => entry.type === \"mcp_server_upsert\" && (entry.server as { name?: string } | undefined)?.name === \"fbs-connector\", )"
-        },
-        {
-          "action": "readMcpLog(mcpLog)"
-        },
-        {
-          "action": "closeE2EApplication(app)"
-        },
-        {
-          "action": "path.join( home, \"qwork\", \"connectors\", \"projection-leases.json\", )"
-        },
-        {
-          "action": "fs.rm(leaseFile, { force: true })"
+          "action": "detail.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -252,9 +212,9 @@
         "line_start": 309,
         "line_end": 518,
         "body_sha256": "sha256:69dce33cec750f9c567ec8c81f57e642a1f9ba2f033220cd026fed1a2535392e",
-        "assertion_count": 14,
-        "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 16,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:0ec0c98aec20cb01a07a484ed8edbb861158b6bea26902d5209322c91085fffd"
       }
     },

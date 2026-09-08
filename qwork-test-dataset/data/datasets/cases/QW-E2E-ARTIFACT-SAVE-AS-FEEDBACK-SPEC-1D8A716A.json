@@ -1,0 +1,259 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-ARTIFACT-SAVE-AS-FEEDBACK-SPEC-1D8A716A",
+  "title": "keeps Save As cancellation silent and exposes a dismissible write failure",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "files",
+    "journey": "files",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-artifact-save-as-feedback-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/artifact-save-as-feedback.spec.ts",
+      "locator": "line:9;test:keeps Save As cancellation silent and exposes a dismissible write failure",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:1d8a716ac9bb3910d76b5269ba35f4dff217ece35c871fe3f1a458f2c907836b",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-3227A5FC211A7C",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-artifact-save-as-feedback-spec-ts:L9:1d8a716ac9"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "keeps Save As cancellation silent and exposes a dismissible write failure",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-artifact-save-as-feedback-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps Save As cancellation silent and exposes a dismissible write failure"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_ARTIFACT__:download-report.html\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "artifactCard.click({ button: \"right\" })"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"另存为\" }).click()"
+    },
+    {
+      "action": "artifactCard.click({ button: \"right\" })"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"另存为\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭错误\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(artifactCard).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"下载产物\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"status\").filter({ hasText: \"已保存\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"alert\")).toHaveCount(0)",
+    "expect(page.getByRole(\"alert\")).toBeVisible()",
+    "expect(page.getByRole(\"alert\")).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-3227A5FC211A7C",
+      "type": "return",
+      "assertion": "keeps Save As cancellation silent and exposes a dismissible write failure"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-artifact-save-as-feedback-spec-ts.1d8a716ac9",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/artifact-save-as-feedback.spec.ts -g \"keeps Save As cancellation silent and exposes a dismissible write failure\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "files",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_ARTIFACT__:download-report.html\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "artifactCard.click({ button: \"right\" })"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"另存为\" }).click()"
+        },
+        {
+          "action": "artifactCard.click({ button: \"right\" })"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"另存为\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭错误\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/artifact-save-as-feedback.spec.ts",
+        "line_start": 9,
+        "line_end": 54,
+        "body_sha256": "sha256:1e87f01d1c74dda209ca756ed4a498efef251bc68e5a8f6b21d4b2b184702eda",
+        "assertion_count": 6,
+        "action_count": 8,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:f523962386dd89e3adb4da52fd22a030eaa5f909fb58c09f1e1c80009c4a1954"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-3227A5FC211A7C"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-3227A5FC211A7C"
+    ]
+  }
+}

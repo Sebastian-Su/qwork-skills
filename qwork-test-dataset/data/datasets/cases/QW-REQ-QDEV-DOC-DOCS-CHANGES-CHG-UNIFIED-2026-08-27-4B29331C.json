@@ -22,12 +22,26 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:311;heading:2026-08-27 本地实施检查点",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:482;heading:2026-08-27 本地实施检查点",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:1b2df1a43c40e50cdde7bda94891483248eb04a04e3f7d78badd134dc80c95bb",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:497;heading:2026-08-27 本地实施检查点",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:25eb76ef8395fe5be875ffff30538258909f3211df5f3df5aec8f367237c4014",
       "redaction_status": "minimized"
     },
@@ -36,12 +50,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:312;heading:2026-08-27 本地实施检查点",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:498;heading:2026-08-27 本地实施检查点",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:d8fc43cae9c425caf75becf697041a48dab3cbb5965588fbcc628ce70165f60d",
       "redaction_status": "minimized"
     },
@@ -50,21 +64,47 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:319;heading:2026-08-27 本地实施检查点",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:505;heading:2026-08-27 本地实施检查点",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:15fe97d6e04d1e0cc015b474b98c5c7b47425f510b65c249cd3b950d05c50abf",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-FEC62636C7D161",
+      "requirement_id": "REQ-D35A1BAFC770BA",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L311:25eb76ef83"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L482:1b2df1a43c"
+      ],
+      "content_facets": [
+        "evidence-provenance"
+      ],
+      "acceptance_categories": [
+        "evidence-integrity"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "qwork-sls-logs 已支持 v2 的端、模块、等级、事件、结果和 trace/session/request/tool ID 查询，并新增 `--require-server` 严格全链审计；补齐 `environment/http_status` 安全输出后 24 项测试与 Skill 校验通过。真实 trace 已证明客户端/引擎/Provider 13 条事件可查，服务端 exporter 也已单独 live 通过；严格审计仍会对缺少同一父 span 的旧客户",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "qwork-sls-logs 已支持 v2 的端、模块、等级、事件、结果和 trace/session/request/tool ID 查询，并新增 `--require-server` 严格全链审计；补齐 `environment/http_status` 安全输出后 24 项测试与 Skill 校验通过。真实 trace 已证明客户端/引擎/Provider 13 条事件可查，服务端 exporter 也已单独 live 通过；严格审计仍会对缺少同一父 span 的旧客户"
+    },
+    {
+      "requirement_id": "REQ-86C5846E83108B",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L497:25eb76ef83"
       ],
       "content_facets": [
         "business-rule"
@@ -88,9 +128,9 @@
       "oracle": "`tool.call/start`"
     },
     {
-      "requirement_id": "REQ-B415FFD4F00F6E",
+      "requirement_id": "REQ-9D3AB2293275C3",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L312:d8fc43cae9"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L498:d8fc43cae9"
       ],
       "content_facets": [
         "business-rule"
@@ -114,9 +154,9 @@
       "oracle": "`tool.call/complete` 与 `tool.result/complete`"
     },
     {
-      "requirement_id": "REQ-E48FBADB92D1D1",
+      "requirement_id": "REQ-2FB24BAD844817",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L319:15fe97d6e0"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L505:15fe97d6e0"
       ],
       "content_facets": [
         "evidence-provenance"
@@ -162,43 +202,53 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 2026-08-27 本地实施检查点 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-FEC62636C7D161] exactly: `tool.call/start`"
+      "action": "observe case-owned execution trace after the trigger and assert [REQ-D35A1BAFC770BA] exactly: qwork-sls-logs 已支持 v2 的端、模块、等级、事件、结果和 trace/session/request/tool ID 查询，并新增 `--require-server` 严格全链审计；补齐 `environment/http_status` 安全输出后 24 项测试与 Skill 校验通过。真实 trace 已证明客户端/引擎/Provider 13 条事件可查，服务端 exporter 也已单独 live 通过；严格审计仍会对缺少同一父 span 的旧客户"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-B415FFD4F00F6E] exactly: `tool.call/complete` 与 `tool.result/complete`"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-86C5846E83108B] exactly: `tool.call/start`"
     },
     {
-      "action": "observe case-owned execution trace after the trigger and assert [REQ-E48FBADB92D1D1] exactly: 全链同一 trace，span 父子关系无环，tool/request ID 可单独查询。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-9D3AB2293275C3] exactly: `tool.call/complete` 与 `tool.result/complete`"
+    },
+    {
+      "action": "observe case-owned execution trace after the trigger and assert [REQ-2FB24BAD844817] exactly: 全链同一 trace，span 父子关系无环，tool/request ID 可单独查询。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
     }
   ],
   "expected_outcomes": [
+    "qwork-sls-logs 已支持 v2 的端、模块、等级、事件、结果和 trace/session/request/tool ID 查询，并新增 `--require-server` 严格全链审计；补齐 `environment/http_status` 安全输出后 24 项测试与 Skill 校验通过。真实 trace 已证明客户端/引擎/Provider 13 条事件可查，服务端 exporter 也已单独 live 通过；严格审计仍会对缺少同一父 span 的旧客户",
     "`tool.call/start`",
     "`tool.call/complete` 与 `tool.result/complete`",
     "全链同一 trace，span 父子关系无环，tool/request ID 可单独查询。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-FEC62636C7D161]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `tool.call/start`",
-    "FAIL [REQ-B415FFD4F00F6E]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `tool.call/complete` 与 `tool.result/complete`",
-    "FAIL [REQ-E48FBADB92D1D1]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 全链同一 trace，span 父子关系无环，tool/request ID 可单独查询。",
+    "FAIL [REQ-D35A1BAFC770BA]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: qwork-sls-logs 已支持 v2 的端、模块、等级、事件、结果和 trace/session/request/tool ID 查询，并新增 `--require-server` 严格全链审计；补齐 `environment/http_status` 安全输出后 24 项测试与 Skill 校验通过。真实 trace 已证明客户端/引擎/Provider 13 条事件可查，服务端 exporter 也已单独 live 通过；严格审计仍会对缺少同一父 span 的旧客户",
+    "FAIL [REQ-86C5846E83108B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `tool.call/start`",
+    "FAIL [REQ-9D3AB2293275C3]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `tool.call/complete` 与 `tool.result/complete`",
+    "FAIL [REQ-2FB24BAD844817]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 全链同一 trace，span 父子关系无环，tool/request ID 可单独查询。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-FEC62636C7D161",
+      "requirement_id": "REQ-D35A1BAFC770BA",
+      "type": "trace",
+      "assertion": "qwork-sls-logs 已支持 v2 的端、模块、等级、事件、结果和 trace/session/request/tool ID 查询，并新增 `--require-server` 严格全链审计；补齐 `environment/http_status` 安全输出后 24 项测试与 Skill 校验通过。真实 trace 已证明客户端/引擎/Provider 13 条事件可查，服务端 exporter 也已单独 live 通过；严格审计仍会对缺少同一父 span 的旧客户"
+    },
+    {
+      "requirement_id": "REQ-86C5846E83108B",
       "type": "return",
       "assertion": "`tool.call/start`"
     },
     {
-      "requirement_id": "REQ-B415FFD4F00F6E",
+      "requirement_id": "REQ-9D3AB2293275C3",
       "type": "return",
       "assertion": "`tool.call/complete` 与 `tool.result/complete`"
     },
     {
-      "requirement_id": "REQ-E48FBADB92D1D1",
+      "requirement_id": "REQ-2FB24BAD844817",
       "type": "trace",
       "assertion": "全链同一 trace，span 父子关系无环，tool/request ID 可单独查询。"
     }
@@ -257,13 +307,16 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 2026-08-27 本地实施检查点 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-FEC62636C7D161] exactly: `tool.call/start`"
+          "action": "observe case-owned execution trace after the trigger and assert [REQ-D35A1BAFC770BA] exactly: qwork-sls-logs 已支持 v2 的端、模块、等级、事件、结果和 trace/session/request/tool ID 查询，并新增 `--require-server` 严格全链审计；补齐 `environment/http_status` 安全输出后 24 项测试与 Skill 校验通过。真实 trace 已证明客户端/引擎/Provider 13 条事件可查，服务端 exporter 也已单独 live 通过；严格审计仍会对缺少同一父 span 的旧客户"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-B415FFD4F00F6E] exactly: `tool.call/complete` 与 `tool.result/complete`"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-86C5846E83108B] exactly: `tool.call/start`"
         },
         {
-          "action": "observe case-owned execution trace after the trigger and assert [REQ-E48FBADB92D1D1] exactly: 全链同一 trace，span 父子关系无环，tool/request ID 可单独查询。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-9D3AB2293275C3] exactly: `tool.call/complete` 与 `tool.result/complete`"
+        },
+        {
+          "action": "observe case-owned execution trace after the trigger and assert [REQ-2FB24BAD844817] exactly: 全链同一 trace，span 父子关系无环，tool/request ID 可单独查询。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -306,9 +359,10 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-B415FFD4F00F6E",
-      "REQ-E48FBADB92D1D1",
-      "REQ-FEC62636C7D161"
+      "REQ-2FB24BAD844817",
+      "REQ-86C5846E83108B",
+      "REQ-9D3AB2293275C3",
+      "REQ-D35A1BAFC770BA"
     ],
     "categories": [
       "business",
@@ -318,14 +372,24 @@
       "category:business",
       "category:evidence-integrity",
       "full",
-      "requirement:REQ-B415FFD4F00F6E",
-      "requirement:REQ-E48FBADB92D1D1",
-      "requirement:REQ-FEC62636C7D161"
+      "requirement:REQ-2FB24BAD844817",
+      "requirement:REQ-86C5846E83108B",
+      "requirement:REQ-9D3AB2293275C3",
+      "requirement:REQ-D35A1BAFC770BA"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-FEC62636C7D161",
+      "requirement_id": "REQ-D35A1BAFC770BA",
+      "oracle_type": "trace",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 2026-08-27 本地实施检查点 产品契约 exactly once and retain its correlation identity",
+      "then": "qwork-sls-logs 已支持 v2 的端、模块、等级、事件、结果和 trace/session/request/tool ID 查询，并新增 `--require-server` 严格全链审计；补齐 `environment/http_status` 安全输出后 24 项测试与 Skill 校验通过。真实 trace 已证明客户端/引擎/Provider 13 条事件可查，服务端 exporter 也已单独 live 通过；严格审计仍会对缺少同一父 span 的旧客户",
+      "observation_boundary": "case-owned execution trace",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-86C5846E83108B",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 2026-08-27 本地实施检查点 产品契约 exactly once and retain its correlation identity",
@@ -334,7 +398,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-B415FFD4F00F6E",
+      "requirement_id": "REQ-9D3AB2293275C3",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 2026-08-27 本地实施检查点 产品契约 exactly once and retain its correlation identity",
@@ -343,7 +407,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-E48FBADB92D1D1",
+      "requirement_id": "REQ-2FB24BAD844817",
       "oracle_type": "trace",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 2026-08-27 本地实施检查点 产品契约 exactly once and retain its correlation identity",

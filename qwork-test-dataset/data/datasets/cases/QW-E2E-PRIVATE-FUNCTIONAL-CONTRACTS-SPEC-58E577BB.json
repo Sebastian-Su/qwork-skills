@@ -25,10 +25,10 @@
       "authority_domain": "execution",
       "stable_source_id": "skill://qwork-test-dataset/data/e2e/inspiration-causality.spec.ts",
       "locator": "line:38;test:WB-UI-INSPIRATION-001 | 灵感搜索、分类、收藏与卡片全集逐状态匹配 WorkBuddy",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+      "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:58e577bbc0ca8ae8ff6e3fbea2961218bb3c205ff92b01dd4a240f98c470c69a",
       "redaction_status": "minimized"
     }
@@ -77,6 +77,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"更多\" }).getByRole(\"menuitem\", { name: \"灵感\", exact: true }).click()"
+    },
+    {
       "action": "personalTab.click()"
     },
     {
@@ -99,6 +105,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByTestId(\"main-content\")).toBeVisible()",
     "expect(mismatches, \"every WorkBuddy inspiration interaction and closed-world UI invariant must match\").toEqual([])"
   ],
   "forbidden_outcomes": [
@@ -176,6 +183,12 @@
       "entrypoint": "library",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"更多\" }).getByRole(\"menuitem\", { name: \"灵感\", exact: true }).click()"
+        },
+        {
           "action": "personalTab.click()"
         },
         {
@@ -221,68 +234,68 @@
         "line_start": 38,
         "line_end": 163,
         "body_sha256": "sha256:03fde15efc45d314f27280ae44522b0f5633d9cbaf4fddd8a3d221a40c5ad29f",
-        "assertion_count": 1,
-        "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 2,
+        "action_count": 9,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:cc2c48bcf38478b0c7d8cb36e4bd4a943cdc1a956df748d672e636a6d11f9313",
         "supporting_contracts": [
           {
             "path": "skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts",
-            "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
             "sha256": "sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6",
             "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
           },
           {
             "path": "skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts",
-            "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
             "sha256": "sha256:5e1c055763fca3c508d0dd0813c974226be3cddb88bfcdeee1ef3912a113b0e0",
             "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
           },
           {
             "path": "skill://qwork-test-dataset/scripts/private-case-authority.mjs",
-            "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
             "sha256": "sha256:90618b773c1a38b79a521baebba509c4285782d42498560c31a193a15d8bbe99",
             "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
           },
           {
             "path": "skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs",
-            "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
             "sha256": "sha256:0e9d50f5fec4543f56ef52680833297f4924d0d40ecd43fb7b7a57a27a9e9763",
             "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
           },
           {
             "path": "skill://qwork-test-dataset/scripts/build_isolated_electron.mjs",
-            "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
             "sha256": "sha256:aedc1f65308bcdc52160337a5055f4d3fc50791173f2008552edc65e826b32f5",
             "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
           },
           {
             "path": "skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts",
-            "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
             "sha256": "sha256:66fa4b44a0febbf4b14d601d6a5fc604c1c06e4c95e68074c9ad1d87b83a0d1a",
             "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
           },
           {
             "path": "skill://qwork-test-dataset/scripts/playwright-private.config.ts",
-            "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
             "sha256": "sha256:50737b2a367ee215e00c37e010326aed824b4d9f93c6cbc3539b7e66a5da2ffa",
             "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
           },
           {
             "path": "skill://qwork-test-dataset/package.json",
-            "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
             "sha256": "sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390",
             "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
           },
           {
             "path": "repo://e2e/fixtures/fake-sidecar.mjs",
-            "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-            "sha256": "sha256:6ea803f0b6c36981a7034bce08b58dc987835521d865b5517cd122af90eb2ae8",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+            "sha256": "sha256:588e63be22e5dfb953ec94306cb7b7b198c89826fe77e20d30ef36b738e91016",
             "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
           },
           {
             "path": "repo://e2e/fixtures/ui-contract.ts",
-            "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+            "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
             "sha256": "sha256:f2b079f1cf9230958a6fb9de06829a74badc67473d9f76380e348b18ffb18345",
             "purpose": "private Electron launcher, runner, build configuration or deterministic repository fixture"
           }

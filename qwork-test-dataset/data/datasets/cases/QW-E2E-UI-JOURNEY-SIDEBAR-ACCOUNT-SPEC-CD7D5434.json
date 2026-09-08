@@ -21,35 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/ui-journey-sidebar-account.spec.ts",
-      "locator": "line:253;test:UI-JOURNEY-SIDEBAR-MORE-001 | More opens the anchored reference menu and routes My Files",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/ui-journey-sidebar-account.spec.ts",
+      "locator": "line:281;test:UI-JOURNEY-SIDEBAR-MORE-001 | More opens the anchored reference menu and routes My Files",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:cd7d543499c989bbcac2d421a7cecf21e0eea715124955278df1a7f98b3ac4d0",
-      "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-ui-journey-sidebar-account-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/ui-journey-sidebar-account.spec.ts",
-      "locator": "line:253;test:UI-JOURNEY-SIDEBAR-MORE-001 | More opens the anchored reference menu and routes My Files",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:cd7d543499c989bbcac2d421a7cecf21e0eea715124955278df1a7f98b3ac4d0",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-0F5799DC269271",
+      "requirement_id": "REQ-25FB501EADA245",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts:L253:cd7d543499"
+        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts:L281:cd7d543499"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -63,32 +49,6 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts"
-      ],
-      "supporting_sources": [],
-      "conflicts": [],
-      "resolution": {
-        "status": "resolved",
-        "reason": "compiled from the user-approved source hierarchy"
-      },
-      "oracle": "UI-JOURNEY-SIDEBAR-MORE-001 | More opens the anchored reference menu and routes My Files"
-    },
-    {
-      "requirement_id": "REQ-354B6E267FE158",
-      "source_atom_ids": [
-        "QHEAD-E2E-e2e-ui-journey-sidebar-account-spec-ts:L253:cd7d543499"
-      ],
-      "content_facets": [
-        "acceptance-criterion"
-      ],
-      "acceptance_categories": [
-        "business"
-      ],
-      "surface": "shell-home",
-      "priority": "P1",
-      "rule": "UI-JOURNEY-SIDEBAR-MORE-001 | More opens the anchored reference menu and routes My Files",
-      "authority_domain": "execution",
-      "governing_sources": [
-        "QHEAD-E2E-e2e-ui-journey-sidebar-account-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -115,6 +75,9 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "originalFocus.focus()"
+    },
+    {
       "action": "trigger.hover()"
     },
     {
@@ -130,6 +93,9 @@
       "action": "page.keyboard.press(\"ArrowDown\")"
     },
     {
+      "action": "page.keyboard.press(\"ArrowDown\")"
+    },
+    {
       "action": "page.keyboard.press(\"Home\")"
     },
     {
@@ -137,11 +103,13 @@
     }
   ],
   "expected_outcomes": [
+    "expect(menu.getByRole(\"menuitem\", { name: \"腾讯文档\", exact: true })).toHaveCount(0)",
     "expect(menu.getByRole(\"menuitem\", { name: label, exact: true })).toBeVisible()",
     "expect(menu).toBeHidden()",
-    "expect(trigger).toBeFocused()",
+    "expect(originalFocus).toBeFocused()",
     "expect(menu.getByRole(\"menuitem\", { name: \"我的文件\", exact: true })).toBeFocused()",
     "expect(menu.getByRole(\"menuitem\", { name: \"我的邮箱\", exact: true })).toBeFocused()",
+    "expect(menu.getByRole(\"menuitem\", { name: \"ima知识库\", exact: true })).toBeFocused()",
     "expect(page.getByRole(\"heading\", { name: \"我的文件\", exact: true })).toBeVisible()"
   ],
   "forbidden_outcomes": [
@@ -151,12 +119,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-0F5799DC269271",
-      "type": "return",
-      "assertion": "UI-JOURNEY-SIDEBAR-MORE-001 | More opens the anchored reference menu and routes My Files"
-    },
-    {
-      "requirement_id": "REQ-354B6E267FE158",
+      "requirement_id": "REQ-25FB501EADA245",
       "type": "return",
       "assertion": "UI-JOURNEY-SIDEBAR-MORE-001 | More opens the anchored reference menu and routes My Files"
     }
@@ -217,6 +180,9 @@
       "entrypoint": "shell-home",
       "steps": [
         {
+          "action": "originalFocus.focus()"
+        },
+        {
           "action": "trigger.hover()"
         },
         {
@@ -227,6 +193,9 @@
         },
         {
           "action": "page.keyboard.press(\"Enter\")"
+        },
+        {
+          "action": "page.keyboard.press(\"ArrowDown\")"
         },
         {
           "action": "page.keyboard.press(\"ArrowDown\")"
@@ -256,13 +225,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/ui-journey-sidebar-account.spec.ts",
-        "line_start": 253,
-        "line_end": 279,
-        "body_sha256": "sha256:149a55fa059305a9ecc011bec45cabc747490f23a2447c9b7a5d50a9854add2d",
-        "assertion_count": 6,
-        "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:68529311b05a3e3ce0171a103dcab9069e5a9f892dac52c4353b1418f0e8aa76"
+        "line_start": 281,
+        "line_end": 313,
+        "body_sha256": "sha256:f9d312b904bf9a4aeba76bd3097f86d90e48e3961df2c3e38b7c1fe973c7c523",
+        "assertion_count": 8,
+        "action_count": 9,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1259eed476600e20d8899f4f45133f39d52245266f23332ac4afb92cc8881264"
       }
     },
     "reference_run": {
@@ -284,8 +253,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-0F5799DC269271",
-      "REQ-354B6E267FE158"
+      "REQ-25FB501EADA245"
     ],
     "categories": [
       "business"
@@ -293,8 +261,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-0F5799DC269271",
-      "requirement:REQ-354B6E267FE158"
+      "requirement:REQ-25FB501EADA245"
     ]
   }
 }

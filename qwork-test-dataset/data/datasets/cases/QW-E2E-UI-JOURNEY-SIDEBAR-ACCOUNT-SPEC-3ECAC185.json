@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/ui-journey-sidebar-account.spec.ts",
-      "locator": "line:429;test:UI-JOURNEY-SIDEBAR-FOOTER-002 | message center keeps scrolling open and matches the reference card geometry",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/ui-journey-sidebar-account.spec.ts",
+      "locator": "line:456;test:UI-JOURNEY-SIDEBAR-FOOTER-002 | message center keeps scrolling open and matches the reference card geometry",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:3ecac18588dc9a0423a553aaa77c452a7d7e158325e502034aef5aca86c0e5b0",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-ui-journey-sidebar-account-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/ui-journey-sidebar-account.spec.ts",
-      "locator": "line:429;test:UI-JOURNEY-SIDEBAR-FOOTER-002 | message center keeps scrolling open and matches the reference card geometry",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:3ecac18588dc9a0423a553aaa77c452a7d7e158325e502034aef5aca86c0e5b0",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-7432F361916BE5",
+      "requirement_id": "REQ-B557495D0C0DFC",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts:L429:3ecac18588",
-        "QHEAD-E2E-e2e-ui-journey-sidebar-account-spec-ts:L429:3ecac18588"
+        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts:L456:3ecac18588"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-ui-journey-sidebar-account-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -166,7 +146,10 @@
     "expect(center.getByLabel(\"未读\")).toHaveCount(8)",
     "expect(dateLabel).toBeVisible()",
     "expect(center).not.toContainText(\"最近\")",
-    "expect(await computedStyle(center, [\"border-radius\", \"border-color\", \"background-color\"])).toEqual({ \"border-radius\": `${MESSAGE_CENTER_REFERENCE.panel.radius}px`, \"border-color\": \"rgb(242, 242, 242)\", \"background-color\": \"rgb(255, 255, 255)\", })",
+    "expect(surface).toHaveClass(/qds-popover/)",
+    "expect(actual).toEqual(expected)",
+    "expect(center).toHaveCSS(\"box-shadow\", \"none\")",
+    "expect(center).toHaveCSS(\"border-top-width\", \"0px\")",
     "expect( await computedStyle(center.getByRole(\"heading\", { name: \"消息中心\" }), [ \"font-size\", \"font-weight\", \"line-height\", ]), ).toEqual({ \"font-size\": \"17px\", \"font-weight\": \"600\", \"line-height\": \"22px\", })",
     "expect.soft(firstCardBox.y - dateLabelBox.bottom).toBeGreaterThanOrEqual(12 - 2)",
     "expect.soft(firstCardBox.y - dateLabelBox.bottom).toBeLessThanOrEqual(12 + 2)",
@@ -203,7 +186,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-7432F361916BE5",
+      "requirement_id": "REQ-B557495D0C0DFC",
       "type": "return",
       "assertion": "UI-JOURNEY-SIDEBAR-FOOTER-002 | message center keeps scrolling open and matches the reference card geometry"
     }
@@ -345,13 +328,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/ui-journey-sidebar-account.spec.ts",
-        "line_start": 429,
-        "line_end": 619,
-        "body_sha256": "sha256:40ac7896d9b0051b9fbac2536d60b535e68cee9ac273ed9a40a382cc5a91d92f",
-        "assertion_count": 36,
+        "line_start": 456,
+        "line_end": 644,
+        "body_sha256": "sha256:07adc9d657dff9bc394a2d66ea3ed2557e83432e9362657d307fcff3579e74b6",
+        "assertion_count": 39,
         "action_count": 21,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:68529311b05a3e3ce0171a103dcab9069e5a9f892dac52c4353b1418f0e8aa76"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1259eed476600e20d8899f4f45133f39d52245266f23332ac4afb92cc8881264"
       }
     },
     "reference_run": {
@@ -373,7 +356,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-7432F361916BE5"
+      "REQ-B557495D0C0DFC"
     ],
     "categories": [
       "business"
@@ -381,7 +364,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-7432F361916BE5"
+      "requirement:REQ-B557495D0C0DFC"
     ]
   }
 }

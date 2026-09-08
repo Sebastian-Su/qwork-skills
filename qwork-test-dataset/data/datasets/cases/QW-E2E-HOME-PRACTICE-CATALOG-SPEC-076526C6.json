@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/home-practice-catalog.spec.ts",
-      "locator": "line:89;test:shows a recoverable catalog error when the remote endpoint is down",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/home-practice-catalog.spec.ts",
+      "locator": "line:91;test:shows a recoverable catalog error when the remote endpoint is down",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:076526c638f5001df96173662855efeb73e077ad9cb9c2e154d851984cf7efce",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-home-practice-catalog-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/home-practice-catalog.spec.ts",
-      "locator": "line:89;test:shows a recoverable catalog error when the remote endpoint is down",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:076526c638f5001df96173662855efeb73e077ad9cb9c2e154d851984cf7efce",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-home-practice-catalog-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-82328C454BD33F",
+      "requirement_id": "REQ-41240D40C4DCBB",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-home-practice-catalog-spec-ts:L89:076526c638",
-        "QHEAD-E2E-e2e-home-practice-catalog-spec-ts:L89:076526c638"
+        "QDEV-E2E-e2e-home-practice-catalog-spec-ts:L91:076526c638"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-home-practice-catalog-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-home-practice-catalog-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -95,6 +75,9 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "server.close(() => resolve())"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
     },
     {
@@ -117,7 +100,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-82328C454BD33F",
+      "requirement_id": "REQ-41240D40C4DCBB",
       "type": "return",
       "assertion": "shows a recoverable catalog error when the remote endpoint is down"
     }
@@ -178,6 +161,9 @@
       "entrypoint": "shell-home",
       "steps": [
         {
+          "action": "server.close(() => resolve())"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
         },
         {
@@ -205,13 +191,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/home-practice-catalog.spec.ts",
-        "line_start": 89,
-        "line_end": 111,
+        "line_start": 91,
+        "line_end": 113,
         "body_sha256": "sha256:bc3b74923e807db06ba6b2bffc7776c3023b4f0cd9a67710aa6aff373b19064e",
         "assertion_count": 4,
-        "action_count": 3,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:c2830eba7d1279131a7f0e9291bfc3b28e92ca74afb6786e89d899475915d936"
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:8add6e145a2a1c20a7717d3ec4f72777799c99a774fa9238758b508fab7024cd"
       }
     },
     "reference_run": {
@@ -233,7 +219,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-82328C454BD33F"
+      "REQ-41240D40C4DCBB"
     ],
     "categories": [
       "business"
@@ -241,7 +227,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-82328C454BD33F"
+      "requirement:REQ-41240D40C4DCBB"
     ]
   }
 }

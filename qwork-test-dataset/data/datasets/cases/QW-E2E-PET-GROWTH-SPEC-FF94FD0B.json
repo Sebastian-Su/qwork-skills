@@ -1,0 +1,333 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PET-GROWTH-SPEC-FF94FD0B",
+  "title": "growth earns a mystery parcel from a task, opens automatically and keeps the revealed pet after restart",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-pet-growth-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/pet-growth.spec.ts",
+      "locator": "line:10;test:growth earns a mystery parcel from a task, opens automatically and keeps the revealed pet after restart",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:ff94fd0b17ca2edf17e64f91c980e4897664577e25315cc2123d49b1e6c60a7c",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D9458A54E38150",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-pet-growth-spec-ts:L10:ff94fd0b17"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "growth earns a mystery parcel from a task, opens automatically and keeps the revealed pet after restart",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-pet-growth-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "growth earns a mystery parcel from a task, opens automatically and keeps the revealed pet after restart"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "running!.page .getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }) .click()"
+    },
+    {
+      "action": "running!.page.getByRole(\"menuitem\", { name: /成长计划/ }).click()"
+    },
+    {
+      "action": "running!.page .getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }) .click()"
+    },
+    {
+      "action": "running!.page.getByRole(\"menuitem\", { name: /成长计划/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看 Qwork 图鉴\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭桌宠收藏\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭个人中心\" }).click()"
+    },
+    {
+      "action": "page .getByPlaceholder(/今天帮你做些什么/) .fill(\"帮我写一句简短的工作计划\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page .getByPlaceholder(/今天帮你做些什么/) .fill(`第${index}件独立任务`)"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "openButton.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭桌宠快递\" }).click()"
+    },
+    {
+      "action": "running.app.close()"
+    },
+    {
+      "action": "running.page.getByRole(\"button\", { name: \"查看 Qwork 图鉴\" }).click()"
+    },
+    {
+      "action": "running.page.getByRole(\"button\", { name: \"带到桌面\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( page.getByRole(\"complementary\", { name: \"个人中心导航\" }), ).toBeVisible()",
+    "expect( page.getByRole(\"heading\", { name: \"今日成长任务\" }), ).toBeVisible()",
+    "expect( page.getByRole(\"heading\", { name: \"本月活跃地图\" }), ).toBeVisible()",
+    "expect(page.locator(\".pc-growth-page\")).toHaveCSS( \"background-color\", \"rgb(250, 250, 250)\", )",
+    "expect( page.getByRole(\"complementary\", { name: \"个人中心导航\" }), ).toHaveCSS(\"background-color\", \"rgb(250, 251, 250)\")",
+    "expect(page.locator(\".pc-growth-page\")).toHaveCSS( \"background-image\", \"none\", )",
+    "expect( page.locator(\".pc-growth-page video[data-pet-source]\"), ).toHaveCount(0)",
+    "expect( page.getByRole(\"button\", { name: \"开启盲盒，当前0能量，需要10能量\" }), ).toBeDisabled()",
+    "expect(page.getByRole(\"button\", { name: \"打开快递\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: /带到桌面/ })).toHaveCount(0)",
+    "expect(page.locator(\".pg-content\")).toHaveCSS( \"background-image\", \"none\", )",
+    "expect .poll( async () => (await page.evaluate(() => window.workGui.desktopPet.getGrowth())) .completedTasks, ) .toBe(1)",
+    "expect .poll( async () => (await page.evaluate(() => window.workGui.desktopPet.getGrowth())) .completedTasks, ) .toBe(index)",
+    "expect( page.locator(\".pc-growth-page video[data-pet-source]\"), ).toHaveCount(0)",
+    "expect(openButton).toBeEnabled()",
+    "expect(page.getByRole(\"slider\")).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"掀开箱盖\" })).toHaveCount(0)",
+    "expect( restored.getByRole(\"heading\", { name: \"新同事报到\" }), ).toBeVisible()",
+    "expect(result.ownedIds).toHaveLength(1)",
+    "expect .poll(() => revealedPet.evaluate((video: HTMLVideoElement) => video.readyState), ) .toBeGreaterThanOrEqual(2)",
+    "expect(revealedPet).toHaveCSS(\"opacity\", \"1\")",
+    "expect( page.getByRole(\"button\", { name: \"开启盲盒，当前8能量，需要10能量\" }), ).toBeDisabled()",
+    "expect( page.locator(\".pc-growth-page video[data-pet-source]\"), ).toHaveCount(2)",
+    "expect( (await running.page.evaluate(() => window.workGui.desktopPet.getGrowth())) .ownedIds, ).toEqual(result.ownedIds)",
+    "expect( running.page.getByRole(\"button\", { name: \"打开快递\" }), ).toHaveCount(0)",
+    "expect .poll( async () => (await running!.page.evaluate(() => window.workGui.desktopPet.get())) .enabled, ) .toBe(true)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D9458A54E38150",
+      "type": "return",
+      "assertion": "growth earns a mystery parcel from a task, opens automatically and keeps the revealed pet after restart"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-pet-growth-spec-ts.ff94fd0b17",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/pet-growth.spec.ts -g \"growth earns a mystery parcel from a task, opens automatically and keeps the revealed pet after restart\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "running!.page .getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }) .click()"
+        },
+        {
+          "action": "running!.page.getByRole(\"menuitem\", { name: /成长计划/ }).click()"
+        },
+        {
+          "action": "running!.page .getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }) .click()"
+        },
+        {
+          "action": "running!.page.getByRole(\"menuitem\", { name: /成长计划/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看 Qwork 图鉴\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭桌宠收藏\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭个人中心\" }).click()"
+        },
+        {
+          "action": "page .getByPlaceholder(/今天帮你做些什么/) .fill(\"帮我写一句简短的工作计划\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByPlaceholder(/今天帮你做些什么/) .fill(`第${index}件独立任务`)"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "openButton.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭桌宠快递\" }).click()"
+        },
+        {
+          "action": "running.app.close()"
+        },
+        {
+          "action": "running.page.getByRole(\"button\", { name: \"查看 Qwork 图鉴\" }).click()"
+        },
+        {
+          "action": "running.page.getByRole(\"button\", { name: \"带到桌面\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/pet-growth.spec.ts",
+        "line_start": 10,
+        "line_end": 146,
+        "body_sha256": "sha256:95bca4a2ede0a7ac5b7c4cb2a13ba9d449721d90d2ceae86717664b4e16b23ea",
+        "assertion_count": 26,
+        "action_count": 17,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:8595a701e6d2d6e9ebea1e4e5d0398c04205b2e3d0a1e15edbb948ef17ba519e"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-D9458A54E38150"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-D9458A54E38150"
+    ]
+  }
+}

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/auth-wechat-quick-login.spec.ts",
-      "locator": "line:48;test:cold-starts the modal and delegates 微信 to the system browser",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/auth-wechat-quick-login.spec.ts",
+      "locator": "line:50;test:cold-starts the modal and delegates 微信 to the system browser",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:83e5f3b91894694ceef5336f316d72d9592aecc783e05a7569cb02ea74496835",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-CBA7C840A6F256",
+      "requirement_id": "REQ-9F02DB333D66F6",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-auth-wechat-quick-login-spec-ts:L48:83e5f3b918"
+        "QDEV-E2E-e2e-auth-wechat-quick-login-spec-ts:L50:83e5f3b918"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -73,6 +73,12 @@
   "steps": [
     {
       "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "server.close((error) => error ? reject(error) : resolve())"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"登录\", exact: true }).click()"
     },
     {
       "action": "modal.getByRole(\"button\", { name: provider }).click({ noWaitAfter: true })"
@@ -114,7 +120,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-CBA7C840A6F256",
+      "requirement_id": "REQ-9F02DB333D66F6",
       "type": "return",
       "assertion": "cold-starts the modal and delegates 微信 to the system browser"
     }
@@ -175,6 +181,12 @@
       "entrypoint": "auth",
       "steps": [
         {
+          "action": "server.close((error) => error ? reject(error) : resolve())"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"登录\", exact: true }).click()"
+        },
+        {
           "action": "modal.getByRole(\"button\", { name: provider }).click({ noWaitAfter: true })"
         }
       ],
@@ -196,13 +208,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/auth-wechat-quick-login.spec.ts",
-        "line_start": 48,
-        "line_end": 123,
-        "body_sha256": "sha256:811309c9cabb7a2f13e9d0297dad6d7a366321cec031bc1850ba61a23a146bd3",
+        "line_start": 50,
+        "line_end": 126,
+        "body_sha256": "sha256:4139e7307381164ea0d32fb8542105af5e1fee7bc5cda3dc4c88f29b2955cf17",
         "assertion_count": 27,
-        "action_count": 1,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:cd166f913cedc7d9260095054da133ac22a8f822cbfd2719dddcc2a0f7b78c6e"
+        "action_count": 3,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:de280d386fcb218652df4e3b635893d97874871e090e7d34d67906daa15cc357"
       }
     },
     "reference_run": {
@@ -224,7 +236,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-CBA7C840A6F256"
+      "REQ-9F02DB333D66F6"
     ],
     "categories": [
       "business"
@@ -232,7 +244,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-CBA7C840A6F256"
+      "requirement:REQ-9F02DB333D66F6"
     ]
   }
 }

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/terminal.spec.ts",
-      "locator": "line:132;test:keeps the Electron Node runtime available when a session hook drops its path variable",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/terminal.spec.ts",
+      "locator": "line:204;test:keeps the Electron Node runtime available when a session hook drops its path variable",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:d820a5cfd2b69d7d98b7860c2526fe466bf8e3f23dd5b8b7b298443b81a4226b",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-CC20DA12DCFEA1",
+      "requirement_id": "REQ-953461C15901EE",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-terminal-spec-ts:L132:d820a5cfd2"
+        "QDEV-E2E-e2e-terminal-spec-ts:L204:d820a5cfd2"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -78,37 +78,37 @@
       "action": "withApp(\"ziqdo-terminal-hook-node-runtime-\", async (page, configHome) => { const probe = path.join(configHome, \"session-start-hook-probe.cjs\"); const token = `SESSION_START_HOOK_RUNTIME_${Date.now()}`; await fs.writeFile( probe, `console.log(${JSON.stringify(token)} + \":\" + process.env.ELECTRON_RUN_AS_NODE);\\n`, ); const output = await page.evaluate( async ({ cwd, script, expected, platform }) => { const terminal = …"
     },
     {
-      "action": "path.join(configHome, \"session-start-hook-probe.cjs\")"
+      "action": "fs.mkdtemp(path.join(os.tmpdir(), prefix))"
     },
     {
-      "action": "Date.now()"
+      "action": "path.join(os.tmpdir(), prefix)"
     },
     {
-      "action": "fs.writeFile( probe, `console.log(${JSON.stringify(token)} + \":\" + process.env.ELECTRON_RUN_AS_NODE);\\n`, )"
+      "action": "os.tmpdir()"
     },
     {
-      "action": "JSON.stringify(token)"
+      "action": "launch(configHome, startupCapabilities)"
     },
     {
-      "action": "page.evaluate( async ({ cwd, script, expected, platform }) => { const terminal = window.workGui.terminal; const created = await terminal.create({ cwd, cols: 110, rows: 24 }); let combined = \"\"; let unsubscribe = () => undefined; try { const completed = new Promise<string>((resolve, reject) => { const timeout = window.setTimeout( () => reject(new Error(`SessionStart hook runtime probe timed out: ${combined}`)), 12_00…"
+      "action": "electron.launch({ ...(executablePath ? { executablePath, args: process.platform === \"linux\" ? [\"--password-store=basic\"] : [], } : { args: process.platform === \"linux\" ? [\"--password-store=basic\", root] : [root], }), env: { ...process.env, ...defaultE2EEnv, ...e2eStartupCapabilitiesEnv(startupCapabilities), ELECTRON_RUN_AS_NODE: undefined, ZIQDO_CONFIG_HOME: configHome, ...(startupCapabilities.embeddedPython ? { ZIQ…"
     },
     {
-      "action": "terminal.create({ cwd, cols: 110, rows: 24 })"
+      "action": "e2eStartupCapabilitiesEnv(startupCapabilities)"
     },
     {
-      "action": "window.setTimeout( () => reject(new Error(`SessionStart hook runtime probe timed out: ${combined}`)), 12_000, )"
+      "action": "JSON.stringify([fakeSidecar])"
     },
     {
-      "action": "reject(new Error(`SessionStart hook runtime probe timed out: ${combined}`))"
+      "action": "run(await waitForE2EWindow(app), configHome)"
     },
     {
-      "action": "terminal.onData((event) => { if (event.id !== created.id) return; combined += atob(event.data); if (combined.includes(expected)) { window.clearTimeout(timeout); resolve(combined); } })"
+      "action": "waitForE2EWindow(app)"
     },
     {
-      "action": "atob(event.data)"
+      "action": "closeE2EApplication(app)"
     },
     {
-      "action": "combined.includes(expected)"
+      "action": "removeE2ETestDirectory(configHome)"
     }
   ],
   "expected_outcomes": [
@@ -121,7 +121,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-CC20DA12DCFEA1",
+      "requirement_id": "REQ-953461C15901EE",
       "type": "return",
       "assertion": "keeps the Electron Node runtime available when a session hook drops its path variable"
     }
@@ -185,37 +185,37 @@
           "action": "withApp(\"ziqdo-terminal-hook-node-runtime-\", async (page, configHome) => { const probe = path.join(configHome, \"session-start-hook-probe.cjs\"); const token = `SESSION_START_HOOK_RUNTIME_${Date.now()}`; await fs.writeFile( probe, `console.log(${JSON.stringify(token)} + \":\" + process.env.ELECTRON_RUN_AS_NODE);\\n`, ); const output = await page.evaluate( async ({ cwd, script, expected, platform }) => { const terminal = …"
         },
         {
-          "action": "path.join(configHome, \"session-start-hook-probe.cjs\")"
+          "action": "fs.mkdtemp(path.join(os.tmpdir(), prefix))"
         },
         {
-          "action": "Date.now()"
+          "action": "path.join(os.tmpdir(), prefix)"
         },
         {
-          "action": "fs.writeFile( probe, `console.log(${JSON.stringify(token)} + \":\" + process.env.ELECTRON_RUN_AS_NODE);\\n`, )"
+          "action": "os.tmpdir()"
         },
         {
-          "action": "JSON.stringify(token)"
+          "action": "launch(configHome, startupCapabilities)"
         },
         {
-          "action": "page.evaluate( async ({ cwd, script, expected, platform }) => { const terminal = window.workGui.terminal; const created = await terminal.create({ cwd, cols: 110, rows: 24 }); let combined = \"\"; let unsubscribe = () => undefined; try { const completed = new Promise<string>((resolve, reject) => { const timeout = window.setTimeout( () => reject(new Error(`SessionStart hook runtime probe timed out: ${combined}`)), 12_00…"
+          "action": "electron.launch({ ...(executablePath ? { executablePath, args: process.platform === \"linux\" ? [\"--password-store=basic\"] : [], } : { args: process.platform === \"linux\" ? [\"--password-store=basic\", root] : [root], }), env: { ...process.env, ...defaultE2EEnv, ...e2eStartupCapabilitiesEnv(startupCapabilities), ELECTRON_RUN_AS_NODE: undefined, ZIQDO_CONFIG_HOME: configHome, ...(startupCapabilities.embeddedPython ? { ZIQ…"
         },
         {
-          "action": "terminal.create({ cwd, cols: 110, rows: 24 })"
+          "action": "e2eStartupCapabilitiesEnv(startupCapabilities)"
         },
         {
-          "action": "window.setTimeout( () => reject(new Error(`SessionStart hook runtime probe timed out: ${combined}`)), 12_000, )"
+          "action": "JSON.stringify([fakeSidecar])"
         },
         {
-          "action": "reject(new Error(`SessionStart hook runtime probe timed out: ${combined}`))"
+          "action": "run(await waitForE2EWindow(app), configHome)"
         },
         {
-          "action": "terminal.onData((event) => { if (event.id !== created.id) return; combined += atob(event.data); if (combined.includes(expected)) { window.clearTimeout(timeout); resolve(combined); } })"
+          "action": "waitForE2EWindow(app)"
         },
         {
-          "action": "atob(event.data)"
+          "action": "closeE2EApplication(app)"
         },
         {
-          "action": "combined.includes(expected)"
+          "action": "removeE2ETestDirectory(configHome)"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -236,13 +236,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/terminal.spec.ts",
-        "line_start": 132,
-        "line_end": 179,
+        "line_start": 204,
+        "line_end": 251,
         "body_sha256": "sha256:a71d7830cc44d931881c04b3bea3dc7d04254a8a47598820c85da3e556abdd9e",
         "assertion_count": 1,
         "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:2af09725067aac6357cfbfefc405760ba1b1dcfb317ebfbdafe28620276118b9"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:540760257b22eb1f0d1ac836f7e65f844d9994b7515b71f0c0ed7761244ba575"
       }
     },
     "reference_run": {
@@ -264,7 +264,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-CC20DA12DCFEA1"
+      "REQ-953461C15901EE"
     ],
     "categories": [
       "business"
@@ -272,7 +272,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-CC20DA12DCFEA1"
+      "requirement:REQ-953461C15901EE"
     ]
   }
 }

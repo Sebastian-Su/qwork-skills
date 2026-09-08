@@ -1,0 +1,245 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-QDS-FIRST-BLOCKS-VISUAL-SPEC-6C3F8BFD",
+  "title": "preserves first-block visuals in both System theme resolutions",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "settings",
+    "journey": "settings",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-qds-first-blocks-visual-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/qds-first-blocks.visual.spec.ts",
+      "locator": "line:12;test:preserves first-block visuals in both System theme resolutions",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:6c3f8bfdd67e2dc8b07ce67cf82be155dab8d558364b774381a137c806a3641e",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-DEFD6D491283A5",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-qds-first-blocks-visual-spec-ts:L12:6c3f8bfdd6"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "settings",
+      "priority": "P1",
+      "rule": "preserves first-block visuals in both System theme resolutions",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-qds-first-blocks-visual-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "preserves first-block visuals in both System theme resolutions"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: category, exact: true }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.goto(pathToFileURL(path.join(output, \"report.html\")).href)"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page).toHaveScreenshot(name, { maxDiffPixelRatio: 0.015, animations: \"disabled\" })",
+    "expect(page.locator(\"html\")).toHaveAttribute(\"data-theme\", theme)",
+    "expect(page).toHaveScreenshot(name, { maxDiffPixelRatio: 0.015, animations: \"disabled\" })",
+    "expect(dialog).toBeVisible()",
+    "expect(dialog).not.toBeVisible()",
+    "expect(page.getByRole(\"heading\", { name: \"共享组件覆盖率与未覆盖处理\", exact: true })).toBeVisible()",
+    "expect(page.locator('[data-coverage-unit]')).toHaveCount(19)",
+    "expect(page.getByTestId('adopted-list').getByRole('listitem')).toHaveCount(12)",
+    "expect(page.getByTestId('deferred-list').getByRole('listitem')).toHaveCount(7)",
+    "expect(page.getByTestId('adoption-rate')).toHaveText('12 / 19（63.2%）')"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-DEFD6D491283A5",
+      "type": "return",
+      "assertion": "preserves first-block visuals in both System theme resolutions"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-qds-first-blocks-visual-spec-ts.6c3f8bfdd6",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/qds-first-blocks.visual.spec.ts -g \"preserves first-block visuals in both System theme resolutions\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "settings",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: category, exact: true }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.goto(pathToFileURL(path.join(output, \"report.html\")).href)"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/qds-first-blocks.visual.spec.ts",
+        "line_start": 12,
+        "line_end": 68,
+        "body_sha256": "sha256:c8182dd9972ac8a94ae2e599a3ab018ae4618d0a64ce5a35507b26e2b721a9e9",
+        "assertion_count": 10,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:3961c2853dd26946a9eec8c370f498e2944d6e6d85f7a7bbd678ddb8128bb893"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-DEFD6D491283A5"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-DEFD6D491283A5"
+    ]
+  }
+}

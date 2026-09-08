@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-oauth.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-oauth.spec.ts",
       "locator": "line:426;test:stops an in-flight authorization from the card and opens a fresh request on retry",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:ba8e30e89f61b357e84c01c8bd3d38fa078515a53e0992c1032615cc05a1717f",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"Demo 服务，未连接\" }).click()"
     },
     {
@@ -106,6 +112,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByLabel(\"搜索连接器\")).toBeVisible()",
     "expect .poll(async () => (await readLines(authUrlSink)).length, { timeout: 15_000, }) .toBe(1)",
     "expect( detail.getByRole(\"button\", { name: \"停止连接\", exact: true }), ).toBeVisible()",
     "expect( card.getByRole(\"button\", { name: \"Demo 服务，正在连接\", exact: true }), ).toBeVisible()",
@@ -115,8 +122,8 @@
     "expect(spinnerAnimationName).not.toBe(\"none\")",
     "expect(spinner).toHaveCSS(\"opacity\", \"1\")",
     "expect(stopIcon).toHaveCSS(\"opacity\", \"0\")",
-    "expect(actionBox?.width).toBeCloseTo(28, 0)",
-    "expect(actionBox?.height).toBeCloseTo(28, 0)",
+    "expect(actionBox?.width).toBeCloseTo(34, 0)",
+    "expect(actionBox?.height).toBeCloseTo(34, 0)",
     "expect(spinner).toHaveCSS(\"opacity\", \"0\")",
     "expect(stopIcon).toHaveCSS(\"opacity\", \"1\")",
     "expect(stop).toBeFocused()",
@@ -199,6 +206,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"Demo 服务，未连接\" }).click()"
         },
         {
@@ -249,11 +262,11 @@
         "spec": "e2e/connectors-oauth.spec.ts",
         "line_start": 426,
         "line_end": 540,
-        "body_sha256": "sha256:e17a5f3d320d0cd16e0d92558ae5bb347c565765493b688812005bec37d81d2e",
-        "assertion_count": 24,
-        "action_count": 10,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:3cdd19ec6fd215e12b27a19274126c3ca1085589ce267a586e07be439a5678a1"
+        "body_sha256": "sha256:a2bd391f759132e7b09e1e74dc0e22cf764e8ae055ef115ac10cbd397641bce3",
+        "assertion_count": 25,
+        "action_count": 12,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c4b0c81ed9c32c2afa40877ac40d874d78c7f4f0ab858de28ee143d0a0458397"
       }
     },
     "reference_run": {

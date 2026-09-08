@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-official-business.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-official-business.spec.ts",
       "locator": "line:23;test:connects Tencent Ads and 77ircloud with public API credentials instead of private CLIs",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:63ef1e09aa0d0ce00746a2c129a3ef72e503fc2f8ad8db1d677dcfef09c7db59",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "search.fill(item.name)"
     },
     {
@@ -94,7 +100,9 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"searchbox\", { name: \"搜索连接器\" })).toBeVisible()",
     "expect(detail.getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible()",
+    "expect.poll(async () => { content = await fs.readFile(file, \"utf8\").catch(() => null); return content !== null; }).toBe(true)",
     "expect(bridgeText).not.toContain(\"ads-e2e-secret\")",
     "expect(bridgeText).not.toContain(\"ircloud-e2e-user\")",
     "expect(bridgeText).not.toContain(\"ircloud-e2e-password\")",
@@ -172,6 +180,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "search.fill(item.name)"
         },
         {
@@ -211,9 +225,9 @@
         "line_start": 23,
         "line_end": 89,
         "body_sha256": "sha256:d360887795a2b6af4ac4ad2b5f9c2a81b6860bdb6af16f6ccb1d93222419ad80",
-        "assertion_count": 9,
-        "action_count": 6,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 11,
+        "action_count": 8,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:7e2f534205cc78eed3be35cbdcb6b2f18c39b92353df771c6d3e6910a09868ec"
       }
     },

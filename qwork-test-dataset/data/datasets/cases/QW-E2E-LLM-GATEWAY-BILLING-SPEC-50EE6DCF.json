@@ -22,12 +22,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/llm-gateway-billing.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/llm-gateway-billing.spec.ts",
       "locator": "line:38;test:every selectable model is proxied and billed for the authenticated user",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:50ee6dcf9ae872353dfd4fe0a0e28c4b9473b795eea11914d43a38ff7388833c",
       "redaction_status": "minimized"
     }
@@ -76,6 +76,9 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "server.close(() => resolve())"
+    },
+    {
       "action": "page .getByRole(\"button\", { name: \"新建任务\", exact: true }) .click()"
     },
     {
@@ -94,28 +97,37 @@
       "action": "page .locator('button[aria-haspopup=\"menu\"]') .filter({ hasText: authStatus.displayName }) .click()"
     },
     {
-      "action": "accountMenu.getByRole(\"menuitem\", { name: /积分余额/ }).click()"
+      "action": "accountMenu.getByRole(\"menuitem\", { name: /可用积分/ }).click()"
     }
   ],
   "expected_outcomes": [
     "expect( dock.getByRole(\"button\", { name: option.label, exact: true }), ).toBeVisible()",
     "expect( page.getByText(`模型批测成功：${providerModelId(option.value)}`, { exact: true, }), ).toBeVisible()",
-    "expect( page.getByText( `共使用 ${TEST_USAGE[option.value].total.toLocaleString(\"en-US\")} Token`, { exact: true }, ), ).toBeVisible()",
+    "expect( page.getByLabel(`共消耗 ${index === 0 ? \"0.35\" : \"0.57\"} 积分`), ).toBeVisible()",
     "expect(page.getByText(/NaN/)).toHaveCount(0)",
     "expect(sessionCookie).toBeDefined()",
     "expect(authCookies.map((cookie) => cookie.name)).toEqual([ \"qwork_session\", ])",
+    "expect(catalog.data).toEqual(expect.arrayContaining([ expect.objectContaining({ multiplier: expect.objectContaining({ value: \"0.20\", pricingVersion: \"qwork-model-multiplier-20260904\", baseInputCreditsPerMillion: 54, }) }), expect.objectContaining({ multiplier: expect.objectContaining({ value: \"0.28\", pricingVersion: \"qwork-model-multiplier-20260904\", baseInputCreditsPerMillion: 54, }) }), ]))",
     "expect(usage.records).toHaveLength(TEST_MODEL_OPTIONS.length)",
     "expect(usage.records.map((record) => record.model).sort()).toEqual( TEST_MODEL_OPTIONS.map((option) => providerModelId(option.value), ).sort(), )",
     "expect(record.totalTokens).toBe(TEST_USAGE[record.model].total)",
     "expect(record.totalCostNanos).toBeGreaterThan(0)",
-    "expect(credits.balance).toBe(4_994.83)",
-    "expect(credits.ledger?.filter((entry) => entry.type === \"LLM\")).toEqual( expect.arrayContaining([ expect.objectContaining({ model: \"minimax/MiniMax-M3\", amount: -1.94, status: \"SETTLED\", }), expect.objectContaining({ model: \"deepseek/deepseek-v4-flash\", amount: -3.23, status: \"SETTLED\", }), ]), )",
+    "expect(credits.balance).toBe(4_999.08)",
+    "expect(credits.ledger?.filter((entry) => entry.type === \"LLM\")).toEqual( expect.arrayContaining([ expect.objectContaining({ model: \"minimax/MiniMax-M3\", amount: -0.35, status: \"SETTLED\", }), expect.objectContaining({ model: \"deepseek/deepseek-v4-flash\", amount: -0.57, status: \"SETTLED\", }), ]), )",
+    "expect(prompts).toHaveLength(TEST_MODEL_OPTIONS.length)",
+    "expect(turnTraceId).toMatch(/^[a-f0-9]{32}$/)",
+    "expect(pending).toEqual({ traceId: turnTraceId, status: \"pending\", chargedMicrocredits: null, requestCount: 2, settledMicrocredits: 5700 })",
     "expect(rejectedResponse!.status).toBe(429)",
     "expect((await heldRequest).ok).toBe(true)",
-    "expect( creditsAfterAdmissionFailure.ledger?.find( (entry) => entry.requestId === \"e2e-credit-admission-rejected\", ), ).toMatchObject({ status: \"RELEASED\", amount: 0 })",
+    "expect(await page.evaluate(trace => window.workGui!.account.turnCredits(trace), turnTraceId)) .toEqual({ traceId: turnTraceId, status: \"settled\", chargedMicrocredits: 11400, requestCount: 2 })",
+    "expect( creditsAfterAdmissionFailure.ledger?.find( (entry) => entry.requestId === \"e2e-credit-admission-rejected\", ), ).toBeUndefined()",
+    "expect(creditsAfterAdmissionFailure.balance).toBe(4_998.51)",
+    "expect(creditsAfterAdmissionFailure.ledger?.filter(entry => entry.type === \"LLM\")).toHaveLength(TEST_MODEL_OPTIONS.length + 1)",
+    "expect(creditsAfterAdmissionFailure.ledger?.find(entry => entry.requestId === \"e2e-credit-held\")) .toMatchObject({ status: \"SETTLED\", amount: -0.57 })",
     "expect(accountMenu).toBeVisible()",
     "expect(page.getByRole(\"heading\", { name: \"套餐与用量\" })).toBeVisible()",
-    "expect(page.getByText(\"预占已释放\", { exact: true })).toBeVisible()",
+    "expect(page.getByText(\"预占已释放\", { exact: true })).toHaveCount(0)",
+    "expect(page.getByText(\"4,998.51\", { exact: true }).first()).toBeVisible()",
     "expect(upstream.requests).toEqual( [ ...TEST_MODEL_OPTIONS.map((option) => ({ model: providerModelId(option.value), authorization: \"Bearer server-owned-test-key\", })), { model: \"deepseek/deepseek-v4-flash\", authorization: \"Bearer server-owned-test-key\", }, ], )"
   ],
   "forbidden_outcomes": [
@@ -191,6 +203,9 @@
       "entrypoint": "models",
       "steps": [
         {
+          "action": "server.close(() => resolve())"
+        },
+        {
           "action": "page .getByRole(\"button\", { name: \"新建任务\", exact: true }) .click()"
         },
         {
@@ -209,7 +224,7 @@
           "action": "page .locator('button[aria-haspopup=\"menu\"]') .filter({ hasText: authStatus.displayName }) .click()"
         },
         {
-          "action": "accountMenu.getByRole(\"menuitem\", { name: /积分余额/ }).click()"
+          "action": "accountMenu.getByRole(\"menuitem\", { name: /可用积分/ }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -233,12 +248,12 @@
       "source_contract": {
         "spec": "e2e/llm-gateway-billing.spec.ts",
         "line_start": 38,
-        "line_end": 287,
-        "body_sha256": "sha256:5cad93e0e4aff97a4d0babc99c8dada7c765e304099b44dfc703de49d4ad6169",
-        "assertion_count": 19,
-        "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:9e1bc80001a0b75471676e8a517bd959da8d0a02388339b50046c0275e8056c5"
+        "line_end": 324,
+        "body_sha256": "sha256:a370565bb4f0b1d57a6a8ecee1819796189cef7fd228cc6b99774ca4a8347833",
+        "assertion_count": 28,
+        "action_count": 8,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:f94a972afafb3fffacb61c2c428abf871d07e1aab2ca796dbdbba00436c14d48"
       }
     },
     "reference_run": {

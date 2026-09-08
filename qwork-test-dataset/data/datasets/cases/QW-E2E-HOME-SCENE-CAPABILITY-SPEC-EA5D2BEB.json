@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/home-scene-capability.spec.ts",
-      "locator": "line:95;test:enables document-processing plugins on the session without stuffing them into the prompt",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/home-scene-capability.spec.ts",
+      "locator": "line:101;test:enables document-processing plugins on the session without stuffing them into the prompt",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:ea5d2beb291746af032764623ddaa9f5d1d5833c6c9d2abf076027167b969b23",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-66D0F50073FFEC",
+      "requirement_id": "REQ-7755DA0529B14B",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-home-scene-capability-spec-ts:L95:ea5d2beb29"
+        "QDEV-E2E-e2e-home-scene-capability-spec-ts:L101:ea5d2beb29"
       ],
       "content_facets": [
         "negative-rule"
@@ -95,7 +95,9 @@
     "expect(content).not.toContain(\"@minimax-docx\")",
     "expect(content).not.toContain(\"skill-minimax-docx\")",
     "expect.poll(async () => createdSessionPlugins(sidecarLog)).toEqual([...DOCUMENT_SCENE_PLUGIN_IDS])",
-    "expect(await createdSessionSkills(sidecarLog)).toEqual( homeSceneSkillAllowlist(DOCUMENT_SCENE_PLUGIN_IDS), )"
+    "expect(await createdSessionSkills(sidecarLog)).toEqual([ \"docx-rs\", \"xlsx-rs\", \"pptx-generator\", ])",
+    "expect(wire.find((message) => message.type === \"create_session\")?.plugin_dirs).toEqual( expect.arrayContaining([ expect.stringContaining(\"skill-docx-rs\"), expect.stringContaining(\"skill-xlsx-rs\"), expect.stringContaining(\"skill-pptx-generator\"), ]), )",
+    "expect(preference.skills).toMatchObject({ \"skill-docx-rs\": { enabled: false }, \"skill-xlsx-rs\": { enabled: false }, \"skill-pptx-generator\": { enabled: false }, })"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -104,7 +106,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-66D0F50073FFEC",
+      "requirement_id": "REQ-7755DA0529B14B",
       "type": "return",
       "assertion": "enables document-processing plugins on the session without stuffing them into the prompt"
     }
@@ -195,13 +197,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/home-scene-capability.spec.ts",
-        "line_start": 95,
-        "line_end": 124,
-        "body_sha256": "sha256:36e4ee02b5baf8b0705c163c8c4f4aac3e6f66162b83aee50ec96cbdf80fe4a4",
-        "assertion_count": 8,
+        "line_start": 101,
+        "line_end": 153,
+        "body_sha256": "sha256:94454c082482414defbbd1a0e67d571b6fe933908a7ad44b64af225de2143170",
+        "assertion_count": 10,
         "action_count": 4,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:8406b8e79d947f93291e6a1e4b428129fdc8706fad8f49ff6db0abb32a575ffd"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:41b28d265ac8d0e34ed08f291cae5a71caa9c0fb89ce4c916e9ac520ffafbe4c"
       }
     },
     "reference_run": {
@@ -223,7 +225,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-66D0F50073FFEC"
+      "REQ-7755DA0529B14B"
     ],
     "categories": [
       "negative"
@@ -231,7 +233,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-66D0F50073FFEC"
+      "requirement:REQ-7755DA0529B14B"
     ]
   }
 }

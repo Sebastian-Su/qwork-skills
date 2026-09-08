@@ -30,6 +30,7 @@ GATE_COMMANDS = {
     "gate:structured-oracle-coverage": "python3 .agents/skills/qwork-test-dataset/scripts/test_structured_oracle_coverage.py --skill-root .agents/skills/qwork-test-dataset",
     "gate:workbuddy-interaction-inventory": "python3 .agents/skills/qwork-test-dataset/scripts/validate_workbuddy_interaction_inventory.py --skill-root .agents/skills/qwork-test-dataset",
     "gate:live-case-authorization": "python3 .agents/skills/qwork-test-dataset/scripts/test_live_case_authorization.py --skill-root .agents/skills/qwork-test-dataset",
+    "gate:governance": "npm run governance:validate",
     "gate:typecheck": "npm run typecheck",
     "gate:unit-integration": "npm test",
     "gate:coverage": "npm run test:coverage -- --coverage.thresholds.autoUpdate=false",
@@ -158,20 +159,97 @@ def coordinate_requires_loopback(item_id: str, coordinate: dict[str, Any]) -> bo
     return item_id in LOOPBACK_GATE_ITEMS or coordinate.get("category") == "deterministic-playwright"
 
 
+def coordinate_signature(coordinate: dict[str, Any]) -> str:
+    """Bind resumable state to the exact classified command and evidence contract."""
+    return canonical_hash(coordinate)
+
+
+def validate_hashed_evidence(
+    *,
+    run_root: Path,
+    item_id: str,
+    evidence: dict[str, Any],
+    path_key: str,
+    hash_key: str,
+) -> None:
+    raw_path = evidence.get(path_key)
+    raw_hash = evidence.get(hash_key)
+    if not isinstance(raw_path, str) or not raw_path or not isinstance(raw_hash, str):
+        raise ValueError(f"runner evidence metadata missing: {item_id}:{path_key}")
+    candidate = Path(raw_path)
+    if candidate.is_absolute():
+        raise ValueError(f"runner evidence path must be relative: {item_id}:{path_key}")
+    resolved = (run_root / candidate).resolve()
+    try:
+        resolved.relative_to(run_root)
+    except ValueError as error:
+        raise ValueError(f"runner evidence escapes run root: {item_id}:{path_key}") from error
+    if not resolved.is_file():
+        raise ValueError(f"runner evidence is missing: {item_id}:{raw_path}")
+    expected = raw_hash.removeprefix("sha256:").lower()
+    if not re.fullmatch(r"[0-9a-f]{64}", expected) or sha256_file(resolved) != expected:
+        raise ValueError(f"runner evidence hash mismatch: {item_id}:{raw_path}")
+
+
+def validate_terminal_coordinate(
+    *,
+    run_root: Path,
+    item_id: str,
+    value: dict[str, Any],
+    coordinate: dict[str, Any],
+) -> None:
+    if value.get("coordinate_sha256") != coordinate_signature(coordinate):
+        raise ValueError(f"runner coordinate command or contract drift: {item_id}")
+    status = value.get("status")
+    exit_code = value.get("exit_code")
+    if not isinstance(exit_code, int) or (status == "pass") != (exit_code == 0):
+        raise ValueError(f"runner coordinate exit status mismatch: {item_id}")
+    validate_hashed_evidence(
+        run_root=run_root,
+        item_id=item_id,
+        evidence=value,
+        path_key="stdout",
+        hash_key="stdout_sha256",
+    )
+    validate_hashed_evidence(
+        run_root=run_root,
+        item_id=item_id,
+        evidence=value,
+        path_key="stderr",
+        hash_key="stderr_sha256",
+    )
+    artifacts = value.get("artifacts")
+    if not isinstance(artifacts, list):
+        raise ValueError(f"runner coordinate artifacts must be a list: {item_id}")
+    for index, artifact in enumerate(artifacts):
+        if not isinstance(artifact, dict):
+            raise ValueError(f"runner artifact must be an object: {item_id}:{index}")
+        validate_hashed_evidence(
+            run_root=run_root,
+            item_id=item_id,
+            evidence=artifact,
+            path_key="path",
+            hash_key="sha256",
+        )
+
+
 def prepare_state(
     *,
     prior: dict[str, Any] | None,
+    run_root: Path,
     plan_sha256: str,
     implementation_revision: str,
     classified_coordinates: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
     if prior is None:
         return {
-            "schema_version": 1,
+            "schema_version": 2,
             "plan_sha256": plan_sha256,
             "implementation_revision": implementation_revision,
             "coordinates": {},
         }
+    if prior.get("schema_version") != 2:
+        raise ValueError("runner state schema is stale; start a fresh evidence run")
     if prior.get("plan_sha256") != plan_sha256:
         raise ValueError("runner state belongs to another plan")
     if prior.get("implementation_revision") != implementation_revision:
@@ -189,6 +267,12 @@ def prepare_state(
             raise ValueError(f"runner coordinate category drift: {item_id}")
         if value.get("status") not in TERMINAL_COORDINATES:
             raise ValueError(f"non-terminal prior coordinates require manual audit: {item_id}")
+        validate_terminal_coordinate(
+            run_root=run_root,
+            item_id=item_id,
+            value=value,
+            coordinate=coordinate,
+        )
     return json.loads(json.dumps(prior))
 
 
@@ -475,6 +559,10 @@ def coordinate_environment(repo: Path, coordinate: dict[str, Any]) -> dict[str, 
     """Build an isolated environment for one frozen execution coordinate."""
 
     environment = os.environ.copy()
+    python_dir = str(Path(sys.executable).parent)
+    environment["PATH"] = os.pathsep.join(
+        value for value in (python_dir, environment.get("PATH", "")) if value
+    )
     environment.pop("QWORK_SERVER_DIR", None)
     if coordinate.get("source_integration"):
         server_dir = resolve_qwork_server_dir(repo)
@@ -730,6 +818,7 @@ def main() -> int:
     prior_state = load(state_path) if state_path.exists() else None
     state = prepare_state(
         prior=prior_state,
+        run_root=run_root,
         plan_sha256=str(plan["plan_sha256"]),
         implementation_revision=str(plan["implementation_revision"]),
         classified_coordinates=coordinates,
@@ -768,7 +857,12 @@ def main() -> int:
             continue
         if item_id in state["coordinates"]:
             continue
-        state["coordinates"][item_id] = {"category": coordinate["category"], "status": "running", "started_at": dt.datetime.now(dt.timezone.utc).isoformat()}
+        state["coordinates"][item_id] = {
+            "category": coordinate["category"],
+            "coordinate_sha256": coordinate_signature(coordinate),
+            "status": "running",
+            "started_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+        }
         atomic_json(state_path, state)
         try:
             result = execute_coordinate(repo, run_root, item_id, coordinate, dataset)

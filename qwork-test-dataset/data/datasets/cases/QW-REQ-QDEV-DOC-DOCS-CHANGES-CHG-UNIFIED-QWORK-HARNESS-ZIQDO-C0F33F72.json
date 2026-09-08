@@ -22,12 +22,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:57;heading:qwork_harness/ziqdo",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:215;heading:qwork_harness/ziqdo",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:ced76199f0c462b425240aec064f683e5a0e905f047f8d5312b44ee84158d405",
       "redaction_status": "minimized"
     },
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:58;heading:qwork_harness/ziqdo",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:216;heading:qwork_harness/ziqdo",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:744933fc2d68b49d0448dbcb0564fac37f1e4f78453ac9f9750bd5412feabbf7",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-72F5C78DE41610",
+      "requirement_id": "REQ-9AA7B71DBEB9EB",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L57:ced76199f0"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L215:ced76199f0"
       ],
       "content_facets": [
         "data-side-effect"
@@ -74,9 +74,9 @@
       "oracle": "`reuse`：已有 OpenTelemetry、OTLP、local JSONL、PrivacyPolicy、SessionTracer，以及 turn/model/tool 生命周期埋点。"
     },
     {
-      "requirement_id": "REQ-7492395654987B",
+      "requirement_id": "REQ-FDE88516CF2572",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L58:744933fc2d"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L216:744933fc2d"
       ],
       "content_facets": [
         "negative-rule"
@@ -122,10 +122,10 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_harness/ziqdo 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe case-owned durable database state after the trigger and assert [REQ-72F5C78DE41610] exactly: `reuse`：已有 OpenTelemetry、OTLP、local JSONL、PrivacyPolicy、SessionTracer，以及 turn/model/tool 生命周期埋点。"
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-9AA7B71DBEB9EB] exactly: `reuse`：已有 OpenTelemetry、OTLP、local JSONL、PrivacyPolicy、SessionTracer，以及 turn/model/tool 生命周期埋点。"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7492395654987B] exactly: `extend`：当前 SessionTracer 主要以 `session_id` 为根，尚不能接收宿主提供的回合 trace context；工具埋点缺稳定 `tool_call_id` 和统一 outcome/duration。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-FDE88516CF2572] exactly: `extend`：当前 SessionTracer 主要以 `session_id` 为根，尚不能接收宿主提供的回合 trace context；工具埋点缺稳定 `tool_call_id` 和统一 outcome/duration。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -136,19 +136,19 @@
     "`extend`：当前 SessionTracer 主要以 `session_id` 为根，尚不能接收宿主提供的回合 trace context；工具埋点缺稳定 `tool_call_id` 和统一 outcome/duration。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-72F5C78DE41610]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `reuse`：已有 OpenTelemetry、OTLP、local JSONL、PrivacyPolicy、SessionTracer，以及 turn/model/tool 生命周期埋点。",
-    "FAIL [REQ-7492395654987B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `extend`：当前 SessionTracer 主要以 `session_id` 为根，尚不能接收宿主提供的回合 trace context；工具埋点缺稳定 `tool_call_id` 和统一 outcome/duration。",
+    "FAIL [REQ-9AA7B71DBEB9EB]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `reuse`：已有 OpenTelemetry、OTLP、local JSONL、PrivacyPolicy、SessionTracer，以及 turn/model/tool 生命周期埋点。",
+    "FAIL [REQ-FDE88516CF2572]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `extend`：当前 SessionTracer 主要以 `session_id` 为根，尚不能接收宿主提供的回合 trace context；工具埋点缺稳定 `tool_call_id` 和统一 outcome/duration。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-72F5C78DE41610",
+      "requirement_id": "REQ-9AA7B71DBEB9EB",
       "type": "database",
       "assertion": "`reuse`：已有 OpenTelemetry、OTLP、local JSONL、PrivacyPolicy、SessionTracer，以及 turn/model/tool 生命周期埋点。"
     },
     {
-      "requirement_id": "REQ-7492395654987B",
+      "requirement_id": "REQ-FDE88516CF2572",
       "type": "return",
       "assertion": "`extend`：当前 SessionTracer 主要以 `session_id` 为根，尚不能接收宿主提供的回合 trace context；工具埋点缺稳定 `tool_call_id` 和统一 outcome/duration。"
     }
@@ -207,10 +207,10 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_harness/ziqdo 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe case-owned durable database state after the trigger and assert [REQ-72F5C78DE41610] exactly: `reuse`：已有 OpenTelemetry、OTLP、local JSONL、PrivacyPolicy、SessionTracer，以及 turn/model/tool 生命周期埋点。"
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-9AA7B71DBEB9EB] exactly: `reuse`：已有 OpenTelemetry、OTLP、local JSONL、PrivacyPolicy、SessionTracer，以及 turn/model/tool 生命周期埋点。"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7492395654987B] exactly: `extend`：当前 SessionTracer 主要以 `session_id` 为根，尚不能接收宿主提供的回合 trace context；工具埋点缺稳定 `tool_call_id` 和统一 outcome/duration。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-FDE88516CF2572] exactly: `extend`：当前 SessionTracer 主要以 `session_id` 为根，尚不能接收宿主提供的回合 trace context；工具埋点缺稳定 `tool_call_id` 和统一 outcome/duration。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -253,8 +253,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-72F5C78DE41610",
-      "REQ-7492395654987B"
+      "REQ-9AA7B71DBEB9EB",
+      "REQ-FDE88516CF2572"
     ],
     "categories": [
       "data",
@@ -264,13 +264,13 @@
       "category:data",
       "category:negative",
       "full",
-      "requirement:REQ-72F5C78DE41610",
-      "requirement:REQ-7492395654987B"
+      "requirement:REQ-9AA7B71DBEB9EB",
+      "requirement:REQ-FDE88516CF2572"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-72F5C78DE41610",
+      "requirement_id": "REQ-9AA7B71DBEB9EB",
       "oracle_type": "database",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_harness/ziqdo 产品契约 exactly once and retain its correlation identity",
@@ -279,7 +279,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-7492395654987B",
+      "requirement_id": "REQ-FDE88516CF2572",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_harness/ziqdo 产品契约 exactly once and retain its correlation identity",

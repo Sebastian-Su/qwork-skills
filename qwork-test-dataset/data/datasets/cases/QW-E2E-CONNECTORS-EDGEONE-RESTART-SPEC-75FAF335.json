@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-edgeone-restart.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-edgeone-restart.spec.ts",
       "locator": "line:85;test:stops and retries EdgeOne login, then restores only after official status succeeds",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:75faf335ce104d766bba1ab2f77fdef27d64048c3f5b0cc2cd746b6986c2be3e",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,15 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page .getByRole(\"searchbox\", { name: \"搜索连接器\" }) .fill(\"EdgeOne Makers\")"
+    },
+    {
       "action": "launched.page .getByRole(\"button\", { name: \"EdgeOne Makers，未连接\", exact: true }) .click()"
     },
     {
@@ -109,6 +118,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect( page.getByRole(\"searchbox\", { name: \"搜索连接器\" }), ).toBeVisible()",
     "expect .poll(async () => readLines(providerCwdSink)) .toEqual([managedLifecycleCwd])",
     "expect( detail.getByRole(\"button\", { name: \"停止连接\", exact: true }), ).toBeVisible()",
     "expect(readLines(providerBrowserSink)).resolves.toEqual([])",
@@ -221,6 +231,15 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByRole(\"searchbox\", { name: \"搜索连接器\" }) .fill(\"EdgeOne Makers\")"
+        },
+        {
           "action": "launched.page .getByRole(\"button\", { name: \"EdgeOne Makers，未连接\", exact: true }) .click()"
         },
         {
@@ -274,11 +293,11 @@
         "spec": "e2e/connectors-edgeone-restart.spec.ts",
         "line_start": 85,
         "line_end": 684,
-        "body_sha256": "sha256:fce0efbf00aab2000cb5d6d352d620d5c6e7e807c41532011e9e50a97ba8c290",
-        "assertion_count": 43,
-        "action_count": 11,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:9e544b842956995604cc6436950671e919351c06827c7e853109aeb7567998bf"
+        "body_sha256": "sha256:ce1fb9fa2892ceda430ece873fd726c6e2e57baf0732e08e99cf255ba308268c",
+        "assertion_count": 44,
+        "action_count": 14,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:59618fb5f60bcc06397750d4ef7dd99a35ed76a026b9723fbe387cb617200f03"
       }
     },
     "reference_run": {

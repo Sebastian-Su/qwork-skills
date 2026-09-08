@@ -21,21 +21,39 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/expert-team.spec.ts",
-      "locator": "line:14;test:team members stay registered until ZiqDo emits their independent streams",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/expert-team.spec.ts",
+      "locator": "line:49;test:team members stay registered until ZiqDo emits their independent streams",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:20d48d28bed68e9f137064b7905cbb5c463421263c53a74b1ae364a74a63deb0",
       "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QHEAD-E2E-e2e-expert-team-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:f22d6511c2187b77319ea0d8f989dbd0c0a07cda:e2e/expert-team.spec.ts",
+      "locator": "line:88;test:team members stay registered until ZiqDo emits their independent streams",
+      "revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:20d48d28bed68e9f137064b7905cbb5c463421263c53a74b1ae364a74a63deb0",
+      "redaction_status": "minimized",
+      "supports": [
+        "QDEV-E2E-e2e-expert-team-spec-ts"
+      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-402EE0CD9BE06F",
+      "requirement_id": "REQ-7A9D92967E8B8F",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-expert-team-spec-ts:L14:20d48d28be"
+        "QDEV-E2E-e2e-expert-team-spec-ts:L49:20d48d28be",
+        "QHEAD-E2E-e2e-expert-team-spec-ts:L88:20d48d28be"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -50,7 +68,9 @@
       "governing_sources": [
         "QDEV-E2E-e2e-expert-team-spec-ts"
       ],
-      "supporting_sources": [],
+      "supporting_sources": [
+        "QHEAD-E2E-e2e-expert-team-spec-ts"
+      ],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -75,39 +95,39 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "composer.fill(\"__E2E_EXPERT_TEAM__\")"
+      "action": "composer.fill(\"请制定 Sprint 规划并完成质量门禁检查\")"
     },
     {
       "action": "composer.press(\"Enter\")"
     },
     {
-      "action": "page.getByRole(\"button\", { name: /发布运营.*已完成/ }).click()"
+      "action": "page.getByRole(\"button\", { name: /游戏发布与运营管理师.*路远行.*已完成/ }).click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: /游戏开发工作室.*负责人/ }).click()"
+      "action": "page.getByRole(\"button\", { name: /游戏开发工作室.*游承峰/ }).click()"
     },
     {
-      "action": "page.getByRole(\"textbox\").fill(\"__E2E_EXPERT_TEAM_RUNNING__\")"
+      "action": "page.getByRole(\"textbox\").fill(\"继续推进发布准备，等待我确认\")"
     },
     {
       "action": "page.getByRole(\"textbox\").press(\"Enter\")"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"__E2E_EXPERT_TEAM__\", exact: true }).click()"
+      "action": "page.getByRole(\"button\", { name: \"请制定 Sprint 规划并完成质量门禁检查\", exact: true }).click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: /发布运营.*已中断/ }).click()"
+      "action": "page.getByRole(\"button\", { name: /游戏发布与运营管理师.*路远行.*运行中/ }).click()"
     }
   ],
   "expected_outcomes": [
     "expect(page.getByRole(\"navigation\", { name: \"专家团成员\" })).toHaveCount(0)",
-    "expect(page.getByRole(\"button\", { name: /发布运营.*已完成/ })).toBeVisible({ timeout: 30_000, })",
-    "expect(page.getByRole(\"button\", { name: /质量保障.*已完成/ })).toBeVisible({ timeout: 30_000, })",
-    "expect(page.getByRole(\"heading\", { name: \"发布运营\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: /游戏发布与运营管理师.*路远行.*已完成/ })).toBeVisible({ timeout: 30_000, })",
+    "expect(page.getByRole(\"button\", { name: /游戏质量保障与测试工程师.*严守真.*已完成/ })).toBeVisible({ timeout: 30_000, })",
+    "expect(page.getByRole(\"heading\", { name: \"路远行\" })).toBeVisible()",
     "expect(page.getByText(\"Sprint 规划已完成\", { exact: true })).toBeVisible()",
     "expect .poll(async () => fs.readFile(controlLog, \"utf8\")) .toContain('\"type\":\"subscribe_subagent_streams\"')",
-    "expect(page.getByRole(\"button\", { name: /发布运营.*运行中/ })).toBeVisible()",
-    "expect(page.getByRole(\"button\", { name: /发布运营.*已中断/ })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: /游戏发布与运营管理师.*路远行.*运行中/ })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: /游戏发布与运营管理师.*路远行.*运行中/ })).toBeVisible()",
     "expect(page.getByText(\"等待用户确认\", { exact: true })).toBeVisible()"
   ],
   "forbidden_outcomes": [
@@ -117,7 +137,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-402EE0CD9BE06F",
+      "requirement_id": "REQ-7A9D92967E8B8F",
       "type": "return",
       "assertion": "team members stay registered until ZiqDo emits their independent streams"
     }
@@ -178,28 +198,28 @@
       "entrypoint": "expert-team",
       "steps": [
         {
-          "action": "composer.fill(\"__E2E_EXPERT_TEAM__\")"
+          "action": "composer.fill(\"请制定 Sprint 规划并完成质量门禁检查\")"
         },
         {
           "action": "composer.press(\"Enter\")"
         },
         {
-          "action": "page.getByRole(\"button\", { name: /发布运营.*已完成/ }).click()"
+          "action": "page.getByRole(\"button\", { name: /游戏发布与运营管理师.*路远行.*已完成/ }).click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: /游戏开发工作室.*负责人/ }).click()"
+          "action": "page.getByRole(\"button\", { name: /游戏开发工作室.*游承峰/ }).click()"
         },
         {
-          "action": "page.getByRole(\"textbox\").fill(\"__E2E_EXPERT_TEAM_RUNNING__\")"
+          "action": "page.getByRole(\"textbox\").fill(\"继续推进发布准备，等待我确认\")"
         },
         {
           "action": "page.getByRole(\"textbox\").press(\"Enter\")"
         },
         {
-          "action": "page.getByRole(\"button\", { name: \"__E2E_EXPERT_TEAM__\", exact: true }).click()"
+          "action": "page.getByRole(\"button\", { name: \"请制定 Sprint 规划并完成质量门禁检查\", exact: true }).click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: /发布运营.*已中断/ }).click()"
+          "action": "page.getByRole(\"button\", { name: /游戏发布与运营管理师.*路远行.*运行中/ }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -220,13 +240,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/expert-team.spec.ts",
-        "line_start": 14,
-        "line_end": 64,
-        "body_sha256": "sha256:84fca62351c7060abe7f51cc9ca47be99d104a4b9f7bb66a41828f5926dafa2f",
+        "line_start": 88,
+        "line_end": 138,
+        "body_sha256": "sha256:8837034edc36afbbcd6f2cd82777ce4f1fc3a0c2333ee70b101e9f10f842aaef",
         "assertion_count": 9,
         "action_count": 8,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:ee6745b3feb6bf7a5b519d3762197a5ed39a8f76fa019b132bb3069784475fc4"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:01cce9e67bf33bf6d175169fe4783e29e04fd8fe3890e62f6b84fea3d1e3a2f5"
       }
     },
     "reference_run": {
@@ -248,7 +268,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-402EE0CD9BE06F"
+      "REQ-7A9D92967E8B8F"
     ],
     "categories": [
       "business"
@@ -256,7 +276,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-402EE0CD9BE06F"
+      "requirement:REQ-7A9D92967E8B8F"
     ]
   }
 }

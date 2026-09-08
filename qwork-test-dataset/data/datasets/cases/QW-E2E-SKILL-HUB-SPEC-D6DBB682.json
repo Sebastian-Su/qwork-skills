@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/skill-hub.spec.ts",
-      "locator": "line:843;test:progressively loads Recommended and SkillHub pages and reveals a back-to-top shortcut",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/skill-hub.spec.ts",
+      "locator": "line:972;test:progressively loads Recommended and SkillHub pages and reveals a back-to-top shortcut",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:d6dbb68221d9dd1973198ff14f9feec178583e411feed45c78c35f0b5d258775",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-skill-hub-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/skill-hub.spec.ts",
-      "locator": "line:721;test:progressively loads Recommended and SkillHub pages and reveals a back-to-top shortcut",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:d6dbb68221d9dd1973198ff14f9feec178583e411feed45c78c35f0b5d258775",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-skill-hub-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-2E037110FED4F7",
+      "requirement_id": "REQ-7BA51C376B0EAE",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-skill-hub-spec-ts:L843:d6dbb68221",
-        "QHEAD-E2E-e2e-skill-hub-spec-ts:L721:d6dbb68221"
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L972:d6dbb68221"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-skill-hub-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-skill-hub-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -105,8 +85,11 @@
     }
   ],
   "expected_outcomes": [
-    "expect(recommended.getByRole(\"article\")).toHaveCount(30)",
-    "expect(recommended.getByRole(\"article\")).toHaveCount(32)",
+    "expect(featured.getByRole(\"article\")).toHaveCount(5)",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(25)",
+    "expect(await renderedNames()).toEqual(Array.from({ length: 30 }, (_, i) => `推荐目录技能 ${i + 1}`).sort())",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(27)",
+    "expect(await renderedNames()).toEqual(Array.from({ length: 32 }, (_, i) => `推荐目录技能 ${i + 1}`).sort())",
     "expect(skillHubTab).toHaveAttribute(\"aria-busy\", \"false\")",
     "expect.poll(() => viewport.evaluate((element) => element.scrollTop)).toBeLessThanOrEqual(1)",
     "expect(await page.getByTestId(\"skill-card\").count()).toBe(30)",
@@ -124,7 +107,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-2E037110FED4F7",
+      "requirement_id": "REQ-7BA51C376B0EAE",
       "type": "return",
       "assertion": "progressively loads Recommended and SkillHub pages and reveals a back-to-top shortcut"
     }
@@ -212,13 +195,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/skill-hub.spec.ts",
-        "line_start": 721,
-        "line_end": 747,
-        "body_sha256": "sha256:f173eba697595990dfcd51c7fcf3a551ad72a1d40a357c54e890a2cebd633f00",
-        "assertion_count": 11,
+        "line_start": 972,
+        "line_end": 1008,
+        "body_sha256": "sha256:4b11ad3b301cb6338dfacf04ac49f7714209c9f63be8ba46a60d2218691ee54e",
+        "assertion_count": 14,
         "action_count": 3,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:0b685b94df77a3dc0f0995c858a81a6ad4039a3d0ec6d57688d6a61ef41052a4"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c3af76be63cda91e78dd4f64f43a932a333b3232f75fbcfe7601ec31b5b8e1f3"
       }
     },
     "reference_run": {
@@ -240,7 +223,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-2E037110FED4F7"
+      "REQ-7BA51C376B0EAE"
     ],
     "categories": [
       "business"
@@ -248,7 +231,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-2E037110FED4F7"
+      "requirement:REQ-7BA51C376B0EAE"
     ]
   }
 }

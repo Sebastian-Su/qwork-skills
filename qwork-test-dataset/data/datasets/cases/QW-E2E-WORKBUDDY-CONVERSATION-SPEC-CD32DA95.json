@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/workbuddy-conversation.spec.ts",
-      "locator": "line:49;test:presents an existing conversation with the WorkBuddy expanded and collapsed layouts",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-conversation.spec.ts",
+      "locator": "line:50;test:presents an existing conversation with the WorkBuddy expanded and collapsed layouts",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:cd32da95020ac5e56593eeb887b00270441f7361030d7034418a698dc647a608",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-965B49C38F7C9F",
+      "requirement_id": "REQ-365CD13EAF3A5A",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts:L49:cd32da9502"
+        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts:L50:cd32da9502"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -105,23 +105,23 @@
     "expect(sidebarGeometry.brand).toEqual({ y: 30, height: 48 })",
     "expect(sidebarGeometry.newTask).toEqual({ y: 86, height: 32 })",
     "expect(page.getByText(\"收到：WorkBuddy 对话验收\", { exact: true })).toBeVisible()",
-    "expect(expanded.title).toMatchObject({ x: 288, height: 32 })",
+    "expect(expanded.title).toMatchObject({ x: 288, y: process.platform === \"win32\" ? 46 : 16, height: 24, })",
     "expect(expanded.scroll).toEqual({ x: 264, y: conversationScrollY, width: viewportWidth - 264, height: 542 })",
     "expect(expanded.content.width).toBe(832)",
-    "expect(expanded.composer).toEqual({ x: 319.5 + horizontalShift, y: 628 + compactVerticalShift, width: 784, height: 128 })",
+    "expect(expanded.composer).toEqual({ x: 311.5 + horizontalShift, y: 628 + compactVerticalShift, width: 800, height: 128 })",
     "expect(page.getByRole(\"button\", { name })).toBeVisible()",
     "expect(page.getByRole(\"combobox\", { name: \"历史提问\" })).toBeVisible()",
     "expect(page.getByRole(\"region\", { name: \"分享任务消息选择\" })).toBeVisible()",
     "expect(composerControls.getByRole(\"button\", { name: \"更多操作\" })).toBeVisible()",
     "expect(composerControls.getByRole(\"button\", { name: /权限/ })).toBeVisible()",
     "expect(composerControls.getByTestId(\"composer-model-trigger\")).toBeVisible()",
-    "expect(controlBoxes.more).toMatchObject({ width: 24, height: 24 })",
-    "expect(controlBoxes.more.x).toBeGreaterThanOrEqual(330.5)",
-    "expect(controlBoxes.more.x).toBeLessThanOrEqual(334.5)",
-    "expect(Math.abs(moreBottomGap - 16)).toBeLessThanOrEqual(2)",
+    "expect(controlBoxes.more).toMatchObject({ width: 32, height: 32 })",
+    "expect(controlBoxes.more.x).toBeGreaterThanOrEqual(322.5)",
+    "expect(controlBoxes.more.x).toBeLessThanOrEqual(326.5)",
+    "expect(Math.abs(moreBottomGap - 11)).toBeLessThanOrEqual(2)",
     "expect(controlBoxes.permission).toMatchObject({ height: 32 })",
-    "expect(controlBoxes.permission.x).toBeGreaterThanOrEqual(358.5)",
-    "expect(controlBoxes.permission.x).toBeLessThanOrEqual(362.5)",
+    "expect(Math.abs(controlBoxes.permission.x - controlBoxes.more.x - 36)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(controlBoxes.permission.y - controlBoxes.more.y)).toBeLessThanOrEqual(2)",
     "expect(controlBoxes.model).toMatchObject({ height: 32 })",
     "expect(controlBoxes.model.x).toBeGreaterThan(controlBoxes.permission.x)",
     "expect.poll(() => page.evaluate(() => window.innerHeight)).toBe(900)",
@@ -131,6 +131,10 @@
     "expect(page.getByRole(\"button\", { name: \"新建对话\" })).toBeVisible()",
     "expect(controlsBox).not.toBeNull()",
     "expect(titleBox).not.toBeNull()",
+    "expect(titleBox!.y).toBe(16)",
+    "expect(titleBox!.height).toBe(24)",
+    "expect(Math.abs(titleBox!.x - 167)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(titleBox!.x - controlsBox!.x - controlsBox!.width - 8)) .toBeLessThanOrEqual(2)",
     "expect(separatedFromControls).toBe(true)",
     "expect(cutMenuItem).toBeVisible()",
     "expect(menuHitTarget).toBe(true)",
@@ -138,7 +142,7 @@
     "expect.poll(() => page.locator('[data-testid=\"conversation-scroll\"]').evaluate((node) => node.getBoundingClientRect().x)).toBe(0)",
     "expect(collapsed.scroll).toEqual({ x: 0, y: conversationScrollY, width: viewportWidth, height: 542 })",
     "expect(collapsed.content).toMatchObject({ x: 163.5 + horizontalShift, width: 832 })",
-    "expect(collapsed.composer).toEqual({ x: 187.5 + horizontalShift, y: 628 + compactVerticalShift, width: 784, height: 128 })"
+    "expect(collapsed.composer).toEqual({ x: 179.5 + horizontalShift, y: 628 + compactVerticalShift, width: 800, height: 128 })"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -147,7 +151,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-965B49C38F7C9F",
+      "requirement_id": "REQ-365CD13EAF3A5A",
       "type": "return",
       "assertion": "presents an existing conversation with the WorkBuddy expanded and collapsed layouts"
     }
@@ -250,13 +254,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/workbuddy-conversation.spec.ts",
-        "line_start": 49,
-        "line_end": 236,
-        "body_sha256": "sha256:e57f7924aa28a6c25bc9cd7405c0df6aee6f451fafc70dc8d5a42818c3406e23",
-        "assertion_count": 39,
+        "line_start": 50,
+        "line_end": 250,
+        "body_sha256": "sha256:12e78f67528860864c70a9fc8df4953a2519cf626ad6ef730f9813929f29e8b3",
+        "assertion_count": 43,
         "action_count": 8,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:ca7107bc5e9405b53f88ee94214e10e656189f5bc9b51ff10d4e3ec6cf233468"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:6e750858e2e87d9e524f9e4b120554d5d00845f451fc2ecc810e83b32f4f4a1c"
       }
     },
     "reference_run": {
@@ -278,7 +282,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-965B49C38F7C9F"
+      "REQ-365CD13EAF3A5A"
     ],
     "categories": [
       "business"
@@ -286,7 +290,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-965B49C38F7C9F"
+      "requirement:REQ-365CD13EAF3A5A"
     ]
   }
 }

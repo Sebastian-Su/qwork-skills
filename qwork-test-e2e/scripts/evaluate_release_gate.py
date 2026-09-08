@@ -11,6 +11,7 @@ import subprocess
 import sys
 from typing import Any
 
+from authorized_live_result import load_authorized_live_coordinates
 from external_artifact_storage import REPORT_HTML_NAME, REPORT_JSON_NAME, validate_external_run_root
 
 
@@ -208,6 +209,11 @@ def main() -> int:
 
     required = index(plan.get("required_items"), "item_id", "required_items", errors)
     results = index(report.get("results"), "item_id", "results", errors)
+    try:
+        live_coordinates = load_authorized_live_coordinates(run_root=run_root, plan=plan, repo=repo)
+    except (OSError, ValueError, json.JSONDecodeError) as error:
+        live_coordinates = {}
+        errors.append(f"authorized-live-result-invalid: {error}")
     for item_id, item in required.items():
         if (
             item.get("kind") == "case"
@@ -230,6 +236,8 @@ def main() -> int:
         if result.get("plan_sha256") != plan.get("plan_sha256") or result.get("implementation_revision") != current_revision:
             errors.append(f"{item_id}: stale plan or implementation revision")
         if status == "pass":
+            if required[item_id].get("authorization_required") is True and item_id not in live_coordinates:
+                errors.append(f"{item_id}: live PASS requires a validated authorized-live coordinate")
             if result.get("cleanup_status") != "pass":
                 errors.append(f"{item_id}: cleanup is not pass")
             validate_artifacts(result, run_root, errors)

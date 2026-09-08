@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-startup-replay.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-startup-replay.spec.ts",
       "locator": "line:739;test:refreshes an expired OAuth grant in the background without blocking the first turn or opening authorization",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:55a2f6bcf28860115be81aacdbe3f6d812233462569d6cd1e3bfa267baca5dd1",
       "redaction_status": "minimized"
     }
@@ -75,10 +75,19 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "server.close((error) => (error ? reject(error) : resolve()))"
+    },
+    {
       "action": "composer.fill(\"OAuth 后台刷新时先完成对话\")"
     },
     {
       "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
@@ -88,6 +97,7 @@
     "expect(refreshServer.paths).not.toContain(\"/authorize\")",
     "expect(refreshServer.tokenRequests[0].get(\"grant_type\")).toBe( \"refresh_token\", )",
     "expect(refreshServer.tokenRequests[0].get(\"refresh_token\")).toBe( \"startup-refresh-token\", )",
+    "expect(page.getByLabel(\"搜索连接器\")).toBeVisible()",
     "expect( opened.page.getByRole(\"button\", { name: \"启动刷新 OAuth，连接异常\", exact: true, }), ).toBeVisible()",
     "expect( opened.page.getByRole(\"button\", { name: \"启动刷新 OAuth，已连接\", exact: true, }), ).toBeVisible({ timeout: 4_000 })",
     "expect(await readLines(authUrlSink)).toEqual([])",
@@ -161,10 +171,19 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "server.close((error) => (error ? reject(error) : resolve()))"
+        },
+        {
           "action": "composer.fill(\"OAuth 后台刷新时先完成对话\")"
         },
         {
           "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -188,9 +207,9 @@
         "line_start": 739,
         "line_end": 804,
         "body_sha256": "sha256:60dc23aece8f4eb593d5dc26d4915ada7a408ad1efe451d39c96d4e19a118a5a",
-        "assertion_count": 10,
-        "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 11,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:0ec0c98aec20cb01a07a484ed8edbb861158b6bea26902d5209322c91085fffd"
       }
     },

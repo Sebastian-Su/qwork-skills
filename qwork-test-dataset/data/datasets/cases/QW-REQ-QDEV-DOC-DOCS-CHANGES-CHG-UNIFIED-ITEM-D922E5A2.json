@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:181;heading:隐私、基数和可靠性",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:340;heading:隐私、基数和可靠性",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:9d55104cc4b31aca8a0924f8a13a34e95ad472906378652bcb9529c71f7527f2",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-9531992DF5C4BE",
+      "requirement_id": "REQ-2F3F66627F8934",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L181:9d55104cc4"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L340:9d55104cc4"
       ],
       "content_facets": [
         "negative-rule"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 隐私、基数和可靠性 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-9531992DF5C4BE] exactly: 退出时仅执行有上限的 best-effort flush；失败记录本地 `telemetry.delivery.drop` 计数，不能覆盖业务结果。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-2F3F66627F8934] exactly: 退出时仅执行有上限的 best-effort flush；失败记录本地 `telemetry.delivery.drop` 计数，不能覆盖业务结果。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "退出时仅执行有上限的 best-effort flush；失败记录本地 `telemetry.delivery.drop` 计数，不能覆盖业务结果。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-9531992DF5C4BE]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 退出时仅执行有上限的 best-effort flush；失败记录本地 `telemetry.delivery.drop` 计数，不能覆盖业务结果。",
+    "FAIL [REQ-2F3F66627F8934]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 退出时仅执行有上限的 best-effort flush；失败记录本地 `telemetry.delivery.drop` 计数，不能覆盖业务结果。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-9531992DF5C4BE",
+      "requirement_id": "REQ-2F3F66627F8934",
       "type": "return",
       "assertion": "退出时仅执行有上限的 best-effort flush；失败记录本地 `telemetry.delivery.drop` 计数，不能覆盖业务结果。"
     }
@@ -157,7 +157,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 隐私、基数和可靠性 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-9531992DF5C4BE] exactly: 退出时仅执行有上限的 best-effort flush；失败记录本地 `telemetry.delivery.drop` 计数，不能覆盖业务结果。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-2F3F66627F8934] exactly: 退出时仅执行有上限的 best-effort flush；失败记录本地 `telemetry.delivery.drop` 计数，不能覆盖业务结果。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -200,7 +200,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-9531992DF5C4BE"
+      "REQ-2F3F66627F8934"
     ],
     "categories": [
       "negative"
@@ -208,12 +208,12 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-9531992DF5C4BE"
+      "requirement:REQ-2F3F66627F8934"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-9531992DF5C4BE",
+      "requirement_id": "REQ-2F3F66627F8934",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 隐私、基数和可靠性 产品契约 exactly once and retain its correlation identity",

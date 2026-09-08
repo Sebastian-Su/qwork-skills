@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-live-limitations.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-live-limitations.spec.ts",
       "locator": "line:131;test:exercises one user action per limitation category without real accounts or network",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:3c9f89324b61f0be9b33d5aee1683a0070b7ed020d8effad978945c76b11d916",
       "redaction_status": "minimized"
     }
@@ -73,6 +73,15 @@
   "steps": [
     {
       "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: `${name}，未连接`, exact: true }).click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: `${name}，未连接`, exact: true }).click()"
@@ -130,6 +139,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"searchbox\", { name: \"搜索连接器\" })).toBeVisible()",
     "expect(dialog.getByRole(\"alert\")).toContainText(/HTTP 403.*access_denied/)",
     "expect(dialog.getByRole(\"alert\")).toContainText(/安装命令行工具失败.*未通过审核/)",
     "expect.poll(() => fs.access(forbiddenInstallSink).then(() => true, () => false)).toBe( false, )",
@@ -218,6 +228,15 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: `${name}，未连接`, exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: `${name}，未连接`, exact: true }).click()"
         },
         {
@@ -293,9 +312,9 @@
         "line_start": 131,
         "line_end": 424,
         "body_sha256": "sha256:5aa4eb75bc5483275596ad75419150a63beddde87f9edd44944658d9eac3757e",
-        "assertion_count": 19,
-        "action_count": 18,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 20,
+        "action_count": 21,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:52b56dbd4d42bdc8622a24d6f7c94bbdf256835b6f2fc93cf1489cf68b54e460"
       }
     },

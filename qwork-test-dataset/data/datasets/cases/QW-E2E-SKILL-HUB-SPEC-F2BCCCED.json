@@ -21,35 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/skill-hub.spec.ts",
-      "locator": "line:166;test:installs Weather, opens an unsent trial, and completes a conversation",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/skill-hub.spec.ts",
+      "locator": "line:184;test:installs Weather, opens an unsent trial, and completes a conversation",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:f2bcccede3226f8e63992bf1bafbb8292e80e0a80c670ce128725ac658d4ada8",
-      "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-skill-hub-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/skill-hub.spec.ts",
-      "locator": "line:165;test:installs Weather, opens an unsent trial, and completes a conversation",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:f2bcccede3226f8e63992bf1bafbb8292e80e0a80c670ce128725ac658d4ada8",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-7D621965E9C86F",
+      "requirement_id": "REQ-B43EC6186E30BF",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-skill-hub-spec-ts:L166:f2bcccede3"
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L184:f2bcccede3"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -63,32 +49,6 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-skill-hub-spec-ts"
-      ],
-      "supporting_sources": [],
-      "conflicts": [],
-      "resolution": {
-        "status": "resolved",
-        "reason": "compiled from the user-approved source hierarchy"
-      },
-      "oracle": "installs Weather, opens an unsent trial, and completes a conversation"
-    },
-    {
-      "requirement_id": "REQ-BD6D3F8C50BA5F",
-      "source_atom_ids": [
-        "QHEAD-E2E-e2e-skill-hub-spec-ts:L165:f2bcccede3"
-      ],
-      "content_facets": [
-        "acceptance-criterion"
-      ],
-      "acceptance_categories": [
-        "business"
-      ],
-      "surface": "skills",
-      "priority": "P1",
-      "rule": "installs Weather, opens an unsent trial, and completes a conversation",
-      "authority_domain": "execution",
-      "governing_sources": [
-        "QHEAD-E2E-e2e-skill-hub-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -181,6 +141,12 @@
       "action": "page.getByRole(\"switch\", { name: \"启用 Weather\" }).click()"
     },
     {
+      "action": "installedCard.getByRole(\"button\", { name: /Weather Get current weather/ }).focus()"
+    },
+    {
+      "action": "(document.activeElement as HTMLElement | null)?.blur()"
+    },
+    {
       "action": "installedCard.getByTestId(\"installed-skill-description\").hover()"
     },
     {
@@ -196,10 +162,16 @@
       "action": "page.getByRole(\"button\", { name: \"浅色\", exact: true }).click()"
     },
     {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
       "action": "accountMenuButton.click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
     },
     {
       "action": "accountMenuButton.click()"
@@ -270,20 +242,30 @@
     "expect(page.getByRole(\"switch\", { name: \"启用 Weather\" })).not.toBeChecked()",
     "expect.poll(async () => page.evaluate(async () => (await window.workGui.skills.scanManaged()).some((item) => item.id === \"Weather\"), )).toBe(false)",
     "expect(page.getByRole(\"switch\", { name: \"停用 Weather\" })).toBeChecked()",
+    "expect(installedHeader).toHaveCSS(\"padding-right\", \"44px\")",
+    "expect(installedHeader).toHaveCSS(\"padding-right\", \"88px\")",
+    "expect(installedHeader).toHaveCSS(\"padding-right\", \"44px\")",
     "expect(installedCardStyle[\"background-color\"]).not.toBe(\"rgba(0, 0, 0, 0)\")",
     "expect(installedCardStyle[\"box-shadow\"]).not.toBe(\"none\")",
+    "expect(installedHeader).toHaveCSS(\"padding-right\", \"88px\")",
+    "expect(installedMoreBox.x - installedBadgeBox.right).toBeGreaterThanOrEqual(6)",
+    "expect(installedMoreBox.x - installedBadgeBox.right).toBeLessThanOrEqual(10)",
+    "expect(installedHeaderCenterSpread).toBeLessThanOrEqual(2)",
     "expect(installedToggleBox.x - installedBadgeBox.right).toBeLessThanOrEqual(installedToggleBox.width * 2.25)",
     "expect(installedDescriptionBox.right).toBeGreaterThanOrEqual(installedToggleBox.x)",
     "expect(installedDescriptionTooltip).toHaveText(\"Get current weather and forecasts (no API key required).\")",
     "expect(installedDescriptionTooltip).toHaveCount(0)",
     "expect(installedMenu.getByRole(\"menuitem\", { name: \"去对话\" })).toBeVisible()",
+    "expect(installedMenu.getByRole(\"menuitem\", { name: \"编辑\" })).toBeVisible()",
     "expect(installedMenu.getByRole(\"menuitem\", { name: \"打开文件夹\" })).toBeVisible()",
     "expect(installedMenu.getByRole(\"menuitem\", { name: \"卸载\" })).toBeVisible()",
-    "expect(installedMenu.getByText(\"编辑\", { exact: true })).toHaveCount(0)",
+    "expect(installedMenu.getByRole(\"menuitem\")).toHaveText([ \"去对话\", \"编辑\", \"打开文件夹\", \"卸载\", ])",
     "expect(composer).toHaveValue(\"\")",
     "expect( page.getByRole(\"button\", { name: \"默认权限\", exact: true }), ).toBeVisible()",
     "expect(selectedSkillChip).toBeVisible()",
+    "expect(accountMenuButton).toHaveAttribute(\"aria-expanded\", \"false\")",
     "expect(darkChipBackground).not.toBe(lightChipBackground)",
+    "expect(accountMenuButton).toHaveAttribute(\"aria-expanded\", \"false\")",
     "expect(accountMenuButton).toHaveAttribute(\"aria-expanded\", \"false\")",
     "expect(page.locator(\".message-copy\", { hasText: \"查询北京天气\" })).toHaveCount(0)",
     "expect(page.getByText(\"收到：@Weather 查询北京天气\", { exact: true })).toBeVisible()",
@@ -298,12 +280,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-7D621965E9C86F",
-      "type": "return",
-      "assertion": "installs Weather, opens an unsent trial, and completes a conversation"
-    },
-    {
-      "requirement_id": "REQ-BD6D3F8C50BA5F",
+      "requirement_id": "REQ-B43EC6186E30BF",
       "type": "return",
       "assertion": "installs Weather, opens an unsent trial, and completes a conversation"
     }
@@ -430,6 +407,12 @@
           "action": "page.getByRole(\"switch\", { name: \"启用 Weather\" }).click()"
         },
         {
+          "action": "installedCard.getByRole(\"button\", { name: /Weather Get current weather/ }).focus()"
+        },
+        {
+          "action": "(document.activeElement as HTMLElement | null)?.blur()"
+        },
+        {
           "action": "installedCard.getByTestId(\"installed-skill-description\").hover()"
         },
         {
@@ -445,10 +428,16 @@
           "action": "page.getByRole(\"button\", { name: \"浅色\", exact: true }).click()"
         },
         {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
           "action": "accountMenuButton.click()"
         },
         {
           "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
         },
         {
           "action": "accountMenuButton.click()"
@@ -496,13 +485,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/skill-hub.spec.ts",
-        "line_start": 165,
-        "line_end": 326,
-        "body_sha256": "sha256:69ef55e2902a40ca19b202fd9c432d3274ff29e971d39aea7c55b05180d6bb27",
-        "assertion_count": 60,
-        "action_count": 38,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:0b685b94df77a3dc0f0995c858a81a6ad4039a3d0ec6d57688d6a61ef41052a4"
+        "line_start": 184,
+        "line_end": 395,
+        "body_sha256": "sha256:13af3b353827a89443890f29e054011d3b8ae344f7dd34eebabae3b5b47ea609",
+        "assertion_count": 70,
+        "action_count": 42,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c3af76be63cda91e78dd4f64f43a932a333b3232f75fbcfe7601ec31b5b8e1f3"
       }
     },
     "reference_run": {
@@ -524,8 +513,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-7D621965E9C86F",
-      "REQ-BD6D3F8C50BA5F"
+      "REQ-B43EC6186E30BF"
     ],
     "categories": [
       "business"
@@ -533,8 +521,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-7D621965E9C86F",
-      "requirement:REQ-BD6D3F8C50BA5F"
+      "requirement:REQ-B43EC6186E30BF"
     ]
   }
 }

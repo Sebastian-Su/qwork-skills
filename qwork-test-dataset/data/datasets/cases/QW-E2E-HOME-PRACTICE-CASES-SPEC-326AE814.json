@@ -1,0 +1,225 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-HOME-PRACTICE-CASES-SPEC-326AE814",
+  "title": "matches WorkBuddy when the main window shrinks to compact and minimum sizes",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-home-practice-cases-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/home-practice-cases.spec.ts",
+      "locator": "line:117;test:matches WorkBuddy when the main window shrinks to compact and minimum sizes",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:326ae8142410ef2a487aee4d81733f6d517d5a1850623ab2bf3fd5ccde96283b",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-C9269485839E52",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-home-practice-cases-spec-ts:L117:326ae81424"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "matches WorkBuddy when the main window shrinks to compact and minimum sizes",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-home-practice-cases-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches WorkBuddy when the main window shrinks to compact and minimum sizes"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"文档处理\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(Math.abs(homeBox[key as keyof typeof homeBox] - value)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs((await boxOf(heading)).y - oracle.headingY)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs((await boxOf(scenes)).y - oracle.scenesY)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs((await boxOf(quick)).y - oracle.quickY)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs((await boxOf(composer)).y - oracle.composerY)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(galleryBox[key as keyof typeof galleryBox] - value)).toBeLessThanOrEqual(2)",
+    "expect(await scrollViewport.evaluate((element) => ({ scrollTop: element.scrollTop, scrollable: element.scrollHeight > element.clientHeight, }))).toEqual({ scrollTop: 0, scrollable: oracle.viewport.height < 708 })",
+    "expect(heading).toBeInViewport()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-C9269485839E52",
+      "type": "return",
+      "assertion": "matches WorkBuddy when the main window shrinks to compact and minimum sizes"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-home-practice-cases-spec-ts.326ae81424",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/home-practice-cases.spec.ts -g \"matches WorkBuddy when the main window shrinks to compact and minimum sizes\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"文档处理\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/home-practice-cases.spec.ts",
+        "line_start": 117,
+        "line_end": 209,
+        "body_sha256": "sha256:04579d4c1d25f60b7c3b7daafa053516781d8ab5f2d5a659ccf1c440042ab1cc",
+        "assertion_count": 8,
+        "action_count": 2,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:437394c5e0d54b6f207c3938cf692957d33fd3ca22f26d8c65f614d257d7bf0e"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-C9269485839E52"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-C9269485839E52"
+    ]
+  }
+}

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/ui-layout-collapsed-titlebar-navigation.spec.ts",
-      "locator": "line:231;test:matches the macOS collapsed button matrix and WorkBuddy geometry on every page",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/ui-layout-collapsed-titlebar-navigation.spec.ts",
+      "locator": "line:233;test:matches the macOS collapsed button matrix and WorkBuddy geometry on every page",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:30ed84dff6d5bc03d2dc2f0491d273e8b4605ece62c45211af2bdd98c594525c",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-75BD589BA7FEC5",
+      "requirement_id": "REQ-FCD9C852551E16",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-ui-layout-collapsed-titlebar-navigation-spec-ts:L231:30ed84dff6"
+        "QDEV-E2E-e2e-ui-layout-collapsed-titlebar-navigation-spec-ts:L233:30ed84dff6"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -109,13 +109,36 @@
     },
     {
       "action": "target.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+    },
+    {
+      "action": "more.focus()"
+    },
+    {
+      "action": "more.press(\"Enter\")"
+    },
+    {
+      "action": "item.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收起侧栏\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"展开侧栏\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect(item).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"展开侧栏\", exact: true })).toBeFocused()",
+    "expect(await buttonNames(page)).toEqual(expected)",
+    "expect(box.width).toBe(32)",
+    "expect(box.height).toBe(32)",
+    "expect(box.y).toBe(12)",
+    "expect(box.x).toBe(91 + index * 36)",
     "expect(toolbar).toBeVisible()",
     "expect(await toolbar.evaluate((node) => node.parentElement?.dataset.testid)) .toBe(\"page-chrome-outlet\")",
     "expect(page.getByTitle(\"搜索\", { exact: true })).toHaveCount(0)",
-    "expect(page.getByTitle(\"筛选\", { exact: true })).toHaveCount(0)"
+    "expect(page.getByTitle(\"筛选\", { exact: true })).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"收起侧栏\", exact: true })).toBeVisible()"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -124,7 +147,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-75BD589BA7FEC5",
+      "requirement_id": "REQ-FCD9C852551E16",
       "type": "return",
       "assertion": "matches the macOS collapsed button matrix and WorkBuddy geometry on every page"
     }
@@ -217,6 +240,21 @@
         },
         {
           "action": "target.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+        },
+        {
+          "action": "more.focus()"
+        },
+        {
+          "action": "more.press(\"Enter\")"
+        },
+        {
+          "action": "item.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收起侧栏\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"展开侧栏\", exact: true }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -237,13 +275,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/ui-layout-collapsed-titlebar-navigation.spec.ts",
-        "line_start": 231,
-        "line_end": 317,
+        "line_start": 233,
+        "line_end": 319,
         "body_sha256": "sha256:b6cc1477f28bdbe356da9b698c1bc640eee01e22e0f23cdd1dcb619c51f1e00f",
-        "assertion_count": 4,
-        "action_count": 12,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:468e9bce96768c8f1996c96c7e5a462af3ec67111a53f1bdb530047c9d78aa8a"
+        "assertion_count": 12,
+        "action_count": 17,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:51850ed9067788cd22d0333aee70670b3774b8fe6d067c4ba87033d2b40273f2"
       }
     },
     "reference_run": {
@@ -265,7 +303,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-75BD589BA7FEC5"
+      "REQ-FCD9C852551E16"
     ],
     "categories": [
       "business"
@@ -273,7 +311,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-75BD589BA7FEC5"
+      "requirement:REQ-FCD9C852551E16"
     ]
   }
 }

@@ -1,0 +1,419 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-AUTH-LOG-3-1-3F612631",
+  "title": "docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 3.1 两端独立直写原则 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:109;heading:3.1 两端独立直写原则",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:b7d41610c04910249c25523dadee3696e7e72fbceae38df058d9a020fd396324",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:110;heading:3.1 两端独立直写原则",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:b04e4fd063aa16ecc8f027cd7d866d39f3fb313343da4e6a1b089ab8322508ff",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:111;heading:3.1 两端独立直写原则",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:e8764ca4cdf5e06d7da1f242220dadc940f6f105799e638c63da908c3b5b06ed",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:112;heading:3.1 两端独立直写原则",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:796ee365a1a43ac2df9dd7140d01f023fa21d9e3ebfdf71eb0484e6dc0856d57",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-02361A5DF81DAD",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L109:b7d41610c0"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "客户端日志：由 Electron Main 直接调用现有 `aliyun_sls`/`ObservabilityPipeline` 写 SLS。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "客户端日志：由 Electron Main 直接调用现有 `aliyun_sls`/`ObservabilityPipeline` 写 SLS。"
+    },
+    {
+      "requirement_id": "REQ-5B3DED6AB154EB",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L110:b04e4fd063"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "服务端日志：由 qwork_server 的 logger/exporter 直接写 SLS。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "服务端日志：由 qwork_server 的 logger/exporter 直接写 SLS。"
+    },
+    {
+      "requirement_id": "REQ-9172259981AFD0",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L111:e8764ca4cd"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "不新增“客户端把日志报给 qwork_server”或“qwork_server 代客户端写日志”的中转链路。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "不新增“客户端把日志报给 qwork_server”或“qwork_server 代客户端写日志”的中转链路。"
+    },
+    {
+      "requirement_id": "REQ-061456E15DF452",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L112:796ee365a1"
+      ],
+      "content_facets": [
+        "evidence-provenance"
+      ],
+      "acceptance_categories": [
+        "evidence-integrity"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "trace header 只用于关联正常业务请求，不承载日志内容，也不改变两端独立落日志的责任。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "trace header 只用于关联正常业务请求，不承载日志内容，也不改变两端独立落日志的责任。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 3.1 两端独立直写原则 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-02361A5DF81DAD] exactly: 客户端日志：由 Electron Main 直接调用现有 `aliyun_sls`/`ObservabilityPipeline` 写 SLS。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-5B3DED6AB154EB] exactly: 服务端日志：由 qwork_server 的 logger/exporter 直接写 SLS。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-9172259981AFD0] exactly: 不新增“客户端把日志报给 qwork_server”或“qwork_server 代客户端写日志”的中转链路。"
+    },
+    {
+      "action": "observe case-owned execution trace after the trigger and assert [REQ-061456E15DF452] exactly: trace header 只用于关联正常业务请求，不承载日志内容，也不改变两端独立落日志的责任。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "客户端日志：由 Electron Main 直接调用现有 `aliyun_sls`/`ObservabilityPipeline` 写 SLS。",
+    "服务端日志：由 qwork_server 的 logger/exporter 直接写 SLS。",
+    "不新增“客户端把日志报给 qwork_server”或“qwork_server 代客户端写日志”的中转链路。",
+    "trace header 只用于关联正常业务请求，不承载日志内容，也不改变两端独立落日志的责任。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-02361A5DF81DAD]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 客户端日志：由 Electron Main 直接调用现有 `aliyun_sls`/`ObservabilityPipeline` 写 SLS。",
+    "FAIL [REQ-5B3DED6AB154EB]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 服务端日志：由 qwork_server 的 logger/exporter 直接写 SLS。",
+    "FAIL [REQ-9172259981AFD0]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 不新增“客户端把日志报给 qwork_server”或“qwork_server 代客户端写日志”的中转链路。",
+    "FAIL [REQ-061456E15DF452]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: trace header 只用于关联正常业务请求，不承载日志内容，也不改变两端独立落日志的责任。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-02361A5DF81DAD",
+      "type": "return",
+      "assertion": "客户端日志：由 Electron Main 直接调用现有 `aliyun_sls`/`ObservabilityPipeline` 写 SLS。"
+    },
+    {
+      "requirement_id": "REQ-5B3DED6AB154EB",
+      "type": "return",
+      "assertion": "服务端日志：由 qwork_server 的 logger/exporter 直接写 SLS。"
+    },
+    {
+      "requirement_id": "REQ-9172259981AFD0",
+      "type": "return",
+      "assertion": "不新增“客户端把日志报给 qwork_server”或“qwork_server 代客户端写日志”的中转链路。"
+    },
+    {
+      "requirement_id": "REQ-061456E15DF452",
+      "type": "trace",
+      "assertion": "trace header 只用于关联正常业务请求，不承载日志内容，也不改变两端独立落日志的责任。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-auth-login.3-1-3f61263146",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 3.1 两端独立直写原则 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-02361A5DF81DAD] exactly: 客户端日志：由 Electron Main 直接调用现有 `aliyun_sls`/`ObservabilityPipeline` 写 SLS。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-5B3DED6AB154EB] exactly: 服务端日志：由 qwork_server 的 logger/exporter 直接写 SLS。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-9172259981AFD0] exactly: 不新增“客户端把日志报给 qwork_server”或“qwork_server 代客户端写日志”的中转链路。"
+        },
+        {
+          "action": "observe case-owned execution trace after the trigger and assert [REQ-061456E15DF452] exactly: trace header 只用于关联正常业务请求，不承载日志内容，也不改变两端独立落日志的责任。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-02361A5DF81DAD",
+      "REQ-061456E15DF452",
+      "REQ-5B3DED6AB154EB",
+      "REQ-9172259981AFD0"
+    ],
+    "categories": [
+      "business",
+      "evidence-integrity"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:evidence-integrity",
+      "full",
+      "requirement:REQ-02361A5DF81DAD",
+      "requirement:REQ-061456E15DF452",
+      "requirement:REQ-5B3DED6AB154EB",
+      "requirement:REQ-9172259981AFD0"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-02361A5DF81DAD",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 3.1 两端独立直写原则 产品契约 exactly once and retain its correlation identity",
+      "then": "客户端日志：由 Electron Main 直接调用现有 `aliyun_sls`/`ObservabilityPipeline` 写 SLS。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-5B3DED6AB154EB",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 3.1 两端独立直写原则 产品契约 exactly once and retain its correlation identity",
+      "then": "服务端日志：由 qwork_server 的 logger/exporter 直接写 SLS。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-9172259981AFD0",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 3.1 两端独立直写原则 产品契约 exactly once and retain its correlation identity",
+      "then": "不新增“客户端把日志报给 qwork_server”或“qwork_server 代客户端写日志”的中转链路。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-061456E15DF452",
+      "oracle_type": "trace",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 3.1 两端独立直写原则 产品契约 exactly once and retain its correlation identity",
+      "then": "trace header 只用于关联正常业务请求，不承载日志内容，也不改变两端独立落日志的责任。",
+      "observation_boundary": "case-owned execution trace",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/credits-pages-production.spec.ts",
-      "locator": "line:67;test:all five account entries open official, interactive WorkBuddy-aligned pages",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/credits-pages-production.spec.ts",
+      "locator": "line:73;test:all five account entries open official, interactive WorkBuddy-aligned pages",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:540f19c3dd01742d783b8f4d677ea2dfcfc6e1334b495f8109c01620f9ad0793",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-4F1CEF63E04486",
+      "requirement_id": "REQ-26BA54B4ACDE36",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-credits-pages-production-spec-ts:L67:540f19c3dd"
+        "QDEV-E2E-e2e-credits-pages-production-spec-ts:L73:540f19c3dd"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,6 +75,9 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"升级\", exact: true }).click()"
     },
     {
@@ -96,10 +99,22 @@
       "action": "reopenedFuel.getByRole(\"button\", { name: \"关闭 Buddy 加油站\" }).click()"
     },
     {
-      "action": "page.getByRole(\"menuitem\", { name: /积分余额/ }).click()"
+      "action": "page.getByRole(\"menuitem\", { name: /可用积分/ }).click()"
     },
     {
       "action": "rangeButton.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"7天\", exact: true }).click()"
+    },
+    {
+      "action": "dateRangeTrigger.click()"
+    },
+    {
+      "action": "selectedDate.click()"
+    },
+    {
+      "action": "selectedDate.click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"关闭个人中心\" }).click()"
@@ -114,20 +129,37 @@
       "action": "page.getByRole(\"button\", { name: \"返回套餐与用量\" }).click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: /账单与发票/ }).click()"
+      "action": "page.getByRole(\"button\", { name: \"查看积分规则\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭积分规则\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /积分收支/ }).click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: /成长计划/ }).click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: /能量盲盒/ }).click()"
+      "action": "page.getByRole(\"button\", { name: \"关闭个人中心\" }).click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: /^开启盲盒$/ }).click()"
+      "action": "page.getByPlaceholder(/今天帮你做些什么/).fill(\"帮我写一句简短的工作计划\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: /成长计划/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"开启盲盒，当前10能量，需要10能量\" }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"menu\", { name: \"用户中心\" })).toBeVisible()",
     "expect(page.getByRole(\"dialog\", { name: \"Qwork 套餐新购\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"编辑套餐页面\" })).toHaveCount(0)",
     "expect(page.getByRole(\"heading\", { name: \"在线购买暂未开放\" })).toBeVisible()",
     "expect(page.getByRole(\"button\", { name: \"暂未开放\" })).toBeDisabled()",
     "expect(page.getByText(/扫码支付|模拟支付|内测|测试积分/)).toHaveCount(0)",
@@ -137,7 +169,7 @@
     "expect(page.getByRole(\"region\", { name: \"Buddy 加油站\" })).toBeVisible()",
     "expect( page.getByRole(\"status\").filter({ hasText: \"领取成功，100 积分已到账\" }), ).toHaveText(\"领取成功，100 积分已到账\")",
     "expect(page.getByRole(\"button\", { name: \"今日已领\" })).toBeDisabled()",
-    "expect(page.getByRole(\"textbox\", { name: /今天帮你做些什么/ })).toHaveValue(/搭建一个适合日常办公的工作台/)",
+    "expect(page.getByPlaceholder(/今天帮你做些什么/)).toHaveValue(/搭建一个适合日常办公的工作台/)",
     "expect(reopenedFuelStats).toContainText(\"已领 5 天\")",
     "expect(reopenedFuelStats).toContainText(\"累计领取 500 分\")",
     "expect(reopenedFuel.getByRole(\"button\", { name: \"今日已领\" })).toBeDisabled()",
@@ -146,17 +178,29 @@
     "expect(dailyClaimRow).toBeVisible()",
     "expect(rangeButton).toHaveAttribute(\"aria-pressed\", \"true\")",
     "expect(dailyClaimRow).toBeVisible()",
+    "expect(dateRangeTrigger).toContainText(/\\d{4}\\/\\d{2}\\/\\d{2}–\\d{4}\\/\\d{2}\\/\\d{2}/)",
+    "expect(dateRangeDialog).toBeVisible()",
+    "expect(dateRangeDialog.getByRole(\"grid\")).toHaveCount(2)",
+    "expect(rangeEnd).not.toBeNull()",
+    "expect(dateRangeDialog).toBeHidden()",
+    "expect(dateRangeTrigger).toContainText(`${selectedDateText}–${selectedDateText}`)",
+    "expect(dailyClaimRow).toBeVisible()",
     "expect(grantedCredits).toContainText(\"总量： 5,100\")",
     "expect(grantedCredits).toContainText(\"剩余： 3,831.41\")",
     "expect(page.getByRole(\"dialog\", { name: \"推荐朋友使用\" })).toBeVisible()",
     "expect(page.getByRole(\"heading\", { name: \"Qwork 个人版\" })).toBeVisible()",
     "expect(page.getByRole(\"heading\", { name: \"套餐与用量\" })).toBeVisible()",
+    "expect(page.getByText(\"QWork 当前处于内测阶段\")).toBeVisible()",
+    "expect(page.getByText(\"内测期间暂不开放积分购买；如积分不足，请联系管理员补充测试积分。\")).toBeVisible()",
+    "expect(page.getByText(/可购买加量包|1,000积分|50元/)).toHaveCount(0)",
+    "expect(page.getByRole(\"dialog\", { name: \"积分规则\" })).toBeVisible()",
     "expect(page.getByText(\"3,831.4\", { exact: true })).toBeVisible()",
     "expect(billing).toBeVisible()",
-    "expect( billing.getByRole(\"row\", { name: /每日领取.*赠送.*\\+100\\.00.*0\\.00 CNY.*已完成/ }), ).toBeVisible()",
-    "expect(stage).toHaveAttribute(\"data-animation-phase\", \"ready\")",
-    "expect(stage).toHaveAttribute(\"data-animation-phase\", \"done\", { timeout: 5_000 })",
-    "expect(stage.getByLabel(/被窝团子动作：/)).toBeVisible()"
+    "expect( billing.getByRole(\"row\", { name: /每日领取.*\\+100\\.00.*已到账/ }), ).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"开启盲盒，当前0能量，需要10能量\" })).toBeDisabled()",
+    "expect.poll(async () => (await page.evaluate(() => window.workGui.desktopPet.getGrowth())).completedTasks).toBe(1)",
+    "expect(page.getByRole(\"heading\", { name: \"新同事报到\" })).toBeVisible()",
+    "expect(page.locator(\"video.pg-reveal-pet\")).toBeVisible()"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -165,7 +209,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-4F1CEF63E04486",
+      "requirement_id": "REQ-26BA54B4ACDE36",
       "type": "return",
       "assertion": "all five account entries open official, interactive WorkBuddy-aligned pages"
     }
@@ -226,6 +270,9 @@
       "entrypoint": "shell-home",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"升级\", exact: true }).click()"
         },
         {
@@ -247,10 +294,22 @@
           "action": "reopenedFuel.getByRole(\"button\", { name: \"关闭 Buddy 加油站\" }).click()"
         },
         {
-          "action": "page.getByRole(\"menuitem\", { name: /积分余额/ }).click()"
+          "action": "page.getByRole(\"menuitem\", { name: /可用积分/ }).click()"
         },
         {
           "action": "rangeButton.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"7天\", exact: true }).click()"
+        },
+        {
+          "action": "dateRangeTrigger.click()"
+        },
+        {
+          "action": "selectedDate.click()"
+        },
+        {
+          "action": "selectedDate.click()"
         },
         {
           "action": "page.getByRole(\"button\", { name: \"关闭个人中心\" }).click()"
@@ -265,16 +324,31 @@
           "action": "page.getByRole(\"button\", { name: \"返回套餐与用量\" }).click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: /账单与发票/ }).click()"
+          "action": "page.getByRole(\"button\", { name: \"查看积分规则\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭积分规则\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /积分收支/ }).click()"
         },
         {
           "action": "page.getByRole(\"button\", { name: /成长计划/ }).click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: /能量盲盒/ }).click()"
+          "action": "page.getByRole(\"button\", { name: \"关闭个人中心\" }).click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: /^开启盲盒$/ }).click()"
+          "action": "page.getByPlaceholder(/今天帮你做些什么/).fill(\"帮我写一句简短的工作计划\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: /成长计划/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"开启盲盒，当前10能量，需要10能量\" }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -295,13 +369,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/credits-pages-production.spec.ts",
-        "line_start": 67,
-        "line_end": 155,
-        "body_sha256": "sha256:8feff03e0dcde8d6499e1dad3faff023da2f801738b8d8aa703b3df150e377f0",
-        "assertion_count": 30,
-        "action_count": 17,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:3c1f479c689463626563dc68741e06d7ab6ed69016a659e4d2a435d146f71ace"
+        "line_start": 73,
+        "line_end": 191,
+        "body_sha256": "sha256:f4130d0edde8e1bbf38078bb9cb1978adf644183769967766ff9f86526f4147d",
+        "assertion_count": 44,
+        "action_count": 27,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:ea98195bfbf59b4b39030baab5d431de8dc38f4bb700d3ffec29cd198716946b"
       }
     },
     "reference_run": {
@@ -323,7 +397,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-4F1CEF63E04486"
+      "REQ-26BA54B4ACDE36"
     ],
     "categories": [
       "business"
@@ -331,7 +405,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-4F1CEF63E04486"
+      "requirement:REQ-26BA54B4ACDE36"
     ]
   }
 }

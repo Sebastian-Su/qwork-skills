@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/skill-hub.spec.ts",
-      "locator": "line:610;test:uses source-specific server sorting and resets the source default",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/skill-hub.spec.ts",
+      "locator": "line:675;test:uses source-specific server sorting and resets the source default",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:25ab17406742951d9b733a7db2ffc137fc5e43775346f333e676e194c7f84575",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-skill-hub-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/skill-hub.spec.ts",
-      "locator": "line:488;test:uses source-specific server sorting and resets the source default",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:25ab17406742951d9b733a7db2ffc137fc5e43775346f333e676e194c7f84575",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-skill-hub-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-87D2CA3201D91B",
+      "requirement_id": "REQ-5D6F3CF3A5417D",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-skill-hub-spec-ts:L610:25ab174067",
-        "QHEAD-E2E-e2e-skill-hub-spec-ts:L488:25ab174067"
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L675:25ab174067"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-skill-hub-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-skill-hub-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -98,6 +78,15 @@
       "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
     },
     {
+      "action": "sourceToolbar.getByRole(\"button\", { name: \"技能排序\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitemradio\", { name: \"最近更新\" }).click()"
+    },
+    {
+      "action": "recommendedNext.click()"
+    },
+    {
       "action": "page.getByRole(\"tab\", { name: \"SkillHub\", exact: true }).click()"
     },
     {
@@ -107,6 +96,12 @@
       "action": "menu.getByRole(\"menuitemradio\", { name: \"最近更新\" }).click()"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"SkillHub 来源\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"SkillHub 来源选项\" }).getByRole(\"menuitemradio\", { name: source }).click()"
+    },
+    {
       "action": "sort.click()"
     },
     {
@@ -114,6 +109,12 @@
     }
   ],
   "expected_outcomes": [
+    "expect(Math.abs((sourceTabsBox.y + sourceTabsBox.height / 2) - (recommendedControlsBox.y + recommendedControlsBox.height / 2))).toBeLessThanOrEqual(2)",
+    "expect(sourceToolbar.getByRole(\"button\", { name: \"技能排序\" })).toContainText(\"最多下载\")",
+    "expect(page.getByRole(\"menu\", { name: \"技能排序选项\" }).getByRole(\"menuitemradio\")).toHaveText([ \"最多下载\", \"最多收藏\", \"最近更新\", \"最新发布\", ])",
+    "expect(sourceToolbar.getByRole(\"button\", { name: \"技能排序\" })).toContainText(\"最近更新\")",
+    "expect(recommendedNext).toBeVisible()",
+    "expect.poll(() => recommendedRail.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0)",
     "expect(sort).toContainText(\"最多下载\")",
     "expect(menu.getByRole(\"menuitemradio\")).toHaveText([ \"最多下载\", \"最多收藏\", \"最近更新\", \"最新发布\", ])",
     "expect(sort).toContainText(\"最近更新\")",
@@ -128,7 +129,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-87D2CA3201D91B",
+      "requirement_id": "REQ-5D6F3CF3A5417D",
       "type": "return",
       "assertion": "uses source-specific server sorting and resets the source default"
     }
@@ -192,6 +193,15 @@
           "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
         },
         {
+          "action": "sourceToolbar.getByRole(\"button\", { name: \"技能排序\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitemradio\", { name: \"最近更新\" }).click()"
+        },
+        {
+          "action": "recommendedNext.click()"
+        },
+        {
           "action": "page.getByRole(\"tab\", { name: \"SkillHub\", exact: true }).click()"
         },
         {
@@ -199,6 +209,12 @@
         },
         {
           "action": "menu.getByRole(\"menuitemradio\", { name: \"最近更新\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"SkillHub 来源\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"SkillHub 来源选项\" }).getByRole(\"menuitemradio\", { name: source }).click()"
         },
         {
           "action": "sort.click()"
@@ -225,13 +241,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/skill-hub.spec.ts",
-        "line_start": 488,
-        "line_end": 518,
-        "body_sha256": "sha256:a43e05cba8dd9070859a21910a00cdd9d3a369b30339a5b573e51fe34d28bbef",
-        "assertion_count": 6,
-        "action_count": 6,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:0b685b94df77a3dc0f0995c858a81a6ad4039a3d0ec6d57688d6a61ef41052a4"
+        "line_start": 675,
+        "line_end": 733,
+        "body_sha256": "sha256:47ca96851a5248aae76db7189602f61b1edc92c5ae88e615dc4d34c0d3da531b",
+        "assertion_count": 12,
+        "action_count": 11,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c3af76be63cda91e78dd4f64f43a932a333b3232f75fbcfe7601ec31b5b8e1f3"
       }
     },
     "reference_run": {
@@ -253,7 +269,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-87D2CA3201D91B"
+      "REQ-5D6F3CF3A5417D"
     ],
     "categories": [
       "business"
@@ -261,7 +277,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-87D2CA3201D91B"
+      "requirement:REQ-5D6F3CF3A5417D"
     ]
   }
 }

@@ -1,0 +1,298 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-REAL-HOME-PRESET-SPEC-6D42B8E6",
+  "title": "UI-JOURNEY-HOME-PRESET-REAL-001 | 文档处理预置入口发起真实模型请求并收到回复",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-real-home-preset-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/real-home-preset.spec.ts",
+      "locator": "line:45;test:UI-JOURNEY-HOME-PRESET-REAL-001 | 文档处理预置入口发起真实模型请求并收到回复",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:6d42b8e6751d42654852619a2c2b149d8d0da7760e23990acaeeae791ae1e8f2",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-83C86427D7F6B1",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-real-home-preset-spec-ts:L45:6d42b8e675"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "UI-JOURNEY-HOME-PRESET-REAL-001 | 文档处理预置入口发起真实模型请求并收到回复",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-real-home-preset-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "UI-JOURNEY-HOME-PRESET-REAL-001 | 文档处理预置入口发起真实模型请求并收到回复"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"模型\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"添加模型\" }).click()"
+    },
+    {
+      "action": "editor.getByLabel(\"接口地址\").fill(endpointUrl!)"
+    },
+    {
+      "action": "editor.getByLabel(\"模型名称\").fill(modelName!)"
+    },
+    {
+      "action": "editor.getByLabel(\"API Key\").fill(apiKey!)"
+    },
+    {
+      "action": "editor.getByRole(\"button\", { name: \"保存\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"关闭设置\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"文档处理\" }).click()"
+    },
+    {
+      "action": "page.getByTestId(\"composer-model-trigger\").click()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"模型\" }) .getByRole(\"menuitemradio\", { name: modelName! }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").first().fill(prompt)"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: \"新建任务\", exact: true })).toBeVisible()",
+    "expect(dialog).toBeVisible()",
+    "expect(editor).toBeHidden({ timeout: 120_000 })",
+    "expect(dialog.getByText(modelName!)).toBeVisible()",
+    "expect(page.getByTestId(\"composer-model-trigger\")).toContainText(modelName!.split(\"/\").pop()!)",
+    "expect .poll(async () => { evidence = await latestHistory(page); return evidence?.assistant.includes(marker) ?? false; }, { timeout: 240_000, intervals: [1_000, 2_000, 3_000] }) .toBe(true)",
+    "expect(evidence.assistant).toContain(MARKER)",
+    "expect(evidence.user).toContain(\"@scene:daily-01\")",
+    "expect(evidence.user).toContain(prompt)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-83C86427D7F6B1",
+      "type": "return",
+      "assertion": "UI-JOURNEY-HOME-PRESET-REAL-001 | 文档处理预置入口发起真实模型请求并收到回复"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-real-home-preset-spec-ts.6d42b8e675",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/real-home-preset.spec.ts -g \"UI-JOURNEY-HOME-PRESET-REAL-001 | 文档处理预置入口发起真实模型请求并收到回复\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"模型\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"添加模型\" }).click()"
+        },
+        {
+          "action": "editor.getByLabel(\"接口地址\").fill(endpointUrl!)"
+        },
+        {
+          "action": "editor.getByLabel(\"模型名称\").fill(modelName!)"
+        },
+        {
+          "action": "editor.getByLabel(\"API Key\").fill(apiKey!)"
+        },
+        {
+          "action": "editor.getByRole(\"button\", { name: \"保存\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"关闭设置\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"文档处理\" }).click()"
+        },
+        {
+          "action": "page.getByTestId(\"composer-model-trigger\").click()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"模型\" }) .getByRole(\"menuitemradio\", { name: modelName! }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").first().fill(prompt)"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/real-home-preset.spec.ts",
+        "line_start": 45,
+        "line_end": 110,
+        "body_sha256": "sha256:0902ccdd786c8b9f7cddcb42d84aaf6dfa8fc27f1a9c3ea96195048512a9c3fb",
+        "assertion_count": 9,
+        "action_count": 14,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:5dddd2d96c4ac420a8b8480bfbb8c08c1b87e3bbb069e0cfe0e3cec2f3f88d4d"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-83C86427D7F6B1"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-83C86427D7F6B1"
+    ]
+  }
+}

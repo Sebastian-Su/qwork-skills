@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/session-startup-lifecycle.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/session-startup-lifecycle.spec.ts",
       "locator": "line:50;test:startup queues chat/model work, records the task, and lets a connector unbind",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:a473a329f2f9bffb64ae9aee0dafa8478893c9d9cbbb87602f56b00301729f56",
       "redaction_status": "minimized"
     }
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:48:29.243197+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -88,6 +88,36 @@
     },
     {
       "action": "page .getByRole(\"menuitemradio\", { name: \"Kimi-K3\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"自定义连接器\", exact: true }).click()"
+    },
+    {
+      "action": "manageDialog.getByRole(\"button\", { name: \"配置 MCP\", exact: true }).click()"
+    },
+    {
+      "action": "editor.focus()"
+    },
+    {
+      "action": "page.keyboard.press(\"ControlOrMeta+A\")"
+    },
+    {
+      "action": "page .getByRole(\"dialog\", { name: \"配置 MCP\" }) .getByRole(\"button\", { name: \"保存\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"broken-server，未连接\" }).click()"
+    },
+    {
+      "action": "page .getByRole(\"dialog\", { name: \"broken-server\" }) .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"信任并启用\", exact: true }).click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
@@ -193,6 +223,36 @@
           "action": "page .getByRole(\"menuitemradio\", { name: \"Kimi-K3\", exact: true }) .click()"
         },
         {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"自定义连接器\", exact: true }).click()"
+        },
+        {
+          "action": "manageDialog.getByRole(\"button\", { name: \"配置 MCP\", exact: true }).click()"
+        },
+        {
+          "action": "editor.focus()"
+        },
+        {
+          "action": "page.keyboard.press(\"ControlOrMeta+A\")"
+        },
+        {
+          "action": "page .getByRole(\"dialog\", { name: \"配置 MCP\" }) .getByRole(\"button\", { name: \"保存\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"broken-server，未连接\" }).click()"
+        },
+        {
+          "action": "page .getByRole(\"dialog\", { name: \"broken-server\" }) .getByRole(\"button\", { name: \"连接\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"信任并启用\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"关闭\", exact: true }).click()"
         },
         {
@@ -222,11 +282,11 @@
         "spec": "e2e/session-startup-lifecycle.spec.ts",
         "line_start": 50,
         "line_end": 132,
-        "body_sha256": "sha256:aae92813241ccd1f6ca2453808bd89018fa82d549434bd5e1eae6ac6b200ca20",
+        "body_sha256": "sha256:fd9d3efb7f3bf59bbaaa9d47794f9293ee5ab26e76f7410c5f400adcd0040244",
         "assertion_count": 9,
-        "action_count": 8,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:9a3e1726e4f69fc348569b891ae36f58ba6d731ab88f0862eacc6ed9a60fdc59"
+        "action_count": 18,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:06495ea3918133cc34f832fbb7c05aa8b36018ee39a12e8fed07c83552ac14fb"
       }
     },
     "reference_run": {

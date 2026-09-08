@@ -22,12 +22,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:265;heading:Red：ZiqDo",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:426;heading:Red：ZiqDo",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:7760e52648c17b6081a8af090f3fa52688f26a0527afdef0b8e586a7e500a325",
       "redaction_status": "minimized"
     },
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:266;heading:Red：ZiqDo",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:427;heading:Red：ZiqDo",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:6687a2983f768df04b8c818443cc83684eadc8e1819f290d7838c1157a6813e8",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-8CEC82EECF55CE",
+      "requirement_id": "REQ-274E22EDAD92BE",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L265:7760e52648"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L426:7760e52648"
       ],
       "content_facets": [
         "evidence-provenance"
@@ -74,9 +74,9 @@
       "oracle": "telemetry：外部 parent trace、回合 child span、隐私策略、事件 ID/序列、异常结束清理。"
     },
     {
-      "requirement_id": "REQ-D5F40068C5579D",
+      "requirement_id": "REQ-F2A06C97B5CC7D",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L266:6687a2983f"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L427:6687a2983f"
       ],
       "content_facets": [
         "evidence-provenance"
@@ -122,10 +122,10 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · Red：ZiqDo 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe case-owned execution trace after the trigger and assert [REQ-8CEC82EECF55CE] exactly: telemetry：外部 parent trace、回合 child span、隐私策略、事件 ID/序列、异常结束清理。"
+      "action": "observe case-owned execution trace after the trigger and assert [REQ-274E22EDAD92BE] exactly: telemetry：外部 parent trace、回合 child span、隐私策略、事件 ID/序列、异常结束清理。"
     },
     {
-      "action": "observe case-owned execution trace after the trigger and assert [REQ-D5F40068C5579D] exactly: server stdio contract：`user_message.trace_context` 可选兼容；`observability_event` 只含白名单字段。"
+      "action": "observe case-owned execution trace after the trigger and assert [REQ-F2A06C97B5CC7D] exactly: server stdio contract：`user_message.trace_context` 可选兼容；`observability_event` 只含白名单字段。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -136,19 +136,19 @@
     "server stdio contract：`user_message.trace_context` 可选兼容；`observability_event` 只含白名单字段。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-8CEC82EECF55CE]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: telemetry：外部 parent trace、回合 child span、隐私策略、事件 ID/序列、异常结束清理。",
-    "FAIL [REQ-D5F40068C5579D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: server stdio contract：`user_message.trace_context` 可选兼容；`observability_event` 只含白名单字段。",
+    "FAIL [REQ-274E22EDAD92BE]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: telemetry：外部 parent trace、回合 child span、隐私策略、事件 ID/序列、异常结束清理。",
+    "FAIL [REQ-F2A06C97B5CC7D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: server stdio contract：`user_message.trace_context` 可选兼容；`observability_event` 只含白名单字段。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-8CEC82EECF55CE",
+      "requirement_id": "REQ-274E22EDAD92BE",
       "type": "trace",
       "assertion": "telemetry：外部 parent trace、回合 child span、隐私策略、事件 ID/序列、异常结束清理。"
     },
     {
-      "requirement_id": "REQ-D5F40068C5579D",
+      "requirement_id": "REQ-F2A06C97B5CC7D",
       "type": "trace",
       "assertion": "server stdio contract：`user_message.trace_context` 可选兼容；`observability_event` 只含白名单字段。"
     }
@@ -207,10 +207,10 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · Red：ZiqDo 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe case-owned execution trace after the trigger and assert [REQ-8CEC82EECF55CE] exactly: telemetry：外部 parent trace、回合 child span、隐私策略、事件 ID/序列、异常结束清理。"
+          "action": "observe case-owned execution trace after the trigger and assert [REQ-274E22EDAD92BE] exactly: telemetry：外部 parent trace、回合 child span、隐私策略、事件 ID/序列、异常结束清理。"
         },
         {
-          "action": "observe case-owned execution trace after the trigger and assert [REQ-D5F40068C5579D] exactly: server stdio contract：`user_message.trace_context` 可选兼容；`observability_event` 只含白名单字段。"
+          "action": "observe case-owned execution trace after the trigger and assert [REQ-F2A06C97B5CC7D] exactly: server stdio contract：`user_message.trace_context` 可选兼容；`observability_event` 只含白名单字段。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -253,8 +253,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-8CEC82EECF55CE",
-      "REQ-D5F40068C5579D"
+      "REQ-274E22EDAD92BE",
+      "REQ-F2A06C97B5CC7D"
     ],
     "categories": [
       "evidence-integrity"
@@ -262,13 +262,13 @@
     "suite_ids": [
       "category:evidence-integrity",
       "full",
-      "requirement:REQ-8CEC82EECF55CE",
-      "requirement:REQ-D5F40068C5579D"
+      "requirement:REQ-274E22EDAD92BE",
+      "requirement:REQ-F2A06C97B5CC7D"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-8CEC82EECF55CE",
+      "requirement_id": "REQ-274E22EDAD92BE",
       "oracle_type": "trace",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · Red：ZiqDo 产品契约 exactly once and retain its correlation identity",
@@ -277,7 +277,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-D5F40068C5579D",
+      "requirement_id": "REQ-F2A06C97B5CC7D",
       "oracle_type": "trace",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · Red：ZiqDo 产品契约 exactly once and retain its correlation identity",

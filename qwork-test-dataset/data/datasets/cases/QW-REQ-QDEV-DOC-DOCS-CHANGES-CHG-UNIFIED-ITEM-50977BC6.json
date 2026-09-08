@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:135;heading:等级语义",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:294;heading:等级语义",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:d7678d9c9aa67aa44b0859823b783e6d2f5bf6d90399a8f32aa08b7d0bd56a13",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-C3CA89780EB7D7",
+      "requirement_id": "REQ-556F5035B8F7E1",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L135:d7678d9c9a"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L294:d7678d9c9a"
       ],
       "content_facets": [
         "role-permission"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 等级语义 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-C3CA89780EB7D7] exactly: 日志等级只控制事件密度，不改变数据敏感度。Debug 仍保持 metadata-only，禁止用户内容、工具 I/O、文件内容、原始路径/URL、凭据和未归一化错误正文。真实 `session_id/qid/mid/trace_id` 属于受控排障标识；原始内容排查只能另走显式授权、隔离、短期的临时 Trace Capture，不复用正式日志通道。"
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-556F5035B8F7E1] exactly: 日志等级只控制事件密度，不改变数据敏感度。Debug 仍保持 metadata-only，禁止用户内容、工具 I/O、文件内容、原始路径/URL、凭据和未归一化错误正文。真实 `session_id/qid/mid/trace_id` 属于受控排障标识；原始内容排查只能另走显式授权、隔离、短期的临时 Trace Capture，不复用正式日志通道。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "日志等级只控制事件密度，不改变数据敏感度。Debug 仍保持 metadata-only，禁止用户内容、工具 I/O、文件内容、原始路径/URL、凭据和未归一化错误正文。真实 `session_id/qid/mid/trace_id` 属于受控排障标识；原始内容排查只能另走显式授权、隔离、短期的临时 Trace Capture，不复用正式日志通道。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-C3CA89780EB7D7]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 日志等级只控制事件密度，不改变数据敏感度。Debug 仍保持 metadata-only，禁止用户内容、工具 I/O、文件内容、原始路径/URL、凭据和未归一化错误正文。真实 `session_id/qid/mid/trace_id` 属于受控排障标识；原始内容排查只能另走显式授权、隔离、短期的临时 Trace Capture，不复用正式日志通道。",
+    "FAIL [REQ-556F5035B8F7E1]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 日志等级只控制事件密度，不改变数据敏感度。Debug 仍保持 metadata-only，禁止用户内容、工具 I/O、文件内容、原始路径/URL、凭据和未归一化错误正文。真实 `session_id/qid/mid/trace_id` 属于受控排障标识；原始内容排查只能另走显式授权、隔离、短期的临时 Trace Capture，不复用正式日志通道。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-C3CA89780EB7D7",
+      "requirement_id": "REQ-556F5035B8F7E1",
       "type": "ui",
       "assertion": "日志等级只控制事件密度，不改变数据敏感度。Debug 仍保持 metadata-only，禁止用户内容、工具 I/O、文件内容、原始路径/URL、凭据和未归一化错误正文。真实 `session_id/qid/mid/trace_id` 属于受控排障标识；原始内容排查只能另走显式授权、隔离、短期的临时 Trace Capture，不复用正式日志通道。"
     }
@@ -170,7 +170,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 等级语义 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-C3CA89780EB7D7] exactly: 日志等级只控制事件密度，不改变数据敏感度。Debug 仍保持 metadata-only，禁止用户内容、工具 I/O、文件内容、原始路径/URL、凭据和未归一化错误正文。真实 `session_id/qid/mid/trace_id` 属于受控排障标识；原始内容排查只能另走显式授权、隔离、短期的临时 Trace Capture，不复用正式日志通道。"
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-556F5035B8F7E1] exactly: 日志等级只控制事件密度，不改变数据敏感度。Debug 仍保持 metadata-only，禁止用户内容、工具 I/O、文件内容、原始路径/URL、凭据和未归一化错误正文。真实 `session_id/qid/mid/trace_id` 属于受控排障标识；原始内容排查只能另走显式授权、隔离、短期的临时 Trace Capture，不复用正式日志通道。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -216,7 +216,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-C3CA89780EB7D7"
+      "REQ-556F5035B8F7E1"
     ],
     "categories": [
       "permission"
@@ -224,12 +224,12 @@
     "suite_ids": [
       "category:permission",
       "full",
-      "requirement:REQ-C3CA89780EB7D7"
+      "requirement:REQ-556F5035B8F7E1"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-C3CA89780EB7D7",
+      "requirement_id": "REQ-556F5035B8F7E1",
       "oracle_type": "ui",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 等级语义 产品契约 exactly once and retain its correlation identity",

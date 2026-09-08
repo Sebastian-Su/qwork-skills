@@ -1,0 +1,235 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SETTINGS-STORAGE-SPEC-6BC76953",
+  "title": "storage shows actual usage and opens its own directory",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "persistence",
+    "journey": "persistence",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-settings-storage-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/settings-storage.spec.ts",
+      "locator": "line:6;test:storage shows actual usage and opens its own directory",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:6bc769530a20665640f8f5f1bc61876fc8aca768bdc73a8f86fab60b23798f34",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-3BD3D168D503AD",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-settings-storage-spec-ts:L6:6bc769530a"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "persistence",
+      "priority": "P1",
+      "rule": "storage shows actual usage and opens its own directory",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-settings-storage-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "storage shows actual usage and opens its own directory"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
+    },
+    {
+      "action": "card.getByRole(\"button\", { name: \"打开文件夹\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( page.getByRole(\"button\", { name: \"新建任务\", exact: true }), ).toBeVisible()",
+    "expect(card.getByRole(\"img\", { name: /空间使用占比/ })).toBeVisible()",
+    "expect(card).toContainText(\"磁盘已用\")",
+    "expect(card).toContainText(\"磁盘可用\")",
+    "expect(value).toBeGreaterThanOrEqual(3 * 1024 * 1024)",
+    "expect(card).toContainText(\"MB\")",
+    "expect(card.getByRole(\"alert\")).toContainText(\"已忽略符号链接\")",
+    "expect( card.getByRole(\"img\", { name: /空间使用占比/ }), ).toHaveAttribute(\"aria-label\", \"空间使用占比（已统计部分）\")",
+    "expect .poll(() => app!.evaluate(() => Reflect.get(globalThis, \"storageOpened\"))) .toBe(home)",
+    "expect(await card.evaluate((e) => e.scrollWidth <= e.clientWidth)).toBe( true, )",
+    "expect((await progress.boundingBox())!.height).toBe(6)",
+    "expect(geometry.radius).toBe(\"4px\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-3BD3D168D503AD",
+      "type": "return",
+      "assertion": "storage shows actual usage and opens its own directory"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-settings-storage-spec-ts.6bc769530a",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/settings-storage.spec.ts -g \"storage shows actual usage and opens its own directory\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "persistence",
+      "steps": [
+        {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
+        },
+        {
+          "action": "card.getByRole(\"button\", { name: \"打开文件夹\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/settings-storage.spec.ts",
+        "line_start": 6,
+        "line_end": 106,
+        "body_sha256": "sha256:3c610a6a6f0e8cd28ccea79edac3067503a00a2446752df45c97501e9a8cba51",
+        "assertion_count": 12,
+        "action_count": 3,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:6f0c9e1b0d635c8fc8244e25b75e1103c0af068f4a8a7643ee5784b7b55d31e9"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-3BD3D168D503AD"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-3BD3D168D503AD"
+    ]
+  }
+}

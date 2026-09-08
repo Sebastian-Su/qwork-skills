@@ -1,0 +1,276 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-AUTO-MODEL-SPEC-40052808",
+  "title": "Auto routes once and shows the executor across turns and reload",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-auto-model-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/auto-model.spec.ts",
+      "locator": "line:12;test:Auto routes once and shows the executor across turns and reload",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:4005280888ba975b32093dc19376b893e719ae1e979fa47379b8fde4e824fa50",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0CE7786380581F",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-auto-model-spec-ts:L12:4005280888"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "Auto routes once and shows the executor across turns and reload",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-auto-model-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Auto routes once and shows the executor across turns and reload"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByTestId(\"composer-model-trigger\").click()"
+    },
+    {
+      "action": "page .getByRole(\"menuitemradio\", { name: \"Auto\", exact: true }) .click()"
+    },
+    {
+      "action": "composer().fill(\"hello\")"
+    },
+    {
+      "action": "composer().press(\"Enter\")"
+    },
+    {
+      "action": "composer().fill(\"hello again\")"
+    },
+    {
+      "action": "composer().press(\"Enter\")"
+    },
+    {
+      "action": "page.reload()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByText(\"hello\", { exact: true }).click()"
+    },
+    {
+      "action": "server.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(body.qwork_use_case).toBeUndefined()",
+    "expect(body.max_tokens).toBe(256)",
+    "expect(body.thinking).toEqual({ type: \"disabled\" })",
+    "expect(req.headers[\"x-qwork-logical-model-call-id\"]).toMatch( /^[a-f0-9]{32}$/, )",
+    "expect( page.getByText(\"Auto（DeepSeek-V4-Flash）\", { exact: true }), ).toHaveCount(1)",
+    "expect( page.getByText(\"Auto（DeepSeek-V4-Flash）\", { exact: true }), ).toHaveCount(2)",
+    "expect(routes).toBe(1)",
+    "expect( page.getByText(\"Auto（DeepSeek-V4-Flash）\", { exact: true }), ).toHaveCount(2)",
+    "expect(routes).toBe(1)",
+    "expect(page.locator(\"html\")).toHaveAttribute(\"data-theme\", \"dark\")",
+    "expect(page.getByText(\"Auto（DeepSeek-V4-Flash）\",{exact:true}).first()).toHaveCSS(\"color\",\"rgba(255, 255, 255, 0.65)\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0CE7786380581F",
+      "type": "return",
+      "assertion": "Auto routes once and shows the executor across turns and reload"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-auto-model-spec-ts.4005280888",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/auto-model.spec.ts -g \"Auto routes once and shows the executor across turns and reload\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "page.getByTestId(\"composer-model-trigger\").click()"
+        },
+        {
+          "action": "page .getByRole(\"menuitemradio\", { name: \"Auto\", exact: true }) .click()"
+        },
+        {
+          "action": "composer().fill(\"hello\")"
+        },
+        {
+          "action": "composer().press(\"Enter\")"
+        },
+        {
+          "action": "composer().fill(\"hello again\")"
+        },
+        {
+          "action": "composer().press(\"Enter\")"
+        },
+        {
+          "action": "page.reload()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByText(\"hello\", { exact: true }).click()"
+        },
+        {
+          "action": "server.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/auto-model.spec.ts",
+        "line_start": 12,
+        "line_end": 124,
+        "body_sha256": "sha256:4e5384a835a17b9096d57ba76108192fc4278847edaf6c6c5ec569d3f21c75ce",
+        "assertion_count": 11,
+        "action_count": 10,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:32de9ecedfc7586c525bb87007ae65e03339173c43a98158a897935a39e13f16"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0CE7786380581F"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-0CE7786380581F"
+    ]
+  }
+}

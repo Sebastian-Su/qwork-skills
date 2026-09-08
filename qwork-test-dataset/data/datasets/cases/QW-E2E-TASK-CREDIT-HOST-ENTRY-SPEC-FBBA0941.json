@@ -1,0 +1,242 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-TASK-CREDIT-HOST-ENTRY-SPEC-FBBA0941",
+  "title": "host automation has its own trace and displays persisted authoritative credits",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-task-credit-host-entry-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/task-credit-host-entry.spec.ts",
+      "locator": "line:8;test:host automation has its own trace and displays persisted authoritative credits",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:fbba0941df3277f545b9870e53a22bbb17bb853b348644bc56fd3afc7742be68",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0F08F61064902F",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-task-credit-host-entry-spec-ts:L8:fbba0941df"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "host automation has its own trace and displays persisted authoritative credits",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-task-credit-host-entry-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "host automation has its own trace and displays persisted authoritative credits"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"立即运行 自动任务积分验收\", exact: true }).click()"
+    },
+    {
+      "action": "page.reload()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"自动任务积分验收\", exact: true }).click()"
+    },
+    {
+      "action": "server.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByTestId(\"assistant-message\").filter({ hasText: \"收到：自动任务积分验收\" })).toBeVisible()",
+    "expect(prompt?.trace_context?.trace_id).toMatch(/^[0-9a-f]{32}$/)",
+    "expect.poll(() => accepted.find(event => event.turn_id === prompt.turn_id)?.diagnostic_trace_id) .toBe(prompt.trace_context.trace_id)",
+    "expect(page.getByLabel(\"共消耗 1.2 积分\")).toBeVisible()",
+    "expect.poll(() => queries).toContain(prompt.trace_context.trace_id)",
+    "expect(page.getByLabel(\"共消耗 1.2 积分\")).toBeVisible()",
+    "expect(new Set(queries)).toEqual(new Set([prompt.trace_context.trace_id]))"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0F08F61064902F",
+      "type": "return",
+      "assertion": "host automation has its own trace and displays persisted authoritative credits"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-task-credit-host-entry-spec-ts.fbba0941df",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/task-credit-host-entry.spec.ts -g \"host automation has its own trace and displays persisted authoritative credits\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"立即运行 自动任务积分验收\", exact: true }).click()"
+        },
+        {
+          "action": "page.reload()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"自动任务积分验收\", exact: true }).click()"
+        },
+        {
+          "action": "server.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/task-credit-host-entry.spec.ts",
+        "line_start": 8,
+        "line_end": 66,
+        "body_sha256": "sha256:be98ff2744cfb95f616fb19a330ddd7c151241b2da1b224ab8e20f20305c701e",
+        "assertion_count": 7,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:8989151aa802af8ecdc888c980067a05680c3b3ac4681baed122d72c1abefce7"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0F08F61064902F"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-0F08F61064902F"
+    ]
+  }
+}

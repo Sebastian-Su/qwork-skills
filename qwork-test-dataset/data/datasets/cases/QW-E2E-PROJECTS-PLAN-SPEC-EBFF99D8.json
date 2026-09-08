@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-plan.spec.ts",
-      "locator": "line:384;test:matches the WorkBuddy settings menu states and applies list preferences",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/projects-plan.spec.ts",
+      "locator": "line:454;test:matches the WorkBuddy settings menu states and applies list preferences",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:ebff99d8799d87e635e802a42090b79b097d07bc0d71aaea9bf09f10d5782c2a",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-D12E4CC9E4B154",
+      "requirement_id": "REQ-16F5D44ED15005",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-projects-plan-spec-ts:L384:ebff99d879"
+        "QDEV-E2E-e2e-projects-plan-spec-ts:L454:ebff99d879"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -73,6 +73,21 @@
   "steps": [
     {
       "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+    },
+    {
+      "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
     },
     {
       "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
@@ -136,6 +151,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByText(name, { exact: true }).first()).toBeVisible()",
     "expect(settings.getByRole(\"button\", { name: \"视图\" })).toBeDisabled()",
     "expect(settings.getByRole(\"button\", { name: \"筛选\" })).toBeDisabled()",
     "expect(importDataSource).toBeEnabled()",
@@ -160,7 +176,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-D12E4CC9E4B154",
+      "requirement_id": "REQ-16F5D44ED15005",
       "type": "return",
       "assertion": "matches the WorkBuddy settings menu states and applies list preferences"
     }
@@ -220,6 +236,21 @@
       "kind": "ui-route",
       "entrypoint": "projects",
       "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+        },
+        {
+          "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
         {
           "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
         },
@@ -299,13 +330,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/projects-plan.spec.ts",
-        "line_start": 384,
-        "line_end": 458,
+        "line_start": 454,
+        "line_end": 528,
         "body_sha256": "sha256:499fcf6c3b594ccc0e6a60cb23282741d74005a0612d91b8bf4014933d40f17c",
-        "assertion_count": 16,
-        "action_count": 20,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:39f092a3d14f270b5f9009d6239b9b80edaeca781dbd2ad463f9045f009d1280"
+        "assertion_count": 17,
+        "action_count": 25,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1f4d8f07a67effa331a7be586ff4ec8d0cba065f56cc35559ec20cdc21aa7c48"
       }
     },
     "reference_run": {
@@ -327,7 +358,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-D12E4CC9E4B154"
+      "REQ-16F5D44ED15005"
     ],
     "categories": [
       "business"
@@ -335,7 +366,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-D12E4CC9E4B154"
+      "requirement:REQ-16F5D44ED15005"
     ]
   }
 }

@@ -21,35 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/expert-featured-interactions.spec.ts",
-      "locator": "line:229;test:场景卡打开真实专家并明确标记缺失成员",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/expert-featured-interactions.spec.ts",
+      "locator": "line:231;test:场景卡打开真实专家并明确标记缺失成员",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:aaf52688e22f3e596b78c3ed8e65ca44a0bda6b790b5abb7caf9b927e836f1e2",
-      "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-expert-featured-interactions-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/expert-featured-interactions.spec.ts",
-      "locator": "line:229;test:场景卡打开真实专家并明确标记缺失成员",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:aaf52688e22f3e596b78c3ed8e65ca44a0bda6b790b5abb7caf9b927e836f1e2",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-1CDF465D353709",
+      "requirement_id": "REQ-FE4479074003EF",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-expert-featured-interactions-spec-ts:L229:aaf52688e2"
+        "QDEV-E2E-e2e-expert-featured-interactions-spec-ts:L231:aaf52688e2"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -63,32 +49,6 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-expert-featured-interactions-spec-ts"
-      ],
-      "supporting_sources": [],
-      "conflicts": [],
-      "resolution": {
-        "status": "resolved",
-        "reason": "compiled from the user-approved source hierarchy"
-      },
-      "oracle": "场景卡打开真实专家并明确标记缺失成员"
-    },
-    {
-      "requirement_id": "REQ-2D4A018160BD25",
-      "source_atom_ids": [
-        "QHEAD-E2E-e2e-expert-featured-interactions-spec-ts:L229:aaf52688e2"
-      ],
-      "content_facets": [
-        "acceptance-criterion"
-      ],
-      "acceptance_categories": [
-        "business"
-      ],
-      "surface": "expert-market",
-      "priority": "P0",
-      "rule": "场景卡打开真实专家并明确标记缺失成员",
-      "authority_domain": "execution",
-      "governing_sources": [
-        "QHEAD-E2E-e2e-expert-featured-interactions-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -153,10 +113,10 @@
     "expect(expertLayout.tabs[2]?.width).toBeCloseTo(80, 0)",
     "expect(skillTab).toBeFocused()",
     "expect(skillTab).toHaveAttribute(\"aria-selected\", \"true\")",
-    "expect(skillLayout.x - expertLayout.x).toBeCloseTo(8, 0)",
+    "expect(skillLayout.x - expertLayout.x).toBe(8)",
     "expect(skillLayout.tabs.map((tab) => tab.width)).toEqual(expertLayout.tabs.map((tab) => tab.width))",
     "expect(connectorTab).toHaveAttribute(\"aria-selected\", \"true\")",
-    "expect(connectorLayout.x - expertLayout.x).toBeCloseTo(8, 0)",
+    "expect(connectorLayout.x - expertLayout.x).toBe(8)",
     "expect(connectorLayout.tabs.map((tab) => tab.width)).toEqual(expertLayout.tabs.map((tab) => tab.width))",
     "expect(connectorSearch).toBeVisible()",
     "expect(customConnector).toBeVisible()",
@@ -165,11 +125,12 @@
     "expect(connectorActions.custom?.height).toBeCloseTo(32, 0)",
     "expect(Math.abs((connectorActions.search?.y ?? 0) - expertLayout.y)).toBeLessThanOrEqual(12)",
     "expect(connectorCatalog.getByRole(\"listitem\")).toHaveCount(81)",
-    "expect(connectorCards[0]?.width).toBeCloseTo(338, 0)",
-    "expect(connectorCards[0]?.height).toBeCloseTo(104, 0)",
+    "expect(connectorCards[0]?.width).toBe(512.5)",
+    "expect(connectorCards[0]?.height).toBe(92.3984375)",
     "expect((connectorCards[1]?.x ?? 0) - (connectorCards[0]?.x ?? 0) - (connectorCards[0]?.width ?? 0)).toBeCloseTo(12, 0)",
-    "expect(connectorCards[3]?.x).toBeCloseTo(connectorCards[0]?.x ?? 0, 0)",
-    "expect((connectorCards[3]?.y ?? 0) - (connectorCards[0]?.y ?? 0) - (connectorCards[0]?.height ?? 0)).toBeCloseTo(12, 0)",
+    "expect(connectorCards[2]?.x).toBe(connectorCards[0]?.x)",
+    "expect(connectorCards[3]?.x).toBe(connectorCards[1]?.x)",
+    "expect((connectorCards[2]?.y ?? 0) - (connectorCards[0]?.y ?? 0) - (connectorCards[0]?.height ?? 0)).toBe(12)",
     "expect(page.getByRole(\"heading\", { name: /^(可用|已连接)/ })).toHaveCount(0)",
     "expect(openScene).toBeFocused()",
     "expect(collectiveDialog).toBeVisible()",
@@ -183,12 +144,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-1CDF465D353709",
-      "type": "return",
-      "assertion": "场景卡打开真实专家并明确标记缺失成员"
-    },
-    {
-      "requirement_id": "REQ-2D4A018160BD25",
+      "requirement_id": "REQ-FE4479074003EF",
       "type": "return",
       "assertion": "场景卡打开真实专家并明确标记缺失成员"
     }
@@ -297,13 +253,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/expert-featured-interactions.spec.ts",
-        "line_start": 229,
-        "line_end": 315,
-        "body_sha256": "sha256:9b4e00c8b8d4f9dcffc946bf81d888c8d3fc47da6cb8de59d360adb5da688040",
-        "assertion_count": 29,
+        "line_start": 231,
+        "line_end": 323,
+        "body_sha256": "sha256:ee5a6b236e73fd5c828c09d87811b752c5121874ad7b5b2ea17f4e2366c5301a",
+        "assertion_count": 30,
         "action_count": 10,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:e8814780f4423a6db48f87568382418128e76c63359bc5ec2ed60ecb30ad1a67"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c171b14c646717594d6da148d11ab29ac8a6657ba1c0b4d0ad1a65bae2a14817"
       }
     },
     "reference_run": {
@@ -325,8 +281,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-1CDF465D353709",
-      "REQ-2D4A018160BD25"
+      "REQ-FE4479074003EF"
     ],
     "categories": [
       "business"
@@ -334,8 +289,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-1CDF465D353709",
-      "requirement:REQ-2D4A018160BD25"
+      "requirement:REQ-FE4479074003EF"
     ]
   }
 }

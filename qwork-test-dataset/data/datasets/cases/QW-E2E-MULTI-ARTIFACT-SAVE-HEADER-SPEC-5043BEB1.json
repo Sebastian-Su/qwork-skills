@@ -1,0 +1,233 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-MULTI-ARTIFACT-SAVE-HEADER-SPEC-5043BEB1",
+  "title": "Office 解析失败仍可从产物卡片另存原文件",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "files",
+    "journey": "files",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-multi-artifact-save-header-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/multi-artifact-save-header.spec.ts",
+      "locator": "line:6;test:Office 解析失败仍可从产物卡片另存原文件",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:5043beb1cab075c3cd1fe6c0e295b7bbccf110eb2bc52a13d85c46613a2d2679",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-E26FABEA6286F6",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-multi-artifact-save-header-spec-ts:L6:5043beb1ca"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "files",
+      "priority": "P1",
+      "rule": "Office 解析失败仍可从产物卡片另存原文件",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-multi-artifact-save-header-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Office 解析失败仍可从产物卡片另存原文件"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByPlaceholder(/今天帮你做些什么/).fill(\"__E2E_USER_DELIVERY__:损坏.docx\")"
+    },
+    {
+      "action": "page.getByPlaceholder(/今天帮你做些什么/).press(\"Enter\")"
+    },
+    {
+      "action": "card.click({button:\"right\"})"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\",{name:\"另存为\",exact:true}).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(panel.getByRole(\"alert\")).toBeVisible()",
+    "expect(panel.getByRole(\"button\",{name:\"下载产物\",exact:true})).toHaveCount(0)",
+    "expect.poll(async()=>fs.readFile(output).then(b=>b.toString(\"hex\")).catch(()=>\"\")).toBe(bytes.toString(\"hex\"))",
+    "expect(panel.getByRole(\"button\",{name:/^保存 /})).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-E26FABEA6286F6",
+      "type": "ui",
+      "assertion": "Office 解析失败仍可从产物卡片另存原文件"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-multi-artifact-save-header-spec-ts.5043beb1ca",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/multi-artifact-save-header.spec.ts -g \"Office 解析失败仍可从产物卡片另存原文件\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "files",
+      "steps": [
+        {
+          "action": "page.getByPlaceholder(/今天帮你做些什么/).fill(\"__E2E_USER_DELIVERY__:损坏.docx\")"
+        },
+        {
+          "action": "page.getByPlaceholder(/今天帮你做些什么/).press(\"Enter\")"
+        },
+        {
+          "action": "card.click({button:\"right\"})"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\",{name:\"另存为\",exact:true}).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/multi-artifact-save-header.spec.ts",
+        "line_start": 6,
+        "line_end": 26,
+        "body_sha256": "sha256:7db3c0217d446efc0322268cdbb3fb8277e211faf87f3a56de196f5b721b2855",
+        "assertion_count": 4,
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c93bdd9fa249f4a3d413016bfeee0b0e5f6130682031e03aeab278b458f29880"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-E26FABEA6286F6"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-E26FABEA6286F6"
+    ]
+  }
+}

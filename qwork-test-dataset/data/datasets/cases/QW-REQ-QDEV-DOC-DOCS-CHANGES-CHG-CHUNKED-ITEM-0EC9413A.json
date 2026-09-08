@@ -1,0 +1,244 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-CHUNKED-ITEM-0EC9413A",
+  "title": "docs/changes/CHG-chunked-file-generation-20260907/handoff.md · 已完成 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-chunked-file-generation-20260907-ha",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-chunked-file-generation-20260907/handoff.md",
+      "locator": "line:11;heading:已完成",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:03f046aaa5b6affd616948048cc47e79f2aba47c59e6294c4ae33a9f104bb4b3",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-C0A9D9F558B56D",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-chunked-file-generation-20260907-ha:L11:03f046aaa5"
+      ],
+      "content_facets": [
+        "error-copy"
+      ],
+      "acceptance_categories": [
+        "error",
+        "ui-content"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "统一提示词引导首次即分批；复用 write_file/edit_file。引擎拒绝包含截断文件调用的整批工具，并用既有错误结果反馈；最多两次自动恢复。server、CLI stream-json 和 subagent trace 同步通知失败。客户端将写入成功显示为“已写入”。三份内置 PPT 技能及旧技能生成来源补充分批规则，哈希清单同步。PR 首轮 CI 暴露遗漏的 AssistantTurn 集成断言与三个 Skill 可信源/归一化哈希；当前续作已补齐，Node.js",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-chunked-file-generation-20260907-ha"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "统一提示词引导首次即分批；复用 write_file/edit_file。引擎拒绝包含截断文件调用的整批工具，并用既有错误结果反馈；最多两次自动恢复。server、CLI stream-json 和 subagent trace 同步通知失败。客户端将写入成功显示为“已写入”。三份内置 PPT 技能及旧技能生成来源补充分批规则，哈希清单同步。PR 首轮 CI 暴露遗漏的 AssistantTurn 集成断言与三个 Skill 可信源/归一化哈希；当前续作已补齐，Node.js"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for skills at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-chunked-file-generation-20260907/handoff.md · 已完成 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer visible content after the trigger and assert [REQ-C0A9D9F558B56D] exactly: 统一提示词引导首次即分批；复用 write_file/edit_file。引擎拒绝包含截断文件调用的整批工具，并用既有错误结果反馈；最多两次自动恢复。server、CLI stream-json 和 subagent trace 同步通知失败。客户端将写入成功显示为“已写入”。三份内置 PPT 技能及旧技能生成来源补充分批规则，哈希清单同步。PR 首轮 CI 暴露遗漏的 AssistantTurn 集成断言与三个 Skill 可信源/归一化哈希；当前续作已补齐，Node.js"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "统一提示词引导首次即分批；复用 write_file/edit_file。引擎拒绝包含截断文件调用的整批工具，并用既有错误结果反馈；最多两次自动恢复。server、CLI stream-json 和 subagent trace 同步通知失败。客户端将写入成功显示为“已写入”。三份内置 PPT 技能及旧技能生成来源补充分批规则，哈希清单同步。PR 首轮 CI 暴露遗漏的 AssistantTurn 集成断言与三个 Skill 可信源/归一化哈希；当前续作已补齐，Node.js"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-C0A9D9F558B56D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 统一提示词引导首次即分批；复用 write_file/edit_file。引擎拒绝包含截断文件调用的整批工具，并用既有错误结果反馈；最多两次自动恢复。server、CLI stream-json 和 subagent trace 同步通知失败。客户端将写入成功显示为“已写入”。三份内置 PPT 技能及旧技能生成来源补充分批规则，哈希清单同步。PR 首轮 CI 暴露遗漏的 AssistantTurn 集成断言与三个 Skill 可信源/归一化哈希；当前续作已补齐，Node.js",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-C0A9D9F558B56D",
+      "type": "ui-content",
+      "assertion": "统一提示词引导首次即分批；复用 write_file/edit_file。引擎拒绝包含截断文件调用的整批工具，并用既有错误结果反馈；最多两次自动恢复。server、CLI stream-json 和 subagent trace 同步通知失败。客户端将写入成功显示为“已写入”。三份内置 PPT 技能及旧技能生成来源补充分批规则，哈希清单同步。PR 首轮 CI 暴露遗漏的 AssistantTurn 集成断言与三个 Skill 可信源/归一化哈希；当前续作已补齐，Node.js"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-chunked-fi.item-0ec9413aa4",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for skills at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-chunked-file-generation-20260907/handoff.md · 已完成 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer visible content after the trigger and assert [REQ-C0A9D9F558B56D] exactly: 统一提示词引导首次即分批；复用 write_file/edit_file。引擎拒绝包含截断文件调用的整批工具，并用既有错误结果反馈；最多两次自动恢复。server、CLI stream-json 和 subagent trace 同步通知失败。客户端将写入成功显示为“已写入”。三份内置 PPT 技能及旧技能生成来源补充分批规则，哈希清单同步。PR 首轮 CI 暴露遗漏的 AssistantTurn 集成断言与三个 Skill 可信源/归一化哈希；当前续作已补齐，Node.js"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-C0A9D9F558B56D"
+    ],
+    "categories": [
+      "error",
+      "ui-content"
+    ],
+    "suite_ids": [
+      "category:error",
+      "category:ui-content",
+      "full",
+      "requirement:REQ-C0A9D9F558B56D"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-C0A9D9F558B56D",
+      "oracle_type": "ui-content",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-chunked-file-generation-20260907/handoff.md · 已完成 产品契约 exactly once and retain its correlation identity",
+      "then": "统一提示词引导首次即分批；复用 write_file/edit_file。引擎拒绝包含截断文件调用的整批工具，并用既有错误结果反馈；最多两次自动恢复。server、CLI stream-json 和 subagent trace 同步通知失败。客户端将写入成功显示为“已写入”。三份内置 PPT 技能及旧技能生成来源补充分批规则，哈希清单同步。PR 首轮 CI 暴露遗漏的 AssistantTurn 集成断言与三个 Skill 可信源/归一化哈希；当前续作已补齐，Node.js",
+      "observation_boundary": "renderer visible content",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

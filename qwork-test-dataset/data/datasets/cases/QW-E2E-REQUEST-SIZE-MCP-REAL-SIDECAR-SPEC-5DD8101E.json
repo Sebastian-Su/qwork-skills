@@ -1,0 +1,270 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-REQUEST-SIZE-MCP-REAL-SIDECAR-SPEC-5DD8101E",
+  "title": "committed MCP JSON is safely compacted for the next real model request",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-request-size-mcp-real-sidecar-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/request-size-mcp.real-sidecar.spec.ts",
+      "locator": "line:8;test:committed MCP JSON is safely compacted for the next real model request",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:5dd8101ee735f1bda62039567bdd750cd354e5bca756c3d2aca348fb9d5edcdb",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-FB662A342EE739",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-request-size-mcp-real-sidecar-spec-ts:L8:5dd8101ee7"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "committed MCP JSON is safely compacted for the next real model request",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-request-size-mcp-real-sidecar-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "committed MCP JSON is safely compacted for the next real model request"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"MCP_SIZE_SYNTHETIC\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"默认权限\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"switch\", { name: \"允许完全访问\" }).click()"
+    },
+    {
+      "action": "consent.getByRole(\"checkbox\", { name: \"我已了解风险，并愿意继续\" }).check()"
+    },
+    {
+      "action": "consent.getByRole(\"button\", { name: \"允许完全访问\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"MCP_SIZE_SYNTHETIC\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看已执行工具与产物\" }).click()"
+    },
+    {
+      "action": "gateway.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"MCP_COMPACTION_COMPLETE\", { exact: true })).toBeVisible()",
+    "expect(JSON.parse(compactedWireResult).structuredContent.large).toHaveLength(10000)",
+    "expect(compactedWireResult).toBe(JSON.stringify(JSON.parse(compactedWireResult)))",
+    "expect(page.getByText(\"本次模型请求超过服务限制，任务尚未完成。\")).toBeVisible()",
+    "expect(callAtToolDispatch).toBeGreaterThan(0)",
+    "expect(modelCalls).toBe(callAtToolDispatch + Number(compactSuccessfully))",
+    "expect(await fs.readFile(counter, \"utf8\")).toBe(\"1\\n\")",
+    "expect(results.length).toBeGreaterThan(0)",
+    "expect(JSON.parse(result).structuredContent.large).toHaveLength(compactSuccessfully ? 10000 : 70000)",
+    "expect(results.some(result => result.length > compactedWireResult.length)).toBe(true)",
+    "expect(page.getByRole(\"region\", { name: \"已执行工具与产物\" })).toContainText(\"large-once\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-FB662A342EE739",
+      "type": "return",
+      "assertion": "committed MCP JSON is safely compacted for the next real model request"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-request-size-mcp-real-sidecar-spec-ts.5dd8101ee7",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/request-size-mcp.real-sidecar.spec.ts -g \"committed MCP JSON is safely compacted for the next real model request\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"MCP_SIZE_SYNTHETIC\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"默认权限\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"switch\", { name: \"允许完全访问\" }).click()"
+        },
+        {
+          "action": "consent.getByRole(\"checkbox\", { name: \"我已了解风险，并愿意继续\" }).check()"
+        },
+        {
+          "action": "consent.getByRole(\"button\", { name: \"允许完全访问\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"MCP_SIZE_SYNTHETIC\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看已执行工具与产物\" }).click()"
+        },
+        {
+          "action": "gateway.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/request-size-mcp.real-sidecar.spec.ts",
+        "line_start": 8,
+        "line_end": 115,
+        "body_sha256": "sha256:7bf02eeae85dc189783b5742b1da7658b17521457196dc1f99c3cbd106c9fc56",
+        "assertion_count": 11,
+        "action_count": 9,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:fc21a184247b042c8b5337c52d872c5fa1b4c38fbbba7116dc34c583f714048a"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-FB662A342EE739"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-FB662A342EE739"
+    ]
+  }
+}

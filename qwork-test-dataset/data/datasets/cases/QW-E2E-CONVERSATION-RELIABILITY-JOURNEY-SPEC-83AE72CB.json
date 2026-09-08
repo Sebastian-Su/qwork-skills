@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/conversation-reliability-journey.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/conversation-reliability-journey.spec.ts",
       "locator": "line:243;test:keeps Skill and MCP selections isolated across concurrent conversations and restart",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:83ae72cb9a045733a22e5871797b5a48012e078dcf989b53edfb20b087f9f58e",
       "redaction_status": "minimized"
     }
@@ -78,6 +78,30 @@
       "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
     },
     {
+      "action": "more.click()"
+    },
+    {
+      "action": "root.getByRole(\"menuitem\", { name: capability, exact: true }).hover()"
+    },
+    {
+      "action": "option.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "toggle.click()"
+    },
+    {
+      "action": "toggle.click()"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").fill(message)"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
     },
     {
@@ -100,6 +124,11 @@
     }
   ],
   "expected_outcomes": [
+    "expect(option).toBeVisible()",
+    "expect(page.getByTestId(\"selected-skill-token\")).toContainText(JOURNEY_SKILL_ID)",
+    "expect(toggle).toBeVisible()",
+    "expect(toggle).toHaveAttribute(\"aria-checked\", \"false\")",
+    "expect(toggle).toHaveAttribute(\"aria-checked\", String(selected))",
     "expect(page.getByText(\"收到：@skill-creator 能力组合会话 A\", { exact: true })).toBeVisible()",
     "expect(page.getByTestId(\"message-skill-token\")).toContainText(JOURNEY_SKILL_ID)",
     "expect(page.getByRole(\"button\", { name: \"停止生成\", exact: true })).toBeVisible()",
@@ -108,6 +137,8 @@
     "expect(page.getByText(\"收到：@skill-creator 仅技能会话 C\", { exact: true })).toBeVisible()",
     "expect(page.getByTestId(\"message-skill-token\")).toContainText(JOURNEY_SKILL_ID)",
     "expect.poll(async () => { controls = await readJsonLines(sidecarLog); return controls.filter(({ type }) => type === \"create_session\").length; }).toBe(3)",
+    "expect(prompt).toBeDefined()",
+    "expect(created).toBeDefined()",
     "expect(prompt).toBeDefined()",
     "expect(created).toBeDefined()",
     "expect(capabilityA.created.selected_skills).toEqual([JOURNEY_SKILL_ID])",
@@ -207,6 +238,30 @@
           "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
         },
         {
+          "action": "more.click()"
+        },
+        {
+          "action": "root.getByRole(\"menuitem\", { name: capability, exact: true }).hover()"
+        },
+        {
+          "action": "option.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "toggle.click()"
+        },
+        {
+          "action": "toggle.click()"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").fill(message)"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
         },
         {
@@ -249,9 +304,9 @@
         "line_start": 243,
         "line_end": 372,
         "body_sha256": "sha256:c5c2071e6d1abca6b33f7b158c748cfb89785fce4c92aeb75400de0fcefe52cb",
-        "assertion_count": 35,
-        "action_count": 8,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 42,
+        "action_count": 16,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:a8950bdef5ecdc9f664cbc8c74f3cfea1c977d8f710b3866774552a0829b7528"
       }
     },

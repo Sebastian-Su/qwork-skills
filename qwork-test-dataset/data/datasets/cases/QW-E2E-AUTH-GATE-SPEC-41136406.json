@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/auth-gate.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/auth-gate.spec.ts",
       "locator": "line:22;test:shows the root login gate until test login completes, then logout returns",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:4113640648da456312813cf7bde98c94eae6e210ad273578eaeb32438a8c122f",
       "redaction_status": "minimized"
     }
@@ -90,6 +90,9 @@
       "action": "app.firstWindow()"
     },
     {
+      "action": "page.getByTestId(\"global-window-chrome\")"
+    },
+    {
       "action": "page.evaluate( (qid) => (window as typeof window & { workGui?: WorkGuiApi }) .workGui!.auth.completeLoginForTest!(qid), TEST_QID, )"
     },
     {
@@ -110,13 +113,23 @@
   ],
   "expected_outcomes": [
     "expect(page.getByRole(\"heading\", { name: \"QWork，我帮你\" })).toBeVisible()",
-    "expect(page.getByRole(\"status\", { name: \"聚合登录状态\" })).toBeVisible()",
+    "expect(page.getByTestId(\"login-mascot\")).toBeVisible()",
+    "expect(globalChrome).toBeVisible()",
+    "expect(globalChrome).toHaveCSS(\"height\", \"30px\")",
+    "expect(page.getByTestId(\"window-chrome\")).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"登录\", exact: true })).toBeVisible()",
     "expect(page.getByLabel(\"登录框\")).toHaveCount(0)",
     "expect(page.getByRole(\"button\", { name: \"项目\", exact: true })).toHaveCount(0)",
     "expect( page.getByRole(\"button\", { name: \"暂不登录，使用本地项目\", exact: true }), ).toHaveCount(0)",
     "expect(page.getByRole(\"button\", { name: \"项目\", exact: true })).toBeVisible()",
+    "expect(page.getByTestId(\"global-window-chrome\")).toHaveCount(1)",
+    "expect(page.getByTestId(\"window-chrome\")).toHaveCount(1)",
+    "expect(page.getByTestId(\"window-chrome\")).toHaveAttribute( \"data-global-frame\", \"false\", )",
     "expect(page.getByRole(\"heading\", { name: \"QWork，我帮你\" })).toBeVisible()",
-    "expect(page.getByRole(\"status\", { name: \"聚合登录状态\" })).toBeVisible()",
+    "expect(page.getByTestId(\"login-mascot\")).toBeVisible()",
+    "expect(page.getByTestId(\"global-window-chrome\")).toHaveCount(1)",
+    "expect(page.getByTestId(\"window-chrome\")).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"登录\", exact: true })).toBeVisible()",
     "expect(page.getByLabel(\"登录框\")).toHaveCount(0)",
     "expect(page.getByRole(\"button\", { name: \"项目\", exact: true })).toHaveCount(0)"
   ],
@@ -203,6 +216,9 @@
           "action": "app.firstWindow()"
         },
         {
+          "action": "page.getByTestId(\"global-window-chrome\")"
+        },
+        {
           "action": "page.evaluate( (qid) => (window as typeof window & { workGui?: WorkGuiApi }) .workGui!.auth.completeLoginForTest!(qid), TEST_QID, )"
         },
         {
@@ -240,12 +256,12 @@
       "source_contract": {
         "spec": "e2e/auth-gate.spec.ts",
         "line_start": 22,
-        "line_end": 65,
-        "body_sha256": "sha256:bc00cdc2d0d37c0806ef75d71e334f304026e5f4115dc040fe09bdd432c6466c",
-        "assertion_count": 10,
+        "line_end": 85,
+        "body_sha256": "sha256:b0f368492edf70ca9811da317995ecd8488b61eb34d252d28328268e55b1ac5e",
+        "assertion_count": 20,
         "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:c80973b048d1290c404495c17d15c7f33ca39243a626eea792dd92d2775655b3"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:661bf5ed44e26a1e17e6018709c85a04e88b75ae3aa2b33e5737a6885e420176"
       }
     },
     "reference_run": {

@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-automation.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/projects-automation.spec.ts",
       "locator": "line:20;test:creates and disables a project automation and restores it after restart",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:b9ba229720c0337f30e541a4e5eabfa6fc4b63a2e37fd75b34ee87cc937a81e6",
       "redaction_status": "minimized"
     }
@@ -75,10 +75,28 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+    },
+    {
+      "action": "dialog .getByPlaceholder(/提供当前项目的背景信息/) .fill(\"验证项目自动化持久化\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"+ 添加计划\", exact: true }).click()"
     },
     {
       "action": "section.getByRole(\"button\", { name: \"添加\", exact: true }).click()"
+    },
+    {
+      "action": "editor.getByRole(\"button\", { name: \"按间隔\", exact: true }).click()"
     },
     {
       "action": "editor.getByLabel(\"名称\").fill(automationName)"
@@ -106,10 +124,17 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByText(name, { exact: true }).first()).toBeVisible()",
+    "expect(editor.getByRole(\"button\", { name: \"Auto\", exact: true })).toHaveCount(0)",
+    "expect(editor.getByRole(\"button\", { name: \"技能\", exact: true })).toHaveCount(0)",
+    "expect(editor.getByText(\"连接器\", { exact: true })).toHaveCount(0)",
+    "expect(editor.getByRole(\"button\", { name: \"测试运行\", exact: true })).toHaveCount(0)",
+    "expect(editor.getByRole(\"button\", { name: \"单次\", exact: true })).toHaveCount(0)",
     "expect(section.getByText(automationName, { exact: true })).toBeVisible()",
-    "expect(section.getByText(\"每天\")).toBeVisible()",
+    "expect(section.getByText(\"每 60 分钟\")).toBeVisible()",
     "expect( section.getByRole(\"switch\", { name: `${automationName} 状态` }), ).toHaveAttribute(\"aria-checked\", \"false\")",
     "expect(section.getByText(automationName, { exact: true })).toBeVisible()",
+    "expect(section.getByText(\"每 60 分钟\")).toBeVisible()",
     "expect( section.getByRole(\"switch\", { name: `${automationName} 状态` }), ).toHaveAttribute(\"aria-checked\", \"false\")"
   ],
   "forbidden_outcomes": [
@@ -180,10 +205,28 @@
       "entrypoint": "projects",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+        },
+        {
+          "action": "dialog .getByPlaceholder(/提供当前项目的背景信息/) .fill(\"验证项目自动化持久化\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"+ 添加计划\", exact: true }).click()"
         },
         {
           "action": "section.getByRole(\"button\", { name: \"添加\", exact: true }).click()"
+        },
+        {
+          "action": "editor.getByRole(\"button\", { name: \"按间隔\", exact: true }).click()"
         },
         {
           "action": "editor.getByLabel(\"名称\").fill(automationName)"
@@ -229,12 +272,12 @@
       "source_contract": {
         "spec": "e2e/projects-automation.spec.ts",
         "line_start": 20,
-        "line_end": 83,
-        "body_sha256": "sha256:0d14a16d142c2f2944bbf8b178bbbc4d134393c437f1247e27d7834870add022",
-        "assertion_count": 5,
-        "action_count": 10,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:e950c1de2cdaa4799e229989c55918912d54debd6615b1f451ab45749304bf6d"
+        "line_end": 90,
+        "body_sha256": "sha256:b19bea7799f90e4951c6fdcb6db95fe1a704bd5db12ee253369e40bdac8ab4fa",
+        "assertion_count": 12,
+        "action_count": 16,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:7a095342a372646dbe7746e1310e6f9084c26b1dee7c2c18db83fa6373f29fb3"
       }
     },
     "reference_run": {

@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "case_id": "QW-E2E-PRIVATE-FUNCTIONAL-CONTRACTS-SPEC-AA0CA185",
+  "case_title": "TEAM-CONCURRENCY-001 | 默认 5 普通 1-20 高级 21-100 且本机资源不独占模型并发决策",
+  "status": "pass",
+  "started_at": "2026-09-04T12:46:22.366Z",
+  "finished_at": "2026-09-04T12:46:23.195Z",
+  "exit_code": 0,
+  "zero_real_model_calls": true,
+  "isolated_qwork_home": true,
+  "deterministic_sidecar": "repo://e2e/fixtures/fake-sidecar.mjs",
+  "source": {
+    "spec": "skill://qwork-test-dataset/data/e2e/expert-model-concurrency-contract.spec.ts",
+    "spec_sha256": "sha256:0e7aac200b06ee28ca0c76e13550ee6ccd613e93f4e98981c56796697df31efb",
+    "implementation_revision": "dbff462c7bf8cdc554767ce20c1fccd28695ab9b"
+  },
+  "authority": {
+    "files": [
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/capture-electron-runtime.ts",
+        "sha256": "sha256:1866e50ea423d0cafd4d6ecb923381feca0bbccd7c5141216182b3d5bea652c6"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/data/e2e/fixtures/launch-isolated.ts",
+        "sha256": "sha256:5e1c055763fca3c508d0dd0813c974226be3cddb88bfcdeee1ef3912a113b0e0"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/private-case-authority.mjs",
+        "sha256": "sha256:90618b773c1a38b79a521baebba509c4285782d42498560c31a193a15d8bbe99"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/run_private_playwright_case.mjs",
+        "sha256": "sha256:0e9d50f5fec4543f56ef52680833297f4924d0d40ecd43fb7b7a57a27a9e9763"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/build_isolated_electron.mjs",
+        "sha256": "sha256:aedc1f65308bcdc52160337a5055f4d3fc50791173f2008552edc65e826b32f5"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/electron-isolated-build.config.ts",
+        "sha256": "sha256:66fa4b44a0febbf4b14d601d6a5fc604c1c06e4c95e68074c9ad1d87b83a0d1a"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/scripts/playwright-private.config.ts",
+        "sha256": "sha256:50737b2a367ee215e00c37e010326aed824b4d9f93c6cbc3539b7e66a5da2ffa"
+      },
+      {
+        "locator": "skill://qwork-test-dataset/package.json",
+        "sha256": "sha256:80d2e6f99dfb435c38eb74ec13c4768467e47c84dfb5c2baa2e8ddeec72af390"
+      },
+      {
+        "locator": "repo://e2e/fixtures/fake-sidecar.mjs",
+        "sha256": "sha256:302e9a0ae057dbf5d2ef336c638b80eae38ab353c7ac1c4e2d06164f8097f228"
+      },
+      {
+        "locator": "repo://e2e/fixtures/ui-contract.ts",
+        "sha256": "sha256:f2b079f1cf9230958a6fb9de06829a74badc67473d9f76380e348b18ffb18345"
+      }
+    ]
+  },
+  "selected_tests": [
+    {
+      "title": "TEAM-CONCURRENCY-001 | 默认 5 普通 1-20 高级 21-100 且本机资源不独占模型并发决策",
+      "file": "expert-model-concurrency-contract.spec.ts",
+      "path": "expert-model-concurrency-contract.spec.ts > TEAM-CONCURRENCY-001 | 默认 5 普通 1-20 高级 21-100 且本机资源不独占模型并发决策",
+      "status": "expected",
+      "duration_ms": 5
+    }
+  ],
+  "evidence": {
+    "integrity": "complete",
+    "integrity_errors": [],
+    "build_manifest": {
+      "path": "build-manifest.json",
+      "sha256": "sha256:b57ba7e367f43cccdf616161aa6eb4bf3b624c9e3a46b70094c3230ab8998057"
+    },
+    "playwright_report": {
+      "path": "playwright-report.json",
+      "sha256": "sha256:1789fe5532c089b656370a47f8d385def0e0a627e55c9044a8585152260b333c"
+    },
+    "stderr": {
+      "path": "playwright.stderr.log",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "electron_runtime": {
+      "path": "electron-runtime.log",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "screenshots": [],
+    "required_screenshot_states": [],
+    "traces": [
+      {
+        "path": "playwright-results/expert-model-concurrency-c-387af-20-高级-21-100-且本机资源不独占模型并发决策/trace.zip",
+        "sha256": "sha256:09e8676991af37f4bfba278d99884716e5085c9c86d11c9226943d75041234c8"
+      }
+    ]
+  },
+  "cleanup": {
+    "case_owned_qwork_home_removed_by_fixture": true,
+    "app_process_closed_by_fixture": true,
+    "app_assembly_removed": true
+  }
+}

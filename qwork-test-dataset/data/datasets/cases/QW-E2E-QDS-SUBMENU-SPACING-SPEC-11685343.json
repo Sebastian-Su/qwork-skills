@@ -1,0 +1,251 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-QDS-SUBMENU-SPACING-SPEC-11685343",
+  "title": "mixed Composer submenu content keeps token insets without double footer margins",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-qds-submenu-spacing-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/qds-submenu-spacing.spec.ts",
+      "locator": "line:7;test:mixed Composer submenu content keeps token insets without double footer margins",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:11685343e63603c81d6ab3d0122896173356a8bd4c7d7613ba9494b612e158eb",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0DF4D56EEE6CB0",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-qds-submenu-spacing-spec-ts:L7:11685343e6"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "mixed Composer submenu content keeps token insets without double footer margins",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-qds-submenu-spacing-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "mixed Composer submenu content keeps token insets without double footer margins"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", {name:\"更多操作\",exact:true}).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", {name:\"更多操作\",exact:true}).getByRole(\"menuitem\", {name:entry,exact:true}).hover()"
+    },
+    {
+      "action": "first.hover()"
+    },
+    {
+      "action": "last.hover()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(menu).toBeVisible()",
+    "expect(surface.inset).toBe(6)",
+    "expect.soft(surface.top).toBe(surface.vertical)",
+    "expect.soft(surface.bottom).toBe(surface.vertical)",
+    "expect.soft(surface.overflow).toBe(false)",
+    "expect(rect).not.toBeNull()",
+    "expect.soft(Math.abs(left-surface.inset),`${name}/${label} left`).toBeLessThanOrEqual(0.5)",
+    "expect.soft(right,`${name}/${label} right minimum`).toBeGreaterThanOrEqual(surface.inset-0.5)",
+    "expect.soft(right,`${name}/${label} right maximum`).toBeLessThanOrEqual(surface.inset+scrollbarAllowance+0.5)",
+    "expect(list).toBeVisible()",
+    "expect(rect).not.toBeNull()",
+    "expect.soft(Math.abs(left-surface.inset),`${name}/${label} left`).toBeLessThanOrEqual(0.5)",
+    "expect.soft(right,`${name}/${label} right minimum`).toBeGreaterThanOrEqual(surface.inset-0.5)",
+    "expect.soft(right,`${name}/${label} right maximum`).toBeLessThanOrEqual(surface.inset+scrollbarAllowance+0.5)",
+    "expect(scroll.top).toBeGreaterThan(0)",
+    "expect(scroll.range).toBeGreaterThan(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0DF4D56EEE6CB0",
+      "type": "ui",
+      "assertion": "mixed Composer submenu content keeps token insets without double footer margins"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-qds-submenu-spacing-spec-ts.11685343e6",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/qds-submenu-spacing.spec.ts -g \"mixed Composer submenu content keeps token insets without double footer margins\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", {name:\"更多操作\",exact:true}).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", {name:\"更多操作\",exact:true}).getByRole(\"menuitem\", {name:entry,exact:true}).hover()"
+        },
+        {
+          "action": "first.hover()"
+        },
+        {
+          "action": "last.hover()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/qds-submenu-spacing.spec.ts",
+        "line_start": 7,
+        "line_end": 76,
+        "body_sha256": "sha256:baf3ace3e7949d1da5a50f5670327c679e362e966ba1798a2c76dbba988cb8ce",
+        "assertion_count": 16,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:e21df5b6f0c09714a47e7688cf0ddbfdc37e47c910b4c406d1137a36be804edb"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0DF4D56EEE6CB0"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-0DF4D56EEE6CB0"
+    ]
+  }
+}

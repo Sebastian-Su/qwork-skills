@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/terminal.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/terminal.spec.ts",
       "locator": "line:19;test:creates a pty, echoes input and reports it in the terminal list",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:3aa92d7067facf08fc744731b268dd33ed1c907c187dc8aa651647264310d5bf",
       "redaction_status": "minimized"
     }
@@ -78,37 +78,37 @@
       "action": "withApp(\"ziqdo-terminal-e2e-\", async (page, configHome) => { const token = `ZIQDO_TERMINAL_${Date.now()}`; const result = await page.evaluate( async ({ cwd, expected }) => { const terminal = window.workGui.terminal; const created = await terminal.create({ cwd, cols: 80, rows: 24 }); let output = \"\"; let acknowledgedBytes = 0; let unsubscribe = () => undefined; try { const echoed = new Promise<string>((resolve, rejec…"
     },
     {
-      "action": "Date.now()"
+      "action": "fs.mkdtemp(path.join(os.tmpdir(), prefix))"
     },
     {
-      "action": "page.evaluate( async ({ cwd, expected }) => { const terminal = window.workGui.terminal; const created = await terminal.create({ cwd, cols: 80, rows: 24 }); let output = \"\"; let acknowledgedBytes = 0; let unsubscribe = () => undefined; try { const echoed = new Promise<string>((resolve, reject) => { const timeout = window.setTimeout( () => reject(new Error(`terminal output timed out: ${output}`)), 8_000, ); unsubscrib…"
+      "action": "path.join(os.tmpdir(), prefix)"
     },
     {
-      "action": "terminal.create({ cwd, cols: 80, rows: 24 })"
+      "action": "os.tmpdir()"
     },
     {
-      "action": "window.setTimeout( () => reject(new Error(`terminal output timed out: ${output}`)), 8_000, )"
+      "action": "launch(configHome, startupCapabilities)"
     },
     {
-      "action": "reject(new Error(`terminal output timed out: ${output}`))"
+      "action": "electron.launch({ ...(executablePath ? { executablePath, args: process.platform === \"linux\" ? [\"--password-store=basic\"] : [], } : { args: process.platform === \"linux\" ? [\"--password-store=basic\", root] : [root], }), env: { ...process.env, ...defaultE2EEnv, ...e2eStartupCapabilitiesEnv(startupCapabilities), ELECTRON_RUN_AS_NODE: undefined, ZIQDO_CONFIG_HOME: configHome, ...(startupCapabilities.embeddedPython ? { ZIQ…"
     },
     {
-      "action": "terminal.onData((event) => { if (event.id !== created.id) return; const chunk = atob(event.data); output += chunk; acknowledgedBytes += new TextEncoder().encode(chunk).byteLength; if (output.includes(expected)) { window.clearTimeout(timeout); resolve(output); } })"
+      "action": "e2eStartupCapabilitiesEnv(startupCapabilities)"
     },
     {
-      "action": "atob(event.data)"
+      "action": "JSON.stringify([fakeSidecar])"
     },
     {
-      "action": "new TextEncoder().encode(chunk)"
+      "action": "run(await waitForE2EWindow(app), configHome)"
     },
     {
-      "action": "output.includes(expected)"
+      "action": "waitForE2EWindow(app)"
     },
     {
-      "action": "window.clearTimeout(timeout)"
+      "action": "closeE2EApplication(app)"
     },
     {
-      "action": "resolve(output)"
+      "action": "removeE2ETestDirectory(configHome)"
     }
   ],
   "expected_outcomes": [
@@ -189,37 +189,37 @@
           "action": "withApp(\"ziqdo-terminal-e2e-\", async (page, configHome) => { const token = `ZIQDO_TERMINAL_${Date.now()}`; const result = await page.evaluate( async ({ cwd, expected }) => { const terminal = window.workGui.terminal; const created = await terminal.create({ cwd, cols: 80, rows: 24 }); let output = \"\"; let acknowledgedBytes = 0; let unsubscribe = () => undefined; try { const echoed = new Promise<string>((resolve, rejec…"
         },
         {
-          "action": "Date.now()"
+          "action": "fs.mkdtemp(path.join(os.tmpdir(), prefix))"
         },
         {
-          "action": "page.evaluate( async ({ cwd, expected }) => { const terminal = window.workGui.terminal; const created = await terminal.create({ cwd, cols: 80, rows: 24 }); let output = \"\"; let acknowledgedBytes = 0; let unsubscribe = () => undefined; try { const echoed = new Promise<string>((resolve, reject) => { const timeout = window.setTimeout( () => reject(new Error(`terminal output timed out: ${output}`)), 8_000, ); unsubscrib…"
+          "action": "path.join(os.tmpdir(), prefix)"
         },
         {
-          "action": "terminal.create({ cwd, cols: 80, rows: 24 })"
+          "action": "os.tmpdir()"
         },
         {
-          "action": "window.setTimeout( () => reject(new Error(`terminal output timed out: ${output}`)), 8_000, )"
+          "action": "launch(configHome, startupCapabilities)"
         },
         {
-          "action": "reject(new Error(`terminal output timed out: ${output}`))"
+          "action": "electron.launch({ ...(executablePath ? { executablePath, args: process.platform === \"linux\" ? [\"--password-store=basic\"] : [], } : { args: process.platform === \"linux\" ? [\"--password-store=basic\", root] : [root], }), env: { ...process.env, ...defaultE2EEnv, ...e2eStartupCapabilitiesEnv(startupCapabilities), ELECTRON_RUN_AS_NODE: undefined, ZIQDO_CONFIG_HOME: configHome, ...(startupCapabilities.embeddedPython ? { ZIQ…"
         },
         {
-          "action": "terminal.onData((event) => { if (event.id !== created.id) return; const chunk = atob(event.data); output += chunk; acknowledgedBytes += new TextEncoder().encode(chunk).byteLength; if (output.includes(expected)) { window.clearTimeout(timeout); resolve(output); } })"
+          "action": "e2eStartupCapabilitiesEnv(startupCapabilities)"
         },
         {
-          "action": "atob(event.data)"
+          "action": "JSON.stringify([fakeSidecar])"
         },
         {
-          "action": "new TextEncoder().encode(chunk)"
+          "action": "run(await waitForE2EWindow(app), configHome)"
         },
         {
-          "action": "output.includes(expected)"
+          "action": "waitForE2EWindow(app)"
         },
         {
-          "action": "window.clearTimeout(timeout)"
+          "action": "closeE2EApplication(app)"
         },
         {
-          "action": "resolve(output)"
+          "action": "removeE2ETestDirectory(configHome)"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -245,8 +245,8 @@
         "body_sha256": "sha256:85dcb6006457898f926f10580ee829bf76308b3508b04081a2907e915d51f9d4",
         "assertion_count": 5,
         "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:2af09725067aac6357cfbfefc405760ba1b1dcfb317ebfbdafe28620276118b9"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:540760257b22eb1f0d1ac836f7e65f844d9994b7515b71f0c0ed7761244ba575"
       }
     },
     "reference_run": {

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/ui-layout-collapsed-titlebar-navigation.spec.ts",
-      "locator": "line:319;test:does not overlap or overflow at supported macOS sizes",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/ui-layout-collapsed-titlebar-navigation.spec.ts",
+      "locator": "line:321;test:does not overlap or overflow at supported macOS sizes",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:3dbaa2f46dffc1ed1163f6f28f06975d4593965a9f2d8b6dc9fad3098c74f9fb",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-F6F45AF0727716",
+      "requirement_id": "REQ-9A64C4697BDEB2",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-ui-layout-collapsed-titlebar-navigation-spec-ts:L319:3dbaa2f46d"
+        "QDEV-E2E-e2e-ui-layout-collapsed-titlebar-navigation-spec-ts:L321:3dbaa2f46d"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -76,9 +76,13 @@
     },
     {
       "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收起侧栏\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: \"展开侧栏\", exact: true })).toBeFocused()",
     "expect(current.x).toBeGreaterThanOrEqual(previous.right)",
     "expect(current.right).toBeLessThanOrEqual(size.width)"
   ],
@@ -89,7 +93,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-F6F45AF0727716",
+      "requirement_id": "REQ-9A64C4697BDEB2",
       "type": "return",
       "assertion": "does not overlap or overflow at supported macOS sizes"
     }
@@ -149,6 +153,9 @@
       "steps": [
         {
           "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收起侧栏\", exact: true }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -169,13 +176,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/ui-layout-collapsed-titlebar-navigation.spec.ts",
-        "line_start": 319,
-        "line_end": 338,
+        "line_start": 321,
+        "line_end": 340,
         "body_sha256": "sha256:d281c017052cf7b9e5cc049ffefe1b631cf4557209d634d35d0b9ef1f2329765",
-        "assertion_count": 2,
-        "action_count": 1,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:468e9bce96768c8f1996c96c7e5a462af3ec67111a53f1bdb530047c9d78aa8a"
+        "assertion_count": 3,
+        "action_count": 2,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:51850ed9067788cd22d0333aee70670b3774b8fe6d067c4ba87033d2b40273f2"
       }
     },
     "reference_run": {
@@ -197,7 +204,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-F6F45AF0727716"
+      "REQ-9A64C4697BDEB2"
     ],
     "categories": [
       "business"
@@ -205,7 +212,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-F6F45AF0727716"
+      "requirement:REQ-9A64C4697BDEB2"
     ]
   }
 }

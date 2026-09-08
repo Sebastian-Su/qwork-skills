@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/image-generation-quality.spec.ts",
-      "locator": "line:11;test:ships and selects the text-safe image generation Skill",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/image-generation-quality.spec.ts",
+      "locator": "line:13;test:ships and selects the text-safe image generation Skill",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:4c90e9e2730d41a38a56d47fe69a39cdc4b1efb12d019ffa395a56d70959fa0b",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-FAED187E61C9DB",
+      "requirement_id": "REQ-BC91176DE31237",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-image-generation-quality-spec-ts:L11:4c90e9e273"
+        "QDEV-E2E-e2e-image-generation-quality-spec-ts:L13:4c90e9e273"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -101,10 +101,12 @@
   ],
   "expected_outcomes": [
     "expect(skill).toBeVisible()",
-    "expect(skill.getByTestId(\"builtin-skill-description\")).toContainText( \"多语种文字与多方向字体\", )",
+    "expect(skill.getByTestId(\"builtin-skill-description\")).toContainText( \"中文、维吾尔文、英文纯文字 Logo\", )",
     "expect(skill.getByRole(\"switch\", { name: \"关闭 图像生成\" })).toBeChecked()",
     "expect(picker.getByRole(\"option\", { name: /图像生成/ })).toBeVisible()",
-    "expect.poll(async () => { try { const messages = (await fs.readFile(sidecarLog, \"utf8\")) .split(\"\\n\") .filter(Boolean) .map((line) => JSON.parse(line) as Record<string, unknown>); return messages.find((message) => message.type === \"create_session\")?.plugin_dirs; } catch (error) { if ((error as NodeJS.ErrnoException).code === \"ENOENT\") return undefined; throw error; } }, { timeout: 30_000 }).toContain(path.join( conf…"
+    "expect.poll(async () => { try { const messages = (await fs.readFile(sidecarLog, \"utf8\")) .split(\"\\n\") .filter(Boolean) .map((line) => JSON.parse(line) as Record<string, unknown>); return messages.find((message) => message.type === \"create_session\")?.plugin_dirs; } catch (error) { if ((error as NodeJS.ErrnoException).code === \"ENOENT\") return undefined; throw error; } }, { timeout: 30_000 }).toContain(path.join( conf…",
+    "expect(installedSkill).toContain(\"replace-white-background.mjs\")",
+    "expect(installedSkill).toContain(\"不得执行 pip install、npm install\")"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -113,7 +115,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-FAED187E61C9DB",
+      "requirement_id": "REQ-BC91176DE31237",
       "type": "return",
       "assertion": "ships and selects the text-safe image generation Skill"
     }
@@ -216,13 +218,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/image-generation-quality.spec.ts",
-        "line_start": 11,
-        "line_end": 71,
-        "body_sha256": "sha256:5ce18763291be84d90324c360c778e4b34d8effe7792ec4a71f7eda4de3f0e1c",
-        "assertion_count": 5,
+        "line_start": 13,
+        "line_end": 84,
+        "body_sha256": "sha256:719ed199ff3187cabcc44d7f71230986d42669f375c9c3b267f93d132b995da6",
+        "assertion_count": 7,
         "action_count": 8,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:979e7379649ed7c6b27091d5b42d5a185a0d737bb1e32ab041a7662767965b7a"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:de184355cef85cab45e86be3d013b112b79713b70b0eeda04e6630fba02c40f4"
       }
     },
     "reference_run": {
@@ -244,7 +246,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-FAED187E61C9DB"
+      "REQ-BC91176DE31237"
     ],
     "categories": [
       "business"
@@ -252,7 +254,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-FAED187E61C9DB"
+      "requirement:REQ-BC91176DE31237"
     ]
   }
 }

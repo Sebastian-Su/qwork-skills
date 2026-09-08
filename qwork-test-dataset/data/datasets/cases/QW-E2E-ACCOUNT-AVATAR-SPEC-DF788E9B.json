@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/account-avatar.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/account-avatar.spec.ts",
       "locator": "line:19;test:loads the signed-in QUC avatar from the qhmsg CDN without a broken image",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:df788e9b0c94927565e08c2f096d976c16d43556b138d2ab299df201a087c16f",
       "redaction_status": "minimized"
     }
@@ -75,40 +75,7 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "createTestHome(\"account-avatar\")"
-    },
-    {
-      "action": "startAvatarAuthServer()"
-    },
-    {
-      "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: auth.baseUrl, QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"test\", NODE_ENV: \"test\", })"
-    },
-    {
-      "action": "app.firstWindow()"
-    },
-    {
-      "action": "page.route(\"https://p1.ssl.qhmsg.com/**\", (route) => route.fulfill({ status: 200, contentType: \"image/svg+xml\", body: AVATAR_SVG }), )"
-    },
-    {
-      "action": "route.fulfill({ status: 200, contentType: \"image/svg+xml\", body: AVATAR_SVG })"
-    },
-    {
-      "action": "page.evaluate(() => window.workGui!.auth.completeLoginForTest!(\"avatar-e2e\"))"
-    },
-    {
-      "action": "window.workGui!.auth.completeLoginForTest!(\"avatar-e2e\")"
-    },
-    {
-      "action": "page.getByRole(\"img\", { name: \"生活是美好的6 头像\" })"
-    },
-    {
-      "action": "attachUiState(page, testInfo, \"qhmsg-avatar-loaded\")"
-    },
-    {
-      "action": "attachUiState(page, testInfo, \"qhmsg-avatar-load-failure\")"
-    },
-    {
-      "action": "cleanupTestHome(app, configHome)"
+      "action": "server.close((error) => error ? reject(error) : resolve())"
     }
   ],
   "expected_outcomes": [
@@ -184,40 +151,7 @@
       "entrypoint": "im",
       "steps": [
         {
-          "action": "createTestHome(\"account-avatar\")"
-        },
-        {
-          "action": "startAvatarAuthServer()"
-        },
-        {
-          "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: auth.baseUrl, QWORK_AUTH_BYPASS: \"0\", QWORK_ENV: \"test\", NODE_ENV: \"test\", })"
-        },
-        {
-          "action": "app.firstWindow()"
-        },
-        {
-          "action": "page.route(\"https://p1.ssl.qhmsg.com/**\", (route) => route.fulfill({ status: 200, contentType: \"image/svg+xml\", body: AVATAR_SVG }), )"
-        },
-        {
-          "action": "route.fulfill({ status: 200, contentType: \"image/svg+xml\", body: AVATAR_SVG })"
-        },
-        {
-          "action": "page.evaluate(() => window.workGui!.auth.completeLoginForTest!(\"avatar-e2e\"))"
-        },
-        {
-          "action": "window.workGui!.auth.completeLoginForTest!(\"avatar-e2e\")"
-        },
-        {
-          "action": "page.getByRole(\"img\", { name: \"生活是美好的6 头像\" })"
-        },
-        {
-          "action": "attachUiState(page, testInfo, \"qhmsg-avatar-loaded\")"
-        },
-        {
-          "action": "attachUiState(page, testInfo, \"qhmsg-avatar-load-failure\")"
-        },
-        {
-          "action": "cleanupTestHome(app, configHome)"
+          "action": "server.close((error) => error ? reject(error) : resolve())"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -242,8 +176,8 @@
         "line_end": 51,
         "body_sha256": "sha256:19347e2d4581b2bd09cdfe85408270e8e6943990a63519d244858e61853185be",
         "assertion_count": 3,
-        "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "action_count": 1,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:2812d2be078c87a6e5be54ab5793f0854f7edbadc33d7f27e513c46664915588"
       }
     },

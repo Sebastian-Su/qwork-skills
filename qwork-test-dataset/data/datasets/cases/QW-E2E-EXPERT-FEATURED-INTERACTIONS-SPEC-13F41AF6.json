@@ -1,0 +1,331 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-EXPERT-FEATURED-INTERACTIONS-SPEC-13F41AF6",
+  "title": "精选技能支持下载、安装状态和试用，五项以内禁用换一换",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-expert-featured-interactions-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/expert-featured-interactions.spec.ts",
+      "locator": "line:341;test:精选技能支持下载、安装状态和试用，五项以内禁用换一换",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:13f41af6e962a040519339092247ec8bd55e48e3656183e1b0b4fd27d0b65deb",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-1A1BA19CFA2634",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-expert-featured-interactions-spec-ts:L341:13f41af6e9"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "精选技能支持下载、安装状态和试用，五项以内禁用换一换",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-expert-featured-interactions-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "精选技能支持下载、安装状态和试用，五项以内禁用换一换"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+    },
+    {
+      "action": "recommended.getByRole(\"tab\", { name: \"生活服务\" }).click()"
+    },
+    {
+      "action": "featuredDescription.hover()"
+    },
+    {
+      "action": "recommendedDescription.hover()"
+    },
+    {
+      "action": "header.getByRole(\"button\", { name: \"添加技能\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "sourceTabs.getByRole(\"tab\", { name: \"SkillHub\" }).click()"
+    },
+    {
+      "action": "sourceTabs.getByRole(\"tab\", { name: \"推荐\" }).click()"
+    },
+    {
+      "action": "recommended.getByRole(\"button\", { name: \"安装 Weather\" }).click()"
+    },
+    {
+      "action": "firstFeatured.getByRole(\"button\", { name: `安装 ${firstFeaturedName}` }).click()"
+    },
+    {
+      "action": "trial.focus()"
+    },
+    {
+      "action": "trial.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(header).toBeVisible()",
+    "expect(header.getByPlaceholder(\"搜索技能\")).toBeVisible()",
+    "expect(header.getByRole(\"button\", { name: \"添加技能\" })).toContainText(\"添加技能\")",
+    "expect(headerLayout.search?.width).toBeCloseTo(200, 0)",
+    "expect(headerLayout.search?.height).toBeCloseTo(32, 0)",
+    "expect(headerLayout.installed?.height).toBeCloseTo(32, 0)",
+    "expect(headerLayout.add?.height).toBeCloseTo(32, 0)",
+    "expect(Math.abs((headerLayout.search?.y ?? 0) - (headerLayout.add?.y ?? 0))).toBeLessThanOrEqual(2)",
+    "expect(featured.getByRole(\"article\")).toHaveCount(5)",
+    "expect(featured.getByRole(\"button\", { name: /^安装 / })).toHaveCount(5)",
+    "expect(featured.getByRole(\"button\", { name: \"换一换精选技能\" })).toBeDisabled()",
+    "expect(featuredLayout.cards).toHaveLength(5)",
+    "expect(featuredLayout.cards[0]?.height).toBe(109.390625)",
+    "expect(featuredLayout.cards[0]?.width).toBe(Math.floor((featuredLayout.section.width - 24) / 3 * 64) / 64)",
+    "expect(featuredLayout.cards[0]?.width).toBeCloseTo(featuredLayout.cards[1]?.width ?? 0, 0)",
+    "expect((featuredLayout.cards[1]?.x ?? 0) - (featuredLayout.cards[0]?.x ?? 0) - (featuredLayout.cards[0]?.width ?? 0)).toBeCloseTo(12, 0)",
+    "expect(featuredLayout.borderRadius).toBe(\"16px\")",
+    "expect(layout.overflow).toBe(\"hidden\")",
+    "expect(layout.lineClamp).toBe(\"2\")",
+    "expect(layout.height).toBeLessThanOrEqual(39)",
+    "expect(sourceTabs.getByRole(\"tab\")).toHaveText([\"推荐\", \"SkillHub\", \"套件\"])",
+    "expect(sourceTabs.getByRole(\"tab\", { name: \"推荐\" })).toHaveAttribute(\"aria-selected\", \"true\")",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(5)",
+    "expect(recommended.getByRole(\"heading\").first()).toHaveText(\"后台首选技能\")",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(2)",
+    "expect(recommended.getByRole(\"heading\").first()).toHaveText(\"Weather\")",
+    "expect(recommended.getByRole(\"button\", { name: \"安装 Weather\" })).toBeVisible()",
+    "expect(featuredStyle.backgroundColor).not.toBe(\"rgba(0, 0, 0, 0)\")",
+    "expect(featuredStyle.boxShadow).not.toBe(\"none\")",
+    "expect(featuredTitleBox).not.toBeNull()",
+    "expect(page.getByRole(\"tooltip\")).toHaveCount(0)",
+    "expect(page.getByRole(\"tooltip\")).toHaveText(featuredDescriptionText ?? \"\")",
+    "expect.poll(async () => ( await featuredCard.evaluate((element) => getComputedStyle(element).backgroundColor) )).not.toBe(featuredStyle.backgroundColor)",
+    "expect(page.getByRole(\"tooltip\")).toHaveCount(0)",
+    "expect(recommendedStyle.backgroundColor).not.toBe(\"rgba(0, 0, 0, 0)\")",
+    "expect(recommendedStyle.boxShadow).not.toBe(\"none\")",
+    "expect(recommendedTitleBox).not.toBeNull()",
+    "expect(page.getByRole(\"tooltip\")).toHaveCount(0)",
+    "expect(page.getByRole(\"tooltip\")).toHaveText(recommendedDescriptionText ?? \"\")",
+    "expect.poll(async () => ( await recommendedCard.evaluate((element) => getComputedStyle(element).backgroundColor) )).not.toBe(recommendedStyle.backgroundColor)",
+    "expect(page.getByRole(\"tooltip\")).toHaveCount(0)",
+    "expect(addMenu.getByRole(\"menuitem\")).toHaveText([\"查找技能\", \"上传技能\", \"创建技能\"])",
+    "expect(sourceTabs.getByRole(\"tab\", { name: \"SkillHub\" })).toHaveAttribute(\"aria-selected\", \"true\")",
+    "expect(page.getByTestId(\"skill-card\")).toHaveCount(30)",
+    "expect(page.getByTestId(\"skill-card\")).toHaveCount(60)",
+    "expect(page.getByTestId(\"skill-card\")).toHaveCount(70)",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(5)",
+    "expect(recommended.getByRole(\"heading\", { name: \"Weather\", exact: true })).toBeVisible()",
+    "expect(recommended.getByRole(\"button\", { name: \"试一试 Weather\", exact: true })).toBeVisible()",
+    "expect(recommended.getByRole(\"article\")).toHaveCount(5)",
+    "expect(firstFeatured).toContainText(firstFeaturedName)",
+    "expect(trial).toBeVisible()",
+    "expect(page.getByRole(\"tooltip\")).toHaveText(\"试一试\")",
+    "expect(page.getByTestId(\"composer-dock\")).toContainText(firstFeaturedName)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-1A1BA19CFA2634",
+      "type": "return",
+      "assertion": "精选技能支持下载、安装状态和试用，五项以内禁用换一换"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-expert-featured-interactions-spec-ts.13f41af6e9",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/expert-featured-interactions.spec.ts -g \"精选技能支持下载、安装状态和试用，五项以内禁用换一换\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "page.getByRole(\"tab\", { name: \"技能\", exact: true }).click()"
+        },
+        {
+          "action": "recommended.getByRole(\"tab\", { name: \"生活服务\" }).click()"
+        },
+        {
+          "action": "featuredDescription.hover()"
+        },
+        {
+          "action": "recommendedDescription.hover()"
+        },
+        {
+          "action": "header.getByRole(\"button\", { name: \"添加技能\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "sourceTabs.getByRole(\"tab\", { name: \"SkillHub\" }).click()"
+        },
+        {
+          "action": "sourceTabs.getByRole(\"tab\", { name: \"推荐\" }).click()"
+        },
+        {
+          "action": "recommended.getByRole(\"button\", { name: \"安装 Weather\" }).click()"
+        },
+        {
+          "action": "firstFeatured.getByRole(\"button\", { name: `安装 ${firstFeaturedName}` }).click()"
+        },
+        {
+          "action": "trial.focus()"
+        },
+        {
+          "action": "trial.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/expert-featured-interactions.spec.ts",
+        "line_start": 341,
+        "line_end": 489,
+        "body_sha256": "sha256:6d8c3f3b9bae14b93cb6da1c04d4db52299b5ffdafd9f5f9b3e742aa2cc30b40",
+        "assertion_count": 54,
+        "action_count": 12,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c171b14c646717594d6da148d11ab29ac8a6657ba1c0b4d0ad1a65bae2a14817"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-1A1BA19CFA2634"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-1A1BA19CFA2634"
+    ]
+  }
+}

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/terminal.spec.ts",
-      "locator": "line:79;test:uses the Electron Node runtime without a system Node installation",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/terminal.spec.ts",
+      "locator": "line:151;test:uses the Electron Node runtime without a system Node installation",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:5e6bac771397f1c25a8e39a10e7dfbc085c164ce7cd88519a9978bf5e44c0b45",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-CE91FDBFB851C7",
+      "requirement_id": "REQ-AFBFE0AF14A818",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-terminal-spec-ts:L79:5e6bac7713"
+        "QDEV-E2E-e2e-terminal-spec-ts:L151:5e6bac7713"
       ],
       "content_facets": [
         "negative-rule"
@@ -78,37 +78,37 @@
       "action": "withApp(\"ziqdo-terminal-node-runtime-\", async (page, configHome) => { const probe = path.join(configHome, \"electron-node-probe.cjs\"); const token = `ELECTRON_NODE_RUNTIME_${Date.now()}`; await fs.writeFile( probe, // Assert the Node runtime is reachable through the shim. We check // process.versions.node (always present when the shim runs, whether the // resolved runtime is Electron-as-node in a packaged app or the …"
     },
     {
-      "action": "path.join(configHome, \"electron-node-probe.cjs\")"
+      "action": "fs.mkdtemp(path.join(os.tmpdir(), prefix))"
     },
     {
-      "action": "Date.now()"
+      "action": "path.join(os.tmpdir(), prefix)"
     },
     {
-      "action": "fs.writeFile( probe, // Assert the Node runtime is reachable through the shim. We check // process.versions.node (always present when the shim runs, whether the // resolved runtime is Electron-as-node in a packaged app or the launcher // node when the E2E runs from source) plus ZIQDO_NODE_SHIM_ACTIVE, which // proves the injected shim — not a system node — served the request. `console.log(${JSON.stringify(token)} + …"
+      "action": "os.tmpdir()"
     },
     {
-      "action": "JSON.stringify(token)"
+      "action": "launch(configHome, startupCapabilities)"
     },
     {
-      "action": "page.evaluate( async ({ cwd, script, expected }) => { const terminal = window.workGui.terminal; const created = await terminal.create({ cwd, cols: 100, rows: 24 }); let combined = \"\"; let unsubscribe = () => undefined; try { const completed = new Promise<string>((resolve, reject) => { const timeout = window.setTimeout( () => reject(new Error(`Electron Node probe timed out: ${combined}`)), 12_000, ); unsubscribe = te…"
+      "action": "electron.launch({ ...(executablePath ? { executablePath, args: process.platform === \"linux\" ? [\"--password-store=basic\"] : [], } : { args: process.platform === \"linux\" ? [\"--password-store=basic\", root] : [root], }), env: { ...process.env, ...defaultE2EEnv, ...e2eStartupCapabilitiesEnv(startupCapabilities), ELECTRON_RUN_AS_NODE: undefined, ZIQDO_CONFIG_HOME: configHome, ...(startupCapabilities.embeddedPython ? { ZIQ…"
     },
     {
-      "action": "terminal.create({ cwd, cols: 100, rows: 24 })"
+      "action": "e2eStartupCapabilitiesEnv(startupCapabilities)"
     },
     {
-      "action": "window.setTimeout( () => reject(new Error(`Electron Node probe timed out: ${combined}`)), 12_000, )"
+      "action": "JSON.stringify([fakeSidecar])"
     },
     {
-      "action": "reject(new Error(`Electron Node probe timed out: ${combined}`))"
+      "action": "run(await waitForE2EWindow(app), configHome)"
     },
     {
-      "action": "terminal.onData((event) => { if (event.id !== created.id) return; combined += atob(event.data); if (combined.includes(expected)) { window.clearTimeout(timeout); resolve(combined); } })"
+      "action": "waitForE2EWindow(app)"
     },
     {
-      "action": "atob(event.data)"
+      "action": "closeE2EApplication(app)"
     },
     {
-      "action": "combined.includes(expected)"
+      "action": "removeE2ETestDirectory(configHome)"
     }
   ],
   "expected_outcomes": [
@@ -122,7 +122,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-CE91FDBFB851C7",
+      "requirement_id": "REQ-AFBFE0AF14A818",
       "type": "return",
       "assertion": "uses the Electron Node runtime without a system Node installation"
     }
@@ -186,37 +186,37 @@
           "action": "withApp(\"ziqdo-terminal-node-runtime-\", async (page, configHome) => { const probe = path.join(configHome, \"electron-node-probe.cjs\"); const token = `ELECTRON_NODE_RUNTIME_${Date.now()}`; await fs.writeFile( probe, // Assert the Node runtime is reachable through the shim. We check // process.versions.node (always present when the shim runs, whether the // resolved runtime is Electron-as-node in a packaged app or the …"
         },
         {
-          "action": "path.join(configHome, \"electron-node-probe.cjs\")"
+          "action": "fs.mkdtemp(path.join(os.tmpdir(), prefix))"
         },
         {
-          "action": "Date.now()"
+          "action": "path.join(os.tmpdir(), prefix)"
         },
         {
-          "action": "fs.writeFile( probe, // Assert the Node runtime is reachable through the shim. We check // process.versions.node (always present when the shim runs, whether the // resolved runtime is Electron-as-node in a packaged app or the launcher // node when the E2E runs from source) plus ZIQDO_NODE_SHIM_ACTIVE, which // proves the injected shim — not a system node — served the request. `console.log(${JSON.stringify(token)} + …"
+          "action": "os.tmpdir()"
         },
         {
-          "action": "JSON.stringify(token)"
+          "action": "launch(configHome, startupCapabilities)"
         },
         {
-          "action": "page.evaluate( async ({ cwd, script, expected }) => { const terminal = window.workGui.terminal; const created = await terminal.create({ cwd, cols: 100, rows: 24 }); let combined = \"\"; let unsubscribe = () => undefined; try { const completed = new Promise<string>((resolve, reject) => { const timeout = window.setTimeout( () => reject(new Error(`Electron Node probe timed out: ${combined}`)), 12_000, ); unsubscribe = te…"
+          "action": "electron.launch({ ...(executablePath ? { executablePath, args: process.platform === \"linux\" ? [\"--password-store=basic\"] : [], } : { args: process.platform === \"linux\" ? [\"--password-store=basic\", root] : [root], }), env: { ...process.env, ...defaultE2EEnv, ...e2eStartupCapabilitiesEnv(startupCapabilities), ELECTRON_RUN_AS_NODE: undefined, ZIQDO_CONFIG_HOME: configHome, ...(startupCapabilities.embeddedPython ? { ZIQ…"
         },
         {
-          "action": "terminal.create({ cwd, cols: 100, rows: 24 })"
+          "action": "e2eStartupCapabilitiesEnv(startupCapabilities)"
         },
         {
-          "action": "window.setTimeout( () => reject(new Error(`Electron Node probe timed out: ${combined}`)), 12_000, )"
+          "action": "JSON.stringify([fakeSidecar])"
         },
         {
-          "action": "reject(new Error(`Electron Node probe timed out: ${combined}`))"
+          "action": "run(await waitForE2EWindow(app), configHome)"
         },
         {
-          "action": "terminal.onData((event) => { if (event.id !== created.id) return; combined += atob(event.data); if (combined.includes(expected)) { window.clearTimeout(timeout); resolve(combined); } })"
+          "action": "waitForE2EWindow(app)"
         },
         {
-          "action": "atob(event.data)"
+          "action": "closeE2EApplication(app)"
         },
         {
-          "action": "combined.includes(expected)"
+          "action": "removeE2ETestDirectory(configHome)"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -237,13 +237,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/terminal.spec.ts",
-        "line_start": 79,
-        "line_end": 130,
+        "line_start": 151,
+        "line_end": 202,
         "body_sha256": "sha256:4d6290e17a4fa6b0475e0ca80e20abdcc27c51e7ff0f7eaf17e2e813500d4c2e",
         "assertion_count": 2,
         "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:2af09725067aac6357cfbfefc405760ba1b1dcfb317ebfbdafe28620276118b9"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:540760257b22eb1f0d1ac836f7e65f844d9994b7515b71f0c0ed7761244ba575"
       }
     },
     "reference_run": {
@@ -265,7 +265,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-CE91FDBFB851C7"
+      "REQ-AFBFE0AF14A818"
     ],
     "categories": [
       "negative"
@@ -273,7 +273,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-CE91FDBFB851C7"
+      "requirement:REQ-AFBFE0AF14A818"
     ]
   }
 }

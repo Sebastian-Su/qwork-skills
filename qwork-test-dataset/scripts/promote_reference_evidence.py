@@ -18,6 +18,7 @@ REFERENCE_ID = re.compile(r"^[A-Za-z0-9._-]+$")
 ROOT_FILES = {
     "QWORK-E2E-REPORT.json",
     "QWORK-E2E-REPORT.html",
+    "report.json",
     "evidence-manifest.json",
     "build-manifest.json",
     "playwright-report.json",

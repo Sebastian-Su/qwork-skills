@@ -1,0 +1,424 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-INSPIRAT-ITEM-4C54E935",
+  "title": "docs/changes/CHG-inspiration-artifact-catalog-20260907/implementation-plan.md · 失败恢复与回滚 产品契约",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "library",
+    "journey": "library",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-inspiration-artifact-catalog-202609",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-inspiration-artifact-catalog-20260907/implementation-plan.md",
+      "locator": "line:56;heading:失败恢复与回滚",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:c8cf29c2f6c53242f771d0ec7c6939415ea3782fdfd830a9155deaaca74b7f94",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-inspiration-artifact-catalog-202609",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-inspiration-artifact-catalog-20260907/implementation-plan.md",
+      "locator": "line:57;heading:失败恢复与回滚",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:0e860489132e59c811be982182c91b118717b1bab53ad9497a8b8f31e135c92a",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-inspiration-artifact-catalog-202609",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-inspiration-artifact-catalog-20260907/implementation-plan.md",
+      "locator": "line:58;heading:失败恢复与回滚",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:4184d0068d612cead75e085989af3356968c08d8f2388eb4bf38e16881059510",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-inspiration-artifact-catalog-202609",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-inspiration-artifact-catalog-20260907/implementation-plan.md",
+      "locator": "line:59;heading:失败恢复与回滚",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:be181af17c1bd2aa7d54379617eabe6a4dfa9d8d192ff0e6b8bf630b48325cc8",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-E3A70F3F4FD37E",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-inspiration-artifact-catalog-202609:L56:c8cf29c2f6"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "library",
+      "priority": "P1",
+      "rule": "任何依赖、生成、分享、封面或审批失败时停止当前批次，保留清单 checkpoint，不发布半成品。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-inspiration-artifact-catalog-202609"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "任何依赖、生成、分享、封面或审批失败时停止当前批次，保留清单 checkpoint，不发布半成品。"
+    },
+    {
+      "requirement_id": "REQ-1FAEFA49E4B675",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-inspiration-artifact-catalog-202609:L57:0e86048913"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "library",
+      "priority": "P1",
+      "rule": "API/迁移失败时不部署消费者；新旧服务共存时旧客户端继续使用 `category`。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-inspiration-artifact-catalog-202609"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "API/迁移失败时不部署消费者；新旧服务共存时旧客户端继续使用 `category`。"
+    },
+    {
+      "requirement_id": "REQ-BDAA23F0F740DA",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-inspiration-artifact-catalog-202609:L58:4184d0068d"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "library",
+      "priority": "P1",
+      "rule": "数据回滚只下线新批次并恢复旧记录，不硬删除；schema additive 保留。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-inspiration-artifact-catalog-202609"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "数据回滚只下线新批次并恢复旧记录，不硬删除；schema additive 保留。"
+    },
+    {
+      "requirement_id": "REQ-7E7942B77E3FE7",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-inspiration-artifact-catalog-202609:L59:be181af17c"
+      ],
+      "content_facets": [
+        "evidence-provenance"
+      ],
+      "acceptance_categories": [
+        "evidence-integrity"
+      ],
+      "surface": "library",
+      "priority": "P1",
+      "rule": "原始日志、截图、清单与哈希只写入 Git 忽略的 `.artifacts/CHG-inspiration-artifact-catalog-20260907/`。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-inspiration-artifact-catalog-202609"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "原始日志、截图、清单与哈希只写入 Git 忽略的 `.artifacts/CHG-inspiration-artifact-catalog-20260907/`。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for library at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-inspiration-artifact-catalog-20260907/implementation-plan.md · 失败恢复与回滚 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-E3A70F3F4FD37E] exactly: 任何依赖、生成、分享、封面或审批失败时停止当前批次，保留清单 checkpoint，不发布半成品。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-1FAEFA49E4B675] exactly: API/迁移失败时不部署消费者；新旧服务共存时旧客户端继续使用 `category`。"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-BDAA23F0F740DA] exactly: 数据回滚只下线新批次并恢复旧记录，不硬删除；schema additive 保留。"
+    },
+    {
+      "action": "observe case-owned execution trace after the trigger and assert [REQ-7E7942B77E3FE7] exactly: 原始日志、截图、清单与哈希只写入 Git 忽略的 `.artifacts/CHG-inspiration-artifact-catalog-20260907/`。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "任何依赖、生成、分享、封面或审批失败时停止当前批次，保留清单 checkpoint，不发布半成品。",
+    "API/迁移失败时不部署消费者；新旧服务共存时旧客户端继续使用 `category`。",
+    "数据回滚只下线新批次并恢复旧记录，不硬删除；schema additive 保留。",
+    "原始日志、截图、清单与哈希只写入 Git 忽略的 `.artifacts/CHG-inspiration-artifact-catalog-20260907/`。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-E3A70F3F4FD37E]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 任何依赖、生成、分享、封面或审批失败时停止当前批次，保留清单 checkpoint，不发布半成品。",
+    "FAIL [REQ-1FAEFA49E4B675]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: API/迁移失败时不部署消费者；新旧服务共存时旧客户端继续使用 `category`。",
+    "FAIL [REQ-BDAA23F0F740DA]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 数据回滚只下线新批次并恢复旧记录，不硬删除；schema additive 保留。",
+    "FAIL [REQ-7E7942B77E3FE7]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 原始日志、截图、清单与哈希只写入 Git 忽略的 `.artifacts/CHG-inspiration-artifact-catalog-20260907/`。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-E3A70F3F4FD37E",
+      "type": "return",
+      "assertion": "任何依赖、生成、分享、封面或审批失败时停止当前批次，保留清单 checkpoint，不发布半成品。"
+    },
+    {
+      "requirement_id": "REQ-1FAEFA49E4B675",
+      "type": "return",
+      "assertion": "API/迁移失败时不部署消费者；新旧服务共存时旧客户端继续使用 `category`。"
+    },
+    {
+      "requirement_id": "REQ-BDAA23F0F740DA",
+      "type": "event",
+      "assertion": "数据回滚只下线新批次并恢复旧记录，不硬删除；schema additive 保留。"
+    },
+    {
+      "requirement_id": "REQ-7E7942B77E3FE7",
+      "type": "trace",
+      "assertion": "原始日志、截图、清单与哈希只写入 Git 忽略的 `.artifacts/CHG-inspiration-artifact-catalog-20260907/`。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-inspiratio.item-4c54e935c2",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "library",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for library at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-inspiration-artifact-catalog-20260907/implementation-plan.md · 失败恢复与回滚 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-E3A70F3F4FD37E] exactly: 任何依赖、生成、分享、封面或审批失败时停止当前批次，保留清单 checkpoint，不发布半成品。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-1FAEFA49E4B675] exactly: API/迁移失败时不部署消费者；新旧服务共存时旧客户端继续使用 `category`。"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-BDAA23F0F740DA] exactly: 数据回滚只下线新批次并恢复旧记录，不硬删除；schema additive 保留。"
+        },
+        {
+          "action": "observe case-owned execution trace after the trigger and assert [REQ-7E7942B77E3FE7] exactly: 原始日志、截图、清单与哈希只写入 Git 忽略的 `.artifacts/CHG-inspiration-artifact-catalog-20260907/`。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-1FAEFA49E4B675",
+      "REQ-7E7942B77E3FE7",
+      "REQ-BDAA23F0F740DA",
+      "REQ-E3A70F3F4FD37E"
+    ],
+    "categories": [
+      "evidence-integrity",
+      "negative",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:evidence-integrity",
+      "category:negative",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-1FAEFA49E4B675",
+      "requirement:REQ-7E7942B77E3FE7",
+      "requirement:REQ-BDAA23F0F740DA",
+      "requirement:REQ-E3A70F3F4FD37E"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-E3A70F3F4FD37E",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-inspiration-artifact-catalog-20260907/implementation-plan.md · 失败恢复与回滚 产品契约 exactly once and retain its correlation identity",
+      "then": "任何依赖、生成、分享、封面或审批失败时停止当前批次，保留清单 checkpoint，不发布半成品。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-1FAEFA49E4B675",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-inspiration-artifact-catalog-20260907/implementation-plan.md · 失败恢复与回滚 产品契约 exactly once and retain its correlation identity",
+      "then": "API/迁移失败时不部署消费者；新旧服务共存时旧客户端继续使用 `category`。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-BDAA23F0F740DA",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-inspiration-artifact-catalog-20260907/implementation-plan.md · 失败恢复与回滚 产品契约 exactly once and retain its correlation identity",
+      "then": "数据回滚只下线新批次并恢复旧记录，不硬删除；schema additive 保留。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-7E7942B77E3FE7",
+      "oracle_type": "trace",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-inspiration-artifact-catalog-20260907/implementation-plan.md · 失败恢复与回滚 产品契约 exactly once and retain its correlation identity",
+      "then": "原始日志、截图、清单与哈希只写入 Git 忽略的 `.artifacts/CHG-inspiration-artifact-catalog-20260907/`。",
+      "observation_boundary": "case-owned execution trace",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

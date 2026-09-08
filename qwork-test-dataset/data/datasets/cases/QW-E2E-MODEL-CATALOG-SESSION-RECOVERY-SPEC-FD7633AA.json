@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/model-catalog-session-recovery.spec.ts",
-      "locator": "line:72;test:returns to login only after the shortened E2E grace window confirms expiry",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/model-catalog-session-recovery.spec.ts",
+      "locator": "line:107;test:returns to login only after the shortened E2E grace window confirms expiry",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:fd7633aa097ce607275d1d26398d36c7d725f608500fed531b145edfdf7ca3b7",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-C80430D830BD1C",
+      "requirement_id": "REQ-10278425F29FBC",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-model-catalog-session-recovery-spec-ts:L72:fd7633aa09"
+        "QDEV-E2E-e2e-model-catalog-session-recovery-spec-ts:L107:fd7633aa09"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:48:17.582788+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -75,25 +75,7 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "createTestHome(\"model-session-expired\")"
-    },
-    {
-      "action": "startExpiringSessionServer(\"expire\")"
-    },
-    {
-      "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: cloud.baseUrl, QWORK_PROJECT_ACCESS_TOKEN: undefined, QWORK_AUTH_BYPASS: \"0\", QWORK_DEV_AUTO_LOGIN: \"1\", QWORK_E2E_MODEL_CATALOG_JSON: undefined, // Keep the grace state observable even when a busy full-suite worker // delays the renderer after the first window is created. QWORK_E2E_AUTH_RECOVERY_DELAYS_MS: \"[0,3000]\", QWORK_ENV: \"test\", NODE_ENV: \"test\", })"
-    },
-    {
-      "action": "app.firstWindow()"
-    },
-    {
-      "action": "attachUiState(page, testInfo, \"confirmed-expired-session-login-gate\")"
-    },
-    {
-      "action": "cleanupTestHome(app, configHome)"
-    },
-    {
-      "action": "cloud.stop()"
+      "action": "server.close((error) => (error ? reject(error) : resolve()))"
     }
   ],
   "expected_outcomes": [
@@ -109,7 +91,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-C80430D830BD1C",
+      "requirement_id": "REQ-10278425F29FBC",
       "type": "return",
       "assertion": "returns to login only after the shortened E2E grace window confirms expiry"
     }
@@ -170,25 +152,7 @@
       "entrypoint": "models",
       "steps": [
         {
-          "action": "createTestHome(\"model-session-expired\")"
-        },
-        {
-          "action": "startExpiringSessionServer(\"expire\")"
-        },
-        {
-          "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: cloud.baseUrl, QWORK_PROJECT_ACCESS_TOKEN: undefined, QWORK_AUTH_BYPASS: \"0\", QWORK_DEV_AUTO_LOGIN: \"1\", QWORK_E2E_MODEL_CATALOG_JSON: undefined, // Keep the grace state observable even when a busy full-suite worker // delays the renderer after the first window is created. QWORK_E2E_AUTH_RECOVERY_DELAYS_MS: \"[0,3000]\", QWORK_ENV: \"test\", NODE_ENV: \"test\", })"
-        },
-        {
-          "action": "app.firstWindow()"
-        },
-        {
-          "action": "attachUiState(page, testInfo, \"confirmed-expired-session-login-gate\")"
-        },
-        {
-          "action": "cleanupTestHome(app, configHome)"
-        },
-        {
-          "action": "cloud.stop()"
+          "action": "server.close((error) => (error ? reject(error) : resolve()))"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -209,13 +173,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/model-catalog-session-recovery.spec.ts",
-        "line_start": 72,
-        "line_end": 106,
+        "line_start": 107,
+        "line_end": 141,
         "body_sha256": "sha256:7f7aaf9111f37626c4a63b10c880fbe65718ef58c4d26923e5c5f0cfd4bb2e01",
         "assertion_count": 4,
-        "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:a182f8c663ae6fcc6fe91da3da9e62a2def80935f890cb54be2cd2d6e33d330d"
+        "action_count": 1,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:3e03f3d414add8e62b1451d254e5db2c94d02de08dac33c1fe960225245b6778"
       }
     },
     "reference_run": {
@@ -237,7 +201,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-C80430D830BD1C"
+      "REQ-10278425F29FBC"
     ],
     "categories": [
       "business"
@@ -245,7 +209,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-C80430D830BD1C"
+      "requirement:REQ-10278425F29FBC"
     ]
   }
 }

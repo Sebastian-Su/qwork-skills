@@ -1,0 +1,374 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-HTTP-FAL-HTTP-4AE8B2C1",
+  "title": "docs/changes/CHG-http-fallback-webfetch-20260904/research-and-delivery.md · HTTP 兜底提示词交付与交接 产品契约",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-http-fallback-webfetch-20260904-res",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-http-fallback-webfetch-20260904/research-and-delivery.md",
+      "locator": "line:9;heading:HTTP 兜底提示词交付与交接",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:a37af378194689b234755a270bacbd68f751f380c67fe81af70d137b2ef12c31",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-http-fallback-webfetch-20260904-res",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-http-fallback-webfetch-20260904/research-and-delivery.md",
+      "locator": "line:10;heading:HTTP 兜底提示词交付与交接",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:9e65e1916641d4e10c06bb496db2f75c3e00ad9aa9e3c23b7fbb47273e1809a5",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-http-fallback-webfetch-20260904-res",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-http-fallback-webfetch-20260904/research-and-delivery.md",
+      "locator": "line:14;heading:HTTP 兜底提示词交付与交接",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:21f97f9d28f66b8224363aa873726bc9ae6d726b36cab11ce33620d66bbe0f97",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-C9C7263FB52E16",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-http-fallback-webfetch-20260904-res:L9:a37af37819"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "迁移在窗口就绪后、引擎启动前执行。失败显示原生错误框，提供文件路径、错误原因与修复后重启指引；引擎保持停止。引擎替换前也重复执行幂等迁移，防止绕过。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-http-fallback-webfetch-20260904-res"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "迁移在窗口就绪后、引擎启动前执行。失败显示原生错误框，提供文件路径、错误原因与修复后重启指引；引擎保持停止。引擎替换前也重复执行幂等迁移，防止绕过。"
+    },
+    {
+      "requirement_id": "REQ-210688F7896EF6",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-http-fallback-webfetch-20260904-res:L10:9e65e19166"
+      ],
+      "content_facets": [
+        "error-copy"
+      ],
+      "acceptance_categories": [
+        "error",
+        "ui-content"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "测试先行记录：旧提示词 6 项断言失败；迁移模块缺失导致单元/集成失败；Electron 收到旧禁令导致发送链路失败。补充失败场景复现旧启动路径无窗口，然后修复为可见错误。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-http-fallback-webfetch-20260904-res"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "测试先行记录：旧提示词 6 项断言失败；迁移模块缺失导致单元/集成失败；Electron 收到旧禁令导致发送链路失败。补充失败场景复现旧启动路径无窗口，然后修复为可见错误。"
+    },
+    {
+      "requirement_id": "REQ-E7F19A2479472E",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-http-fallback-webfetch-20260904-res:L14:21f97f9d28"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "Standards/Spec 两轴审查各发现一项问题，分别为迁移错误可见性及 Harness Auto 将线索计入正文；均已修复、补回归并复查通过。未运行真实模型受控验收、实际 Obscura、Windows/Linux Runner 或安装态客户端配套新 Harness。Electron 使用隔离目录和 fake-sidecar，不冒充新引擎实测；新引擎的实际 CLI 离线 agent loop、版本和哈希见上述 Harness 真源文档。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-http-fallback-webfetch-20260904-res"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Standards/Spec 两轴审查各发现一项问题，分别为迁移错误可见性及 Harness Auto 将线索计入正文；均已修复、补回归并复查通过。未运行真实模型受控验收、实际 Obscura、Windows/Linux Runner 或安装态客户端配套新 Harness。Electron 使用隔离目录和 fake-sidecar，不冒充新引擎实测；新引擎的实际 CLI 离线 agent loop、版本和哈希见上述 Harness 真源文档。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for window-runtime at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-http-fallback-webfetch-20260904/research-and-delivery.md · HTTP 兜底提示词交付与交接 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-C9C7263FB52E16] exactly: 迁移在窗口就绪后、引擎启动前执行。失败显示原生错误框，提供文件路径、错误原因与修复后重启指引；引擎保持停止。引擎替换前也重复执行幂等迁移，防止绕过。"
+    },
+    {
+      "action": "observe renderer visible content after the trigger and assert [REQ-210688F7896EF6] exactly: 测试先行记录：旧提示词 6 项断言失败；迁移模块缺失导致单元/集成失败；Electron 收到旧禁令导致发送链路失败。补充失败场景复现旧启动路径无窗口，然后修复为可见错误。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-E7F19A2479472E] exactly: Standards/Spec 两轴审查各发现一项问题，分别为迁移错误可见性及 Harness Auto 将线索计入正文；均已修复、补回归并复查通过。未运行真实模型受控验收、实际 Obscura、Windows/Linux Runner 或安装态客户端配套新 Harness。Electron 使用隔离目录和 fake-sidecar，不冒充新引擎实测；新引擎的实际 CLI 离线 agent loop、版本和哈希见上述 Harness 真源文档。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "迁移在窗口就绪后、引擎启动前执行。失败显示原生错误框，提供文件路径、错误原因与修复后重启指引；引擎保持停止。引擎替换前也重复执行幂等迁移，防止绕过。",
+    "测试先行记录：旧提示词 6 项断言失败；迁移模块缺失导致单元/集成失败；Electron 收到旧禁令导致发送链路失败。补充失败场景复现旧启动路径无窗口，然后修复为可见错误。",
+    "Standards/Spec 两轴审查各发现一项问题，分别为迁移错误可见性及 Harness Auto 将线索计入正文；均已修复、补回归并复查通过。未运行真实模型受控验收、实际 Obscura、Windows/Linux Runner 或安装态客户端配套新 Harness。Electron 使用隔离目录和 fake-sidecar，不冒充新引擎实测；新引擎的实际 CLI 离线 agent loop、版本和哈希见上述 Harness 真源文档。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-C9C7263FB52E16]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 迁移在窗口就绪后、引擎启动前执行。失败显示原生错误框，提供文件路径、错误原因与修复后重启指引；引擎保持停止。引擎替换前也重复执行幂等迁移，防止绕过。",
+    "FAIL [REQ-210688F7896EF6]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 测试先行记录：旧提示词 6 项断言失败；迁移模块缺失导致单元/集成失败；Electron 收到旧禁令导致发送链路失败。补充失败场景复现旧启动路径无窗口，然后修复为可见错误。",
+    "FAIL [REQ-E7F19A2479472E]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Standards/Spec 两轴审查各发现一项问题，分别为迁移错误可见性及 Harness Auto 将线索计入正文；均已修复、补回归并复查通过。未运行真实模型受控验收、实际 Obscura、Windows/Linux Runner 或安装态客户端配套新 Harness。Electron 使用隔离目录和 fake-sidecar，不冒充新引擎实测；新引擎的实际 CLI 离线 agent loop、版本和哈希见上述 Harness 真源文档。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-C9C7263FB52E16",
+      "type": "ui",
+      "assertion": "迁移在窗口就绪后、引擎启动前执行。失败显示原生错误框，提供文件路径、错误原因与修复后重启指引；引擎保持停止。引擎替换前也重复执行幂等迁移，防止绕过。"
+    },
+    {
+      "requirement_id": "REQ-210688F7896EF6",
+      "type": "ui-content",
+      "assertion": "测试先行记录：旧提示词 6 项断言失败；迁移模块缺失导致单元/集成失败；Electron 收到旧禁令导致发送链路失败。补充失败场景复现旧启动路径无窗口，然后修复为可见错误。"
+    },
+    {
+      "requirement_id": "REQ-E7F19A2479472E",
+      "type": "ui",
+      "assertion": "Standards/Spec 两轴审查各发现一项问题，分别为迁移错误可见性及 Harness Auto 将线索计入正文；均已修复、补回归并复查通过。未运行真实模型受控验收、实际 Obscura、Windows/Linux Runner 或安装态客户端配套新 Harness。Electron 使用隔离目录和 fake-sidecar，不冒充新引擎实测；新引擎的实际 CLI 离线 agent loop、版本和哈希见上述 Harness 真源文档。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-http-fallb.http-4ae8b2c137",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for window-runtime at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-http-fallback-webfetch-20260904/research-and-delivery.md · HTTP 兜底提示词交付与交接 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-C9C7263FB52E16] exactly: 迁移在窗口就绪后、引擎启动前执行。失败显示原生错误框，提供文件路径、错误原因与修复后重启指引；引擎保持停止。引擎替换前也重复执行幂等迁移，防止绕过。"
+        },
+        {
+          "action": "observe renderer visible content after the trigger and assert [REQ-210688F7896EF6] exactly: 测试先行记录：旧提示词 6 项断言失败；迁移模块缺失导致单元/集成失败；Electron 收到旧禁令导致发送链路失败。补充失败场景复现旧启动路径无窗口，然后修复为可见错误。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-E7F19A2479472E] exactly: Standards/Spec 两轴审查各发现一项问题，分别为迁移错误可见性及 Harness Auto 将线索计入正文；均已修复、补回归并复查通过。未运行真实模型受控验收、实际 Obscura、Windows/Linux Runner 或安装态客户端配套新 Harness。Electron 使用隔离目录和 fake-sidecar，不冒充新引擎实测；新引擎的实际 CLI 离线 agent loop、版本和哈希见上述 Harness 真源文档。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-210688F7896EF6",
+      "REQ-C9C7263FB52E16",
+      "REQ-E7F19A2479472E"
+    ],
+    "categories": [
+      "error",
+      "negative",
+      "ui-content"
+    ],
+    "suite_ids": [
+      "category:error",
+      "category:negative",
+      "category:ui-content",
+      "full",
+      "requirement:REQ-210688F7896EF6",
+      "requirement:REQ-C9C7263FB52E16",
+      "requirement:REQ-E7F19A2479472E"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-C9C7263FB52E16",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-http-fallback-webfetch-20260904/research-and-delivery.md · HTTP 兜底提示词交付与交接 产品契约 exactly once and retain its correlation identity",
+      "then": "迁移在窗口就绪后、引擎启动前执行。失败显示原生错误框，提供文件路径、错误原因与修复后重启指引；引擎保持停止。引擎替换前也重复执行幂等迁移，防止绕过。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-210688F7896EF6",
+      "oracle_type": "ui-content",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-http-fallback-webfetch-20260904/research-and-delivery.md · HTTP 兜底提示词交付与交接 产品契约 exactly once and retain its correlation identity",
+      "then": "测试先行记录：旧提示词 6 项断言失败；迁移模块缺失导致单元/集成失败；Electron 收到旧禁令导致发送链路失败。补充失败场景复现旧启动路径无窗口，然后修复为可见错误。",
+      "observation_boundary": "renderer visible content",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-E7F19A2479472E",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-http-fallback-webfetch-20260904/research-and-delivery.md · HTTP 兜底提示词交付与交接 产品契约 exactly once and retain its correlation identity",
+      "then": "Standards/Spec 两轴审查各发现一项问题，分别为迁移错误可见性及 Harness Auto 将线索计入正文；均已修复、补回归并复查通过。未运行真实模型受控验收、实际 Obscura、Windows/Linux Runner 或安装态客户端配套新 Harness。Electron 使用隔离目录和 fake-sidecar，不冒充新引擎实测；新引擎的实际 CLI 离线 agent loop、版本和哈希见上述 Harness 真源文档。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

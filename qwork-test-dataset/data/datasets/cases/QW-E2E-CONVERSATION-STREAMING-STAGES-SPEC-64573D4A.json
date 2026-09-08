@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/conversation-streaming-stages.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/conversation-streaming-stages.spec.ts",
       "locator": "line:23;test:shows waiting, thinking, generated file content, final text, and completion in order",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:64573d4ad41e97d4fababf87bd15518fd155cef303cc0f8e1933a4c1f9ab9c92",
       "redaction_status": "minimized"
     }
@@ -64,7 +64,7 @@
     "environment_scope": "isolated Electron fixture",
     "implementation_revision": null,
     "last_verified_at": null,
-    "status_reason": "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution"
+    "status_reason": "generated baseline has not completed its reference run"
   },
   "preconditions": {
     "repository": "qwork",
@@ -84,13 +84,26 @@
   "expected_outcomes": [
     "expect(page.getByText(\"等待模型响应\", { exact: true })).toBeVisible()",
     "expect(thinking).toHaveAttribute(\"aria-expanded\", \"true\")",
-    "expect(page.getByText(\"正在规划页面结构与视觉样式\", { exact: true })).toBeVisible()",
+    "expect(thinkingContent).toContainText(\"正在规划页面结构与视觉样式\")",
+    "expect(thinkingContent).toContainText(\"最新思考内容\")",
     "expect(page.getByText(\"等待模型响应\", { exact: true })).toHaveCount(0)",
+    "expect(thinkingGeometry.scrollHeight).toBeGreaterThan(thinkingGeometry.clientHeight)",
+    "expect.poll(() => thinkingContent.evaluate( (element) => element.scrollHeight - element.scrollTop - element.clientHeight, ), ).toBeLessThanOrEqual(8)",
+    "expect(thinkingChrome.maxHeight).toBe(\"200px\")",
+    "expect(thinkingChrome.borderLeft).toMatch(/4px solid rgb\\(235,\\s*235,\\s*235\\)/)",
+    "expect(thinkingChrome.fontFamily.toLowerCase()).not.toMatch(/mono|consolas|menlo/)",
+    "expect(thinkingChrome.color).toBe(\"rgba(0, 0, 0, 0.5)\")",
+    "expect(page.getByText(\"THINKING\", { exact: true })).toHaveCount(0)",
+    "expect(generating).toBeVisible()",
+    "expect(thinkingBeforeGenerating).toBe(true)",
     "expect(thinking).toHaveAttribute(\"aria-expanded\", \"false\")",
-    "expect(page.getByText(\"正在规划页面结构与视觉样式\", { exact: true })).toHaveCount(0)",
+    "expect(page.getByTestId(\"thinking-content\")).toHaveCount(0)",
     "expect(generation).toHaveAttribute(\"aria-expanded\", \"true\")",
     "expect(page.getByText(/<!doctype html>/)).toBeVisible()",
     "expect(page.getByText(/<h1>你好<\\/h1>/)).toBeVisible()",
+    "expect(generationContent).toContainText(\"最新生成内容\")",
+    "expect(streamingGeometry.scrollHeight).toBeGreaterThan(streamingGeometry.clientHeight)",
+    "expect.poll(() => generationContent.evaluate( (element) => element.scrollHeight - element.scrollTop - element.clientHeight, ), ).toBeLessThanOrEqual(8)",
     "expect(page.getByText(\"正在写入文件\", { exact: true })).toBeVisible()",
     "expect(page.getByText(/<!doctype html>/)).toBeVisible()",
     "expect(generated).toHaveAttribute(\"aria-expanded\", \"false\")",
@@ -197,12 +210,12 @@
       "source_contract": {
         "spec": "e2e/conversation-streaming-stages.spec.ts",
         "line_start": 23,
-        "line_end": 68,
-        "body_sha256": "sha256:644026fae2be458aa28438b7e79d2624158172b510f4a5ce6b06008dbf7510cd",
-        "assertion_count": 21,
+        "line_end": 126,
+        "body_sha256": "sha256:74c72f5e0a596c2ee1b9bddf7caa41d30b59af56ee09fb63f2678ce3a9c6841c",
+        "assertion_count": 34,
         "action_count": 2,
-        "execution_revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
-        "spec_sha256": "sha256:95d07b32008a70e6bd87456fb53ef0c83879b94d591150a247a8fe2589ecc22d"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:d35740a02fc9e09e6dd2612f81f1c0e6d6921536f59c4a702eb06f9392765b45"
       }
     },
     "reference_run": {
@@ -219,7 +232,6 @@
       "success_oracle": "no case-owned process or temporary state remains"
     },
     "blockers": [
-      "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution",
       "reference run pending"
     ]
   },

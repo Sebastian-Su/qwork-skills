@@ -44,6 +44,12 @@ execution:
     - deterministic-playwright
     - workbuddy-oracle
   live_authorization_never_runs_in_local_batch: true
+  authorized_live_runner: scripts/run_authorized_live_case.py
+  authorized_live_result: authorized-live-results.json
+  authorized_live_max_case_invocations: 1
+  authorized_live_max_timeout_seconds: 900
+  authorized_live_requires_exact_plan_case_route_command_source_and_artifact_hashes: true
+  authorized_live_cleanup_is_mandatory: true
   coordinate_wal_before_subprocess: true
   running_or_partial_resume_is_zero_execution_stop: true
   preserve_terminal_coordinates_across_category_runs: true

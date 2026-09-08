@@ -1,0 +1,229 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SEARCH-SCROLLBAR-SPEC-CABFC734",
+  "title": "search rows align and share the sidebar scrollbar in both themes",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-search-scrollbar-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/search-scrollbar.spec.ts",
+      "locator": "line:12;test:search rows align and share the sidebar scrollbar in both themes",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:cabfc734fb0ad2fe70b5b246dd85d76d502ddb000eca163075913802e974805e",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-A20A0C70B4595C",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-search-scrollbar-spec-ts:L12:cabfc734fb"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "search rows align and share the sidebar scrollbar in both themes",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-search-scrollbar-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "search rows align and share the sidebar scrollbar in both themes"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByTitle(\"搜索\", { exact: true }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect .poll(() => page.evaluate(() => document.documentElement.classList.contains(\"dark\"), ), ) .toBe(theme === \"dark\")",
+    "expect(rows).toHaveCount(20)",
+    "expect( geometry.every((row) => [\"left\", \"start\"].includes(row.align)), ).toBe(true)",
+    "expect( Math.max(...geometry.flatMap((r) => r.left)) - Math.min(...geometry.flatMap((r) => r.left)), ).toBeLessThanOrEqual(2)",
+    "expect(scroll).toHaveCount(1)",
+    "expect(await scrollStyle(scroll)).toEqual(railStyle)",
+    "expect(railStyle.width).toBe(\"8px\")",
+    "expect(railStyle.border).toBe(\"rgba(0, 0, 0, 0)\")",
+    "expect(await scroll.evaluate((el) => el.scrollTop)).toBeGreaterThan(0)",
+    "expect( await dialog.evaluate((el) => el.scrollWidth <= el.clientWidth), ).toBe(true)",
+    "expect(dialog).not.toBeVisible()",
+    "expect(page.getByTitle(\"搜索\", { exact: true })).toBeFocused()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-A20A0C70B4595C",
+      "type": "return",
+      "assertion": "search rows align and share the sidebar scrollbar in both themes"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-search-scrollbar-spec-ts.cabfc734fb",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/search-scrollbar.spec.ts -g \"search rows align and share the sidebar scrollbar in both themes\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByTitle(\"搜索\", { exact: true }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/search-scrollbar.spec.ts",
+        "line_start": 12,
+        "line_end": 130,
+        "body_sha256": "sha256:3f0e3d4d5f769c3180d33a9b4c4b62097dad960b7083dba0491da8b106ba40c1",
+        "assertion_count": 12,
+        "action_count": 2,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:ea578ba9faf68b840194f3917609d43c3b779edf42d6b8fc9c01ac7935e3769c"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-A20A0C70B4595C"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-A20A0C70B4595C"
+    ]
+  }
+}

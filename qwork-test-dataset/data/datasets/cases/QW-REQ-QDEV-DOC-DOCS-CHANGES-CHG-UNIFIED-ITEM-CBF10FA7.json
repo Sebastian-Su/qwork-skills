@@ -22,12 +22,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:40;heading:非目标",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:198;heading:非目标",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:07f359f85f9a73cda3111b06cd62989959b91e8ac3734511f27e105b0fb10f3f",
       "redaction_status": "minimized"
     },
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:41;heading:非目标",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:199;heading:非目标",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:ee55fcb09136aaf01ccf0c78676e1b2b638b531fa91d58a72038aa70aeae4642",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-0DF908DDE330C3",
+      "requirement_id": "REQ-885CE86576E5C7",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L40:07f359f85f"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L198:07f359f85f"
       ],
       "content_facets": [
         "business-rule"
@@ -74,9 +74,9 @@
       "oracle": "不给 Renderer、preload 或 ZiqDo 增加任意网络上报能力。"
     },
     {
-      "requirement_id": "REQ-76A65C15723D06",
+      "requirement_id": "REQ-50F0C73270DD73",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L41:ee55fcb091"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L199:ee55fcb091"
       ],
       "content_facets": [
         "evidence-provenance"
@@ -122,10 +122,10 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 非目标 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0DF908DDE330C3] exactly: 不给 Renderer、preload 或 ZiqDo 增加任意网络上报能力。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-885CE86576E5C7] exactly: 不给 Renderer、preload 或 ZiqDo 增加任意网络上报能力。"
     },
     {
-      "action": "observe case-owned execution trace after the trigger and assert [REQ-76A65C15723D06] exactly: 不用 trace/session/request ID 做鉴权、租户隔离或幂等判断。"
+      "action": "observe case-owned execution trace after the trigger and assert [REQ-50F0C73270DD73] exactly: 不用 trace/session/request ID 做鉴权、租户隔离或幂等判断。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -136,19 +136,19 @@
     "不用 trace/session/request ID 做鉴权、租户隔离或幂等判断。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-0DF908DDE330C3]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 不给 Renderer、preload 或 ZiqDo 增加任意网络上报能力。",
-    "FAIL [REQ-76A65C15723D06]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 不用 trace/session/request ID 做鉴权、租户隔离或幂等判断。",
+    "FAIL [REQ-885CE86576E5C7]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 不给 Renderer、preload 或 ZiqDo 增加任意网络上报能力。",
+    "FAIL [REQ-50F0C73270DD73]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 不用 trace/session/request ID 做鉴权、租户隔离或幂等判断。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-0DF908DDE330C3",
+      "requirement_id": "REQ-885CE86576E5C7",
       "type": "return",
       "assertion": "不给 Renderer、preload 或 ZiqDo 增加任意网络上报能力。"
     },
     {
-      "requirement_id": "REQ-76A65C15723D06",
+      "requirement_id": "REQ-50F0C73270DD73",
       "type": "trace",
       "assertion": "不用 trace/session/request ID 做鉴权、租户隔离或幂等判断。"
     }
@@ -207,10 +207,10 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 非目标 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0DF908DDE330C3] exactly: 不给 Renderer、preload 或 ZiqDo 增加任意网络上报能力。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-885CE86576E5C7] exactly: 不给 Renderer、preload 或 ZiqDo 增加任意网络上报能力。"
         },
         {
-          "action": "observe case-owned execution trace after the trigger and assert [REQ-76A65C15723D06] exactly: 不用 trace/session/request ID 做鉴权、租户隔离或幂等判断。"
+          "action": "observe case-owned execution trace after the trigger and assert [REQ-50F0C73270DD73] exactly: 不用 trace/session/request ID 做鉴权、租户隔离或幂等判断。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -253,8 +253,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-0DF908DDE330C3",
-      "REQ-76A65C15723D06"
+      "REQ-50F0C73270DD73",
+      "REQ-885CE86576E5C7"
     ],
     "categories": [
       "business",
@@ -264,13 +264,13 @@
       "category:business",
       "category:evidence-integrity",
       "full",
-      "requirement:REQ-0DF908DDE330C3",
-      "requirement:REQ-76A65C15723D06"
+      "requirement:REQ-50F0C73270DD73",
+      "requirement:REQ-885CE86576E5C7"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-0DF908DDE330C3",
+      "requirement_id": "REQ-885CE86576E5C7",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 非目标 产品契约 exactly once and retain its correlation identity",
@@ -279,7 +279,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-76A65C15723D06",
+      "requirement_id": "REQ-50F0C73270DD73",
       "oracle_type": "trace",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 非目标 产品契约 exactly once and retain its correlation identity",

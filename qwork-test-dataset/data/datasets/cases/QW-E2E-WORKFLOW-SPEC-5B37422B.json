@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/workflow.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workflow.spec.ts",
       "locator": "line:38;test:stops a long-running workflow",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:5b37422b5c66449ecd93b02b53cf12990b353e477ca15d62dda8ac8fa5b6ac33",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,9 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
       "action": "composer.fill(\"__E2E_WORKFLOW_LONG__\")"
     },
     {
@@ -91,6 +94,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByPlaceholder(/今天帮你做些什么/)).toBeVisible()",
     "expect(card).toContainText(\"running\")",
     "expect(card).toContainText(\"failed\")",
     "expect(card.getByTitle(\"停止工作流\")).toHaveCount(0)",
@@ -165,6 +169,9 @@
       "entrypoint": "task-lifecycle",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
           "action": "composer.fill(\"__E2E_WORKFLOW_LONG__\")"
         },
         {
@@ -201,9 +208,9 @@
         "line_start": 38,
         "line_end": 65,
         "body_sha256": "sha256:2979626894718426263a7333394c2bbc739a6e6776e795d5b35271ac538cc06f",
-        "assertion_count": 5,
-        "action_count": 5,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 6,
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:da72bdb1bea713d1684f5d1cab39629028c074e95dc30800c93d83fb0e4906b8"
       }
     },

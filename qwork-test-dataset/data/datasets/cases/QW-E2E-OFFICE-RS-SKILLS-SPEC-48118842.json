@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/office-rs-skills.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/office-rs-skills.spec.ts",
       "locator": "line:105;test:XLSX formulas, sparse exports, and error exits follow the documented contract",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:481188420d9ade98ae3a5c0de05f9285a61840fe7435e465681f3c1a59a8ec35",
       "redaction_status": "minimized"
     }
@@ -78,34 +78,34 @@
       "action": "installedSkills()"
     },
     {
+      "action": "mkdtemp(path.join(tmpdir(), \"qwork-office-rs-e2e-\"))"
+    },
+    {
+      "action": "path.join(tmpdir(), \"qwork-office-rs-e2e-\")"
+    },
+    {
+      "action": "tmpdir()"
+    },
+    {
+      "action": "temporaryRoots.add(root)"
+    },
+    {
+      "action": "path.join(root, \".ziqdo\", \"skills\")"
+    },
+    {
+      "action": "mkdir(skillsRoot, { recursive: true })"
+    },
+    {
+      "action": "cp(path.join(repoRoot, \"resources\", \"skills\", skill), path.join(skillsRoot, skill), { recursive: true, })"
+    },
+    {
+      "action": "path.join(repoRoot, \"resources\", \"skills\", skill)"
+    },
+    {
+      "action": "path.join(skillsRoot, skill)"
+    },
+    {
       "action": "path.join( skillsRoot, \"xlsx-rs\", \"scripts\", platform, process.platform === \"win32\" ? \"xlsx-rw.exe\" : \"xlsx-rw\", )"
-    },
-    {
-      "action": "path.join(root, \"spec.json\")"
-    },
-    {
-      "action": "path.join(root, \"input.xlsx\")"
-    },
-    {
-      "action": "path.join(root, \"output.xlsx\")"
-    },
-    {
-      "action": "path.join(root, \"edit.json\")"
-    },
-    {
-      "action": "path.join(root, \"edited.xlsx\")"
-    },
-    {
-      "action": "path.join(root, \"edited-output.xlsx\")"
-    },
-    {
-      "action": "path.join(root, \"output.csv\")"
-    },
-    {
-      "action": "writeFile( spec, JSON.stringify({ sheets: [ { name: \"Summary\", cells: [ { ref: \"A1\", value: \"Label\" }, { ref: \"B1\", value: \"Unit\" }, { ref: \"C1\", value: \"Count\" }, { ref: \"D1\", value: \"Result\" }, { ref: \"A2\", value: \"State\" }, { ref: \"C2\", value: 1 }, { ref: \"D2\", formula: '=IF(C2>0,\"达标\",\"未达标\")' }, { ref: \"A4\", value: \"Total\" }, { ref: \"D4\", formula: \"=SUM(C2:C3)\" }, ], }, ], }), \"utf8\", )"
-    },
-    {
-      "action": "JSON.stringify({ sheets: [ { name: \"Summary\", cells: [ { ref: \"A1\", value: \"Label\" }, { ref: \"B1\", value: \"Unit\" }, { ref: \"C1\", value: \"Count\" }, { ref: \"D1\", value: \"Result\" }, { ref: \"A2\", value: \"State\" }, { ref: \"C2\", value: 1 }, { ref: \"D2\", formula: '=IF(C2>0,\"达标\",\"未达标\")' }, { ref: \"A4\", value: \"Total\" }, { ref: \"D4\", formula: \"=SUM(C2:C3)\" }, ], }, ], })"
     }
   ],
   "expected_outcomes": [
@@ -178,34 +178,34 @@
           "action": "installedSkills()"
         },
         {
+          "action": "mkdtemp(path.join(tmpdir(), \"qwork-office-rs-e2e-\"))"
+        },
+        {
+          "action": "path.join(tmpdir(), \"qwork-office-rs-e2e-\")"
+        },
+        {
+          "action": "tmpdir()"
+        },
+        {
+          "action": "temporaryRoots.add(root)"
+        },
+        {
+          "action": "path.join(root, \".ziqdo\", \"skills\")"
+        },
+        {
+          "action": "mkdir(skillsRoot, { recursive: true })"
+        },
+        {
+          "action": "cp(path.join(repoRoot, \"resources\", \"skills\", skill), path.join(skillsRoot, skill), { recursive: true, })"
+        },
+        {
+          "action": "path.join(repoRoot, \"resources\", \"skills\", skill)"
+        },
+        {
+          "action": "path.join(skillsRoot, skill)"
+        },
+        {
           "action": "path.join( skillsRoot, \"xlsx-rs\", \"scripts\", platform, process.platform === \"win32\" ? \"xlsx-rw.exe\" : \"xlsx-rw\", )"
-        },
-        {
-          "action": "path.join(root, \"spec.json\")"
-        },
-        {
-          "action": "path.join(root, \"input.xlsx\")"
-        },
-        {
-          "action": "path.join(root, \"output.xlsx\")"
-        },
-        {
-          "action": "path.join(root, \"edit.json\")"
-        },
-        {
-          "action": "path.join(root, \"edited.xlsx\")"
-        },
-        {
-          "action": "path.join(root, \"edited-output.xlsx\")"
-        },
-        {
-          "action": "path.join(root, \"output.csv\")"
-        },
-        {
-          "action": "writeFile( spec, JSON.stringify({ sheets: [ { name: \"Summary\", cells: [ { ref: \"A1\", value: \"Label\" }, { ref: \"B1\", value: \"Unit\" }, { ref: \"C1\", value: \"Count\" }, { ref: \"D1\", value: \"Result\" }, { ref: \"A2\", value: \"State\" }, { ref: \"C2\", value: 1 }, { ref: \"D2\", formula: '=IF(C2>0,\"达标\",\"未达标\")' }, { ref: \"A4\", value: \"Total\" }, { ref: \"D4\", formula: \"=SUM(C2:C3)\" }, ], }, ], }), \"utf8\", )"
-        },
-        {
-          "action": "JSON.stringify({ sheets: [ { name: \"Summary\", cells: [ { ref: \"A1\", value: \"Label\" }, { ref: \"B1\", value: \"Unit\" }, { ref: \"C1\", value: \"Count\" }, { ref: \"D1\", value: \"Result\" }, { ref: \"A2\", value: \"State\" }, { ref: \"C2\", value: 1 }, { ref: \"D2\", formula: '=IF(C2>0,\"达标\",\"未达标\")' }, { ref: \"A4\", value: \"Total\" }, { ref: \"D4\", formula: \"=SUM(C2:C3)\" }, ], }, ], })"
         }
       ],
       "locator_strategy": "source-bound process assertion",
@@ -231,7 +231,7 @@
         "body_sha256": "sha256:e88e5490916f8454e3bc6da284a236102a67392d87ec76050e7b653524eeb967",
         "assertion_count": 6,
         "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:5c17474c6311485a6dfecf3c4420549ed59d882693e43060011220fa9553e5f9"
       }
     },

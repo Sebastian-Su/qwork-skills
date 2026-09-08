@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:275;heading:Red：qwork_server",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:436;heading:Red：qwork_server",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:3a470f6f557697eebed47b42e14f50fedd5800a02809dcca71d2d48e0803d2ab",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-F976FB83B94011",
+      "requirement_id": "REQ-81E43F5970E1D0",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L275:3a470f6f55"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L436:3a470f6f55"
       ],
       "content_facets": [
         "evidence-provenance"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · Red：qwork_server 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe case-owned execution trace after the trigger and assert [REQ-F976FB83B94011] exactly: LLM start/first-chunk/complete/fail 与 request/trace 对齐；断连、取消、重试、幂等 replay 语义明确。"
+      "action": "observe case-owned execution trace after the trigger and assert [REQ-81E43F5970E1D0] exactly: LLM start/first-chunk/complete/fail 与 request/trace 对齐；断连、取消、重试、幂等 replay 语义明确。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "LLM start/first-chunk/complete/fail 与 request/trace 对齐；断连、取消、重试、幂等 replay 语义明确。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-F976FB83B94011]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: LLM start/first-chunk/complete/fail 与 request/trace 对齐；断连、取消、重试、幂等 replay 语义明确。",
+    "FAIL [REQ-81E43F5970E1D0]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: LLM start/first-chunk/complete/fail 与 request/trace 对齐；断连、取消、重试、幂等 replay 语义明确。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-F976FB83B94011",
+      "requirement_id": "REQ-81E43F5970E1D0",
       "type": "trace",
       "assertion": "LLM start/first-chunk/complete/fail 与 request/trace 对齐；断连、取消、重试、幂等 replay 语义明确。"
     }
@@ -157,7 +157,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · Red：qwork_server 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe case-owned execution trace after the trigger and assert [REQ-F976FB83B94011] exactly: LLM start/first-chunk/complete/fail 与 request/trace 对齐；断连、取消、重试、幂等 replay 语义明确。"
+          "action": "observe case-owned execution trace after the trigger and assert [REQ-81E43F5970E1D0] exactly: LLM start/first-chunk/complete/fail 与 request/trace 对齐；断连、取消、重试、幂等 replay 语义明确。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -200,7 +200,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-F976FB83B94011"
+      "REQ-81E43F5970E1D0"
     ],
     "categories": [
       "evidence-integrity"
@@ -208,12 +208,12 @@
     "suite_ids": [
       "category:evidence-integrity",
       "full",
-      "requirement:REQ-F976FB83B94011"
+      "requirement:REQ-81E43F5970E1D0"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-F976FB83B94011",
+      "requirement_id": "REQ-81E43F5970E1D0",
       "oracle_type": "trace",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · Red：qwork_server 产品契约 exactly once and retain its correlation identity",

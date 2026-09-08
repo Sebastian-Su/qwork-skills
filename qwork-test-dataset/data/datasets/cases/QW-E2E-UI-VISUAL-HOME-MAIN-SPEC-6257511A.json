@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/ui-visual-home-main.spec.ts",
-      "locator": "line:26;test:matches expanded/collapsed geometry and preserves home state",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/ui-visual-home-main.spec.ts",
+      "locator": "line:157;test:matches expanded/collapsed geometry and preserves home state",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:6257511a633fb6d69f5df73ac8dbbf61c738f27372f89db32ed86e1d71c48f28",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-ui-visual-home-main-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/ui-visual-home-main.spec.ts",
-      "locator": "line:26;test:matches expanded/collapsed geometry and preserves home state",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:6257511a633fb6d69f5df73ac8dbbf61c738f27372f89db32ed86e1d71c48f28",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-ui-visual-home-main-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-47418D95E89045",
+      "requirement_id": "REQ-1ECF455C0641EA",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-ui-visual-home-main-spec-ts:L26:6257511a63",
-        "QHEAD-E2E-e2e-ui-visual-home-main-spec-ts:L26:6257511a63"
+        "QDEV-E2E-e2e-ui-visual-home-main-spec-ts:L157:6257511a63"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-ui-visual-home-main-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-ui-visual-home-main-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -118,21 +98,29 @@
   ],
   "expected_outcomes": [
     "expect(page.getByTestId(\"window-chrome\")).toHaveCSS(\"height\", `${chromeHeight}px`)",
+    "expect(page.getByTestId(\"window-chrome\")).toHaveCSS( \"background-color\", \"rgba(0, 0, 0, 0)\", )",
+    "expect(page.getByTestId(\"main-panel-workspace\")).toHaveCSS( \"border-top-left-radius\", \"12px\", )",
+    "expect(page.getByTestId(\"main-panel-workspace\")).toHaveCSS( \"background-color\", \"rgb(255, 255, 255)\", )",
+    "expect(page.getByTestId(\"main-content\")).toHaveCSS( \"background-color\", \"rgb(255, 255, 255)\", )",
+    "expect(page.getByTestId(\"home-empty-state\").locator(\"..\")).toHaveCSS( \"background-color\", \"rgb(255, 255, 255)\", )",
     "expect(mainBox.y).toBe(contentTop)",
-    "expect(toolbarBox.y).toBeGreaterThanOrEqual(mainBox.y)",
-    "expect(toolbarBox.right).toBe(mainBox.right)",
+    "expect(Math.abs(actual - expected)).toBeLessThanOrEqual(2)",
+    "expect(page.getByRole(\"toolbar\", { name: \"对话工具栏\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name })).toHaveCount(0)",
     "expect(await page.getByTestId(\"page-chrome-outlet\").getByRole(\"button\").count()).toBe(0)",
     "expect(page.getByRole(\"heading\", { name: \"QWork, 我帮你\" })).toBeVisible()",
-    "expect(Math.abs(expandedBox.x - 312)).toBeLessThanOrEqual(1)",
-    "expect(expandedBox).toMatchObject({ width: 800, height: 178 })",
-    "expect(page.getByRole(\"button\", { name: \"展开侧栏\" })).toHaveCSS(\"width\", \"32px\")",
+    "expect(expandedBox).toMatchObject({ width: 796, height: 174 })",
+    "expect(page.getByRole(\"button\", { name: \"展开侧栏\" })).toHaveCSS( \"width\", process.platform === \"win32\" ? \"40px\" : \"32px\", )",
     "expect(page.getByRole(\"button\", { name: \"新建对话\" })).toBeVisible()",
-    "expect .poll(async () => Math.abs((await boxOf(composer)).x - 179.5)) .toBeLessThanOrEqual(1)",
-    "expect(Math.abs(collapsedBox.x - 180)).toBeLessThanOrEqual(1)",
-    "expect(collapsedBox).toMatchObject({ width: 800, height: 178 })",
-    "expect .poll(async () => Math.abs((await boxOf(composer)).x - 311.5)) .toBeLessThanOrEqual(1)",
+    "expect .poll(async () => Math.abs((await boxOf(page.getByTestId(\"main-panel-workspace\"))).x)) .toBeLessThanOrEqual(1)",
+    "expect(page.getByTestId(\"main-panel-workspace\")).toHaveCSS( \"border-top-left-radius\", \"12px\", )",
+    "expect(page.getByTestId(\"main-panel-workspace\")).toHaveCSS( \"background-color\", \"rgb(255, 255, 255)\", )",
+    "expect(page.getByTestId(\"main-content\")).toHaveCSS( \"background-color\", \"rgb(255, 255, 255)\", )",
+    "expect .poll(async () => Math.abs((await boxOf(composer)).x - 181.5)) .toBeLessThanOrEqual(1)",
+    "expect(collapsedBox).toMatchObject({ width: 796, height: 174 })",
+    "expect .poll(async () => Math.abs((await boxOf(composer)).x - 313.5)) .toBeLessThanOrEqual(1)",
     "expect(page.getByRole(\"button\", { name: \"日常开发\" })).toBeVisible()",
-    "expect .poll(async () => Math.abs((await boxOf(composer)).x - 179.5)) .toBeLessThanOrEqual(1)",
+    "expect .poll(async () => Math.abs((await boxOf(composer)).x - 181.5)) .toBeLessThanOrEqual(1)",
     "expect(page.getByRole(\"textbox\")).toHaveValue(\"往返后保留\")",
     "expect(page.getByRole(\"tab\", { name: \"代码开发\" })).toHaveAttribute(\"aria-selected\", \"true\")",
     "expect(page.getByRole(\"textbox\")).toHaveValue(\"往返后保留\")"
@@ -144,7 +132,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-47418D95E89045",
+      "requirement_id": "REQ-1ECF455C0641EA",
       "type": "return",
       "assertion": "matches expanded/collapsed geometry and preserves home state"
     }
@@ -244,13 +232,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/ui-visual-home-main.spec.ts",
-        "line_start": 26,
-        "line_end": 88,
-        "body_sha256": "sha256:d927c3c43cde1f3cc6154da32a0dd550ddcc4ff25a5f4f390aa3599152d4c06c",
-        "assertion_count": 19,
+        "line_start": 157,
+        "line_end": 268,
+        "body_sha256": "sha256:00ccf97cda6b4cfba543759a767253283b5ca3730724d4043fc1682324e95e01",
+        "assertion_count": 27,
         "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:ab4263b176b215b66efd3da931027f6cdfde84b6e6fe4a942142585a873de434"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:aa160ff85450b29864e07443382c8476a2a9413861e0bcf182b2cc9556513914"
       }
     },
     "reference_run": {
@@ -272,7 +260,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-47418D95E89045"
+      "REQ-1ECF455C0641EA"
     ],
     "categories": [
       "business"
@@ -280,7 +268,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-47418D95E89045"
+      "requirement:REQ-1ECF455C0641EA"
     ]
   }
 }

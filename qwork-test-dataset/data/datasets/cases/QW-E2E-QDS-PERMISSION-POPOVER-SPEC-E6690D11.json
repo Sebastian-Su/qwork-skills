@@ -1,0 +1,307 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-QDS-PERMISSION-POPOVER-SPEC-E6690D11",
+  "title": "permission popover uses QDS tokens without bypassing confirmation",
+  "kind": "negative",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "permissions",
+    "journey": "permissions",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-qds-permission-popover-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/qds-permission-popover.spec.ts",
+      "locator": "line:7;test:permission popover uses QDS tokens without bypassing confirmation",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:e6690d113be4de360f4241bdba434078f5898f340a96aff9ba8991fc6f62de99",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-22851D448FA589",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-qds-permission-popover-spec-ts:L7:e6690d113b"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "permissions",
+      "priority": "P0",
+      "rule": "permission popover uses QDS tokens without bypassing confirmation",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-qds-permission-popover-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "permission popover uses QDS tokens without bypassing confirmation"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Tab\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "control.click()"
+    },
+    {
+      "action": "confirmation.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "control.click()"
+    },
+    {
+      "action": "confirmation.getByRole(\"checkbox\", { name: \"我已了解风险，并愿意继续\" }).check()"
+    },
+    {
+      "action": "confirmation.getByRole(\"button\", { name: \"允许完全访问\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"完全访问\", exact: true }).click()"
+    },
+    {
+      "action": "control.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(panel).toBeVisible()",
+    "expect.soft(await panel.getAttribute(\"data-qds-component\")).toBe(\"popover\")",
+    "expect.soft(await control.getAttribute(\"data-qds-component\")).toBe(\"switch\")",
+    "expect.soft(values.panel[key]).toBe(values.expected[key])",
+    "expect.soft(values.description[key]).toBe(values.expectedText[key])",
+    "expect.soft(values.control.background).toBe(values.expectedControl.background)",
+    "expect.soft(values.divider.background).toBe(values.expectedDivider.background)",
+    "expect.soft(values.panel.overflow).toBe(false)",
+    "expect.soft(values.control.rect.right).toBeLessThanOrEqual(values.panel.rect.right - 7)",
+    "expect.soft(values.control.rect.bottom).toBeLessThanOrEqual(values.panel.rect.bottom - 7)",
+    "expect(control).toBeFocused()",
+    "expect(await control.evaluate(el => el.matches(\":focus-visible\"))).toBe(true)",
+    "expect(focus.outline).not.toContain(\"none\")",
+    "expect(panel).toHaveCount(0)",
+    "expect(trigger).toBeFocused()",
+    "expect(confirmation).toBeVisible()",
+    "expect(confirmation.getByRole(\"button\", { name: \"允许完全访问\", exact: true })).toBeDisabled()",
+    "expect(page.getByRole(\"button\", { name: \"完全访问\", exact: true })).toHaveCount(0)",
+    "expect(trigger).toBeVisible()",
+    "expect(control).toHaveAttribute(\"aria-checked\", \"false\")",
+    "expect(control).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect(trigger).toBeVisible()",
+    "expect(control).toHaveAttribute(\"aria-checked\", \"false\")",
+    "expect(panel).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-22851D448FA589",
+      "type": "return",
+      "assertion": "permission popover uses QDS tokens without bypassing confirmation"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-qds-permission-popover-spec-ts.e6690d113b",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/qds-permission-popover.spec.ts -g \"permission popover uses QDS tokens without bypassing confirmation\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "permissions",
+      "steps": [
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Tab\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "control.click()"
+        },
+        {
+          "action": "confirmation.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "control.click()"
+        },
+        {
+          "action": "confirmation.getByRole(\"checkbox\", { name: \"我已了解风险，并愿意继续\" }).check()"
+        },
+        {
+          "action": "confirmation.getByRole(\"button\", { name: \"允许完全访问\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"完全访问\", exact: true }).click()"
+        },
+        {
+          "action": "control.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/qds-permission-popover.spec.ts",
+        "line_start": 7,
+        "line_end": 86,
+        "body_sha256": "sha256:4d62aaf3873e6da8fbc07e8f19b2089c93cab82a3f1d71a81db8d59c30931587",
+        "assertion_count": 24,
+        "action_count": 13,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:cb96877b1834a1cd2efaeefaa0af747d054f8920b42905b58328eda5ad2503c6"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-22851D448FA589"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-22851D448FA589"
+    ]
+  }
+}

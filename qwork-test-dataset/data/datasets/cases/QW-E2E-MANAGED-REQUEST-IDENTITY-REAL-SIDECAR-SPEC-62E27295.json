@@ -1,0 +1,254 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-MANAGED-REQUEST-IDENTITY-REAL-SIDECAR-SPEC-62E27295",
+  "title": "a restored managed request without body proof cannot send changed context",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-managed-request-identity-real-sidecar-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/managed-request-identity.real-sidecar.spec.ts",
+      "locator": "line:7;test:a restored managed request without body proof cannot send changed context",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:62e272958babae99b10f1d58303b3dd4f47d68cc3791b979089368dc62b1e547",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-266D05733508F4",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-managed-request-identity-real-sidecar-spec-ts:L7:62e272958b"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "a restored managed request without body proof cannot send changed context",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-managed-request-identity-real-sidecar-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "a restored managed request without body proof cannot send changed context"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"MANAGED_IDENTITY_SYNTHETIC\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"MANAGED_IDENTITY_SYNTHETIC\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"新的上下文不能冒充原始请求\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "gateway.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"已保存合成结果\", { exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"停止生成\", exact: true })).toHaveCount(0)",
+    "expect(calls).toBe(1)",
+    "expect(transcripts).toHaveLength(1)",
+    "expect(page.getByText(/managed_request_identity_unverified/)).toBeVisible()",
+    "expect(calls).toBe(1)",
+    "expect(rows.filter(row => row.type === \"managed_delivery_checkpoint\").at(-1)).toEqual(pending)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-266D05733508F4",
+      "type": "return",
+      "assertion": "a restored managed request without body proof cannot send changed context"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-managed-request-identity-real-sidecar-spec-ts.62e272958b",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/managed-request-identity.real-sidecar.spec.ts -g \"a restored managed request without body proof cannot send changed context\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "composer.fill(\"MANAGED_IDENTITY_SYNTHETIC\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"MANAGED_IDENTITY_SYNTHETIC\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"新的上下文不能冒充原始请求\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "gateway.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/managed-request-identity.real-sidecar.spec.ts",
+        "line_start": 7,
+        "line_end": 65,
+        "body_sha256": "sha256:18024263d16e2a9f566aa95d6b258bfb1aebd2137132da5e9bb9d18774d44ea8",
+        "assertion_count": 7,
+        "action_count": 7,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:0886e3a4e3a3895a20fa823957d05fb111500b86bbe7535eca6761f23c0b4ba5"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-266D05733508F4"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-266D05733508F4"
+    ]
+  }
+}

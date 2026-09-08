@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/qbuild-release.spec.ts",
-      "locator": "line:5;test:qbuild skill exposes the Windows release command without exposing secrets",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/qbuild-release.spec.ts",
+      "locator": "line:6;test:qbuild skill exposes the Windows release command without exposing secrets",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:b540c1dce3d6189b49d4fc474356f3392af8d50a14c770b3dc938787a79ea067",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-2B2F4A2C849D19",
+      "requirement_id": "REQ-B04A7ECFA80CFD",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-qbuild-release-spec-ts:L5:b540c1dce3"
+        "QDEV-E2E-e2e-qbuild-release-spec-ts:L6:b540c1dce3"
       ],
       "content_facets": [
         "negative-rule"
@@ -72,16 +72,28 @@
   },
   "steps": [
     {
-      "action": "execFileSync( process.execPath, [\".agents/skills/qbuild/scripts/qbuild.mjs\", \"help\"], { cwd: path.resolve(import.meta.dirname, \"..\"), encoding: \"utf8\" }, )"
+      "action": "path.resolve(import.meta.dirname, \"..\")"
     },
     {
-      "action": "path.resolve(import.meta.dirname, \"..\")"
+      "action": "execFileSync( process.execPath, [\".agents/skills/qbuild/scripts/qbuild.mjs\", \"help\"], { cwd: root, encoding: \"utf8\" }, )"
+    },
+    {
+      "action": "JSON.parse(readFileSync(path.join(root, \"package.json\"), \"utf8\"))"
+    },
+    {
+      "action": "readFileSync(path.join(root, \"package.json\"), \"utf8\")"
+    },
+    {
+      "action": "path.join(root, \"package.json\")"
     }
   ],
   "expected_outcomes": [
+    "expect(packageJson.version).toBe(\"0.1.2\")",
     "expect(output).toContain(\"publish-windows\")",
     "expect(output).toContain(\"--resume <compile-id>\")",
     "expect(output).toContain(\"极库云审核\")",
+    "expect(output).toContain(\"S3 地址包含稳定的打包时间戳\")",
+    "expect(output).toContain(\"不覆盖旧包\")",
     "expect(output).not.toMatch(/QBUILD_PRIVATE_TOKEN=\\S+/)",
     "expect(output).not.toMatch(/QWORK_RELEASE_S3_SECRET_KEY=\\S+/)"
   ],
@@ -92,7 +104,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-2B2F4A2C849D19",
+      "requirement_id": "REQ-B04A7ECFA80CFD",
       "type": "return",
       "assertion": "qbuild skill exposes the Windows release command without exposing secrets"
     }
@@ -139,10 +151,19 @@
       "entrypoint": "window-runtime",
       "steps": [
         {
-          "action": "execFileSync( process.execPath, [\".agents/skills/qbuild/scripts/qbuild.mjs\", \"help\"], { cwd: path.resolve(import.meta.dirname, \"..\"), encoding: \"utf8\" }, )"
+          "action": "path.resolve(import.meta.dirname, \"..\")"
         },
         {
-          "action": "path.resolve(import.meta.dirname, \"..\")"
+          "action": "execFileSync( process.execPath, [\".agents/skills/qbuild/scripts/qbuild.mjs\", \"help\"], { cwd: root, encoding: \"utf8\" }, )"
+        },
+        {
+          "action": "JSON.parse(readFileSync(path.join(root, \"package.json\"), \"utf8\"))"
+        },
+        {
+          "action": "readFileSync(path.join(root, \"package.json\"), \"utf8\")"
+        },
+        {
+          "action": "path.join(root, \"package.json\")"
         }
       ],
       "locator_strategy": "source-bound process assertion",
@@ -163,13 +184,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/qbuild-release.spec.ts",
-        "line_start": 5,
-        "line_end": 17,
-        "body_sha256": "sha256:b461025559041c8e443535dc4346fa61e0ef380aebdb84fa15aa62fa51007f59",
-        "assertion_count": 5,
+        "line_start": 6,
+        "line_end": 23,
+        "body_sha256": "sha256:c66775cb31f728eb63034b8b8e5699fc10f9f627b29bdd8cdb164d38d2cbf402",
+        "assertion_count": 8,
         "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:9155cce1910a9df6deb16ffef691147e3010ba36bbc5497a1468151cd3c75156"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:6e5d888f76294f62cd1662bc50c12d10b48abfa97b237964be062f2a5210aff2"
       }
     },
     "reference_run": {
@@ -191,7 +212,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-2B2F4A2C849D19"
+      "REQ-B04A7ECFA80CFD"
     ],
     "categories": [
       "negative"
@@ -199,7 +220,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-2B2F4A2C849D19"
+      "requirement:REQ-B04A7ECFA80CFD"
     ]
   }
 }

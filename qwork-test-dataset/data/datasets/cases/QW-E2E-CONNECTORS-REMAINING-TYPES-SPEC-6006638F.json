@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-remaining-types.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-remaining-types.spec.ts",
       "locator": "line:505;test:starts an expired OAuth refresh in the background without blocking the first turn",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:6006638f83cf5097d67616ffc73aae553bd8e32fdbdf473278b9eea096fe4b4a",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,9 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "server.close((error) => (error ? reject(error) : resolve()))"
+    },
+    {
       "action": "opened.page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
     },
     {
@@ -82,6 +85,12 @@
     },
     {
       "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
     },
     {
       "action": "probe.close()"
@@ -93,6 +102,7 @@
     "expect(settings.mcpServers?.[\"stale-oauth\"]).toBeUndefined()",
     "expect(settings.mcpServers?.[\"valid-oauth\"]?.headersHelper).toEqual( expect.any(String), )",
     "expect(JSON.parse(await fs.readFile(validHeaderFile, \"utf8\"))).toEqual({ Authorization: \"Bearer valid-access-token\", })",
+    "expect(page.getByLabel(\"搜索连接器\")).toBeVisible()",
     "expect( opened.page.getByRole(\"button\", { name: \"过期 OAuth，连接异常\" }), ).toBeVisible()"
   ],
   "forbidden_outcomes": [
@@ -163,6 +173,9 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "server.close((error) => (error ? reject(error) : resolve()))"
+        },
+        {
           "action": "opened.page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
         },
         {
@@ -170,6 +183,12 @@
         },
         {
           "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
         },
         {
           "action": "probe.close()"
@@ -196,9 +215,9 @@
         "line_start": 505,
         "line_end": 555,
         "body_sha256": "sha256:5000e435e86da67f75aa9aad907e2c95115939c14ce2aa7a300d04fed752fc55",
-        "assertion_count": 6,
-        "action_count": 4,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 7,
+        "action_count": 7,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:44edade7183524ded01be4499a9cdadc6e387aea7eebcc674767718eec3e2e3e"
       }
     },

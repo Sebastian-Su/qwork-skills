@@ -1,0 +1,374 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-AGENT-CL-3-1-QWORK-RELEASE-BB2E4956",
+  "title": "docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md · 3.1 `qwork-release` 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md",
+      "locator": "line:84;heading:3.1 `qwork-release`",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:81d3d29ff99b38ae25288bc3d0ad059831ccbac0e55eed75ec44c4dff14b62d6",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md",
+      "locator": "line:85;heading:3.1 `qwork-release`",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:65dca4154b99393cef04752a3322e2c1511e4f6a929dd3485a5181e5f6ceef00",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md",
+      "locator": "line:86;heading:3.1 `qwork-release`",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:0bab71af93ab79978649537321146e7defa42c216437f6f36a0dcb055cb495dc",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-A72CC65394B93B",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090:L84:81d3d29ff9"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "从已确认上线内容整理用户说明，分离内部上线内容、用户说明、回滚方案、构建信息和证据。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "从已确认上线内容整理用户说明，分离内部上线内容、用户说明、回滚方案、构建信息和证据。"
+    },
+    {
+      "requirement_id": "REQ-6D24A16F5E479A",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090:L85:65dca4154b"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "协调阶段、只读恢复和报告；任何不确定写结果先 GET 核验，不重复提交。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "协调阶段、只读恢复和报告；任何不确定写结果先 GET 核验，不重复提交。"
+    },
+    {
+      "requirement_id": "REQ-958C01A9EB2C76",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090:L86:0bab71af93"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "在测试验收通过时冻结发布快照；材料变化生成新快照并使旧审批失效。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "在测试验收通过时冻结发布快照；材料变化生成新快照并使旧审批失效。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md · 3.1 `qwork-release` 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-A72CC65394B93B] exactly: 从已确认上线内容整理用户说明，分离内部上线内容、用户说明、回滚方案、构建信息和证据。"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-6D24A16F5E479A] exactly: 协调阶段、只读恢复和报告；任何不确定写结果先 GET 核验，不重复提交。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-958C01A9EB2C76] exactly: 在测试验收通过时冻结发布快照；材料变化生成新快照并使旧审批失效。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "从已确认上线内容整理用户说明，分离内部上线内容、用户说明、回滚方案、构建信息和证据。",
+    "协调阶段、只读恢复和报告；任何不确定写结果先 GET 核验，不重复提交。",
+    "在测试验收通过时冻结发布快照；材料变化生成新快照并使旧审批失效。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-A72CC65394B93B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 从已确认上线内容整理用户说明，分离内部上线内容、用户说明、回滚方案、构建信息和证据。",
+    "FAIL [REQ-6D24A16F5E479A]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 协调阶段、只读恢复和报告；任何不确定写结果先 GET 核验，不重复提交。",
+    "FAIL [REQ-958C01A9EB2C76]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 在测试验收通过时冻结发布快照；材料变化生成新快照并使旧审批失效。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-A72CC65394B93B",
+      "type": "ui",
+      "assertion": "从已确认上线内容整理用户说明，分离内部上线内容、用户说明、回滚方案、构建信息和证据。"
+    },
+    {
+      "requirement_id": "REQ-6D24A16F5E479A",
+      "type": "event",
+      "assertion": "协调阶段、只读恢复和报告；任何不确定写结果先 GET 核验，不重复提交。"
+    },
+    {
+      "requirement_id": "REQ-958C01A9EB2C76",
+      "type": "return",
+      "assertion": "在测试验收通过时冻结发布快照；材料变化生成新快照并使旧审批失效。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-agent-clie.3-1-qwork-release-bb2e495691",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md · 3.1 `qwork-release` 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-A72CC65394B93B] exactly: 从已确认上线内容整理用户说明，分离内部上线内容、用户说明、回滚方案、构建信息和证据。"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-6D24A16F5E479A] exactly: 协调阶段、只读恢复和报告；任何不确定写结果先 GET 核验，不重复提交。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-958C01A9EB2C76] exactly: 在测试验收通过时冻结发布快照；材料变化生成新快照并使旧审批失效。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-6D24A16F5E479A",
+      "REQ-958C01A9EB2C76",
+      "REQ-A72CC65394B93B"
+    ],
+    "categories": [
+      "business",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-6D24A16F5E479A",
+      "requirement:REQ-958C01A9EB2C76",
+      "requirement:REQ-A72CC65394B93B"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-A72CC65394B93B",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md · 3.1 `qwork-release` 产品契约 exactly once and retain its correlation identity",
+      "then": "从已确认上线内容整理用户说明，分离内部上线内容、用户说明、回滚方案、构建信息和证据。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-6D24A16F5E479A",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md · 3.1 `qwork-release` 产品契约 exactly once and retain its correlation identity",
+      "then": "协调阶段、只读恢复和报告；任何不确定写结果先 GET 核验，不重复提交。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-958C01A9EB2C76",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md · 3.1 `qwork-release` 产品契约 exactly once and retain its correlation identity",
+      "then": "在测试验收通过时冻结发布快照；材料变化生成新快照并使旧审批失效。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

@@ -48,7 +48,7 @@ python3 .agents/skills/qwork-test-e2e/scripts/build_release_gate_plan.py \
   --output /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id>/plan.json
 ~~~
 
-Planner 从显式 base/head、所有 changed/dirty 文件和内容 hash 开始，按 `least-fixed-point` 展开到 requirement/category、capability/risk、Case/Dataset/Suite、route/target、layer/dimension。未知变更保守选择 full 闭世界；Token、时间、成本或 Case 数不能缩减必需范围。任何代码、Case、Dataset、runner、locator、source 或 Skill 变更都会使旧 plan 失效。
+Planner 从显式 base/head、所有 changed/dirty 文件和内容 hash 开始，按 `least-fixed-point` 展开到 requirement/category、capability/risk、Case/Dataset/Suite、route/target、layer/dimension。同一 diff 已修改某 surface 的当前可执行 E2E Case 时，实现文件继承这些精确 source-bound Case；没有同 surface 的变更 E2E 时仍选择该 surface 全部 Case。未知变更保守选择 full 闭世界；Token、时间、成本或 Case 数不能缩减必需范围。任何代码、Case、Dataset、runner、locator、source 或 Skill 变更都会使旧 plan 失效。
 
 ## 2. 执行
 
@@ -64,7 +64,18 @@ python3 .agents/skills/qwork-test-e2e/scripts/run_release_gate_plan.py \
   --run-root /absolute/path/QWORK-E2E-TEMPORARY-DATA-DO-NOT-COMMIT/<run-id> --preflight-only
 ~~~
 
-正式本地执行只能显式选择 `gate`、`dataset-verifier`、`deterministic-playwright` 或 `workbuddy-oracle`。`dataset-verifier` 仅对冻结私有 Dataset 执行非 UI 的只读确定性判定；当前用于逐 Case 验证 `~/.workbuddy` 原子处置、QWork 目标和实现证据，不能代替 Electron UI 或真实持久化迁移 E2E。私有 Electron Case 的原始截图、trace、Playwright JSON、构建清单和临时 app 必须位于当前外置 run 的 `PRIVATE-EVIDENCE/`；只有人工审核后通过晋升器进入 `qwork-test-dataset/data/reference-runs/` 的最小闭合证据才可进 Git。执行器逐坐标先写 WAL；发现旧 `running/partial`、已有证据冲突、未知命令或 authority drift 时，在下一个子进程前停止。已有 `pass/fail` 坐标必须属于同一 plan/revision/category，并在执行后原样保留，禁止分类别运行覆盖旧终态。`npm test`、coverage 和 deterministic Electron 执行前必须零执行探测 `127.0.0.1` loopback bind；能力不足属于本地执行环境缺口，不得写成产品失败。`live-authorization` 永远不由该命令执行，必须建立独立授权 runner；`runner-gap` 是本地修复项，不得 skip。
+正式本地执行只能显式选择 `gate`、`dataset-verifier`、`deterministic-playwright` 或 `workbuddy-oracle`。`dataset-verifier` 仅对冻结私有 Dataset 执行非 UI 的只读确定性判定；当前用于逐 Case 验证 `~/.workbuddy` 原子处置、QWork 目标和实现证据，不能代替 Electron UI 或真实持久化迁移 E2E。私有 Electron Case 的原始截图、trace、Playwright JSON、构建清单和临时 app 必须位于当前外置 run 的 `PRIVATE-EVIDENCE/`；只有人工审核后通过晋升器进入 `qwork-test-dataset/data/reference-runs/` 的最小闭合证据才可进 Git。执行器逐坐标先写 WAL；发现旧 `running/partial`、已有证据冲突、未知命令或 authority drift 时，在下一个子进程前停止。已有 `pass/fail` 坐标必须属于同一 plan/revision/category，并在执行后原样保留，禁止分类别运行覆盖旧终态。`npm test`、coverage 和 deterministic Electron 执行前必须零执行探测 `127.0.0.1` loopback bind；能力不足属于本地执行环境缺口，不得写成产品失败。`live-authorization` 永远不由该命令执行，必须使用独立授权 runner；`runner-gap` 是本地修复项，不得 skip。
+
+用户对精确 Case、外发内容、Provider/模型、单次调用预算、网络与写入范围知情授权后，授权记录写在外置 run root，且不得包含密钥、Token 或 Cookie。独立 runner 只执行冻结 plan 中一个 `live-authorization` Case，成功或失败都清理 Case 自有临时状态，并把哈希绑定结果写入 `authorized-live-results.json`：
+
+~~~bash
+python3 .agents/skills/qwork-test-e2e/scripts/run_authorized_live_case.py \
+  --repo . --plan <run-root>/plan.json --run-root <run-root> \
+  --case-id <exact-case-id> --authorization <run-root>/authorization.json \
+  --seed-state <reviewed-isolated-seed>
+~~~
+
+`compile_release_gate_report.py` 只采信与当前 plan/revision/Case/route/command/source contract 完全一致、证据哈希闭合且 cleanup 为 pass 的授权结果。本地 runner 和独立本地复跑仍保持 `live_execution_allowed=false`；授权结果不写入 `runner-state.json`，也不能放宽其他 live Case。
 
 | 层级 | QWork 入口 |
 |---|---|

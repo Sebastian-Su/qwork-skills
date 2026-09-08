@@ -22,12 +22,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:293;heading:2026-08-27 本地实施检查点",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:479;heading:2026-08-27 本地实施检查点",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:67fadfd1c8a581500f843fdf7894c05b204cedc7e9eb15496c64022e063871a0",
       "redaction_status": "minimized"
     },
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:315;heading:2026-08-27 本地实施检查点",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:501;heading:2026-08-27 本地实施检查点",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:e5d03ba45dbfc6e71afa46aebf9f3901a9ab24cfc33dd2689c36cbdb3aa54834",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-A00537CF937143",
+      "requirement_id": "REQ-184A39A21E4D44",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L293:67fadfd1c8"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L479:67fadfd1c8"
       ],
       "content_facets": [
         "error-copy"
@@ -75,9 +75,9 @@
       "oracle": "Electron loopback E2E 已从真实 UI 发送贯穿 Main、fake-sidecar、model/tool/usage/terminal 与回环 SLS，并证明同一真实 trace/session 可关联且提示词、工具输入输出未进入记录。该 E2E 发现并修复了 schema v1 公共字段覆盖 v2 事件的真实缺陷。"
     },
     {
-      "requirement_id": "REQ-4F0DD54FD06DD9",
+      "requirement_id": "REQ-74DD126030754F",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L315:e5d03ba45d"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L501:e5d03ba45d"
       ],
       "content_facets": [
         "business-rule"
@@ -123,10 +123,10 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 2026-08-27 本地实施检查点 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe renderer visible content after the trigger and assert [REQ-A00537CF937143] exactly: Electron loopback E2E 已从真实 UI 发送贯穿 Main、fake-sidecar、model/tool/usage/terminal 与回环 SLS，并证明同一真实 trace/session 可关联且提示词、工具输入输出未进入记录。该 E2E 发现并修复了 schema v1 公共字段覆盖 v2 事件的真实缺陷。"
+      "action": "observe renderer visible content after the trigger and assert [REQ-184A39A21E4D44] exactly: Electron loopback E2E 已从真实 UI 发送贯穿 Main、fake-sidecar、model/tool/usage/terminal 与回环 SLS，并证明同一真实 trace/session 可关联且提示词、工具输入输出未进入记录。该 E2E 发现并修复了 schema v1 公共字段覆盖 v2 事件的真实缺陷。"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-4F0DD54FD06DD9] exactly: `ui.turn.terminal`"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-74DD126030754F] exactly: `ui.turn.terminal`"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -137,19 +137,19 @@
     "`ui.turn.terminal`"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-A00537CF937143]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Electron loopback E2E 已从真实 UI 发送贯穿 Main、fake-sidecar、model/tool/usage/terminal 与回环 SLS，并证明同一真实 trace/session 可关联且提示词、工具输入输出未进入记录。该 E2E 发现并修复了 schema v1 公共字段覆盖 v2 事件的真实缺陷。",
-    "FAIL [REQ-4F0DD54FD06DD9]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `ui.turn.terminal`",
+    "FAIL [REQ-184A39A21E4D44]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Electron loopback E2E 已从真实 UI 发送贯穿 Main、fake-sidecar、model/tool/usage/terminal 与回环 SLS，并证明同一真实 trace/session 可关联且提示词、工具输入输出未进入记录。该 E2E 发现并修复了 schema v1 公共字段覆盖 v2 事件的真实缺陷。",
+    "FAIL [REQ-74DD126030754F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `ui.turn.terminal`",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-A00537CF937143",
+      "requirement_id": "REQ-184A39A21E4D44",
       "type": "ui-content",
       "assertion": "Electron loopback E2E 已从真实 UI 发送贯穿 Main、fake-sidecar、model/tool/usage/terminal 与回环 SLS，并证明同一真实 trace/session 可关联且提示词、工具输入输出未进入记录。该 E2E 发现并修复了 schema v1 公共字段覆盖 v2 事件的真实缺陷。"
     },
     {
-      "requirement_id": "REQ-4F0DD54FD06DD9",
+      "requirement_id": "REQ-74DD126030754F",
       "type": "return",
       "assertion": "`ui.turn.terminal`"
     }
@@ -221,10 +221,10 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 2026-08-27 本地实施检查点 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe renderer visible content after the trigger and assert [REQ-A00537CF937143] exactly: Electron loopback E2E 已从真实 UI 发送贯穿 Main、fake-sidecar、model/tool/usage/terminal 与回环 SLS，并证明同一真实 trace/session 可关联且提示词、工具输入输出未进入记录。该 E2E 发现并修复了 schema v1 公共字段覆盖 v2 事件的真实缺陷。"
+          "action": "observe renderer visible content after the trigger and assert [REQ-184A39A21E4D44] exactly: Electron loopback E2E 已从真实 UI 发送贯穿 Main、fake-sidecar、model/tool/usage/terminal 与回环 SLS，并证明同一真实 trace/session 可关联且提示词、工具输入输出未进入记录。该 E2E 发现并修复了 schema v1 公共字段覆盖 v2 事件的真实缺陷。"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-4F0DD54FD06DD9] exactly: `ui.turn.terminal`"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-74DD126030754F] exactly: `ui.turn.terminal`"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -270,8 +270,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-4F0DD54FD06DD9",
-      "REQ-A00537CF937143"
+      "REQ-184A39A21E4D44",
+      "REQ-74DD126030754F"
     ],
     "categories": [
       "business",
@@ -283,13 +283,13 @@
       "category:error",
       "category:ui-content",
       "full",
-      "requirement:REQ-4F0DD54FD06DD9",
-      "requirement:REQ-A00537CF937143"
+      "requirement:REQ-184A39A21E4D44",
+      "requirement:REQ-74DD126030754F"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-A00537CF937143",
+      "requirement_id": "REQ-184A39A21E4D44",
       "oracle_type": "ui-content",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 2026-08-27 本地实施检查点 产品契约 exactly once and retain its correlation identity",
@@ -298,7 +298,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-4F0DD54FD06DD9",
+      "requirement_id": "REQ-74DD126030754F",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 2026-08-27 本地实施检查点 产品契约 exactly once and retain its correlation identity",

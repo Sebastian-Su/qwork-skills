@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/workflow.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workflow.spec.ts",
       "locator": "line:9;test:renders a completed workflow lifecycle and expands its details",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:ded14c960446a613c4fc263f1cb3933e54f5316f11183972d17383cfbc1931c6",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,9 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
       "action": "composer.fill(\"__E2E_WORKFLOW__\")"
     },
     {
@@ -88,6 +91,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByPlaceholder(/今天帮你做些什么/)).toBeVisible()",
     "expect(card).toContainText(\"completed\")",
     "expect(card).toContainText(\"1/1\")",
     "expect(card).toContainText(\"E2E 子代理\")",
@@ -163,6 +167,9 @@
       "entrypoint": "task-lifecycle",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
           "action": "composer.fill(\"__E2E_WORKFLOW__\")"
         },
         {
@@ -196,9 +203,9 @@
         "line_start": 9,
         "line_end": 36,
         "body_sha256": "sha256:d18135ee2ba22a7440c606968cd0a13b2d9bd543abb8e54ccf6230e785a04959",
-        "assertion_count": 6,
-        "action_count": 4,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 7,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:da72bdb1bea713d1684f5d1cab39629028c074e95dc30800c93d83fb0e4906b8"
       }
     },

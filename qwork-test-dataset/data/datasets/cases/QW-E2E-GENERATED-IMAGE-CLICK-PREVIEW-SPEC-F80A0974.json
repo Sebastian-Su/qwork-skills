@@ -1,0 +1,332 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-GENERATED-IMAGE-CLICK-PREVIEW-SPEC-F80A0974",
+  "title": "生成svg图片的聊天正文可直接放大并保留草稿，重开历史仍可用",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-generated-image-click-preview-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/generated-image-click-preview.spec.ts",
+      "locator": "line:8;test:生成svg图片的聊天正文可直接放大并保留草稿，重开历史仍可用",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:f80a0974d7dfe928177402e1b36afcc02ad47de6043bc4721e89bdfad9bd944e",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-8E4D8563C10295",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-generated-image-click-preview-spec-ts:L8:f80a0974d7"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "生成svg图片的聊天正文可直接放大并保留草稿，重开历史仍可用",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-generated-image-click-preview-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "生成svg图片的聊天正文可直接放大并保留草稿，重开历史仍可用"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(`__E2E_INLINE_IMAGE_DELIVERY__:${name}`)"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "image.hover()"
+    },
+    {
+      "action": "composer.fill(\"保留未发送的修改意见\")"
+    },
+    {
+      "action": "image.click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"放大\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"重置缩放\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"镜像\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"向右旋转\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.reload()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: `__E2E_INLINE_IMAGE_DELIVERY__:${name}`, exact: true }).click()"
+    },
+    {
+      "action": "image.click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"关闭预览\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(image).toBeVisible()",
+    "expect(mask).toHaveCSS(\"opacity\", \"0\")",
+    "expect(mask).toHaveCSS(\"opacity\", \"1\")",
+    "expect(thumbnail).toHaveCSS(\"border-radius\", \"8px\")",
+    "expect(thumbnail).toHaveCSS(\"transform\", \"matrix(1, 0, 0, 1, 0, -2)\")",
+    "expect(mask).toHaveCSS(\"background-color\", \"rgba(0, 0, 0, 0.4)\")",
+    "expect(hint).toHaveText(\"预览\")",
+    "expect(iconBox.width).toBe(32)",
+    "expect(iconBox.height).toBe(32)",
+    "expect(Math.abs(iconBox.x + 16 - imageBox.x - imageBox.width / 2)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(iconBox.y + 16 - imageBox.y - imageBox.height / 2)).toBeLessThanOrEqual(2)",
+    "expect(hintBox.width).toBe(46)",
+    "expect(hintBox.height).toBe(32)",
+    "expect(Math.abs(hintBox.x + hintBox.width / 2 - imageBox.x - imageBox.width)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(hintBox.y + hintBox.height + 6 - imageBox.y - imageBox.height / 2)).toBeLessThanOrEqual(2)",
+    "expect(hint).toHaveCount(0)",
+    "expect(mask).toHaveCSS(\"opacity\", \"0\")",
+    "expect(dialog).toBeVisible()",
+    "expect(dialog.getByLabel(\"缩放比例\")).toHaveText(\"125%\")",
+    "expect(dialog.getByLabel(\"缩放比例\")).toHaveText(\"100%\")",
+    "expect(dialog).not.toBeVisible()",
+    "expect(composer).toHaveValue(\"保留未发送的修改意见\")",
+    "expect(image).toBeVisible()",
+    "expect(dialog.getByLabel(\"缩放比例\")).toHaveText(\"100%\")",
+    "expect(image).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-8E4D8563C10295",
+      "type": "return",
+      "assertion": "生成svg图片的聊天正文可直接放大并保留草稿，重开历史仍可用"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-generated-image-click-preview-spec-ts.f80a0974d7",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/generated-image-click-preview.spec.ts -g \"生成svg图片的聊天正文可直接放大并保留草稿，重开历史仍可用\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(`__E2E_INLINE_IMAGE_DELIVERY__:${name}`)"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "image.hover()"
+        },
+        {
+          "action": "composer.fill(\"保留未发送的修改意见\")"
+        },
+        {
+          "action": "image.click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"放大\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"重置缩放\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"镜像\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"向右旋转\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.reload()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: `__E2E_INLINE_IMAGE_DELIVERY__:${name}`, exact: true }).click()"
+        },
+        {
+          "action": "image.click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"关闭预览\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/generated-image-click-preview.spec.ts",
+        "line_start": 8,
+        "line_end": 83,
+        "body_sha256": "sha256:3425de8e312177466f9a016f6c1447891de2fde610d7e313ce5774210880380d",
+        "assertion_count": 25,
+        "action_count": 17,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:db0a156699f257a1740dd7e3ac49c7a5983c430985c478df3f9deb913ff89179"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-8E4D8563C10295"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-8E4D8563C10295"
+    ]
+  }
+}

@@ -5,13 +5,13 @@
   "kind": "golden",
   "priority": "P1",
   "lifecycle_status": "active",
-  "execution_type": "integration",
+  "execution_type": "desktop",
   "execution_mode": "real-process",
   "coverage": {
     "capability_id": "im",
     "journey": "im",
     "states_covered": [
-      "contract-result"
+      "interactive-result"
     ],
     "risk_ids": []
   },
@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/im-loopback.spec.ts",
-      "locator": "line:59;test:keeps the QQ conversation mapping across app restarts",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/im-loopback.spec.ts",
+      "locator": "line:330;test:keeps the QQ conversation mapping across app restarts",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:2a560bef4c074c5eda914b626b3577cb0e53aeed6f57a2131fa136bd1466c3cc",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-5E2D800F0796E0",
+      "requirement_id": "REQ-820EA33AE60DCE",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-im-loopback-spec-ts:L59:2a560bef4c"
+        "QDEV-E2E-e2e-im-loopback-spec-ts:L330:2a560bef4c"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -72,44 +72,23 @@
   },
   "steps": [
     {
-      "action": "createTestHome(\"im-mapping\")"
+      "action": "launch isolated QWork Electron"
     },
     {
-      "action": "createWorkspace(configHome)"
+      "action": "page.reload()"
     },
     {
-      "action": "seedEnabledQq(configHome)"
-    },
-    {
-      "action": "path.join(configHome, \"im-inbox.json\")"
-    },
-    {
-      "action": "path.join( configHome, \"im-outbox-before-restart.json\", )"
-    },
-    {
-      "action": "path.join( configHome, \"im-outbox-after-restart.json\", )"
-    },
-    {
-      "action": "writeInbox( inboxFile, qqMessage({ messageId: \"qq-mapping-1\", conversationId: \"qq-persisted-conversation\", content: firstContent, }), )"
-    },
-    {
-      "action": "qqMessage({ messageId: \"qq-mapping-1\", conversationId: \"qq-persisted-conversation\", content: firstContent, })"
-    },
-    {
-      "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, E2E_IM_OUTBOX_FILE: firstOutboxFile, })"
-    },
-    {
-      "action": "openInjectedConversation( launched.page, \"qq-persisted-conversation\", firstContent, )"
-    },
-    {
-      "action": "expectInboundText(launched.page, firstContent)"
-    },
-    {
-      "action": "expectSidecarReply(launched.page, firstContent)"
+      "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect .poll(() => page.evaluate( async (targetConversationId) => (await window.workGui.im.listConversations()).some( (conversation) => conversation.conversationId === targetConversationId, ), conversationId, ), ) .toBe(true)",
+    "expect .poll(() => page.evaluate( async ({ targetSessionId, expectedContent }) => ( await window.workGui.sessions.history(targetSessionId) ).messages.some( (message) => message.role === \"assistant\" && message.text.includes(\"收到：\") && message.text.includes(expectedContent), ), { targetSessionId: sessionId, expectedContent: content }, ), ) .toBe(true)",
+    "expect(page.getByRole(\"heading\", { name: \"本地助理\" })).toBeVisible()",
+    "expect( page .getByTestId(\"assistant-page\") .getByTestId(\"user-message-bubble\") .filter({ hasText: content }), ).toBeVisible()",
+    "expect( page .getByTestId(\"assistant-page\") .getByTestId(\"assistant-message\") .filter({ hasText: \"收到：\" }) .filter({ hasText: content }), ).toBeVisible()",
     "expect.poll(() => readOutboxAttachments(firstOutboxFile)).toEqual([])",
+    "expect(mappings).toHaveLength(1)",
     "expect .poll(() => readOutboxAttachments(secondOutboxFile)) .toEqual([])",
     "expect(afterRestart.scopeId).toBe(beforeRestart.scopeId)",
     "expect(afterRestart.sessionId).toMatch(/^wg-/)",
@@ -123,7 +102,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-5E2D800F0796E0",
+      "requirement_id": "REQ-820EA33AE60DCE",
       "type": "return",
       "assertion": "keeps the QQ conversation mapping across app restarts"
     }
@@ -134,6 +113,18 @@
   "evidence": [
     "trace or durable-state evidence"
   ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
   "execution_contract": {
     "contract_version": 1,
     "readiness": "partial",
@@ -168,49 +159,19 @@
       "failure_action": "repair route or launcher; do not skip"
     },
     "navigation": {
-      "kind": "process-protocol",
+      "kind": "ui-route",
       "entrypoint": "im",
       "steps": [
         {
-          "action": "createTestHome(\"im-mapping\")"
+          "action": "page.reload()"
         },
         {
-          "action": "createWorkspace(configHome)"
-        },
-        {
-          "action": "seedEnabledQq(configHome)"
-        },
-        {
-          "action": "path.join(configHome, \"im-inbox.json\")"
-        },
-        {
-          "action": "path.join( configHome, \"im-outbox-before-restart.json\", )"
-        },
-        {
-          "action": "path.join( configHome, \"im-outbox-after-restart.json\", )"
-        },
-        {
-          "action": "writeInbox( inboxFile, qqMessage({ messageId: \"qq-mapping-1\", conversationId: \"qq-persisted-conversation\", content: firstContent, }), )"
-        },
-        {
-          "action": "qqMessage({ messageId: \"qq-mapping-1\", conversationId: \"qq-persisted-conversation\", content: firstContent, })"
-        },
-        {
-          "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, E2E_IM_OUTBOX_FILE: firstOutboxFile, })"
-        },
-        {
-          "action": "openInjectedConversation( launched.page, \"qq-persisted-conversation\", firstContent, )"
-        },
-        {
-          "action": "expectInboundText(launched.page, firstContent)"
-        },
-        {
-          "action": "expectSidecarReply(launched.page, firstContent)"
+          "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
         }
       ],
-      "locator_strategy": "source-bound process assertion",
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
       "success_oracle": "all source-bound assertions pass",
-      "failure_action": "capture process output and repair the runtime contract"
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
     },
     "fixtures": {
       "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
@@ -226,13 +187,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/im-loopback.spec.ts",
-        "line_start": 59,
-        "line_end": 143,
+        "line_start": 330,
+        "line_end": 414,
         "body_sha256": "sha256:dd2e26aab9426072b0337683ee65f5c7ab25ccdf8aa25b682dcd69b926198e7b",
-        "assertion_count": 6,
-        "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:7aabc579f5219d106d684b1100adf82f8ab62e33c330bc527fe0db23cfae4b3e"
+        "assertion_count": 12,
+        "action_count": 2,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1377d0e7090fd46b88bb74c5ed69b13f431136cab7ad470e2b7ca32155920e27"
       }
     },
     "reference_run": {
@@ -254,7 +215,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-5E2D800F0796E0"
+      "REQ-820EA33AE60DCE"
     ],
     "categories": [
       "business"
@@ -262,7 +223,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-5E2D800F0796E0"
+      "requirement:REQ-820EA33AE60DCE"
     ]
   }
 }

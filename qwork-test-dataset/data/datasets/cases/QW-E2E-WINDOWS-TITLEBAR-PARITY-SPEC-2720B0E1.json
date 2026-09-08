@@ -1,0 +1,240 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WINDOWS-TITLEBAR-PARITY-SPEC-2720B0E1",
+  "title": "matches every visible WorkBuddy Windows menu entry",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-windows-titlebar-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/windows-titlebar-parity.spec.ts",
+      "locator": "line:9;test:matches every visible WorkBuddy Windows menu entry",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:2720b0e1b4659dc70f99d9e20bcf3d361828874084e2d34f2991d56fb44a0eee",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-4B07BF6DE1F0C7",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-windows-titlebar-parity-spec-ts:L9:2720b0e1b4"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "matches every visible WorkBuddy Windows menu entry",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-windows-titlebar-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches every visible WorkBuddy Windows menu entry"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"QWork\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"退出 QWork Alt+F4\" }).hover()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"编辑(E)\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"窗口(W)\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"帮助(H)\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByTestId(\"global-qwork-logo\")).toHaveAttribute( \"src\", /icon-qwork-mascot-dock-frame-v5/, )",
+    "expect(page.getByRole(\"menu\", { name: \"QWork\" }).getByRole(\"menuitem\")).toHaveText([ \"关于 QWork\", \"检查更新...\", \"退出 QWorkAlt+F4\", ])",
+    "expect(page.getByRole(\"menuitem\", { name: \"退出 QWork Alt+F4\" })).toBeFocused()",
+    "expect(page.getByRole(\"menuitem\", { name: \"关于 QWork\" })).not.toBeFocused()",
+    "expect(page.getByRole(\"menu\", { name: \"编辑\" }).getByRole(\"menuitem\")).toHaveText([ \"撤销(U)Ctrl+Z\", \"重做(R)Ctrl+Y\", \"剪切(T)Ctrl+X\", \"复制(C)Ctrl+C\", \"粘贴(P)Ctrl+V\", \"全选(A)Ctrl+A\", ])",
+    "expect(page.getByRole(\"menu\", { name: \"窗口\" }).getByRole(\"menuitem\")).toHaveText([ \"关闭窗口(C)Ctrl+W\", ])",
+    "expect(page.getByRole(\"menu\", { name: \"帮助\" }).getByRole(\"menuitem\")).toHaveText([ \"使用文档\", \"诊断工具\", \"打开日志目录(L)\", \"意见反馈\", \"开放 API\", ])"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-4B07BF6DE1F0C7",
+      "type": "return",
+      "assertion": "matches every visible WorkBuddy Windows menu entry"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-windows-titlebar-parity-spec-ts.2720b0e1b4",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "win32"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/windows-titlebar-parity.spec.ts -g \"matches every visible WorkBuddy Windows menu entry\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"QWork\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"退出 QWork Alt+F4\" }).hover()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"编辑(E)\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"窗口(W)\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"帮助(H)\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/windows-titlebar-parity.spec.ts",
+        "line_start": 9,
+        "line_end": 89,
+        "body_sha256": "sha256:0ac231e8a65de96c0c40a4c741d85ce4c9e996beb660f1b182d7d3cfce091c15",
+        "assertion_count": 7,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c37b580271842bea5eca82e21dd94055e345c5d80840d27d0593ab0312cd61a9"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-4B07BF6DE1F0C7"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-4B07BF6DE1F0C7"
+    ]
+  }
+}

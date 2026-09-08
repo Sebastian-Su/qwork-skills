@@ -1,0 +1,241 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-HOME-SCE-ITEM-7EBC1A03",
+  "title": "docs/changes/CHG-home-scene-builtin-skill-activation-20260903/implementation-plan.md · 结论 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-home-scene-builtin-skill-activation",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-home-scene-builtin-skill-activation-20260903/implementation-plan.md",
+      "locator": "line:13;heading:结论",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:9148886abd60cc83aea41cfb87c4846d28b1fc550702878fb3ef2d1f950fc8e3",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-FFFBAB46981728",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-home-scene-builtin-skill-activation:L13:9148886abd"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "首页只持久化稳定的 `skill-<resource>@qwork-builtin` 资源 ID。Renderer 用既有内置技能列表提前报告缺失资源；Main 在创建和恢复场景会话时从可信安装记录重新解析 `SKILL.md` 的 `name` 与规范安装目录，并通过现有 `selected_skills` 和 `plugin_dirs` 激活。单项关闭只影响普通受管会话，不阻止首页本次显式使用；总开关继续作为不可绕过的权限上限。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-home-scene-builtin-skill-activation"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "首页只持久化稳定的 `skill-<resource>@qwork-builtin` 资源 ID。Renderer 用既有内置技能列表提前报告缺失资源；Main 在创建和恢复场景会话时从可信安装记录重新解析 `SKILL.md` 的 `name` 与规范安装目录，并通过现有 `selected_skills` 和 `plugin_dirs` 激活。单项关闭只影响普通受管会话，不阻止首页本次显式使用；总开关继续作为不可绕过的权限上限。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for skills at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-scene-builtin-skill-activation-20260903/implementation-plan.md · 结论 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-FFFBAB46981728] exactly: 首页只持久化稳定的 `skill-<resource>@qwork-builtin` 资源 ID。Renderer 用既有内置技能列表提前报告缺失资源；Main 在创建和恢复场景会话时从可信安装记录重新解析 `SKILL.md` 的 `name` 与规范安装目录，并通过现有 `selected_skills` 和 `plugin_dirs` 激活。单项关闭只影响普通受管会话，不阻止首页本次显式使用；总开关继续作为不可绕过的权限上限。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "首页只持久化稳定的 `skill-<resource>@qwork-builtin` 资源 ID。Renderer 用既有内置技能列表提前报告缺失资源；Main 在创建和恢复场景会话时从可信安装记录重新解析 `SKILL.md` 的 `name` 与规范安装目录，并通过现有 `selected_skills` 和 `plugin_dirs` 激活。单项关闭只影响普通受管会话，不阻止首页本次显式使用；总开关继续作为不可绕过的权限上限。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-FFFBAB46981728]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 首页只持久化稳定的 `skill-<resource>@qwork-builtin` 资源 ID。Renderer 用既有内置技能列表提前报告缺失资源；Main 在创建和恢复场景会话时从可信安装记录重新解析 `SKILL.md` 的 `name` 与规范安装目录，并通过现有 `selected_skills` 和 `plugin_dirs` 激活。单项关闭只影响普通受管会话，不阻止首页本次显式使用；总开关继续作为不可绕过的权限上限。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-FFFBAB46981728",
+      "type": "ui",
+      "assertion": "首页只持久化稳定的 `skill-<resource>@qwork-builtin` 资源 ID。Renderer 用既有内置技能列表提前报告缺失资源；Main 在创建和恢复场景会话时从可信安装记录重新解析 `SKILL.md` 的 `name` 与规范安装目录，并通过现有 `selected_skills` 和 `plugin_dirs` 激活。单项关闭只影响普通受管会话，不阻止首页本次显式使用；总开关继续作为不可绕过的权限上限。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-home-scene.item-7ebc1a03be",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for skills at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-scene-builtin-skill-activation-20260903/implementation-plan.md · 结论 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-FFFBAB46981728] exactly: 首页只持久化稳定的 `skill-<resource>@qwork-builtin` 资源 ID。Renderer 用既有内置技能列表提前报告缺失资源；Main 在创建和恢复场景会话时从可信安装记录重新解析 `SKILL.md` 的 `name` 与规范安装目录，并通过现有 `selected_skills` 和 `plugin_dirs` 激活。单项关闭只影响普通受管会话，不阻止首页本次显式使用；总开关继续作为不可绕过的权限上限。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-FFFBAB46981728"
+    ],
+    "categories": [
+      "permission"
+    ],
+    "suite_ids": [
+      "category:permission",
+      "full",
+      "requirement:REQ-FFFBAB46981728"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-FFFBAB46981728",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-home-scene-builtin-skill-activation-20260903/implementation-plan.md · 结论 产品契约 exactly once and retain its correlation identity",
+      "then": "首页只持久化稳定的 `skill-<resource>@qwork-builtin` 资源 ID。Renderer 用既有内置技能列表提前报告缺失资源；Main 在创建和恢复场景会话时从可信安装记录重新解析 `SKILL.md` 的 `name` 与规范安装目录，并通过现有 `selected_skills` 和 `plugin_dirs` 激活。单项关闭只影响普通受管会话，不阻止首页本次显式使用；总开关继续作为不可绕过的权限上限。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

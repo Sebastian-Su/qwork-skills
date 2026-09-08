@@ -1,0 +1,265 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-EXPERTS-SPEC-F9A5B6A2",
+  "title": "audited WorkBuddy expert creates a session from its stable canonical path (legacy)",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-experts-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/experts.spec.ts",
+      "locator": "line:342;test:audited WorkBuddy expert creates a session from its stable canonical path (legacy)",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:f9a5b6a286d388e3f979528273d681c17c46d4416fd67d5777d71657e3665a8d",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-24A229E3797711",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-experts-spec-ts:L342:f9a5b6a286"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "audited WorkBuddy expert creates a session from its stable canonical path (legacy)",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-experts-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "audited WorkBuddy expert creates a session from its stable canonical path (legacy)"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").fill(\"你好\")"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /新闻资讯专家.*结构化简报/ }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"召唤 新闻资讯专家\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").fill(\"请基于这份材料生成今日简报\")"
+    },
+    {
+      "action": "page.getByRole(\"textbox\").press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(async () => { const settings = JSON.parse( await fs.readFile(path.join(configHome, \"settings.json\"), \"utf8\"), ) as { plugins?: { enabled?: Record<string, boolean> }; mcpServers?: Record<string, { type?: string; command?: string; args?: string[] }>; }; return { managedPlugins: [ \"news-briefing-expert@experts\", \"automation-manager@qwork-builtin\", \"internal-browser@qwork-builtin\", \"qwork-connectors@qwork-bu…",
+    "expect.poll(async () => { const lines = await fs.readFile(sidecarLog, \"utf8\").catch(() => \"\"); const created = lines .split(\"\\n\") .filter(Boolean) .map((line) => JSON.parse(line) as Record<string, unknown>) .find((message) => message.type === \"create_session\"); if (!created) return null; return created.plugin_dirs ?? []; }).toEqual([ expect.stringContaining(\"published-app-sessions\"), expect.stringContaining(\"documen…",
+    "expect(Date.now() - defaultStartedAt).toBeLessThan(5_000)",
+    "expect(page.getByTestId(\"composer-dock\")).toContainText(\"新闻资讯专家\")",
+    "expect.poll(async () => { const lines = await fs.readFile(sidecarLog, \"utf8\").catch(() => \"\"); return lines .split(\"\\n\") .filter(Boolean) .map((line) => JSON.parse(line) as Record<string, unknown>) .find((message) => message.type === \"create_session\" && Array.isArray(message.plugin_dirs) && message.plugin_dirs.includes(stableInstallPath), ); }).toMatchObject({ plugin_dirs: expect.arrayContaining([ stableInstallPath,…",
+    "expect(page.getByRole(\"alert\")).toHaveCount(0)",
+    "expect(created?.plugin_dirs).toEqual(expect.arrayContaining([ stableInstallPath, expect.stringContaining(\"published-app-sessions\"), expect.stringContaining(\"document-pdf-sessions\"), ]))",
+    "expect(created?.plugin_dirs).toHaveLength(3)",
+    "expect(created?.plugin_dirs).not.toContain(path.join(stableInstallPath, \".qwork-plugin\"))",
+    "expect(await fs.readdir(stableInstallPath)).toEqual(packageFiles)",
+    "expect(await fs.readFile(descriptorPath, \"utf8\")).toBe(descriptorBefore)",
+    "expect(await Promise.all(runtimeFiles.map((relative) => fs.readFile(path.join(stableInstallPath, relative))))).toEqual(runtimeBefore)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-24A229E3797711",
+      "type": "return",
+      "assertion": "audited WorkBuddy expert creates a session from its stable canonical path (legacy)"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-experts-spec-ts.f9a5b6a286",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/experts.spec.ts -g \"audited WorkBuddy expert creates a session from its stable canonical path (legacy)\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "page.getByRole(\"textbox\").fill(\"你好\")"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /新闻资讯专家.*结构化简报/ }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"召唤 新闻资讯专家\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").fill(\"请基于这份材料生成今日简报\")"
+        },
+        {
+          "action": "page.getByRole(\"textbox\").press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/experts.spec.ts",
+        "line_start": 342,
+        "line_end": 501,
+        "body_sha256": "sha256:51613269902b4a479226f587f86ae6fb9e58e6003ed0cd7530faa5d2a92614eb",
+        "assertion_count": 12,
+        "action_count": 8,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:e669e23d0d6c2cd6e3018417ca67e0ca249cefdb63f4c6069e8a8184f25d532b"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-24A229E3797711"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-24A229E3797711"
+    ]
+  }
+}

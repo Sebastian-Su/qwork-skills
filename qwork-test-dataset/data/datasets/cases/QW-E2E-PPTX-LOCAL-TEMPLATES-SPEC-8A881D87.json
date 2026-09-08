@@ -1,0 +1,313 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PPTX-LOCAL-TEMPLATES-SPEC-8A881D87",
+  "title": "用户触发本地模板生成并打开可编辑的新内容 PPTX",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-pptx-local-templates-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/pptx-local-templates.spec.ts",
+      "locator": "line:8;test:用户触发本地模板生成并打开可编辑的新内容 PPTX",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:8a881d87c7de3412a6587bfcd8f9086639b39e22014e1039e971e965d81a0461",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0BBCF904ADEB8F",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-pptx-local-templates-spec-ts:L8:8a881d87c7"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "用户触发本地模板生成并打开可编辑的新内容 PPTX",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-pptx-local-templates-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "用户触发本地模板生成并打开可编辑的新内容 PPTX"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"选择工作空间\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_TEMPLATE_PPTX__:归档培训.pptx\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "composer.fill(\"__E2E_TEMPLATE_PPTX__:归档培训.pptx\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "composer.fill(\"__E2E_TEMPLATE_PPTX__:归档培训.pptx\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"complementary\", { name: \"Slides\", exact: true }).getByRole(\"button\").nth(1).click()"
+    },
+    {
+      "action": "page.getByRole(\"complementary\", { name: \"Slides\", exact: true }).getByRole(\"button\").nth(2).click()"
+    },
+    {
+      "action": "page.getByRole(\"complementary\", { name: \"Slides\", exact: true }).getByRole(\"button\").nth(3).click()"
+    },
+    {
+      "action": "page.getByRole(\"complementary\", { name: \"Slides\", exact: true }).getByRole(\"button\").nth(4).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(/本地模板生成失败：.*studio_coordinates_are_not_allowed/)).toBeVisible({ timeout: 30_000 })",
+    "expect(page.getByRole(\"button\", { name: \"打开产出物 归档培训.pptx\" })).toHaveCount(0)",
+    "expect(page.getByText(/本地模板生成失败：.*content_overflow/).last()).toContainText(field, { timeout: 10_000 })",
+    "expect(page.getByRole(\"button\", { name: \"打开产出物 归档培训.pptx\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"tab\", { name: \"template-generated.pptx\", exact: true })).toBeVisible({ timeout: 15_000 })",
+    "expect(page.getByLabel(\"PPTX 编辑器\")).toBeVisible({ timeout: 30_000 })",
+    "expect(page.getByLabel(\"Slide 1 of 1\", { exact: true })).toBeVisible({ timeout: 30_000 })",
+    "expect(page.getByRole(\"button\", { name: \"打开产出物 归档培训.pptx\" })).toHaveCount(0)",
+    "expect(page.getByLabel(`Slide 1 of ${count}`, { exact: true })).toBeVisible({ timeout: 20_000 })",
+    "expect(page.getByRole(\"button\", { name: \"打开产出物 归档培训.pptx\" })).toBeVisible({ timeout: 75_000 })",
+    "expect(inspected.status, inspected.stderr).toBe(0)",
+    "expect(inspected.stdout.trim()).toBe(\"True\")",
+    "expect(journal.map((entry) => entry.slides)).toEqual([1, 2, 3, 4, 5])",
+    "expect(new Set(journal.map((entry) => entry.sha256)).size).toBe(5)",
+    "expect(journal.map((entry) => entry.progress.completed)).toEqual([1, 2, 3, 4, 5])",
+    "expect(journal.map((entry) => entry.composition)).toEqual([\"metric-comparison\", \"trend-insight\", \"funnel-insight\", \"swimlane-roadmap\", \"action-list\"])",
+    "expect(journal.map((entry) => entry.review.status)).toEqual([\"passed\", \"passed\", \"passed\", \"passed\", \"passed\"])",
+    "expect(page.getByLabel(\"PPTX 编辑器\")).toBeVisible({ timeout: 60_000 })",
+    "expect(page.getByRole(\"application\", { name: \"Presentation slide editor\" })).toBeVisible()",
+    "expect(page.getByText(/No slides/)).toHaveCount(0)",
+    "expect(page.getByTestId(\"pptx-editor-toolbar\")).toBeVisible()",
+    "expect(page.getByLabel(\"Slide 1 of 5\", { exact: true })).toBeVisible()",
+    "expect.poll(() => comparisonCanvas.evaluate((element) => { const canvas = element as HTMLCanvasElement; const pixel = canvas.getContext(\"2d\")!.getImageData(canvas.width - 4, canvas.height - 20, 1, 1).data; return pixel[0] + pixel[1] + pixel[2]; })).toBeGreaterThan(700)",
+    "expect.poll(() => comparisonCanvas.evaluate((element) => { const canvas = element as HTMLCanvasElement; const pixels = canvas.getContext(\"2d\")!.getImageData(Math.round(canvas.width * .05), Math.round(canvas.height * .2), Math.round(canvas.width * .9), Math.round(canvas.height * .65)).data; return Array.from(pixels).filter((value, index) => index % 4 !== 3 && value < 220).length; })).toBeGreaterThan(12_000)",
+    "expect(trendCanvas).toBeVisible()",
+    "expect.poll(() => trendCanvas.evaluate((element) => { const canvas = element as HTMLCanvasElement; const pixels = canvas.getContext(\"2d\")!.getImageData(0, Math.round(canvas.height * .3), canvas.width, Math.round(canvas.height * .45)).data; return Array.from(pixels).filter((value, index) => index % 4 !== 3 && value < 210).length; })).toBeGreaterThan(4000)",
+    "expect(funnelCanvas).toBeVisible()",
+    "expect.poll(() => roadmapCanvas.evaluate((element) => { const canvas = element as HTMLCanvasElement; const pixels = canvas.getContext(\"2d\")!.getImageData(0, Math.round(canvas.height * .3), canvas.width, Math.round(canvas.height * .5)).data; return Array.from(pixels).filter((value, index) => index % 4 !== 3 && value < 220).length; })).toBeGreaterThan(5000)",
+    "expect(actionCanvas).toBeVisible()",
+    "expect(actionInk).toBeGreaterThan(5000)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0BBCF904ADEB8F",
+      "type": "ui",
+      "assertion": "用户触发本地模板生成并打开可编辑的新内容 PPTX"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-pptx-local-templates-spec-ts.8a881d87c7",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/pptx-local-templates.spec.ts -g \"用户触发本地模板生成并打开可编辑的新内容 PPTX\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"选择工作空间\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_TEMPLATE_PPTX__:归档培训.pptx\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "composer.fill(\"__E2E_TEMPLATE_PPTX__:归档培训.pptx\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "composer.fill(\"__E2E_TEMPLATE_PPTX__:归档培训.pptx\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"complementary\", { name: \"Slides\", exact: true }).getByRole(\"button\").nth(1).click()"
+        },
+        {
+          "action": "page.getByRole(\"complementary\", { name: \"Slides\", exact: true }).getByRole(\"button\").nth(2).click()"
+        },
+        {
+          "action": "page.getByRole(\"complementary\", { name: \"Slides\", exact: true }).getByRole(\"button\").nth(3).click()"
+        },
+        {
+          "action": "page.getByRole(\"complementary\", { name: \"Slides\", exact: true }).getByRole(\"button\").nth(4).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/pptx-local-templates.spec.ts",
+        "line_start": 8,
+        "line_end": 151,
+        "body_sha256": "sha256:ce9d200d8b2d6442e3eb3a6201732c26ba26c11e15f8cdf0f13ed47c816d78b3",
+        "assertion_count": 30,
+        "action_count": 13,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:2fb1b92bd009daa6267e4fee5cfc5b6f40d6dac1b15aaacd43eeccac46febbc5"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0BBCF904ADEB8F"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-0BBCF904ADEB8F"
+    ]
+  }
+}

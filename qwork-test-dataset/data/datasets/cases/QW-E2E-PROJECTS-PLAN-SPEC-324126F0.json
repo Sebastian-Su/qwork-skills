@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-plan.spec.ts",
-      "locator": "line:649;test:matches the WorkBuddy filter menu, multi-selects status, and closes safely",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/projects-plan.spec.ts",
+      "locator": "line:779;test:matches the WorkBuddy filter menu, multi-selects status, and closes safely",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:324126f07c2960984aff50c18d40652f648123644729c6c30920a590bb9d5dc7",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-7A5B74B6DC06FA",
+      "requirement_id": "REQ-49A2C36BCDF015",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-projects-plan-spec-ts:L649:324126f07c"
+        "QDEV-E2E-e2e-projects-plan-spec-ts:L779:324126f07c"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -90,7 +90,37 @@
       "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+    },
+    {
+      "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTestId(\"project-detail-content\").getByRole(\"button\", { name: \"添加\", exact: true }).click()"
+    },
+    {
+      "action": "editor.getByPlaceholder(\"请输入标题\").fill(title)"
+    },
+    {
+      "action": "editor.getByRole(\"button\", { name: \"打开状态选项\" }).click()"
+    },
+    {
+      "action": "editor.getByRole(\"listbox\", { name: \"状态选项\" }).getByRole(\"option\", { name: status, exact: true }).click()"
+    },
+    {
+      "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
     },
     {
       "action": "list.getByRole(\"button\", { name: \"展开进行中\" }).click()"
@@ -127,7 +157,9 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByText(name, { exact: true }).first()).toBeVisible()",
     "expect(filter).toBeVisible()",
+    "expect.poll(() => filter.evaluate((element) => element.parentElement === document.body)).toBe(true)",
     "expect(filter.getByLabel(\"筛选状态\")).toHaveCount(0)",
     "expect(list).toContainText(\"筛选待开始\")",
     "expect(list).toContainText(\"筛选进行中\")",
@@ -143,7 +175,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-7A5B74B6DC06FA",
+      "requirement_id": "REQ-49A2C36BCDF015",
       "type": "return",
       "assertion": "matches the WorkBuddy filter menu, multi-selects status, and closes safely"
     }
@@ -219,7 +251,37 @@
           "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
         },
         {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+        },
+        {
+          "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTestId(\"project-detail-content\").getByRole(\"button\", { name: \"添加\", exact: true }).click()"
+        },
+        {
+          "action": "editor.getByPlaceholder(\"请输入标题\").fill(title)"
+        },
+        {
+          "action": "editor.getByRole(\"button\", { name: \"打开状态选项\" }).click()"
+        },
+        {
+          "action": "editor.getByRole(\"listbox\", { name: \"状态选项\" }).getByRole(\"option\", { name: status, exact: true }).click()"
+        },
+        {
+          "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
         },
         {
           "action": "list.getByRole(\"button\", { name: \"展开进行中\" }).click()"
@@ -273,13 +335,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/projects-plan.spec.ts",
-        "line_start": 649,
-        "line_end": 712,
-        "body_sha256": "sha256:05a0f5d749d44669919cc55645e7ee2453483db45f164dabfb921e1547144b27",
-        "assertion_count": 8,
-        "action_count": 17,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:39f092a3d14f270b5f9009d6239b9b80edaeca781dbd2ad463f9045f009d1280"
+        "line_start": 779,
+        "line_end": 843,
+        "body_sha256": "sha256:ddf39e2e7847d69ebd758dab36db0d4d2b1d2ff2193a945d2dcc79f6b5e366f6",
+        "assertion_count": 10,
+        "action_count": 27,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1f4d8f07a67effa331a7be586ff4ec8d0cba065f56cc35559ec20cdc21aa7c48"
       }
     },
     "reference_run": {
@@ -301,7 +363,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-7A5B74B6DC06FA"
+      "REQ-49A2C36BCDF015"
     ],
     "categories": [
       "business"
@@ -309,7 +371,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-7A5B74B6DC06FA"
+      "requirement:REQ-49A2C36BCDF015"
     ]
   }
 }

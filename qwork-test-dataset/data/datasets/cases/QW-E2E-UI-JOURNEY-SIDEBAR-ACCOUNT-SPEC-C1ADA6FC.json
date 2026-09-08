@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/ui-journey-sidebar-account.spec.ts",
-      "locator": "line:621;test:UI-JOURNEY-ACCOUNT-002 | dark menu and toolbar stay usable across the reference sizes and minimum window",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/ui-journey-sidebar-account.spec.ts",
+      "locator": "line:646;test:UI-JOURNEY-ACCOUNT-002 | dark menu and toolbar stay usable across the reference sizes and minimum window",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:c1ada6fc86dd17b01b0b8e780f14bccadc7f4183247a147e6180804590f08529",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-ui-journey-sidebar-account-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/ui-journey-sidebar-account.spec.ts",
-      "locator": "line:621;test:UI-JOURNEY-ACCOUNT-002 | dark menu and toolbar stay usable across the reference sizes and minimum window",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:c1ada6fc86dd17b01b0b8e780f14bccadc7f4183247a147e6180804590f08529",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-2FA93B0F7B8FE1",
+      "requirement_id": "REQ-C3F87E276AD658",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts:L621:c1ada6fc86",
-        "QHEAD-E2E-e2e-ui-journey-sidebar-account-spec-ts:L621:c1ada6fc86"
+        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts:L646:c1ada6fc86"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-ui-journey-sidebar-account-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -82,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:49:28.164762+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -101,6 +81,9 @@
       "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
     },
     {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
       "action": "trigger.click()"
     },
     {
@@ -109,6 +92,7 @@
   ],
   "expected_outcomes": [
     "expect(page.locator(\"html\")).toHaveClass(/dark/)",
+    "expect(page.getByRole(\"menu\", { name: \"用户中心\" })).toBeVisible()",
     "expect(page.getByRole(\"button\", { name: \"搜索\", exact: true })).toBeVisible()",
     "expect(page.getByRole(\"button\", { name: \"筛选\", exact: true })).toBeVisible()"
   ],
@@ -119,7 +103,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-2FA93B0F7B8FE1",
+      "requirement_id": "REQ-C3F87E276AD658",
       "type": "return",
       "assertion": "UI-JOURNEY-ACCOUNT-002 | dark menu and toolbar stay usable across the reference sizes and minimum window"
     }
@@ -186,6 +170,9 @@
           "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
         },
         {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
           "action": "trigger.click()"
         },
         {
@@ -210,13 +197,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/ui-journey-sidebar-account.spec.ts",
-        "line_start": 621,
-        "line_end": 638,
-        "body_sha256": "sha256:0c83e62d73999679580be414e94fb468f84e0ab731889396af2b2b4fd8e371f4",
-        "assertion_count": 3,
-        "action_count": 4,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:68529311b05a3e3ce0171a103dcab9069e5a9f892dac52c4353b1418f0e8aa76"
+        "line_start": 646,
+        "line_end": 665,
+        "body_sha256": "sha256:f0a5fd2d93f7fd3fc6a8f122b45d637e93a5ef984b1db5ff8882bfc8aeda999f",
+        "assertion_count": 4,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1259eed476600e20d8899f4f45133f39d52245266f23332ac4afb92cc8881264"
       }
     },
     "reference_run": {
@@ -238,7 +225,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-2FA93B0F7B8FE1"
+      "REQ-C3F87E276AD658"
     ],
     "categories": [
       "business"
@@ -246,7 +233,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-2FA93B0F7B8FE1"
+      "requirement:REQ-C3F87E276AD658"
     ]
   }
 }

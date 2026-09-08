@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/packaging.md",
-      "locator": "line:157;heading:QBuild 客户端入口",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/packaging.md",
+      "locator": "line:161;heading:QBuild 客户端入口",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:43247d3f84215f024ab99bde1c2a64823d1ffcfc86c74dc740ec4cff13b89c9a",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-BE262DB9A20724",
+      "requirement_id": "REQ-8321923477AFE5",
       "source_atom_ids": [
-        "QDEV-DOC-docs-packaging-md:L157:43247d3f84"
+        "QDEV-DOC-docs-packaging-md:L161:43247d3f84"
       ],
       "content_facets": [
         "role-permission"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/packaging.md · QBuild 客户端入口 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-BE262DB9A20724] exactly: 校验 sidecar 文件格式、CPU 架构、执行权限和 Python manifest。"
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-8321923477AFE5] exactly: 校验 sidecar 文件格式、CPU 架构、执行权限和 Python manifest。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "校验 sidecar 文件格式、CPU 架构、执行权限和 Python manifest。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-BE262DB9A20724]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 校验 sidecar 文件格式、CPU 架构、执行权限和 Python manifest。",
+    "FAIL [REQ-8321923477AFE5]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 校验 sidecar 文件格式、CPU 架构、执行权限和 Python manifest。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-BE262DB9A20724",
+      "requirement_id": "REQ-8321923477AFE5",
       "type": "api",
       "assertion": "校验 sidecar 文件格式、CPU 架构、执行权限和 Python manifest。"
     }
@@ -157,7 +157,7 @@
           "action": "perform the source-defined scenario trigger for docs/packaging.md · QBuild 客户端入口 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-BE262DB9A20724] exactly: 校验 sidecar 文件格式、CPU 架构、执行权限和 Python manifest。"
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-8321923477AFE5] exactly: 校验 sidecar 文件格式、CPU 架构、执行权限和 Python manifest。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -200,7 +200,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-BE262DB9A20724"
+      "REQ-8321923477AFE5"
     ],
     "categories": [
       "permission"
@@ -208,12 +208,12 @@
     "suite_ids": [
       "category:permission",
       "full",
-      "requirement:REQ-BE262DB9A20724"
+      "requirement:REQ-8321923477AFE5"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-BE262DB9A20724",
+      "requirement_id": "REQ-8321923477AFE5",
       "oracle_type": "api",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/packaging.md · QBuild 客户端入口 产品契约 exactly once and retain its correlation identity",

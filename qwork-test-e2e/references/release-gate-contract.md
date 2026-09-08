@@ -25,13 +25,21 @@ Planner 使用 `least-fixed-point`（最小不动点）闭包，从显式 base/h
 
 `change/source atom -> requirement/category -> capability/risk -> case/dataset/suite -> route/target -> layer/dimension`
 
-精确来源映射优先；能判定产品 surface 的实现文件保守选择该 surface 全部 Case；未知变更执行 `fail_on_unmapped_change` 的保守语义，选择 full 闭世界而不是漏测。`token_budget_may_reduce_scope: false`，Token、时间、成本或 Case 数都不能缩减必需闭包。
+精确来源映射优先；当同一 diff 已修改某个 surface 的当前可执行 E2E Case 时，实现文件以这些 source-bound Case 作为更精确的因果坐标；没有同 surface 的变更 E2E 时，仍保守选择该 surface 全部 Case。未知变更执行 `fail_on_unmapped_change` 的保守语义，选择 full 闭世界而不是漏测。`token_budget_may_reduce_scope: false`，Token、时间、成本或 Case 数都不能缩减必需闭包。
 
 Planner 固定实现、source、Case/Dataset、route、locator、runner 与 Skill hash。任何这些资产变化后必须重新生成 plan，并 `rerun_all_required_items_after_every_change`。没有轮数预算：`maximum_iterations: null`。
 
 ## 执行结果
 
 执行前必须由 `scripts/run_release_gate_plan.py --preflight-only` 证明 plan 的每个 required item 被唯一分类为 `gate`、`dataset-verifier`、`deterministic-playwright`、`workbuddy-oracle`、`live-authorization` 或 `runner-gap`。分类总数必须等于 required item 总数。`dataset-verifier` 只能读取冻结的私有 Dataset，并按精确 Case ID 产出原子级处置结果；它不证明 Electron UI，也不证明尚未实现的真实迁移链。禁止 shell 求值；外部授权 Case 不能经本地执行路径发起。
+
+### 独立授权 live runner
+
+真实账号、服务或模型 Case 在用户对以下范围知情授权后，由 `scripts/run_authorized_live_case.py` 单独执行：精确 Case 与当前 plan/revision、会外发的原文、Provider HTTPS 端点与模型、最多一次 Case 调用及最长 900 秒、允许访问的网络 origin、外置 run root 内的写入与 cleanup 路径。授权 JSON 不得包含 API Key、Token、Cookie、密码或凭据值。
+
+runner 使用 `shlex.split` 后的 argv 直接启动进程，不经 shell；只能为 Playwright 附加外置 output 与 trace 参数。它在超时后终止整个进程组，删除授权中声明的 Case 自有临时状态，只保留日志、Playwright JSON/trace、脱敏业务报告、截图、原始授权记录及其脱敏摘要。一次 run root 只能生成一次 `authorized-live-results.json`，重复调用在启动子进程前拒绝。
+
+报告编译器与 Evaluator 会重新核对授权文件、plan/revision、Case、route、command、source contract、状态/退出码、artifact hash 与 cleanup。授权 live PASS 缺任一字段或证据均为 `repair-required`；它只关闭同一 Case 的外部授权 blocker。本地 `runner-state.json` 与独立本地复跑继续排除全部 live 坐标，以证明确定性门禁没有因真实调用授权而被放宽。
 
 正式执行使用逐 item WAL。每个坐标在子进程前原子写入 `running`，证据与终态落盘后才变成 `pass/fail`。恢复时只要发现 `running/partial` 或待执行坐标已有证据路径，就零执行停机并要求人工审计，防止重复调用或证据覆盖。已有 `pass/fail` 坐标必须绑定同一 `plan_sha256`、`implementation_revision` 与分类，后续分类执行必须原样保留并跳过；未知坐标、revision/category 漂移一律在子进程前拒绝。
 

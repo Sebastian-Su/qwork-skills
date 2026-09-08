@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-archive-hospital-oauth.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-archive-hospital-oauth.spec.ts",
       "locator": "line:244;test:connects the shipped archive hospital entry through its strict root loopback callback",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:2801dc10b9cf0680b8aa74f3ef3ea7bdbd05292892ccedf610a7e02a6ccdee94",
       "redaction_status": "minimized"
     }
@@ -73,6 +73,9 @@
   "steps": [
     {
       "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "server.close((error) => (error ? reject(error) : resolve()))"
     },
     {
       "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
@@ -195,6 +198,9 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "server.close((error) => (error ? reject(error) : resolve()))"
+        },
+        {
           "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
         },
         {
@@ -235,8 +241,8 @@
         "line_end": 368,
         "body_sha256": "sha256:a21fea567f62251a102f48fa6694730237793a55783493c7ae6924c9faaa5984",
         "assertion_count": 32,
-        "action_count": 6,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "action_count": 7,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:f11568d789b7262e029822ffeb854f6bbecc5cb20d691b449aeac1212d49038b"
       }
     },

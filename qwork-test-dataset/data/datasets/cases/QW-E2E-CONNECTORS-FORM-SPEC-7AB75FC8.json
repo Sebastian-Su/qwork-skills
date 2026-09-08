@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-form.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-form.spec.ts",
       "locator": "line:143;test:substitutes the key into the url and never leaks it",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:7ab75fc8df22e20851f25731b7b55ea27626718e4f337e0d39857602906ae939",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"Demo 地图，未连接\" }).click()"
     },
     {
@@ -88,6 +94,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByLabel(\"搜索连接器\")).toBeVisible()",
     "expect( page .getByRole(\"dialog\", { name: \"Demo 地图\" }) .getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible({ timeout: 15000 })",
     "expect(server.url).toBe(`https://mcp.example.com/sse?key=${SECRET}`)",
     "expect(server.type).toBe(\"sse\")",
@@ -162,6 +169,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"Demo 地图，未连接\" }).click()"
         },
         {
@@ -195,9 +208,9 @@
         "line_start": 143,
         "line_end": 178,
         "body_sha256": "sha256:f7c15e15bc454731cafc554e7c3465f7b888389cff5ca9d1bb698fb5a4c79269",
-        "assertion_count": 5,
-        "action_count": 4,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 6,
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:8132202e61f73c9aeb8389730ff30e108dcda7cff519437ececea5dfb313c250"
       }
     },

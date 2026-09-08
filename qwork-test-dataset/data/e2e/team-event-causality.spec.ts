@@ -67,8 +67,9 @@ test("WB-TEAM-004/005/006 | 真实成员事件形成只读成员流且 completed
     await expect(page.getByRole("heading", { name: "发布运营" })).toBeVisible();
     await expect(page.getByText("团队：游戏开发工作室", { exact: true })).toBeVisible();
     await expect(page.getByText(/更新时间：\d{2}:\d{2}/)).toBeVisible();
-    await expect(page.getByText("工具调用：未上报（ZiqDo）", { exact: false })).toBeVisible();
-    await expect(page.getByText("模型：e2e-balanced · in 120 · out 40", { exact: true })).toBeVisible();
+    await expect(page.getByText("工具调用：未上报（ZiqDo）", { exact: false })).toHaveCount(0);
+    await expect(page.getByText("模型：e2e-balanced", { exact: false })).toHaveCount(0);
+    await expect(page.getByText("in 120 · out 40", { exact: true })).toBeVisible();
     await expect(page.getByText("Sprint 规划已完成", { exact: true })).toBeVisible();
     await expect(page.getByRole("textbox")).toHaveCount(0);
     await expect(page.getByRole("button", { name: "重试此成员任务" })).toHaveCount(0);

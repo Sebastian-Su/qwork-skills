@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/media-preview.spec.ts",
-      "locator": "line:39;test:动态 HTML 在隔离视图执行内联脚本且不暴露 file URL",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/media-preview.spec.ts",
+      "locator": "line:219;test:动态 HTML 在隔离视图执行内联脚本且不暴露 file URL",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:44be8fb801e4a3eebc738f9e5d501880bc079e0ecacfa37f9cd56923a4de7411",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-13F3966163ACED",
+      "requirement_id": "REQ-DC714D406F1708",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-media-preview-spec-ts:L39:44be8fb801"
+        "QDEV-E2E-e2e-media-preview-spec-ts:L219:44be8fb801"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,10 +75,13 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
       "action": "composer.fill(\"__E2E_USER_DELIVERY__:dynamic-font.html\")"
     },
     {
-      "action": "composer.press(\"Enter\")"
+      "action": "fixture.page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
@@ -94,7 +97,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-13F3966163ACED",
+      "requirement_id": "REQ-DC714D406F1708",
       "type": "return",
       "assertion": "动态 HTML 在隔离视图执行内联脚本且不暴露 file URL"
     }
@@ -155,10 +158,13 @@
       "entrypoint": "task-lifecycle",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
           "action": "composer.fill(\"__E2E_USER_DELIVERY__:dynamic-font.html\")"
         },
         {
-          "action": "composer.press(\"Enter\")"
+          "action": "fixture.page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -179,13 +185,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/media-preview.spec.ts",
-        "line_start": 39,
-        "line_end": 98,
-        "body_sha256": "sha256:ab8f3c951c136d452d80588724c22c2af285831728a293e22e5a88569cf0d420",
+        "line_start": 219,
+        "line_end": 278,
+        "body_sha256": "sha256:58110f024ded492612bff9671f39378c9eae10bf87375fe2799984272aaa1e63",
         "assertion_count": 4,
-        "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:9291fe54dcc3e1041b048ab0a5fa276a7553a406a318fc17402f58fc597deaef"
+        "action_count": 3,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:73f2457935799dea8f245dd58d8bc9d50197523a08b9fd6f5f2d110fcf984aa1"
       }
     },
     "reference_run": {
@@ -207,7 +213,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-13F3966163ACED"
+      "REQ-DC714D406F1708"
     ],
     "categories": [
       "business"
@@ -215,7 +221,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-13F3966163ACED"
+      "requirement:REQ-DC714D406F1708"
     ]
   }
 }

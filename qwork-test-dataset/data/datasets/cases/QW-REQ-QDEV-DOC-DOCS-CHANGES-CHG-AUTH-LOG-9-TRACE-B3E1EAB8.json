@@ -1,0 +1,305 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-AUTH-LOG-9-TRACE-B3E1EAB8",
+  "title": "docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 9. Trace 关联规则 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "auth",
+    "journey": "auth",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:341;heading:9. Trace 关联规则",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:a38df5fea16907dbce1077dfc568f046f1230d3a365dcb87058855e45214d953",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:346;heading:9. Trace 关联规则",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:426fd11d092b240c9c0574a23b6f3fcebbc72a12a0af1e7b366a4a8898a33f02",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-BC5D4F31CDCC76",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L341:a38df5fea1"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "Main 接受 `auth.login()` 后生成新的登录 `trace_id`，直到成功、失败、取消或超时结束。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Main 接受 `auth.login()` 后生成新的登录 `trace_id`，直到成功、失败、取消或超时结束。"
+    },
+    {
+      "requirement_id": "REQ-D80CC4A95BF5B2",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L346:426fd11d09"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "启动 hydrate、用户新登录、401 恢复和登出分别使用独立 trace，避免形成无限生命周期 trace。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "启动 hydrate、用户新登录、401 恢复和登出分别使用独立 trace，避免形成无限生命周期 trace。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for auth at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 9. Trace 关联规则 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-BC5D4F31CDCC76] exactly: Main 接受 `auth.login()` 后生成新的登录 `trace_id`，直到成功、失败、取消或超时结束。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-D80CC4A95BF5B2] exactly: 启动 hydrate、用户新登录、401 恢复和登出分别使用独立 trace，避免形成无限生命周期 trace。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "Main 接受 `auth.login()` 后生成新的登录 `trace_id`，直到成功、失败、取消或超时结束。",
+    "启动 hydrate、用户新登录、401 恢复和登出分别使用独立 trace，避免形成无限生命周期 trace。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-BC5D4F31CDCC76]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Main 接受 `auth.login()` 后生成新的登录 `trace_id`，直到成功、失败、取消或超时结束。",
+    "FAIL [REQ-D80CC4A95BF5B2]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 启动 hydrate、用户新登录、401 恢复和登出分别使用独立 trace，避免形成无限生命周期 trace。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-BC5D4F31CDCC76",
+      "type": "api",
+      "assertion": "Main 接受 `auth.login()` 后生成新的登录 `trace_id`，直到成功、失败、取消或超时结束。"
+    },
+    {
+      "requirement_id": "REQ-D80CC4A95BF5B2",
+      "type": "ui",
+      "assertion": "启动 hydrate、用户新登录、401 恢复和登出分别使用独立 trace，避免形成无限生命周期 trace。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-auth-login.9-trace-b3e1eab893",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "auth",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for auth at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 9. Trace 关联规则 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-BC5D4F31CDCC76] exactly: Main 接受 `auth.login()` 后生成新的登录 `trace_id`，直到成功、失败、取消或超时结束。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-D80CC4A95BF5B2] exactly: 启动 hydrate、用户新登录、401 恢复和登出分别使用独立 trace，避免形成无限生命周期 trace。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-BC5D4F31CDCC76",
+      "REQ-D80CC4A95BF5B2"
+    ],
+    "categories": [
+      "permission"
+    ],
+    "suite_ids": [
+      "category:permission",
+      "full",
+      "requirement:REQ-BC5D4F31CDCC76",
+      "requirement:REQ-D80CC4A95BF5B2"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-BC5D4F31CDCC76",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 9. Trace 关联规则 产品契约 exactly once and retain its correlation identity",
+      "then": "Main 接受 `auth.login()` 后生成新的登录 `trace_id`，直到成功、失败、取消或超时结束。",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-D80CC4A95BF5B2",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 9. Trace 关联规则 产品契约 exactly once and retain its correlation identity",
+      "then": "启动 hydrate、用户新登录、401 恢复和登出分别使用独立 trace，避免形成无限生命周期 trace。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

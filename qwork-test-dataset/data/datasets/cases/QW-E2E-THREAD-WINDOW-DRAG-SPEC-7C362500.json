@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/thread-window-drag.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/thread-window-drag.spec.ts",
       "locator": "line:10;test:new task and reopened history keep the platform window drag contract",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:7c3625004157c268634a68198c2a922c4eb474dd22ec6919385d50b15119708b",
       "redaction_status": "minimized"
     }
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:49:22.322247+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -89,7 +89,16 @@
   ],
   "expected_outcomes": [
     "expect(page.getByRole(\"heading\", { name: \"QWork, 我帮你\", exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"toolbar\", { name: \"对话工具栏\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name })).toHaveCount(0)",
+    "expect( await locator.evaluate((element) => getComputedStyle(element).getPropertyValue(\"-webkit-app-region\"), ), ).toBe(expected)",
     "expect(reply).toBeVisible()",
+    "expect(toolbar).toBeVisible()",
+    "expect(toolbar).toHaveAttribute(\"data-main-content-toolbar\", \"true\")",
+    "expect(toolbar).not.toHaveAttribute(\"data-windows-page-toolbar\")",
+    "expect(toolbar).toHaveAttribute(\"data-tauri-drag-region\")",
+    "expect(toolbar).not.toHaveAttribute(\"data-no-drag\")",
+    "expect(rightPanel).toBeVisible()",
     "expect(page.getByRole(\"heading\", { name: \"QWork, 我帮你\", exact: true })).toBeVisible()",
     "expect(history).toBeVisible()",
     "expect(reply).toBeVisible()"
@@ -194,11 +203,11 @@
         "spec": "e2e/thread-window-drag.spec.ts",
         "line_start": 10,
         "line_end": 45,
-        "body_sha256": "sha256:d9909759ebe9c21b28ae6d17f2554c83f86c9f4fe221308cd22f61d7d5dab670",
-        "assertion_count": 5,
+        "body_sha256": "sha256:e01f64e468f9f4239950a0841c612596b34676cf36a9b75e3df46c711a73652a",
+        "assertion_count": 14,
         "action_count": 4,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:427216322d8cf502890e535f03e61808f6a3a5150da1d27fdba01788da7df8d0"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:4bcec67b1b06de106333ecc7cc704b688742e7d08d8ce6248db389942ac2a276"
       }
     },
     "reference_run": {

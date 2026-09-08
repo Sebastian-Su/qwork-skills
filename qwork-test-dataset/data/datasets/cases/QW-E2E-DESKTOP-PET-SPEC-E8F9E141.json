@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/desktop-pet.spec.ts",
-      "locator": "line:16;test:growth toggle opens a compact draggable pet and real companion conversation",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/desktop-pet.spec.ts",
+      "locator": "line:21;test:growth toggle opens a compact draggable pet and real companion conversation",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:e8f9e141188d32de2822f0e8d680f5e60c30b48247b6bec09b53bcbca9ce61ad",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-14B9ED1A7CEC60",
+      "requirement_id": "REQ-BF157F12AEB40E",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-desktop-pet-spec-ts:L16:e8f9e14118"
+        "QDEV-E2E-e2e-desktop-pet-spec-ts:L21:e8f9e14118"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -84,22 +84,31 @@
       "action": "desktopPetSwitch.click()"
     },
     {
-      "action": "petPage.getByRole(\"button\", { name: \"唤醒被窝团子\" }).click()"
+      "action": "directDragButton.click({ button: \"right\", position: { x: 120, y: 170 } })"
+    },
+    {
+      "action": "petPage.getByRole(\"button\", { name: \"关闭桌宠状态\" }).click()"
+    },
+    {
+      "action": "petPage.getByRole(\"button\", { name: \"唤醒被窝团子\" }).click({ position: { x: 120, y: 170 } })"
+    },
+    {
+      "action": "petPage.getByRole(\"button\", { name: \"和桌宠聊天\" }).click()"
     },
     {
       "action": "petPage.getByRole(\"button\", { name: \"桌宠设置\" }).click()"
     },
     {
-      "action": "petPage.getByLabel(\"桌宠名字\").fill(\"困困\")"
+      "action": "page.getByRole(\"button\", {name:\"查看 Qwork 图鉴\"}).click()"
     },
     {
-      "action": "petPage.getByLabel(\"桌宠性格\").selectOption(\"sharp\")"
+      "action": "page.getByLabel(\"桌宠名字\").fill(\"困困\")"
     },
     {
-      "action": "petPage.getByLabel(\"性别表达\").selectOption(\"male\")"
+      "action": "page.getByRole(\"button\", { name: \"保存昵称\" }).click()"
     },
     {
-      "action": "petPage.getByRole(\"button\", { name: \"保存设置\" }).click()"
+      "action": "petPage.getByRole(\"button\", { name: \"和桌宠聊天\" }).click()"
     },
     {
       "action": "petPage.getByRole(\"textbox\", { name: \"和困困说话\" }).fill(\"陪我把今天熬过去\")"
@@ -116,13 +125,27 @@
     "expect.poll(async () => Math.round((await desktopPetSwitch.boundingBox())?.y ?? -1)) .toBe(Math.round(switchBoxBefore?.y ?? -1))",
     "expect(petPage.getByRole(\"button\", { name: \"唤醒被窝团子\" })).toBeVisible()",
     "expect(petPage.locator(\"[data-action-count='20']\")).toBeVisible()",
+    "expect(motionCanvas).toHaveAttribute(\"data-motion-renderer\", \"source-mesh\")",
+    "expect(motionCanvas).toHaveAttribute(\"data-frame-ready\", \"true\")",
+    "expect.poll(() => motionCanvas.getAttribute(\"data-playhead\")).not.toBe(\"0.000\")",
+    "expect(alpha.solid).toBeGreaterThan(1500)",
+    "expect(alpha.transparent).toBeGreaterThan(1500)",
+    "expect(petPage.getByRole(\"dialog\", { name: \"桌宠状态\" })).toBeVisible()",
+    "expect(petPage.getByText(\"待机陪伴\")).toBeVisible()",
+    "expect.poll(async () => app.evaluate(({ BrowserWindow }) => { const target = BrowserWindow.getAllWindows().find((window) => window.webContents.getURL().includes(\"surface=desktop-pet\"), ); if (!target) throw new Error(\"desktop pet window missing\"); return target.getBounds().x; })).toBe(directDragBefore.x - 42)",
+    "expect(motionCanvas).toHaveAttribute(\"data-response\", \"hover\")",
+    "expect.poll(async () => Number(await motionCanvas.getAttribute(\"data-playhead\"))).not.toBe(before)",
+    "expect(motionCanvas).toHaveAttribute(\"data-response\", \"idle\")",
+    "expect(petPage.getByTestId(\"desktop-pet-art\")).toHaveAttribute( \"data-tap-motion\", \"preserve-pose\", )",
+    "expect(petPage.locator(\"[data-pet-tap-count='1']\")).toBeVisible()",
+    "expect(petPage.getByRole(\"status\", { name: \"桌宠回应\" })).toContainText(\"哼…再摸一下\")",
     "expect(petPage.getByRole(\"region\", { name: \"桌宠对话\" })).toBeVisible()",
     "expect(expandedBounds.x + expandedBounds.width).toBe(closedBounds.x + closedBounds.width)",
     "expect(expandedBounds.y + expandedBounds.height).toBe(closedBounds.y + closedBounds.height)",
     "expect(petPage.getByRole(\"button\", { name: \"唤醒困困\" })).toBeVisible()",
     "expect(petPage.getByText(/收到：.*陪我把今天熬过去/)).toBeVisible({ timeout: 10_000 })",
     "expect((await state).sessionId).toBeTruthy()",
-    "expect((await state).profile).toEqual({ name: \"困困\", personality: \"sharp\", genderExpression: \"male\", })",
+    "expect((await state).profile).toEqual({ characterId: \"blanket-blob\", name: \"困困\", personality: \"laid-back\", genderExpression: \"neutral\", })",
     "expect.poll(async () => { const next = await petPage.evaluate(() => window.workGui.desktopPet.get()); return next.position; }).toEqual(moved)"
   ],
   "forbidden_outcomes": [
@@ -132,7 +155,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-14B9ED1A7CEC60",
+      "requirement_id": "REQ-BF157F12AEB40E",
       "type": "return",
       "assertion": "growth toggle opens a compact draggable pet and real companion conversation"
     }
@@ -202,22 +225,31 @@
           "action": "desktopPetSwitch.click()"
         },
         {
-          "action": "petPage.getByRole(\"button\", { name: \"唤醒被窝团子\" }).click()"
+          "action": "directDragButton.click({ button: \"right\", position: { x: 120, y: 170 } })"
+        },
+        {
+          "action": "petPage.getByRole(\"button\", { name: \"关闭桌宠状态\" }).click()"
+        },
+        {
+          "action": "petPage.getByRole(\"button\", { name: \"唤醒被窝团子\" }).click({ position: { x: 120, y: 170 } })"
+        },
+        {
+          "action": "petPage.getByRole(\"button\", { name: \"和桌宠聊天\" }).click()"
         },
         {
           "action": "petPage.getByRole(\"button\", { name: \"桌宠设置\" }).click()"
         },
         {
-          "action": "petPage.getByLabel(\"桌宠名字\").fill(\"困困\")"
+          "action": "page.getByRole(\"button\", {name:\"查看 Qwork 图鉴\"}).click()"
         },
         {
-          "action": "petPage.getByLabel(\"桌宠性格\").selectOption(\"sharp\")"
+          "action": "page.getByLabel(\"桌宠名字\").fill(\"困困\")"
         },
         {
-          "action": "petPage.getByLabel(\"性别表达\").selectOption(\"male\")"
+          "action": "page.getByRole(\"button\", { name: \"保存昵称\" }).click()"
         },
         {
-          "action": "petPage.getByRole(\"button\", { name: \"保存设置\" }).click()"
+          "action": "petPage.getByRole(\"button\", { name: \"和桌宠聊天\" }).click()"
         },
         {
           "action": "petPage.getByRole(\"textbox\", { name: \"和困困说话\" }).fill(\"陪我把今天熬过去\")"
@@ -247,13 +279,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/desktop-pet.spec.ts",
-        "line_start": 16,
-        "line_end": 96,
-        "body_sha256": "sha256:6a42ce4494beb774ffcc5141684484854aa94dc2984d8b51c868118e7a5aa8ca",
-        "assertion_count": 12,
-        "action_count": 12,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:9207ec3c57e24aa068794e82a14bbb06d7124ae2bf910d2d4682f3475b4129cc"
+        "line_start": 21,
+        "line_end": 163,
+        "body_sha256": "sha256:648180b803416fdf10f71b610e1522412997739423e006d98780f3cceb3c149d",
+        "assertion_count": 26,
+        "action_count": 15,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:f5e60a9427159bfd1ed49bf8243485cfb3c8a9d194056e98d96ee51c7fbe639a"
       }
     },
     "reference_run": {
@@ -275,7 +307,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-14B9ED1A7CEC60"
+      "REQ-BF157F12AEB40E"
     ],
     "categories": [
       "business"
@@ -283,7 +315,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-14B9ED1A7CEC60"
+      "requirement:REQ-BF157F12AEB40E"
     ]
   }
 }

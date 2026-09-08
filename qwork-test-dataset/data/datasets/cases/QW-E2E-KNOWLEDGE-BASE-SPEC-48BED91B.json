@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/knowledge-base.spec.ts",
-      "locator": "line:296;test:search miss does not invent citation sources",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/knowledge-base.spec.ts",
+      "locator": "line:390;test:search miss does not invent citation sources",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:48bed91b8cc224ff626e5074d5e29b341e1717638b4b6d26694b3440c3f3d681",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-31B6246A8E0AC0",
+      "requirement_id": "REQ-51B7525BD0C64D",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-knowledge-base-spec-ts:L296:48bed91b8c"
+        "QDEV-E2E-e2e-knowledge-base-spec-ts:L390:48bed91b8c"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,10 +75,28 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"添加文件\", exact: true }).hover()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"360知识库\", exact: true }).click()"
+    },
+    {
       "action": "dialog.getByLabel(\"选择知识库 产品手册\").check()"
     },
     {
       "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(text)"
+    },
+    {
+      "action": "surface.getByRole(\"button\", { name: \"发送\" }).click()"
     },
     {
       "action": "bff.close()"
@@ -86,6 +104,7 @@
   ],
   "expected_outcomes": [
     "expect(page.getByLabel(\"移除知识 产品手册\")).toBeVisible()",
+    "expect(composer).toHaveValue(text)",
     "expect(page.getByText(\"客服电话\").first()).toBeVisible()",
     "expect(page.getByTestId(\"knowledge-miss\")).toHaveText(\"未检索到相关内容\")",
     "expect(page.getByTestId(\"knowledge-citations\")).toHaveCount(0)",
@@ -98,7 +117,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-31B6246A8E0AC0",
+      "requirement_id": "REQ-51B7525BD0C64D",
       "type": "return",
       "assertion": "search miss does not invent citation sources"
     }
@@ -159,10 +178,28 @@
       "entrypoint": "shell-home",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"添加文件\", exact: true }).hover()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"360知识库\", exact: true }).click()"
+        },
+        {
           "action": "dialog.getByLabel(\"选择知识库 产品手册\").check()"
         },
         {
           "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(text)"
+        },
+        {
+          "action": "surface.getByRole(\"button\", { name: \"发送\" }).click()"
         },
         {
           "action": "bff.close()"
@@ -186,13 +223,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/knowledge-base.spec.ts",
-        "line_start": 296,
-        "line_end": 316,
+        "line_start": 390,
+        "line_end": 410,
         "body_sha256": "sha256:a646373a977c48c678b999b3c29198a76d9f04c218a83b96a73339e0d7d5a971",
-        "assertion_count": 5,
-        "action_count": 3,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:6b6b2fde89171d2694f2a478323e167ed3e9088bbf7889007660316fcd914d83"
+        "assertion_count": 6,
+        "action_count": 9,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:ecbd9f21bab511e2895311cfc7897c127872f1e3298344156439d8d68107759a"
       }
     },
     "reference_run": {
@@ -214,7 +251,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-31B6246A8E0AC0"
+      "REQ-51B7525BD0C64D"
     ],
     "categories": [
       "business"
@@ -222,7 +259,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-31B6246A8E0AC0"
+      "requirement:REQ-51B7525BD0C64D"
     ]
   }
 }

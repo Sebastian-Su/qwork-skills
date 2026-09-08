@@ -1,0 +1,244 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-TASK-CREDIT-SAFE-RETRY-SPEC-CF58031A",
+  "title": "safe retry dispatches a fresh credit trace through native Electron",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-task-credit-safe-retry-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/task-credit-safe-retry.spec.ts",
+      "locator": "line:6;test:safe retry dispatches a fresh credit trace through native Electron",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:cf58031a66157777557aa23b53beca1faa753324936f4495320de32f3cf425b2",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-25FB85449C6401",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-task-credit-safe-retry-spec-ts:L6:cf58031a66"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "safe retry dispatches a fresh credit trace through native Electron",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-task-credit-safe-retry-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "safe retry dispatches a fresh credit trace through native Electron"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"__E2E_RETRY_CREDITS__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"重试\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTestId(/assistant-turn-/).last().getByRole(\"button\", { name: \"更多操作\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"复制诊断 ID\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(/积分重试验收：连接中断/)).toBeVisible()",
+    "expect.poll(async () => (await messages()).some(message => message.type === \"retry_turn\")).toBe(true)",
+    "expect(retry.trace_context?.trace_id).toMatch(/^[0-9a-f]{32}$/)",
+    "expect(retry.trace_context.trace_id).not.toBe(original.trace_context.trace_id)",
+    "expect(retry.retry_of).toBe(original.turn_id)",
+    "expect(page.getByTestId(\"assistant-message\")).toContainText(\"收到：\")",
+    "expect(page.getByTestId(\"assistant-message\")).toContainText(\"E2E_RETRY_CREDITS\")",
+    "expect(page.getByText(\"已完成\", { exact: true })).toBeVisible()",
+    "expect(await page.evaluate(() => window.workGui!.clipboard.readText())).toBe(retry.trace_context.trace_id)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-25FB85449C6401",
+      "type": "return",
+      "assertion": "safe retry dispatches a fresh credit trace through native Electron"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-task-credit-safe-retry-spec-ts.cf58031a66",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/task-credit-safe-retry.spec.ts -g \"safe retry dispatches a fresh credit trace through native Electron\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "composer.fill(\"__E2E_RETRY_CREDITS__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"重试\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTestId(/assistant-turn-/).last().getByRole(\"button\", { name: \"更多操作\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"复制诊断 ID\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/task-credit-safe-retry.spec.ts",
+        "line_start": 6,
+        "line_end": 43,
+        "body_sha256": "sha256:e517753d8909764d92e3cd9ec9de53417912847a2d746f4a01558614732ec668",
+        "assertion_count": 9,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:214104fc88272a8ab9deeac724602149c6d8e3efcf98b4df629bd162d8e156a3"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-25FB85449C6401"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-25FB85449C6401"
+    ]
+  }
+}

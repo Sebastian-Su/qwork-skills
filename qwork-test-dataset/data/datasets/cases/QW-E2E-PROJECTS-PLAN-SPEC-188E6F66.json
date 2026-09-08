@@ -1,0 +1,308 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECTS-PLAN-SPEC-188E6F66",
+  "title": "keeps a newly created label on an existing todo after uncheck",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-projects-plan-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/projects-plan.spec.ts",
+      "locator": "line:580;test:keeps a newly created label on an existing todo after uncheck",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:188e6f66a9a81d3cdab860c582a3cc8959ed55c813393aee531d909d218eabf5",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-E53C8CC1E01697",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-projects-plan-spec-ts:L580:188e6f66a9"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "keeps a newly created label on an existing todo after uncheck",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-projects-plan-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps a newly created label on an existing todo after uncheck"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+    },
+    {
+      "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTestId(\"project-detail-content\").getByRole(\"button\", { name: \"添加\", exact: true }).click()"
+    },
+    {
+      "action": "editor.getByPlaceholder(\"请输入标题\").fill(\"已有待办\")"
+    },
+    {
+      "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "listbox.getByRole(\"searchbox\", { name: \"搜索或新增标签\" }).fill(\"已有待办新标签\")"
+    },
+    {
+      "action": "listbox.getByRole(\"button\", { name: \"新增标签「已有待办新标签」\" }).click()"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "listbox.getByRole(\"option\", { name: \"已有待办新标签\" }).click()"
+    },
+    {
+      "action": "listbox.getByRole(\"searchbox\", { name: \"搜索或新增标签\" }).press(\"Escape\")"
+    },
+    {
+      "action": "trigger.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(name, { exact: true }).first()).toBeVisible()",
+    "expect(row).toBeVisible()",
+    "expect(row).toContainText(\"已有待办新标签\")",
+    "expect(listbox.getByRole(\"option\", { name: \"已有待办新标签\" })).toHaveAttribute( \"aria-selected\", \"true\", )",
+    "expect(trigger).toHaveText(\"标签\")",
+    "expect(listbox).toHaveCount(0)",
+    "expect(listbox.getByRole(\"option\", { name: \"已有待办新标签\" })).toHaveAttribute( \"aria-selected\", \"false\", )"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-E53C8CC1E01697",
+      "type": "return",
+      "assertion": "keeps a newly created label on an existing todo after uncheck"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-projects-plan-spec-ts.188e6f66a9",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/projects-plan.spec.ts -g \"keeps a newly created label on an existing todo after uncheck\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+        },
+        {
+          "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTestId(\"project-detail-content\").getByRole(\"button\", { name: \"添加\", exact: true }).click()"
+        },
+        {
+          "action": "editor.getByPlaceholder(\"请输入标题\").fill(\"已有待办\")"
+        },
+        {
+          "action": "editor.getByRole(\"button\", { name: \"创建\", exact: true }).click()"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "listbox.getByRole(\"searchbox\", { name: \"搜索或新增标签\" }).fill(\"已有待办新标签\")"
+        },
+        {
+          "action": "listbox.getByRole(\"button\", { name: \"新增标签「已有待办新标签」\" }).click()"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "listbox.getByRole(\"option\", { name: \"已有待办新标签\" }).click()"
+        },
+        {
+          "action": "listbox.getByRole(\"searchbox\", { name: \"搜索或新增标签\" }).press(\"Escape\")"
+        },
+        {
+          "action": "trigger.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/projects-plan.spec.ts",
+        "line_start": 580,
+        "line_end": 629,
+        "body_sha256": "sha256:a72555c2517ba875b8f9a1aab49df17995c6146c88034181ad1524c0a902f6db",
+        "assertion_count": 7,
+        "action_count": 16,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1f4d8f07a67effa331a7be586ff4ec8d0cba065f56cc35559ec20cdc21aa7c48"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-E53C8CC1E01697"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-E53C8CC1E01697"
+    ]
+  }
+}
