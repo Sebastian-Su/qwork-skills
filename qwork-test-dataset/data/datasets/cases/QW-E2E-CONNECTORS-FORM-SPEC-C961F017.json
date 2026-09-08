@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-form.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-form.spec.ts",
       "locator": "line:180;test:shows 已配置 instead of the stored value, and keeps it on a blank resubmit",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:c961f0177b3813974d81fd5ce8be94a61259a495c984050cc1fb636fd27fa1b7",
       "redaction_status": "minimized"
     }
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:47:59.847660+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -73,6 +73,12 @@
   "steps": [
     {
       "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"Demo 地图，未连接\" }).click()"
@@ -94,6 +100,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByLabel(\"搜索连接器\")).toBeVisible()",
     "expect( page .getByRole(\"dialog\", { name: \"Demo 地图\" }) .getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible({ timeout: 15000 })",
     "expect(input).toHaveValue(\"\")",
     "expect(input).toHaveAttribute( \"placeholder\", \"已配置，留空则保持不变\", )",
@@ -168,6 +175,12 @@
       "entrypoint": "settings",
       "steps": [
         {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"Demo 地图，未连接\" }).click()"
         },
         {
@@ -207,9 +220,9 @@
         "line_start": 180,
         "line_end": 216,
         "body_sha256": "sha256:7956f1b378077d96a7f63f0828abeff928b47f5b6568ecc8de899fb93597bf4a",
-        "assertion_count": 5,
-        "action_count": 6,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 6,
+        "action_count": 8,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:8132202e61f73c9aeb8389730ff30e108dcda7cff519437ececea5dfb313c250"
       }
     },

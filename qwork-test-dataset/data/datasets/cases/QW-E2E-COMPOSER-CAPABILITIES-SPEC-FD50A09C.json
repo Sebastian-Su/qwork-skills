@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/composer-capabilities.spec.ts",
-      "locator": "line:843;test:restored connector icons automatically recover after the current runtime confirms them",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/composer-capabilities.spec.ts",
+      "locator": "line:1014;test:restored connector icons automatically recover after the current runtime confirms them",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:fd50a09c77da4dd95670c15de0186d12043ea7e5903a759c26e65305c50a5b12",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-F72A7E85627472",
+      "requirement_id": "REQ-15A24C6EA2FDFE",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L843:fd50a09c77"
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L1014:fd50a09c77"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -128,6 +128,8 @@
   ],
   "expected_outcomes": [
     "expect(preloadedConnectorManager).toBeVisible()",
+    "expect(connectorBox!.height).toBe(32)",
+    "expect(Math.abs(connectorBox!.y + connectorBox!.height - sendBox!.y - sendBox!.height)).toBeLessThanOrEqual(2)",
     "expect(preloadedIcons).toHaveCount(2)",
     "expect( page.getByRole(\"img\", { name: \"e2e-connected\", exact: true }), ).toBeVisible()",
     "expect( page.getByRole(\"img\", { name: \"e2e-connected-two\", exact: true }), ).toBeVisible()",
@@ -159,7 +161,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-F72A7E85627472",
+      "requirement_id": "REQ-15A24C6EA2FDFE",
       "type": "return",
       "assertion": "restored connector icons automatically recover after the current runtime confirms them"
     }
@@ -289,13 +291,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/composer-capabilities.spec.ts",
-        "line_start": 843,
-        "line_end": 951,
-        "body_sha256": "sha256:9087170dffe82cfcb1d33df431f89be8db2f2a2de10cca48c783f7696e096adf",
-        "assertion_count": 24,
+        "line_start": 1014,
+        "line_end": 1126,
+        "body_sha256": "sha256:80c44361d0b63b0c7d4ff1803a48b0154c45ed4776da6d271273cdcd8e899a76",
+        "assertion_count": 26,
         "action_count": 17,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:6a35800ab5dff917d8c637254eb2a882d7887488452b9a164bd23761648fa7c7"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:325acba44377d5983bf1c8f1347e1c9d011cc16f24bcd580f6e3723fda710df1"
       }
     },
     "reference_run": {
@@ -317,7 +319,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-F72A7E85627472"
+      "REQ-15A24C6EA2FDFE"
     ],
     "categories": [
       "business"
@@ -325,7 +327,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-F72A7E85627472"
+      "requirement:REQ-15A24C6EA2FDFE"
     ]
   }
 }

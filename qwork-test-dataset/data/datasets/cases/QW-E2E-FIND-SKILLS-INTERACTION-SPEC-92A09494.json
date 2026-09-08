@@ -1,0 +1,226 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-FIND-SKILLS-INTERACTION-SPEC-92A09494",
+  "title": "find-skills blocks a P0 package without offering a confirmation bypass",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-find-skills-interaction-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/find-skills-interaction.spec.ts",
+      "locator": "line:119;test:find-skills blocks a P0 package without offering a confirmation bypass",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:92a09494434ebf79eacec2729773fc12ac4824aacfb228da174e13cb4ee21d1d",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-8B0950911D0C40",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-find-skills-interaction-spec-ts:L119:92a0949443"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "find-skills blocks a P0 package without offering a confirmation bypass",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-find-skills-interaction-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "find-skills blocks a P0 package without offering a confirmation bypass"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"__E2E_FIND_SKILLS_P0_BLOCKED__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "process.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(launched.page.getByTestId(\"assistant-message\").last()).toContainText(\"已被安全检查阻断，无法安装\")",
+    "expect(launched.page.getByRole(\"region\", { name: \"需要你的确认\" })).toHaveCount(0)",
+    "expect(launched.page.getByTestId(\"skill-process-step\")).toContainText(\"安装并校验技能\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-8B0950911D0C40",
+      "type": "return",
+      "assertion": "find-skills blocks a P0 package without offering a confirmation bypass"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-find-skills-interaction-spec-ts.92a0949443",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/find-skills-interaction.spec.ts -g \"find-skills blocks a P0 package without offering a confirmation bypass\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "composer.fill(\"__E2E_FIND_SKILLS_P0_BLOCKED__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "process.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/find-skills-interaction.spec.ts",
+        "line_start": 119,
+        "line_end": 137,
+        "body_sha256": "sha256:1786ef3cf20d6fbaaffb6d9556cc63ac03442544d82d00e96a4061453d3faa0a",
+        "assertion_count": 3,
+        "action_count": 3,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:b994eb667391a9837dc07e08389d232d3e39bbb3d806d507038c61c57c66ec47"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-8B0950911D0C40"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-8B0950911D0C40"
+    ]
+  }
+}

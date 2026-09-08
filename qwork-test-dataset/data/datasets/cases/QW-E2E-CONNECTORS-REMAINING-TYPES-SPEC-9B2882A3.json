@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-remaining-types.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-remaining-types.spec.ts",
       "locator": "line:614;test:connects the header-identified FBS MCP without starting OAuth",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:9b2882a3db7ebaebd116ae084d95a33a966664aa4b4730b377c0ab513f96eeea",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"福帮手，未连接\" }).click()"
     },
     {
@@ -82,6 +88,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByLabel(\"搜索连接器\")).toBeVisible()",
     "expect(dialog.getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible()",
     "expect(upsert?.server).toMatchObject({ name: \"fbs-connector\", transport: \"http\", url: \"https://api2.u3w.com/fbs-mcp/mcp\", static_headers: { \"X-FBS-Connector-Source\": \"fbs-connector\", \"X-FBS-Connector-Version\": \"1.2.9\", \"X-FBS-Connector-Package-Version\": \"26.7.2\", \"X-FBS-Expert-Id\": \"fbsir-super-partner-group\", \"X-FBS-Expert-Version\": \"1.3.0\", \"X-Request-Source\": \"workbuddy\", }, })"
   ],
@@ -153,6 +160,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"福帮手，未连接\" }).click()"
         },
         {
@@ -180,9 +193,9 @@
         "line_start": 614,
         "line_end": 640,
         "body_sha256": "sha256:474f347eb91e4cb130bf86da9b3b708368839cea0de1b416a89943d8b1d278b2",
-        "assertion_count": 2,
-        "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 3,
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:44edade7183524ded01be4499a9cdadc6e387aea7eebcc674767718eec3e2e3e"
       }
     },

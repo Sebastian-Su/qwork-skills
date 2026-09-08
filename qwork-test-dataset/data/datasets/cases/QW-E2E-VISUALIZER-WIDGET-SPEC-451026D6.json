@@ -1,0 +1,243 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-VISUALIZER-WIDGET-SPEC-451026D6",
+  "title": "injects the research-aware visualizer policy into Electron sessions",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-visualizer-widget-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/visualizer-widget.spec.ts",
+      "locator": "line:25;test:injects the research-aware visualizer policy into Electron sessions",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:451026d6d10aa75da998578b5abaf45f5eab0ef496e4c95c0c1648026b0993ca",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-8A2281E46DC215",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-visualizer-widget-spec-ts:L25:451026d6d1"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "injects the research-aware visualizer policy into Electron sessions",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-visualizer-widget-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "injects the research-aware visualizer policy into Electron sessions"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"__E2E_VISUALIZER_SVG__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect .poll(async () => (await readCreateSessions(controlLog)).length) .toBeGreaterThanOrEqual(1)",
+    "expect(created?.host_instructions?.[1]).toContain( \"# QWork report deliverable priority\", )",
+    "expect(created?.host_instructions?.[1]).toMatch( /report-style deliverable.*no output format.*self-contained HTML file/s, )",
+    "expect(created?.host_instructions?.[1]).toContain( \"must not be the sole final result of a report-style request\", )",
+    "expect(created?.host_instructions).toHaveLength(5)",
+    "expect(created?.host_instructions?.[0]).toContain(\"# Response language\")",
+    "expect(created?.host_instructions?.[0]).toContain( \"application language is Simplified Chinese\", )",
+    "expect(created?.host_instructions?.[1]).toContain( \"mcp__qwork-visualizer__read_me\", )",
+    "expect(created?.host_instructions?.[1]).toContain( \"mcp__qwork-visualizer__show_widget\", )",
+    "expect(created?.host_instructions?.[1]).toContain( \"3 or more meaningful stages\", )",
+    "expect(created?.host_instructions?.[1]).toContain( \"After any search, browsing, document-reading, or data-retrieval tool returns\", )",
+    "expect(created?.host_instructions?.[1]).toContain( \"3 or more meaningful dated milestones\", )",
+    "expect(task).toContain(\"The first tool call for an image edit must load that Skill\")",
+    "expect(task).toContain(\"A plain background color change does not require semantic interpretation\")",
+    "expect(task).toContain(\"deliver the actual output after the processor succeeds and its output checks pass\")",
+    "expect(task).toContain(\"Do not claim a visual review was performed\")",
+    "expect(task).toContain(\"processor fails or reports unsupported input\")",
+    "expect(policies).toHaveLength(1)",
+    "expect(policies?.[0]).toMatch(/plan.*script.*storyboard/is)",
+    "expect(policies?.[0]).toMatch(/one editable document/is)",
+    "expect(policies?.[0]).toMatch(/explicitly requests.*playable video/is)",
+    "expect(policies).toHaveLength(1)",
+    "expect(policies?.[0]).toMatch(/one deliverable.*do not create or update a todo list/is)",
+    "expect(policies?.[0]).toMatch(/multiple independent deliverables.*uncertain steps/is)",
+    "expect(policies?.[0]).toMatch(/single file remains one deliverable.*multiple sections/is)",
+    "expect(policies?.[0]).toMatch(/call the file-creation tool directly/is)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-8A2281E46DC215",
+      "type": "return",
+      "assertion": "injects the research-aware visualizer policy into Electron sessions"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-visualizer-widget-spec-ts.451026d6d1",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/visualizer-widget.spec.ts -g \"injects the research-aware visualizer policy into Electron sessions\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "composer.fill(\"__E2E_VISUALIZER_SVG__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/visualizer-widget.spec.ts",
+        "line_start": 25,
+        "line_end": 51,
+        "body_sha256": "sha256:775b7cebfee014ef91b569b274c0304af9f34b0f0dfef91d9a1d874924b5c57b",
+        "assertion_count": 26,
+        "action_count": 2,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:403fa7613a58fbc05274138b578d7a089b5ea8ad62e149ce6751e8eb85983e37"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-8A2281E46DC215"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-8A2281E46DC215"
+    ]
+  }
+}

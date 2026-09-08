@@ -22,12 +22,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/expert-concurrency.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/expert-concurrency.spec.ts",
       "locator": "line:22;test:collective session receives the configured effective parallelism",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:35cc25de91d42e41b8e5d47fd6d23e54d01f347f08d7e160f9a48672107401b1",
       "redaction_status": "minimized"
     },
@@ -36,12 +36,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/expert-team-v1-spec.md",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/expert-team-v1-spec.md",
       "locator": "line:188;heading:6.2 并发",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:599ea623f01872cac2947276e3767bf6c95c8c9ba21cae213a360f465f835c3f",
       "redaction_status": "minimized"
     }
@@ -102,10 +102,10 @@
   ],
   "verification": {
     "last_outcome": "pending",
-    "environment_scope": "isolated Electron fixture",
-    "implementation_revision": null,
-    "last_verified_at": null,
-    "status_reason": "generated baseline has not completed its reference run"
+    "environment_scope": "stale deterministic public Playwright reference run",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+    "last_verified_at": "2026-09-04T12:45:46.507426+00:00",
+    "status_reason": "public Playwright reference expert-team-workbuddy-parity-dbff462c-v26 does not match current implementation/source contract; rerun this exact Case"
   },
   "preconditions": {
     "repository": "qwork",
@@ -142,7 +142,7 @@
     "expect(settings).toBeVisible()",
     "expect .poll(() => page.evaluate( async () => (await window.workGui.settings.get()).agent.teamConcurrencyLimit, ), ) .toBe(3)",
     "expect(page.getByRole(\"navigation\", { name: \"专家团成员\" })).toHaveCount(0)",
-    "expect( page.getByRole(\"button\", { name: /游戏开发工作室.*负责人/ }), ).toBeVisible()",
+    "expect( page.getByRole(\"button\", { name: /游戏开发工作室.*游承峰/ }), ).toBeVisible()",
     "expect .poll(() => readControlLog(controlLog)) .toContain('effective_parallelism=\\\\\"3\\\\\"')",
     "expect .poll(async () => { const controls = await readControlLog(controlLog); return controls .split(\"\\n\") .filter(Boolean) .map((line) => JSON.parse(line) as Record<string, unknown>) .find((message) => message.type === \"create_session\") ?.subagent_concurrency_limit; }) .toBe(3)"
   ],
@@ -267,18 +267,18 @@
         "spec": "e2e/expert-concurrency.spec.ts",
         "line_start": 22,
         "line_end": 79,
-        "body_sha256": "sha256:2c36eff1813e609cb2a8c692041804fdec75c83d12b3afc27707eb82a3c9167c",
+        "body_sha256": "sha256:06fe4999f85a9d3d52ec6619abe541c9bd3add4c94833ff288359179d142359b",
         "assertion_count": 7,
         "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:caced46b330431c2eb8d396f389a9baffd0f96d78dd10ea18f8d1a885b9ce6e4"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:7b40f188c91e696c47dc74c29f211269a7034abaf73478e112d97750557aa1c9"
       }
     },
     "reference_run": {
       "status": "pending",
-      "run_id": null,
-      "verified_at": null,
-      "environment": "not yet independently replayed"
+      "run_id": "expert-team-workbuddy-parity-dbff462c-v26",
+      "verified_at": "2026-09-04T12:45:46.507426+00:00",
+      "environment": "stale deterministic public Playwright reference run"
     },
     "cleanup": {
       "actions": [
@@ -288,8 +288,7 @@
       "success_oracle": "no case-owned process or temporary state remains"
     },
     "blockers": [
-      "reference run pending",
-      "case-level screenshot checkpoint audit pending"
+      "public Playwright reference expert-team-workbuddy-parity-dbff462c-v26 does not match current implementation/source contract; rerun this exact Case"
     ]
   },
   "selection": {

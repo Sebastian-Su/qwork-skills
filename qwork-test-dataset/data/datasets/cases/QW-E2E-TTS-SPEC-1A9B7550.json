@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/tts.spec.ts",
-      "locator": "line:7;test:reads an assistant reply through cloud PCM and falls back before first audio",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/tts.spec.ts",
+      "locator": "line:10;test:reads an assistant reply through cloud PCM and falls back before first audio",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:1a9b7550b17e1bf8ccfc136d819c8c8ba95aa921c10ffa43e4a20f8c5a9be9d9",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-BF5C3778EB6592",
+      "requirement_id": "REQ-68B533B10D4271",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-tts-spec-ts:L7:1a9b7550b1"
+        "QDEV-E2E-e2e-tts-spec-ts:L10:1a9b7550b1"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,16 +75,25 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "composer.getByRole(\"textbox\").fill(prompt)"
+      "action": "server.close((error) => error ? reject(error) : resolve())"
     },
     {
-      "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+      "action": "page.getByTestId(\"task-row-tts-history\").click()"
+    },
+    {
+      "action": "user.hover()"
     },
     {
       "action": "message.getByRole(\"button\", { name: \"朗读\", exact: true }).click()"
     },
     {
       "action": "message.getByRole(\"button\", { name: \"朗读\", exact: true }).click()"
+    },
+    {
+      "action": "user.hover()"
+    },
+    {
+      "action": "stop.hover()"
     },
     {
       "action": "message.getByRole(\"button\", { name: \"停止朗读\", exact: true }).click()"
@@ -98,12 +107,22 @@
   ],
   "expected_outcomes": [
     "expect(message).toContainText(\"收到：TTS 原文 不处理 https://example.com\")",
+    "expect(user.locator(\"time\")).toHaveText(\"8月14日 08:12\")",
+    "expect(user.locator(\"time\")).toBeVisible()",
     "expect(message.getByRole(\"button\", { name: \"停止朗读\", exact: true })).toHaveAttribute(\"aria-pressed\", \"true\")",
-    "expect(message.getByRole(\"status\")).toHaveText(\"朗读完成\", { timeout: 5_000 })",
+    "expect(message.getByRole(\"button\", {name: \"朗读\", exact: true})).toBeVisible({timeout:5000})",
+    "expect(message.getByRole(\"status\")).toHaveCount(0)",
     "expect(fake.texts).toEqual([`收到：${prompt.trimEnd()}`])",
-    "expect(message.getByRole(\"status\")).toHaveText(\"云端语音不可用，已切换系统朗读\")",
     "expect.poll(() => page.evaluate(() => (window as unknown as { __ttsFake: { spoken: string[] } }).__ttsFake.spoken)).toEqual([ `收到：${prompt.trimEnd()}`, ])",
-    "expect(message.getByRole(\"status\")).toHaveText(\"已停止朗读\")",
+    "expect(message.getByRole(\"status\")).toHaveCount(0)",
+    "expect(stop).toHaveCSS(\"background-color\", \"color(srgb 0.168627 0.827451 0.521569 / 0.1)\")",
+    "expect(stop).toHaveCSS(\"background-color\", \"color(srgb 0.168627 0.827451 0.521569 / 0.15)\")",
+    "expect(page.getByRole(\"tooltip\")).toHaveText(\"停止朗读\")",
+    "expect(stop.locator(\"svg\")).toHaveCSS(\"color\", \"rgb(43, 211, 133)\")",
+    "expect(message.getByRole(\"button\", { name: \"停止朗读\" }).locator('svg animate[dur=\"1.2s\"]')).toHaveCount(2)",
+    "expect(message.getByText(/云端语音.*不可用|已切换系统朗读/)).toHaveCount(0)",
+    "expect(message.getByRole(\"alert\")).toHaveCount(0)",
+    "expect(message.getByRole(\"status\")).toHaveCount(0)",
     "expect(message.getByRole(\"button\", { name: \"停止朗读\", exact: true })).toBeVisible()",
     "expect.poll(fake.wasCancelled).toBe(true)"
   ],
@@ -114,7 +133,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-BF5C3778EB6592",
+      "requirement_id": "REQ-68B533B10D4271",
       "type": "return",
       "assertion": "reads an assistant reply through cloud PCM and falls back before first audio"
     }
@@ -175,16 +194,25 @@
       "entrypoint": "assistant",
       "steps": [
         {
-          "action": "composer.getByRole(\"textbox\").fill(prompt)"
+          "action": "server.close((error) => error ? reject(error) : resolve())"
         },
         {
-          "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+          "action": "page.getByTestId(\"task-row-tts-history\").click()"
+        },
+        {
+          "action": "user.hover()"
         },
         {
           "action": "message.getByRole(\"button\", { name: \"朗读\", exact: true }).click()"
         },
         {
           "action": "message.getByRole(\"button\", { name: \"朗读\", exact: true }).click()"
+        },
+        {
+          "action": "user.hover()"
+        },
+        {
+          "action": "stop.hover()"
         },
         {
           "action": "message.getByRole(\"button\", { name: \"停止朗读\", exact: true }).click()"
@@ -214,13 +242,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/tts.spec.ts",
-        "line_start": 7,
-        "line_end": 44,
-        "body_sha256": "sha256:3fc4e0af3cb0a5a6d735dfa0f40ef69137f829e2b492b1b06957d2615279e5a5",
-        "assertion_count": 9,
-        "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:c4fc07cdf51e8fec2b0a8663c2ccc5e485cb342330a919f106a2c35532e33ae6"
+        "line_start": 10,
+        "line_end": 76,
+        "body_sha256": "sha256:79b630bb7b9ac69e2b85ed39b9e9d21e245531ade13b8e13f8d837145a1c0b97",
+        "assertion_count": 19,
+        "action_count": 10,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:f992a7ff3cb936e61c03ed9c79958c8136b31cd78823615562dd0f5475e35751"
       }
     },
     "reference_run": {
@@ -242,7 +270,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-BF5C3778EB6592"
+      "REQ-68B533B10D4271"
     ],
     "categories": [
       "business"
@@ -250,7 +278,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-BF5C3778EB6592"
+      "requirement:REQ-68B533B10D4271"
     ]
   }
 }

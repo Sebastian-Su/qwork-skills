@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-cli-browser-login.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-cli-browser-login.spec.ts",
       "locator": "line:44;test:restores browser-authenticated provider CLIs after one transient startup probe without reopening login",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:47970ddf6e1d54a9193df72437b3bda2c0de2bb6e78e445ae95c2caa11d151f8",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "launched.page .getByRole(\"button\", { name: `${name}，未连接`, exact: true }) .click()"
     },
     {
@@ -91,6 +97,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect( page.getByRole(\"searchbox\", { name: \"搜索连接器\" }), ).toBeVisible()",
     "expect( dialog.getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible()",
     "expect .poll(() => readLines(qworkAuthSink)) .toEqual([ expect.stringMatching(/^https:\\/\\/login\\.dingtalk\\.com\\//), \"https://garden.zsxq.com/jasmine/index.html?code=FRESH-1234\", \"https://user.lovrabet.com/device-auth?code=LOVRABET-1234&source=lovrabet-cli\", \"https://tcb.cloud.tencent.com/login?ticket=QWORK-CLOUDBASE\", ])",
     "expect(readLines(providerBrowserSink)).resolves.toEqual([])",
@@ -178,6 +185,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "launched.page .getByRole(\"button\", { name: `${name}，未连接`, exact: true }) .click()"
         },
         {
@@ -214,9 +227,9 @@
         "line_start": 44,
         "line_end": 499,
         "body_sha256": "sha256:9ce250e108d19a94b5cc71122c8bb902e07fd2ffc5cb905aa325fe99c0208d2a",
-        "assertion_count": 18,
-        "action_count": 5,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 19,
+        "action_count": 7,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:d1097d0277cb569fb101fc8c89281a636f81b1bca2129a5ae78b219b1596c3dc"
       }
     },

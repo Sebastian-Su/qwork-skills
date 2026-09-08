@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-tc-chengxin-gateway.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-tc-chengxin-gateway.spec.ts",
       "locator": "line:290;test:uses Tongcheng's fixed HTTPS gateway callback and restores the adapter without reopening login",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:94e82a59eb92ff348ec4c778499420437a0ca3726b0dcd5c9bf6df7074bf1132",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,18 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "server.close((error) => (error ? reject(error) : resolve()))"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
+      "action": "search.fill(\"同程程心\")"
+    },
+    {
       "action": "page .getByRole(\"button\", { name: \"同程程心，未连接\", exact: true }) .click()"
     },
     {
@@ -100,6 +112,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(search).toBeVisible()",
     "expect.poll(async () => readLines(authUrlSink)).toHaveLength(1)",
     "expect(authorize.origin).toBe(\"https://m.ly.com\")",
     "expect(authorize.pathname).toBe(\"/memberauth/oauth2/authorize\")",
@@ -201,6 +214,18 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "server.close((error) => (error ? reject(error) : resolve()))"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
+          "action": "search.fill(\"同程程心\")"
+        },
+        {
           "action": "page .getByRole(\"button\", { name: \"同程程心，未连接\", exact: true }) .click()"
         },
         {
@@ -246,9 +271,9 @@
         "line_start": 290,
         "line_end": 464,
         "body_sha256": "sha256:3b010393e4cfc547e29f82c12e9f10a216c80ff6c2f476444c632fed48cab843",
-        "assertion_count": 32,
-        "action_count": 8,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 33,
+        "action_count": 12,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:fe8e093f7b60f5890dd4917881675bf2a26f9b562c82e5e81288c2b97ce14bdc"
       }
     },

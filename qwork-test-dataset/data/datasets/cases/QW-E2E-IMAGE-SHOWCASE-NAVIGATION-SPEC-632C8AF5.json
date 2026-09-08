@@ -1,0 +1,274 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-IMAGE-SHOWCASE-NAVIGATION-SPEC-632C8AF5",
+  "title": "汇总页全部九图分组可达，点击原图不触发被禁止的下载且关闭后保留位置",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-image-showcase-navigation-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/image-showcase-navigation.spec.ts",
+      "locator": "line:7;test:汇总页全部九图分组可达，点击原图不触发被禁止的下载且关闭后保留位置",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:632c8af57cbf573fed1ad3cd6a73157459208c3f5c7f45999a6df8d43c918850",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-5E7050CEDF0790",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-image-showcase-navigation-spec-ts:L7:632c8af57c"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "汇总页全部九图分组可达，点击原图不触发被禁止的下载且关闭后保留位置",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-image-showcase-navigation-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "汇总页全部九图分组可达，点击原图不触发被禁止的下载且关闭后保留位置"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_USER_DELIVERY__:showcase.html\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "last.click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"关闭原图\" }).click()"
+    },
+    {
+      "action": "last.click()"
+    },
+    {
+      "action": "preview.keyboard.press(\"Escape\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByLabel(\"动态网页预览 showcase.html\")).toBeVisible()",
+    "expect.poll(() => app!.context().pages().filter(p => p.url().startsWith(\"qwork-artifact-preview://\")).length).toBe(1)",
+    "expect(preview.getByRole(\"region\", { name: title }).getByRole(\"figure\")).toHaveCount(3)",
+    "expect(preview.getByRole(\"region\", { name: \"融合字形\" })).toContainText(\"JPG · 80 × 60\")",
+    "expect(preview.getByRole(\"button\", { name: /^查看原图/ })).toHaveCount(9)",
+    "expect(dialog).toBeVisible()",
+    "expect(dialog.getByText(\"80 × 60\", { exact: false })).toBeVisible()",
+    "expect.poll(() => dialog.getByRole(\"img\", { name: \"方案8\", exact: true }).evaluate((el: HTMLImageElement) => ({ width: el.naturalWidth, height: el.naturalHeight, source: el.src }))).toMatchObject({ width: 80, height: 60 })",
+    "expect(dialog.getByRole(\"img\")).toHaveAttribute(\"src\", thumbSource!)",
+    "expect(dialog).not.toBeVisible()",
+    "expect(last).toBeFocused()",
+    "expect(await preview.evaluate(() => window.scrollY)).toBeCloseTo(scroll, 0)",
+    "expect(dialog).not.toBeVisible()",
+    "expect(last).toBeFocused()",
+    "expect(page.getByLabel(\"动态网页预览 showcase.html\")).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-5E7050CEDF0790",
+      "type": "ui",
+      "assertion": "汇总页全部九图分组可达，点击原图不触发被禁止的下载且关闭后保留位置"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-image-showcase-navigation-spec-ts.632c8af57c",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/image-showcase-navigation.spec.ts -g \"汇总页全部九图分组可达，点击原图不触发被禁止的下载且关闭后保留位置\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_USER_DELIVERY__:showcase.html\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "last.click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"关闭原图\" }).click()"
+        },
+        {
+          "action": "last.click()"
+        },
+        {
+          "action": "preview.keyboard.press(\"Escape\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/image-showcase-navigation.spec.ts",
+        "line_start": 7,
+        "line_end": 61,
+        "body_sha256": "sha256:c02afc1d42113a591611e8720210a0ff1075b6ae4c935da1c8ceefef06024e96",
+        "assertion_count": 15,
+        "action_count": 9,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:fda6a8df965d7ff005ad9f02cbb52ac58493e87c5abf02ec75c757ee34216cd5"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-5E7050CEDF0790"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-5E7050CEDF0790"
+    ]
+  }
+}

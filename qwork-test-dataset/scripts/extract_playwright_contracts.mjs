@@ -12,6 +12,20 @@ process.stdin.setEncoding("utf8");
 for await (const chunk of process.stdin) input += chunk;
 const source = ts.createSourceFile(path, input, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
 const results = [];
+const localFunctions = new Map();
+
+function collectLocalFunctions(node) {
+  if (ts.isFunctionDeclaration(node) && node.name && node.body) {
+    localFunctions.set(node.name.text, node.body);
+  } else if (ts.isVariableDeclaration(node)
+    && ts.isIdentifier(node.name)
+    && node.initializer
+    && (ts.isArrowFunction(node.initializer) || ts.isFunctionExpression(node.initializer))) {
+    localFunctions.set(node.name.text, node.initializer.body);
+  }
+  ts.forEachChild(node, collectLocalFunctions);
+}
+collectLocalFunctions(source);
 
 function calleeParts(expression) {
   const parts = [];
@@ -38,6 +52,25 @@ function expandedTitles(node) {
   if (!node) return [];
   const literal = literalText(node);
   if (literal !== null) return [literal];
+  if (ts.isConditionalExpression(node) && ts.isIdentifier(node.condition)) {
+    let loop = node.parent;
+    while (loop && !ts.isForOfStatement(loop)) loop = loop.parent;
+    if (!loop || !ts.isVariableDeclarationList(loop.initializer)) return [];
+    const declaration = loop.initializer.declarations[0];
+    if (!declaration || !ts.isIdentifier(declaration.name)
+      || declaration.name.text !== node.condition.text) return [];
+    let values = loop.expression;
+    while (ts.isAsExpression(values) || ts.isParenthesizedExpression(values)) values = values.expression;
+    if (!ts.isArrayLiteralExpression(values)) return [];
+    const titles = [];
+    for (const value of values.elements) {
+      if (value.kind !== ts.SyntaxKind.TrueKeyword && value.kind !== ts.SyntaxKind.FalseKeyword) return [];
+      const title = literalText(value.kind === ts.SyntaxKind.TrueKeyword ? node.whenTrue : node.whenFalse);
+      if (title === null) return [];
+      titles.push(title);
+    }
+    return titles;
+  }
   if (!ts.isTemplateExpression(node)) return [];
   const variables = new Set();
   for (const span of node.templateSpans) {
@@ -97,6 +130,7 @@ function contractFor(node, kind) {
   const callback = node.arguments.find((arg, index) => index > 0 && (ts.isArrowFunction(arg) || ts.isFunctionExpression(arg)));
   if (!callback) return [];
   const events = [];
+  const visitedHelpers = new Set();
   function visitBody(candidate) {
     if (ts.isCallExpression(candidate)) {
       const eventKind = classifyCall(candidate);
@@ -104,6 +138,14 @@ function contractFor(node, kind) {
         const position = source.getLineAndCharacterOfPosition(candidate.getStart(source));
         events.push({kind: eventKind, line: position.line + 1, expression: compact(candidate)});
         if (eventKind === "action" || eventKind === "assertion") return;
+        if (ts.isIdentifier(candidate.expression)) {
+          const helperName = candidate.expression.text;
+          const helperBody = localFunctions.get(helperName);
+          if (helperBody && !visitedHelpers.has(helperName)) {
+            visitedHelpers.add(helperName);
+            visitBody(helperBody);
+          }
+        }
       }
     }
     ts.forEachChild(candidate, visitBody);

@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:176;heading:隐私、基数和可靠性",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:335;heading:隐私、基数和可靠性",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:0276ccc5925c1311ee1451f3175a875d6cfdd0e109a3ffc5b3c7319d577c8a84",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-40122ED0DD844A",
+      "requirement_id": "REQ-4FA717B6959C86",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L176:0276ccc592"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L335:0276ccc592"
       ],
       "content_facets": [
         "negative-rule"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 隐私、基数和可靠性 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-40122ED0DD844A] exactly: `tool_name/provider/model_family/route/error_category` 使用闭集或归一化；路径、URL、动态错误文本不能成为索引字段。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-4FA717B6959C86] exactly: `tool_name/provider/model_family/route/error_category` 使用闭集或归一化；路径、URL、动态错误文本不能成为索引字段。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "`tool_name/provider/model_family/route/error_category` 使用闭集或归一化；路径、URL、动态错误文本不能成为索引字段。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-40122ED0DD844A]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `tool_name/provider/model_family/route/error_category` 使用闭集或归一化；路径、URL、动态错误文本不能成为索引字段。",
+    "FAIL [REQ-4FA717B6959C86]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `tool_name/provider/model_family/route/error_category` 使用闭集或归一化；路径、URL、动态错误文本不能成为索引字段。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-40122ED0DD844A",
+      "requirement_id": "REQ-4FA717B6959C86",
       "type": "return",
       "assertion": "`tool_name/provider/model_family/route/error_category` 使用闭集或归一化；路径、URL、动态错误文本不能成为索引字段。"
     }
@@ -157,7 +157,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 隐私、基数和可靠性 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-40122ED0DD844A] exactly: `tool_name/provider/model_family/route/error_category` 使用闭集或归一化；路径、URL、动态错误文本不能成为索引字段。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-4FA717B6959C86] exactly: `tool_name/provider/model_family/route/error_category` 使用闭集或归一化；路径、URL、动态错误文本不能成为索引字段。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -200,7 +200,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-40122ED0DD844A"
+      "REQ-4FA717B6959C86"
     ],
     "categories": [
       "negative"
@@ -208,12 +208,12 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-40122ED0DD844A"
+      "requirement:REQ-4FA717B6959C86"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-40122ED0DD844A",
+      "requirement_id": "REQ-4FA717B6959C86",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 隐私、基数和可靠性 产品契约 exactly once and retain its correlation identity",

@@ -1,0 +1,827 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-MODEL-ST-05-ACK-6A06F30F",
+  "title": "docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 05 — 完成跨重启 ACK、回放过期和容量边界 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:106;heading:05 — 完成跨重启 ACK、回放过期和容量边界",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:d0868eaa81db49aa602c2703552c0cd89fd1bc71a823a5901ff8bd6377ba53c2",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:108;heading:05 — 完成跨重启 ACK、回放过期和容量边界",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:b87fd63a82cf3b84b0a36832d891052f9ae2de548a507ef833644f4250eab279",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:110;heading:05 — 完成跨重启 ACK、回放过期和容量边界",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:5af53f503e6f7154701003b916c7932ca048e7f627b45d4fb643191f313d8c3c",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:112;heading:05 — 完成跨重启 ACK、回放过期和容量边界",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:782e7c73e3fe0bf23a9adf83ab3eba5f0422e9e3c4d64ae9675799fd89a3efbe",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:113;heading:05 — 完成跨重启 ACK、回放过期和容量边界",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:bb06c8714c12fe958e21236e1f6b83bbf15323aa6e318f73685e08968b48af34",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:115;heading:05 — 完成跨重启 ACK、回放过期和容量边界",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:c237ce9e1bfe0d162638cc85d1e1f87511d81e07d3cf99b098b90248cbb4dfc3",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:116;heading:05 — 完成跨重启 ACK、回放过期和容量边界",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:b4f39dd250f37de11593a94d4c01aae1e0e82923b2ec2a10f7aa139e592cb2b9",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:117;heading:05 — 完成跨重启 ACK、回放过期和容量边界",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:369822b25369cc3692bb97fbc1c93904775a6e7ab57734ad81e1128795e0620e",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:118;heading:05 — 完成跨重启 ACK、回放过期和容量边界",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:921b61ed2395d11d7688d6a160b624d814f196ae4a159e4b40e4781fc3143e42",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:119;heading:05 — 完成跨重启 ACK、回放过期和容量边界",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:f9dca920785414d0fa738b0e0384a14aad0e393a5a58db4ea516a3f79b819bd9",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-651B84944A0482",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L106:d0868eaa81"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "**What to build:** 已经本地落地的答案不等待 ACK 即可正常展示；ACK 在后台幂等重试，并可跨应用重启继续。应用在回放窗口内恢复时取得原结果，窗口过期后不自动创建付费调用。普通响应、流式累计和回放正文共同执行 16 MiB 上限。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**What to build:** 已经本地落地的答案不等待 ACK 即可正常展示；ACK 在后台幂等重试，并可跨应用重启继续。应用在回放窗口内恢复时取得原结果，窗口过期后不自动创建付费调用。普通响应、流式累计和回放正文共同执行 16 MiB 上限。"
+    },
+    {
+      "requirement_id": "REQ-19575C3ABC4CD4",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L108:b87fd63a82"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "**Blocked by:** 02 — 跑通托管文本响应的断线回放。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**Blocked by:** 02 — 跑通托管文本响应的断线回放。"
+    },
+    {
+      "requirement_id": "REQ-FF4F4C31C8545C",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L110:5af53f503e"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "**Status:** implemented-local",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**Status:** implemented-local"
+    },
+    {
+      "requirement_id": "REQ-2AEDC1409539AF",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L112:782e7c73e3"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 本地持久化成功但 ACK 暂时失败时，答案保持完整可见，任务不改判失败，也不产生模型调用。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 本地持久化成功但 ACK 暂时失败时，答案保持完整可见，任务不改判失败，也不产生模型调用。"
+    },
+    {
+      "requirement_id": "REQ-16F8D9D151C801",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L113:bb06c8714c"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 应用重启后能够从会话 JSONL 恢复 ACK pending 状态；ACK 完成后写入完成记录且只结算一次。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 应用重启后能够从会话 JSONL 恢复 ACK pending 状态；ACK 完成后写入完成记录且只结算一次。"
+    },
+    {
+      "requirement_id": "REQ-A08F6F7CDE3BD4",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L115:c237ce9e1b"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 未确认结果超过一小时后，服务端删除回放正文且不扣用户 Credits，只保留无正文审计信息。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 未确认结果超过一小时后，服务端删除回放正文且不扣用户 Credits，只保留无正文审计信息。"
+    },
+    {
+      "requirement_id": "REQ-99A70CC2A25A08",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L116:b4f39dd250"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 回放过期时，QWork 明确显示本次未扣费；只有用户手工重试才创建新逻辑调用和新预算。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 回放过期时，QWork 明确显示本次未扣费；只有用户手工重试才创建新逻辑调用和新预算。"
+    },
+    {
+      "requirement_id": "REQ-4EA59A0AD40547",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L117:369822b253"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 响应恰好达到 16 MiB 时仍可完成可靠交付、ACK 和结算。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 响应恰好达到 16 MiB 时仍可完成可靠交付、ACK 和结算。"
+    },
+    {
+      "requirement_id": "REQ-C6C7148629D2AA",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L118:921b61ed23"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 响应超过 16 MiB 时撤下未提交正文，确定性失败，不重试、不降级、不结算用户 Credits。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 响应超过 16 MiB 时撤下未提交正文，确定性失败，不重试、不降级、不结算用户 Credits。"
+    },
+    {
+      "requirement_id": "REQ-E1D69DC5B360A4",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L119:f9dca92078"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] ACK、过期清理和容量失败均有事务回滚与并发测试，不能产生重复结算或遗留可读正文。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] ACK、过期清理和容量失败均有事务回滚与并发测试，不能产生重复结算或遗留可读正文。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 05 — 完成跨重启 ACK、回放过期和容量边界 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-651B84944A0482] exactly: **What to build:** 已经本地落地的答案不等待 ACK 即可正常展示；ACK 在后台幂等重试，并可跨应用重启继续。应用在回放窗口内恢复时取得原结果，窗口过期后不自动创建付费调用。普通响应、流式累计和回放正文共同执行 16 MiB 上限。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-19575C3ABC4CD4] exactly: **Blocked by:** 02 — 跑通托管文本响应的断线回放。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-FF4F4C31C8545C] exactly: **Status:** implemented-local"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-2AEDC1409539AF] exactly: [ ] 本地持久化成功但 ACK 暂时失败时，答案保持完整可见，任务不改判失败，也不产生模型调用。"
+    },
+    {
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-16F8D9D151C801] exactly: [ ] 应用重启后能够从会话 JSONL 恢复 ACK pending 状态；ACK 完成后写入完成记录且只结算一次。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-A08F6F7CDE3BD4] exactly: [ ] 未确认结果超过一小时后，服务端删除回放正文且不扣用户 Credits，只保留无正文审计信息。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-99A70CC2A25A08] exactly: [ ] 回放过期时，QWork 明确显示本次未扣费；只有用户手工重试才创建新逻辑调用和新预算。"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-4EA59A0AD40547] exactly: [ ] 响应恰好达到 16 MiB 时仍可完成可靠交付、ACK 和结算。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-C6C7148629D2AA] exactly: [ ] 响应超过 16 MiB 时撤下未提交正文，确定性失败，不重试、不降级、不结算用户 Credits。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-E1D69DC5B360A4] exactly: [ ] ACK、过期清理和容量失败均有事务回滚与并发测试，不能产生重复结算或遗留可读正文。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "**What to build:** 已经本地落地的答案不等待 ACK 即可正常展示；ACK 在后台幂等重试，并可跨应用重启继续。应用在回放窗口内恢复时取得原结果，窗口过期后不自动创建付费调用。普通响应、流式累计和回放正文共同执行 16 MiB 上限。",
+    "**Blocked by:** 02 — 跑通托管文本响应的断线回放。",
+    "**Status:** implemented-local",
+    "[ ] 本地持久化成功但 ACK 暂时失败时，答案保持完整可见，任务不改判失败，也不产生模型调用。",
+    "[ ] 应用重启后能够从会话 JSONL 恢复 ACK pending 状态；ACK 完成后写入完成记录且只结算一次。",
+    "[ ] 未确认结果超过一小时后，服务端删除回放正文且不扣用户 Credits，只保留无正文审计信息。",
+    "[ ] 回放过期时，QWork 明确显示本次未扣费；只有用户手工重试才创建新逻辑调用和新预算。",
+    "[ ] 响应恰好达到 16 MiB 时仍可完成可靠交付、ACK 和结算。",
+    "[ ] 响应超过 16 MiB 时撤下未提交正文，确定性失败，不重试、不降级、不结算用户 Credits。",
+    "[ ] ACK、过期清理和容量失败均有事务回滚与并发测试，不能产生重复结算或遗留可读正文。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-651B84944A0482]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **What to build:** 已经本地落地的答案不等待 ACK 即可正常展示；ACK 在后台幂等重试，并可跨应用重启继续。应用在回放窗口内恢复时取得原结果，窗口过期后不自动创建付费调用。普通响应、流式累计和回放正文共同执行 16 MiB 上限。",
+    "FAIL [REQ-19575C3ABC4CD4]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **Blocked by:** 02 — 跑通托管文本响应的断线回放。",
+    "FAIL [REQ-FF4F4C31C8545C]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **Status:** implemented-local",
+    "FAIL [REQ-2AEDC1409539AF]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 本地持久化成功但 ACK 暂时失败时，答案保持完整可见，任务不改判失败，也不产生模型调用。",
+    "FAIL [REQ-16F8D9D151C801]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 应用重启后能够从会话 JSONL 恢复 ACK pending 状态；ACK 完成后写入完成记录且只结算一次。",
+    "FAIL [REQ-A08F6F7CDE3BD4]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 未确认结果超过一小时后，服务端删除回放正文且不扣用户 Credits，只保留无正文审计信息。",
+    "FAIL [REQ-99A70CC2A25A08]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 回放过期时，QWork 明确显示本次未扣费；只有用户手工重试才创建新逻辑调用和新预算。",
+    "FAIL [REQ-4EA59A0AD40547]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 响应恰好达到 16 MiB 时仍可完成可靠交付、ACK 和结算。",
+    "FAIL [REQ-C6C7148629D2AA]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 响应超过 16 MiB 时撤下未提交正文，确定性失败，不重试、不降级、不结算用户 Credits。",
+    "FAIL [REQ-E1D69DC5B360A4]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] ACK、过期清理和容量失败均有事务回滚与并发测试，不能产生重复结算或遗留可读正文。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-651B84944A0482",
+      "type": "event",
+      "assertion": "**What to build:** 已经本地落地的答案不等待 ACK 即可正常展示；ACK 在后台幂等重试，并可跨应用重启继续。应用在回放窗口内恢复时取得原结果，窗口过期后不自动创建付费调用。普通响应、流式累计和回放正文共同执行 16 MiB 上限。"
+    },
+    {
+      "requirement_id": "REQ-19575C3ABC4CD4",
+      "type": "return",
+      "assertion": "**Blocked by:** 02 — 跑通托管文本响应的断线回放。"
+    },
+    {
+      "requirement_id": "REQ-FF4F4C31C8545C",
+      "type": "return",
+      "assertion": "**Status:** implemented-local"
+    },
+    {
+      "requirement_id": "REQ-2AEDC1409539AF",
+      "type": "ui",
+      "assertion": "[ ] 本地持久化成功但 ACK 暂时失败时，答案保持完整可见，任务不改判失败，也不产生模型调用。"
+    },
+    {
+      "requirement_id": "REQ-16F8D9D151C801",
+      "type": "database",
+      "assertion": "[ ] 应用重启后能够从会话 JSONL 恢复 ACK pending 状态；ACK 完成后写入完成记录且只结算一次。"
+    },
+    {
+      "requirement_id": "REQ-A08F6F7CDE3BD4",
+      "type": "ui",
+      "assertion": "[ ] 未确认结果超过一小时后，服务端删除回放正文且不扣用户 Credits，只保留无正文审计信息。"
+    },
+    {
+      "requirement_id": "REQ-99A70CC2A25A08",
+      "type": "ui",
+      "assertion": "[ ] 回放过期时，QWork 明确显示本次未扣费；只有用户手工重试才创建新逻辑调用和新预算。"
+    },
+    {
+      "requirement_id": "REQ-4EA59A0AD40547",
+      "type": "event",
+      "assertion": "[ ] 响应恰好达到 16 MiB 时仍可完成可靠交付、ACK 和结算。"
+    },
+    {
+      "requirement_id": "REQ-C6C7148629D2AA",
+      "type": "ui",
+      "assertion": "[ ] 响应超过 16 MiB 时撤下未提交正文，确定性失败，不重试、不降级、不结算用户 Credits。"
+    },
+    {
+      "requirement_id": "REQ-E1D69DC5B360A4",
+      "type": "return",
+      "assertion": "[ ] ACK、过期清理和容量失败均有事务回滚与并发测试，不能产生重复结算或遗留可读正文。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-model-stre.05-ack-6a06f30fa0",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 05 — 完成跨重启 ACK、回放过期和容量边界 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-651B84944A0482] exactly: **What to build:** 已经本地落地的答案不等待 ACK 即可正常展示；ACK 在后台幂等重试，并可跨应用重启继续。应用在回放窗口内恢复时取得原结果，窗口过期后不自动创建付费调用。普通响应、流式累计和回放正文共同执行 16 MiB 上限。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-19575C3ABC4CD4] exactly: **Blocked by:** 02 — 跑通托管文本响应的断线回放。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-FF4F4C31C8545C] exactly: **Status:** implemented-local"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-2AEDC1409539AF] exactly: [ ] 本地持久化成功但 ACK 暂时失败时，答案保持完整可见，任务不改判失败，也不产生模型调用。"
+        },
+        {
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-16F8D9D151C801] exactly: [ ] 应用重启后能够从会话 JSONL 恢复 ACK pending 状态；ACK 完成后写入完成记录且只结算一次。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-A08F6F7CDE3BD4] exactly: [ ] 未确认结果超过一小时后，服务端删除回放正文且不扣用户 Credits，只保留无正文审计信息。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-99A70CC2A25A08] exactly: [ ] 回放过期时，QWork 明确显示本次未扣费；只有用户手工重试才创建新逻辑调用和新预算。"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-4EA59A0AD40547] exactly: [ ] 响应恰好达到 16 MiB 时仍可完成可靠交付、ACK 和结算。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-C6C7148629D2AA] exactly: [ ] 响应超过 16 MiB 时撤下未提交正文，确定性失败，不重试、不降级、不结算用户 Credits。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-E1D69DC5B360A4] exactly: [ ] ACK、过期清理和容量失败均有事务回滚与并发测试，不能产生重复结算或遗留可读正文。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-16F8D9D151C801",
+      "REQ-19575C3ABC4CD4",
+      "REQ-2AEDC1409539AF",
+      "REQ-4EA59A0AD40547",
+      "REQ-651B84944A0482",
+      "REQ-99A70CC2A25A08",
+      "REQ-A08F6F7CDE3BD4",
+      "REQ-C6C7148629D2AA",
+      "REQ-E1D69DC5B360A4",
+      "REQ-FF4F4C31C8545C"
+    ],
+    "categories": [
+      "business",
+      "data",
+      "negative",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:data",
+      "category:negative",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-16F8D9D151C801",
+      "requirement:REQ-19575C3ABC4CD4",
+      "requirement:REQ-2AEDC1409539AF",
+      "requirement:REQ-4EA59A0AD40547",
+      "requirement:REQ-651B84944A0482",
+      "requirement:REQ-99A70CC2A25A08",
+      "requirement:REQ-A08F6F7CDE3BD4",
+      "requirement:REQ-C6C7148629D2AA",
+      "requirement:REQ-E1D69DC5B360A4",
+      "requirement:REQ-FF4F4C31C8545C"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-651B84944A0482",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 05 — 完成跨重启 ACK、回放过期和容量边界 产品契约 exactly once and retain its correlation identity",
+      "then": "**What to build:** 已经本地落地的答案不等待 ACK 即可正常展示；ACK 在后台幂等重试，并可跨应用重启继续。应用在回放窗口内恢复时取得原结果，窗口过期后不自动创建付费调用。普通响应、流式累计和回放正文共同执行 16 MiB 上限。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-19575C3ABC4CD4",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 05 — 完成跨重启 ACK、回放过期和容量边界 产品契约 exactly once and retain its correlation identity",
+      "then": "**Blocked by:** 02 — 跑通托管文本响应的断线回放。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-FF4F4C31C8545C",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 05 — 完成跨重启 ACK、回放过期和容量边界 产品契约 exactly once and retain its correlation identity",
+      "then": "**Status:** implemented-local",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-2AEDC1409539AF",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 05 — 完成跨重启 ACK、回放过期和容量边界 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 本地持久化成功但 ACK 暂时失败时，答案保持完整可见，任务不改判失败，也不产生模型调用。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-16F8D9D151C801",
+      "oracle_type": "database",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 05 — 完成跨重启 ACK、回放过期和容量边界 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 应用重启后能够从会话 JSONL 恢复 ACK pending 状态；ACK 完成后写入完成记录且只结算一次。",
+      "observation_boundary": "case-owned durable database state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-A08F6F7CDE3BD4",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 05 — 完成跨重启 ACK、回放过期和容量边界 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 未确认结果超过一小时后，服务端删除回放正文且不扣用户 Credits，只保留无正文审计信息。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-99A70CC2A25A08",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 05 — 完成跨重启 ACK、回放过期和容量边界 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 回放过期时，QWork 明确显示本次未扣费；只有用户手工重试才创建新逻辑调用和新预算。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-4EA59A0AD40547",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 05 — 完成跨重启 ACK、回放过期和容量边界 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 响应恰好达到 16 MiB 时仍可完成可靠交付、ACK 和结算。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-C6C7148629D2AA",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 05 — 完成跨重启 ACK、回放过期和容量边界 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 响应超过 16 MiB 时撤下未提交正文，确定性失败，不重试、不降级、不结算用户 Credits。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-E1D69DC5B360A4",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 05 — 完成跨重启 ACK、回放过期和容量边界 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] ACK、过期清理和容量失败均有事务回滚与并发测试，不能产生重复结算或遗留可读正文。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

@@ -1,0 +1,303 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-CONVERSATION-SPEC-BFDDB7B5",
+  "title": "offers a WorkBuddy-style return to bottom control without stealing manual scroll",
+  "kind": "negative",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "assistant",
+    "journey": "assistant",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-conversation-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-conversation.spec.ts",
+      "locator": "line:462;test:offers a WorkBuddy-style return to bottom control without stealing manual scroll",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:bfddb7b565c73409650c846c9532221c58b4f03120b42a56ff04f616dff27559",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-56011FEA507CA3",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts:L462:bfddb7b565"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "assistant",
+      "priority": "P0",
+      "rule": "offers a WorkBuddy-style return to bottom control without stealing manual scroll",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "offers a WorkBuddy-style return to bottom control without stealing manual scroll"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_STREAM_FOLLOW_LATEST__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "viewport.hover()"
+    },
+    {
+      "action": "returnButton.click()"
+    },
+    {
+      "action": "viewport.hover()"
+    },
+    {
+      "action": "returnButton.press(\"Enter\")"
+    },
+    {
+      "action": "viewport.hover()"
+    },
+    {
+      "action": "returnButton.press(\"Space\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(/流式片段 2：/)).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"更多操作\" })).toBeVisible()",
+    "expect(page.getByText(/流式片段 5：/)).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"更多操作\" })).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"更多操作\" })).toBeHidden()",
+    "expect.poll(() => viewport.evaluate((node) => node.scrollHeight - node.scrollTop - node.clientHeight, )).toBeGreaterThan(80)",
+    "expect(page.getByText(/流式片段 10：/)).toBeVisible()",
+    "expect(await viewport.evaluate((node) => node.scrollTop)).toBe(manualTop)",
+    "expect(returnButton).toBeVisible()",
+    "expect(returnButton).toHaveAttribute(\"data-state\", \"streaming\")",
+    "expect(returnButton.locator('[data-testid=\"conversation-scroll-loading-dot\"]')).toHaveCount(3)",
+    "expect(streamingGeometry.button.width).toBe(32)",
+    "expect(streamingGeometry.button.height).toBe(32)",
+    "expect(Math.abs( streamingGeometry.button.x + streamingGeometry.button.width / 2 - (streamingGeometry.viewport.x + streamingGeometry.viewport.width / 2), )).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(streamingGeometry.viewport.bottom - streamingGeometry.button.bottom - 20)).toBeLessThanOrEqual(2)",
+    "expect(streamingGeometry.mask.height).toBe(72)",
+    "expect(streamingGeometry.mask.pointerEvents).toBe(\"none\")",
+    "expect(returnButton).toBeHidden()",
+    "expect(page.getByText(/流式片段 15：/)).toBeVisible()",
+    "expect.poll(() => viewport.evaluate((node) => node.scrollHeight - node.scrollTop - node.clientHeight, )).toBeLessThanOrEqual(80)",
+    "expect(page.getByText(/流式片段 18：/)).toBeVisible()",
+    "expect(returnButton).toBeVisible()",
+    "expect(returnButton).toHaveAttribute(\"data-state\", \"idle\")",
+    "expect(returnButton.locator('[data-testid=\"conversation-scroll-arrow\"]')).toHaveCount(1)",
+    "expect(page.locator(\"html\")).toHaveAttribute(\"data-theme\", \"dark\")",
+    "expect(compactGeometry.button.width).toBe(32)",
+    "expect(compactGeometry.button.height).toBe(32)",
+    "expect(Math.abs( compactGeometry.button.x + compactGeometry.button.width / 2 - (compactGeometry.viewport.x + compactGeometry.viewport.width / 2), )).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(compactGeometry.viewport.bottom - compactGeometry.button.bottom - 20)).toBeLessThanOrEqual(2)",
+    "expect(returnButton).toBeHidden()",
+    "expect(returnButton).toBeVisible()",
+    "expect(returnButton).toBeHidden()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-56011FEA507CA3",
+      "type": "return",
+      "assertion": "offers a WorkBuddy-style return to bottom control without stealing manual scroll"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-conversation-spec-ts.bfddb7b565",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-conversation.spec.ts -g \"offers a WorkBuddy-style return to bottom control without stealing manual scroll\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "assistant",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_STREAM_FOLLOW_LATEST__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "viewport.hover()"
+        },
+        {
+          "action": "returnButton.click()"
+        },
+        {
+          "action": "viewport.hover()"
+        },
+        {
+          "action": "returnButton.press(\"Enter\")"
+        },
+        {
+          "action": "viewport.hover()"
+        },
+        {
+          "action": "returnButton.press(\"Space\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-conversation.spec.ts",
+        "line_start": 462,
+        "line_end": 590,
+        "body_sha256": "sha256:be6431bac3da0ad0c5a4a89cc9bb6d7d876b83c73514fc35faece5a2cd8be5ca",
+        "assertion_count": 32,
+        "action_count": 11,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:6e750858e2e87d9e524f9e4b120554d5d00845f451fc2ecc810e83b32f4f4a1c"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-56011FEA507CA3"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-56011FEA507CA3"
+    ]
+  }
+}

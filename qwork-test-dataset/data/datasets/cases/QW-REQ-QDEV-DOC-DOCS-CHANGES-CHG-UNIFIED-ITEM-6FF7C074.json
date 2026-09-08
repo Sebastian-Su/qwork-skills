@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:351;heading:本地日志生命周期决策",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:537;heading:本地日志生命周期决策",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:5629560a5517bed2ea5098f6a75ea7af9a70394b9791e1e51bc8bed50df7008a",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-DAD5B9C4D04823",
+      "requirement_id": "REQ-C5F158BD7CF53E",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L351:5629560a55"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L537:5629560a55"
       ],
       "content_facets": [
         "data-side-effect"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 本地日志生命周期决策 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe case-owned durable database state after the trigger and assert [REQ-DAD5B9C4D04823] exactly: **存储 Owner（已确认，2026-08-27）**：QWork Main 独占产品日志文件、共享预算和生命周期；ZiqDo 通过 stdio/stderr 交付，正常产品运行不启用其自带 JSONL。见 ADR-0005。"
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-C5F158BD7CF53E] exactly: **存储 Owner（已确认，2026-08-27）**：QWork Main 独占产品日志文件、共享预算和生命周期；ZiqDo 通过 stdio/stderr 交付，正常产品运行不启用其自带 JSONL。见 ADR-0005。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "**存储 Owner（已确认，2026-08-27）**：QWork Main 独占产品日志文件、共享预算和生命周期；ZiqDo 通过 stdio/stderr 交付，正常产品运行不启用其自带 JSONL。见 ADR-0005。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-DAD5B9C4D04823]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **存储 Owner（已确认，2026-08-27）**：QWork Main 独占产品日志文件、共享预算和生命周期；ZiqDo 通过 stdio/stderr 交付，正常产品运行不启用其自带 JSONL。见 ADR-0005。",
+    "FAIL [REQ-C5F158BD7CF53E]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **存储 Owner（已确认，2026-08-27）**：QWork Main 独占产品日志文件、共享预算和生命周期；ZiqDo 通过 stdio/stderr 交付，正常产品运行不启用其自带 JSONL。见 ADR-0005。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-DAD5B9C4D04823",
+      "requirement_id": "REQ-C5F158BD7CF53E",
       "type": "database",
       "assertion": "**存储 Owner（已确认，2026-08-27）**：QWork Main 独占产品日志文件、共享预算和生命周期；ZiqDo 通过 stdio/stderr 交付，正常产品运行不启用其自带 JSONL。见 ADR-0005。"
     }
@@ -157,7 +157,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 本地日志生命周期决策 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe case-owned durable database state after the trigger and assert [REQ-DAD5B9C4D04823] exactly: **存储 Owner（已确认，2026-08-27）**：QWork Main 独占产品日志文件、共享预算和生命周期；ZiqDo 通过 stdio/stderr 交付，正常产品运行不启用其自带 JSONL。见 ADR-0005。"
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-C5F158BD7CF53E] exactly: **存储 Owner（已确认，2026-08-27）**：QWork Main 独占产品日志文件、共享预算和生命周期；ZiqDo 通过 stdio/stderr 交付，正常产品运行不启用其自带 JSONL。见 ADR-0005。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -200,7 +200,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-DAD5B9C4D04823"
+      "REQ-C5F158BD7CF53E"
     ],
     "categories": [
       "data"
@@ -208,12 +208,12 @@
     "suite_ids": [
       "category:data",
       "full",
-      "requirement:REQ-DAD5B9C4D04823"
+      "requirement:REQ-C5F158BD7CF53E"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-DAD5B9C4D04823",
+      "requirement_id": "REQ-C5F158BD7CF53E",
       "oracle_type": "database",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 本地日志生命周期决策 产品契约 exactly once and retain its correlation identity",

@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/my-files.spec.ts",
-      "locator": "line:210;test:shows all task artifacts in one unified category",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/my-files.spec.ts",
+      "locator": "line:273;test:shows all task artifacts in one unified category",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:d032af3b54e2a1696af816433cb9a89be46168adceced4957369729f76281266",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-my-files-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/my-files.spec.ts",
-      "locator": "line:174;test:shows all task artifacts in one unified category",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:d032af3b54e2a1696af816433cb9a89be46168adceced4957369729f76281266",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-my-files-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-9661261CF6222D",
+      "requirement_id": "REQ-D9B419660524AA",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-my-files-spec-ts:L210:d032af3b54",
-        "QHEAD-E2E-e2e-my-files-spec-ts:L174:d032af3b54"
+        "QDEV-E2E-e2e-my-files-spec-ts:L273:d032af3b54"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-my-files-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-my-files-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -149,6 +129,7 @@
     "expect(page.getByText(\"助理产出.md\", { exact: true })).toBeVisible()",
     "expect( page.locator(\"header\").getByRole(\"button\", { name: \"助理\", exact: true }), ).toHaveCount(0)",
     "expect(page.getByRole(\"status\", { name: \"云端同步说明\" })).toContainText( \"任务成果仍安全保存在本地\", )",
+    "expect(taskOutputRow.locator(\"[data-file-icon]\")) .toHaveAttribute( \"data-file-icon\", FILE_ICON_EVIDENCE_STATE === \"after\" ? \"markdown\" : \"document\", )",
     "expect( taskOutputRow.getByRole(\"button\", { name: \"云端网盘尚未配置\", }), ).toBeDisabled()",
     "expect(shareDialog).toBeVisible()",
     "expect( shareDialog.getByText(\"任务产出.md\", { exact: true }), ).toBeVisible()",
@@ -167,7 +148,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-9661261CF6222D",
+      "requirement_id": "REQ-D9B419660524AA",
       "type": "return",
       "assertion": "shows all task artifacts in one unified category"
     }
@@ -285,13 +266,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/my-files.spec.ts",
-        "line_start": 174,
-        "line_end": 314,
-        "body_sha256": "sha256:9e0b879655939b8c461cda5d4c127cfe7998d9aecc2a3b15f9c962eef4b516eb",
-        "assertion_count": 24,
+        "line_start": 273,
+        "line_end": 426,
+        "body_sha256": "sha256:08a928036df8c73562461f07de0c1ed10ac27f0a04c2128dfc152d79a2c5ee8b",
+        "assertion_count": 25,
         "action_count": 13,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:3068a49646cff8db4076d3e7ce8e8b4f4e6e4c8660259ee6ce65dc62f3f1a84a"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:560fd9f4e9787946740a93af0e5dd107688bbee41cacbf03c6bed035f1dbb55d"
       }
     },
     "reference_run": {
@@ -313,7 +294,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-9661261CF6222D"
+      "REQ-D9B419660524AA"
     ],
     "categories": [
       "business"
@@ -321,7 +302,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-9661261CF6222D"
+      "requirement:REQ-D9B419660524AA"
     ]
   }
 }

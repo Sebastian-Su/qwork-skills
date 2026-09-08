@@ -24,6 +24,7 @@ description: 维护 QWork 全产品项目测试集，包括 E2E 数据、需求 
 - develop 文档/E2E 闭世界处置：`data/datasets/source-dispositions.json`
 - Dataset 索引：`data/datasets/dataset.json`
 - Case 实体：`data/datasets/cases/*.json`
+- 近期专家修复验收清单：`references/recent-expert-regression-acceptance.md`
 - Case schema：`references/case-schema.yaml`
 - Dataset schema：`references/dataset-schema.yaml`
 - 路由与定位：`references/route-registry.yaml`、`references/locator-registry.yaml`
@@ -117,6 +118,8 @@ python3 .agents/skills/qwork-test-dataset/scripts/test_structured_source_batch.p
 python3 .agents/skills/qwork-test-dataset/scripts/test_validate_dataset_repo_binding.py
 
 node .agents/skills/qwork-test-dataset/scripts/test_private_case_authority.mjs
+
+node .agents/skills/qwork-test-dataset/scripts/test_dynamic_playwright_titles.mjs
 
 python3 .agents/skills/qwork-test-dataset/scripts/test_private_electron_env_isolation.py
 

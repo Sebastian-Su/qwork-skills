@@ -1,0 +1,283 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-OFFICE-EDITOR-SPEC-2ED0C18B",
+  "title": "用户快捷键保存 DOCX 时只完成一个可恢复的落盘周期",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-office-editor-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/office-editor.spec.ts",
+      "locator": "line:92;test:用户快捷键保存 DOCX 时只完成一个可恢复的落盘周期",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:2ed0c18b3e03696e6068bdf037affafff38666a1f1af1d8e23f71695e1752b54",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-B941D2E5781E98",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-office-editor-spec-ts:L92:2ed0c18b3e"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "用户快捷键保存 DOCX 时只完成一个可恢复的落盘周期",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-office-editor-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "用户快捷键保存 DOCX 时只完成一个可恢复的落盘周期"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_OFFICE_ARTIFACT__:并发保存报告.docx\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page .locator('canvas[data-page-index=\"0\"]') .click({ position: { x: 180, y: 120 } })"
+    },
+    {
+      "action": "page.keyboard.type(\"竞态保存验收\")"
+    },
+    {
+      "action": "page.keyboard.press(saveShortcut)"
+    },
+    {
+      "action": "page.keyboard.press(saveShortcut)"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收起右侧面板\" }).click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: /打开产出物 并发保存报告\\.docx/ }) .click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(editor).toBeVisible({ timeout: 60_000 })",
+    "expect(pageSurface).toBeVisible({ timeout: 60_000 })",
+    "expect(documentInput).toBeFocused()",
+    "expect(saveStatus).toHaveText(\"未保存\")",
+    "expect(saveStatus).toHaveText(\"已保存\", { timeout: 30_000 })",
+    "expect(page.getByRole(\"alert\")).toHaveCount(0)",
+    "expect(persisted).not.toEqual(original)",
+    "expect(recoveries).toHaveLength(1)",
+    "expect( new Uint8Array( await fs.readFile(path.join(recoveryDirectory, recoveries[0]!)), ), ).toEqual(original)",
+    "expect( (await fs.readdir(workspace)).filter((name) => name.endsWith(\".qwork-office.tmp\"), ), ).toEqual([])",
+    "expect(page.getByRole(\"document\", { name: \"Page 1\" })).toBeVisible({ timeout: 60_000, })",
+    "expect(page.getByText(/Failed to Load Document/)).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-B941D2E5781E98",
+      "type": "return",
+      "assertion": "用户快捷键保存 DOCX 时只完成一个可恢复的落盘周期"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-office-editor-spec-ts.2ed0c18b3e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/office-editor.spec.ts -g \"用户快捷键保存 DOCX 时只完成一个可恢复的落盘周期\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_OFFICE_ARTIFACT__:并发保存报告.docx\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page .locator('canvas[data-page-index=\"0\"]') .click({ position: { x: 180, y: 120 } })"
+        },
+        {
+          "action": "page.keyboard.type(\"竞态保存验收\")"
+        },
+        {
+          "action": "page.keyboard.press(saveShortcut)"
+        },
+        {
+          "action": "page.keyboard.press(saveShortcut)"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收起右侧面板\" }).click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: /打开产出物 并发保存报告\\.docx/ }) .click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/office-editor.spec.ts",
+        "line_start": 92,
+        "line_end": 169,
+        "body_sha256": "sha256:8362c2107eea368958f693b117be79f570511f6684d28c8b3c7f5782a86bb62f",
+        "assertion_count": 12,
+        "action_count": 11,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:7fb55a5a8b1b344204350355cc51e703e1a638768e952a991f2ba6568e2b07c7"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B941D2E5781E98"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-B941D2E5781E98"
+    ]
+  }
+}

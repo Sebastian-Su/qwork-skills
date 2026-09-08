@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md",
       "locator": "line:85;heading:部署与 live E2E",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:0592ff550389330b2e28d38b22d53657d1c19fa2d2be3bde73cd8d69312d451b",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:e9278f32be5c4feaf3ecc577e34025cb079c858d38d5fa605089e8109e077a2c",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-98A377822AC41F",
+      "requirement_id": "REQ-A525CBB1B22BF7",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem:L85:0592ff5503"
+        "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem:L85:e9278f32be"
       ],
       "content_facets": [
         "role-permission"
@@ -46,7 +46,7 @@
       ],
       "surface": "window-runtime",
       "priority": "P1",
-      "rule": "发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo` 并执行 bundled-sidecar 契约；中文实时查询必须至少返回一条标题、URL、摘要以及 360 审计。确定性降级由 hermeti",
+      "rule": "发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo`；Windows x64 使用合并后的 qwork_harness 同功能源码原生构建并提交到 `resources/bin/win32-x6",
       "authority_domain": "product",
       "governing_sources": [
         "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem"
@@ -57,7 +57,7 @@
         "status": "resolved",
         "reason": "compiled from the user-approved source hierarchy"
       },
-      "oracle": "发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo` 并执行 bundled-sidecar 契约；中文实时查询必须至少返回一条标题、URL、摘要以及 360 审计。确定性降级由 hermeti"
+      "oracle": "发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo`；Windows x64 使用合并后的 qwork_harness 同功能源码原生构建并提交到 `resources/bin/win32-x6"
     }
   ],
   "verification": {
@@ -82,25 +82,25 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md · 部署与 live E2E 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-98A377822AC41F] exactly: 发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo` 并执行 bundled-sidecar 契约；中文实时查询必须至少返回一条标题、URL、摘要以及 360 审计。确定性降级由 hermeti"
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-A525CBB1B22BF7] exactly: 发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo`；Windows x64 使用合并后的 qwork_harness 同功能源码原生构建并提交到 `resources/bin/win32-x6"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
     }
   ],
   "expected_outcomes": [
-    "发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo` 并执行 bundled-sidecar 契约；中文实时查询必须至少返回一条标题、URL、摘要以及 360 审计。确定性降级由 hermeti"
+    "发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo`；Windows x64 使用合并后的 qwork_harness 同功能源码原生构建并提交到 `resources/bin/win32-x6"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-98A377822AC41F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo` 并执行 bundled-sidecar 契约；中文实时查询必须至少返回一条标题、URL、摘要以及 360 审计。确定性降级由 hermeti",
+    "FAIL [REQ-A525CBB1B22BF7]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo`；Windows x64 使用合并后的 qwork_harness 同功能源码原生构建并提交到 `resources/bin/win32-x6",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-98A377822AC41F",
+      "requirement_id": "REQ-A525CBB1B22BF7",
       "type": "api",
-      "assertion": "发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo` 并执行 bundled-sidecar 契约；中文实时查询必须至少返回一条标题、URL、摘要以及 360 审计。确定性降级由 hermeti"
+      "assertion": "发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo`；Windows x64 使用合并后的 qwork_harness 同功能源码原生构建并提交到 `resources/bin/win32-x6"
     }
   ],
   "cleanup": {
@@ -157,7 +157,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md · 部署与 live E2E 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-98A377822AC41F] exactly: 发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo` 并执行 bundled-sidecar 契约；中文实时查询必须至少返回一条标题、URL、摘要以及 360 审计。确定性降级由 hermeti"
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-A525CBB1B22BF7] exactly: 发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo`；Windows x64 使用合并后的 qwork_harness 同功能源码原生构建并提交到 `resources/bin/win32-x6"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -200,7 +200,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-98A377822AC41F"
+      "REQ-A525CBB1B22BF7"
     ],
     "categories": [
       "permission"
@@ -208,16 +208,16 @@
     "suite_ids": [
       "category:permission",
       "full",
-      "requirement:REQ-98A377822AC41F"
+      "requirement:REQ-A525CBB1B22BF7"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-98A377822AC41F",
+      "requirement_id": "REQ-A525CBB1B22BF7",
       "oracle_type": "api",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md · 部署与 live E2E 产品契约 exactly once and retain its correlation identity",
-      "then": "发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo` 并执行 bundled-sidecar 契约；中文实时查询必须至少返回一条标题、URL、摘要以及 360 审计。确定性降级由 hermeti",
+      "then": "发布后验证健康、未登录 401、登录 Token 含 `search.query`、日志不含 query/key。先使用本地 macOS arm64 ZiqDo 候选和 `ZIQDO_BIN` 启动 qwork3 完成真实搜索，再把相同源码的 `dist` 产物提交到 `resources/bin/darwin-arm64/ziqdo`；Windows x64 使用合并后的 qwork_harness 同功能源码原生构建并提交到 `resources/bin/win32-x6",
       "observation_boundary": "typed IPC or service API boundary",
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     }

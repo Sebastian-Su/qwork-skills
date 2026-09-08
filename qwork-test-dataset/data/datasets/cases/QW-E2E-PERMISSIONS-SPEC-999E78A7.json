@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/permissions.spec.ts",
-      "locator": "line:24;test:denies a sidecar permission request",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/permissions.spec.ts",
+      "locator": "line:36;test:denies a sidecar permission request",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:999e78a7993ddf359dd02ecf118c9318827c423b076138c0a000828239eaae07",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-C90C8B1FCC613D",
+      "requirement_id": "REQ-F6B812886226DB",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-permissions-spec-ts:L24:999e78a799"
+        "QDEV-E2E-e2e-permissions-spec-ts:L36:999e78a799"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,6 +75,15 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(`__E2E_PERMISSION__:${tool}`)"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
       "action": "dialog.getByRole(\"button\", { name: \"拒绝\", exact: true }).click()"
     }
   ],
@@ -91,7 +100,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-C90C8B1FCC613D",
+      "requirement_id": "REQ-F6B812886226DB",
       "type": "return",
       "assertion": "denies a sidecar permission request"
     }
@@ -152,6 +161,15 @@
       "entrypoint": "permissions",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(`__E2E_PERMISSION__:${tool}`)"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
           "action": "dialog.getByRole(\"button\", { name: \"拒绝\", exact: true }).click()"
         }
       ],
@@ -173,13 +191,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/permissions.spec.ts",
-        "line_start": 24,
-        "line_end": 36,
+        "line_start": 36,
+        "line_end": 48,
         "body_sha256": "sha256:c1ed5f255c5bece31836e34c18c395e33b2cdda0da56d437f00ef46bbffb292d",
         "assertion_count": 4,
-        "action_count": 1,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:c43a6201c8d45c464722a90b3b431d228ea2510b5ed4367575f2192da8d3690c"
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:b9ab5c461d79a588e346d8dec951e3add5afaa67abdb16a927042a628fda3b77"
       }
     },
     "reference_run": {
@@ -201,7 +219,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-C90C8B1FCC613D"
+      "REQ-F6B812886226DB"
     ],
     "categories": [
       "business"
@@ -209,7 +227,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-C90C8B1FCC613D"
+      "requirement:REQ-F6B812886226DB"
     ]
   }
 }

@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-public-auth.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-public-auth.spec.ts",
       "locator": "line:120;test:turns a successful Tongzhou CLI login into its shipped stdio MCP registration",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:1f45a39dfdb2aec77c4ee8c51bde0abd9b11f0bbee95cf8dc553ffbeeeb31d88",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"同舟金融研究，未连接\" }).click()"
     },
     {
@@ -85,6 +91,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"searchbox\", { name: \"搜索连接器\" })).toBeVisible()",
     "expect(detail.getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible({ timeout: 15_000, })",
     "expect.poll(async () => (await readMcpLog(mcpLog)).find( (entry) => entry.type === \"mcp_server_upsert\", )).toMatchObject({ server: { name: \"tongzhou-fin-research\", transport: \"stdio\", command: \"npx\", args: [\"-y\", \"tongzhou-fin-research-expert@0.25.1\", \"proxy\", \"--stdio\"], }, })",
     "expect( page.getByRole(\"button\", { name: \"同舟金融研究，未连接\", exact: true }), ).toBeVisible({ timeout: 15_000 })",
@@ -158,6 +165,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"同舟金融研究，未连接\" }).click()"
         },
         {
@@ -188,9 +201,9 @@
         "line_start": 120,
         "line_end": 226,
         "body_sha256": "sha256:52434d8b9e2d5ad84c3df51b9ee61c0be01ba1c0a034463d1f81469aec9795fb",
-        "assertion_count": 4,
-        "action_count": 3,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 5,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:5046f161fe753f756638b8e8518171237cb27127742a04be7ed5ebeb037b125a"
       }
     },

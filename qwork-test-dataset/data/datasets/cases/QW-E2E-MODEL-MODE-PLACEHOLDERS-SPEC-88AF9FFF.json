@@ -1,0 +1,297 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-MODEL-MODE-PLACEHOLDERS-SPEC-88AF9FFF",
+  "title": "reasoning selection survives reload and reaches the engine before the first task prompt",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-model-mode-placeholders-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/model-mode-placeholders.spec.ts",
+      "locator": "line:6;test:reasoning selection survives reload and reaches the engine before the first task prompt",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:88af9fff32d234cbe552ae733b9862f7196046224d8f28a654cebec143a873bf",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-9B23A170F57C05",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-model-mode-placeholders-spec-ts:L6:88af9fff32"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "reasoning selection survives reload and reaches the engine before the first task prompt",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-model-mode-placeholders-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "reasoning selection survives reload and reaches the engine before the first task prompt"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByTestId(\"composer-model-trigger\").click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitemradio\", { name: \"GLM-5.3\", exact: true }).hover()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"思考强度 高\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitemradio\", { name: \"低\", exact: true }).click()"
+    },
+    {
+      "action": "page.reload()"
+    },
+    {
+      "action": "page.getByTestId(\"composer-model-trigger\").click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitemradio\", { name: \"GLM-5.3\", exact: true }).hover()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "composer.fill(\"Reply only reasoning fixture\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByTestId(\"composer-model-trigger\").click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitemradio\", { name: \"Kimi-K3\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect((await details.boundingBox())!.width).toBe(240)",
+    "expect((await details.boundingBox())!.height).toBe(171)",
+    "expect((await efforts.boundingBox())!.width).toBe(200)",
+    "expect((await efforts.boundingBox())!.height).toBe(113)",
+    "expect(efforts.getByRole(\"menuitemradio\", { name: \"高\", exact: true })).toHaveCSS(\"background-color\", \"rgb(247, 247, 247)\")",
+    "expect(details.getByText(\"消耗速度\", { exact: true })).toHaveCSS(\"color\", \"rgb(0, 0, 0)\")",
+    "expect(effortBox.x >= actionBox.x + actionBox.width || effortBox.x + effortBox.width <= actionBox.x).toBe(true)",
+    "expect(page.getByRole(\"menuitemradio\", { name: \"超高\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"思考强度 低\" })).toBeVisible()",
+    "expect(rejected).toBe(true)",
+    "expect(page.getByRole(\"button\", { name: \"思考强度 低\" })).toBeVisible()",
+    "expect.poll(async () => { const raw = await fs.readFile(log, \"utf8\").catch(error => { if (error.code === \"ENOENT\") return \"\"; throw error; }); const entries = raw.trim().split(\"\\n\").filter(Boolean).map(line => JSON.parse(line)); const effort = entries.findIndex(entry => entry.type === \"set_effort\" && entry.reasoning_effort === \"low\"); const prompt = entries.findIndex(entry => entry.type === \"user_message\"); return e…",
+    "expect(page.getByTestId(\"assistant-message\")).toBeVisible()",
+    "expect.poll(async () => { const entries = (await fs.readFile(log, \"utf8\")).trim().split(\"\\n\").map(line => JSON.parse(line)); const model = entries.findIndex(entry => entry.type === \"set_model\" && entry.model?.includes(\"kimi-k3\")); const reset = entries.findIndex(entry => entry.type === \"set_effort\" && entry.reasoning_effort === \"auto\"); return reset >= 0 && model > reset; }).toBe(true)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-9B23A170F57C05",
+      "type": "return",
+      "assertion": "reasoning selection survives reload and reaches the engine before the first task prompt"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-model-mode-placeholders-spec-ts.88af9fff32",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/model-mode-placeholders.spec.ts -g \"reasoning selection survives reload and reaches the engine before the first task prompt\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "page.getByTestId(\"composer-model-trigger\").click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitemradio\", { name: \"GLM-5.3\", exact: true }).hover()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"思考强度 高\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitemradio\", { name: \"低\", exact: true }).click()"
+        },
+        {
+          "action": "page.reload()"
+        },
+        {
+          "action": "page.getByTestId(\"composer-model-trigger\").click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitemradio\", { name: \"GLM-5.3\", exact: true }).hover()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "composer.fill(\"Reply only reasoning fixture\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByTestId(\"composer-model-trigger\").click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitemradio\", { name: \"Kimi-K3\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/model-mode-placeholders.spec.ts",
+        "line_start": 6,
+        "line_end": 67,
+        "body_sha256": "sha256:4980ef42e4461ea524285abf25238d392a6342d6453c1ea20336cca22d4c13fd",
+        "assertion_count": 14,
+        "action_count": 13,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:3ee99f11393843d16a3a178ebd5f2d0eeedde9b8c7d7a1d6f7de4aeb930524ee"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-9B23A170F57C05"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-9B23A170F57C05"
+    ]
+  }
+}

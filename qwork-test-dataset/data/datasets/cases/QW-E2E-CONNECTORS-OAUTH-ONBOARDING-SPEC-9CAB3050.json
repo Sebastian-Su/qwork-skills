@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-oauth-onboarding.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-oauth-onboarding.spec.ts",
       "locator": "line:126;test:clicks all three blocked providers and fails before browser, credential, or MCP state",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:9cab3050ea295e767d41927603fbe89a4bfbaf7f56b21aa3f802be82f92e73be",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "card.click()"
     },
     {
@@ -88,6 +94,8 @@
     }
   ],
   "expected_outcomes": [
+    "expect(connectors).toHaveLength(3)",
+    "expect(page.getByRole(\"searchbox\", { name: \"搜索连接器\" })).toBeVisible()",
     "expect(dialog.getByRole(\"alert\")).toContainText( /动态注册失败.*HTTP 400.*invalid_client_metadata.*allowlist/, )",
     "expect(card).toBeVisible()",
     "expect(registrations).toHaveLength(3)",
@@ -164,6 +172,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "card.click()"
         },
         {
@@ -197,9 +211,9 @@
         "line_start": 126,
         "line_end": 205,
         "body_sha256": "sha256:98f1dd39a61ed964d741749649b4961ed7c21a4fdc4721c7b00fb16cd8a4cee0",
-        "assertion_count": 7,
-        "action_count": 4,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 9,
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:df522e436fdeb0f4bea2e3152b214f32b11f7a77319280bc14be105cd8c1b3e1"
       }
     },

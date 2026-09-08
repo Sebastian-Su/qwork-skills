@@ -1,0 +1,289 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-AGENT-CL-7-3-QWORK-ELECTRON-E2E-19204847",
+  "title": "docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md · 7.3 qwork 客户端单元/集成/Electron E2E 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md",
+      "locator": "line:218;heading:7.3 qwork 客户端单元/集成/Electron E2E",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:3b4b6b992c1cebdd613cc9b9fecc0b25d08fdd3f20f7a4c33a19bb17fe4c3add",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md",
+      "locator": "line:222;heading:7.3 qwork 客户端单元/集成/Electron E2E",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:8e58b4799ca935f42c1267015d4b944fe19d34c0403a5f70acf242939147b296",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0449610321A4C1",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090:L218:3b4b6b992c"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "集成：真实主进程 IPC + fake updater/fake sidecar，校验 sender、订阅清理、固定 URL 和受管缓存边界。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "集成：真实主进程 IPC + fake updater/fake sidecar，校验 sender、订阅清理、固定 URL 和受管缓存边界。"
+    },
+    {
+      "requirement_id": "REQ-156A62B43AEAE7",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090:L222:8e58b4799c"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "Linux CI 运行单元、集成、构建和手动安装入口；平台逻辑必须显式参数化，不使用 skip 隐藏平台分支。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-agent-client-release-update-2026090"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Linux CI 运行单元、集成、构建和手动安装入口；平台逻辑必须显式参数化，不使用 skip 隐藏平台分支。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md · 7.3 qwork 客户端单元/集成/Electron E2E 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0449610321A4C1] exactly: 集成：真实主进程 IPC + fake updater/fake sidecar，校验 sender、订阅清理、固定 URL 和受管缓存边界。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-156A62B43AEAE7] exactly: Linux CI 运行单元、集成、构建和手动安装入口；平台逻辑必须显式参数化，不使用 skip 隐藏平台分支。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "集成：真实主进程 IPC + fake updater/fake sidecar，校验 sender、订阅清理、固定 URL 和受管缓存边界。",
+    "Linux CI 运行单元、集成、构建和手动安装入口；平台逻辑必须显式参数化，不使用 skip 隐藏平台分支。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-0449610321A4C1]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 集成：真实主进程 IPC + fake updater/fake sidecar，校验 sender、订阅清理、固定 URL 和受管缓存边界。",
+    "FAIL [REQ-156A62B43AEAE7]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Linux CI 运行单元、集成、构建和手动安装入口；平台逻辑必须显式参数化，不使用 skip 隐藏平台分支。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0449610321A4C1",
+      "type": "return",
+      "assertion": "集成：真实主进程 IPC + fake updater/fake sidecar，校验 sender、订阅清理、固定 URL 和受管缓存边界。"
+    },
+    {
+      "requirement_id": "REQ-156A62B43AEAE7",
+      "type": "return",
+      "assertion": "Linux CI 运行单元、集成、构建和手动安装入口；平台逻辑必须显式参数化，不使用 skip 隐藏平台分支。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-agent-clie.7-3-qwork-electron-e2e-192048475e",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md · 7.3 qwork 客户端单元/集成/Electron E2E 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0449610321A4C1] exactly: 集成：真实主进程 IPC + fake updater/fake sidecar，校验 sender、订阅清理、固定 URL 和受管缓存边界。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-156A62B43AEAE7] exactly: Linux CI 运行单元、集成、构建和手动安装入口；平台逻辑必须显式参数化，不使用 skip 隐藏平台分支。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0449610321A4C1",
+      "REQ-156A62B43AEAE7"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-0449610321A4C1",
+      "requirement:REQ-156A62B43AEAE7"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-0449610321A4C1",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md · 7.3 qwork 客户端单元/集成/Electron E2E 产品契约 exactly once and retain its correlation identity",
+      "then": "集成：真实主进程 IPC + fake updater/fake sidecar，校验 sender、订阅清理、固定 URL 和受管缓存边界。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-156A62B43AEAE7",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-agent-client-release-update-20260907/implementation-plan.md · 7.3 qwork 客户端单元/集成/Electron E2E 产品契约 exactly once and retain its correlation identity",
+      "then": "Linux CI 运行单元、集成、构建和手动安装入口；平台逻辑必须显式参数化，不使用 skip 隐藏平台分支。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

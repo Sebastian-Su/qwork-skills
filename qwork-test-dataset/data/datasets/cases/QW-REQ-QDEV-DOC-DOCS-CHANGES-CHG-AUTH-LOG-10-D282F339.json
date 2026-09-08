@@ -1,0 +1,421 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-AUTH-LOG-10-D282F339",
+  "title": "docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 10. 隐私与安全红线 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "auth",
+    "journey": "auth",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:354;heading:10. 隐私与安全红线",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:b26921c6b381eed55caff8b1d8f368554715287a3c7667d1364e845b178a5ca9",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:355;heading:10. 隐私与安全红线",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:c26a9aae382d4ba2d366058c01076c12f07458e4c952745a3a30c8dd545acf1e",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:362;heading:10. 隐私与安全红线",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:206fb36ec66ca8b795bfc79b83cb0f884942ad8b254bdbd150c6bd52fbbf9a2a",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:365;heading:10. 隐私与安全红线",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:5109105510424191d6a6b7fbc3844f717f85cfcbb05a72800214aa12791b7011",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-337C72D1E47CDE",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L354:b26921c6b3"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "`qwork_session`、Q/T Cookie、Authorization header、任何 token/credential；",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`qwork_session`、Q/T Cookie、Authorization header、任何 token/credential；"
+    },
+    {
+      "requirement_id": "REQ-8098792743819D",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L355:c26a9aae38"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "手机号、短信验证码、账号、密码及其 hash/长度等派生特征；",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "手机号、短信验证码、账号、密码及其 hash/长度等派生特征；"
+    },
+    {
+      "requirement_id": "REQ-5166273223B0C7",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L362:206fb36ec6"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "认证完成前 `qid/user_id` 一律为空；终态也优先通过 trace 关联，不回填身份。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "认证完成前 `qid/user_id` 一律为空；终态也优先通过 trace 关联，不回填身份。"
+    },
+    {
+      "requirement_id": "REQ-AEB187F029E510",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L365:5109105510"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "auth",
+      "priority": "P0",
+      "rule": "本地验收输出也遵守同一脱敏规则；不能因“不上传”就打印 Cookie 或 code。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "本地验收输出也遵守同一脱敏规则；不能因“不上传”就打印 Cookie 或 code。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for auth at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 10. 隐私与安全红线 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-337C72D1E47CDE] exactly: `qwork_session`、Q/T Cookie、Authorization header、任何 token/credential；"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8098792743819D] exactly: 手机号、短信验证码、账号、密码及其 hash/长度等派生特征；"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-5166273223B0C7] exactly: 认证完成前 `qid/user_id` 一律为空；终态也优先通过 trace 关联，不回填身份。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-AEB187F029E510] exactly: 本地验收输出也遵守同一脱敏规则；不能因“不上传”就打印 Cookie 或 code。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "`qwork_session`、Q/T Cookie、Authorization header、任何 token/credential；",
+    "手机号、短信验证码、账号、密码及其 hash/长度等派生特征；",
+    "认证完成前 `qid/user_id` 一律为空；终态也优先通过 trace 关联，不回填身份。",
+    "本地验收输出也遵守同一脱敏规则；不能因“不上传”就打印 Cookie 或 code。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-337C72D1E47CDE]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `qwork_session`、Q/T Cookie、Authorization header、任何 token/credential；",
+    "FAIL [REQ-8098792743819D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 手机号、短信验证码、账号、密码及其 hash/长度等派生特征；",
+    "FAIL [REQ-5166273223B0C7]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 认证完成前 `qid/user_id` 一律为空；终态也优先通过 trace 关联，不回填身份。",
+    "FAIL [REQ-AEB187F029E510]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 本地验收输出也遵守同一脱敏规则；不能因“不上传”就打印 Cookie 或 code。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-337C72D1E47CDE",
+      "type": "api",
+      "assertion": "`qwork_session`、Q/T Cookie、Authorization header、任何 token/credential；"
+    },
+    {
+      "requirement_id": "REQ-8098792743819D",
+      "type": "return",
+      "assertion": "手机号、短信验证码、账号、密码及其 hash/长度等派生特征；"
+    },
+    {
+      "requirement_id": "REQ-5166273223B0C7",
+      "type": "api",
+      "assertion": "认证完成前 `qid/user_id` 一律为空；终态也优先通过 trace 关联，不回填身份。"
+    },
+    {
+      "requirement_id": "REQ-AEB187F029E510",
+      "type": "return",
+      "assertion": "本地验收输出也遵守同一脱敏规则；不能因“不上传”就打印 Cookie 或 code。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-auth-login.10-d282f33959",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "auth",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for auth at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 10. 隐私与安全红线 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-337C72D1E47CDE] exactly: `qwork_session`、Q/T Cookie、Authorization header、任何 token/credential；"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8098792743819D] exactly: 手机号、短信验证码、账号、密码及其 hash/长度等派生特征；"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-5166273223B0C7] exactly: 认证完成前 `qid/user_id` 一律为空；终态也优先通过 trace 关联，不回填身份。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-AEB187F029E510] exactly: 本地验收输出也遵守同一脱敏规则；不能因“不上传”就打印 Cookie 或 code。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-337C72D1E47CDE",
+      "REQ-5166273223B0C7",
+      "REQ-8098792743819D",
+      "REQ-AEB187F029E510"
+    ],
+    "categories": [
+      "business",
+      "negative",
+      "permission"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:negative",
+      "category:permission",
+      "full",
+      "requirement:REQ-337C72D1E47CDE",
+      "requirement:REQ-5166273223B0C7",
+      "requirement:REQ-8098792743819D",
+      "requirement:REQ-AEB187F029E510"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-337C72D1E47CDE",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 10. 隐私与安全红线 产品契约 exactly once and retain its correlation identity",
+      "then": "`qwork_session`、Q/T Cookie、Authorization header、任何 token/credential；",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-8098792743819D",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 10. 隐私与安全红线 产品契约 exactly once and retain its correlation identity",
+      "then": "手机号、短信验证码、账号、密码及其 hash/长度等派生特征；",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-5166273223B0C7",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 10. 隐私与安全红线 产品契约 exactly once and retain its correlation identity",
+      "then": "认证完成前 `qid/user_id` 一律为空；终态也优先通过 trace 关联，不回填身份。",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-AEB187F029E510",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 10. 隐私与安全红线 产品契约 exactly once and retain its correlation identity",
+      "then": "本地验收输出也遵守同一脱敏规则；不能因“不上传”就打印 Cookie 或 code。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

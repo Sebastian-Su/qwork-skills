@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/settings.spec.ts",
-      "locator": "line:140;test:matches the fixed WorkBuddy settings shell at 1280 by 752",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/settings.spec.ts",
+      "locator": "line:142;test:matches the fixed WorkBuddy settings shell at 1280 by 752",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:2184b07bff9856057ff68d099f13214290918aec7ffd261fcf8e2b367490dc71",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-5DD095B4976350",
+      "requirement_id": "REQ-7CF10EFB5E715D",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-settings-spec-ts:L140:2184b07bff"
+        "QDEV-E2E-e2e-settings-spec-ts:L142:2184b07bff"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:48:56.418454+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -75,40 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "createTestHome(\"settings-workbuddy-shell\")"
-    },
-    {
-      "action": "openApp(configHome)"
-    },
-    {
-      "action": "opened.page.setViewportSize({ width: 1280, height: 752 })"
-    },
-    {
-      "action": "openSettings(opened.page)"
-    },
-    {
-      "action": "opened.page.getByTestId(\"settings-surface\")"
-    },
-    {
-      "action": "opened.page.getByTestId(\"settings-navigation\")"
-    },
-    {
-      "action": "opened.page.getByTestId(\"settings-panel-header\")"
-    },
-    {
-      "action": "surface.boundingBox()"
-    },
-    {
-      "action": "navigation.boundingBox()"
-    },
-    {
-      "action": "header.boundingBox()"
-    },
-    {
-      "action": "cleanupTestHome(app, configHome)"
+      "action": "page.keyboard.press(\"Control+,\")"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: newTaskName, exact: true })).toBeVisible()",
+    "expect(dialog).toBeVisible()",
     "expect .poll(async () => { const box = await surface.boundingBox(); return box ? { x: Math.round(box.x), y: Math.round(box.y), width: Math.round(box.width), height: Math.round(box.height), } : null; }) .toEqual({ x: 120, y: 50, width: 1040, height: 652 })",
     "expect(surfaceBox).not.toBeNull()",
     "expect(navigationBox).not.toBeNull()",
@@ -127,7 +99,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-5DD095B4976350",
+      "requirement_id": "REQ-7CF10EFB5E715D",
       "type": "return",
       "assertion": "matches the fixed WorkBuddy settings shell at 1280 by 752"
     }
@@ -188,37 +160,7 @@
       "entrypoint": "settings",
       "steps": [
         {
-          "action": "createTestHome(\"settings-workbuddy-shell\")"
-        },
-        {
-          "action": "openApp(configHome)"
-        },
-        {
-          "action": "opened.page.setViewportSize({ width: 1280, height: 752 })"
-        },
-        {
-          "action": "openSettings(opened.page)"
-        },
-        {
-          "action": "opened.page.getByTestId(\"settings-surface\")"
-        },
-        {
-          "action": "opened.page.getByTestId(\"settings-navigation\")"
-        },
-        {
-          "action": "opened.page.getByTestId(\"settings-panel-header\")"
-        },
-        {
-          "action": "surface.boundingBox()"
-        },
-        {
-          "action": "navigation.boundingBox()"
-        },
-        {
-          "action": "header.boundingBox()"
-        },
-        {
-          "action": "cleanupTestHome(app, configHome)"
+          "action": "page.keyboard.press(\"Control+,\")"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -239,13 +181,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/settings.spec.ts",
-        "line_start": 140,
-        "line_end": 182,
+        "line_start": 142,
+        "line_end": 184,
         "body_sha256": "sha256:d3de6e823d574cabbbdbf13fffe451829ab333157a56b8923e9c8f474bd6f554",
-        "assertion_count": 10,
-        "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:810b9b0eddf7b6308584c421b22da0a5421cc35c2ea9b09cc8cf6def1910ed26"
+        "assertion_count": 12,
+        "action_count": 1,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:06e0bba09de15e5fb387cafbdcf2531fe0882c4c60378ce523f9078d9d6f7732"
       }
     },
     "reference_run": {
@@ -267,7 +209,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-5DD095B4976350"
+      "REQ-7CF10EFB5E715D"
     ],
     "categories": [
       "business"
@@ -275,7 +217,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-5DD095B4976350"
+      "requirement:REQ-7CF10EFB5E715D"
     ]
   }
 }

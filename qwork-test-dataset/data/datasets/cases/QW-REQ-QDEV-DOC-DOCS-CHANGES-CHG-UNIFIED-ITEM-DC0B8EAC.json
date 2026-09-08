@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:341;heading:已确认的产品与架构决策",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:527;heading:已确认的产品与架构决策",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:0daf92792fc05ce57b0cde6b10613b9cea0289a4b23e7f00f71399ff1771da5e",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-880DC048D275BB",
+      "requirement_id": "REQ-5E97F3F2FCAC83",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L341:0daf92792f"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L527:0daf92792f"
       ],
       "content_facets": [
         "state-transition"
@@ -83,7 +83,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 已确认的产品与架构决策 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe session/sidecar event stream after the trigger and assert [REQ-880DC048D275BB] exactly: **投递语义（已确认，2026-08-27）**：Info/Warn/Error 不采样且始终进入投递流程，但不承诺最终送达；队列 1000 条/1 MiB，批次 50 条/128 KiB，最长等待 1 秒，Error 与业务终态立即发送；过载先淘汰 Debug、再淘汰最旧非终态 Info。仅瞬态故障最多重试两次且单批总生命周期不超过 10 秒；无磁盘 Outbox、跨重启重传或业务阻塞。见 ADR-0009。"
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-5E97F3F2FCAC83] exactly: **投递语义（已确认，2026-08-27）**：Info/Warn/Error 不采样且始终进入投递流程，但不承诺最终送达；队列 1000 条/1 MiB，批次 50 条/128 KiB，最长等待 1 秒，Error 与业务终态立即发送；过载先淘汰 Debug、再淘汰最旧非终态 Info。仅瞬态故障最多重试两次且单批总生命周期不超过 10 秒；无磁盘 Outbox、跨重启重传或业务阻塞。见 ADR-0009。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -93,13 +93,13 @@
     "**投递语义（已确认，2026-08-27）**：Info/Warn/Error 不采样且始终进入投递流程，但不承诺最终送达；队列 1000 条/1 MiB，批次 50 条/128 KiB，最长等待 1 秒，Error 与业务终态立即发送；过载先淘汰 Debug、再淘汰最旧非终态 Info。仅瞬态故障最多重试两次且单批总生命周期不超过 10 秒；无磁盘 Outbox、跨重启重传或业务阻塞。见 ADR-0009。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-880DC048D275BB]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **投递语义（已确认，2026-08-27）**：Info/Warn/Error 不采样且始终进入投递流程，但不承诺最终送达；队列 1000 条/1 MiB，批次 50 条/128 KiB，最长等待 1 秒，Error 与业务终态立即发送；过载先淘汰 Debug、再淘汰最旧非终态 Info。仅瞬态故障最多重试两次且单批总生命周期不超过 10 秒；无磁盘 Outbox、跨重启重传或业务阻塞。见 ADR-0009。",
+    "FAIL [REQ-5E97F3F2FCAC83]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **投递语义（已确认，2026-08-27）**：Info/Warn/Error 不采样且始终进入投递流程，但不承诺最终送达；队列 1000 条/1 MiB，批次 50 条/128 KiB，最长等待 1 秒，Error 与业务终态立即发送；过载先淘汰 Debug、再淘汰最旧非终态 Info。仅瞬态故障最多重试两次且单批总生命周期不超过 10 秒；无磁盘 Outbox、跨重启重传或业务阻塞。见 ADR-0009。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-880DC048D275BB",
+      "requirement_id": "REQ-5E97F3F2FCAC83",
       "type": "event",
       "assertion": "**投递语义（已确认，2026-08-27）**：Info/Warn/Error 不采样且始终进入投递流程，但不承诺最终送达；队列 1000 条/1 MiB，批次 50 条/128 KiB，最长等待 1 秒，Error 与业务终态立即发送；过载先淘汰 Debug、再淘汰最旧非终态 Info。仅瞬态故障最多重试两次且单批总生命周期不超过 10 秒；无磁盘 Outbox、跨重启重传或业务阻塞。见 ADR-0009。"
     }
@@ -158,7 +158,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 已确认的产品与架构决策 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe session/sidecar event stream after the trigger and assert [REQ-880DC048D275BB] exactly: **投递语义（已确认，2026-08-27）**：Info/Warn/Error 不采样且始终进入投递流程，但不承诺最终送达；队列 1000 条/1 MiB，批次 50 条/128 KiB，最长等待 1 秒，Error 与业务终态立即发送；过载先淘汰 Debug、再淘汰最旧非终态 Info。仅瞬态故障最多重试两次且单批总生命周期不超过 10 秒；无磁盘 Outbox、跨重启重传或业务阻塞。见 ADR-0009。"
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-5E97F3F2FCAC83] exactly: **投递语义（已确认，2026-08-27）**：Info/Warn/Error 不采样且始终进入投递流程，但不承诺最终送达；队列 1000 条/1 MiB，批次 50 条/128 KiB，最长等待 1 秒，Error 与业务终态立即发送；过载先淘汰 Debug、再淘汰最旧非终态 Info。仅瞬态故障最多重试两次且单批总生命周期不超过 10 秒；无磁盘 Outbox、跨重启重传或业务阻塞。见 ADR-0009。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -201,7 +201,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-880DC048D275BB"
+      "REQ-5E97F3F2FCAC83"
     ],
     "categories": [
       "recovery",
@@ -211,12 +211,12 @@
       "category:recovery",
       "category:state",
       "full",
-      "requirement:REQ-880DC048D275BB"
+      "requirement:REQ-5E97F3F2FCAC83"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-880DC048D275BB",
+      "requirement_id": "REQ-5E97F3F2FCAC83",
       "oracle_type": "event",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 已确认的产品与架构决策 产品契约 exactly once and retain its correlation identity",

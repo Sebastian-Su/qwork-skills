@@ -1,0 +1,373 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-DOCUMENT-PDF-MD-PDF-4679DB2B",
+  "title": "docs/document-pdf.md · 静态文档 PDF 转换契约 产品契约",
+  "kind": "negative",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-document-pdf-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/document-pdf.md",
+      "locator": "line:3;heading:静态文档 PDF 转换契约",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:e92c3eaefbc31beba1c0f9c669c82c3b40e4dda97f1dad4fe610a0a11f9c608f",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-document-pdf-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/document-pdf.md",
+      "locator": "line:12;heading:静态文档 PDF 转换契约",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:c759cb6d918840d90a286fa73818d6f5e9836ec537d6cb6445b5efa52c5274f9",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-document-pdf-md",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/document-pdf.md",
+      "locator": "line:34;heading:静态文档 PDF 转换契约",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:b85030f00055e4d73991d5faed52cdf16c29e113267d91eeb0d4eb23c8c71aa6",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-30E6DB90ABA143",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-document-pdf-md:L3:e92c3eaefb"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "`qwork_document_pdf` 是主进程提供的任务绑定 MCP。模型先调用 `preflight`，成功后调用 `convert`；两者使用相同的 `input` 与 `output` 工作区相对路径，例如 `{\"action\":\"convert\",\"input\":\"report.html\",\"output\":\"artifacts/report.pdf\"}`。 工作区和会话身份由宿主根据能力令牌确定，调用者不能另行指定。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-document-pdf-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`qwork_document_pdf` 是主进程提供的任务绑定 MCP。模型先调用 `preflight`，成功后调用 `convert`；两者使用相同的 `input` 与 `output` 工作区相对路径，例如 `{\"action\":\"convert\",\"input\":\"report.html\",\"output\":\"artifacts/report.pdf\"}`。 工作区和会话身份由宿主根据能力令牌确定，调用者不能另行指定。"
+    },
+    {
+      "requirement_id": "REQ-7B9FEA6EBBCE14",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-document-pdf-md:L12:c759cb6d91"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "转换在不持久化的 Electron session 和隐藏窗口中执行，禁止页面 JavaScript、网络、 下载及权限请求。宿主在隔离世界检查字体和图片就绪，然后执行 `printToPDF`。 服务使用已有 PDF 解析器逐页校验，并按字符计数检查打印态可见文字未丢失（PDF.js 关闭兼容归一化，仅处理 NFC 和排版空白），再以不覆盖语义发布到工作区；已有文件保持原样。 预检不写产物。每任务最多一个操作，全局最多四个隔离转换会话；仅在清理成功后复用会话，清理失败的会话",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-document-pdf-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "转换在不持久化的 Electron session 和隐藏窗口中执行，禁止页面 JavaScript、网络、 下载及权限请求。宿主在隔离世界检查字体和图片就绪，然后执行 `printToPDF`。 服务使用已有 PDF 解析器逐页校验，并按字符计数检查打印态可见文字未丢失（PDF.js 关闭兼容归一化，仅处理 NFC 和排版空白），再以不覆盖语义发布到工作区；已有文件保持原样。 预检不写产物。每任务最多一个操作，全局最多四个隔离转换会话；仅在清理成功后复用会话，清理失败的会话"
+    },
+    {
+      "requirement_id": "REQ-3B0D7F1BDFDE00",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-document-pdf-md:L34:b85030f000"
+      ],
+      "content_facets": [
+        "ui-interaction"
+      ],
+      "acceptance_categories": [
+        "ui-interaction"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] macOS 隔离测试用户或 VM：实际任务转换中文长文、表格、图片与自带字体，无钥匙串弹窗。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-document-pdf-md"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] macOS 隔离测试用户或 VM：实际任务转换中文长文、表格、图片与自带字体，无钥匙串弹窗。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/document-pdf.md · 静态文档 PDF 转换契约 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-30E6DB90ABA143] exactly: `qwork_document_pdf` 是主进程提供的任务绑定 MCP。模型先调用 `preflight`，成功后调用 `convert`；两者使用相同的 `input` 与 `output` 工作区相对路径，例如 `{\"action\":\"convert\",\"input\":\"report.html\",\"output\":\"artifacts/report.pdf\"}`。 工作区和会话身份由宿主根据能力令牌确定，调用者不能另行指定。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-7B9FEA6EBBCE14] exactly: 转换在不持久化的 Electron session 和隐藏窗口中执行，禁止页面 JavaScript、网络、 下载及权限请求。宿主在隔离世界检查字体和图片就绪，然后执行 `printToPDF`。 服务使用已有 PDF 解析器逐页校验，并按字符计数检查打印态可见文字未丢失（PDF.js 关闭兼容归一化，仅处理 NFC 和排版空白），再以不覆盖语义发布到工作区；已有文件保持原样。 预检不写产物。每任务最多一个操作，全局最多四个隔离转换会话；仅在清理成功后复用会话，清理失败的会话"
+    },
+    {
+      "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-3B0D7F1BDFDE00] exactly: [ ] macOS 隔离测试用户或 VM：实际任务转换中文长文、表格、图片与自带字体，无钥匙串弹窗。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "`qwork_document_pdf` 是主进程提供的任务绑定 MCP。模型先调用 `preflight`，成功后调用 `convert`；两者使用相同的 `input` 与 `output` 工作区相对路径，例如 `{\"action\":\"convert\",\"input\":\"report.html\",\"output\":\"artifacts/report.pdf\"}`。 工作区和会话身份由宿主根据能力令牌确定，调用者不能另行指定。",
+    "转换在不持久化的 Electron session 和隐藏窗口中执行，禁止页面 JavaScript、网络、 下载及权限请求。宿主在隔离世界检查字体和图片就绪，然后执行 `printToPDF`。 服务使用已有 PDF 解析器逐页校验，并按字符计数检查打印态可见文字未丢失（PDF.js 关闭兼容归一化，仅处理 NFC 和排版空白），再以不覆盖语义发布到工作区；已有文件保持原样。 预检不写产物。每任务最多一个操作，全局最多四个隔离转换会话；仅在清理成功后复用会话，清理失败的会话",
+    "[ ] macOS 隔离测试用户或 VM：实际任务转换中文长文、表格、图片与自带字体，无钥匙串弹窗。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-30E6DB90ABA143]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `qwork_document_pdf` 是主进程提供的任务绑定 MCP。模型先调用 `preflight`，成功后调用 `convert`；两者使用相同的 `input` 与 `output` 工作区相对路径，例如 `{\"action\":\"convert\",\"input\":\"report.html\",\"output\":\"artifacts/report.pdf\"}`。 工作区和会话身份由宿主根据能力令牌确定，调用者不能另行指定。",
+    "FAIL [REQ-7B9FEA6EBBCE14]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 转换在不持久化的 Electron session 和隐藏窗口中执行，禁止页面 JavaScript、网络、 下载及权限请求。宿主在隔离世界检查字体和图片就绪，然后执行 `printToPDF`。 服务使用已有 PDF 解析器逐页校验，并按字符计数检查打印态可见文字未丢失（PDF.js 关闭兼容归一化，仅处理 NFC 和排版空白），再以不覆盖语义发布到工作区；已有文件保持原样。 预检不写产物。每任务最多一个操作，全局最多四个隔离转换会话；仅在清理成功后复用会话，清理失败的会话",
+    "FAIL [REQ-3B0D7F1BDFDE00]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] macOS 隔离测试用户或 VM：实际任务转换中文长文、表格、图片与自带字体，无钥匙串弹窗。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-30E6DB90ABA143",
+      "type": "return",
+      "assertion": "`qwork_document_pdf` 是主进程提供的任务绑定 MCP。模型先调用 `preflight`，成功后调用 `convert`；两者使用相同的 `input` 与 `output` 工作区相对路径，例如 `{\"action\":\"convert\",\"input\":\"report.html\",\"output\":\"artifacts/report.pdf\"}`。 工作区和会话身份由宿主根据能力令牌确定，调用者不能另行指定。"
+    },
+    {
+      "requirement_id": "REQ-7B9FEA6EBBCE14",
+      "type": "ui",
+      "assertion": "转换在不持久化的 Electron session 和隐藏窗口中执行，禁止页面 JavaScript、网络、 下载及权限请求。宿主在隔离世界检查字体和图片就绪，然后执行 `printToPDF`。 服务使用已有 PDF 解析器逐页校验，并按字符计数检查打印态可见文字未丢失（PDF.js 关闭兼容归一化，仅处理 NFC 和排版空白），再以不覆盖语义发布到工作区；已有文件保持原样。 预检不写产物。每任务最多一个操作，全局最多四个隔离转换会话；仅在清理成功后复用会话，清理失败的会话"
+    },
+    {
+      "requirement_id": "REQ-3B0D7F1BDFDE00",
+      "type": "ui-interaction",
+      "assertion": "[ ] macOS 隔离测试用户或 VM：实际任务转换中文长文、表格、图片与自带字体，无钥匙串弹窗。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-document-pdf-md.pdf-4679db2b0e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/document-pdf.md · 静态文档 PDF 转换契约 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-30E6DB90ABA143] exactly: `qwork_document_pdf` 是主进程提供的任务绑定 MCP。模型先调用 `preflight`，成功后调用 `convert`；两者使用相同的 `input` 与 `output` 工作区相对路径，例如 `{\"action\":\"convert\",\"input\":\"report.html\",\"output\":\"artifacts/report.pdf\"}`。 工作区和会话身份由宿主根据能力令牌确定，调用者不能另行指定。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-7B9FEA6EBBCE14] exactly: 转换在不持久化的 Electron session 和隐藏窗口中执行，禁止页面 JavaScript、网络、 下载及权限请求。宿主在隔离世界检查字体和图片就绪，然后执行 `printToPDF`。 服务使用已有 PDF 解析器逐页校验，并按字符计数检查打印态可见文字未丢失（PDF.js 关闭兼容归一化，仅处理 NFC 和排版空白），再以不覆盖语义发布到工作区；已有文件保持原样。 预检不写产物。每任务最多一个操作，全局最多四个隔离转换会话；仅在清理成功后复用会话，清理失败的会话"
+        },
+        {
+          "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-3B0D7F1BDFDE00] exactly: [ ] macOS 隔离测试用户或 VM：实际任务转换中文长文、表格、图片与自带字体，无钥匙串弹窗。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-30E6DB90ABA143",
+      "REQ-3B0D7F1BDFDE00",
+      "REQ-7B9FEA6EBBCE14"
+    ],
+    "categories": [
+      "negative",
+      "permission",
+      "ui-interaction"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "category:permission",
+      "category:ui-interaction",
+      "full",
+      "requirement:REQ-30E6DB90ABA143",
+      "requirement:REQ-3B0D7F1BDFDE00",
+      "requirement:REQ-7B9FEA6EBBCE14"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-30E6DB90ABA143",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/document-pdf.md · 静态文档 PDF 转换契约 产品契约 exactly once and retain its correlation identity",
+      "then": "`qwork_document_pdf` 是主进程提供的任务绑定 MCP。模型先调用 `preflight`，成功后调用 `convert`；两者使用相同的 `input` 与 `output` 工作区相对路径，例如 `{\"action\":\"convert\",\"input\":\"report.html\",\"output\":\"artifacts/report.pdf\"}`。 工作区和会话身份由宿主根据能力令牌确定，调用者不能另行指定。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-7B9FEA6EBBCE14",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/document-pdf.md · 静态文档 PDF 转换契约 产品契约 exactly once and retain its correlation identity",
+      "then": "转换在不持久化的 Electron session 和隐藏窗口中执行，禁止页面 JavaScript、网络、 下载及权限请求。宿主在隔离世界检查字体和图片就绪，然后执行 `printToPDF`。 服务使用已有 PDF 解析器逐页校验，并按字符计数检查打印态可见文字未丢失（PDF.js 关闭兼容归一化，仅处理 NFC 和排版空白），再以不覆盖语义发布到工作区；已有文件保持原样。 预检不写产物。每任务最多一个操作，全局最多四个隔离转换会话；仅在清理成功后复用会话，清理失败的会话",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-3B0D7F1BDFDE00",
+      "oracle_type": "ui-interaction",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/document-pdf.md · 静态文档 PDF 转换契约 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] macOS 隔离测试用户或 VM：实际任务转换中文长文、表格、图片与自带字体，无钥匙串弹窗。",
+      "observation_boundary": "renderer input/output interaction boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

@@ -1,0 +1,764 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-MODEL-ST-04-A8EE2877",
+  "title": "docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 04 — 用持久工具检查点保证副作用不重放 产品契约",
+  "kind": "negative",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:88;heading:04 — 用持久工具检查点保证副作用不重放",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:f8071e0a7c8d3bd7bd47f7116e22d467e81da96fd9378fcf99ad0a789ab308d0",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:90;heading:04 — 用持久工具检查点保证副作用不重放",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:bfdd647abcd7ee27df8a55dbb1e56ea58e22c4559463efafcb689c676a9bf60a",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:92;heading:04 — 用持久工具检查点保证副作用不重放",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:5af53f503e6f7154701003b916c7932ca048e7f627b45d4fb643191f313d8c3c",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:95;heading:04 — 用持久工具检查点保证副作用不重放",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:9a7a5410549018a32ebae822af3ae30e80ca9c36759e9d9d3b4cac838aad97f0",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:96;heading:04 — 用持久工具检查点保证副作用不重放",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:1b1022eb63738d92cd20f93b22dc99dcb05882044cde06fdcba639aa6ece136e",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:97;heading:04 — 用持久工具检查点保证副作用不重放",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:795a33ac8820475e25073b13f648982bf14294fbc664bfeaea83491aa535218d",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:98;heading:04 — 用持久工具检查点保证副作用不重放",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:2093fcc48060d819435a57b85b0a9ec7a466d5d0edd26afefcbadf0cb2fb625c",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:99;heading:04 — 用持久工具检查点保证副作用不重放",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:0b8e8b1493a626d6d3b35ddf2594f8224a66784f139c04b6377b5a5f55ae7af4",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:100;heading:04 — 用持久工具检查点保证副作用不重放",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:6e165088083ae1f6a021a64a00efe481efc56b554403cdb8a5326c226bd25dae",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0F00CF994406AE",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L88:f8071e0a7c"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "**What to build:** ZiqDo 会话 JSONL 成为工具恢复的唯一持久化真源。工具调用前记录 durable intent，工具完成后提交 durable result。模型续接只复用已经提交并可回读的结果，不重新执行工具；工具可能已经开始但结果无法证明时进入 Unknown Tool Effect State，禁止普通重试。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**What to build:** ZiqDo 会话 JSONL 成为工具恢复的唯一持久化真源。工具调用前记录 durable intent，工具完成后提交 durable result。模型续接只复用已经提交并可回读的结果，不重新执行工具；工具可能已经开始但结果无法证明时进入 Unknown Tool Effect State，禁止普通重试。"
+    },
+    {
+      "requirement_id": "REQ-C0DDE8C69EFA43",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L90:bfdd647abc"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "**Blocked by:** 03 — 增加有界重试与可取消的恢复界面。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**Blocked by:** 03 — 增加有界重试与可取消的恢复界面。"
+    },
+    {
+      "requirement_id": "REQ-D18DDD945D881B",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L92:5af53f503e"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "**Status:** implemented-local",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**Status:** implemented-local"
+    },
+    {
+      "requirement_id": "REQ-3805A4E4422D5A",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L95:9a7a541054"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 工具 intent 在执行前完成 append、稳定写入和回读；失败时工具不得开始执行。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 工具 intent 在执行前完成 append、稳定写入和回读；失败时工具不得开始执行。"
+    },
+    {
+      "requirement_id": "REQ-6D5C9E39BE50E2",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L96:1b1022eb63"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 工具 result 在对外声明完成前完成 append、稳定写入和回读。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 工具 result 在对外声明完成前完成 append、稳定写入和回读。"
+    },
+    {
+      "requirement_id": "REQ-8E85CB2B924181",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L97:795a33ac88"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 在 durable intent 之前崩溃时，不存在工具已开始的错误记录。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 在 durable intent 之前崩溃时，不存在工具已开始的错误记录。"
+    },
+    {
+      "requirement_id": "REQ-BEA38DA1AA8DA1",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L98:2093fcc480"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 工具执行后、result 提交前崩溃时，恢复状态为 Unknown Tool Effect State，缺少 result 不能解释为工具未执行。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 工具执行后、result 提交前崩溃时，恢复状态为 Unknown Tool Effect State，缺少 result 不能解释为工具未执行。"
+    },
+    {
+      "requirement_id": "REQ-2DAD414D1EC32A",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L99:0b8e8b1493"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] result 提交后崩溃时，恢复上下文包含该结果，后续模型调用获得新重试预算，工具执行计数仍为一次。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] result 提交后崩溃时，恢复上下文包含该结果，后续模型调用获得新重试预算，工具执行计数仍为一次。"
+    },
+    {
+      "requirement_id": "REQ-1832C0705D8083",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L100:6e16508808"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] Unknown Tool Effect State 不提供普通重试，只提供状态核对或详情入口。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] Unknown Tool Effect State 不提供普通重试，只提供状态核对或详情入口。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 04 — 用持久工具检查点保证副作用不重放 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0F00CF994406AE] exactly: **What to build:** ZiqDo 会话 JSONL 成为工具恢复的唯一持久化真源。工具调用前记录 durable intent，工具完成后提交 durable result。模型续接只复用已经提交并可回读的结果，不重新执行工具；工具可能已经开始但结果无法证明时进入 Unknown Tool Effect State，禁止普通重试。"
+    },
+    {
+      "action": "observe renderer interaction state after the trigger and assert [REQ-C0DDE8C69EFA43] exactly: **Blocked by:** 03 — 增加有界重试与可取消的恢复界面。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-D18DDD945D881B] exactly: **Status:** implemented-local"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-3805A4E4422D5A] exactly: [ ] 工具 intent 在执行前完成 append、稳定写入和回读；失败时工具不得开始执行。"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-6D5C9E39BE50E2] exactly: [ ] 工具 result 在对外声明完成前完成 append、稳定写入和回读。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8E85CB2B924181] exactly: [ ] 在 durable intent 之前崩溃时，不存在工具已开始的错误记录。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-BEA38DA1AA8DA1] exactly: [ ] 工具执行后、result 提交前崩溃时，恢复状态为 Unknown Tool Effect State，缺少 result 不能解释为工具未执行。"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-2DAD414D1EC32A] exactly: [ ] result 提交后崩溃时，恢复上下文包含该结果，后续模型调用获得新重试预算，工具执行计数仍为一次。"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-1832C0705D8083] exactly: [ ] Unknown Tool Effect State 不提供普通重试，只提供状态核对或详情入口。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "**What to build:** ZiqDo 会话 JSONL 成为工具恢复的唯一持久化真源。工具调用前记录 durable intent，工具完成后提交 durable result。模型续接只复用已经提交并可回读的结果，不重新执行工具；工具可能已经开始但结果无法证明时进入 Unknown Tool Effect State，禁止普通重试。",
+    "**Blocked by:** 03 — 增加有界重试与可取消的恢复界面。",
+    "**Status:** implemented-local",
+    "[ ] 工具 intent 在执行前完成 append、稳定写入和回读；失败时工具不得开始执行。",
+    "[ ] 工具 result 在对外声明完成前完成 append、稳定写入和回读。",
+    "[ ] 在 durable intent 之前崩溃时，不存在工具已开始的错误记录。",
+    "[ ] 工具执行后、result 提交前崩溃时，恢复状态为 Unknown Tool Effect State，缺少 result 不能解释为工具未执行。",
+    "[ ] result 提交后崩溃时，恢复上下文包含该结果，后续模型调用获得新重试预算，工具执行计数仍为一次。",
+    "[ ] Unknown Tool Effect State 不提供普通重试，只提供状态核对或详情入口。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-0F00CF994406AE]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **What to build:** ZiqDo 会话 JSONL 成为工具恢复的唯一持久化真源。工具调用前记录 durable intent，工具完成后提交 durable result。模型续接只复用已经提交并可回读的结果，不重新执行工具；工具可能已经开始但结果无法证明时进入 Unknown Tool Effect State，禁止普通重试。",
+    "FAIL [REQ-C0DDE8C69EFA43]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **Blocked by:** 03 — 增加有界重试与可取消的恢复界面。",
+    "FAIL [REQ-D18DDD945D881B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **Status:** implemented-local",
+    "FAIL [REQ-3805A4E4422D5A]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 工具 intent 在执行前完成 append、稳定写入和回读；失败时工具不得开始执行。",
+    "FAIL [REQ-6D5C9E39BE50E2]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 工具 result 在对外声明完成前完成 append、稳定写入和回读。",
+    "FAIL [REQ-8E85CB2B924181]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 在 durable intent 之前崩溃时，不存在工具已开始的错误记录。",
+    "FAIL [REQ-BEA38DA1AA8DA1]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 工具执行后、result 提交前崩溃时，恢复状态为 Unknown Tool Effect State，缺少 result 不能解释为工具未执行。",
+    "FAIL [REQ-2DAD414D1EC32A]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] result 提交后崩溃时，恢复上下文包含该结果，后续模型调用获得新重试预算，工具执行计数仍为一次。",
+    "FAIL [REQ-1832C0705D8083]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] Unknown Tool Effect State 不提供普通重试，只提供状态核对或详情入口。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0F00CF994406AE",
+      "type": "return",
+      "assertion": "**What to build:** ZiqDo 会话 JSONL 成为工具恢复的唯一持久化真源。工具调用前记录 durable intent，工具完成后提交 durable result。模型续接只复用已经提交并可回读的结果，不重新执行工具；工具可能已经开始但结果无法证明时进入 Unknown Tool Effect State，禁止普通重试。"
+    },
+    {
+      "requirement_id": "REQ-C0DDE8C69EFA43",
+      "type": "ui-state",
+      "assertion": "**Blocked by:** 03 — 增加有界重试与可取消的恢复界面。"
+    },
+    {
+      "requirement_id": "REQ-D18DDD945D881B",
+      "type": "return",
+      "assertion": "**Status:** implemented-local"
+    },
+    {
+      "requirement_id": "REQ-3805A4E4422D5A",
+      "type": "event",
+      "assertion": "[ ] 工具 intent 在执行前完成 append、稳定写入和回读；失败时工具不得开始执行。"
+    },
+    {
+      "requirement_id": "REQ-6D5C9E39BE50E2",
+      "type": "event",
+      "assertion": "[ ] 工具 result 在对外声明完成前完成 append、稳定写入和回读。"
+    },
+    {
+      "requirement_id": "REQ-8E85CB2B924181",
+      "type": "return",
+      "assertion": "[ ] 在 durable intent 之前崩溃时，不存在工具已开始的错误记录。"
+    },
+    {
+      "requirement_id": "REQ-BEA38DA1AA8DA1",
+      "type": "return",
+      "assertion": "[ ] 工具执行后、result 提交前崩溃时，恢复状态为 Unknown Tool Effect State，缺少 result 不能解释为工具未执行。"
+    },
+    {
+      "requirement_id": "REQ-2DAD414D1EC32A",
+      "type": "event",
+      "assertion": "[ ] result 提交后崩溃时，恢复上下文包含该结果，后续模型调用获得新重试预算，工具执行计数仍为一次。"
+    },
+    {
+      "requirement_id": "REQ-1832C0705D8083",
+      "type": "event",
+      "assertion": "[ ] Unknown Tool Effect State 不提供普通重试，只提供状态核对或详情入口。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-model-stre.04-a8ee2877ba",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 04 — 用持久工具检查点保证副作用不重放 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-0F00CF994406AE] exactly: **What to build:** ZiqDo 会话 JSONL 成为工具恢复的唯一持久化真源。工具调用前记录 durable intent，工具完成后提交 durable result。模型续接只复用已经提交并可回读的结果，不重新执行工具；工具可能已经开始但结果无法证明时进入 Unknown Tool Effect State，禁止普通重试。"
+        },
+        {
+          "action": "observe renderer interaction state after the trigger and assert [REQ-C0DDE8C69EFA43] exactly: **Blocked by:** 03 — 增加有界重试与可取消的恢复界面。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-D18DDD945D881B] exactly: **Status:** implemented-local"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-3805A4E4422D5A] exactly: [ ] 工具 intent 在执行前完成 append、稳定写入和回读；失败时工具不得开始执行。"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-6D5C9E39BE50E2] exactly: [ ] 工具 result 在对外声明完成前完成 append、稳定写入和回读。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8E85CB2B924181] exactly: [ ] 在 durable intent 之前崩溃时，不存在工具已开始的错误记录。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-BEA38DA1AA8DA1] exactly: [ ] 工具执行后、result 提交前崩溃时，恢复状态为 Unknown Tool Effect State，缺少 result 不能解释为工具未执行。"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-2DAD414D1EC32A] exactly: [ ] result 提交后崩溃时，恢复上下文包含该结果，后续模型调用获得新重试预算，工具执行计数仍为一次。"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-1832C0705D8083] exactly: [ ] Unknown Tool Effect State 不提供普通重试，只提供状态核对或详情入口。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0F00CF994406AE",
+      "REQ-1832C0705D8083",
+      "REQ-2DAD414D1EC32A",
+      "REQ-3805A4E4422D5A",
+      "REQ-6D5C9E39BE50E2",
+      "REQ-8E85CB2B924181",
+      "REQ-BEA38DA1AA8DA1",
+      "REQ-C0DDE8C69EFA43",
+      "REQ-D18DDD945D881B"
+    ],
+    "categories": [
+      "business",
+      "negative",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:negative",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-0F00CF994406AE",
+      "requirement:REQ-1832C0705D8083",
+      "requirement:REQ-2DAD414D1EC32A",
+      "requirement:REQ-3805A4E4422D5A",
+      "requirement:REQ-6D5C9E39BE50E2",
+      "requirement:REQ-8E85CB2B924181",
+      "requirement:REQ-BEA38DA1AA8DA1",
+      "requirement:REQ-C0DDE8C69EFA43",
+      "requirement:REQ-D18DDD945D881B"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-0F00CF994406AE",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 04 — 用持久工具检查点保证副作用不重放 产品契约 exactly once and retain its correlation identity",
+      "then": "**What to build:** ZiqDo 会话 JSONL 成为工具恢复的唯一持久化真源。工具调用前记录 durable intent，工具完成后提交 durable result。模型续接只复用已经提交并可回读的结果，不重新执行工具；工具可能已经开始但结果无法证明时进入 Unknown Tool Effect State，禁止普通重试。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-C0DDE8C69EFA43",
+      "oracle_type": "ui-state",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 04 — 用持久工具检查点保证副作用不重放 产品契约 exactly once and retain its correlation identity",
+      "then": "**Blocked by:** 03 — 增加有界重试与可取消的恢复界面。",
+      "observation_boundary": "renderer interaction state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-D18DDD945D881B",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 04 — 用持久工具检查点保证副作用不重放 产品契约 exactly once and retain its correlation identity",
+      "then": "**Status:** implemented-local",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-3805A4E4422D5A",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 04 — 用持久工具检查点保证副作用不重放 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 工具 intent 在执行前完成 append、稳定写入和回读；失败时工具不得开始执行。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-6D5C9E39BE50E2",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 04 — 用持久工具检查点保证副作用不重放 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 工具 result 在对外声明完成前完成 append、稳定写入和回读。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-8E85CB2B924181",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 04 — 用持久工具检查点保证副作用不重放 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 在 durable intent 之前崩溃时，不存在工具已开始的错误记录。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-BEA38DA1AA8DA1",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 04 — 用持久工具检查点保证副作用不重放 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 工具执行后、result 提交前崩溃时，恢复状态为 Unknown Tool Effect State，缺少 result 不能解释为工具未执行。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-2DAD414D1EC32A",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 04 — 用持久工具检查点保证副作用不重放 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] result 提交后崩溃时，恢复上下文包含该结果，后续模型调用获得新重试预算，工具执行计数仍为一次。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-1832C0705D8083",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 04 — 用持久工具检查点保证副作用不重放 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] Unknown Tool Effect State 不提供普通重试，只提供状态核对或详情入口。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

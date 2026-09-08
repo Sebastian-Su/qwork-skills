@@ -1,0 +1,287 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-SHARED-UI-PARITY-SPEC-AD3E27B6",
+  "title": "设置导航采用14px常规字重与8px圆角且切换不变粗",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "settings",
+    "journey": "settings",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-shared-ui-parity.spec.ts",
+      "locator": "line:151;test:设置导航采用14px常规字重与8px圆角且切换不变粗",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:ad3e27b6943624d2e811736e8b6ac80904b3e0ce7c4bf2925a093f4c40eaa122",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-8C859BD5CBB504",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts:L151:ad3e27b694"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "settings",
+      "priority": "P1",
+      "rule": "设置导航采用14px常规字重与8px圆角且切换不变粗",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "设置导航采用14px常规字重与8px圆角且切换不变粗"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+    },
+    {
+      "action": "page.mouse.click(800, 80)"
+    },
+    {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
+      "action": "item.click()"
+    },
+    {
+      "action": "memory.hover()"
+    },
+    {
+      "action": "nav.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
+    },
+    {
+      "action": "slider.press(\"End\")"
+    },
+    {
+      "action": "slider.press(\"Home\")"
+    },
+    {
+      "action": "slider.press(\"ArrowRight\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭设置\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(item).toHaveAttribute(\"aria-current\", \"page\")",
+    "expect(nav.getByRole(\"button\", { name: \"QWork CLI\", exact: true })).toHaveCount(0)",
+    "expect.soft(entry).toHaveCSS(\"font-size\", \"14px\", { timeout: 100 })",
+    "expect.soft(entry).toHaveCSS(\"font-weight\", \"400\", { timeout: 100 })",
+    "expect.soft(entry).toHaveCSS(\"line-height\", \"normal\", { timeout: 100 })",
+    "expect.soft(entry).toHaveCSS(\"border-radius\", \"8px\", { timeout: 100 })",
+    "expect.soft(entry.locator(\"span\").last()).toHaveCSS(\"line-height\", \"20px\", { timeout: 100 })",
+    "expect.soft(memory.locator(\"svg\")).toHaveCSS(\"width\", \"18px\", { timeout: 100 })",
+    "expect.soft(memory.locator(\"svg\")).toHaveCSS(\"transform\", \"matrix(1, 0, 0, 1, -1, 0)\", { timeout: 100 })",
+    "expect.soft(memory).toHaveCSS(\"background-color\", mode === \"浅色\" ? \"rgb(230, 230, 230)\" : \"rgb(58, 58, 58)\", { timeout: 500 })",
+    "expect.soft(memory).toHaveCSS(\"transition-duration\", \"0.15s\", { timeout: 100 })",
+    "expect.soft(memory).toHaveCSS(\"transition-timing-function\", \"ease\", { timeout: 100 })",
+    "expect(page.getByRole(\"textbox\", { name: \"自定义指令\" })).toBeVisible()",
+    "expect(nav.getByRole(\"button\", { name: \"系统设置\", exact: true })).toHaveCSS(\"font-size\", \"19px\")",
+    "expect(await page.getByTestId(\"settings-surface\").boundingBox()).toEqual(before)",
+    "expect(nav.getByRole(\"button\", { name: \"系统设置\", exact: true })).toHaveCSS(\"font-size\", \"14px\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-8C859BD5CBB504",
+      "type": "return",
+      "assertion": "设置导航采用14px常规字重与8px圆角且切换不变粗"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-shared-ui-parity-spec-ts.ad3e27b694",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-shared-ui-parity.spec.ts -g \"设置导航采用14px常规字重与8px圆角且切换不变粗\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "settings",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+        },
+        {
+          "action": "page.mouse.click(800, 80)"
+        },
+        {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
+          "action": "item.click()"
+        },
+        {
+          "action": "memory.hover()"
+        },
+        {
+          "action": "nav.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
+        },
+        {
+          "action": "slider.press(\"End\")"
+        },
+        {
+          "action": "slider.press(\"Home\")"
+        },
+        {
+          "action": "slider.press(\"ArrowRight\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭设置\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-shared-ui-parity.spec.ts",
+        "line_start": 151,
+        "line_end": 189,
+        "body_sha256": "sha256:c9d0d277824fb75e91a35a1c7d41841e490a455b0af2edb65425901bb0d03c9c",
+        "assertion_count": 16,
+        "action_count": 11,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:5fdf2c06fef33a49affb73bb6f7f9aef7e267d980e36dc5a294e1eb58459ff79"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-8C859BD5CBB504"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-8C859BD5CBB504"
+    ]
+  }
+}

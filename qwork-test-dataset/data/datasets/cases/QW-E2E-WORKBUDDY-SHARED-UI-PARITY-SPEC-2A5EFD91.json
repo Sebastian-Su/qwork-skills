@@ -1,0 +1,258 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-SHARED-UI-PARITY-SPEC-2A5EFD91",
+  "title": "自动化空态与模板标题使用实测文字色，新增按钮保留真实字体",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "automations",
+    "journey": "automations",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-shared-ui-parity.spec.ts",
+      "locator": "line:707;test:自动化空态与模板标题使用实测文字色，新增按钮保留真实字体",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:2a5efd918ae286dc99295ba0772de82733e5e783be672d44844924214a576d35",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-3150B72BE0ECB2",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts:L707:2a5efd918a"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "自动化空态与模板标题使用实测文字色，新增按钮保留真实字体",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "自动化空态与模板标题使用实测文字色，新增按钮保留真实字体"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+    },
+    {
+      "action": "page.mouse.click(800, 80)"
+    },
+    {
+      "action": "add.hover()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"添加自动化\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.soft(page.getByRole(\"heading\", { name: \"自动化任务模版\", exact: true })).toHaveCSS(\"color\", primary, { timeout: 300 })",
+    "expect.soft(page.getByText(\"开启你的第一个自动化任务吧\", { exact: true })).toHaveCSS(\"color\", secondary, { timeout: 300 })",
+    "expect.soft(page.locator('[data-icon=\"empty-alarm\"]')).toHaveCSS(\"color\", muted, { timeout: 300 })",
+    "expect.soft(page.getByRole(\"tab\", { name: \"运行记录\", exact: true })).toHaveCSS(\"color\", secondary, { timeout: 300 })",
+    "expect.soft(add).toHaveCSS(\"font-family\", /PingFang SC/, { timeout: 300 })",
+    "expect.soft(caption).toHaveCSS(\"display\", \"flex\", { timeout: 300 })",
+    "expect.soft(await caption.evaluate(el => [...el.childNodes].map(node => node.textContent))).toEqual([\"+ \", \"添加自动化\"])",
+    "expect.soft(await add.boundingBox()).toEqual({ x: 942.4296875, y: 391, width: 107.1328125, height: 32 })",
+    "expect.soft(add).toHaveCSS(\"background-color\", mode === \"浅色\" ? \"rgba(0, 0, 0, 0.75)\" : \"rgba(255, 255, 255, 0.75)\", { timeout: 300 })",
+    "expect.soft(add).toHaveCSS(\"background-color\", mode === \"浅色\" ? \"rgba(0, 0, 0, 0.9)\" : \"rgba(255, 255, 255, 0.9)\", { timeout: 300 })",
+    "expect(page.getByRole(\"textbox\", { name: \"名称\", exact: true })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-3150B72BE0ECB2",
+      "type": "ui",
+      "assertion": "自动化空态与模板标题使用实测文字色，新增按钮保留真实字体"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-shared-ui-parity-spec-ts.2a5efd918a",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-shared-ui-parity.spec.ts -g \"自动化空态与模板标题使用实测文字色，新增按钮保留真实字体\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "automations",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+        },
+        {
+          "action": "page.mouse.click(800, 80)"
+        },
+        {
+          "action": "add.hover()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"添加自动化\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-shared-ui-parity.spec.ts",
+        "line_start": 707,
+        "line_end": 734,
+        "body_sha256": "sha256:c6a7a13c9e231b18ee1cdc078682f7e4dfc36f2aeedae37bbce5c771d3d003d5",
+        "assertion_count": 11,
+        "action_count": 7,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:5fdf2c06fef33a49affb73bb6f7f9aef7e267d980e36dc5a294e1eb58459ff79"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-3150B72BE0ECB2"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-3150B72BE0ECB2"
+    ]
+  }
+}

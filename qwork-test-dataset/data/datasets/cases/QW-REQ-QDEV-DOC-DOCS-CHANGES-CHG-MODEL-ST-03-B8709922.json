@@ -1,0 +1,828 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-MODEL-ST-03-B8709922",
+  "title": "docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 03 — 增加有界重试与可取消的恢复界面 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:71;heading:03 — 增加有界重试与可取消的恢复界面",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:b87fd63a82cf3b84b0a36832d891052f9ae2de548a507ef833644f4250eab279",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:73;heading:03 — 增加有界重试与可取消的恢复界面",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:5af53f503e6f7154701003b916c7932ca048e7f627b45d4fb643191f313d8c3c",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:77;heading:03 — 增加有界重试与可取消的恢复界面",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:e4adf6b01dd789e2c03fe2854dc58c89a05041049dcd3a76c9acd19f9baa013e",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:78;heading:03 — 增加有界重试与可取消的恢复界面",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:88c776bea368f83e7ada6318ce3e8a8b28f8837c987d10d8ff4881ce7e5ec77d",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:79;heading:03 — 增加有界重试与可取消的恢复界面",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:28d505ce8d64f0d862174f4bbfca8dcd4963b84f9d581bd3ad8ea55465f57851",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:80;heading:03 — 增加有界重试与可取消的恢复界面",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:0024e92ed5ed011106b1a601b745aac8b3e0bd185e998bf6a148a1d4c9ac04c1",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:81;heading:03 — 增加有界重试与可取消的恢复界面",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:af857b96c31472366eb44b73a7f810d748eb7a5b0c6b8ed479ff652d07de798d",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:82;heading:03 — 增加有界重试与可取消的恢复界面",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:806b5b338f7e4398a526ecfd86489327263db694c6e0b35ecde34fee1cf69cbd",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:83;heading:03 — 增加有界重试与可取消的恢复界面",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:ae8217db09291a9d3b269da45b07f493ce38d7f05c12b48b443b1a5b4b2f2c77",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md",
+      "locator": "line:84;heading:03 — 增加有界重试与可取消的恢复界面",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:3bb9d515d22b66d98191dcf3320c49618912d5e1bd7bc807c562d09bb39dc664",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-30ADFB479BC5F4",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L71:b87fd63a82"
+      ],
+      "content_facets": [
+        "ui-content"
+      ],
+      "acceptance_categories": [
+        "ui-content"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "**Blocked by:** 02 — 跑通托管文本响应的断线回放。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**Blocked by:** 02 — 跑通托管文本响应的断线回放。"
+    },
+    {
+      "requirement_id": "REQ-1A2D44BFC650E3",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L73:5af53f503e"
+      ],
+      "content_facets": [
+        "ui-content"
+      ],
+      "acceptance_categories": [
+        "ui-content"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "**Status:** implemented-local",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**Status:** implemented-local"
+    },
+    {
+      "requirement_id": "REQ-5E02755564065E",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L77:e4adf6b01d"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 普通退避从 500 ms 开始指数增长，加入 0–25% 正抖动，单次本地等待不超过 32 秒。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 普通退避从 500 ms 开始指数增长，加入 0–25% 正抖动，单次本地等待不超过 32 秒。"
+    },
+    {
+      "requirement_id": "REQ-EEC34B13C682FD",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L78:88c776bea3"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 有效 `Retry-After` 可以覆盖本地等待，但普通模式单次不超过 60 秒；更长等待转为用户可处理状态。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 有效 `Retry-After` 可以覆盖本地等待，但普通模式单次不超过 60 秒；更长等待转为用户可处理状态。"
+    },
+    {
+      "requirement_id": "REQ-AB2BB0FEE6848F",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L79:28d505ce8d"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 连接失败、408、符合条件的 409/429、5xx 和已识别的可恢复 body-stream 错误进入重试判断。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 连接失败、408、符合条件的 409/429、5xx 和已识别的可恢复 body-stream 错误进入重试判断。"
+    },
+    {
+      "requirement_id": "REQ-D8B1FD215BE931",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L80:0024e92ed5"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 用户取消、鉴权、权限、输入、账单、长期额度、协议不兼容和超限错误不自动重试。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 用户取消、鉴权、权限、输入、账单、长期额度、协议不兼容和超限错误不自动重试。"
+    },
+    {
+      "requirement_id": "REQ-619D00A18712A8",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L81:af857b96c3"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 自动恢复期间任务保持运行，界面显示准确的当前次数、最大次数和下一次尝试倒计时。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 自动恢复期间任务保持运行，界面显示准确的当前次数、最大次数和下一次尝试倒计时。"
+    },
+    {
+      "requirement_id": "REQ-552F1A1296228A",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L82:806b5b338f"
+      ],
+      "content_facets": [
+        "ui-content"
+      ],
+      "acceptance_categories": [
+        "ui-content"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 用户在退避期间取消后，倒计时停止且不会发起下一次传输。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 用户在退避期间取消后，倒计时停止且不会发起下一次传输。"
+    },
+    {
+      "requirement_id": "REQ-8D5234240AB69E",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L83:ae8217db09"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 失败尝试的残缺正文和不完整 `tool_use` 不进入正式会话；恢复成功后只出现完整结果。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 失败尝试的残缺正文和不完整 `tool_use` 不进入正式会话；恢复成功后只出现完整结果。"
+    },
+    {
+      "requirement_id": "REQ-D3F7E300CBC6D1",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026:L84:3bb9d515d2"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "[ ] 自动预算耗尽前不生成失败卡；耗尽后从可靠检查点发起的手工重试获得新预算。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-stream-safe-continuation-2026"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] 自动预算耗尽前不生成失败卡；耗尽后从可靠检查点发起的手工重试获得新预算。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 03 — 增加有界重试与可取消的恢复界面 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer visible content after the trigger and assert [REQ-30ADFB479BC5F4] exactly: **Blocked by:** 02 — 跑通托管文本响应的断线回放。"
+    },
+    {
+      "action": "observe renderer visible content after the trigger and assert [REQ-1A2D44BFC650E3] exactly: **Status:** implemented-local"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-5E02755564065E] exactly: [ ] 普通退避从 500 ms 开始指数增长，加入 0–25% 正抖动，单次本地等待不超过 32 秒。"
+    },
+    {
+      "action": "observe renderer interaction state after the trigger and assert [REQ-EEC34B13C682FD] exactly: [ ] 有效 `Retry-After` 可以覆盖本地等待，但普通模式单次不超过 60 秒；更长等待转为用户可处理状态。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-AB2BB0FEE6848F] exactly: [ ] 连接失败、408、符合条件的 409/429、5xx 和已识别的可恢复 body-stream 错误进入重试判断。"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-D8B1FD215BE931] exactly: [ ] 用户取消、鉴权、权限、输入、账单、长期额度、协议不兼容和超限错误不自动重试。"
+    },
+    {
+      "action": "observe renderer interaction state after the trigger and assert [REQ-619D00A18712A8] exactly: [ ] 自动恢复期间任务保持运行，界面显示准确的当前次数、最大次数和下一次尝试倒计时。"
+    },
+    {
+      "action": "observe renderer visible content after the trigger and assert [REQ-552F1A1296228A] exactly: [ ] 用户在退避期间取消后，倒计时停止且不会发起下一次传输。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8D5234240AB69E] exactly: [ ] 失败尝试的残缺正文和不完整 `tool_use` 不进入正式会话；恢复成功后只出现完整结果。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-D3F7E300CBC6D1] exactly: [ ] 自动预算耗尽前不生成失败卡；耗尽后从可靠检查点发起的手工重试获得新预算。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "**Blocked by:** 02 — 跑通托管文本响应的断线回放。",
+    "**Status:** implemented-local",
+    "[ ] 普通退避从 500 ms 开始指数增长，加入 0–25% 正抖动，单次本地等待不超过 32 秒。",
+    "[ ] 有效 `Retry-After` 可以覆盖本地等待，但普通模式单次不超过 60 秒；更长等待转为用户可处理状态。",
+    "[ ] 连接失败、408、符合条件的 409/429、5xx 和已识别的可恢复 body-stream 错误进入重试判断。",
+    "[ ] 用户取消、鉴权、权限、输入、账单、长期额度、协议不兼容和超限错误不自动重试。",
+    "[ ] 自动恢复期间任务保持运行，界面显示准确的当前次数、最大次数和下一次尝试倒计时。",
+    "[ ] 用户在退避期间取消后，倒计时停止且不会发起下一次传输。",
+    "[ ] 失败尝试的残缺正文和不完整 `tool_use` 不进入正式会话；恢复成功后只出现完整结果。",
+    "[ ] 自动预算耗尽前不生成失败卡；耗尽后从可靠检查点发起的手工重试获得新预算。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-30ADFB479BC5F4]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **Blocked by:** 02 — 跑通托管文本响应的断线回放。",
+    "FAIL [REQ-1A2D44BFC650E3]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **Status:** implemented-local",
+    "FAIL [REQ-5E02755564065E]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 普通退避从 500 ms 开始指数增长，加入 0–25% 正抖动，单次本地等待不超过 32 秒。",
+    "FAIL [REQ-EEC34B13C682FD]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 有效 `Retry-After` 可以覆盖本地等待，但普通模式单次不超过 60 秒；更长等待转为用户可处理状态。",
+    "FAIL [REQ-AB2BB0FEE6848F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 连接失败、408、符合条件的 409/429、5xx 和已识别的可恢复 body-stream 错误进入重试判断。",
+    "FAIL [REQ-D8B1FD215BE931]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 用户取消、鉴权、权限、输入、账单、长期额度、协议不兼容和超限错误不自动重试。",
+    "FAIL [REQ-619D00A18712A8]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 自动恢复期间任务保持运行，界面显示准确的当前次数、最大次数和下一次尝试倒计时。",
+    "FAIL [REQ-552F1A1296228A]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 用户在退避期间取消后，倒计时停止且不会发起下一次传输。",
+    "FAIL [REQ-8D5234240AB69E]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 失败尝试的残缺正文和不完整 `tool_use` 不进入正式会话；恢复成功后只出现完整结果。",
+    "FAIL [REQ-D3F7E300CBC6D1]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] 自动预算耗尽前不生成失败卡；耗尽后从可靠检查点发起的手工重试获得新预算。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-30ADFB479BC5F4",
+      "type": "ui-content",
+      "assertion": "**Blocked by:** 02 — 跑通托管文本响应的断线回放。"
+    },
+    {
+      "requirement_id": "REQ-1A2D44BFC650E3",
+      "type": "ui-content",
+      "assertion": "**Status:** implemented-local"
+    },
+    {
+      "requirement_id": "REQ-5E02755564065E",
+      "type": "event",
+      "assertion": "[ ] 普通退避从 500 ms 开始指数增长，加入 0–25% 正抖动，单次本地等待不超过 32 秒。"
+    },
+    {
+      "requirement_id": "REQ-EEC34B13C682FD",
+      "type": "ui-state",
+      "assertion": "[ ] 有效 `Retry-After` 可以覆盖本地等待，但普通模式单次不超过 60 秒；更长等待转为用户可处理状态。"
+    },
+    {
+      "requirement_id": "REQ-AB2BB0FEE6848F",
+      "type": "return",
+      "assertion": "[ ] 连接失败、408、符合条件的 409/429、5xx 和已识别的可恢复 body-stream 错误进入重试判断。"
+    },
+    {
+      "requirement_id": "REQ-D8B1FD215BE931",
+      "type": "api",
+      "assertion": "[ ] 用户取消、鉴权、权限、输入、账单、长期额度、协议不兼容和超限错误不自动重试。"
+    },
+    {
+      "requirement_id": "REQ-619D00A18712A8",
+      "type": "ui-state",
+      "assertion": "[ ] 自动恢复期间任务保持运行，界面显示准确的当前次数、最大次数和下一次尝试倒计时。"
+    },
+    {
+      "requirement_id": "REQ-552F1A1296228A",
+      "type": "ui-content",
+      "assertion": "[ ] 用户在退避期间取消后，倒计时停止且不会发起下一次传输。"
+    },
+    {
+      "requirement_id": "REQ-8D5234240AB69E",
+      "type": "return",
+      "assertion": "[ ] 失败尝试的残缺正文和不完整 `tool_use` 不进入正式会话；恢复成功后只出现完整结果。"
+    },
+    {
+      "requirement_id": "REQ-D3F7E300CBC6D1",
+      "type": "return",
+      "assertion": "[ ] 自动预算耗尽前不生成失败卡；耗尽后从可靠检查点发起的手工重试获得新预算。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-model-stre.03-b87099227b",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 03 — 增加有界重试与可取消的恢复界面 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer visible content after the trigger and assert [REQ-30ADFB479BC5F4] exactly: **Blocked by:** 02 — 跑通托管文本响应的断线回放。"
+        },
+        {
+          "action": "observe renderer visible content after the trigger and assert [REQ-1A2D44BFC650E3] exactly: **Status:** implemented-local"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-5E02755564065E] exactly: [ ] 普通退避从 500 ms 开始指数增长，加入 0–25% 正抖动，单次本地等待不超过 32 秒。"
+        },
+        {
+          "action": "observe renderer interaction state after the trigger and assert [REQ-EEC34B13C682FD] exactly: [ ] 有效 `Retry-After` 可以覆盖本地等待，但普通模式单次不超过 60 秒；更长等待转为用户可处理状态。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-AB2BB0FEE6848F] exactly: [ ] 连接失败、408、符合条件的 409/429、5xx 和已识别的可恢复 body-stream 错误进入重试判断。"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-D8B1FD215BE931] exactly: [ ] 用户取消、鉴权、权限、输入、账单、长期额度、协议不兼容和超限错误不自动重试。"
+        },
+        {
+          "action": "observe renderer interaction state after the trigger and assert [REQ-619D00A18712A8] exactly: [ ] 自动恢复期间任务保持运行，界面显示准确的当前次数、最大次数和下一次尝试倒计时。"
+        },
+        {
+          "action": "observe renderer visible content after the trigger and assert [REQ-552F1A1296228A] exactly: [ ] 用户在退避期间取消后，倒计时停止且不会发起下一次传输。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8D5234240AB69E] exactly: [ ] 失败尝试的残缺正文和不完整 `tool_use` 不进入正式会话；恢复成功后只出现完整结果。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-D3F7E300CBC6D1] exactly: [ ] 自动预算耗尽前不生成失败卡；耗尽后从可靠检查点发起的手工重试获得新预算。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-1A2D44BFC650E3",
+      "REQ-30ADFB479BC5F4",
+      "REQ-552F1A1296228A",
+      "REQ-5E02755564065E",
+      "REQ-619D00A18712A8",
+      "REQ-8D5234240AB69E",
+      "REQ-AB2BB0FEE6848F",
+      "REQ-D3F7E300CBC6D1",
+      "REQ-D8B1FD215BE931",
+      "REQ-EEC34B13C682FD"
+    ],
+    "categories": [
+      "negative",
+      "permission",
+      "recovery",
+      "state",
+      "ui-content"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "category:permission",
+      "category:recovery",
+      "category:state",
+      "category:ui-content",
+      "full",
+      "requirement:REQ-1A2D44BFC650E3",
+      "requirement:REQ-30ADFB479BC5F4",
+      "requirement:REQ-552F1A1296228A",
+      "requirement:REQ-5E02755564065E",
+      "requirement:REQ-619D00A18712A8",
+      "requirement:REQ-8D5234240AB69E",
+      "requirement:REQ-AB2BB0FEE6848F",
+      "requirement:REQ-D3F7E300CBC6D1",
+      "requirement:REQ-D8B1FD215BE931",
+      "requirement:REQ-EEC34B13C682FD"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-30ADFB479BC5F4",
+      "oracle_type": "ui-content",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 03 — 增加有界重试与可取消的恢复界面 产品契约 exactly once and retain its correlation identity",
+      "then": "**Blocked by:** 02 — 跑通托管文本响应的断线回放。",
+      "observation_boundary": "renderer visible content",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-1A2D44BFC650E3",
+      "oracle_type": "ui-content",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 03 — 增加有界重试与可取消的恢复界面 产品契约 exactly once and retain its correlation identity",
+      "then": "**Status:** implemented-local",
+      "observation_boundary": "renderer visible content",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-5E02755564065E",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 03 — 增加有界重试与可取消的恢复界面 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 普通退避从 500 ms 开始指数增长，加入 0–25% 正抖动，单次本地等待不超过 32 秒。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-EEC34B13C682FD",
+      "oracle_type": "ui-state",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 03 — 增加有界重试与可取消的恢复界面 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 有效 `Retry-After` 可以覆盖本地等待，但普通模式单次不超过 60 秒；更长等待转为用户可处理状态。",
+      "observation_boundary": "renderer interaction state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-AB2BB0FEE6848F",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 03 — 增加有界重试与可取消的恢复界面 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 连接失败、408、符合条件的 409/429、5xx 和已识别的可恢复 body-stream 错误进入重试判断。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-D8B1FD215BE931",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 03 — 增加有界重试与可取消的恢复界面 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 用户取消、鉴权、权限、输入、账单、长期额度、协议不兼容和超限错误不自动重试。",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-619D00A18712A8",
+      "oracle_type": "ui-state",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 03 — 增加有界重试与可取消的恢复界面 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 自动恢复期间任务保持运行，界面显示准确的当前次数、最大次数和下一次尝试倒计时。",
+      "observation_boundary": "renderer interaction state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-552F1A1296228A",
+      "oracle_type": "ui-content",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 03 — 增加有界重试与可取消的恢复界面 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 用户在退避期间取消后，倒计时停止且不会发起下一次传输。",
+      "observation_boundary": "renderer visible content",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-8D5234240AB69E",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 03 — 增加有界重试与可取消的恢复界面 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 失败尝试的残缺正文和不完整 `tool_use` 不进入正式会话；恢复成功后只出现完整结果。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-D3F7E300CBC6D1",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-stream-safe-continuation-20260903/implementation-plan.md · 03 — 增加有界重试与可取消的恢复界面 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] 自动预算耗尽前不生成失败卡；耗尽后从可靠检查点发起的手工重试获得新预算。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

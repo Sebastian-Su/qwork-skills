@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-plan.spec.ts",
-      "locator": "line:787;test:keeps the new view menu above the gantt table header",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/projects-plan.spec.ts",
+      "locator": "line:918;test:keeps the new view menu above the gantt table header",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:de7a957eafa5bf7c281d96625bf7cf54fa9199c75b72e19a6c91b28d644e03f8",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-DFE27A60A3C7A8",
+      "requirement_id": "REQ-628621AFD13367",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-projects-plan-spec-ts:L787:de7a957eaf"
+        "QDEV-E2E-e2e-projects-plan-spec-ts:L918:de7a957eaf"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,6 +75,21 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+    },
+    {
+      "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
     },
     {
@@ -85,6 +100,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByText(name, { exact: true }).first()).toBeVisible()",
     "expect(menu).toBeVisible()",
     "expect(menuBox).not.toBeNull()",
     "expect(topmostRole).toBe(\"menu\")"
@@ -96,7 +112,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-DFE27A60A3C7A8",
+      "requirement_id": "REQ-628621AFD13367",
       "type": "return",
       "assertion": "keeps the new view menu above the gantt table header"
     }
@@ -157,6 +173,21 @@
       "entrypoint": "projects",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+        },
+        {
+          "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
         },
         {
@@ -184,13 +215,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/projects-plan.spec.ts",
-        "line_start": 787,
-        "line_end": 825,
+        "line_start": 918,
+        "line_end": 956,
         "body_sha256": "sha256:dabeb13b76a3006f5f4c7ddd2a1d3b8b992f3e36c4eec980424fe09d8ad30b02",
-        "assertion_count": 3,
-        "action_count": 3,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:39f092a3d14f270b5f9009d6239b9b80edaeca781dbd2ad463f9045f009d1280"
+        "assertion_count": 4,
+        "action_count": 8,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1f4d8f07a67effa331a7be586ff4ec8d0cba065f56cc35559ec20cdc21aa7c48"
       }
     },
     "reference_run": {
@@ -212,7 +243,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-DFE27A60A3C7A8"
+      "REQ-628621AFD13367"
     ],
     "categories": [
       "business"
@@ -220,7 +251,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-DFE27A60A3C7A8"
+      "requirement:REQ-628621AFD13367"
     ]
   }
 }

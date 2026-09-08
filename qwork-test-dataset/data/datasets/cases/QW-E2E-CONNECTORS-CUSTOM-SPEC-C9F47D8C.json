@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-custom.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-custom.spec.ts",
       "locator": "line:227;test:refreshes the current conversation before confirming a connector",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:c9f47d8c956bea0eef762fbe6e1bba6a8957affd9d6b059ed767e677a32ac0ec",
       "redaction_status": "minimized"
     }
@@ -84,6 +84,24 @@
       "action": "composer.press(\"Enter\")"
     },
     {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"自定义连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"dialog\", { name: \"MCP 服务管理\" }).getByRole(\"button\", { name: \"配置 MCP\", exact: true }).click()"
+    },
+    {
+      "action": "editable.focus()"
+    },
+    {
+      "action": "page.keyboard.press(\"ControlOrMeta+A\")"
+    },
+    {
       "action": "page .getByRole(\"dialog\", { name: \"配置 MCP\" }) .getByRole(\"button\", { name: \"保存\", exact: true }) .click()"
     },
     {
@@ -98,6 +116,9 @@
   ],
   "expected_outcomes": [
     "expect( page.getByText(\"收到：先创建一个现有会话\", { exact: true }), ).toBeVisible()",
+    "expect(page.getByLabel(\"搜索连接器\")).toBeVisible()",
+    "expect(page.getByRole(\"dialog\", { name: \"MCP 服务管理\" })).toBeVisible()",
+    "expect(editable).toBeAttached()",
     "expect( detailDialog(page, \"my-server\").getByRole(\"button\", { name: \"停用\", exact: true, }), ).toBeVisible()",
     "expect .poll(async () => (await readMcpLog(mcpLog)).some( (entry) => entry.type === \"reconcile_session_capabilities\" && typeof entry.base_revision === \"string\" && entry.base_revision !== entry.capability_revision, ), ) .toBe(true)"
   ],
@@ -178,6 +199,24 @@
           "action": "composer.press(\"Enter\")"
         },
         {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"自定义连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"dialog\", { name: \"MCP 服务管理\" }).getByRole(\"button\", { name: \"配置 MCP\", exact: true }).click()"
+        },
+        {
+          "action": "editable.focus()"
+        },
+        {
+          "action": "page.keyboard.press(\"ControlOrMeta+A\")"
+        },
+        {
           "action": "page .getByRole(\"dialog\", { name: \"配置 MCP\" }) .getByRole(\"button\", { name: \"保存\", exact: true }) .click()"
         },
         {
@@ -211,9 +250,9 @@
         "line_start": 227,
         "line_end": 268,
         "body_sha256": "sha256:2d282ee14d183c0c3159e819566e324abf1b0496fa3c5b526607f454726ba5a7",
-        "assertion_count": 3,
-        "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 6,
+        "action_count": 13,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:5e2146fe1fba53e75cefc23102c3ec684379de0665569cefe03878613c15783a"
       }
     },

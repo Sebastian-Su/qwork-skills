@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/ui-layout-window-content-safe.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/ui-layout-window-content-safe.spec.ts",
       "locator": "line:136;test:UI-LAYOUT-CONTENT-SAFE-003 | focus changes preserve drag geometry while controls stay clickable and no-drag",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:240427c9e01e0d548f5b9f5d11d6fe612be67ffa3ea189b4158a1b349c81d8ff",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,9 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "collapse.click()"
+    },
+    {
       "action": "BrowserWindow.getAllWindows()[0]?.blur()"
     },
     {
@@ -88,7 +91,16 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByTitle(\"展开侧栏\", { exact: true })).toBeVisible()",
+    "expect .poll(() => page.getByTestId(\"left-rail-shell\").evaluate((element) => element.getBoundingClientRect().width)) .toBe(0)",
     "expect(toggle).toBeVisible()",
+    "expect(locator).toBeVisible()",
+    "expect( await locator.evaluate((element) => getComputedStyle(element).getPropertyValue(\"-webkit-app-region\"), ), ).toBe(expected)",
+    "expect(box).not.toBeNull()",
+    "expect(Math.abs(actual.x - expected.x)).toBeLessThanOrEqual(1)",
+    "expect(Math.abs(actual.y - expected.y)).toBeLessThanOrEqual(1)",
+    "expect(Math.abs(actual.width - expected.width)).toBeLessThanOrEqual(1)",
+    "expect(Math.abs(actual.height - expected.height)).toBeLessThanOrEqual(1)",
     "expect(page.getByTitle(\"收起侧栏\")).toBeVisible()",
     "expect(page.getByTitle(\"展开侧栏\")).toBeVisible()"
   ],
@@ -160,6 +172,9 @@
       "entrypoint": "window-runtime",
       "steps": [
         {
+          "action": "collapse.click()"
+        },
+        {
           "action": "BrowserWindow.getAllWindows()[0]?.blur()"
         },
         {
@@ -193,10 +208,10 @@
         "line_start": 136,
         "line_end": 163,
         "body_sha256": "sha256:205e89ffe28ff65625208b262a8c7629798042bd15d23fa2ca0ec422854e1e95",
-        "assertion_count": 3,
-        "action_count": 4,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:3a57147af3947b16f280b82f9794c1c4b827b75a87662ca6c94ab1024d45b8f3"
+        "assertion_count": 12,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:f5c445b940ff24951c25b7f9b4f1eb9d41ae10e484df5b45f5764d09c6d7a822"
       }
     },
     "reference_run": {

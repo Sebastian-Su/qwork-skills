@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/custom-model.live.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/custom-model.live.spec.ts",
       "locator": "line:145;test:@live drives a real Ollama model end to end",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:3f23050e8f4db802e812fadb5cb4379878e56517eb01f2bd7c2e6317d92b24a7",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,15 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "server.close(() => resolve())"
+    },
+    {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"模型\", exact: true }).click()"
+    },
+    {
       "action": "dialog.getByRole(\"button\", { name: \"添加模型\" }).click()"
     },
     {
@@ -109,6 +118,8 @@
     }
   ],
   "expected_outcomes": [
+    "expect( page.getByRole(\"button\", { name: \"新建任务\", exact: true }), ).toBeVisible()",
+    "expect(dialog).toBeVisible()",
     "expect(editor.getByLabel(\"接口地址\")).toHaveValue( \"http://127.0.0.1:11434/v1/chat/completions\", )",
     "expect(editor.getByText(\"本地部署无需 API Key\")).toBeVisible()",
     "expect(editor).toBeHidden()",
@@ -188,6 +199,15 @@
       "entrypoint": "models",
       "steps": [
         {
+          "action": "server.close(() => resolve())"
+        },
+        {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"模型\", exact: true }).click()"
+        },
+        {
           "action": "dialog.getByRole(\"button\", { name: \"添加模型\" }).click()"
         },
         {
@@ -242,9 +262,9 @@
         "line_start": 145,
         "line_end": 229,
         "body_sha256": "sha256:c1ba58e8baf6fd0af3f28e42c405c9037e890b3b5acd603ff07effcbe1ba49c6",
-        "assertion_count": 8,
-        "action_count": 11,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 10,
+        "action_count": 14,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:8c995609853e3d5ac0e95bdad543b50a6415c3a12553de1811c13f13520505d9"
       }
     },

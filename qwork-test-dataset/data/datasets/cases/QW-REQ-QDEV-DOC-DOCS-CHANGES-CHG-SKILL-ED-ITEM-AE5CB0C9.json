@@ -22,17 +22,57 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
-      "locator": "line:69;heading:资源门禁",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
+      "locator": "line:62;heading:资源门禁",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:e0919318eae79d1645ba8d503ac8ad72523c6f8cef725866d555939158663138",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
+      "locator": "line:69;heading:资源门禁",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:54da2c75e7c9332cdbedf605bd7b1d144d142c41f0e63b4b2ed9f974cc4de02f",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
+    {
+      "requirement_id": "REQ-C384118021B599",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati:L62:e0919318ea"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "| origin/develop 与独立分支 | ready | 原实现从 `71b8815c` 开始并已合入；Windows CI 跟进从 `origin/develop=8e62fa84` 建立 `fix/bug-973522-windows-ci` |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| origin/develop 与独立分支 | ready | 原实现从 `71b8815c` 开始并已合入；Windows CI 跟进从 `origin/develop=8e62fa84` 建立 `fix/bug-973522-windows-ci` |"
+    },
     {
       "requirement_id": "REQ-669CC787F5BD13",
       "source_atom_ids": [
@@ -82,6 +122,9 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 资源门禁 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-C384118021B599] exactly: | origin/develop 与独立分支 | ready | 原实现从 `71b8815c` 开始并已合入；Windows CI 跟进从 `origin/develop=8e62fa84` 建立 `fix/bug-973522-windows-ci` |"
+    },
+    {
       "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-669CC787F5BD13] exactly: | Windows/Linux 原生执行主机 | not_evaluated | 不阻塞 macOS 本地实现；阻塞发布声明，由三平台 CI 补验 |"
     },
     {
@@ -89,14 +132,21 @@
     }
   ],
   "expected_outcomes": [
+    "| origin/develop 与独立分支 | ready | 原实现从 `71b8815c` 开始并已合入；Windows CI 跟进从 `origin/develop=8e62fa84` 建立 `fix/bug-973522-windows-ci` |",
     "| Windows/Linux 原生执行主机 | not_evaluated | 不阻塞 macOS 本地实现；阻塞发布声明，由三平台 CI 补验 |"
   ],
   "forbidden_outcomes": [
+    "FAIL [REQ-C384118021B599]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | origin/develop 与独立分支 | ready | 原实现从 `71b8815c` 开始并已合入；Windows CI 跟进从 `origin/develop=8e62fa84` 建立 `fix/bug-973522-windows-ci` |",
     "FAIL [REQ-669CC787F5BD13]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | Windows/Linux 原生执行主机 | not_evaluated | 不阻塞 macOS 本地实现；阻塞发布声明，由三平台 CI 补验 |",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
+    {
+      "requirement_id": "REQ-C384118021B599",
+      "type": "return",
+      "assertion": "| origin/develop 与独立分支 | ready | 原实现从 `71b8815c` 开始并已合入；Windows CI 跟进从 `origin/develop=8e62fa84` 建立 `fix/bug-973522-windows-ci` |"
+    },
     {
       "requirement_id": "REQ-669CC787F5BD13",
       "type": "return",
@@ -157,6 +207,9 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 资源门禁 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-C384118021B599] exactly: | origin/develop 与独立分支 | ready | 原实现从 `71b8815c` 开始并已合入；Windows CI 跟进从 `origin/develop=8e62fa84` 建立 `fix/bug-973522-windows-ci` |"
+        },
+        {
           "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-669CC787F5BD13] exactly: | Windows/Linux 原生执行主机 | not_evaluated | 不阻塞 macOS 本地实现；阻塞发布声明，由三平台 CI 补验 |"
         },
         {
@@ -200,7 +253,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-669CC787F5BD13"
+      "REQ-669CC787F5BD13",
+      "REQ-C384118021B599"
     ],
     "categories": [
       "business"
@@ -208,10 +262,20 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-669CC787F5BD13"
+      "requirement:REQ-669CC787F5BD13",
+      "requirement:REQ-C384118021B599"
     ]
   },
   "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-C384118021B599",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 资源门禁 产品契约 exactly once and retain its correlation identity",
+      "then": "| origin/develop 与独立分支 | ready | 原实现从 `71b8815c` 开始并已合入；Windows CI 跟进从 `origin/develop=8e62fa84` 建立 `fix/bug-973522-windows-ci` |",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
     {
       "requirement_id": "REQ-669CC787F5BD13",
       "oracle_type": "return",

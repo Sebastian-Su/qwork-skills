@@ -1,0 +1,241 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-INSPIRATION-SPEC-1C96AFA7",
+  "title": "keeps the draft unsent and projects only capability cards retained by the user",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-inspiration-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/inspiration.spec.ts",
+      "locator": "line:503;test:keeps the draft unsent and projects only capability cards retained by the user",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:1c96afa7b7e6576f64da713ef469e589bf5a55022dfd1d4736a1c4d70ca1d63c",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-D2A50A5E1B93BA",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-inspiration-spec-ts:L503:1c96afa7b7"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "keeps the draft unsent and projects only capability cards retained by the user",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-inspiration-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps the draft unsent and projects only capability cards retained by the user"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看 港股资金往哪流？三条主线怎么选\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"一键做同款\" }).click()"
+    },
+    {
+      "action": "page.getByText(\"NeoData金融搜索服务\", { exact: true }).hover()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"取消注入技能 NeoData金融搜索服务\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: \"任务 (0)\" })).toBeVisible()",
+    "expect(page.getByText(\"NeoData金融搜索服务\", { exact: true })).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"移除腾讯自选股金融分析专家团\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"任务 (0)\" })).toBeVisible()",
+    "expect.poll(async () => { const raw = await fs.readFile(sidecarLog, \"utf8\").catch(() => \"\"); return raw.split(\"\\n\").filter(Boolean).map((line) => JSON.parse(line) as { type?: string; selected_skills?: string[]; plugin_dirs?: string[]; }).find((message) => message.type === \"create_session\"); }).toMatchObject({ selected_skills: [], plugin_dirs: expect.arrayContaining([ expect.stringContaining(\"stock-partner-team\"), ex…",
+    "expect(page.getByRole(\"button\", { name: \"任务 (1)\" })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-D2A50A5E1B93BA",
+      "type": "return",
+      "assertion": "keeps the draft unsent and projects only capability cards retained by the user"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-inspiration-spec-ts.1c96afa7b7",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/inspiration.spec.ts -g \"keeps the draft unsent and projects only capability cards retained by the user\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看 港股资金往哪流？三条主线怎么选\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"一键做同款\" }).click()"
+        },
+        {
+          "action": "page.getByText(\"NeoData金融搜索服务\", { exact: true }).hover()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"取消注入技能 NeoData金融搜索服务\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/inspiration.spec.ts",
+        "line_start": 503,
+        "line_end": 531,
+        "body_sha256": "sha256:d4771bcad11f442c2eb5676592953565b2771079b82061dcd01fcb830f84c66e",
+        "assertion_count": 6,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:fb657fd338eaa49ca2379b834a87cc6e581af3ec943b05add719e035b3c52f32"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-D2A50A5E1B93BA"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-D2A50A5E1B93BA"
+    ]
+  }
+}

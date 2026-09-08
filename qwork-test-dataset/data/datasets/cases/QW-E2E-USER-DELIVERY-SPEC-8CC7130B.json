@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/user-delivery.spec.ts",
-      "locator": "line:213;test:迟到的 user_delivery 实时与重启后都显示在最终回答前",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/user-delivery.spec.ts",
+      "locator": "line:271;test:迟到的 user_delivery 实时与重启后都显示在最终回答前",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:8cc7130b045e4eb30c9ca73c69390a9548fdb43e4df3089ace368383820c44af",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-9FC45393866EBD",
+      "requirement_id": "REQ-94D41D663E7D9E",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-user-delivery-spec-ts:L213:8cc7130b04"
+        "QDEV-E2E-e2e-user-delivery-spec-ts:L271:8cc7130b04"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -94,6 +94,9 @@
     }
   ],
   "expected_outcomes": [
+    "expect(delivery).toHaveCount(1)",
+    "expect(final).toHaveCount(1)",
+    "expect .poll(async () => { const deliveryHandle = await delivery.elementHandle(); const finalHandle = await final.elementHandle(); if (!deliveryHandle || !finalHandle) return false; try { return deliveryHandle.evaluate( (element, other) => Boolean( element.compareDocumentPosition(other) & Node.DOCUMENT_POSITION_FOLLOWING, ), finalHandle, ); } finally { await deliveryHandle.dispose(); await finalHandle.dispose(); } }…",
     "expect(liveDelivery.getByText(\"核心发现摘要：\", { exact: true, })).toHaveCount(1)",
     "expect(liveDelivery.locator(\"strong\")).toHaveCount(2)",
     "expect(liveDelivery).not.toContainText(\"**\")",
@@ -110,7 +113,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-9FC45393866EBD",
+      "requirement_id": "REQ-94D41D663E7D9E",
       "type": "ui",
       "assertion": "迟到的 user_delivery 实时与重启后都显示在最终回答前"
     }
@@ -207,13 +210,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/user-delivery.spec.ts",
-        "line_start": 213,
-        "line_end": 280,
+        "line_start": 271,
+        "line_end": 338,
         "body_sha256": "sha256:dcbfe13da02fd304ee37ba6ef036c0025a2e4d01d3dd8a9d5a76fb9641dd8705",
-        "assertion_count": 8,
+        "assertion_count": 11,
         "action_count": 6,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:0edaea1c58d7ba6d884c8c0f09925d2fd449ccaa68d37cc741b672a4d6aa4599"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:a380a0ec60a836aac2c9bf7941038c29b8f1ed06c63bb4ac050bad2ba3dd28ab"
       }
     },
     "reference_run": {
@@ -235,7 +238,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-9FC45393866EBD"
+      "REQ-94D41D663E7D9E"
     ],
     "categories": [
       "business"
@@ -243,7 +246,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-9FC45393866EBD"
+      "requirement:REQ-94D41D663E7D9E"
     ]
   }
 }

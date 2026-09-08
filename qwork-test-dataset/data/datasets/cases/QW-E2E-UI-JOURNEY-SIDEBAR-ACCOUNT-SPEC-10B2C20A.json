@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/ui-journey-sidebar-account.spec.ts",
-      "locator": "line:160;test:UI-JOURNEY-SIDEBAR-TOOLS-003 | real task and workspace sessions drive search, combined filters, counts, and selection",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/ui-journey-sidebar-account.spec.ts",
+      "locator": "line:178;test:UI-JOURNEY-SIDEBAR-TOOLS-003 | real task and workspace sessions drive search, combined filters, counts, and selection",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:10b2c20a4cc13a65ae3697dd96b0d171b94dc1aa15440526aa102c0861a838c7",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-ui-journey-sidebar-account-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/ui-journey-sidebar-account.spec.ts",
-      "locator": "line:160;test:UI-JOURNEY-SIDEBAR-TOOLS-003 | real task and workspace sessions drive search, combined filters, counts, and selection",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:10b2c20a4cc13a65ae3697dd96b0d171b94dc1aa15440526aa102c0861a838c7",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-49215E0438F25D",
+      "requirement_id": "REQ-E962564C7008FE",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts:L160:10b2c20a4c",
-        "QHEAD-E2E-e2e-ui-journey-sidebar-account-spec-ts:L160:10b2c20a4c"
+        "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts:L178:10b2c20a4c"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-ui-journey-sidebar-account-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-ui-journey-sidebar-account-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -144,11 +124,18 @@
     },
     {
       "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "rail.getByRole(\"button\", { name: \"__E2E_HANG__\", exact: true }).hover()"
     }
   ],
   "expected_outcomes": [
     "expect(page.getByText(\"收到：Ａｌｐｈａ 报告\", { exact: true })).toBeVisible()",
     "expect( page .getByTestId(\"composer-surface\") .getByRole(\"button\", { name: \"停止生成\", exact: true }), ).toBeVisible()",
+    "expect(rowBounds.length).toBeGreaterThanOrEqual(2)",
+    "expect(row.label.top).toBeGreaterThanOrEqual(row.button.top)",
+    "expect(row.label.bottom).toBeLessThanOrEqual(row.button.bottom)",
+    "expect(rowBounds[i].button.top).toBeGreaterThanOrEqual(rowBounds[i-1].button.bottom)",
     "expect(page.getByRole(\"dialog\", { name: \"搜索对话\" })).toBeHidden()",
     "expect(page.getByRole(\"paragraph\").filter({ hasText: /^__E2E_HANG__$/ })).toBeVisible()",
     "expect(page.getByText(\"任务 (1)\", { exact: true })).toBeVisible()",
@@ -156,7 +143,7 @@
     "expect(page.getByText(\"任务 (0)\", { exact: true })).toBeVisible()",
     "expect(page.getByText(\"空间 (1)\", { exact: true })).toBeVisible()",
     "expect(rail.getByRole(\"button\", { name: path.basename(workspace), exact: true })).toBeVisible()",
-    "expect(rail.getByRole(\"button\", { name: \"Stop\", exact: true })).toBeVisible()"
+    "expect(rail.getByRole(\"button\", { name: \"停止任务：__E2E_HANG__\", exact: true })).toBeVisible()"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -165,7 +152,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-49215E0438F25D",
+      "requirement_id": "REQ-E962564C7008FE",
       "type": "return",
       "assertion": "UI-JOURNEY-SIDEBAR-TOOLS-003 | real task and workspace sessions drive search, combined filters, counts, and selection"
     }
@@ -275,6 +262,9 @@
         },
         {
           "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "rail.getByRole(\"button\", { name: \"__E2E_HANG__\", exact: true }).hover()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -295,13 +285,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/ui-journey-sidebar-account.spec.ts",
-        "line_start": 160,
-        "line_end": 214,
-        "body_sha256": "sha256:d358a6b5645cc11282fe6f34738f82d2e0f9a9f8813e14e754fb40291ed41101",
-        "assertion_count": 10,
-        "action_count": 17,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:68529311b05a3e3ce0171a103dcab9069e5a9f892dac52c4353b1418f0e8aa76"
+        "line_start": 178,
+        "line_end": 241,
+        "body_sha256": "sha256:53f8686018964064b95244f7c5c39382bedc06f5a73a1fbebdbf623020173a05",
+        "assertion_count": 14,
+        "action_count": 18,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1259eed476600e20d8899f4f45133f39d52245266f23332ac4afb92cc8881264"
       }
     },
     "reference_run": {
@@ -323,7 +313,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-49215E0438F25D"
+      "REQ-E962564C7008FE"
     ],
     "categories": [
       "business"
@@ -331,7 +321,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-49215E0438F25D"
+      "requirement:REQ-E962564C7008FE"
     ]
   }
 }

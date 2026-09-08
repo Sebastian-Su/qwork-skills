@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-oauth.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-oauth.spec.ts",
       "locator": "line:542;test:keeps the grant across a restart",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:66b7a1478a3d25038a6541fcc9f44ccb3302126cd40e4ba8bc5862fde33bdad0",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"Demo 服务，未连接\" }).click()"
     },
     {
@@ -88,6 +94,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByLabel(\"搜索连接器\")).toBeVisible()",
     "expect .poll(async () => (await readLines(authUrlSink)).length, { timeout: 15000, }) .toBe(1)",
     "expect( page .getByRole(\"dialog\", { name: \"Demo 服务\" }) .getByRole(\"button\", { name: \"停用\", exact: true }), ).toBeVisible({ timeout: 15000 })",
     "expect(restoredIcon).toBeVisible({ timeout: 4_000 })",
@@ -173,6 +180,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"Demo 服务，未连接\" }).click()"
         },
         {
@@ -206,10 +219,10 @@
         "line_start": 542,
         "line_end": 651,
         "body_sha256": "sha256:70776295a0c46be9843f01363c339548e1ef5eddb1c815e7f5ff6e0f931350c6",
-        "assertion_count": 16,
-        "action_count": 4,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:3cdd19ec6fd215e12b27a19274126c3ca1085589ce267a586e07be439a5678a1"
+        "assertion_count": 17,
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c4b0c81ed9c32c2afa40877ac40d874d78c7f4f0ab858de28ee143d0a0458397"
       }
     },
     "reference_run": {

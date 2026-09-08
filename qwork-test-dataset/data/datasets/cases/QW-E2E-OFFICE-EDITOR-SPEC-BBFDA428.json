@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/office-editor.spec.ts",
-      "locator": "line:91;test:点击新建任务后关闭并清除上一任务的 Office 预览",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/office-editor.spec.ts",
+      "locator": "line:171;test:点击新建任务后关闭并清除上一任务的 Office 预览",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:bbfda428d7cf0bd9b2d48ef6f6b2255a7efbc12c489113a4946e4659349ca10a",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-office-editor-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/office-editor.spec.ts",
-      "locator": "line:91;test:点击新建任务后关闭并清除上一任务的 Office 预览",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:bbfda428d7cf0bd9b2d48ef6f6b2255a7efbc12c489113a4946e4659349ca10a",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-office-editor-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-440F5144A47515",
+      "requirement_id": "REQ-D414C9DC421471",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-office-editor-spec-ts:L91:bbfda428d7",
-        "QHEAD-E2E-e2e-office-editor-spec-ts:L91:bbfda428d7"
+        "QDEV-E2E-e2e-office-editor-spec-ts:L171:bbfda428d7"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-office-editor-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-office-editor-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -113,6 +93,12 @@
       "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
     },
     {
+      "action": "newComposer.fill(\"新任务不生成文件\")"
+    },
+    {
+      "action": "newComposer.press(\"Enter\")"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"展开右侧面板\" }).click()"
     }
   ],
@@ -128,7 +114,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-440F5144A47515",
+      "requirement_id": "REQ-D414C9DC421471",
       "type": "ui",
       "assertion": "点击新建任务后关闭并清除上一任务的 Office 预览"
     }
@@ -207,6 +193,12 @@
           "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
         },
         {
+          "action": "newComposer.fill(\"新任务不生成文件\")"
+        },
+        {
+          "action": "newComposer.press(\"Enter\")"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"展开右侧面板\" }).click()"
         }
       ],
@@ -228,13 +220,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/office-editor.spec.ts",
-        "line_start": 91,
-        "line_end": 131,
-        "body_sha256": "sha256:c150fcfa984c038eede07edd7f48d92a4280a1c5855897e6bd0b885929140235",
+        "line_start": 171,
+        "line_end": 216,
+        "body_sha256": "sha256:c4b208b5316f739eca2229d6a16c7a553e520cb96ad95d3647baac6311c0d276",
         "assertion_count": 3,
-        "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:a783be23b42a4bb7646b5aaa26e4f20fe6deed68d83e8d0e9d514da5b24be01b"
+        "action_count": 9,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:7fb55a5a8b1b344204350355cc51e703e1a638768e952a991f2ba6568e2b07c7"
       }
     },
     "reference_run": {
@@ -256,7 +248,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-440F5144A47515"
+      "REQ-D414C9DC421471"
     ],
     "categories": [
       "business"
@@ -264,7 +256,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-440F5144A47515"
+      "requirement:REQ-D414C9DC421471"
     ]
   }
 }

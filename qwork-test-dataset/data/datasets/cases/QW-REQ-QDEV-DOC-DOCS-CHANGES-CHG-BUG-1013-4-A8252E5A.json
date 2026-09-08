@@ -1,0 +1,305 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-BUG-1013-4-A8252E5A",
+  "title": "docs/changes/CHG-bug-1013861-data-management-parity-20260905/implementation-plan.md · 4. 术语与真源 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-7478eec1",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-bug-1013861-data-management-parity-20260905/implementation-plan.md",
+      "locator": "line:82;heading:4. 术语与真源",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:cec9a48e0c95050c2b6c244d1e265e063aa1214274e3e198c4b4f52628dd89a5",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-7478eec1",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-bug-1013861-data-management-parity-20260905/implementation-plan.md",
+      "locator": "line:86;heading:4. 术语与真源",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:58ea42c0d9c1e0cc2b5d328d88caf9f07a7b2fcb4bf175346be98af29b8843fb",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-5D1547DA457633",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-7478eec1:L82:cec9a48e0c"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "**分享管理记录**：只对当前组织和 Owner 可见的 active 分享投影，不是新的可变内容副本。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-7478eec1"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "**分享管理记录**：只对当前组织和 Owner 可见的 active 分享投影，不是新的可变内容副本。"
+    },
+    {
+      "requirement_id": "REQ-225422E2F73762",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-7478eec1:L86:58ea42c0d9"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "批准后把前三个稳定术语补入根 `CONTEXT.md`；若 Owner 认为它们只服务本 Change，则保留在本计划并不扩散词表。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-bug-1013861-data-management-parity-7478eec1"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "批准后把前三个稳定术语补入根 `CONTEXT.md`；若 Owner 认为它们只服务本 Change，则保留在本计划并不扩散词表。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-bug-1013861-data-management-parity-20260905/implementation-plan.md · 4. 术语与真源 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-5D1547DA457633] exactly: **分享管理记录**：只对当前组织和 Owner 可见的 active 分享投影，不是新的可变内容副本。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-225422E2F73762] exactly: 批准后把前三个稳定术语补入根 `CONTEXT.md`；若 Owner 认为它们只服务本 Change，则保留在本计划并不扩散词表。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "**分享管理记录**：只对当前组织和 Owner 可见的 active 分享投影，不是新的可变内容副本。",
+    "批准后把前三个稳定术语补入根 `CONTEXT.md`；若 Owner 认为它们只服务本 Change，则保留在本计划并不扩散词表。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-5D1547DA457633]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **分享管理记录**：只对当前组织和 Owner 可见的 active 分享投影，不是新的可变内容副本。",
+    "FAIL [REQ-225422E2F73762]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 批准后把前三个稳定术语补入根 `CONTEXT.md`；若 Owner 认为它们只服务本 Change，则保留在本计划并不扩散词表。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-5D1547DA457633",
+      "type": "ui",
+      "assertion": "**分享管理记录**：只对当前组织和 Owner 可见的 active 分享投影，不是新的可变内容副本。"
+    },
+    {
+      "requirement_id": "REQ-225422E2F73762",
+      "type": "return",
+      "assertion": "批准后把前三个稳定术语补入根 `CONTEXT.md`；若 Owner 认为它们只服务本 Change，则保留在本计划并不扩散词表。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-bug-101386.4-a8252e5a57",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-bug-1013861-data-management-parity-20260905/implementation-plan.md · 4. 术语与真源 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-5D1547DA457633] exactly: **分享管理记录**：只对当前组织和 Owner 可见的 active 分享投影，不是新的可变内容副本。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-225422E2F73762] exactly: 批准后把前三个稳定术语补入根 `CONTEXT.md`；若 Owner 认为它们只服务本 Change，则保留在本计划并不扩散词表。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-225422E2F73762",
+      "REQ-5D1547DA457633"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-225422E2F73762",
+      "requirement:REQ-5D1547DA457633"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-5D1547DA457633",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-bug-1013861-data-management-parity-20260905/implementation-plan.md · 4. 术语与真源 产品契约 exactly once and retain its correlation identity",
+      "then": "**分享管理记录**：只对当前组织和 Owner 可见的 active 分享投影，不是新的可变内容副本。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-225422E2F73762",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-bug-1013861-data-management-parity-20260905/implementation-plan.md · 4. 术语与真源 产品契约 exactly once and retain its correlation identity",
+      "then": "批准后把前三个稳定术语补入根 `CONTEXT.md`；若 Owner 认为它们只服务本 Change，则保留在本计划并不扩散词表。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

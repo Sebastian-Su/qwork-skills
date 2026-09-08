@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/auth-wechat-quick-login.spec.ts",
-      "locator": "line:125;test:cancels the old browser authorization before starting an independent login",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/auth-wechat-quick-login.spec.ts",
+      "locator": "line:171;test:cancels the old browser authorization before starting an independent login",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:f9b57ed99f54df2ec4564a06829313db8ad271c18f7e595c4fdb8ed22e6e6f17",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-5EC515D287B34F",
+      "requirement_id": "REQ-49071183D415B4",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-auth-wechat-quick-login-spec-ts:L125:f9b57ed99f"
+        "QDEV-E2E-e2e-auth-wechat-quick-login-spec-ts:L171:f9b57ed99f"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -73,6 +73,12 @@
   "steps": [
     {
       "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "server.close((error) => error ? reject(error) : resolve())"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"登录\", exact: true }).click()"
     },
     {
       "action": "firstModal.getByRole(\"button\", { name: \"微信\" }).click({ noWaitAfter: true })"
@@ -117,7 +123,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-5EC515D287B34F",
+      "requirement_id": "REQ-49071183D415B4",
       "type": "return",
       "assertion": "cancels the old browser authorization before starting an independent login"
     }
@@ -178,6 +184,12 @@
       "entrypoint": "auth",
       "steps": [
         {
+          "action": "server.close((error) => error ? reject(error) : resolve())"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"登录\", exact: true }).click()"
+        },
+        {
           "action": "firstModal.getByRole(\"button\", { name: \"微信\" }).click({ noWaitAfter: true })"
         },
         {
@@ -217,13 +229,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/auth-wechat-quick-login.spec.ts",
-        "line_start": 125,
-        "line_end": 187,
-        "body_sha256": "sha256:618a54718dd94dd58d6a71ebac270a846edf87385f48690b0b84768f874b7245",
+        "line_start": 171,
+        "line_end": 234,
+        "body_sha256": "sha256:cb6629844a79b44225f35b6de451b17504071682602d886af8c168b7b1e3b581",
         "assertion_count": 12,
-        "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:cd166f913cedc7d9260095054da133ac22a8f822cbfd2719dddcc2a0f7b78c6e"
+        "action_count": 9,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:de280d386fcb218652df4e3b635893d97874871e090e7d34d67906daa15cc357"
       }
     },
     "reference_run": {
@@ -245,7 +257,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-5EC515D287B34F"
+      "REQ-49071183D415B4"
     ],
     "categories": [
       "business"
@@ -253,7 +265,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-5EC515D287B34F"
+      "requirement:REQ-49071183D415B4"
     ]
   }
 }

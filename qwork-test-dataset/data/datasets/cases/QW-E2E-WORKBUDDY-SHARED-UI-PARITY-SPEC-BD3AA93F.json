@@ -1,0 +1,250 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-SHARED-UI-PARITY-SPEC-BD3AA93F",
+  "title": "侧栏顶部图标轮廓和两主题悬停对齐且保留折叠操作",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-shared-ui-parity.spec.ts",
+      "locator": "line:210;test:侧栏顶部图标轮廓和两主题悬停对齐且保留折叠操作",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:bd3aa93f6359fb2ff9ab0701ad6c966514903e0d376c78e62322706fbad1ace3",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-1EAA9452A4B419",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts:L210:bd3aa93f63"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "侧栏顶部图标轮廓和两主题悬停对齐且保留折叠操作",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "侧栏顶部图标轮廓和两主题悬停对齐且保留折叠操作"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+    },
+    {
+      "action": "page.mouse.click(800, 80)"
+    },
+    {
+      "action": "button.hover()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"收起侧栏\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"展开侧栏\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.soft(button.locator(\"path\").first()).toHaveAttribute(\"transform\", transform, { timeout: 500 })",
+    "expect.soft(button.locator(\"svg\")).toHaveCSS(\"width\", \"16px\", { timeout: 500 })",
+    "expect.soft(button).toHaveCSS(\"color\", mode === \"浅色\" ? \"rgba(0, 0, 0, 0.7)\" : \"rgba(255, 255, 255, 0.65)\", { timeout: 500 })",
+    "expect.soft(button).toHaveCSS(\"background-color\", mode === \"浅色\" ? \"rgba(0, 0, 0, 0.06)\" : \"rgba(255, 255, 255, 0.1)\", { timeout: 500 })",
+    "expect.soft(button).toHaveCSS(\"color\", mode === \"浅色\" ? \"rgba(0, 0, 0, 0.9)\" : \"rgba(255, 255, 255, 0.9)\", { timeout: 500 })",
+    "expect.soft(button).toHaveCSS(\"transition-duration\", \"0.2s\", { timeout: 500 })",
+    "expect.soft(button).toHaveCSS(\"transition-timing-function\", \"ease\", { timeout: 500 })",
+    "expect(page.getByTestId(\"main-content\")).toHaveCSS(\"margin-left\", \"0px\")",
+    "expect((await page.getByTestId(\"main-content\").boundingBox())?.x).toBe(264)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-1EAA9452A4B419",
+      "type": "ui",
+      "assertion": "侧栏顶部图标轮廓和两主题悬停对齐且保留折叠操作"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-shared-ui-parity-spec-ts.bd3aa93f63",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-shared-ui-parity.spec.ts -g \"侧栏顶部图标轮廓和两主题悬停对齐且保留折叠操作\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+        },
+        {
+          "action": "page.mouse.click(800, 80)"
+        },
+        {
+          "action": "button.hover()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"收起侧栏\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"展开侧栏\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-shared-ui-parity.spec.ts",
+        "line_start": 210,
+        "line_end": 236,
+        "body_sha256": "sha256:f65213512b2af6c05527861ce29e07ac34efc8c697062a4c8d4b7b7461a95ec3",
+        "assertion_count": 9,
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:5fdf2c06fef33a49affb73bb6f7f9aef7e267d980e36dc5a294e1eb58459ff79"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-1EAA9452A4B419"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-1EAA9452A4B419"
+    ]
+  }
+}

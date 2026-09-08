@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-plan.spec.ts",
-      "locator": "line:460;test:matches WorkBuddy tag creation, selection, and Escape close behavior",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/projects-plan.spec.ts",
+      "locator": "line:530;test:matches WorkBuddy tag creation, selection, and Escape close behavior",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:6020fa771c557f14d7cffc30fe9e1826ebec2d9c629d04f465b59bc7da803980",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-6A76BB387C14E7",
+      "requirement_id": "REQ-711B0975B33B1B",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-projects-plan-spec-ts:L460:6020fa771c"
+        "QDEV-E2E-e2e-projects-plan-spec-ts:L530:6020fa771c"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,6 +75,21 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+    },
+    {
+      "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
     },
     {
@@ -93,14 +108,27 @@
       "action": "trigger.click()"
     },
     {
+      "action": "listbox.getByRole(\"option\", { name: \"E2E Oracle 标签\" }).click()"
+    },
+    {
+      "action": "listbox.getByRole(\"searchbox\", { name: \"搜索或新增标签\" }).press(\"Escape\")"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
       "action": "listbox.getByRole(\"searchbox\", { name: \"搜索或新增标签\" }).press(\"Escape\")"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByText(name, { exact: true }).first()).toBeVisible()",
     "expect(trigger).toHaveText(\"标签\")",
     "expect(listbox).toHaveCount(0)",
     "expect(trigger).toHaveText(\"E2E Oracle 标签\")",
     "expect(listbox.getByRole(\"option\", { name: \"E2E Oracle 标签\" })).toHaveAttribute( \"aria-selected\", \"true\", )",
+    "expect(trigger).toHaveText(\"标签\")",
+    "expect(listbox).toHaveCount(0)",
+    "expect(listbox.getByRole(\"option\", { name: \"E2E Oracle 标签\" })).toHaveAttribute( \"aria-selected\", \"false\", )",
     "expect(listbox).toHaveCount(0)"
   ],
   "forbidden_outcomes": [
@@ -110,7 +138,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-6A76BB387C14E7",
+      "requirement_id": "REQ-711B0975B33B1B",
       "type": "return",
       "assertion": "matches WorkBuddy tag creation, selection, and Escape close behavior"
     }
@@ -171,6 +199,21 @@
       "entrypoint": "projects",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+        },
+        {
+          "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
         },
         {
@@ -184,6 +227,15 @@
         },
         {
           "action": "listbox.getByRole(\"button\", { name: \"新增标签「E2E Oracle 标签」\" }).click()"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "listbox.getByRole(\"option\", { name: \"E2E Oracle 标签\" }).click()"
+        },
+        {
+          "action": "listbox.getByRole(\"searchbox\", { name: \"搜索或新增标签\" }).press(\"Escape\")"
         },
         {
           "action": "trigger.click()"
@@ -210,13 +262,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/projects-plan.spec.ts",
-        "line_start": 460,
-        "line_end": 499,
-        "body_sha256": "sha256:20daf3cd7d9a7339e9200b9344d7066db292df85d1d8aaab1175c168a5aa9ce2",
-        "assertion_count": 5,
-        "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:39f092a3d14f270b5f9009d6239b9b80edaeca781dbd2ad463f9045f009d1280"
+        "line_start": 530,
+        "line_end": 578,
+        "body_sha256": "sha256:a3d6ae3a165e20450ea1b97bd87478dcb66dd426c159cfb283d74faa15dca91f",
+        "assertion_count": 9,
+        "action_count": 15,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1f4d8f07a67effa331a7be586ff4ec8d0cba065f56cc35559ec20cdc21aa7c48"
       }
     },
     "reference_run": {
@@ -238,7 +290,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-6A76BB387C14E7"
+      "REQ-711B0975B33B1B"
     ],
     "categories": [
       "business"
@@ -246,7 +298,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-6A76BB387C14E7"
+      "requirement:REQ-711B0975B33B1B"
     ]
   }
 }

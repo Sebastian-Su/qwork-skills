@@ -1,0 +1,228 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-BUILT-IN-WEB-SEARCH-SPEC-502487EE",
+  "title": "WebSearch 取消在两秒内保持唯一安全终态",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "permissions",
+    "journey": "permissions",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-built-in-web-search-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/built-in-web-search.spec.ts",
+      "locator": "line:350;test:WebSearch 取消在两秒内保持唯一安全终态",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:502487ee39aa96b5a83d028bae1f8987a96aea9e0fa4e76a1da38820b12697c6",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-668C92E9C8ED5F",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-built-in-web-search-spec-ts:L350:502487ee39"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "permissions",
+      "priority": "P0",
+      "rule": "WebSearch 取消在两秒内保持唯一安全终态",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-built-in-web-search-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "WebSearch 取消在两秒内保持唯一安全终态"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"__E2E_WEB_SEARCH_CANCEL__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "stop.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText(\"正在搜索网页\", { exact: true })).toBeVisible()",
+    "expect(stop).toBeVisible()",
+    "expect(page.getByText(\"已取消网页搜索\", { exact: true })).toBeVisible()",
+    "expect(Date.now() - stoppedAt).toBeLessThanOrEqual(2_000)",
+    "expect(page.getByText(\"WebSearch stopped waiting\", { exact: false })).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-668C92E9C8ED5F",
+      "type": "return",
+      "assertion": "WebSearch 取消在两秒内保持唯一安全终态"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-built-in-web-search-spec-ts.502487ee39",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/built-in-web-search.spec.ts -g \"WebSearch 取消在两秒内保持唯一安全终态\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "permissions",
+      "steps": [
+        {
+          "action": "composer.fill(\"__E2E_WEB_SEARCH_CANCEL__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "stop.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/built-in-web-search.spec.ts",
+        "line_start": 350,
+        "line_end": 363,
+        "body_sha256": "sha256:abea5844d17026e934bbc4fa2364a54f634c7ce60609b21e3b76cbbfe7092e42",
+        "assertion_count": 5,
+        "action_count": 3,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:bc6b4d3f56add958b68f61cfeef0c59c95f390cb8ed0ff991bd4281b899bb6b1"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-668C92E9C8ED5F"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-668C92E9C8ED5F"
+    ]
+  }
+}

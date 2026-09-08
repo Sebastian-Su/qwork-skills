@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-task-controls.spec.ts",
-      "locator": "line:12;test:matches WorkBuddy task target, workspace history, and dismiss behavior",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/projects-task-controls.spec.ts",
+      "locator": "line:81;test:matches WorkBuddy task target, workspace history, and dismiss behavior",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:74cc1f7e0ebc3dd6e2b247f84be2484b2ab18ef0b4e5bfd90b741c9af13c4b15",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-80FF4FBE5AF21D",
+      "requirement_id": "REQ-D8CBB098A079FB",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-projects-task-controls-spec-ts:L12:74cc1f7e0e"
+        "QDEV-E2E-e2e-projects-task-controls-spec-ts:L81:74cc1f7e0e"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -73,6 +73,21 @@
   "steps": [
     {
       "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+    },
+    {
+      "action": "dialog .getByPlaceholder(/提供当前项目的背景信息/) .fill(\"验证项目输入控件\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
     },
     {
       "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
@@ -165,7 +180,13 @@
       "action": "composer.getByRole(\"button\", { name: \"从新工作空间开始\", exact: true }).click()"
     },
     {
-      "action": "workspaceMenu.getByRole(\"menuitem\", { name: \"oracle-workspace\" }).click()"
+      "action": "workspaceItem.click()"
+    },
+    {
+      "action": "composer.getByRole(\"button\", { name: \"默认权限\", exact: true }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
     },
     {
       "action": "prompt.fill(\"@spec\")"
@@ -184,6 +205,15 @@
     },
     {
       "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "rail.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+    },
+    {
+      "action": "rail.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: new RegExp(name) }).first().click()"
     },
     {
       "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
@@ -214,6 +244,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByText(name, { exact: true }).first()).toBeVisible()",
     "expect(sharedSurface).toBeVisible()",
     "expect(sharedSurface).toHaveCSS(\"height\", \"178px\")",
     "expect(sharedSurface).toHaveCSS(\"border-radius\", \"18px\")",
@@ -264,14 +295,16 @@
     "expect(modelMenu.getByRole(\"menuitemradio\", { name: \"Kimi-K3\" })).toBeVisible()",
     "expect(composer.getByTestId(\"project-composer-model-trigger\")).toContainText(\"Kimi-K3\")",
     "expect(taskMenu.getByRole(\"menuitemradio\", { name: \"本地任务\" })).toHaveAttribute( \"aria-checked\", \"true\", )",
+    "expect(target).toBeVisible()",
+    "expect(await target.evaluate((element) => { const rect = element.getBoundingClientRect(); const hit = document.elementFromPoint( rect.left + rect.width / 2, rect.top + rect.height / 2, ); return hit === element || element.contains(hit); })).toBe(true)",
     "expect(composer.getByRole(\"button\", { name: \"云端任务\", exact: true })).toBeVisible()",
     "expect(composer.getByTestId(\"project-composer-model-trigger\")).toBeDisabled()",
     "expect(composer.getByTestId(\"project-composer-model-trigger\")).toContainText(\"Auto\")",
     "expect(composer.getByTestId(\"project-composer-workspace-trigger\")).toHaveCount(0)",
     "expect(composer.getByTestId(\"project-composer-permission-trigger\")).toHaveCount(0)",
     "expect(workspaceMenu.getByRole(\"searchbox\", { name: \"搜索工作空间\" })).toBeVisible()",
-    "expect(workspaceMenu.getByRole(\"menuitem\", { name: \"oracle-workspace\" })).toBeVisible()",
     "expect(composer.getByRole(\"button\", { name: \"oracle-workspace\", exact: true })).toBeVisible()",
+    "expect(permissionMenu).toHaveCount(0)",
     "expect(mentionPicker.getByRole(\"option\", { name: \"spec.md\" })).toBeVisible()",
     "expect(composer.getByRole(\"button\", { name: \"移除附件 spec.md\" })).toBeVisible()",
     "expect(slashPicker).toBeVisible()",
@@ -301,7 +334,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-80FF4FBE5AF21D",
+      "requirement_id": "REQ-D8CBB098A079FB",
       "type": "return",
       "assertion": "matches WorkBuddy task target, workspace history, and dismiss behavior"
     }
@@ -361,6 +394,21 @@
       "kind": "ui-route",
       "entrypoint": "files",
       "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+        },
+        {
+          "action": "dialog .getByPlaceholder(/提供当前项目的背景信息/) .fill(\"验证项目输入控件\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
         {
           "action": "composer.getByRole(\"button\", { name: \"打开工具菜单\" }).click()"
         },
@@ -452,7 +500,13 @@
           "action": "composer.getByRole(\"button\", { name: \"从新工作空间开始\", exact: true }).click()"
         },
         {
-          "action": "workspaceMenu.getByRole(\"menuitem\", { name: \"oracle-workspace\" }).click()"
+          "action": "workspaceItem.click()"
+        },
+        {
+          "action": "composer.getByRole(\"button\", { name: \"默认权限\", exact: true }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
         },
         {
           "action": "prompt.fill(\"@spec\")"
@@ -471,6 +525,15 @@
         },
         {
           "action": "composer.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "rail.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
+        },
+        {
+          "action": "rail.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: new RegExp(name) }).first().click()"
         },
         {
           "action": "page.getByRole(\"tab\", { name: \"任务\", exact: true }).click()"
@@ -518,13 +581,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/projects-task-controls.spec.ts",
-        "line_start": 12,
-        "line_end": 337,
-        "body_sha256": "sha256:9c2a7608c6314001130eff711c917beffccaec57a07904661a8359423fc6ae91",
-        "assertion_count": 79,
-        "action_count": 46,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:c494a107586cbaa8b4b452fa4dbd0b16afdf9cdb77d8d9b7f83892164f98606b"
+        "line_start": 81,
+        "line_end": 418,
+        "body_sha256": "sha256:dd72cb4ba26483ecf092fe1ad02146e9971624323c8c5f420351fee66926d23f",
+        "assertion_count": 82,
+        "action_count": 56,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:e0b331e6311a5e533fd0fd8f2b38edf5534df4742d681bdfef2d4a9f0d8faa63"
       }
     },
     "reference_run": {
@@ -546,7 +609,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-80FF4FBE5AF21D"
+      "REQ-D8CBB098A079FB"
     ],
     "categories": [
       "business"
@@ -554,7 +617,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-80FF4FBE5AF21D"
+      "requirement:REQ-D8CBB098A079FB"
     ]
   }
 }

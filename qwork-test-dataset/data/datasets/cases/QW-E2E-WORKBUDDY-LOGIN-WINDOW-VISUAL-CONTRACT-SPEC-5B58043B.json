@@ -1,0 +1,297 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-LOGIN-WINDOW-VISUAL-CONTRACT-SPEC-5B58043B",
+  "title": "keeps the global chrome and login content stable at target window sizes",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-login-window-visual-contract-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-login-window-visual-contract.spec.ts",
+      "locator": "line:18;test:keeps the global chrome and login content stable at target window sizes",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:5b58043b599a26c6050bce0c164759281ab77e52cb12455e0c93f08fcb8b99b5",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-DF402F9F6A5B7A",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-login-window-visual-contract-spec-ts:L18:5b58043b59"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "keeps the global chrome and login content stable at target window sizes",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-login-window-visual-contract-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps the global chrome and login content stable at target window sizes"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.keyboard.press(\"Alt+e\")"
+    },
+    {
+      "action": "page.keyboard.press(\"ArrowRight\")"
+    },
+    {
+      "action": "page.keyboard.press(\"ArrowRight\")"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"QWork\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"编辑(E)\" }).hover()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"QWork\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"关于 QWork\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"确定\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"heading\", { name: \"QWork，我帮你\" })).toBeVisible()",
+    "expect(page.getByTestId(\"global-window-chrome\")).toHaveCount(1)",
+    "expect(page.getByTestId(\"window-chrome\")).toHaveCount(0)",
+    "expect(page.locator('[data-testid=\"login-status-slot\"] button').first()).toBeVisible()",
+    "expect(Math.abs(chrome.height - 30)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(chrome.width - actualViewport.width)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(nativeControlsReserve.x - (actualViewport.width - 138))).toBeLessThanOrEqual(2)",
+    "expect(Math.abs(nativeControlsReserve.width - 138)).toBeLessThanOrEqual(2)",
+    "expect(mascot.y).toBeGreaterThanOrEqual(chrome.height)",
+    "expect(mascot.y + mascot.height).toBeLessThanOrEqual(heading.y + 2)",
+    "expect(heading.y + heading.height).toBeLessThanOrEqual(statusSlot.y + 2)",
+    "expect(primaryAction.height).toBe(40)",
+    "expect(primaryAction.width).toBeGreaterThanOrEqual(180)",
+    "expect(statusSlot.y + statusSlot.height).toBeLessThanOrEqual(footer.y)",
+    "expect(footer.y + footer.height).toBeLessThanOrEqual(actualViewport.height)",
+    "expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(actualViewport.height)",
+    "expect(Math.abs(menu.width - 200)).toBeLessThanOrEqual(2)",
+    "expect(page.getByRole(\"menu\", { name: \"编辑\" })).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"窗口\" })).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"帮助\" })).toBeVisible()",
+    "expect(helpMenu.getByRole(\"menuitem\", { name })).toBeVisible()",
+    "expect(helpMenu.getByRole(\"menuitem\", { name: \"隐私政策\" })).toHaveCount(0)",
+    "expect(helpMenu.getByRole(\"menuitem\", { name: \"服务条款\" })).toHaveCount(0)",
+    "expect(page.getByRole(\"menu\")).toHaveCount(0)",
+    "expect(page.getByRole(\"menu\", { name: \"编辑\" })).toBeVisible()",
+    "expect(page.getByRole(\"menu\", { name: \"QWork\" })).toBeVisible()",
+    "expect(page.getByRole(\"menuitem\", { name: \"关于 QWork\" })).toBeFocused()",
+    "expect(menuBox).not.toBeNull()",
+    "expect(Math.abs(menuBox!.width - 200)).toBeLessThanOrEqual(2)",
+    "expect(page.getByRole(\"menuitem\", { name: \"关于 QWork\" })).toHaveCSS(\"background-color\", \"rgb(0, 95, 184)\")",
+    "expect(aboutDialog).toBeVisible()",
+    "expect(aboutDialog).toContainText(\"版本 0.1.0\")",
+    "expect(page.getByLabel(\"Electron\").filter({ hasText: /.+/ })).toBeVisible()",
+    "expect(page.getByLabel(\"Chrome\").filter({ hasText: /.+/ })).toBeVisible()",
+    "expect(page.getByLabel(\"Node.js\").filter({ hasText: /.+/ })).toBeVisible()",
+    "expect(aboutBox).not.toBeNull()",
+    "expect(Math.abs(aboutBox!.width - 420)).toBeLessThanOrEqual(2)",
+    "expect(aboutDialog).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-DF402F9F6A5B7A",
+      "type": "return",
+      "assertion": "keeps the global chrome and login content stable at target window sizes"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-login-window-visual-contract-spec-ts.5b58043b59",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-login-window-visual-contract.spec.ts -g \"keeps the global chrome and login content stable at target window sizes\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "page.keyboard.press(\"Alt+e\")"
+        },
+        {
+          "action": "page.keyboard.press(\"ArrowRight\")"
+        },
+        {
+          "action": "page.keyboard.press(\"ArrowRight\")"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"QWork\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"编辑(E)\" }).hover()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"QWork\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"关于 QWork\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"确定\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-login-window-visual-contract.spec.ts",
+        "line_start": 18,
+        "line_end": 96,
+        "body_sha256": "sha256:fa9e60ed9da891e21075ed5e6ff57562ee04e07491471d8b945b48270e4d5089",
+        "assertion_count": 38,
+        "action_count": 9,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:dd79a59e05f4bacc8269e2f8cfc36b0c01b163a6fb29f68db526e3a94cec1a72"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-DF402F9F6A5B7A"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-DF402F9F6A5B7A"
+    ]
+  }
+}

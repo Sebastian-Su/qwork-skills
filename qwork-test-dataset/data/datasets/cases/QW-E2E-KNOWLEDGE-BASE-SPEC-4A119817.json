@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/knowledge-base.spec.ts",
-      "locator": "line:139;test:composer 360 knowledge picker cancel does not add chips",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/knowledge-base.spec.ts",
+      "locator": "line:233;test:composer 360 knowledge picker cancel does not add chips",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:4a1198174d7b6b20e50610704695611edd093f6d6db057e6eac345af492fc5d6",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-4F3599CE8F294E",
+      "requirement_id": "REQ-D154CE0B832C67",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-knowledge-base-spec-ts:L139:4a1198174d"
+        "QDEV-E2E-e2e-knowledge-base-spec-ts:L233:4a1198174d"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,6 +75,18 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"添加文件\", exact: true }).hover()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"360知识库\", exact: true }).click()"
+    },
+    {
       "action": "dialog.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
     },
     {
@@ -93,7 +105,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-4F3599CE8F294E",
+      "requirement_id": "REQ-D154CE0B832C67",
       "type": "ui",
       "assertion": "composer 360 knowledge picker cancel does not add chips"
     }
@@ -154,6 +166,18 @@
       "entrypoint": "shell-home",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"添加文件\", exact: true }).hover()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"360知识库\", exact: true }).click()"
+        },
+        {
           "action": "dialog.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
         },
         {
@@ -178,13 +202,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/knowledge-base.spec.ts",
-        "line_start": 139,
-        "line_end": 155,
+        "line_start": 233,
+        "line_end": 249,
         "body_sha256": "sha256:8d22607480ca0fe091a5ea20deb3971f96781a849ebd204cdad66573f17410a6",
         "assertion_count": 3,
-        "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:6b6b2fde89171d2694f2a478323e167ed3e9088bbf7889007660316fcd914d83"
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:ecbd9f21bab511e2895311cfc7897c127872f1e3298344156439d8d68107759a"
       }
     },
     "reference_run": {
@@ -206,7 +230,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-4F3599CE8F294E"
+      "REQ-D154CE0B832C67"
     ],
     "categories": [
       "business"
@@ -214,7 +238,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-4F3599CE8F294E"
+      "requirement:REQ-D154CE0B832C67"
     ]
   }
 }

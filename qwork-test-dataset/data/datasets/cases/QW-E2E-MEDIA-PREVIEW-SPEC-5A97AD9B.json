@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/media-preview.spec.ts",
-      "locator": "line:11;test:图片与 PDF 交付在右侧多标签预览",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/media-preview.spec.ts",
+      "locator": "line:99;test:图片与 PDF 交付在右侧多标签预览",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:5a97ad9bb3c7d2ae96b13bd2929c09721e673f093fb31a70fa99f24d1d34cd53",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-A7A37CCC215397",
+      "requirement_id": "REQ-9E1F80FB69D5DF",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-media-preview-spec-ts:L11:5a97ad9bb3"
+        "QDEV-E2E-e2e-media-preview-spec-ts:L99:5a97ad9bb3"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,6 +75,9 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
       "action": "composer.fill(\"__E2E_USER_DELIVERY__:效果图.png\")"
     },
     {
@@ -82,12 +85,6 @@
     },
     {
       "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
-    },
-    {
-      "action": "page.getByTitle(\"新建空间\").click()"
-    },
-    {
-      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
     },
     {
       "action": "page.getByPlaceholder(/今天帮你做些什么/).fill(\"__E2E_USER_DELIVERY__:方案.pdf\")"
@@ -98,8 +95,12 @@
   ],
   "expected_outcomes": [
     "expect(page.getByRole(\"img\", { name: \"预览 效果图.png\" })).toBeVisible()",
-    "expect(page.getByLabel(\"PDF 预览 方案.pdf\")).toBeVisible()",
-    "expect(page.getByRole(\"tab\", { name: \"方案.pdf\" })).toBeVisible()"
+    "expect(pdfPreview).toBeVisible()",
+    "expect(page.getByRole(\"tab\", { name: \"方案.pdf\" })).toBeVisible()",
+    "expect(pdfPreview.getByRole(\"alert\")).toHaveCount(0)",
+    "expect(pdfPreview).toContainText(\"1 / 1\")",
+    "expect(pdfCanvas).toBeVisible()",
+    "expect .poll(() => pdfCanvas.evaluate((canvas: HTMLCanvasElement) => { const context = canvas.getContext(\"2d\"); if (!context || canvas.width === 0 || canvas.height === 0) return false; const pixels = context.getImageData( 0, 0, canvas.width, canvas.height, ).data; for (let alpha = 3; alpha < pixels.length; alpha += 4) { if (pixels[alpha] !== 0) return true; } return false; }), ) .toBe(true)"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -108,7 +109,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-A7A37CCC215397",
+      "requirement_id": "REQ-9E1F80FB69D5DF",
       "type": "return",
       "assertion": "图片与 PDF 交付在右侧多标签预览"
     }
@@ -169,6 +170,9 @@
       "entrypoint": "shell-home",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
           "action": "composer.fill(\"__E2E_USER_DELIVERY__:效果图.png\")"
         },
         {
@@ -176,12 +180,6 @@
         },
         {
           "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
-        },
-        {
-          "action": "page.getByTitle(\"新建空间\").click()"
-        },
-        {
-          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
         },
         {
           "action": "page.getByPlaceholder(/今天帮你做些什么/).fill(\"__E2E_USER_DELIVERY__:方案.pdf\")"
@@ -208,13 +206,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/media-preview.spec.ts",
-        "line_start": 11,
-        "line_end": 37,
-        "body_sha256": "sha256:36f3c971dccfd57d44bbbd30b4c312c0f9842b6a988fe710d1084ea653dafe3b",
-        "assertion_count": 3,
-        "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:9291fe54dcc3e1041b048ab0a5fa276a7553a406a318fc17402f58fc597deaef"
+        "line_start": 99,
+        "line_end": 140,
+        "body_sha256": "sha256:255467c8ad8ff1939ebca9940fcd78a9218d6a9efa04dd39404f35357b62f62d",
+        "assertion_count": 7,
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:73f2457935799dea8f245dd58d8bc9d50197523a08b9fd6f5f2d110fcf984aa1"
       }
     },
     "reference_run": {
@@ -236,7 +234,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-A7A37CCC215397"
+      "REQ-9E1F80FB69D5DF"
     ],
     "categories": [
       "business"
@@ -244,7 +242,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-A7A37CCC215397"
+      "requirement:REQ-9E1F80FB69D5DF"
     ]
   }
 }

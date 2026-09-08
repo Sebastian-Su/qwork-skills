@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-remaining-types.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-remaining-types.spec.ts",
       "locator": "line:403;test:opens the detail and connection entry point for every bundled connector",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:4a4d7f53b9f65305b251ea060b00d8812eb41c6ca2e886604e9648022c9b6614",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: label, exact: true }).click()"
     },
     {
@@ -82,6 +88,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByLabel(\"搜索连接器\")).toBeVisible()",
     "expect(cards).toHaveCount(81)",
     "expect(labels).toHaveLength(81)",
     "expect(dialog).toBeVisible()",
@@ -155,6 +162,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: label, exact: true }).click()"
         },
         {
@@ -182,9 +195,9 @@
         "line_start": 403,
         "line_end": 423,
         "body_sha256": "sha256:638413fb9d95d61f19cdfcc09ca638ed62d455d9002b966c73d7ebfe352054d1",
-        "assertion_count": 4,
-        "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 5,
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:44edade7183524ded01be4499a9cdadc6e387aea7eebcc674767718eec3e2e3e"
       }
     },

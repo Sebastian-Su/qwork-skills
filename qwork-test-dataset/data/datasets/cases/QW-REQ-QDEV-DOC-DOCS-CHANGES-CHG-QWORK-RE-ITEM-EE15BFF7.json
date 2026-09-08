@@ -1,0 +1,293 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-QWORK-RE-ITEM-EE15BFF7",
+  "title": "docs/changes/CHG-qwork-resource-recovery-20260907/implementation-report.md · 来源判定与按需恢复 产品契约",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-qwork-resource-recovery-20260907-im",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-qwork-resource-recovery-20260907/implementation-report.md",
+      "locator": "line:34;heading:来源判定与按需恢复",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:d9663d7d80dfb4fade34c4892b659b7e3964168b6142452b99cc74c5946e0ee6",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-qwork-resource-recovery-20260907-im",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-qwork-resource-recovery-20260907/implementation-report.md",
+      "locator": "line:36;heading:来源判定与按需恢复",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:370dc030cb8e472596820e7ba06481df6fbc492b32e266de1e76c6a9f297aee7",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-9E8879E3343DFF",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-qwork-resource-recovery-20260907-im:L34:d9663d7d80"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "新云安装记录 `qworkCloudManaged`，内置迁移记录沿用 `qworkSeedManaged`，本地 expert-manager 创建的专家记录 `qworkLocalManaged`。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-qwork-resource-recovery-20260907-im"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "新云安装记录 `qworkCloudManaged`，内置迁移记录沿用 `qworkSeedManaged`，本地 expert-manager 创建的专家记录 `qworkLocalManaged`。"
+    },
+    {
+      "requirement_id": "REQ-22ECB5EDE32E7F",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-qwork-resource-recovery-20260907-im:L36:370dc030cb"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "旧版无标记 `@experts` 记录只有在本机受信任 experts catalog 精确命中 packageId 时才迁移为云来源；没有这一证据时记为 unknown。这样可以恢复历史云安装，同时避免把无法识别的旧本地专家自动替换成同名云包。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-qwork-resource-recovery-20260907-im"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "旧版无标记 `@experts` 记录只有在本机受信任 experts catalog 精确命中 packageId 时才迁移为云来源；没有这一证据时记为 unknown。这样可以恢复历史云安装，同时避免把无法识别的旧本地专家自动替换成同名云包。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-qwork-resource-recovery-20260907/implementation-report.md · 来源判定与按需恢复 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-9E8879E3343DFF] exactly: 新云安装记录 `qworkCloudManaged`，内置迁移记录沿用 `qworkSeedManaged`，本地 expert-manager 创建的专家记录 `qworkLocalManaged`。"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-22ECB5EDE32E7F] exactly: 旧版无标记 `@experts` 记录只有在本机受信任 experts catalog 精确命中 packageId 时才迁移为云来源；没有这一证据时记为 unknown。这样可以恢复历史云安装，同时避免把无法识别的旧本地专家自动替换成同名云包。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "新云安装记录 `qworkCloudManaged`，内置迁移记录沿用 `qworkSeedManaged`，本地 expert-manager 创建的专家记录 `qworkLocalManaged`。",
+    "旧版无标记 `@experts` 记录只有在本机受信任 experts catalog 精确命中 packageId 时才迁移为云来源；没有这一证据时记为 unknown。这样可以恢复历史云安装，同时避免把无法识别的旧本地专家自动替换成同名云包。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-9E8879E3343DFF]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 新云安装记录 `qworkCloudManaged`，内置迁移记录沿用 `qworkSeedManaged`，本地 expert-manager 创建的专家记录 `qworkLocalManaged`。",
+    "FAIL [REQ-22ECB5EDE32E7F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 旧版无标记 `@experts` 记录只有在本机受信任 experts catalog 精确命中 packageId 时才迁移为云来源；没有这一证据时记为 unknown。这样可以恢复历史云安装，同时避免把无法识别的旧本地专家自动替换成同名云包。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-9E8879E3343DFF",
+      "type": "event",
+      "assertion": "新云安装记录 `qworkCloudManaged`，内置迁移记录沿用 `qworkSeedManaged`，本地 expert-manager 创建的专家记录 `qworkLocalManaged`。"
+    },
+    {
+      "requirement_id": "REQ-22ECB5EDE32E7F",
+      "type": "event",
+      "assertion": "旧版无标记 `@experts` 记录只有在本机受信任 experts catalog 精确命中 packageId 时才迁移为云来源；没有这一证据时记为 unknown。这样可以恢复历史云安装，同时避免把无法识别的旧本地专家自动替换成同名云包。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-qwork-reso.item-ee15bff746",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-qwork-resource-recovery-20260907/implementation-report.md · 来源判定与按需恢复 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-9E8879E3343DFF] exactly: 新云安装记录 `qworkCloudManaged`，内置迁移记录沿用 `qworkSeedManaged`，本地 expert-manager 创建的专家记录 `qworkLocalManaged`。"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-22ECB5EDE32E7F] exactly: 旧版无标记 `@experts` 记录只有在本机受信任 experts catalog 精确命中 packageId 时才迁移为云来源；没有这一证据时记为 unknown。这样可以恢复历史云安装，同时避免把无法识别的旧本地专家自动替换成同名云包。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-22ECB5EDE32E7F",
+      "REQ-9E8879E3343DFF"
+    ],
+    "categories": [
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-22ECB5EDE32E7F",
+      "requirement:REQ-9E8879E3343DFF"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-9E8879E3343DFF",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-qwork-resource-recovery-20260907/implementation-report.md · 来源判定与按需恢复 产品契约 exactly once and retain its correlation identity",
+      "then": "新云安装记录 `qworkCloudManaged`，内置迁移记录沿用 `qworkSeedManaged`，本地 expert-manager 创建的专家记录 `qworkLocalManaged`。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-22ECB5EDE32E7F",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-qwork-resource-recovery-20260907/implementation-report.md · 来源判定与按需恢复 产品契约 exactly once and retain its correlation identity",
+      "then": "旧版无标记 `@experts` 记录只有在本机受信任 experts catalog 精确命中 packageId 时才迁移为云来源；没有这一证据时记为 unknown。这样可以恢复历史云安装，同时避免把无法识别的旧本地专家自动替换成同名云包。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

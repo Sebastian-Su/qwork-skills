@@ -22,12 +22,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:127;heading:等级语义",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:286;heading:等级语义",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:300a8be7c1cfd2a5c2973f58c1d11d500d4c72dca656fed94b898dae4d0a0ceb",
       "redaction_status": "minimized"
     },
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:131;heading:等级语义",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:290;heading:等级语义",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:98dcb90b139228ea5fb7239922a6d17dfaabe738b7b9bc95b87b4ccfbaae88ec",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-C3F48F9F39441A",
+      "requirement_id": "REQ-56511B30931B12",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L127:300a8be7c1"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L286:300a8be7c1"
       ],
       "content_facets": [
         "negative-rule"
@@ -74,9 +74,9 @@
       "oracle": "Info、Warn、Error 不采样且不能由用户关闭，每条事件必须进入远端投递流程；网络离线、SLS 故障或进程突然退出时允许丢失，不提供持久 Outbox、跨重启重传或最终送达承诺。Debug 配置文件、schema、启动时加载与非法值语义均已确认。"
     },
     {
-      "requirement_id": "REQ-5B39A675EA5167",
+      "requirement_id": "REQ-665A4D9005F847",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L131:98dcb90b13"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L290:98dcb90b13"
       ],
       "content_facets": [
         "data-side-effect"
@@ -122,10 +122,10 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 等级语义 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-C3F48F9F39441A] exactly: Info、Warn、Error 不采样且不能由用户关闭，每条事件必须进入远端投递流程；网络离线、SLS 故障或进程突然退出时允许丢失，不提供持久 Outbox、跨重启重传或最终送达承诺。Debug 配置文件、schema、启动时加载与非法值语义均已确认。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-56511B30931B12] exactly: Info、Warn、Error 不采样且不能由用户关闭，每条事件必须进入远端投递流程；网络离线、SLS 故障或进程突然退出时允许丢失，不提供持久 Outbox、跨重启重传或最终送达承诺。Debug 配置文件、schema、启动时加载与非法值语义均已确认。"
     },
     {
-      "action": "observe case-owned durable database state after the trigger and assert [REQ-5B39A675EA5167] exactly: Debug 配置真源为 `<configHome>/qwork/logging.json`，schema v1 仅含 `localMinLevel` 与 `remoteMinLevel`。文件不存在时按环境默认值运行且不自动生成；Main 只在应用启动时读取，修改后重启生效，Renderer 与 ZiqDo 不直接访问。"
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-665A4D9005F847] exactly: Debug 配置真源为 `<configHome>/qwork/logging.json`，schema v1 仅含 `localMinLevel` 与 `remoteMinLevel`。文件不存在时按环境默认值运行且不自动生成；Main 只在应用启动时读取，修改后重启生效，Renderer 与 ZiqDo 不直接访问。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -136,19 +136,19 @@
     "Debug 配置真源为 `<configHome>/qwork/logging.json`，schema v1 仅含 `localMinLevel` 与 `remoteMinLevel`。文件不存在时按环境默认值运行且不自动生成；Main 只在应用启动时读取，修改后重启生效，Renderer 与 ZiqDo 不直接访问。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-C3F48F9F39441A]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Info、Warn、Error 不采样且不能由用户关闭，每条事件必须进入远端投递流程；网络离线、SLS 故障或进程突然退出时允许丢失，不提供持久 Outbox、跨重启重传或最终送达承诺。Debug 配置文件、schema、启动时加载与非法值语义均已确认。",
-    "FAIL [REQ-5B39A675EA5167]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Debug 配置真源为 `<configHome>/qwork/logging.json`，schema v1 仅含 `localMinLevel` 与 `remoteMinLevel`。文件不存在时按环境默认值运行且不自动生成；Main 只在应用启动时读取，修改后重启生效，Renderer 与 ZiqDo 不直接访问。",
+    "FAIL [REQ-56511B30931B12]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Info、Warn、Error 不采样且不能由用户关闭，每条事件必须进入远端投递流程；网络离线、SLS 故障或进程突然退出时允许丢失，不提供持久 Outbox、跨重启重传或最终送达承诺。Debug 配置文件、schema、启动时加载与非法值语义均已确认。",
+    "FAIL [REQ-665A4D9005F847]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Debug 配置真源为 `<configHome>/qwork/logging.json`，schema v1 仅含 `localMinLevel` 与 `remoteMinLevel`。文件不存在时按环境默认值运行且不自动生成；Main 只在应用启动时读取，修改后重启生效，Renderer 与 ZiqDo 不直接访问。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-C3F48F9F39441A",
+      "requirement_id": "REQ-56511B30931B12",
       "type": "return",
       "assertion": "Info、Warn、Error 不采样且不能由用户关闭，每条事件必须进入远端投递流程；网络离线、SLS 故障或进程突然退出时允许丢失，不提供持久 Outbox、跨重启重传或最终送达承诺。Debug 配置文件、schema、启动时加载与非法值语义均已确认。"
     },
     {
-      "requirement_id": "REQ-5B39A675EA5167",
+      "requirement_id": "REQ-665A4D9005F847",
       "type": "database",
       "assertion": "Debug 配置真源为 `<configHome>/qwork/logging.json`，schema v1 仅含 `localMinLevel` 与 `remoteMinLevel`。文件不存在时按环境默认值运行且不自动生成；Main 只在应用启动时读取，修改后重启生效，Renderer 与 ZiqDo 不直接访问。"
     }
@@ -207,10 +207,10 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 等级语义 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-C3F48F9F39441A] exactly: Info、Warn、Error 不采样且不能由用户关闭，每条事件必须进入远端投递流程；网络离线、SLS 故障或进程突然退出时允许丢失，不提供持久 Outbox、跨重启重传或最终送达承诺。Debug 配置文件、schema、启动时加载与非法值语义均已确认。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-56511B30931B12] exactly: Info、Warn、Error 不采样且不能由用户关闭，每条事件必须进入远端投递流程；网络离线、SLS 故障或进程突然退出时允许丢失，不提供持久 Outbox、跨重启重传或最终送达承诺。Debug 配置文件、schema、启动时加载与非法值语义均已确认。"
         },
         {
-          "action": "observe case-owned durable database state after the trigger and assert [REQ-5B39A675EA5167] exactly: Debug 配置真源为 `<configHome>/qwork/logging.json`，schema v1 仅含 `localMinLevel` 与 `remoteMinLevel`。文件不存在时按环境默认值运行且不自动生成；Main 只在应用启动时读取，修改后重启生效，Renderer 与 ZiqDo 不直接访问。"
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-665A4D9005F847] exactly: Debug 配置真源为 `<configHome>/qwork/logging.json`，schema v1 仅含 `localMinLevel` 与 `remoteMinLevel`。文件不存在时按环境默认值运行且不自动生成；Main 只在应用启动时读取，修改后重启生效，Renderer 与 ZiqDo 不直接访问。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -253,8 +253,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-5B39A675EA5167",
-      "REQ-C3F48F9F39441A"
+      "REQ-56511B30931B12",
+      "REQ-665A4D9005F847"
     ],
     "categories": [
       "data",
@@ -264,13 +264,13 @@
       "category:data",
       "category:negative",
       "full",
-      "requirement:REQ-5B39A675EA5167",
-      "requirement:REQ-C3F48F9F39441A"
+      "requirement:REQ-56511B30931B12",
+      "requirement:REQ-665A4D9005F847"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-C3F48F9F39441A",
+      "requirement_id": "REQ-56511B30931B12",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 等级语义 产品契约 exactly once and retain its correlation identity",
@@ -279,7 +279,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-5B39A675EA5167",
+      "requirement_id": "REQ-665A4D9005F847",
       "oracle_type": "database",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 等级语义 产品契约 exactly once and retain its correlation identity",

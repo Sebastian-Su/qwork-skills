@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/knowledge-base.spec.ts",
-      "locator": "line:157;test:composer empty picker offers create instead of oauth",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/knowledge-base.spec.ts",
+      "locator": "line:251;test:composer empty picker offers create instead of oauth",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:726eeb65cefbdfdd66a2b356da5bdf198fb5bd99ebf7f202313bcc2ca6f5cd91",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-8540225A6618EB",
+      "requirement_id": "REQ-280272CCF97862",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-knowledge-base-spec-ts:L157:726eeb65ce"
+        "QDEV-E2E-e2e-knowledge-base-spec-ts:L251:726eeb65ce"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,6 +75,18 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"添加文件\", exact: true }).hover()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"360知识库\", exact: true }).click()"
+    },
+    {
       "action": "bff.close()"
     }
   ],
@@ -93,7 +105,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-8540225A6618EB",
+      "requirement_id": "REQ-280272CCF97862",
       "type": "ui",
       "assertion": "composer empty picker offers create instead of oauth"
     }
@@ -154,6 +166,18 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"添加文件\", exact: true }).hover()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"360知识库\", exact: true }).click()"
+        },
+        {
           "action": "bff.close()"
         }
       ],
@@ -175,13 +199,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/knowledge-base.spec.ts",
-        "line_start": 157,
-        "line_end": 177,
+        "line_start": 251,
+        "line_end": 271,
         "body_sha256": "sha256:5215115d1f9332632a62c00b2ee8127bbea3a67ea70072a879bce6676321c608",
         "assertion_count": 6,
-        "action_count": 1,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:6b6b2fde89171d2694f2a478323e167ed3e9088bbf7889007660316fcd914d83"
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:ecbd9f21bab511e2895311cfc7897c127872f1e3298344156439d8d68107759a"
       }
     },
     "reference_run": {
@@ -203,7 +227,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-8540225A6618EB"
+      "REQ-280272CCF97862"
     ],
     "categories": [
       "business"
@@ -211,7 +235,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-8540225A6618EB"
+      "requirement:REQ-280272CCF97862"
     ]
   }
 }

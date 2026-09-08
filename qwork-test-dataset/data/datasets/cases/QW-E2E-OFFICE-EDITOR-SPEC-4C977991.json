@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/office-editor.spec.ts",
-      "locator": "line:186;test:切换到无产出物历史会话时关闭旧 Office 预览",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/office-editor.spec.ts",
+      "locator": "line:271;test:切换到无产出物历史会话时关闭旧 Office 预览",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:4c977991a1cf6beb5212f7d5926e16c6822c8236c2be4c9675df67fd79ac7a6e",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-office-editor-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/office-editor.spec.ts",
-      "locator": "line:186;test:切换到无产出物历史会话时关闭旧 Office 预览",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:4c977991a1cf6beb5212f7d5926e16c6822c8236c2be4c9675df67fd79ac7a6e",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-office-editor-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-11E6B44615EE6A",
+      "requirement_id": "REQ-126817DC638C5C",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-office-editor-spec-ts:L186:4c977991a1",
-        "QHEAD-E2E-e2e-office-editor-spec-ts:L186:4c977991a1"
+        "QDEV-E2E-e2e-office-editor-spec-ts:L271:4c977991a1"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-office-editor-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-office-editor-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -95,10 +75,31 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+    },
+    {
+      "action": "composer.fill(prompt)"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: new RegExp(escapeRegExp(title)) }) .first() .click()"
+    },
+    {
       "action": "page .getByRole(\"button\", { name: /打开产出物 有产出会话\\.docx/ }) .click()"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByLabel(\"DOCX 编辑器\")).toBeVisible({ timeout: 60_000, })",
+    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByRole(\"heading\", { name: fileName, exact: true }), ).toHaveCount(1)",
+    "expect(page.getByText(`收到：${prompt}`, { exact: true })).toBeVisible()",
     "expect(page.getByLabel(\"DOCX 编辑器\")).toBeVisible({ timeout: 60_000, })",
     "expect( page.getByRole(\"complementary\", { name: \"工件预览\" }), ).not.toBeVisible()",
     "expect( page.getByText(\"有产出会话.docx\", { exact: true }), ).toHaveCount(0)"
@@ -110,7 +111,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-11E6B44615EE6A",
+      "requirement_id": "REQ-126817DC638C5C",
       "type": "return",
       "assertion": "切换到无产出物历史会话时关闭旧 Office 预览"
     }
@@ -171,6 +172,24 @@
       "entrypoint": "assistant",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
+        },
+        {
+          "action": "composer.fill(prompt)"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: new RegExp(escapeRegExp(title)) }) .first() .click()"
+        },
+        {
           "action": "page .getByRole(\"button\", { name: /打开产出物 有产出会话\\.docx/ }) .click()"
         }
       ],
@@ -192,13 +211,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/office-editor.spec.ts",
-        "line_start": 186,
-        "line_end": 216,
+        "line_start": 271,
+        "line_end": 301,
         "body_sha256": "sha256:a7fa4be7510b2ba2cc5318f8b76ff9fb207600fbe8d31787ebb7d6ea72f56ec0",
-        "assertion_count": 3,
-        "action_count": 1,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:a783be23b42a4bb7646b5aaa26e4f20fe6deed68d83e8d0e9d514da5b24be01b"
+        "assertion_count": 6,
+        "action_count": 7,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:7fb55a5a8b1b344204350355cc51e703e1a638768e952a991f2ba6568e2b07c7"
       }
     },
     "reference_run": {
@@ -220,7 +239,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-11E6B44615EE6A"
+      "REQ-126817DC638C5C"
     ],
     "categories": [
       "business"
@@ -228,7 +247,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-11E6B44615EE6A"
+      "requirement:REQ-126817DC638C5C"
     ]
   }
 }

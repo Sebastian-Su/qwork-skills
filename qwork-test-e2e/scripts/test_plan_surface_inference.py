@@ -19,6 +19,9 @@ def load_builder():
 
 def main() -> int:
     builder = load_builder()
+    assert builder.added_content_from_diff(
+        "@@ -1 +1 @@\n-old leadOnlyTeamRuntimeContract\n+new rejectCollectiveSession\n",
+    ) == "new rejectCollectiveSession"
     assert builder.infer_surface(
         "src/shared/api.ts",
         "+ models: { listCustom, setMaxMode }",
@@ -61,6 +64,30 @@ def main() -> int:
     assert builder.infer_surface(
         "src/renderer/src/lib/workspaces.ts",
     ) == "projects"
+    assert builder.infer_surface(
+        "src/renderer/src/types/event.ts",
+        "+ run_id?: string\n+ result?: { gates?: Array<{ evidence_refs: string[] }> }",
+    ) == "expert-team"
+    assert builder.infer_surface(
+        "resources/plugins/game-development-studio/avatars/studio-lead.svg",
+        '+ <svg role="img" aria-label="游承峰">',
+    ) == "expert-team"
+    assert builder.infer_surface(
+        "src/main/experts/TeamProjectionRepository.ts",
+        '+ event.name === "TeamCreate"\n+ projection.activeRunId = eventText(event.tool_id)',
+    ) == "expert-team"
+    assert builder.infer_surface(
+        "src/main/index.ts",
+        "+ const expertTeamRuns = new ExpertTeamRunAdjudicator()",
+    ) == "expert-team"
+    assert builder.infer_surface(
+        "src/main/sidecar/SidecarSupervisor.ts",
+        "+ onSessionRecoveryFailure?: (sessionId: string, error: Error) => void",
+    ) == "expert-team"
+    assert builder.infer_surface(
+        "src/renderer/src/components/Composer.tsx",
+        "+ function normalizeComposerError(error: unknown): string",
+    ) == "expert-team"
     assert builder.gate_only_item_ids("vitest.config.ts", "") == ["gate:coverage"]
     assert builder.gate_only_item_ids(
         "e2e/fixtures/launch.ts",
@@ -94,6 +121,83 @@ def main() -> int:
         "e2e/composer-file-attachment.spec.ts",
         "+ test('drops files', async () => {})",
     ) == []
+    assert builder.gate_only_item_ids(
+        "design-system/migration/current-qwork-audit.json",
+        '+ "src/renderer/src/layout/ThreadView.tsx": { "colors": 49 }',
+    ) == ["gate:governance"]
+    assert builder.gate_only_item_ids(
+        "design-system/migration/hardcoded-style-baseline.json",
+        '+ "totals": { "colors": 999 }',
+    ) == []
+    style_base = {
+        "schemaVersion": "1.0.0",
+        "capturedAt": "2026-09-03",
+        "sourceScope": "src/renderer/src",
+        "scope": "src/renderer/src",
+        "totals": {"colors": 4, "arbitraryFontSizes": 2},
+        "byFile": {
+            "src/renderer/src/layout/ThreadView.tsx": {
+                "colors": 4,
+                "arbitraryFontSizes": 2,
+            },
+        },
+    }
+    style_head = {
+        **style_base,
+        "totals": {"colors": 3, "arbitraryFontSizes": 1},
+        "byFile": {
+            "src/renderer/src/layout/ThreadView.tsx": {
+                "colors": 3,
+                "arbitraryFontSizes": 1,
+            },
+        },
+    }
+    assert builder.infer_derived_style_baseline_targets(
+        style_base,
+        style_head,
+        {
+            "design-system/migration/hardcoded-style-baseline.json",
+            "src/renderer/src/layout/ThreadView.tsx",
+        },
+    ) == ["src/renderer/src/layout/ThreadView.tsx"]
+    assert builder.infer_derived_style_baseline_targets(
+        style_base,
+        style_head,
+        {"design-system/migration/hardcoded-style-baseline.json"},
+    ) is None
+    assert builder.infer_derived_style_baseline_targets(
+        style_base,
+        {**style_head, "totals": {"colors": 999, "arbitraryFontSizes": 1}},
+        {
+            "design-system/migration/hardcoded-style-baseline.json",
+            "src/renderer/src/layout/ThreadView.tsx",
+        },
+    ) is None
+    assert builder.infer_derived_style_baseline_targets(
+        style_base,
+        {**style_base, "totals": {"colors": 3, "arbitraryFontSizes": 2}},
+        {
+            "design-system/migration/hardcoded-style-baseline.json",
+            "src/renderer/src/layout/ThreadView.tsx",
+        },
+    ) is None
+    assert builder.infer_derived_style_baseline_targets(
+        style_base,
+        {
+            **style_base,
+            "totals": {"colors": 5, "arbitraryFontSizes": 2},
+            "byFile": {
+                "src/renderer/src/layout/ThreadView.tsx": {
+                    "colors": 5,
+                    "arbitraryFontSizes": 2,
+                },
+            },
+        },
+        {
+            "design-system/migration/hardcoded-style-baseline.json",
+            "src/renderer/src/layout/ThreadView.tsx",
+        },
+    ) is None
     semantic, anchors = builder.infer_unique_semantic_cases(
         {
             "EXPERT-CONTEXT": {
@@ -109,6 +213,39 @@ def main() -> int:
     )
     assert semantic == ["EXPERT-CONTEXT"]
     assert anchors == ["controlHasExpertIdentity", "session_start_additional_context"]
+    semantic, anchors = builder.infer_unique_semantic_cases(
+        {
+            "UNRELATED-LAYOUT": {
+                "title": "connector layout",
+                "expected": "min-w-0",
+            },
+        },
+        "+ className=\"min-w-0\"",
+    )
+    assert semantic == []
+    assert anchors == []
+    semantic, anchors = builder.infer_unique_semantic_cases(
+        {
+            "UNRELATED-TOKENS": {
+                "title": "connector tokens",
+                "expected": "border-fg-3 text-fg-2 bg-bg-1",
+            },
+        },
+        '+ className="border-fg-3 text-fg-2 bg-bg-1"',
+    )
+    assert semantic == []
+    assert anchors == []
+    semantic, anchors = builder.infer_unique_semantic_cases(
+        {
+            "UNRELATED-STORAGE": {
+                "title": "WorkBuddy 专家卸载后保留配置",
+                "expected": "software-qa-engineer",
+            },
+        },
+        '+ const memberRole = "software-qa-engineer"',
+    )
+    assert semantic == []
+    assert anchors == []
     media_selected, media_excluded, media_noncausal = builder.infer_executable_capability_cases(
         {
             "IMAGEGEN": {
@@ -166,6 +303,42 @@ def main() -> int:
     assert attachment_selected == ["ATTACHMENT"]
     assert attachment_excluded == []
     assert attachment_noncausal == []
+    narrowed = builder.narrow_implementation_mappings_to_changed_executables(
+        [
+            {
+                "changed_file": "e2e/expert-team.spec.ts",
+                "strategy": "source-atom-diff",
+                "case_ids": ["TEAM-CURRENT"],
+            },
+            {
+                "changed_file": "src/main/experts/TeamProjectionRepository.ts",
+                "strategy": "implementation-surface-executable",
+                "surface": "expert-team",
+                "case_ids": ["TEAM-CURRENT", "TEAM-LEGACY-GAP"],
+            },
+            {
+                "changed_file": "src/main/runtimeSettings.ts",
+                "strategy": "implementation-surface-executable",
+                "surface": "settings",
+                "case_ids": ["SETTINGS-CURRENT"],
+            },
+        ],
+        {
+            "TEAM-CURRENT": {
+                "coverage": {"capability_id": "expert-team"},
+                "execution_contract": {
+                    "observability": {"source_contract": {"spec": "e2e/expert-team.spec.ts"}},
+                },
+            },
+            "TEAM-LEGACY-GAP": {"coverage": {"capability_id": "expert-team"}},
+            "SETTINGS-CURRENT": {"coverage": {"capability_id": "settings"}},
+        },
+    )
+    assert narrowed[1]["strategy"] == "implementation-surface-changed-executable"
+    assert narrowed[1]["case_ids"] == ["TEAM-CURRENT"]
+    assert narrowed[1]["broader_surface_case_count"] == 2
+    assert narrowed[2]["strategy"] == "implementation-surface-executable"
+    assert narrowed[2]["case_ids"] == ["SETTINGS-CURRENT"]
     assert builder.case_requires_macos_native_fullscreen({
         "title": "macOS 原生全屏移除交通灯偏移",
         "execution_contract": {"observability": {"source_contract": {
@@ -242,8 +415,8 @@ def main() -> int:
         },
         "models",
     )
-    assert selected == ["MODEL-SOURCE-REQ", "MODEL-UI"]
-    assert excluded == ["MODEL-DOC-GAP"]
+    assert selected == ["MODEL-DOC-GAP", "MODEL-SOURCE-REQ", "MODEL-UI"]
+    assert excluded == []
     assert noncausal == [
         "MODEL-ASSERTION-ONLY",
         "MODEL-CONCURRENCY",

@@ -9,6 +9,7 @@ from pathlib import Path
 
 
 REAL_PROVIDER_SPEC = "e2e/real-expert-agent.spec.ts"
+SOFTWARE_COMPANY_SPEC = "e2e/software-company.live.spec.ts"
 
 
 def main() -> int:
@@ -45,7 +46,32 @@ def main() -> int:
         setup = str(contract["fixtures"].get("setup") or "")
         if "separately authorized real external fixture" not in setup:
             raise AssertionError(f"real-provider Case fixture is not fail-closed: {case_id}")
-    print(f"real-provider authorization gate: {len(cases)} Cases")
+    all_cases = [
+        json.loads(path.read_text(encoding="utf-8"))
+        for path in case_dir.glob("*.json")
+    ]
+    software_cases = [
+        case
+        for case in all_cases
+        if (
+            ((((case.get("execution_contract") or {}).get("observability") or {})
+              .get("source_contract") or {}).get("spec"))
+            == SOFTWARE_COMPANY_SPEC
+        )
+    ]
+    if len(software_cases) != 1:
+        raise AssertionError(
+            f"expected exactly 1 software-company live Case, found {len(software_cases)}"
+        )
+    software = software_cases[0]
+    acceptance = software.get("ui_acceptance") or {}
+    if acceptance.get("acceptance_mode") != "visual-checkpoints":
+        raise AssertionError("software-company live Case does not enforce visual checkpoints")
+    if acceptance.get("required_screenshot_states") != ["entry", "transition", "final-state"]:
+        raise AssertionError(
+            "software-company live Case must require entry, transition and final-state screenshots"
+        )
+    print(f"real-provider authorization gate: {len(cases) + len(software_cases)} Cases")
     return 0
 
 

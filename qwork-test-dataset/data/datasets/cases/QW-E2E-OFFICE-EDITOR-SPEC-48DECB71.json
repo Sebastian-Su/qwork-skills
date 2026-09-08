@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/office-editor.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/office-editor.spec.ts",
       "locator": "line:15;test:任务产出 XLSX 自动打开右侧预览",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:48decb714055af1d337bbd559cd6575719fca7b7d39d8b7305764fd15c0f510b",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-office-editor-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/office-editor.spec.ts",
-      "locator": "line:15;test:任务产出 XLSX 自动打开右侧预览",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:48decb714055af1d337bbd559cd6575719fca7b7d39d8b7305764fd15c0f510b",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-office-editor-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
       "requirement_id": "REQ-1C2EEB1081C3E4",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-office-editor-spec-ts:L15:48decb7140",
-        "QHEAD-E2E-e2e-office-editor-spec-ts:L15:48decb7140"
+        "QDEV-E2E-e2e-office-editor-spec-ts:L15:48decb7140"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-office-editor-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-office-editor-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -120,13 +100,13 @@
     "expect(card).toBeVisible()",
     "expect(page.getByRole(\"complementary\", { name: \"工件预览\" })).toBeVisible()",
     "expect(page.getByTestId(\"office-compact-shell\")).toBeVisible()",
-    "expect( page.getByRole(\"heading\", { name: `产品报告.${format}` }), ).toHaveCount(0)",
+    "expect( page.getByRole(\"toolbar\", { name: \"产物文件工具栏\" }) .getByRole(\"heading\", { name: `产品报告.${format}`, exact: true }), ).toBeVisible()",
     "expect( page.getByLabel(`${format.toUpperCase()} 编辑器`), ).toBeVisible({ timeout: 60_000 })",
     "expect(editorReady).toBeVisible({ timeout: 60_000 })",
     "expect(editorToolbar).toBeVisible()",
     "expect( page.getByText(\"Loading document...\", { exact: true }), ).toBeHidden()",
     "expect( page.getByText(/Couldn't open this workbook|No slides/), ).toHaveCount(0)",
-    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByText(`产品报告.${format}`, { exact: true }), ).toHaveCount(1)",
+    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByRole(\"tab\", { name: `产品报告.${format}`, exact: true }), ).toHaveCount(1)",
     "expect(composer).toBeFocused()",
     "expect( page.getByRole(\"complementary\", { name: \"工件预览\" }), ).not.toBeVisible()",
     "expect(page.getByTestId(\"office-compact-shell\")).toBeVisible()"
@@ -239,12 +219,12 @@
       "source_contract": {
         "spec": "e2e/office-editor.spec.ts",
         "line_start": 15,
-        "line_end": 88,
-        "body_sha256": "sha256:4da22ce3bc9c05d8d7c74398cb88af09f97e46a70cb06635545f472c021b6261",
+        "line_end": 89,
+        "body_sha256": "sha256:bd44d0e8b296c077a1f7f258c86e39f1310b936e9f9c0f5a062ba9a42de19cf4",
         "assertion_count": 13,
         "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:a783be23b42a4bb7646b5aaa26e4f20fe6deed68d83e8d0e9d514da5b24be01b"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:7fb55a5a8b1b344204350355cc51e703e1a638768e952a991f2ba6568e2b07c7"
       }
     },
     "reference_run": {

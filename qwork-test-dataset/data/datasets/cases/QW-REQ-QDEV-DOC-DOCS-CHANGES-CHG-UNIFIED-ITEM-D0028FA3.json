@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:21;heading:结论",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:179;heading:结论",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:3eac76d50bcbe155669b156de512034baa54b12d380813906d3db366944337ad",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-DCC3F6C5D4FC2C",
+      "requirement_id": "REQ-4757B635979846",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L21:3eac76d50b"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L179:3eac76d50b"
       ],
       "content_facets": [
         "error-copy"
@@ -83,7 +83,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 结论 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe renderer visible content after the trigger and assert [REQ-DCC3F6C5D4FC2C] exactly: 远端只记录元数据，不记录提示词、回答、工具输入输出、文件路径、URL、Cookie、Token、密钥或原始机器标识。工具调用仍可通过 `trace_id + tool_call_id + tool_name + outcome + duration_ms` 精确追踪，但不能从 SLS 还原用户内容。"
+      "action": "observe renderer visible content after the trigger and assert [REQ-4757B635979846] exactly: 远端只记录元数据，不记录提示词、回答、工具输入输出、文件路径、URL、Cookie、Token、密钥或原始机器标识。工具调用仍可通过 `trace_id + tool_call_id + tool_name + outcome + duration_ms` 精确追踪，但不能从 SLS 还原用户内容。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -93,13 +93,13 @@
     "远端只记录元数据，不记录提示词、回答、工具输入输出、文件路径、URL、Cookie、Token、密钥或原始机器标识。工具调用仍可通过 `trace_id + tool_call_id + tool_name + outcome + duration_ms` 精确追踪，但不能从 SLS 还原用户内容。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-DCC3F6C5D4FC2C]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 远端只记录元数据，不记录提示词、回答、工具输入输出、文件路径、URL、Cookie、Token、密钥或原始机器标识。工具调用仍可通过 `trace_id + tool_call_id + tool_name + outcome + duration_ms` 精确追踪，但不能从 SLS 还原用户内容。",
+    "FAIL [REQ-4757B635979846]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 远端只记录元数据，不记录提示词、回答、工具输入输出、文件路径、URL、Cookie、Token、密钥或原始机器标识。工具调用仍可通过 `trace_id + tool_call_id + tool_name + outcome + duration_ms` 精确追踪，但不能从 SLS 还原用户内容。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-DCC3F6C5D4FC2C",
+      "requirement_id": "REQ-4757B635979846",
       "type": "ui-content",
       "assertion": "远端只记录元数据，不记录提示词、回答、工具输入输出、文件路径、URL、Cookie、Token、密钥或原始机器标识。工具调用仍可通过 `trace_id + tool_call_id + tool_name + outcome + duration_ms` 精确追踪，但不能从 SLS 还原用户内容。"
     }
@@ -171,7 +171,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 结论 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe renderer visible content after the trigger and assert [REQ-DCC3F6C5D4FC2C] exactly: 远端只记录元数据，不记录提示词、回答、工具输入输出、文件路径、URL、Cookie、Token、密钥或原始机器标识。工具调用仍可通过 `trace_id + tool_call_id + tool_name + outcome + duration_ms` 精确追踪，但不能从 SLS 还原用户内容。"
+          "action": "observe renderer visible content after the trigger and assert [REQ-4757B635979846] exactly: 远端只记录元数据，不记录提示词、回答、工具输入输出、文件路径、URL、Cookie、Token、密钥或原始机器标识。工具调用仍可通过 `trace_id + tool_call_id + tool_name + outcome + duration_ms` 精确追踪，但不能从 SLS 还原用户内容。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -217,7 +217,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-DCC3F6C5D4FC2C"
+      "REQ-4757B635979846"
     ],
     "categories": [
       "error",
@@ -227,12 +227,12 @@
       "category:error",
       "category:ui-content",
       "full",
-      "requirement:REQ-DCC3F6C5D4FC2C"
+      "requirement:REQ-4757B635979846"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-DCC3F6C5D4FC2C",
+      "requirement_id": "REQ-4757B635979846",
       "oracle_type": "ui-content",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 结论 产品契约 exactly once and retain its correlation identity",

@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/model-catalog-session-recovery.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/model-catalog-session-recovery.spec.ts",
       "locator": "line:7;test:keeps the authenticated shell through a transient deployment 401 and recovers models",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:65dce38e258fea57961b53c98740c6fc6e8aedb7b1fba1c6a676318ba725ce07",
       "redaction_status": "minimized"
     }
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:48:15.072617+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -75,44 +75,20 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "createTestHome(\"model-session-recovery\")"
+      "action": "server.close((error) => (error ? reject(error) : resolve()))"
     },
     {
-      "action": "startExpiringSessionServer(\"recover\")"
-    },
-    {
-      "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: cloud.baseUrl, QWORK_PROJECT_ACCESS_TOKEN: undefined, QWORK_AUTH_BYPASS: \"0\", QWORK_DEV_AUTO_LOGIN: \"1\", QWORK_E2E_MODEL_CATALOG_JSON: undefined, QWORK_E2E_AUTH_RECOVERY_DELAYS_MS: \"[0,1500]\", QWORK_ENV: \"test\", NODE_ENV: \"test\", })"
-    },
-    {
-      "action": "app.firstWindow()"
-    },
-    {
-      "action": "attachUiState(page, testInfo, \"transient-session-recovering\")"
-    },
-    {
-      "action": "String(error)"
-    },
-    {
-      "action": "JSON.stringify(cloud.diagnostics())"
-    },
-    {
-      "action": "cloud.diagnostics()"
-    },
-    {
-      "action": "page.getByTestId(\"composer-dock\")"
-    },
-    {
-      "action": "attachUiState(page, testInfo, \"transient-session-recovered\")"
-    },
-    {
-      "action": "attachUiState( await app.firstWindow(), testInfo, \"session-recovery-failure\", )"
-    },
-    {
-      "action": "app.firstWindow()"
+      "action": "page.getByRole(\"button\", { name: \"收起侧栏\" }).click()"
     }
   ],
   "expected_outcomes": [
     "expect( page.getByRole(\"status\", { name: \"服务连接状态\" }), ).toContainText(\"服务暂时不可用，正在恢复\")",
+    "expect(Math.abs( expandedStatus.x + expandedStatus.width / 2 - (expandedMain.x + expandedMain.width / 2), )).toBeLessThanOrEqual(2)",
+    "expect(expandedStatus.y).toBeGreaterThanOrEqual(globalChrome.bottom + 10)",
+    "expect(expandedStatus.y).toBeGreaterThanOrEqual(expandedMain.y)",
+    "expect(page.getByRole(\"button\", { name: \"展开侧栏\" })).toBeVisible()",
+    "expect(Math.abs( collapsedStatus.x + collapsedStatus.width / 2 - (collapsedMain.x + collapsedMain.width / 2), )).toBeLessThanOrEqual(2)",
+    "expect(collapsedStatus.y).toBe(expandedStatus.y)",
     "expect( page.getByRole(\"heading\", { name: \"Qwork Welcome\" }), ).toHaveCount(0)",
     "expect.poll( () => cloud.modelRequests(), { timeout: 20_000 }, ).toBeGreaterThanOrEqual(2)",
     "expect( dock.getByRole(\"button\", { name: \"GLM-5.2\", exact: true }), ).toBeVisible()",
@@ -188,40 +164,10 @@
       "entrypoint": "models",
       "steps": [
         {
-          "action": "createTestHome(\"model-session-recovery\")"
+          "action": "server.close((error) => (error ? reject(error) : resolve()))"
         },
         {
-          "action": "startExpiringSessionServer(\"recover\")"
-        },
-        {
-          "action": "launchApp(configHome, { QWORK_PROJECT_API_URL: cloud.baseUrl, QWORK_PROJECT_ACCESS_TOKEN: undefined, QWORK_AUTH_BYPASS: \"0\", QWORK_DEV_AUTO_LOGIN: \"1\", QWORK_E2E_MODEL_CATALOG_JSON: undefined, QWORK_E2E_AUTH_RECOVERY_DELAYS_MS: \"[0,1500]\", QWORK_ENV: \"test\", NODE_ENV: \"test\", })"
-        },
-        {
-          "action": "app.firstWindow()"
-        },
-        {
-          "action": "attachUiState(page, testInfo, \"transient-session-recovering\")"
-        },
-        {
-          "action": "String(error)"
-        },
-        {
-          "action": "JSON.stringify(cloud.diagnostics())"
-        },
-        {
-          "action": "cloud.diagnostics()"
-        },
-        {
-          "action": "page.getByTestId(\"composer-dock\")"
-        },
-        {
-          "action": "attachUiState(page, testInfo, \"transient-session-recovered\")"
-        },
-        {
-          "action": "attachUiState( await app.firstWindow(), testInfo, \"session-recovery-failure\", )"
-        },
-        {
-          "action": "app.firstWindow()"
+          "action": "page.getByRole(\"button\", { name: \"收起侧栏\" }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -243,12 +189,12 @@
       "source_contract": {
         "spec": "e2e/model-catalog-session-recovery.spec.ts",
         "line_start": 7,
-        "line_end": 70,
-        "body_sha256": "sha256:7fad8902abdd5dde8dd91fe6a3fbbe929081af7f4f1d5cb7c6bbd4e294598ecf",
-        "assertion_count": 7,
-        "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:a182f8c663ae6fcc6fe91da3da9e62a2def80935f890cb54be2cd2d6e33d330d"
+        "line_end": 105,
+        "body_sha256": "sha256:bbf03300b49d3da0395930bc9b26fb1b01d7c3d5e7db90bd7ed3a547388c1fa7",
+        "assertion_count": 13,
+        "action_count": 2,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:3e03f3d414add8e62b1451d254e5db2c94d02de08dac33c1fe960225245b6778"
       }
     },
     "reference_run": {

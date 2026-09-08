@@ -21,35 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/my-files.spec.ts",
-      "locator": "line:49;test:opens 360 personal cloud drive and manages its files",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/my-files.spec.ts",
+      "locator": "line:81;test:opens 360 personal cloud drive and manages its files",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:5440a6e6efe56ff25692a51bac5d552c1c02662dfaebeb64e9d5c505bac4e45c",
-      "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-my-files-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/my-files.spec.ts",
-      "locator": "line:32;test:opens 360 personal cloud drive and manages its files",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:5440a6e6efe56ff25692a51bac5d552c1c02662dfaebeb64e9d5c505bac4e45c",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-AED93DA8A16D1D",
+      "requirement_id": "REQ-A46ED39D9C0EA9",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-my-files-spec-ts:L49:5440a6e6ef"
+        "QDEV-E2E-e2e-my-files-spec-ts:L81:5440a6e6ef"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -63,32 +49,6 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-my-files-spec-ts"
-      ],
-      "supporting_sources": [],
-      "conflicts": [],
-      "resolution": {
-        "status": "resolved",
-        "reason": "compiled from the user-approved source hierarchy"
-      },
-      "oracle": "opens 360 personal cloud drive and manages its files"
-    },
-    {
-      "requirement_id": "REQ-48693C28F374E9",
-      "source_atom_ids": [
-        "QHEAD-E2E-e2e-my-files-spec-ts:L32:5440a6e6ef"
-      ],
-      "content_facets": [
-        "acceptance-criterion"
-      ],
-      "acceptance_categories": [
-        "business"
-      ],
-      "surface": "files",
-      "priority": "P1",
-      "rule": "opens 360 personal cloud drive and manages its files",
-      "authority_domain": "execution",
-      "governing_sources": [
-        "QHEAD-E2E-e2e-my-files-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -237,6 +197,8 @@
     "expect(page.getByText(\"已使用 1 KB / 10 KB\", { exact: true })).toBeVisible()",
     "expect(drive.getByRole(\"button\", { name: \"新建\", exact: true })).toBeVisible()",
     "expect(drive.getByRole(\"button\", { name: \"上传\", exact: true })).toBeVisible()",
+    "expect(nameButton).toBeVisible()",
+    "expect(fileIcon).toHaveAttribute(\"data-file-icon\", expectedIcon!)",
     "expect(page.getByText(\"云端视频.mp4\", { exact: true })).toBeVisible()",
     "expect(page.getByText(\"云端说明.md\", { exact: true })).not.toBeVisible()",
     "expect(page.getByText(\"云端说明.md\", { exact: true })).toBeVisible()",
@@ -250,12 +212,18 @@
     "expect(page.getByRole(\"progressbar\")).toHaveAttribute(\"aria-valuenow\", \"45\")",
     "expect( page.getByRole(\"status\").filter({ hasText: \"已上传 [3/3个文件]\" }), ).toContainText(\"已上传 [3/3个文件]\")",
     "expect(page.getByText(\"合同\", { exact:true })).toBeVisible()",
+    "expect(folderIcon).toHaveClass(/text-\\[#55A9EE\\]/)",
+    "expect(folderIcon).toHaveAttribute(\"fill\", \"currentColor\")",
+    "expect(folderIcon).toHaveClass(/text-amber-500/)",
+    "expect(folderIcon).toHaveAttribute(\"fill\", \"none\")",
     "expect(page.getByText(\"空白文档.md\", { exact:true })).toBeVisible()",
     "expect(page.getByText(\"项目说明.md\", { exact: true })).toBeVisible()",
     "expect(page.getByText(\"项目说明.md\", { exact: true })).not.toBeVisible()",
     "expect(page.getByText(\"项目说明.md\", { exact: true })).toBeVisible()",
     "expect(page.getByText(\"项目说明.md\", { exact: true })).toBeVisible()",
-    "expect(page.getByText(\"项目说明.md\", { exact: true })).not.toBeVisible()"
+    "expect(page.getByText(\"项目说明.md\", { exact: true })).not.toBeVisible()",
+    "expect(fileIcon).toHaveAttribute(\"data-file-icon\", expectedIcon!)",
+    "expect(folderCard.locator(\"[data-file-icon]\")) .toHaveAttribute(\"data-file-icon\", \"folder\")"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -264,12 +232,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-AED93DA8A16D1D",
-      "type": "return",
-      "assertion": "opens 360 personal cloud drive and manages its files"
-    },
-    {
-      "requirement_id": "REQ-48693C28F374E9",
+      "requirement_id": "REQ-A46ED39D9C0EA9",
       "type": "return",
       "assertion": "opens 360 personal cloud drive and manages its files"
     }
@@ -459,13 +422,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/my-files.spec.ts",
-        "line_start": 32,
-        "line_end": 148,
-        "body_sha256": "sha256:8b8f12527e41c74421b6aa84e3017ce4a0a55b406fd2eb080b3abe44e26eea36",
-        "assertion_count": 29,
+        "line_start": 81,
+        "line_end": 247,
+        "body_sha256": "sha256:cd3e98b7301b09d24e89419b0464246bb8dd564cc479c580d701e393190bc05f",
+        "assertion_count": 37,
         "action_count": 37,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:3068a49646cff8db4076d3e7ce8e8b4f4e6e4c8660259ee6ce65dc62f3f1a84a"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:560fd9f4e9787946740a93af0e5dd107688bbee41cacbf03c6bed035f1dbb55d"
       }
     },
     "reference_run": {
@@ -487,8 +450,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-48693C28F374E9",
-      "REQ-AED93DA8A16D1D"
+      "REQ-A46ED39D9C0EA9"
     ],
     "categories": [
       "business"
@@ -496,8 +458,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-48693C28F374E9",
-      "requirement:REQ-AED93DA8A16D1D"
+      "requirement:REQ-A46ED39D9C0EA9"
     ]
   }
 }

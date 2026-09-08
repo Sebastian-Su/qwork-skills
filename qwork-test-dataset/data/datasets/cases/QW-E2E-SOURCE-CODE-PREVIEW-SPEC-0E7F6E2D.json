@@ -1,0 +1,271 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SOURCE-CODE-PREVIEW-SPEC-0E7F6E2D",
+  "title": "previews, edits and saves JSON source with Monaco",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-source-code-preview-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/source-code-preview.spec.ts",
+      "locator": "line:12;test:previews, edits and saves JSON source with Monaco",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:0e7f6e2d749c9cc76632b312e0b5c5decf59e19fe5fad49261e62feb339c12ec",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-543D2DBA2686A0",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-source-code-preview-spec-ts:L12:0e7f6e2d74"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "previews, edits and saves JSON source with Monaco",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-source-code-preview-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "previews, edits and saves JSON source with Monaco"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByTitle(\"新建空间\").click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_USER_DELIVERY__:配置.json\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "editor.press(process.platform === \"darwin\" ? \"Meta+A\" : \"Control+A\")"
+    },
+    {
+      "action": "editor.press(\"Backspace\")"
+    },
+    {
+      "action": "drawer.getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+    },
+    {
+      "action": "drawer.getByRole(\"button\", { name: \"关闭 配置.json\" }).click()"
+    },
+    {
+      "action": "card.click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(card).toBeVisible()",
+    "expect(drawer.locator(\"[data-code-language='json'] .monaco-editor\")).toBeVisible()",
+    "expect(drawer.getByText(\"已保存\", { exact: true })).toBeVisible()",
+    "expect.poll(() => fs.readFile(sourceFile, \"utf8\")) .toBe('{\"saved\":true,\"language\":\"json\"}')",
+    "expect(page.getByRole(\"complementary\", { name: \"工件预览\" }).locator(\".view-lines\")) .toContainText('\"saved\"')",
+    "expect(drawer.locator(\".monaco-editor.vs-dark\")).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-543D2DBA2686A0",
+      "type": "return",
+      "assertion": "previews, edits and saves JSON source with Monaco"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-source-code-preview-spec-ts.0e7f6e2d74",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/source-code-preview.spec.ts -g \"previews, edits and saves JSON source with Monaco\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByTitle(\"新建空间\").click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_USER_DELIVERY__:配置.json\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "editor.press(process.platform === \"darwin\" ? \"Meta+A\" : \"Control+A\")"
+        },
+        {
+          "action": "editor.press(\"Backspace\")"
+        },
+        {
+          "action": "drawer.getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+        },
+        {
+          "action": "drawer.getByRole(\"button\", { name: \"关闭 配置.json\" }).click()"
+        },
+        {
+          "action": "card.click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/source-code-preview.spec.ts",
+        "line_start": 12,
+        "line_end": 53,
+        "body_sha256": "sha256:91480140a3ab9e687733a51468926ee3d6e1a1489f52845ced0c43a2b06cc94d",
+        "assertion_count": 6,
+        "action_count": 10,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:61e9271125d38e2f663f9e0fdf64c6fa3f81ef7e7b2de973b236a83755c9476b"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-543D2DBA2686A0"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-543D2DBA2686A0"
+    ]
+  }
+}

@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/artifact-sharing.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/artifact-sharing.spec.ts",
       "locator": "line:8;test:shares one active artifact without conversation content and matches the compact modal contract",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:74ff5119cf64c7979970ef366915e026b9156f7b5b26e55d2bc2c947bd09b331",
       "redaction_status": "minimized"
     }
@@ -78,7 +78,7 @@
       "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
     },
     {
-      "action": "composer.fill(\"__E2E_ARTIFACT__:public-report.html\")"
+      "action": "composer.fill(\"__E2E_HTML_SHARE_SITE__:public-site/public-report.html\")"
     },
     {
       "action": "composer.press(\"Enter\")"
@@ -102,6 +102,15 @@
       "action": "dialog.getByRole(\"button\", { name: \"浏览器打开\" }).click()"
     },
     {
+      "action": "site.getByRole(\"link\", { name: \"关于植物园\" }).click()"
+    },
+    {
+      "action": "publicPage.close()"
+    },
+    {
+      "action": "mainWindow.focus()"
+    },
+    {
       "action": "dialog.getByRole(\"button\", { name: \"关闭分享\" }).click()"
     },
     {
@@ -115,6 +124,24 @@
     },
     {
       "action": "app.close()"
+    },
+    {
+      "action": "restarted.page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "imageComposer.fill(\"__E2E_USER_DELIVERY__:public-image.jpg\")"
+    },
+    {
+      "action": "imageComposer.press(\"Enter\")"
+    },
+    {
+      "action": "imageCard.click()"
+    },
+    {
+      "action": "restarted.page.getByRole(\"button\", { name: \"分享产物\" }).click()"
+    },
+    {
+      "action": "imageShareDialog.getByRole(\"button\", { name: \"复制链接\" }).click()"
     },
     {
       "action": "server.close(() => resolve())"
@@ -144,15 +171,22 @@
     "expect(page.getByRole(\"img\", { name: \"分享二维码\" })).toHaveCount(0)",
     "expect(page.getByRole(\"status\").filter({ hasText: \"已在浏览器打开\" })).toBeVisible()",
     "expect(drafts).toHaveLength(1)",
-    "expect(drafts[0]).toMatchObject({ title: \"public-report.html\", snapshot: { renderer: \"artifact\", turns: [], artifacts: [{ filename: \"public-report.html\", media_type: \"text/html; charset=utf-8\", preview_mode: \"sandbox_html\", }], }, })",
-    "expect(drafts[0].snapshot.artifacts).toHaveLength(1)",
+    "expect(drafts[0]).toMatchObject({ title: \"public-report.html\", snapshot: { renderer: \"artifact\", turns: [], entry_html: \"public-report.html\", }, })",
+    "expect(drafts[0].snapshot.artifacts[0]).toMatchObject({ path: \"public-report.html\", filename: \"public-report.html\", media_type: \"text/html; charset=utf-8\", preview_mode: \"sandbox_html\", })",
+    "expect(drafts[0].snapshot.artifacts.map((artifact: { path?: string }) => artifact.path)).toEqual([ \"public-report.html\", \"about.html\", \"assets/app.css\", \"assets/app.js\", \"assets/garden.png\", ])",
     "expect(JSON.stringify(drafts[0])).not.toContain(\"__E2E_PUBLIC_SHARE_ARTIFACTS__\")",
-    "expect(uploads).toHaveLength(1)",
+    "expect(uploads).toHaveLength(5)",
     "expect(uploads[0].artifactId).toBe(artifact.artifact_id)",
-    "expect(uploads[0].body.toString(\"utf8\")).toContain(\"E2E workspace file\")",
+    "expect(uploads[0].body.toString(\"utf8\")).toContain(\"assets/app.css\")",
     "expect(crypto.createHash(\"sha256\").update(uploads[0].body).digest(\"hex\")).toBe(artifact.sha256)",
-    "expect.poll(() => page.evaluate(() => window.workGui!.clipboard.readText())) .toBe(\"https://share.example/artifact-only-token\")",
-    "expect.poll(() => app!.evaluate(() => { const state = globalThis as typeof globalThis & { __qworkOpenedExternalUrls?: string[] }; return state.__qworkOpenedExternalUrls; })).toEqual([\"https://share.example/artifact-only-token\"])",
+    "expect.poll(() => page.evaluate(() => window.workGui!.clipboard.readText())) .toBe(`${uploadOrigin}/share/artifact-only-token`)",
+    "expect.poll(() => app!.evaluate(() => { const state = globalThis as typeof globalThis & { __qworkOpenedExternalUrls?: string[] }; return state.__qworkOpenedExternalUrls; })).toEqual([`${uploadOrigin}/share/artifact-only-token`])",
+    "expect.poll(() => siteRequests).toEqual(expect.arrayContaining([ \"public-report.html\", \"assets/app.css\", \"assets/app.js\", \"assets/garden.png\", ]))",
+    "expect(site.locator(\"body\")).toHaveCSS(\"color\", \"rgb(21, 94, 66)\")",
+    "expect.poll(() => site.locator(\"#garden\").evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0)",
+    "expect.poll(() => site.locator(\"body\").getAttribute(\"data-site-ready\")).toBe(\"yes\")",
+    "expect(site.getByRole(\"heading\", { name: \"关于植物园\" })).toBeVisible()",
+    "expect.poll(() => page.evaluate(() => document.hasFocus())).toBe(true)",
     "expect(dialog).toHaveCount(0)",
     "expect.poll(() => nativeHtmlPreviewVisible(app!)).toBe(true)",
     "expect(trigger).toBeFocused()",
@@ -160,13 +194,25 @@
     "expect( page.getByRole(\"region\", { name: \"动态网页预览 public-report.html\" }), ).toHaveCount(0)",
     "expect(page.getByRole(\"button\", { name: \"分享产物\" })).toHaveCount(0)",
     "expect.poll(() => nativeHtmlPreviewCount(app!)).toBeGreaterThan(0)",
+    "expect(await app.evaluate(({ BrowserWindow }) => { const window = BrowserWindow.getAllWindows()[0]; if (!window.isVisible()) return false; window.emit(\"hide\"); return window.isVisible(); })).toBe(true)",
+    "expect.poll(() => nativeHtmlPreviewCount(app!), { timeout: 1000 }).toBeGreaterThan(0)",
+    "expect(page.getByRole(\"region\", { name: \"动态网页预览 public-report.html\" })).toBeVisible()",
     "expect.poll(() => mainWindowVisible(app!)).toBe(false)",
     "expect.poll(() => nativeHtmlPreviewCount(app!)).toBe(0)",
     "expect.poll(() => mainWindowVisible(app!)).toBe(true)",
     "expect( page.getByRole(\"region\", { name: \"动态网页预览 public-report.html\" }), ).toHaveCount(0)",
     "expect(page.getByRole(\"button\", { name: \"分享产物\" })).toHaveCount(0)",
     "expect( restarted.page.getByRole(\"region\", { name: \"动态网页预览 public-report.html\", }), ).toHaveCount(0)",
-    "expect( restarted.page.getByRole(\"button\", { name: \"分享产物\" }), ).toHaveCount(0)"
+    "expect( restarted.page.getByRole(\"button\", { name: \"分享产物\" }), ).toHaveCount(0)",
+    "expect(imageCard).toBeVisible()",
+    "expect(imageShareDialog).toBeVisible()",
+    "expect( imageShareDialog.getByText(\"当前产物格式暂不支持公开分享\"), ).toHaveCount(0)",
+    "expect(restarted.page.getByRole(\"status\").filter({ hasText: \"链接已复制\" })).toBeVisible()",
+    "expect.poll(() => drafts.length).toBe(2)",
+    "expect(drafts[1]).toMatchObject({ title: \"public-image.jpg\", snapshot: { renderer: \"artifact\", turns: [], artifacts: [{ filename: \"public-image.jpg\", media_type: \"image/jpeg\", preview_mode: \"image\", }], }, })",
+    "expect(drafts[1].snapshot.artifacts).toHaveLength(1)",
+    "expect(uploads).toHaveLength(6)",
+    "expect(crypto.createHash(\"sha256\").update(uploads[5].body).digest(\"hex\")) .toBe(imageArtifact.sha256)"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -239,7 +285,7 @@
           "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
         },
         {
-          "action": "composer.fill(\"__E2E_ARTIFACT__:public-report.html\")"
+          "action": "composer.fill(\"__E2E_HTML_SHARE_SITE__:public-site/public-report.html\")"
         },
         {
           "action": "composer.press(\"Enter\")"
@@ -263,6 +309,15 @@
           "action": "dialog.getByRole(\"button\", { name: \"浏览器打开\" }).click()"
         },
         {
+          "action": "site.getByRole(\"link\", { name: \"关于植物园\" }).click()"
+        },
+        {
+          "action": "publicPage.close()"
+        },
+        {
+          "action": "mainWindow.focus()"
+        },
+        {
           "action": "dialog.getByRole(\"button\", { name: \"关闭分享\" }).click()"
         },
         {
@@ -276,6 +331,24 @@
         },
         {
           "action": "app.close()"
+        },
+        {
+          "action": "restarted.page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "imageComposer.fill(\"__E2E_USER_DELIVERY__:public-image.jpg\")"
+        },
+        {
+          "action": "imageComposer.press(\"Enter\")"
+        },
+        {
+          "action": "imageCard.click()"
+        },
+        {
+          "action": "restarted.page.getByRole(\"button\", { name: \"分享产物\" }).click()"
+        },
+        {
+          "action": "imageShareDialog.getByRole(\"button\", { name: \"复制链接\" }).click()"
         },
         {
           "action": "server.close(() => resolve())"
@@ -300,12 +373,12 @@
       "source_contract": {
         "spec": "e2e/artifact-sharing.spec.ts",
         "line_start": 8,
-        "line_end": 215,
-        "body_sha256": "sha256:b6f3aaba971bcd4128577d35591749ebc216b75cc322bb48be6e789a6dbc945d",
-        "assertion_count": 46,
-        "action_count": 15,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:0a21dfed14ece537eafe798594ba8d98947460a5c0ccceb34f997d1cfb6bb694"
+        "line_end": 352,
+        "body_sha256": "sha256:9dbb464f0652f2ad165f72a4e967c3b403b71248a93622a3de4ec380649b1657",
+        "assertion_count": 65,
+        "action_count": 24,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:2d7235d80f3597b932fce7b6b996f0d2e74824701da973f92be2779199727a74"
       }
     },
     "reference_run": {

@@ -1,0 +1,296 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-BUG-1013391-NICKNAME-SYNC-SPEC-86BC212C",
+  "title": "账户昵称修改后同步已加载项目的成员和计划处理人",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-bug-1013391-nickname-sync-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/bug-1013391-nickname-sync.spec.ts",
+      "locator": "line:6;test:账户昵称修改后同步已加载项目的成员和计划处理人",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:86bc212c4243e8e55749b6087678fe01bbe8360580cd0b73ff50c5fbbd094036",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-F3C962D15FB86E",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-bug-1013391-nickname-sync-spec-ts:L6:86bc212c42"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "账户昵称修改后同步已加载项目的成员和计划处理人",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-bug-1013391-nickname-sync-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "账户昵称修改后同步已加载项目的成员和计划处理人"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "server.close((error) => error ? reject(error) : resolve())"
+    },
+    {
+      "action": "page.getByTestId(\"left-rail-shell\").getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /昵称同步验收项目/ }).last().click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"邀请\", exact: true }).click()"
+    },
+    {
+      "action": "memberPanel.getByRole(\"button\", { name: \"关闭成员面板\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
+      "action": "settings.getByRole(\"button\", { name: \"账户管理\", exact: true }).click()"
+    },
+    {
+      "action": "settings.getByRole(\"button\", { name: \"编辑账户昵称\" }).click()"
+    },
+    {
+      "action": "editor.getByLabel(\"QWork 昵称\").fill(\"新账号昵称\")"
+    },
+    {
+      "action": "editor.getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭设置\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"邀请\", exact: true }).click()"
+    },
+    {
+      "action": "refreshedPanel.getByRole(\"button\", { name: \"关闭成员面板\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: \"新建任务\", exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"邀请\", exact: true })).toBeVisible()",
+    "expect(memberPanel.getByText(\"项目内旧昵称\", { exact: true })).toBeVisible()",
+    "expect(editor).toHaveCount(0)",
+    "expect(page.getByTestId(\"left-rail-shell\").getByRole(\"button\", { name: /新账号昵称/ })).toBeVisible()",
+    "expect(refreshedPanel.getByText(\"新账号昵称\", { exact: true })).toBeVisible()",
+    "expect( page.getByTestId(\"project-detail-content\").getByRole(\"button\", { name: \"处理人 新账号昵称\", }), ).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-F3C962D15FB86E",
+      "type": "return",
+      "assertion": "账户昵称修改后同步已加载项目的成员和计划处理人"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-bug-1013391-nickname-sync-spec-ts.86bc212c42",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/bug-1013391-nickname-sync.spec.ts -g \"账户昵称修改后同步已加载项目的成员和计划处理人\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "server.close((error) => error ? reject(error) : resolve())"
+        },
+        {
+          "action": "page.getByTestId(\"left-rail-shell\").getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /昵称同步验收项目/ }).last().click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"邀请\", exact: true }).click()"
+        },
+        {
+          "action": "memberPanel.getByRole(\"button\", { name: \"关闭成员面板\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
+          "action": "settings.getByRole(\"button\", { name: \"账户管理\", exact: true }).click()"
+        },
+        {
+          "action": "settings.getByRole(\"button\", { name: \"编辑账户昵称\" }).click()"
+        },
+        {
+          "action": "editor.getByLabel(\"QWork 昵称\").fill(\"新账号昵称\")"
+        },
+        {
+          "action": "editor.getByRole(\"button\", { name: \"保存\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭设置\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"邀请\", exact: true }).click()"
+        },
+        {
+          "action": "refreshedPanel.getByRole(\"button\", { name: \"关闭成员面板\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/bug-1013391-nickname-sync.spec.ts",
+        "line_start": 6,
+        "line_end": 56,
+        "body_sha256": "sha256:60d87b2d336bf09fe4f102d6ce2c3d1b06012254296438a6a6f35fe8c13241ff",
+        "assertion_count": 7,
+        "action_count": 14,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:a308ccb804cf19136e3a7a187539a340b9a2f916740785b553c5a8b4b7b5644b"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-F3C962D15FB86E"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-F3C962D15FB86E"
+    ]
+  }
+}

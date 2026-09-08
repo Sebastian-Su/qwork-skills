@@ -1,0 +1,291 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-AUTO-MOD-AUTO-V1-2026-09-07-79A47A86",
+  "title": "docs/changes/CHG-auto-model-v1-20260907/verification.md · Auto V1 两仓验证收据 · 2026-09-07 产品契约",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "persistence",
+    "journey": "persistence",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auto-model-v1-20260907-verification",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auto-model-v1-20260907/verification.md",
+      "locator": "line:15;heading:Auto V1 两仓验证收据 · 2026-09-07",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:a76099d08547895e89f0f5c567832c9f84762479b948bc75247c3260c0dc3d2f",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auto-model-v1-20260907-verification",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auto-model-v1-20260907/verification.md",
+      "locator": "line:17;heading:Auto V1 两仓验证收据 · 2026-09-07",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:e92d74da26c61bd9485601c74ff36df02aeabc74e690ad6e7ad1813afd62c225",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-4168A0FE93F0EF",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auto-model-v1-20260907-verification:L15:a76099d085"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "persistence",
+      "priority": "P1",
+      "rule": "| 本机观测样本 | Native fixture 首次 4 个 prepare 共 28 ms，重启后 17 ms；HTTP fixture usage 为输入 100 / 输出 15。数据是受控本机样本，不能作为线上 TTFT 或真实费用 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auto-model-v1-20260907-verification"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 本机观测样本 | Native fixture 首次 4 个 prepare 共 28 ms，重启后 17 ms；HTTP fixture usage 为输入 100 / 输出 15。数据是受控本机样本，不能作为线上 TTFT 或真实费用 |"
+    },
+    {
+      "requirement_id": "REQ-79867054576EE1",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auto-model-v1-20260907-verification:L17:e92d74da26"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "persistence",
+      "priority": "P1",
+      "rule": "| 撤回检查 | 服务端与 Admin 工作树 `git status --short` 均为空；没有数据库操作。精确 patch/文件备份见 implementation.md |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auto-model-v1-20260907-verification"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 撤回检查 | 服务端与 Admin 工作树 `git status --short` 均为空；没有数据库操作。精确 patch/文件备份见 implementation.md |"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for persistence at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-auto-model-v1-20260907/verification.md · Auto V1 两仓验证收据 · 2026-09-07 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-4168A0FE93F0EF] exactly: | 本机观测样本 | Native fixture 首次 4 个 prepare 共 28 ms，重启后 17 ms；HTTP fixture usage 为输入 100 / 输出 15。数据是受控本机样本，不能作为线上 TTFT 或真实费用 |"
+    },
+    {
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-79867054576EE1] exactly: | 撤回检查 | 服务端与 Admin 工作树 `git status --short` 均为空；没有数据库操作。精确 patch/文件备份见 implementation.md |"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "| 本机观测样本 | Native fixture 首次 4 个 prepare 共 28 ms，重启后 17 ms；HTTP fixture usage 为输入 100 / 输出 15。数据是受控本机样本，不能作为线上 TTFT 或真实费用 |",
+    "| 撤回检查 | 服务端与 Admin 工作树 `git status --short` 均为空；没有数据库操作。精确 patch/文件备份见 implementation.md |"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-4168A0FE93F0EF]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 本机观测样本 | Native fixture 首次 4 个 prepare 共 28 ms，重启后 17 ms；HTTP fixture usage 为输入 100 / 输出 15。数据是受控本机样本，不能作为线上 TTFT 或真实费用 |",
+    "FAIL [REQ-79867054576EE1]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 撤回检查 | 服务端与 Admin 工作树 `git status --short` 均为空；没有数据库操作。精确 patch/文件备份见 implementation.md |",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-4168A0FE93F0EF",
+      "type": "return",
+      "assertion": "| 本机观测样本 | Native fixture 首次 4 个 prepare 共 28 ms，重启后 17 ms；HTTP fixture usage 为输入 100 / 输出 15。数据是受控本机样本，不能作为线上 TTFT 或真实费用 |"
+    },
+    {
+      "requirement_id": "REQ-79867054576EE1",
+      "type": "database",
+      "assertion": "| 撤回检查 | 服务端与 Admin 工作树 `git status --short` 均为空；没有数据库操作。精确 patch/文件备份见 implementation.md |"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-auto-model.auto-v1-2026-09-07-79a47a863b",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "persistence",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for persistence at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-auto-model-v1-20260907/verification.md · Auto V1 两仓验证收据 · 2026-09-07 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-4168A0FE93F0EF] exactly: | 本机观测样本 | Native fixture 首次 4 个 prepare 共 28 ms，重启后 17 ms；HTTP fixture usage 为输入 100 / 输出 15。数据是受控本机样本，不能作为线上 TTFT 或真实费用 |"
+        },
+        {
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-79867054576EE1] exactly: | 撤回检查 | 服务端与 Admin 工作树 `git status --short` 均为空；没有数据库操作。精确 patch/文件备份见 implementation.md |"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-4168A0FE93F0EF",
+      "REQ-79867054576EE1"
+    ],
+    "categories": [
+      "data",
+      "negative"
+    ],
+    "suite_ids": [
+      "category:data",
+      "category:negative",
+      "full",
+      "requirement:REQ-4168A0FE93F0EF",
+      "requirement:REQ-79867054576EE1"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-4168A0FE93F0EF",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auto-model-v1-20260907/verification.md · Auto V1 两仓验证收据 · 2026-09-07 产品契约 exactly once and retain its correlation identity",
+      "then": "| 本机观测样本 | Native fixture 首次 4 个 prepare 共 28 ms，重启后 17 ms；HTTP fixture usage 为输入 100 / 输出 15。数据是受控本机样本，不能作为线上 TTFT 或真实费用 |",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-79867054576EE1",
+      "oracle_type": "database",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auto-model-v1-20260907/verification.md · Auto V1 两仓验证收据 · 2026-09-07 产品契约 exactly once and retain its correlation identity",
+      "then": "| 撤回检查 | 服务端与 Admin 工作树 `git status --short` 均为空；没有数据库操作。精确 patch/文件备份见 implementation.md |",
+      "observation_boundary": "case-owned durable database state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

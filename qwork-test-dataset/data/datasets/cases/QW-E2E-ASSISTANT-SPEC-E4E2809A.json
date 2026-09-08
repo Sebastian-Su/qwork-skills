@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/assistant.spec.ts",
-      "locator": "line:231;test:keeps the WeChat settings form open and shows a concrete gateway error",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/assistant.spec.ts",
+      "locator": "line:235;test:keeps the WeChat settings form open and shows a concrete gateway error",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:e4e2809a49db91ae0cca67823ff4e2489151dac0eb7634949e8ee3d7e8ab4aa2",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-assistant-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/assistant.spec.ts",
-      "locator": "line:234;test:keeps the WeChat settings form open and shows a concrete gateway error",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:e4e2809a49db91ae0cca67823ff4e2489151dac0eb7634949e8ee3d7e8ab4aa2",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-assistant-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-A6057CCF5CF7B0",
+      "requirement_id": "REQ-532B354F9EB972",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-assistant-spec-ts:L231:e4e2809a49",
-        "QHEAD-E2E-e2e-assistant-spec-ts:L234:e4e2809a49"
+        "QDEV-E2E-e2e-assistant-spec-ts:L235:e4e2809a49"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-assistant-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-assistant-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -98,7 +78,7 @@
       "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"助理设置\", exact: true }).click()"
+      "action": "page.getByRole(\"toolbar\", { name: \"助理工具栏\", exact: true }).getByRole(\"button\", { name: \"助理设置\", exact: true }).click()"
     },
     {
       "action": "dialog.getByRole(\"button\", { name: \"配置微信\" }).click()"
@@ -116,7 +96,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-A6057CCF5CF7B0",
+      "requirement_id": "REQ-532B354F9EB972",
       "type": "return",
       "assertion": "keeps the WeChat settings form open and shows a concrete gateway error"
     }
@@ -180,7 +160,7 @@
           "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: \"助理设置\", exact: true }).click()"
+          "action": "page.getByRole(\"toolbar\", { name: \"助理工具栏\", exact: true }).getByRole(\"button\", { name: \"助理设置\", exact: true }).click()"
         },
         {
           "action": "dialog.getByRole(\"button\", { name: \"配置微信\" }).click()"
@@ -204,13 +184,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/assistant.spec.ts",
-        "line_start": 234,
-        "line_end": 272,
-        "body_sha256": "sha256:4454f486678b2312cc6ebec45aefd9bb3a386b607a22d31268b48d1e247ea944",
+        "line_start": 235,
+        "line_end": 273,
+        "body_sha256": "sha256:ffb11c0ba4a60a51470a000e8b561ebec6018c22e836aa479cc256d87294d385",
         "assertion_count": 3,
         "action_count": 3,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:05b76318b6671ec5f539585947a6d156702b42845f9d0f11b6b30e63eae720e4"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:2b5fc74b419be41d307bb857e5ae57d063a0a6627d9eb108b7347e388edf5ea2"
       }
     },
     "reference_run": {
@@ -232,7 +212,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-A6057CCF5CF7B0"
+      "REQ-532B354F9EB972"
     ],
     "categories": [
       "business"
@@ -240,7 +220,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-A6057CCF5CF7B0"
+      "requirement:REQ-532B354F9EB972"
     ]
   }
 }

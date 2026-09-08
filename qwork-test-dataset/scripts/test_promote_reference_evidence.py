@@ -26,12 +26,14 @@ def main() -> int:
         source.mkdir(parents=True)
         (source / "QWORK-E2E-REPORT.json").write_text("{}\n", encoding="utf-8")
         (source / "QWORK-E2E-REPORT.html").write_text("<html></html>\n", encoding="utf-8")
+        (source / "report.json").write_text("{}\n", encoding="utf-8")
         (source / "evidence-manifest.json").write_text(json.dumps({
             "schema_version": 1,
             "run_id": "RUN-1",
             "files": [
                 "QWORK-E2E-REPORT.json",
                 "QWORK-E2E-REPORT.html",
+                "report.json",
                 "screenshots/final-state.png",
             ],
         }), encoding="utf-8")
@@ -54,6 +56,7 @@ def main() -> int:
             "QWORK-E2E-REPORT.html",
             "QWORK-E2E-REPORT.json",
             "evidence-manifest.json",
+            "report.json",
             "screenshots/final-state.png",
         ]
         assert not (target / "build").exists()

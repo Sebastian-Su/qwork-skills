@@ -1,0 +1,262 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PROJECT-CARD-VISUAL-PARITY-SPEC-1A39D14D",
+  "title": "project templates preserve their actions with frozen light/dark card styling",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-project-card-visual-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/project-card-visual-parity.spec.ts",
+      "locator": "line:5;test:project templates preserve their actions with frozen light/dark card styling",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:1a39d14da37a0cd5058a791fe82c199c8abe9fdb6ac86df0ed3d9f4065f43124",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-FCB4FC821089F1",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-project-card-visual-parity-spec-ts:L5:1a39d14da3"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "project templates preserve their actions with frozen light/dark card styling",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-project-card-visual-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "project templates preserve their actions with frozen light/dark card styling"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /Dev User|本地用户/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+    },
+    {
+      "action": "page.mouse.click(900, 80)"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "card.hover()"
+    },
+    {
+      "action": "card.click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.soft(art).toHaveCSS(\"filter\", dark ? \"invert(1) grayscale(1) contrast(2.2) brightness(0.78)\" : \"none\", { timeout: 1000 })",
+    "expect.soft(art).toHaveCSS(\"opacity\", dark ? \"0.88\" : \"1\", { timeout: 1000 })",
+    "expect.soft(art).toHaveCSS(\"mix-blend-mode\", dark ? \"screen\" : \"normal\", { timeout: 1000 })",
+    "expect(art).toHaveCSS(\"width\", \"482px\")",
+    "expect(art).toHaveCSS(\"height\", \"160px\")",
+    "expect.soft(title).toHaveCSS(\"color\", dark ? \"rgb(255, 255, 255)\" : \"rgb(0, 0, 0)\")",
+    "expect.soft(title).toHaveCSS(\"line-height\", \"20px\")",
+    "expect.soft(description).toHaveCSS(\"color\", dark ? \"rgba(255, 255, 255, 0.35)\" : \"rgba(0, 0, 0, 0.3)\")",
+    "expect.soft(description).toHaveCSS(\"margin-top\", \"4px\")",
+    "expect.soft(card).toHaveCSS(\"border-color\", dark ? \"rgb(58, 58, 58)\" : \"rgb(235, 235, 235)\")",
+    "expect.soft(card).toHaveCSS(\"background-color\", dark ? \"rgba(255, 255, 255, 0.06)\" : \"rgba(0, 0, 0, 0.05)\")",
+    "expect.soft(card).toHaveCSS(\"border-color\", dark ? \"rgb(38, 38, 38)\" : \"rgb(230, 230, 230)\")",
+    "expect(dialog).toBeVisible()",
+    "expect(dialog.getByRole(\"button\", { name: \"选择模板\" })).toContainText(\"产品需求全流程\")",
+    "expect(dialog).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-FCB4FC821089F1",
+      "type": "return",
+      "assertion": "project templates preserve their actions with frozen light/dark card styling"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-project-card-visual-parity-spec-ts.1a39d14da3",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/project-card-visual-parity.spec.ts -g \"project templates preserve their actions with frozen light/dark card styling\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: /Dev User|本地用户/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+        },
+        {
+          "action": "page.mouse.click(900, 80)"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "card.hover()"
+        },
+        {
+          "action": "card.click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/project-card-visual-parity.spec.ts",
+        "line_start": 5,
+        "line_end": 47,
+        "body_sha256": "sha256:b41f193c4bcb8f70371976a452aa0b16888178ed09c24df69b24e28972bf50c7",
+        "assertion_count": 15,
+        "action_count": 7,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:28e39d7e206bd56189f74d5c6613d86ae3cb35da5b08fdab1e32785f19be2cc3"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-FCB4FC821089F1"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-FCB4FC821089F1"
+    ]
+  }
+}

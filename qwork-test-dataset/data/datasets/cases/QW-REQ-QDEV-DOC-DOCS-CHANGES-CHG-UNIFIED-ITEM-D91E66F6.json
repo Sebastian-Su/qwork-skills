@@ -22,32 +22,45 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:248;heading:资源依赖与开发硬门禁",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:409;heading:资源依赖与开发硬门禁",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:b80fbdfe8e7a7f2027839dccff09554922991a3a971e6302cfb10906658b6bf9",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:e195e6de8636622fe62fee42b50126b635a598af099ee18356e7f2bcd4915ed0",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:410;heading:资源依赖与开发硬门禁",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:5b1559d2c549c15cd3738fdcc680fdd2a6cc95db9db37b628c9058bdc5d0489e",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-233C2EC898E17D",
+      "requirement_id": "REQ-E0C03D25D0161C",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L248:b80fbdfe8e"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L409:e195e6de86"
       ],
       "content_facets": [
-        "state-transition"
+        "role-permission"
       ],
       "acceptance_categories": [
-        "state",
-        "recovery"
+        "permission"
       ],
       "surface": "models",
       "priority": "P1",
-      "rule": "| 受控模型与工具测试账号 | `external_blocked` | 尚无本 Change 专用账号、费用和清理边界证据 | 只做 fixture，不算 live 完成 |",
+      "rule": "| 受控模型与工具测试账号 | `one_request_consumed; reauthorization_required` | 2026-09-01 唯一一次实际模型请求成功产生 trace `cd57fcc4a0af7f608fc5fc0aebe0409d`；两次先前 E2E 尝试分别在测试文件路径校验、模型目录未加载处退出，现有 trace 计数确认 `chat/completions=0`、`engine/model dispatch=0`，未产生模型调用。所有隔",
       "authority_domain": "product",
       "governing_sources": [
         "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl"
@@ -58,7 +71,33 @@
         "status": "resolved",
         "reason": "compiled from the user-approved source hierarchy"
       },
-      "oracle": "| 受控模型与工具测试账号 | `external_blocked` | 尚无本 Change 专用账号、费用和清理边界证据 | 只做 fixture，不算 live 完成 |"
+      "oracle": "| 受控模型与工具测试账号 | `one_request_consumed; reauthorization_required` | 2026-09-01 唯一一次实际模型请求成功产生 trace `cd57fcc4a0af7f608fc5fc0aebe0409d`；两次先前 E2E 尝试分别在测试文件路径校验、模型目录未加载处退出，现有 trace 计数确认 `chat/completions=0`、`engine/model dispatch=0`，未产生模型调用。所有隔"
+    },
+    {
+      "requirement_id": "REQ-EC33C2F25F53B5",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L410:5b1559d2c5"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "| 强制远端诊断的隐私与合规边界 | `approved_minimal_projection` | Accountable owner 已明确批准仅出站 trace/span、事件阶段、时间、耗时、Usage、服务版本、环境和序号；服务端投影测试明确拒绝账号、请求 ID、Provider/模型名、路径和正文 | 扩大字段、目的地或用途必须重新审批 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 强制远端诊断的隐私与合规边界 | `approved_minimal_projection` | Accountable owner 已明确批准仅出站 trace/span、事件阶段、时间、耗时、Usage、服务版本、环境和序号；服务端投影测试明确拒绝账号、请求 ID、Provider/模型名、路径和正文 | 扩大字段、目的地或用途必须重新审批 |"
     }
   ],
   "verification": {
@@ -83,25 +122,35 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 资源依赖与开发硬门禁 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe session/sidecar event stream after the trigger and assert [REQ-233C2EC898E17D] exactly: | 受控模型与工具测试账号 | `external_blocked` | 尚无本 Change 专用账号、费用和清理边界证据 | 只做 fixture，不算 live 完成 |"
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-E0C03D25D0161C] exactly: | 受控模型与工具测试账号 | `one_request_consumed; reauthorization_required` | 2026-09-01 唯一一次实际模型请求成功产生 trace `cd57fcc4a0af7f608fc5fc0aebe0409d`；两次先前 E2E 尝试分别在测试文件路径校验、模型目录未加载处退出，现有 trace 计数确认 `chat/completions=0`、`engine/model dispatch=0`，未产生模型调用。所有隔"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-EC33C2F25F53B5] exactly: | 强制远端诊断的隐私与合规边界 | `approved_minimal_projection` | Accountable owner 已明确批准仅出站 trace/span、事件阶段、时间、耗时、Usage、服务版本、环境和序号；服务端投影测试明确拒绝账号、请求 ID、Provider/模型名、路径和正文 | 扩大字段、目的地或用途必须重新审批 |"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
     }
   ],
   "expected_outcomes": [
-    "| 受控模型与工具测试账号 | `external_blocked` | 尚无本 Change 专用账号、费用和清理边界证据 | 只做 fixture，不算 live 完成 |"
+    "| 受控模型与工具测试账号 | `one_request_consumed; reauthorization_required` | 2026-09-01 唯一一次实际模型请求成功产生 trace `cd57fcc4a0af7f608fc5fc0aebe0409d`；两次先前 E2E 尝试分别在测试文件路径校验、模型目录未加载处退出，现有 trace 计数确认 `chat/completions=0`、`engine/model dispatch=0`，未产生模型调用。所有隔",
+    "| 强制远端诊断的隐私与合规边界 | `approved_minimal_projection` | Accountable owner 已明确批准仅出站 trace/span、事件阶段、时间、耗时、Usage、服务版本、环境和序号；服务端投影测试明确拒绝账号、请求 ID、Provider/模型名、路径和正文 | 扩大字段、目的地或用途必须重新审批 |"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-233C2EC898E17D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 受控模型与工具测试账号 | `external_blocked` | 尚无本 Change 专用账号、费用和清理边界证据 | 只做 fixture，不算 live 完成 |",
+    "FAIL [REQ-E0C03D25D0161C]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 受控模型与工具测试账号 | `one_request_consumed; reauthorization_required` | 2026-09-01 唯一一次实际模型请求成功产生 trace `cd57fcc4a0af7f608fc5fc0aebe0409d`；两次先前 E2E 尝试分别在测试文件路径校验、模型目录未加载处退出，现有 trace 计数确认 `chat/completions=0`、`engine/model dispatch=0`，未产生模型调用。所有隔",
+    "FAIL [REQ-EC33C2F25F53B5]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 强制远端诊断的隐私与合规边界 | `approved_minimal_projection` | Accountable owner 已明确批准仅出站 trace/span、事件阶段、时间、耗时、Usage、服务版本、环境和序号；服务端投影测试明确拒绝账号、请求 ID、Provider/模型名、路径和正文 | 扩大字段、目的地或用途必须重新审批 |",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-233C2EC898E17D",
-      "type": "event",
-      "assertion": "| 受控模型与工具测试账号 | `external_blocked` | 尚无本 Change 专用账号、费用和清理边界证据 | 只做 fixture，不算 live 完成 |"
+      "requirement_id": "REQ-E0C03D25D0161C",
+      "type": "api",
+      "assertion": "| 受控模型与工具测试账号 | `one_request_consumed; reauthorization_required` | 2026-09-01 唯一一次实际模型请求成功产生 trace `cd57fcc4a0af7f608fc5fc0aebe0409d`；两次先前 E2E 尝试分别在测试文件路径校验、模型目录未加载处退出，现有 trace 计数确认 `chat/completions=0`、`engine/model dispatch=0`，未产生模型调用。所有隔"
+    },
+    {
+      "requirement_id": "REQ-EC33C2F25F53B5",
+      "type": "return",
+      "assertion": "| 强制远端诊断的隐私与合规边界 | `approved_minimal_projection` | Accountable owner 已明确批准仅出站 trace/span、事件阶段、时间、耗时、Usage、服务版本、环境和序号；服务端投影测试明确拒绝账号、请求 ID、Provider/模型名、路径和正文 | 扩大字段、目的地或用途必须重新审批 |"
     }
   ],
   "cleanup": {
@@ -158,7 +207,10 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 资源依赖与开发硬门禁 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe session/sidecar event stream after the trigger and assert [REQ-233C2EC898E17D] exactly: | 受控模型与工具测试账号 | `external_blocked` | 尚无本 Change 专用账号、费用和清理边界证据 | 只做 fixture，不算 live 完成 |"
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-E0C03D25D0161C] exactly: | 受控模型与工具测试账号 | `one_request_consumed; reauthorization_required` | 2026-09-01 唯一一次实际模型请求成功产生 trace `cd57fcc4a0af7f608fc5fc0aebe0409d`；两次先前 E2E 尝试分别在测试文件路径校验、模型目录未加载处退出，现有 trace 计数确认 `chat/completions=0`、`engine/model dispatch=0`，未产生模型调用。所有隔"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-EC33C2F25F53B5] exactly: | 强制远端诊断的隐私与合规边界 | `approved_minimal_projection` | Accountable owner 已明确批准仅出站 trace/span、事件阶段、时间、耗时、Usage、服务版本、环境和序号；服务端投影测试明确拒绝账号、请求 ID、Provider/模型名、路径和正文 | 扩大字段、目的地或用途必须重新审批 |"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -201,27 +253,38 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-233C2EC898E17D"
+      "REQ-E0C03D25D0161C",
+      "REQ-EC33C2F25F53B5"
     ],
     "categories": [
-      "recovery",
-      "state"
+      "negative",
+      "permission"
     ],
     "suite_ids": [
-      "category:recovery",
-      "category:state",
+      "category:negative",
+      "category:permission",
       "full",
-      "requirement:REQ-233C2EC898E17D"
+      "requirement:REQ-E0C03D25D0161C",
+      "requirement:REQ-EC33C2F25F53B5"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-233C2EC898E17D",
-      "oracle_type": "event",
+      "requirement_id": "REQ-E0C03D25D0161C",
+      "oracle_type": "api",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 资源依赖与开发硬门禁 产品契约 exactly once and retain its correlation identity",
-      "then": "| 受控模型与工具测试账号 | `external_blocked` | 尚无本 Change 专用账号、费用和清理边界证据 | 只做 fixture，不算 live 完成 |",
-      "observation_boundary": "session/sidecar event stream",
+      "then": "| 受控模型与工具测试账号 | `one_request_consumed; reauthorization_required` | 2026-09-01 唯一一次实际模型请求成功产生 trace `cd57fcc4a0af7f608fc5fc0aebe0409d`；两次先前 E2E 尝试分别在测试文件路径校验、模型目录未加载处退出，现有 trace 计数确认 `chat/completions=0`、`engine/model dispatch=0`，未产生模型调用。所有隔",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-EC33C2F25F53B5",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 资源依赖与开发硬门禁 产品契约 exactly once and retain its correlation identity",
+      "then": "| 强制远端诊断的隐私与合规边界 | `approved_minimal_projection` | Accountable owner 已明确批准仅出站 trace/span、事件阶段、时间、耗时、Usage、服务版本、环境和序号；服务端投影测试明确拒绝账号、请求 ID、Provider/模型名、路径和正文 | 扩大字段、目的地或用途必须重新审批 |",
+      "observation_boundary": "typed return value and side-effect ledger",
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     }
   ]

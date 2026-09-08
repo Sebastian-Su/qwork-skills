@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/home-scene-capability.spec.ts",
-      "locator": "line:156;test:enables Agent 应用 skills on the session and prefills the open-source template",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/home-scene-capability.spec.ts",
+      "locator": "line:292;test:enables Agent 应用 skills on the session and prefills the open-source template",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:82682731d4bf79d934f654b56a47af897f7e0a5cb09455fddba59432185d6cf6",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-0176FC6F403EA1",
+      "requirement_id": "REQ-B2C81AD6B30FEC",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-home-scene-capability-spec-ts:L156:82682731d4"
+        "QDEV-E2E-e2e-home-scene-capability-spec-ts:L292:82682731d4"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -98,7 +98,7 @@
     "expect((await readSidecarWire(sidecarLog)).some((message) => message.type === \"user_message\")).toBe(false)",
     "expect.poll(async () => latestUserMessage(sidecarLog)).toContain(\"@scene:code-03\")",
     "expect(created?.selected_plugins).toEqual([...AGENT_APP_SCENE_PLUGIN_IDS])",
-    "expect(created?.selected_skills).toEqual(homeSceneSkillAllowlist(AGENT_APP_SCENE_PLUGIN_IDS))",
+    "expect(created?.selected_skills).toEqual([\"claude-agent-sdk\", \"claude-agent-web\"])",
     "expect(prompted?.content).toContain(`@scene:code-03\\n\\n${CHAT_APP_PROMPT}`)",
     "expect(prompted?.content).not.toContain(\"skill-claude-agent-web\")",
     "expect(prompted?.content).not.toContain(\"skill-claude-agent-sdk\")",
@@ -112,7 +112,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-0176FC6F403EA1",
+      "requirement_id": "REQ-B2C81AD6B30FEC",
       "type": "return",
       "assertion": "enables Agent 应用 skills on the session and prefills the open-source template"
     }
@@ -206,13 +206,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/home-scene-capability.spec.ts",
-        "line_start": 156,
-        "line_end": 194,
-        "body_sha256": "sha256:8c15e5ca634aa3f53c88d0fe87be58a489164c11a8c9062d708723a3cdb5159b",
+        "line_start": 292,
+        "line_end": 334,
+        "body_sha256": "sha256:30163a366d668b2d51d8f70c07190c1bc7b5ddba883947deb3bb9a1edacc6fe2",
         "assertion_count": 13,
         "action_count": 5,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:8406b8e79d947f93291e6a1e4b428129fdc8706fad8f49ff6db0abb32a575ffd"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:41b28d265ac8d0e34ed08f291cae5a71caa9c0fb89ce4c916e9ac520ffafbe4c"
       }
     },
     "reference_run": {
@@ -234,7 +234,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-0176FC6F403EA1"
+      "REQ-B2C81AD6B30FEC"
     ],
     "categories": [
       "business"
@@ -242,7 +242,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-0176FC6F403EA1"
+      "requirement:REQ-B2C81AD6B30FEC"
     ]
   }
 }

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/im-loopback.spec.ts",
-      "locator": "line:145;test:sends only the managed IM turn artifact and hydrates its desktop card",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/im-loopback.spec.ts",
+      "locator": "line:416;test:sends only the managed IM turn artifact and hydrates its desktop card",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:4e8236b73cd3eadeb460984997727f856170ae7eb3ef5eb93c582c9eff028003",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-AC0FA85A9AA08F",
+      "requirement_id": "REQ-14DBA0FD834717",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-im-loopback-spec-ts:L145:4e8236b73c"
+        "QDEV-E2E-e2e-im-loopback-spec-ts:L416:4e8236b73c"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,37 +75,16 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "createTestHome(\"im-managed-artifact\")"
+      "action": "page.reload()"
     },
     {
-      "action": "createWorkspace(configHome)"
-    },
-    {
-      "action": "seedEnabledQq(configHome)"
-    },
-    {
-      "action": "path.join(configHome, \"im-inbox.json\")"
-    },
-    {
-      "action": "path.join(configHome, \"im-outbox.json\")"
-    },
-    {
-      "action": "writeInbox( inboxFile, qqMessage({ messageId: \"qq-managed-artifact-1\", conversationId: \"qq-managed-artifact\", content, }), )"
-    },
-    {
-      "action": "qqMessage({ messageId: \"qq-managed-artifact-1\", conversationId: \"qq-managed-artifact\", content, })"
-    },
-    {
-      "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, E2E_IM_OUTBOX_FILE: outboxFile, })"
-    },
-    {
-      "action": "openInjectedConversation( launched.page, \"qq-managed-artifact\", content, )"
-    },
-    {
-      "action": "cleanupTestHome(app, configHome)"
+      "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect .poll(() => page.evaluate( async (targetConversationId) => (await window.workGui.im.listConversations()).some( (conversation) => conversation.conversationId === targetConversationId, ), conversationId, ), ) .toBe(true)",
+    "expect .poll(() => page.evaluate( async ({ targetSessionId, expectedContent }) => ( await window.workGui.sessions.history(targetSessionId) ).messages.some( (message) => message.role === \"assistant\" && message.text.includes(\"收到：\") && message.text.includes(expectedContent), ), { targetSessionId: sessionId, expectedContent: content }, ), ) .toBe(true)",
+    "expect(page.getByRole(\"heading\", { name: \"本地助理\" })).toBeVisible()",
     "expect .poll(() => readOutboxAttachments(outboxFile)) .toEqual([ expect.objectContaining({ displayName: \"managed-report.txt\" }), ])",
     "expect( launched.page.getByRole(\"button\", { name: \"打开产出物 managed-report.txt\", }), ).toBeVisible()"
   ],
@@ -116,7 +95,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-AC0FA85A9AA08F",
+      "requirement_id": "REQ-14DBA0FD834717",
       "type": "return",
       "assertion": "sends only the managed IM turn artifact and hydrates its desktop card"
     }
@@ -177,34 +156,10 @@
       "entrypoint": "im",
       "steps": [
         {
-          "action": "createTestHome(\"im-managed-artifact\")"
+          "action": "page.reload()"
         },
         {
-          "action": "createWorkspace(configHome)"
-        },
-        {
-          "action": "seedEnabledQq(configHome)"
-        },
-        {
-          "action": "path.join(configHome, \"im-inbox.json\")"
-        },
-        {
-          "action": "path.join(configHome, \"im-outbox.json\")"
-        },
-        {
-          "action": "writeInbox( inboxFile, qqMessage({ messageId: \"qq-managed-artifact-1\", conversationId: \"qq-managed-artifact\", content, }), )"
-        },
-        {
-          "action": "qqMessage({ messageId: \"qq-managed-artifact-1\", conversationId: \"qq-managed-artifact\", content, })"
-        },
-        {
-          "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, E2E_IM_OUTBOX_FILE: outboxFile, })"
-        },
-        {
-          "action": "openInjectedConversation( launched.page, \"qq-managed-artifact\", content, )"
-        },
-        {
-          "action": "cleanupTestHome(app, configHome)"
+          "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -225,13 +180,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/im-loopback.spec.ts",
-        "line_start": 145,
-        "line_end": 189,
+        "line_start": 416,
+        "line_end": 460,
         "body_sha256": "sha256:3cc294714e89d2304ad7a8afbbfe501167dc6a364095561306c5da96793c967b",
-        "assertion_count": 2,
-        "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:7aabc579f5219d106d684b1100adf82f8ab62e33c330bc527fe0db23cfae4b3e"
+        "assertion_count": 5,
+        "action_count": 2,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1377d0e7090fd46b88bb74c5ed69b13f431136cab7ad470e2b7ca32155920e27"
       }
     },
     "reference_run": {
@@ -253,7 +208,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-AC0FA85A9AA08F"
+      "REQ-14DBA0FD834717"
     ],
     "categories": [
       "business"
@@ -261,7 +216,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-AC0FA85A9AA08F"
+      "requirement:REQ-14DBA0FD834717"
     ]
   }
 }

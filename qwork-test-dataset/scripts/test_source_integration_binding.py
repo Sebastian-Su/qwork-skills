@@ -181,6 +181,30 @@ def main() -> int:
         if contract["readiness"] != "ready" or contract["reference_run"]["status"] != "passed":
             raise AssertionError("passing source integration reference was not promoted")
 
+        stale_case = builder.default_case(
+            case_id,
+            "媒体报价接口产品契约",
+            "media-generation",
+            "qwork.requirement.source-integration",
+            None,
+            ["business", "negative"],
+        )
+        stale_case["selection"]["requirement_ids"] = ["REQ-PRICE", "REQ-NEGATIVE"]
+        builder.apply_source_integration_binding(stale_case, binding, "e" * 40)
+        builder.apply_source_integration_reference_authority(
+            case=stale_case,
+            reference=reference,
+            skill_root=skill_root,
+            head="e" * 40,
+        )
+        stale_contract = stale_case["execution_contract"]
+        if (
+            stale_contract["readiness"] != "partial"
+            or stale_contract["reference_run"]["status"] != "pending"
+            or "another QWork revision" not in stale_contract["blockers"][0]
+        ):
+            raise AssertionError("stale source integration reference was not invalidated")
+
     print("source integration binding test: PASS")
     return 0
 

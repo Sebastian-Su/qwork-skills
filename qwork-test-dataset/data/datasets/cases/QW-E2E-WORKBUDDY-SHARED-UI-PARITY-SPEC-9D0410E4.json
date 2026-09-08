@@ -1,0 +1,340 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-SHARED-UI-PARITY-SPEC-9D0410E4",
+  "title": "专家精选标题和卡片双主题排版使用实测参数",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "settings",
+    "journey": "settings",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-shared-ui-parity.spec.ts",
+      "locator": "line:1993;test:专家精选标题和卡片双主题排版使用实测参数",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:9d0410e4ec2f55e15cffc804dc649a5197e946942de69ee0d4de8640dafc5862",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-80E8723D724CF8",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts:L1993:9d0410e4ec"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "settings",
+      "priority": "P1",
+      "rule": "专家精选标题和卡片双主题排版使用实测参数",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "专家精选标题和卡片双主题排版使用实测参数"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+    },
+    {
+      "action": "page.mouse.click(800, 80)"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "nextScene.hover()"
+    },
+    {
+      "action": "nextScene.click()"
+    },
+    {
+      "action": "previousScene.click()"
+    },
+    {
+      "action": "memberRow.hover()"
+    },
+    {
+      "action": "card.hover()"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "cloud.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.soft(title).toHaveCSS(\"font-size\", \"20px\", { timeout: 300 })",
+    "expect.soft(title).toHaveCSS(\"color\", primary, { timeout: 300 })",
+    "expect.soft(await title.boundingBox()).toEqual({ x: 288, y: 76, width: 1409, height: 28 })",
+    "expect.soft(title).toHaveCSS(\"padding-left\", \"2px\", { timeout: 300 })",
+    "expect.soft(await sceneStrip.boundingBox()).toEqual({ x: 288, y: 116, width: 1409, height: 226 })",
+    "expect.soft(sceneStrip).toHaveCSS(\"padding-bottom\", \"2px\", { timeout: 300 })",
+    "expect.soft(sceneStrip).toHaveCSS(\"overflow-y\", \"hidden\", { timeout: 300 })",
+    "expect.soft((await page.getByRole(\"tablist\", { name: \"专家类型\" }).boundingBox())?.y).toBe(370)",
+    "expect.soft(await nextScene.evaluate(e => { const s = getComputedStyle(e.parentElement!, \"::after\"); return { content: s.content, top: s.top, width: s.width, height: s.height, background: s.backgroundImage, pointerEvents: s.pointerEvents }; })).toEqual({ content: '\\\"\\\"', top: \"-4px\", width: \"32px\", height: \"235px\", background: mode === \"浅色\" ? \"linear-gradient(90deg, rgba(250, 250, 250, 0), rgba(250, 250, 250, 0.92))…",
+    "expect.soft(await nextScene.boundingBox()).toEqual({ x: 1659, y: 210, width: 28, height: 28 })",
+    "expect.soft(nextScene).toHaveCSS(\"color\", mode === \"浅色\" ? \"rgba(0, 0, 0, 0.42)\" : \"color(srgb 0.760627 0.760627 0.760627)\", { timeout: 300 })",
+    "expect.soft(nextScene).toHaveCSS(\"background-color\", mode === \"浅色\" ? \"rgba(255, 255, 255, 0.92)\" : \"color(srgb 0.281882 0.281882 0.281882)\", { timeout: 300 })",
+    "expect.soft(nextScene.locator(\"span\")).toHaveCSS(\"width\", \"8px\", { timeout: 300 })",
+    "expect.soft(nextScene.locator(\"span\")).toHaveCSS(\"border-top-width\", \"2px\", { timeout: 300 })",
+    "expect.soft(nextScene).toHaveCSS(\"background-color\", mode === \"浅色\" ? \"rgba(255, 255, 255, 0.92)\" : \"color(srgb 0.281882 0.281882 0.281882)\", { timeout: 300 })",
+    "expect(previousScene).toBeVisible()",
+    "expect.soft(await previousScene.boundingBox()).toEqual({ x: 298, y: 210, width: 28, height: 28 })",
+    "expect(previousScene).toHaveCount(0)",
+    "expect.poll(() => scene.locator(\"img\").evaluateAll(images => images.every(img => (img as HTMLImageElement).complete && (img as HTMLImageElement).naturalWidth > 0)), { timeout: 20000 }).toBe(true)",
+    "expect.soft(await scene.boundingBox()).toEqual({ x: 288, y: 116, width: 246, height: 224 })",
+    "expect.soft(scene.getByText(\"校园求职教练\", { exact: true })).toHaveCSS(\"color\", primary, { timeout: 300 })",
+    "expect.soft(scene.getByText(\"校园求职教练\", { exact: true })).toHaveCSS(\"font-family\", \"Arial\", { timeout: 300 })",
+    "expect.soft(memberRow).toHaveCSS(\"border-radius\", \"8px\", { timeout: 300 })",
+    "expect.soft(memberRow).toHaveCSS(\"background-color\", mode === \"浅色\" ? \"rgba(0, 0, 0, 0.05)\" : \"rgba(255, 255, 255, 0.1)\", { timeout: 300 })",
+    "expect.soft(scene.getByRole(\"button\", { name: /校园求职教练/ }).locator(\"span\").first()).toHaveCSS(\"background-color\", mode === \"浅色\" ? \"rgb(247, 247, 247)\" : \"rgb(38, 38, 38)\", { timeout: 300 })",
+    "expect.soft(scene.locator(\"[data-scene-overlay]\")).toHaveCSS(\"height\", mode === \"浅色\" ? \"224px\" : \"232px\", { timeout: 300 })",
+    "expect.soft(await scene.evaluate(e => { const s = getComputedStyle(e, \"::before\"); return { content: s.content, padding: s.padding, background: s.backgroundImage, mask: s.maskComposite }; })).toEqual({ content: '\"\"', padding: \"1px\", background: mode === \"浅色\" ? \"linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.08) 100%)\" : \"linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.12) 100%)\", mask: \"exclud…",
+    "expect(card).toBeVisible()",
+    "expect.soft(card).toHaveCSS(\"border-width\", \"0.5px\", { timeout: 300 })",
+    "expect.soft(card).toHaveCSS(\"background-color\", bg, { timeout: 300 })",
+    "expect.soft(heading).toHaveCSS(\"font-weight\", \"500\", { timeout: 300 })",
+    "expect.soft(heading).toHaveCSS(\"color\", primary, { timeout: 300 })",
+    "expect.soft(description).toHaveCSS(\"font-size\", \"11px\", { timeout: 300 })",
+    "expect.soft(description).toHaveCSS(\"line-height\", \"18px\", { timeout: 300 })",
+    "expect.soft(description).toHaveCSS(\"color\", secondary, { timeout: 300 })",
+    "expect.soft({ x: descBox.x - cardBox.x, y: descBox.y - cardBox.y, height: descBox.height }).toEqual({ x: 20.5, y: 64.5, height: 36 })",
+    "expect.soft(tag).toHaveCSS(\"height\", \"20px\", { timeout: 300 })",
+    "expect.soft(tag).toHaveCSS(\"font-size\", \"11px\", { timeout: 300 })",
+    "expect.soft(tag).toHaveCSS(\"background-color\", tagBg, { timeout: 300 })",
+    "expect.soft(types).toHaveCSS(\"gap\", \"20px\", { timeout: 300 })",
+    "expect.soft(types.getByRole(\"tab\", { name: \"专家\", exact: true })).toHaveCSS(\"color\", primary, { timeout: 300 })",
+    "expect.soft(types.getByRole(\"tab\", { name: \"专家团\", exact: true })).toHaveCSS(\"color\", weak, { timeout: 300 })",
+    "expect.soft(await sort.boundingBox()).toEqual({ x: 1571, y: 372, width: 40, height: 24 })",
+    "expect.soft(sort).toHaveCSS(\"border-radius\", \"4px\", { timeout: 300 })",
+    "expect.soft(sort).toHaveCSS(\"line-height\", \"22px\", { timeout: 300 })",
+    "expect.soft(sort.locator(\"..\")).toHaveCSS(\"border-radius\", \"6px\", { timeout: 300 })",
+    "expect.soft(await sort.locator(\"..\").getByRole(\"button\").allTextContents()).toEqual([\"综合\", \"最热\", \"最新\"])",
+    "expect.soft(sort).toHaveCSS(\"background-color\", mode === \"浅色\" ? \"rgb(255, 255, 255)\" : \"rgb(60, 60, 60)\", { timeout: 300 })",
+    "expect.soft(categories).toHaveCSS(\"gap\", \"6px\", { timeout: 300 })",
+    "expect.soft(await all.boundingBox()).toEqual({ x: 288, y: 410, width: 49, height: 28 })",
+    "expect.soft(all).toHaveCSS(\"font-size\", \"12.5px\", { timeout: 300 })",
+    "expect.soft(all).toHaveCSS(\"font-weight\", \"600\", { timeout: 300 })",
+    "expect.soft(all).toHaveCSS(\"border-radius\", \"6px\", { timeout: 300 })",
+    "expect.soft(all).toHaveCSS(\"color\", primary, { timeout: 300 })",
+    "expect.soft(all).toHaveCSS(\"background-color\", mode === \"浅色\" ? \"rgb(242, 242, 242)\" : \"rgb(36, 36, 36)\", { timeout: 300 })",
+    "expect.soft(control).toHaveCSS(\"font-family\", \"Arial\", { timeout: 300 })",
+    "expect.poll(() => page.evaluate(() => document.getAnimations().filter(a => a.effect?.getTiming().iterations !== Infinity && ![\"finished\", \"idle\"].includes(a.playState), ).length)).toBe(0)",
+    "expect(await dimensions()).toEqual({ width: 1728, height: 1084, dpr: 2 })",
+    "expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([3456, 2168])",
+    "expect(await dimensions()).toEqual({ width: 1728, height: 1084, dpr: 2 })",
+    "expect.soft(card).toHaveCSS(\"background-color\", mode === \"浅色\" ? \"color(srgb 0.94 0.94 0.94)\" : \"color(srgb 0.192706 0.192706 0.192706)\", { timeout: 500 })",
+    "expect.soft(card).toHaveCSS(\"border-color\", mode === \"浅色\" ? \"color(srgb 0 0 0 / 0.08)\" : \"color(srgb 1 1 1 / 0.06)\", { timeout: 500 })",
+    "expect.soft(card.locator(\"p\").first()).toHaveCSS(\"color\", primary, { timeout: 300 })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-80E8723D724CF8",
+      "type": "ui",
+      "assertion": "专家精选标题和卡片双主题排版使用实测参数"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-shared-ui-parity-spec-ts.9d0410e4ec",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-shared-ui-parity.spec.ts -g \"专家精选标题和卡片双主题排版使用实测参数\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "settings",
+      "steps": [
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+        },
+        {
+          "action": "page.mouse.click(800, 80)"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "nextScene.hover()"
+        },
+        {
+          "action": "nextScene.click()"
+        },
+        {
+          "action": "previousScene.click()"
+        },
+        {
+          "action": "memberRow.hover()"
+        },
+        {
+          "action": "card.hover()"
+        },
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "cloud.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-shared-ui-parity.spec.ts",
+        "line_start": 1993,
+        "line_end": 2099,
+        "body_sha256": "sha256:8aeddda73bf7ee2d8f0a1052942af8014ed9e5ae751ea9dd90d4621376f52668",
+        "assertion_count": 63,
+        "action_count": 12,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:5fdf2c06fef33a49affb73bb6f7f9aef7e267d980e36dc5a294e1eb58459ff79"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-80E8723D724CF8"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-80E8723D724CF8"
+    ]
+  }
+}

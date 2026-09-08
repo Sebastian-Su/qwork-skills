@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/ui-layout-collapsed-titlebar-navigation.spec.ts",
-      "locator": "line:166;test:opens the WorkBuddy expert menu on hover with matching geometry and direct routes",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/ui-layout-collapsed-titlebar-navigation.spec.ts",
+      "locator": "line:167;test:opens the WorkBuddy expert menu on hover with matching geometry and direct routes",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:f4bc52f05c606dd0a3a9198e593ad3a361e039601aec191a8d859677adda4a31",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-702B0B9B988E5C",
+      "requirement_id": "REQ-2E4F3769573B6C",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-ui-layout-collapsed-titlebar-navigation-spec-ts:L166:f4bc52f05c"
+        "QDEV-E2E-e2e-ui-layout-collapsed-titlebar-navigation-spec-ts:L167:f4bc52f05c"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -93,6 +93,11 @@
   "expected_outcomes": [
     "expect(trigger).toHaveAttribute(\"aria-current\", \"page\")",
     "expect(menu).toBeVisible()",
+    "expect(menuBox.x).toBe(240)",
+    "expect(menuBox.y).toBe(triggerBox.y)",
+    "expect(menuBox.width).toBe(161)",
+    "expect(menuBox.height).toBe(117)",
+    "expect(menu).toHaveCSS(\"border-width\", \"0.5px\")",
     "expect(menu).toHaveCSS(\"border-radius\", \"16px\")",
     "expect(menu).toHaveCSS(\"padding\", \"8px\")",
     "expect(menuStyle[\"background-color\"]).toBe(\"rgb(255, 255, 255)\")",
@@ -101,6 +106,7 @@
     "expect(menuStyle[\"box-shadow\"]).toContain( \"rgba(0, 0, 0, 0.04) 0px 4px 12px -4px, rgba(0, 0, 0, 0.04) 0px 3px 6px -8px\", )",
     "expect(items).toHaveCount(3)",
     "expect(menu.getByRole(\"menuitem\", { name: \"专家\", exact: true })) .toHaveAttribute(\"aria-current\", \"page\")",
+    "expect(Math.abs(actual - expected)).toBeLessThanOrEqual(2)",
     "expect(menu).toBeVisible()",
     "expect(page.getByRole(\"tab\", { name: \"技能\", exact: true }).first()) .toHaveAttribute(\"aria-selected\", \"true\")",
     "expect(menu.getByRole(\"menuitem\", { name: \"技能\", exact: true })) .toHaveAttribute(\"aria-current\", \"page\")",
@@ -113,7 +119,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-702B0B9B988E5C",
+      "requirement_id": "REQ-2E4F3769573B6C",
       "type": "ui",
       "assertion": "opens the WorkBuddy expert menu on hover with matching geometry and direct routes"
     }
@@ -207,13 +213,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/ui-layout-collapsed-titlebar-navigation.spec.ts",
-        "line_start": 166,
-        "line_end": 229,
-        "body_sha256": "sha256:c97442efaa1ab10264106c56908d426b4b0276fa006a722335ba2d23041cb9db",
-        "assertion_count": 14,
+        "line_start": 167,
+        "line_end": 231,
+        "body_sha256": "sha256:a6c48c990dff219e970a8d840ad922b907c9ad98afda9e0a03a665895db6ff34",
+        "assertion_count": 20,
         "action_count": 5,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:468e9bce96768c8f1996c96c7e5a462af3ec67111a53f1bdb530047c9d78aa8a"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:51850ed9067788cd22d0333aee70670b3774b8fe6d067c4ba87033d2b40273f2"
       }
     },
     "reference_run": {
@@ -235,7 +241,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-702B0B9B988E5C"
+      "REQ-2E4F3769573B6C"
     ],
     "categories": [
       "business"
@@ -243,7 +249,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-702B0B9B988E5C"
+      "requirement:REQ-2E4F3769573B6C"
     ]
   }
 }

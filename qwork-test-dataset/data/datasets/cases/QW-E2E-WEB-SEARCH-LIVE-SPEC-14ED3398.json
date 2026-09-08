@@ -1,0 +1,288 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WEB-SEARCH-LIVE-SPEC-14ED3398",
+  "title": "真实模型、ZiqDo、360 搜索和 QWork UI 完成一次可恢复链路",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-web-search-live-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/web-search.live.spec.ts",
+      "locator": "line:18;test:真实模型、ZiqDo、360 搜索和 QWork UI 完成一次可恢复链路",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:14ed3398b0ae875a39f178a80e7b81784b5669e4a6a3e80f4123537bba7551c6",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-171E93663F51B4",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-web-search-live-spec-ts:L18:14ed3398b0"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "真实模型、ZiqDo、360 搜索和 QWork UI 完成一次可恢复链路",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-web-search-live-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "真实模型、ZiqDo、360 搜索和 QWork UI 完成一次可恢复链路"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "retry.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(prompt)"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "sourceButton.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "completed.click()"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "sessionEntry.click()"
+    },
+    {
+      "action": "app?.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByTestId(\"main-content\")).toBeVisible({ timeout: 30_000 })",
+    "expect(auth.loggedIn, \"真实验收要求现有 QWork 测试账号已登录\").toBe(true)",
+    "expect.poll( () => page.evaluate(() => window.workGui.models.list()).then((catalog) => catalog.models.length), { timeout: 30_000, message: \"真实验收要求 qwork_server 返回至少一个可选模型\" }, ).toBeGreaterThan(0)",
+    "expect(page.getByRole(\"button\", { name: \"发送\", exact: true })).toBeEnabled({ timeout: 30_000 })",
+    "expect(firstState, \"等待真实 WebSearch；引擎退出时立即失败\").toBe(\"running\")",
+    "expect(sourceButton).toBeVisible({ timeout: 180_000 })",
+    "expect(createdSessionId, \"提交提示后应创建一个真实会话\").toBeTruthy()",
+    "expect(webSearchUses).toHaveLength(1)",
+    "expect(webSearchResults).toHaveLength(1)",
+    "expect(candidates.length).toBeGreaterThan(0)",
+    "expect(answerLinks).toHaveLength(3)",
+    "expect(candidateSet.has(normalizeUrl(answerLink))).toBe(true)",
+    "expect(sourceCount).toBe(candidates.length)",
+    "expect(drawer).toBeVisible()",
+    "expect(drawer.getByText(\"回答已引用\")).toHaveCount(3)",
+    "expect(page.getByText(\"网页搜索\", { exact: true }).last()).toBeVisible()",
+    "expect(sessionEntry, \"重启后应在任务列表恢复真实 WebSearch 会话\").toBeVisible({ timeout: 30_000 })",
+    "expect(page.getByRole(\"button\", { name: `来源 ${sourceCount}` })).toBeVisible({ timeout: 30_000 })",
+    "expect(page.getByText(\"0s\", { exact: true })).toHaveCount(0)",
+    "expect(officialOpenAiSource, \"最终回答至少应包含一条 OpenAI 官方来源\").toBe(true)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-171E93663F51B4",
+      "type": "return",
+      "assertion": "真实模型、ZiqDo、360 搜索和 QWork UI 完成一次可恢复链路"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-web-search-live-spec-ts.14ed3398b0",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": true,
+      "scopes": [
+        "real external account/service/model route named by the source test"
+      ]
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/web-search.live.spec.ts -g \"真实模型、ZiqDo、360 搜索和 QWork UI 完成一次可恢复链路\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "retry.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(prompt)"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "sourceButton.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "completed.click()"
+        },
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "sessionEntry.click()"
+        },
+        {
+          "action": "app?.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home plus separately authorized real external fixture",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/web-search.live.spec.ts",
+        "line_start": 18,
+        "line_end": 160,
+        "body_sha256": "sha256:3944338117fed95d5007778b5aaee16682b0e55aa1cf8b41ad9da669cd5ee606",
+        "assertion_count": 20,
+        "action_count": 10,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:5e8158b9ea6448272f62b5fd48b8dfb578854af369f90fe64342eb978bdaeb34"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "independent authorization for real external route pending",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-171E93663F51B4"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-171E93663F51B4"
+    ]
+  }
+}

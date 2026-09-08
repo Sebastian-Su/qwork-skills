@@ -1,0 +1,226 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-FIND-SKILLS-INTERACTION-SPEC-C3D8DC63",
+  "title": "find-skills completes a P1 install immediately after one user confirmation",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "skills",
+    "journey": "skills",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-find-skills-interaction-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/find-skills-interaction.spec.ts",
+      "locator": "line:74;test:find-skills completes a P1 install immediately after one user confirmation",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:c3d8dc63a5809e2dd9337841075e9f34d19b47cc53ad2507947c86b310a66d98",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-B25E56F99BFFBA",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-find-skills-interaction-spec-ts:L74:c3d8dc63a5"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "skills",
+      "priority": "P1",
+      "rule": "find-skills completes a P1 install immediately after one user confirmation",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-find-skills-interaction-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "find-skills completes a P1 install immediately after one user confirmation"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"__E2E_FIND_SKILLS_P1_CONFIRM__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "confirmation.getByRole(\"button\", { name: \"提交回答\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(confirmation).toContainText(\"确认安装「Shell Helper」吗？\", { timeout: 5_000 })",
+    "expect(launched.page.getByTestId(\"assistant-message\").last()).toContainText(\"已安装并可使用\")",
+    "expect(confirmation).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-B25E56F99BFFBA",
+      "type": "return",
+      "assertion": "find-skills completes a P1 install immediately after one user confirmation"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-find-skills-interaction-spec-ts.c3d8dc63a5",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/find-skills-interaction.spec.ts -g \"find-skills completes a P1 install immediately after one user confirmation\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "skills",
+      "steps": [
+        {
+          "action": "composer.fill(\"__E2E_FIND_SKILLS_P1_CONFIRM__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "confirmation.getByRole(\"button\", { name: \"提交回答\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/find-skills-interaction.spec.ts",
+        "line_start": 74,
+        "line_end": 93,
+        "body_sha256": "sha256:bac2d7c0e9145b6303955a76810694d7494261cfd72675d56458634d0377fb4f",
+        "assertion_count": 3,
+        "action_count": 3,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:b994eb667391a9837dc07e08389d232d3e39bbb3d806d507038c61c57c66ec47"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-B25E56F99BFFBA"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-B25E56F99BFFBA"
+    ]
+  }
+}

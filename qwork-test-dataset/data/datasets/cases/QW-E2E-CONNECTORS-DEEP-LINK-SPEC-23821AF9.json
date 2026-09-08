@@ -1,0 +1,228 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CONNECTORS-DEEP-LINK-SPEC-23821AF9",
+  "title": "uses a platform-safe registration decision for a development launch",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "connectors",
+    "journey": "connectors",
+    "states_covered": [
+      "contract-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-connectors-deep-link-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-deep-link.spec.ts",
+      "locator": "line:58;test:uses a platform-safe registration decision for a development launch",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:23821af91eb3dab518531b86a8966750fb4450a92ed960a8f1ef9b094133e42b",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-1B039EB6E0E55F",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-connectors-deep-link-spec-ts:L58:23821af91e"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "connectors",
+      "priority": "P1",
+      "rule": "uses a platform-safe registration decision for a development launch",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-connectors-deep-link-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "uses a platform-safe registration decision for a development launch"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "path.join(configHome, \"protocol-registration.jsonl\")"
+    },
+    {
+      "action": "openApp(configHome, { WORK_GUI_PROTOCOL_REGISTRATION_SINK: sink, })"
+    },
+    {
+      "action": "readLines(sink)"
+    },
+    {
+      "action": "(await fs.readFile(file, \"utf8\")).split(\"\\n\").filter(Boolean)"
+    },
+    {
+      "action": "(await fs.readFile(file, \"utf8\")).split(\"\\n\")"
+    },
+    {
+      "action": "fs.readFile(file, \"utf8\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(async () => readLines(sink)).toHaveLength(1)",
+    "expect(JSON.parse(line)).toEqual({ action: process.platform === \"darwin\" ? \"skipped\" : \"registered-development\", platform: process.platform, defaultApp: true, ...(process.platform === \"darwin\" ? { reason: \"macos-development-electron\" } : { success: true }), })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-1B039EB6E0E55F",
+      "type": "return",
+      "assertion": "uses a platform-safe registration decision for a development launch"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-connectors-deep-link-spec-ts.23821af91e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/connectors-deep-link.spec.ts -g \"uses a platform-safe registration decision for a development launch\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "connectors",
+      "steps": [
+        {
+          "action": "path.join(configHome, \"protocol-registration.jsonl\")"
+        },
+        {
+          "action": "openApp(configHome, { WORK_GUI_PROTOCOL_REGISTRATION_SINK: sink, })"
+        },
+        {
+          "action": "readLines(sink)"
+        },
+        {
+          "action": "(await fs.readFile(file, \"utf8\")).split(\"\\n\").filter(Boolean)"
+        },
+        {
+          "action": "(await fs.readFile(file, \"utf8\")).split(\"\\n\")"
+        },
+        {
+          "action": "fs.readFile(file, \"utf8\")"
+        }
+      ],
+      "locator_strategy": "source-bound process assertion",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture process output and repair the runtime contract"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/connectors-deep-link.spec.ts",
+        "line_start": 58,
+        "line_end": 74,
+        "body_sha256": "sha256:161dc8db61ffe075a53e4bb687444a2dde2b9e6ca94163390ec9d3e3190cc5f3",
+        "assertion_count": 2,
+        "action_count": 0,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:cb83318ce5d037e7b6fd0210a6b05e75a4178c77b04ee8d32c7a3969ec4f4310"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-1B039EB6E0E55F"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-1B039EB6E0E55F"
+    ]
+  }
+}

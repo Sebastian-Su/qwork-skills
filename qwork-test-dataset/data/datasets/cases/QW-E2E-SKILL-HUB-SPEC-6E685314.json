@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/skill-hub.spec.ts",
-      "locator": "line:335;test:edits an installed skill through the scoped bridge and exposes the commit only to a new task",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/skill-hub.spec.ts",
+      "locator": "line:397;test:edits an installed skill through the scoped bridge and exposes the commit only to a new task",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:6e68531460fdeebc104a08aa862380ea4ec1a845ebb2331e329d14f2c2e626f4",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-D00B8B5E913614",
+      "requirement_id": "REQ-BB817093D6465E",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-skill-hub-spec-ts:L335:6e68531460"
+        "QDEV-E2E-e2e-skill-hub-spec-ts:L397:6e68531460"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -64,7 +64,7 @@
     "environment_scope": "isolated Electron fixture",
     "implementation_revision": null,
     "last_verified_at": null,
-    "status_reason": "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution"
+    "status_reason": "generated baseline has not completed its reference run"
   },
   "preconditions": {
     "repository": "qwork",
@@ -131,7 +131,8 @@
     "expect.poll(() => createSessionsFromLog(sidecarLog)).toHaveLength(1)",
     "expect(editSession.selected_skills).toEqual([\"skill-creator\", \"Weather\"])",
     "expect(editSession.additional_roots).toEqual([workspaceRoot])",
-    "expect(editSession.plugin_dirs).toHaveLength(1)",
+    "expect(editSession.plugin_dirs).toHaveLength(2)",
+    "expect(editSession.plugin_dirs).toContainEqual( expect.stringContaining(\"published-app-sessions\"), )",
     "expect(editSession.host_instructions).toEqual(expect.arrayContaining([ expect.stringContaining(\"editing the QWork-managed Skill\"), expect.stringContaining(\"Call qwork_skill_edit with action=status\"), ]))",
     "expect.poll(async () => { const intent = JSON.parse( await fs.readFile(path.join(intentRoot, \"intent.json\"), \"utf8\"), ) as { state?: string; sessionId?: string }; return { state: intent.state, sessionId: intent.sessionId }; }).toEqual({ state: \"bound\", sessionId: editSession.session_id })",
     "expect(initialStatus).toMatchObject({ runtimeSkillId: \"Weather\", workspaceRoot, hasChanges: false, })",
@@ -154,7 +155,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-D00B8B5E913614",
+      "requirement_id": "REQ-BB817093D6465E",
       "type": "return",
       "assertion": "edits an installed skill through the scoped bridge and exposes the commit only to a new task"
     }
@@ -278,13 +279,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/skill-hub.spec.ts",
-        "line_start": 335,
-        "line_end": 448,
-        "body_sha256": "sha256:ad6569dff7d229d03d51623aa35d8e38e094e5f9d27eb8fe3bf84c9ad66d355f",
-        "assertion_count": 25,
+        "line_start": 397,
+        "line_end": 513,
+        "body_sha256": "sha256:27ffaa6c34e1d482f40a7683f7c337a0993e72c0f328f83da1e027fa13e0d9f6",
+        "assertion_count": 26,
         "action_count": 15,
-        "execution_revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
-        "spec_sha256": "sha256:1d75fbfdb7d5c0352dea0e097da9df9f16d06d84730bedc6c9aa3a195c889ab8"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c3af76be63cda91e78dd4f64f43a932a333b3232f75fbcfe7601ec31b5b8e1f3"
       }
     },
     "reference_run": {
@@ -301,13 +302,12 @@
       "success_oracle": "no case-owned process or temporary state remains"
     },
     "blockers": [
-      "accepted develop E2E coordinate is not present in the current feature HEAD; merge or check out the frozen develop revision before execution",
       "reference run pending"
     ]
   },
   "selection": {
     "requirement_ids": [
-      "REQ-D00B8B5E913614"
+      "REQ-BB817093D6465E"
     ],
     "categories": [
       "business"
@@ -315,7 +315,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-D00B8B5E913614"
+      "requirement:REQ-BB817093D6465E"
     ]
   }
 }

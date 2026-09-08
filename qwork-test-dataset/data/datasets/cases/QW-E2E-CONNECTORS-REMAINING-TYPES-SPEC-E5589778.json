@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-remaining-types.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-remaining-types.spec.ts",
       "locator": "line:356;test:renders all 81 catalog entries without waiting for slow MCP status",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:e55897780adfb7763b66406648a72995a2264e313795643a6f9d90648f1eb07d",
       "redaction_status": "minimized"
     }
@@ -75,19 +75,14 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "openApp(configHome, { E2E_MCP_LOG: mcpLog, E2E_MCP_STATUS_DELAY_MS: \"2000\", })"
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
     },
     {
-      "action": "Date.now()"
-    },
-    {
-      "action": "gotoEmbeddedConnectors(opened.page)"
-    },
-    {
-      "action": "opened.page.getByRole(\"button\", { name: /，(?:未连接|不支持|连接异常|已连接)$/, })"
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByLabel(\"搜索连接器\")).toBeVisible()",
     "expect(opened.page.getByLabel(\"搜索连接器\")).toBeVisible()",
     "expect(Date.now() - startedAt).toBeLessThan(1900)",
     "expect(cards).toHaveCount(81)",
@@ -162,16 +157,10 @@
       "entrypoint": "connectors",
       "steps": [
         {
-          "action": "openApp(configHome, { E2E_MCP_LOG: mcpLog, E2E_MCP_STATUS_DELAY_MS: \"2000\", })"
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
         },
         {
-          "action": "Date.now()"
-        },
-        {
-          "action": "gotoEmbeddedConnectors(opened.page)"
-        },
-        {
-          "action": "opened.page.getByRole(\"button\", { name: /，(?:未连接|不支持|连接异常|已连接)$/, })"
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -195,9 +184,9 @@
         "line_start": 356,
         "line_end": 377,
         "body_sha256": "sha256:76bb2dcb0dd96f7e6234129714e9ef39133f764165b2a8695e00da17d646fa3b",
-        "assertion_count": 5,
-        "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 6,
+        "action_count": 2,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:44edade7183524ded01be4499a9cdadc6e387aea7eebcc674767718eec3e2e3e"
       }
     },

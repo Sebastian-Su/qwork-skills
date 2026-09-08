@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/model-dialogue.live.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/model-dialogue.live.spec.ts",
       "locator": "line:50;test:runs every selectable model through the signed-in desktop flow",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:6f36560c3f352c8f55d581d1521f8958eefe8012d1e26e95a70057f7684699d3",
       "redaction_status": "minimized"
     }
@@ -75,11 +75,31 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "stop.click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "selector.click()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"模型\" }) .getByRole(\"menuitemradio\", { name: option.label, exact: true }) .click()"
+    },
+    {
+      "action": "composer.fill(\"你好\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
       "action": "app.close()"
     }
   ],
   "expected_outcomes": [
     "expect.poll( () => page.evaluate(() => window.workGui?.auth.status()), { timeout: 30_000, message: \"等待现有 QUC 登录会话\" }, ).toMatchObject({ loggedIn: true })",
+    "expect.poll(async () => { const sessions = await page.evaluate(() => window.workGui!.sessions.list()); for (const item of sessions) { const id = item.session_id[0]; if (!baselineSessions.has(id)) createdSessionIds.add(id); } return sessions.some((item) => !beforeSessions.has(item.session_id[0])); }, { timeout: 30_000, message: `${option.label} 创建会话` }).toBe(true)",
+    "expect.poll(() => assistantMessages.count(), { timeout: 180_000, message: `${option.label} 等待模型回复`, }).toBeGreaterThan(assistantCount)",
     "expect(unacceptable, formatFailures(unacceptable)).toEqual([])"
   ],
   "forbidden_outcomes": [
@@ -152,6 +172,24 @@
       "entrypoint": "models",
       "steps": [
         {
+          "action": "stop.click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "selector.click()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"模型\" }) .getByRole(\"menuitemradio\", { name: option.label, exact: true }) .click()"
+        },
+        {
+          "action": "composer.fill(\"你好\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
           "action": "app.close()"
         }
       ],
@@ -176,9 +214,9 @@
         "line_start": 50,
         "line_end": 160,
         "body_sha256": "sha256:dddd2693e0595a64ddc002b4569ac97bbcbfcf5776da06d63ce37e1de72db8c1",
-        "assertion_count": 2,
-        "action_count": 1,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 4,
+        "action_count": 7,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:84a123cc9b3668e47710e62b9af14ca5729d18d9a38ee5736cf6a49245d1b3d7"
       }
     },

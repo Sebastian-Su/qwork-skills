@@ -1,0 +1,294 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-HTML-PREVIEW-MENU-SNAPSHOT-SPEC-F0DA9DE9",
+  "title": "keeps an HTML snapshot behind More for project assets and cloud drive",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "projects",
+    "journey": "projects",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-html-preview-menu-snapshot-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/html-preview-menu-snapshot.spec.ts",
+      "locator": "line:28;test:keeps an HTML snapshot behind More for project assets and cloud drive",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:f0da9de991710ebc60c26d77c0d241414af5279038180e9c402c6562fb4fabe2",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-8CBF9B154E28C1",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-html-preview-menu-snapshot-spec-ts:L28:f0da9de991"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "projects",
+      "priority": "P1",
+      "rule": "keeps an HTML snapshot behind More for project assets and cloud drive",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-html-preview-menu-snapshot-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps an HTML snapshot behind More for project assets and cloud drive"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page .getByTestId(\"left-rail-shell\") .getByRole(\"button\", { name: \"更多\", exact: true }) .click()"
+    },
+    {
+      "action": "page .getByRole(\"menu\", { name: \"更多\" }) .getByRole(\"menuitem\", { name: \"我的文件\", exact: true }) .click()"
+    },
+    {
+      "action": "page .locator(\"header\") .filter({ has: heading }) .getByRole(\"button\", { name: \"云端网盘\", exact: true }) .click()"
+    },
+    {
+      "action": "page .getByRole(\"region\", { name: \"360企业云盘个人空间\" }) .getByRole(\"button\", { name: \"交付页面.html\", exact: true }) .click()"
+    },
+    {
+      "action": "drawer.getByRole(\"button\", { name: \"更多\" }).click()"
+    },
+    {
+      "action": "drawer.getByRole(\"button\", { name: \"更多\" }).click()"
+    },
+    {
+      "action": "fixture.close()"
+    },
+    {
+      "action": "server.close((error) => (error ? reject(error) : resolve()))"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: /快照验收项目/ }) .first() .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"资产\", exact: true }).click()"
+    },
+    {
+      "action": "page .getByRole(\"button\", { name: \"项目主页.html\", exact: true }) .click()"
+    },
+    {
+      "action": "fixture.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(heading).toBeVisible()",
+    "expect(drawer).toBeVisible()",
+    "expect.poll(() => nativeHtmlPreviewVisible(app)).toBe(true)",
+    "expect(menu).toBeVisible()",
+    "expect( drawer.getByRole(\"img\", { name: `${name} 静态预览` }), ).toBeVisible()",
+    "expect( menu.getByRole(\"menuitem\", { name: \"添加到任务\" }), ).toBeEnabled()",
+    "expect(menu.getByRole(\"menuitem\", { name: \"下载\" })).toHaveCount(0)",
+    "expect.poll(() => nativeHtmlPreviewVisible(app)).toBe(false)",
+    "expect(menu).not.toBeVisible()",
+    "expect.poll(() => nativeHtmlPreviewVisible(app)).toBe(true)",
+    "expect( drawer.getByRole(\"img\", { name: `${name} 静态预览` }), ).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-8CBF9B154E28C1",
+      "type": "return",
+      "assertion": "keeps an HTML snapshot behind More for project assets and cloud drive"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-html-preview-menu-snapshot-spec-ts.f0da9de991",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/html-preview-menu-snapshot.spec.ts -g \"keeps an HTML snapshot behind More for project assets and cloud drive\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "projects",
+      "steps": [
+        {
+          "action": "page .getByTestId(\"left-rail-shell\") .getByRole(\"button\", { name: \"更多\", exact: true }) .click()"
+        },
+        {
+          "action": "page .getByRole(\"menu\", { name: \"更多\" }) .getByRole(\"menuitem\", { name: \"我的文件\", exact: true }) .click()"
+        },
+        {
+          "action": "page .locator(\"header\") .filter({ has: heading }) .getByRole(\"button\", { name: \"云端网盘\", exact: true }) .click()"
+        },
+        {
+          "action": "page .getByRole(\"region\", { name: \"360企业云盘个人空间\" }) .getByRole(\"button\", { name: \"交付页面.html\", exact: true }) .click()"
+        },
+        {
+          "action": "drawer.getByRole(\"button\", { name: \"更多\" }).click()"
+        },
+        {
+          "action": "drawer.getByRole(\"button\", { name: \"更多\" }).click()"
+        },
+        {
+          "action": "fixture.close()"
+        },
+        {
+          "action": "server.close((error) => (error ? reject(error) : resolve()))"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: /快照验收项目/ }) .first() .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"资产\", exact: true }).click()"
+        },
+        {
+          "action": "page .getByRole(\"button\", { name: \"项目主页.html\", exact: true }) .click()"
+        },
+        {
+          "action": "fixture.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/html-preview-menu-snapshot.spec.ts",
+        "line_start": 28,
+        "line_end": 37,
+        "body_sha256": "sha256:cf7185bc2ce3e951c4cf42f6fdc7689fb5c08f37679a05fab1a97242930d89e1",
+        "assertion_count": 11,
+        "action_count": 13,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:861ef061995bff90342e0e953765f21edb02256de3f534dda3340bf7152f8d26"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-8CBF9B154E28C1"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-8CBF9B154E28C1"
+    ]
+  }
+}

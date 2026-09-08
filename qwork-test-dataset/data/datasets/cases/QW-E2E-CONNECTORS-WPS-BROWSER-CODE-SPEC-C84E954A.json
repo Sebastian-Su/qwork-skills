@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-wps-browser-code.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-wps-browser-code.spec.ts",
       "locator": "line:146;test:uses a fresh public code, shares one grant across both cards, and unbinds both",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:c84e954ae628c5e0d1d72edb303bbaec78db35f23b4fff3dc3c17336ff9910df",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "search.fill(\"金山文档\")"
     },
     {
@@ -106,7 +112,15 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"searchbox\", { name: \"搜索连接器\" })).toBeVisible()",
     "expect.poll(async () => (await readLines(authUrlSink)).length).toBe(1)",
+    "expect(login.origin).toBe(\"https://account.wps.cn\")",
+    "expect(login.pathname).toBe(\"/login\")",
+    "expect([...login.searchParams.keys()]).toEqual([\"cb\"])",
+    "expect(callback.origin).toBe(WPS_CALLBACK_ORIGIN)",
+    "expect(callback.pathname).toBe(WPS_CALLBACK_PATH)",
+    "expect([...callback.searchParams.keys()]).toEqual([\"code\"])",
+    "expect(code).toMatch(UUID_V4)",
     "expect.poll(() => exchange!.requests.length, { timeout: 10_000 }).toBe(2)",
     "expect(detail.getByRole(\"button\", { name: \"停用\", exact: true })).toBeVisible({ timeout: 15_000, })",
     "expect(exchange!.requests).toEqual([ { code: firstCode, ordinalForCode: 1, method: \"POST\", contentType: \"application/json\", }, { code: firstCode, ordinalForCode: 2, method: \"POST\", contentType: \"application/json\", }, ])",
@@ -204,6 +218,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "search.fill(\"金山文档\")"
         },
         {
@@ -255,9 +275,9 @@
         "line_start": 146,
         "line_end": 286,
         "body_sha256": "sha256:b36915450103de0508985cf86de506d1c06b794a1643e6650ed3e45ba2edf24b",
-        "assertion_count": 29,
-        "action_count": 10,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 37,
+        "action_count": 12,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:f2a7bb1222ef6bd2a901446046945811dd7b0bc52b7bb7eabe48ac9adcd3f7b8"
       }
     },

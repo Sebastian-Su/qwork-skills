@@ -106,6 +106,51 @@ def source_path(source: dict[str, Any]) -> str | None:
 
 def infer_surface(path: str, changed_content: str = "") -> str | None:
     lower_content = changed_content.lower()
+    if path.startswith("resources/plugins/game-development-studio/"):
+        return "expert-team"
+    if (
+        path.startswith("src/main/experts/")
+        and (
+            "team" in Path(path).name.lower()
+            or any(
+                marker in lower_content
+                for marker in (
+                    "expertpresentationidentity",
+                    "freezeexpertsnapshot",
+                    "identityid",
+                    "principalidentity",
+                    '"members"',
+                    '"workflows"',
+                )
+            )
+        )
+    ):
+        return "expert-team"
+    if any(
+        marker in lower_content
+        for marker in (
+            "expertteamrunadjudicator",
+            "sessioneventadjudicator",
+            "onsessionrecoveryfailure",
+            "expertsnapshot",
+            "principalidentity",
+            "expertteamworkflowcontract",
+            "subscribesubagentstreams",
+            "activerunid",
+            "team_run_id",
+            'block.kind === "team_created"',
+            "membercomposermask",
+        )
+    ):
+        return "expert-team"
+    if path == "src/renderer/src/components/Composer.tsx" and "normalizecomposererror" in lower_content:
+        return "expert-team"
+    if (
+        path == "src/renderer/src/types/event.ts"
+        and "run_id" in lower_content
+        and "evidence_refs" in lower_content
+    ):
+        return "expert-team"
     if (
         "droppedfiles" in Path(path).name.lower()
         or any(
@@ -181,6 +226,10 @@ def infer_surface(path: str, changed_content: str = "") -> str | None:
 
 
 def gate_only_item_ids(path: str, content: str) -> list[str]:
+    if path in {
+        "design-system/migration/current-qwork-audit.json",
+    }:
+        return ["gate:governance"]
     if (
         path.startswith("docs/team-collaboration/changes/")
         or (path.startswith("docs/changes/") and path.endswith("/change-record.yaml"))
@@ -202,12 +251,108 @@ def gate_only_item_ids(path: str, content: str) -> list[str]:
     return []
 
 
+STYLE_DEBT_BASELINE = "design-system/migration/hardcoded-style-baseline.json"
+
+
+def _validated_style_debt_by_file(
+    document: dict[str, Any],
+) -> dict[str, dict[str, int]] | None:
+    expected_keys = {
+        "schemaVersion",
+        "capturedAt",
+        "sourceScope",
+        "scope",
+        "totals",
+        "byFile",
+    }
+    if set(document) != expected_keys:
+        return None
+    totals = document.get("totals")
+    by_file = document.get("byFile")
+    if not isinstance(totals, dict) or not isinstance(by_file, dict) or not totals:
+        return None
+    families = set(totals)
+    if any(
+        not isinstance(value, int) or isinstance(value, bool) or value < 0
+        for value in totals.values()
+    ):
+        return None
+    validated: dict[str, dict[str, int]] = {}
+    computed = {str(family): 0 for family in families}
+    for file, counts in by_file.items():
+        if (
+            not isinstance(file, str)
+            or not isinstance(counts, dict)
+            or set(counts) != families
+            or any(
+                not isinstance(value, int) or isinstance(value, bool) or value < 0
+                for value in counts.values()
+            )
+        ):
+            return None
+        normalized = {str(family): int(counts[family]) for family in families}
+        validated[file] = normalized
+        for family, value in normalized.items():
+            computed[family] += value
+    expected = {str(family): int(value) for family, value in totals.items()}
+    return validated if computed == expected else None
+
+
+def infer_derived_style_baseline_targets(
+    base_document: dict[str, Any],
+    head_document: dict[str, Any],
+    changed_paths: set[str],
+) -> list[str] | None:
+    """Resolve a ratcheted style-debt baseline to its changed source files.
+
+    The baseline is derived evidence, but treating every edit as gate-only can
+    hide an unrelated UI change.  It may inherit source mappings only when both
+    snapshots are structurally self-consistent, every count moves downward or
+    stays equal, and each changed by-file coordinate is also present in the Git
+    diff.  Anything else remains an unknown change and selects the full suite.
+    """
+    if any(
+        base_document.get(key) != head_document.get(key)
+        for key in ("schemaVersion", "sourceScope", "scope")
+    ):
+        return None
+    base_by_file = _validated_style_debt_by_file(base_document)
+    head_by_file = _validated_style_debt_by_file(head_document)
+    if base_by_file is None or head_by_file is None:
+        return None
+    families = set(base_document["totals"])
+    if families != set(head_document["totals"]):
+        return None
+    targets: list[str] = []
+    zero = {str(family): 0 for family in families}
+    for file in sorted(set(base_by_file) | set(head_by_file)):
+        before = base_by_file.get(file, zero)
+        after = head_by_file.get(file, zero)
+        if any(after[family] > before[family] for family in zero):
+            return None
+        if before == after:
+            continue
+        if not file.startswith("src/renderer/src/") or file not in changed_paths:
+            return None
+        targets.append(file)
+    return targets or None
+
+
 SEMANTIC_ANCHOR = re.compile(
     r"(?<![A-Za-z0-9])(?:"
     r"[a-z][a-z0-9]*(?:_[a-z0-9]+){2,}|"
     r"[a-z][A-Za-z0-9]{19,}|"
     r"[a-z][a-z0-9]*(?:-[a-z0-9]+){2,}"
     r")(?![A-Za-z0-9])"
+)
+LAYOUT_UTILITY_ANCHOR = re.compile(
+    r"^(?:(?:min|max)-(?:w|h)-[a-z0-9.]+|"
+    r"(?:bg|text|border|ring|shadow|fill|stroke|outline|divide|placeholder)-"
+    r"(?:fg|bg|border|accent|ok|warning|danger|muted)(?:-[a-z0-9./]+)?)$"
+)
+PRESENTATION_ROLE_ANCHOR = re.compile(
+    r"^[a-z][a-z0-9]*(?:-[a-z0-9]+)+-"
+    r"(?:engineer|director|lead|manager|strategist|designer|producer|architect|analyst)$"
 )
 
 
@@ -223,7 +368,12 @@ def infer_unique_semantic_cases(
     highest-scoring Case(s) are retained so an adjacent helper name cannot
     broaden the affected closure.
     """
-    changed_anchors = set(SEMANTIC_ANCHOR.findall(changed_content))
+    changed_anchors = {
+        anchor
+        for anchor in SEMANTIC_ANCHOR.findall(changed_content)
+        if not LAYOUT_UTILITY_ANCHOR.fullmatch(anchor)
+        and not PRESENTATION_ROLE_ANCHOR.fullmatch(anchor)
+    }
     if not changed_anchors:
         return [], []
     owners: dict[str, set[str]] = {}
@@ -293,11 +443,12 @@ def case_requires_macos_native_fullscreen(case: dict[str, Any]) -> bool:
 def infer_executable_capability_cases(
     case_files: dict[str, dict[str, Any]], surface: str
 ) -> tuple[list[str], list[str], list[str]]:
-    """Keep broad capability inference causal by requiring an executable route.
+    """Keep broad capability inference causal without hiding missing runners.
 
     A source-exact match remains fail-closed even when its route is missing. A
-    capability label alone is weaker evidence: importing every historical
-    manual gap makes an unrelated implementation change appear to own it.
+    capability label alone is weaker evidence, but a matching manual gap still
+    belongs in the affected closure so preflight reports ``runner-gap``. Only
+    cases with explicit non-causal evidence may be excluded here.
     """
     selected: list[str] = []
     excluded_manual_gaps: list[str] = []
@@ -317,9 +468,7 @@ def infer_executable_capability_cases(
         strategy = (
             case.get("execution_contract", {}).get("launch", {}).get("strategy")
         )
-        if strategy == "manual-blocked":
-            excluded_manual_gaps.append(case_id)
-        elif (
+        if (
             (
                 source_contract
             )
@@ -361,6 +510,54 @@ def infer_executable_capability_cases(
     )
 
 
+def narrow_implementation_mappings_to_changed_executables(
+    mappings: list[dict[str, Any]],
+    case_files: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Use changed E2E contracts as the precise closure for the same surface.
+
+    Broad capability inference remains the fail-closed fallback.  When the
+    same diff changes one or more current executable E2E Cases for that
+    capability, those source-bound Cases are stronger causal coordinates than
+    every historical or manual Case carrying the broad capability label.
+    """
+    changed_by_surface: dict[str, set[str]] = {}
+    for mapping in mappings:
+        path = str(mapping.get("changed_file") or "")
+        if (
+            not path.startswith("e2e/")
+            or not path.endswith(".spec.ts")
+            or mapping.get("strategy") not in {"source-atom-diff", "source-atom-exact"}
+        ):
+            continue
+        for case_id in map(str, mapping.get("case_ids") or []):
+            case = case_files.get(case_id) or {}
+            source = (
+                ((case.get("execution_contract") or {}).get("observability") or {}).get(
+                    "source_contract"
+                )
+                or {}
+            )
+            surface = str((case.get("coverage") or {}).get("capability_id") or "")
+            if surface and source.get("spec") == path:
+                changed_by_surface.setdefault(surface, set()).add(case_id)
+
+    result: list[dict[str, Any]] = []
+    for mapping in mappings:
+        updated = dict(mapping)
+        if mapping.get("strategy") == "implementation-surface-executable":
+            surface = str(mapping.get("surface") or "")
+            changed_cases = sorted(changed_by_surface.get(surface, set()))
+            inferred_cases = {str(case_id) for case_id in mapping.get("case_ids") or []}
+            causal_cases = [case_id for case_id in changed_cases if case_id in inferred_cases]
+            if causal_cases:
+                updated["strategy"] = "implementation-surface-changed-executable"
+                updated["broader_surface_case_count"] = len(inferred_cases)
+                updated["case_ids"] = causal_cases
+        result.append(updated)
+    return result
+
+
 def partition_exact_cases(
     case_files: dict[str, dict[str, Any]],
     exact_case_ids: list[str],
@@ -390,6 +587,15 @@ def partition_exact_cases(
     return sorted(retained), sorted(superseded)
 
 
+def added_content_from_diff(diff: str) -> str:
+    """Return only current-revision lines from a zero-context Git diff."""
+    return "\n".join(
+        line[1:]
+        for line in diff.splitlines()
+        if line.startswith("+") and not line.startswith("+++")
+    )
+
+
 def changed_content(repo: Path, base: str, path: str) -> str:
     result = subprocess.run(
         ["git", "diff", "--unified=0", base, "--", path],
@@ -399,12 +605,7 @@ def changed_content(repo: Path, base: str, path: str) -> str:
     )
     if result.returncode:
         return ""
-    changed = "\n".join(
-        line[1:]
-        for line in result.stdout.splitlines()
-        if line.startswith(("+", "-"))
-        and not line.startswith(("+++", "---"))
-    )
+    changed = added_content_from_diff(result.stdout)
     if changed:
         return changed
     current = repo / path
@@ -529,15 +730,31 @@ def main() -> int:
 
     dirty = status_entries(repo)
     changed = changed_files(repo, base, head, dirty)
+    changed_paths = {str(item["path"]) for item in changed}
     selected: set[str] = set()
     mappings: list[dict[str, Any]] = []
     inferred_manual_gaps: dict[str, set[str]] = {}
     inferred_noncausal: dict[str, set[str]] = {}
     superseded_exact_cases: dict[str, set[str]] = {}
     gate_only_changes: list[str] = []
+    deferred_style_baseline_targets: list[str] | None = None
     conservative_full = args.scope == "full"
     for change in changed:
         path = str(change["path"])
+        if path == STYLE_DEBT_BASELINE:
+            try:
+                base_document = json.loads(git(repo, "show", f"{base}:{path}"))
+                head_document = json.loads(git(repo, "show", f"{head}:{path}"))
+            except (json.JSONDecodeError, RuntimeError):
+                base_document = {}
+                head_document = {}
+            deferred_style_baseline_targets = infer_derived_style_baseline_targets(
+                base_document,
+                head_document,
+                changed_paths,
+            )
+            if deferred_style_baseline_targets is not None:
+                continue
         content = changed_content(repo, base, path)
         gate_items = gate_only_item_ids(path, content)
         if gate_items:
@@ -618,6 +835,62 @@ def main() -> int:
         conservative_full = True
         mappings.append({"changed_file": path, "strategy": "unknown-change-select-full", "case_ids": full_ids})
 
+    mappings = narrow_implementation_mappings_to_changed_executables(
+        mappings,
+        case_files,
+    )
+    selected = {
+        str(case_id)
+        for mapping in mappings
+        for case_id in mapping.get("case_ids") or []
+    }
+
+    if deferred_style_baseline_targets is not None:
+        by_changed_file = {
+            str(mapping["changed_file"]): mapping
+            for mapping in mappings
+        }
+        allowed_strategies = {
+            "source-atom-diff",
+            "source-atom-exact",
+            "unique-semantic-anchor",
+            "implementation-surface-executable",
+            "implementation-surface-changed-executable",
+        }
+        inherited_cases: set[str] = set()
+        invalid_targets: list[str] = []
+        for target in deferred_style_baseline_targets:
+            mapping = by_changed_file.get(target)
+            case_ids = list(mapping.get("case_ids") or []) if mapping else []
+            if not mapping or mapping.get("strategy") not in allowed_strategies or not case_ids:
+                invalid_targets.append(target)
+                continue
+            inherited_cases.update(str(case_id) for case_id in case_ids)
+        if invalid_targets:
+            conservative_full = True
+            mappings.append({
+                "changed_file": STYLE_DEBT_BASELINE,
+                "strategy": "unknown-change-select-full",
+                "derived_files": deferred_style_baseline_targets,
+                "unmapped_derived_files": invalid_targets,
+                "case_ids": full_ids,
+            })
+        else:
+            selected.update(inherited_cases)
+            mappings.append({
+                "changed_file": STYLE_DEBT_BASELINE,
+                "strategy": "derived-audit-surface",
+                "derived_files": deferred_style_baseline_targets,
+                "gate_item_ids": ["gate:governance"],
+                "case_ids": sorted(inherited_cases),
+            })
+
+    selected = {
+        str(case_id)
+        for mapping in mappings
+        for case_id in mapping.get("case_ids") or []
+    }
+
     if not conservative_full:
         selected.difference_update(
             case_id
@@ -642,6 +915,7 @@ def main() -> int:
         result_item("gate:structured-oracle-coverage", "source-atom", "python3 .agents/skills/qwork-test-dataset/scripts/test_structured_oracle_coverage.py --skill-root .agents/skills/qwork-test-dataset", "dataset-benchmark-evaluation", ["ui-geometry-visual-responsive", "observability-correlation"]),
         result_item("gate:workbuddy-interaction-inventory", "source-atom", "python3 .agents/skills/qwork-test-dataset/scripts/validate_workbuddy_interaction_inventory.py --skill-root .agents/skills/qwork-test-dataset", "dataset-benchmark-evaluation", ["ui-interaction-accessibility", "observability-correlation"]),
         result_item("gate:live-case-authorization", "authorization", "python3 .agents/skills/qwork-test-dataset/scripts/test_live_case_authorization.py --skill-root .agents/skills/qwork-test-dataset", "permission-security", ["permission-security", "role-tenant-platform-environment-version"]),
+        result_item("gate:governance", "layer", "npm run governance:validate", "static-architecture-type-lint", ["observability-correlation", "cleanup-isolation"]),
         result_item("gate:typecheck", "layer", "npm run typecheck", "static-architecture-type-lint", ["role-tenant-platform-environment-version"]),
         result_item("gate:unit-integration", "layer", "npm test", "unit", ["happy-path", "negative", "boundary", "empty-loading-error"]),
         result_item("gate:coverage", "dimension", "npm run test:coverage -- --coverage.thresholds.autoUpdate=false", "regression", ["historical-badcase-goodcase"]),

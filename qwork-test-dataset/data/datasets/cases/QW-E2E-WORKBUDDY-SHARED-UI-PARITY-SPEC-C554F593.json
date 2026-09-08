@@ -1,0 +1,269 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-SHARED-UI-PARITY-SPEC-C554F593",
+  "title": "设置开关浅深两态颜色和mac键帽符号保持真实基准",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "settings",
+    "journey": "settings",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-shared-ui-parity.spec.ts",
+      "locator": "line:1178;test:设置开关浅深两态颜色和mac键帽符号保持真实基准",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:c554f5938e480acb593fc5fee1e39abe1d948d1d3c6980414619f1da8287e418",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-C31751B5342EF9",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts:L1178:c554f5938e"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "settings",
+      "priority": "P1",
+      "rule": "设置开关浅深两态颜色和mac键帽符号保持真实基准",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "设置开关浅深两态颜色和mac键帽符号保持真实基准"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+    },
+    {
+      "action": "page.mouse.click(800, 80)"
+    },
+    {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
+      "action": "page.getByTestId(\"settings-navigation\").getByRole(\"button\", { name: \"智能体设置\", exact: true }).click()"
+    },
+    {
+      "action": "toggle.click()"
+    },
+    {
+      "action": "toggle.click()"
+    },
+    {
+      "action": "toggle.click()"
+    },
+    {
+      "action": "page.getByTestId(\"settings-navigation\").getByRole(\"button\", { name: \"快捷键\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭设置\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.soft(toggle).toHaveCSS(\"background-color\", off, { timeout: 1000 })",
+    "expect.soft(toggle.locator(\"span\")).toHaveCSS(\"background-color\", thumb, { timeout: 1000 })",
+    "expect.soft(toggle).toHaveCSS(\"background-color\", on, { timeout: 1000 })",
+    "expect.soft(page.getByRole(\"button\", { name: \"录制输入时换行快捷键\" })).toHaveText(\"⇧Enter\", { timeout: 1000 })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-C31751B5342EF9",
+      "type": "return",
+      "assertion": "设置开关浅深两态颜色和mac键帽符号保持真实基准"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-shared-ui-parity-spec-ts.c554f5938e",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-shared-ui-parity.spec.ts -g \"设置开关浅深两态颜色和mac键帽符号保持真实基准\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "settings",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+        },
+        {
+          "action": "page.mouse.click(800, 80)"
+        },
+        {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
+          "action": "page.getByTestId(\"settings-navigation\").getByRole(\"button\", { name: \"智能体设置\", exact: true }).click()"
+        },
+        {
+          "action": "toggle.click()"
+        },
+        {
+          "action": "toggle.click()"
+        },
+        {
+          "action": "toggle.click()"
+        },
+        {
+          "action": "page.getByTestId(\"settings-navigation\").getByRole(\"button\", { name: \"快捷键\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭设置\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-shared-ui-parity.spec.ts",
+        "line_start": 1178,
+        "line_end": 1194,
+        "body_sha256": "sha256:4c067666d5e2e7562d686fdcf2a0b2884841020ede464b25d7e4111941d4ea03",
+        "assertion_count": 4,
+        "action_count": 10,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:5fdf2c06fef33a49affb73bb6f7f9aef7e267d980e36dc5a294e1eb58459ff79"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-C31751B5342EF9"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-C31751B5342EF9"
+    ]
+  }
+}

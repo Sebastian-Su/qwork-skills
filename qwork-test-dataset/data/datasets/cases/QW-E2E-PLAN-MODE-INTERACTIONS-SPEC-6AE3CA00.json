@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/plan-mode-interactions.spec.ts",
-      "locator": "line:73;test:keeps plan questions and approval controls stable across task switches",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/plan-mode-interactions.spec.ts",
+      "locator": "line:76;test:keeps plan questions and approval controls stable across task switches",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:6ae3ca00c315830f0e7bb1d7c496b9a633253f2af91d50518ec4f5c9a0e38e08",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-B79C0F0791949A",
+      "requirement_id": "REQ-6D18086E8B7713",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-plan-mode-interactions-spec-ts:L73:6ae3ca00c3"
+        "QDEV-E2E-e2e-plan-mode-interactions-spec-ts:L76:6ae3ca00c3"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -84,6 +84,9 @@
       "action": "question.getByRole(\"button\", { name: \"提交回答\" }).click()"
     },
     {
+      "action": "page.reload()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
     },
     {
@@ -123,6 +126,9 @@
     "expect(approval).toContainText(\"先补测试，再实现计划模式交互闭环\")",
     "expect(approval).toContainText(\"完成计划模式提问与审批闭环\")",
     "expect(page.getByRole(\"button\", { name: \"停止生成\" })).toBeVisible()",
+    "expect(approval).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"停止生成\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"发送\" })).toHaveCount(0)",
     "expect(page.getByRole(\"region\", { name: \"方案已就绪\" })).toHaveCount(0)",
     "expect(approval).toBeVisible()",
     "expect(page.getByText(\"permission:denied\", { exact: true })).toBeVisible()",
@@ -144,7 +150,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-B79C0F0791949A",
+      "requirement_id": "REQ-6D18086E8B7713",
       "type": "return",
       "assertion": "keeps plan questions and approval controls stable across task switches"
     }
@@ -214,6 +220,9 @@
           "action": "question.getByRole(\"button\", { name: \"提交回答\" }).click()"
         },
         {
+          "action": "page.reload()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
         },
         {
@@ -265,13 +274,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/plan-mode-interactions.spec.ts",
-        "line_start": 73,
-        "line_end": 161,
-        "body_sha256": "sha256:39c427df8a7988c30e15df62484b4743bd7406eb2d30ab8ef23e569ef65d9f2a",
-        "assertion_count": 18,
-        "action_count": 14,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:31237aed7f27238eb30d107b85a80ee2f182d52c9a2bff4eec7b89160461e0bb"
+        "line_start": 76,
+        "line_end": 169,
+        "body_sha256": "sha256:54166735f5fe02871627c347316439ad872e2740bf3668236b893c121f6042eb",
+        "assertion_count": 21,
+        "action_count": 15,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:d1bb6626e2ed4831a797d23c968532dc67bb5e09c670d153e835ae2e8fcc22b7"
       }
     },
     "reference_run": {
@@ -293,7 +302,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-B79C0F0791949A"
+      "REQ-6D18086E8B7713"
     ],
     "categories": [
       "business"
@@ -301,7 +310,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-B79C0F0791949A"
+      "requirement:REQ-6D18086E8B7713"
     ]
   }
 }

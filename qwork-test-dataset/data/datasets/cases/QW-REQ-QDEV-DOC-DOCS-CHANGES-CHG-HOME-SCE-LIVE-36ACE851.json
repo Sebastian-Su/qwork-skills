@@ -1,0 +1,355 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-HOME-SCE-LIVE-36ACE851",
+  "title": "docs/changes/CHG-home-scene-expert-activation-20260903/implementation-plan.md · 测试、Live 与验收 产品契约",
+  "kind": "negative",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-home-scene-expert-activation-202609",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-home-scene-expert-activation-20260903/implementation-plan.md",
+      "locator": "line:41;heading:测试、Live 与验收",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:8d046ecc656135670301bed14a17ad3b1b7de7022a088552b9b603644708c611",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-home-scene-expert-activation-202609",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-home-scene-expert-activation-20260903/implementation-plan.md",
+      "locator": "line:44;heading:测试、Live 与验收",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:271b83045ce1ae3eb4e616ee556e09fbac2bb69512cb719296502f69630164f3",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-home-scene-expert-activation-202609",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-home-scene-expert-activation-20260903/implementation-plan.md",
+      "locator": "line:45;heading:测试、Live 与验收",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:a1dc82c38f01be209e5b5caa115d46226da4bc295874792759ef5b5fd28a8f04",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-17ABC7CE6F9487",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-home-scene-expert-activation-202609:L41:8d046ecc65"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "单元先 Red：绑定不再产生 `@experts` plugin、默认映射完整、resolver 拒绝模糊/重复结果。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-home-scene-expert-activation-202609"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "单元先 Red：绑定不再产生 `@experts` plugin、默认映射完整、resolver 拒绝模糊/重复结果。"
+    },
+    {
+      "requirement_id": "REQ-A5D105E49B7CA8",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-home-scene-expert-activation-202609:L44:271b83045c"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "Green 后运行聚焦 Vitest、目标 E2E、typecheck、build、governance。Windows 本地证据不能替代 macOS/Linux 保护 CI。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-home-scene-expert-activation-202609"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "Green 后运行聚焦 Vitest、目标 E2E、typecheck、build、governance。Windows 本地证据不能替代 macOS/Linux 保护 CI。"
+    },
+    {
+      "requirement_id": "REQ-E2DAC98136224B",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-home-scene-expert-activation-202609:L45:a1dc82c38f"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "受控 live 使用隔离 QWORK_HOME，人工登录后运行 QB-019；验证真实目录安装、可信 plugin_dirs、WebSearch/相关工具事件和来源引用。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-home-scene-expert-activation-202609"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "受控 live 使用隔离 QWORK_HOME，人工登录后运行 QB-019；验证真实目录安装、可信 plugin_dirs、WebSearch/相关工具事件和来源引用。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-scene-expert-activation-20260903/implementation-plan.md · 测试、Live 与验收 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-17ABC7CE6F9487] exactly: 单元先 Red：绑定不再产生 `@experts` plugin、默认映射完整、resolver 拒绝模糊/重复结果。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-A5D105E49B7CA8] exactly: Green 后运行聚焦 Vitest、目标 E2E、typecheck、build、governance。Windows 本地证据不能替代 macOS/Linux 保护 CI。"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-E2DAC98136224B] exactly: 受控 live 使用隔离 QWORK_HOME，人工登录后运行 QB-019；验证真实目录安装、可信 plugin_dirs、WebSearch/相关工具事件和来源引用。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "单元先 Red：绑定不再产生 `@experts` plugin、默认映射完整、resolver 拒绝模糊/重复结果。",
+    "Green 后运行聚焦 Vitest、目标 E2E、typecheck、build、governance。Windows 本地证据不能替代 macOS/Linux 保护 CI。",
+    "受控 live 使用隔离 QWORK_HOME，人工登录后运行 QB-019；验证真实目录安装、可信 plugin_dirs、WebSearch/相关工具事件和来源引用。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-17ABC7CE6F9487]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 单元先 Red：绑定不再产生 `@experts` plugin、默认映射完整、resolver 拒绝模糊/重复结果。",
+    "FAIL [REQ-A5D105E49B7CA8]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Green 后运行聚焦 Vitest、目标 E2E、typecheck、build、governance。Windows 本地证据不能替代 macOS/Linux 保护 CI。",
+    "FAIL [REQ-E2DAC98136224B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 受控 live 使用隔离 QWORK_HOME，人工登录后运行 QB-019；验证真实目录安装、可信 plugin_dirs、WebSearch/相关工具事件和来源引用。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-17ABC7CE6F9487",
+      "type": "return",
+      "assertion": "单元先 Red：绑定不再产生 `@experts` plugin、默认映射完整、resolver 拒绝模糊/重复结果。"
+    },
+    {
+      "requirement_id": "REQ-A5D105E49B7CA8",
+      "type": "return",
+      "assertion": "Green 后运行聚焦 Vitest、目标 E2E、typecheck、build、governance。Windows 本地证据不能替代 macOS/Linux 保护 CI。"
+    },
+    {
+      "requirement_id": "REQ-E2DAC98136224B",
+      "type": "api",
+      "assertion": "受控 live 使用隔离 QWORK_HOME，人工登录后运行 QB-019；验证真实目录安装、可信 plugin_dirs、WebSearch/相关工具事件和来源引用。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-home-scene.live-36ace851a7",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for expert-market at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-home-scene-expert-activation-20260903/implementation-plan.md · 测试、Live 与验收 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-17ABC7CE6F9487] exactly: 单元先 Red：绑定不再产生 `@experts` plugin、默认映射完整、resolver 拒绝模糊/重复结果。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-A5D105E49B7CA8] exactly: Green 后运行聚焦 Vitest、目标 E2E、typecheck、build、governance。Windows 本地证据不能替代 macOS/Linux 保护 CI。"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-E2DAC98136224B] exactly: 受控 live 使用隔离 QWORK_HOME，人工登录后运行 QB-019；验证真实目录安装、可信 plugin_dirs、WebSearch/相关工具事件和来源引用。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-17ABC7CE6F9487",
+      "REQ-A5D105E49B7CA8",
+      "REQ-E2DAC98136224B"
+    ],
+    "categories": [
+      "negative",
+      "permission"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "category:permission",
+      "full",
+      "requirement:REQ-17ABC7CE6F9487",
+      "requirement:REQ-A5D105E49B7CA8",
+      "requirement:REQ-E2DAC98136224B"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-17ABC7CE6F9487",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-home-scene-expert-activation-20260903/implementation-plan.md · 测试、Live 与验收 产品契约 exactly once and retain its correlation identity",
+      "then": "单元先 Red：绑定不再产生 `@experts` plugin、默认映射完整、resolver 拒绝模糊/重复结果。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-A5D105E49B7CA8",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-home-scene-expert-activation-20260903/implementation-plan.md · 测试、Live 与验收 产品契约 exactly once and retain its correlation identity",
+      "then": "Green 后运行聚焦 Vitest、目标 E2E、typecheck、build、governance。Windows 本地证据不能替代 macOS/Linux 保护 CI。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-E2DAC98136224B",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-home-scene-expert-activation-20260903/implementation-plan.md · 测试、Live 与验收 产品契约 exactly once and retain its correlation identity",
+      "then": "受控 live 使用隔离 QWORK_HOME，人工登录后运行 QB-019；验证真实目录安装、可信 plugin_dirs、WebSearch/相关工具事件和来源引用。",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

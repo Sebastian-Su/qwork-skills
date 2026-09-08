@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:197;heading:本地诊断日志生命周期",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:356;heading:本地诊断日志生命周期",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:53b7ddb4dfaa61814225d4ad39209783b8ff6b7c6e91c283a403b87ced912ab2",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-AAD6D4B009D076",
+      "requirement_id": "REQ-5618B8F0D14552",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L197:53b7ddb4df"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L356:53b7ddb4df"
       ],
       "content_facets": [
         "role-permission"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 本地诊断日志生命周期 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-AAD6D4B009D076] exactly: **已确认（2026-08-27）**：强制远端事件采用闭集，只覆盖业务动作被接受、资源加载、引擎调起、模型请求、首 token、工具调用/结果和回合终态；普通点击、任意 console 和自由字段不上传。"
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-5618B8F0D14552] exactly: **已确认（2026-08-27）**：强制远端事件采用闭集，只覆盖业务动作被接受、资源加载、引擎调起、模型请求、首 token、工具调用/结果和回合终态；普通点击、任意 console 和自由字段不上传。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "**已确认（2026-08-27）**：强制远端事件采用闭集，只覆盖业务动作被接受、资源加载、引擎调起、模型请求、首 token、工具调用/结果和回合终态；普通点击、任意 console 和自由字段不上传。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-AAD6D4B009D076]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **已确认（2026-08-27）**：强制远端事件采用闭集，只覆盖业务动作被接受、资源加载、引擎调起、模型请求、首 token、工具调用/结果和回合终态；普通点击、任意 console 和自由字段不上传。",
+    "FAIL [REQ-5618B8F0D14552]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **已确认（2026-08-27）**：强制远端事件采用闭集，只覆盖业务动作被接受、资源加载、引擎调起、模型请求、首 token、工具调用/结果和回合终态；普通点击、任意 console 和自由字段不上传。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-AAD6D4B009D076",
+      "requirement_id": "REQ-5618B8F0D14552",
       "type": "ui",
       "assertion": "**已确认（2026-08-27）**：强制远端事件采用闭集，只覆盖业务动作被接受、资源加载、引擎调起、模型请求、首 token、工具调用/结果和回合终态；普通点击、任意 console 和自由字段不上传。"
     }
@@ -170,7 +170,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 本地诊断日志生命周期 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-AAD6D4B009D076] exactly: **已确认（2026-08-27）**：强制远端事件采用闭集，只覆盖业务动作被接受、资源加载、引擎调起、模型请求、首 token、工具调用/结果和回合终态；普通点击、任意 console 和自由字段不上传。"
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-5618B8F0D14552] exactly: **已确认（2026-08-27）**：强制远端事件采用闭集，只覆盖业务动作被接受、资源加载、引擎调起、模型请求、首 token、工具调用/结果和回合终态；普通点击、任意 console 和自由字段不上传。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -216,7 +216,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-AAD6D4B009D076"
+      "REQ-5618B8F0D14552"
     ],
     "categories": [
       "permission"
@@ -224,12 +224,12 @@
     "suite_ids": [
       "category:permission",
       "full",
-      "requirement:REQ-AAD6D4B009D076"
+      "requirement:REQ-5618B8F0D14552"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-AAD6D4B009D076",
+      "requirement_id": "REQ-5618B8F0D14552",
       "oracle_type": "ui",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 本地诊断日志生命周期 产品契约 exactly once and retain its correlation identity",

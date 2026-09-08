@@ -1,0 +1,235 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-CLIENT-UPDATE-SPEC-708232C8",
+  "title": "CLIENT-UPDATE-E2E-001 | checks, downloads and blocks installation while a task is running",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-client-update-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/client-update.spec.ts",
+      "locator": "line:6;test:CLIENT-UPDATE-E2E-001 | checks, downloads and blocks installation while a task is running",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:708232c868646d7db7b84fbf9c9021c49bb2fb5d2564ea31b41d4025a5e46b85",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-09F751A6BF1491",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-client-update-spec-ts:L6:708232c868"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "CLIENT-UPDATE-E2E-001 | checks, downloads and blocks installation while a task is running",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-client-update-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "CLIENT-UPDATE-E2E-001 | checks, downloads and blocks installation while a task is running"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"用户中心\" }).getByRole(\"menuitem\", { name: \"检查更新\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"下载更新\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"安装并重启\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(dialog).toContainText(\"发现新版本 0.1.4\")",
+    "expect(dialog).toContainText(\"新增安全的 Windows 客户端更新\")",
+    "expect(dialog.getByRole(\"button\", { name: \"安装并重启\" })).toBeVisible()",
+    "expect.poll(async () => { const state = await page.evaluate(() => window.workGui.updates.getState()); return state.phase; }).toBe(\"downloaded\")",
+    "expect(dialog).toContainText(\"请先完成或停止正在运行的任务\")",
+    "expect(dialog.getByRole(\"button\", { name: \"安装并重启\" })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-09F751A6BF1491",
+      "type": "return",
+      "assertion": "CLIENT-UPDATE-E2E-001 | checks, downloads and blocks installation while a task is running"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-client-update-spec-ts.708232c868",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/client-update.spec.ts -g \"CLIENT-UPDATE-E2E-001 | checks, downloads and blocks installation while a task is running\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"用户中心\" }).getByRole(\"menuitem\", { name: \"检查更新\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"下载更新\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"安装并重启\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/client-update.spec.ts",
+        "line_start": 6,
+        "line_end": 42,
+        "body_sha256": "sha256:8818ec9841482da83e29949afdfeeb5a5628c7534e4e6cbea96d410d0a852035",
+        "assertion_count": 6,
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:9fb9f79cac77d3d87767b9868dda2003d0560bff4b2f2a15a17c9b6b999e4158"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-09F751A6BF1491"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-09F751A6BF1491"
+    ]
+  }
+}

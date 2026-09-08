@@ -1,0 +1,294 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-MODEL-CO-09-48EA4E54",
+  "title": "docs/changes/CHG-model-control-plane-20260904/issues/09-compatibility-cutover-release.md · 09 — 兼容切换、跨平台验收与旧真源收缩 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-control-plane-20260904-issues-2719b527",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-control-plane-20260904/issues/09-compatibility-cutover-release.md",
+      "locator": "line:10;heading:09 — 兼容切换、跨平台验收与旧真源收缩",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:45e2d9f243023910a0383d6c1e7f9ddbb4183b7e51432691c55befe388571a8f",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-model-control-plane-20260904-issues-2719b527",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-model-control-plane-20260904/issues/09-compatibility-cutover-release.md",
+      "locator": "line:15;heading:09 — 兼容切换、跨平台验收与旧真源收缩",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:7788ea009e31d107556e0812495ec64c0a6ce8759c23a1ac124f6a01e16aae5e",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-82DC7B09DE0FF2",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-control-plane-20260904-issues-2719b527:L10:45e2d9f243"
+      ],
+      "content_facets": [
+        "state-transition"
+      ],
+      "acceptance_categories": [
+        "state",
+        "recovery"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "[x] V1 与 V2 的 expand–contract 迁移覆盖空库、已有 published 版本、滚动升级和回滚窗口。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-control-plane-20260904-issues-2719b527"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[x] V1 与 V2 的 expand–contract 迁移覆盖空库、已有 published 版本、滚动升级和回滚窗口。"
+    },
+    {
+      "requirement_id": "REQ-916E8BE09FB167",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-model-control-plane-20260904-issues-2719b527:L15:7788ea009e"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "[ ] macOS、Windows、Linux 的受影响单元、集成、构建和 E2E 门禁均通过；缺失平台不得标记可发布。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-model-control-plane-20260904-issues-2719b527"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "[ ] macOS、Windows、Linux 的受影响单元、集成、构建和 E2E 门禁均通过；缺失平台不得标记可发布。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for window-runtime at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-model-control-plane-20260904/issues/09-compatibility-cutover-release.md · 09 — 兼容切换、跨平台验收与旧真源收缩 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-82DC7B09DE0FF2] exactly: [x] V1 与 V2 的 expand–contract 迁移覆盖空库、已有 published 版本、滚动升级和回滚窗口。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-916E8BE09FB167] exactly: [ ] macOS、Windows、Linux 的受影响单元、集成、构建和 E2E 门禁均通过；缺失平台不得标记可发布。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "[x] V1 与 V2 的 expand–contract 迁移覆盖空库、已有 published 版本、滚动升级和回滚窗口。",
+    "[ ] macOS、Windows、Linux 的受影响单元、集成、构建和 E2E 门禁均通过；缺失平台不得标记可发布。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-82DC7B09DE0FF2]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [x] V1 与 V2 的 expand–contract 迁移覆盖空库、已有 published 版本、滚动升级和回滚窗口。",
+    "FAIL [REQ-916E8BE09FB167]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: [ ] macOS、Windows、Linux 的受影响单元、集成、构建和 E2E 门禁均通过；缺失平台不得标记可发布。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-82DC7B09DE0FF2",
+      "type": "event",
+      "assertion": "[x] V1 与 V2 的 expand–contract 迁移覆盖空库、已有 published 版本、滚动升级和回滚窗口。"
+    },
+    {
+      "requirement_id": "REQ-916E8BE09FB167",
+      "type": "return",
+      "assertion": "[ ] macOS、Windows、Linux 的受影响单元、集成、构建和 E2E 门禁均通过；缺失平台不得标记可发布。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-model-cont.09-48ea4e545d",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for window-runtime at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-model-control-plane-20260904/issues/09-compatibility-cutover-release.md · 09 — 兼容切换、跨平台验收与旧真源收缩 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-82DC7B09DE0FF2] exactly: [x] V1 与 V2 的 expand–contract 迁移覆盖空库、已有 published 版本、滚动升级和回滚窗口。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-916E8BE09FB167] exactly: [ ] macOS、Windows、Linux 的受影响单元、集成、构建和 E2E 门禁均通过；缺失平台不得标记可发布。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-82DC7B09DE0FF2",
+      "REQ-916E8BE09FB167"
+    ],
+    "categories": [
+      "negative",
+      "recovery",
+      "state"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "category:recovery",
+      "category:state",
+      "full",
+      "requirement:REQ-82DC7B09DE0FF2",
+      "requirement:REQ-916E8BE09FB167"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-82DC7B09DE0FF2",
+      "oracle_type": "event",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-control-plane-20260904/issues/09-compatibility-cutover-release.md · 09 — 兼容切换、跨平台验收与旧真源收缩 产品契约 exactly once and retain its correlation identity",
+      "then": "[x] V1 与 V2 的 expand–contract 迁移覆盖空库、已有 published 版本、滚动升级和回滚窗口。",
+      "observation_boundary": "session/sidecar event stream",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-916E8BE09FB167",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-model-control-plane-20260904/issues/09-compatibility-cutover-release.md · 09 — 兼容切换、跨平台验收与旧真源收缩 产品契约 exactly once and retain its correlation identity",
+      "then": "[ ] macOS、Windows、Linux 的受影响单元、集成、构建和 E2E 门禁均通过；缺失平台不得标记可发布。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

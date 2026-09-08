@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:342;heading:已确认的产品与架构决策",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:528;heading:已确认的产品与架构决策",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:00bfc227c93a3975e80ba98d4cc91c43fa2057dd4143a2ef1048c735c46efc2c",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-A21B37DD3A0377",
+      "requirement_id": "REQ-68D07C703307E2",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L342:00bfc227c9"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L528:00bfc227c9"
       ],
       "content_facets": [
         "data-side-effect"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 已确认的产品与架构决策 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe case-owned durable database state after the trigger and assert [REQ-A21B37DD3A0377] exactly: **强制远端诊断（已确认，2026-08-27）**：用户已明确远端不可关闭，Info/Warn/Error 必须进入投递，Debug 由开发配置文件控制；删除“体验优化计划”开关并迁移旧配置。强制事件采用有限业务里程碑闭集，普通点击、任意 console 和自由字段不上传；仍待 Privacy/Legal Owner 审核告知与字段白名单。见 ADR-0008。"
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-68D07C703307E2] exactly: **强制远端诊断（已确认，2026-08-27）**：用户已明确远端不可关闭，Info/Warn/Error 必须进入投递，Debug 由开发配置文件控制；删除“体验优化计划”开关并迁移旧配置。强制事件采用有限业务里程碑闭集，普通点击、任意 console 和自由字段不上传；仍待 Privacy/Legal Owner 审核告知与字段白名单。见 ADR-0008。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "**强制远端诊断（已确认，2026-08-27）**：用户已明确远端不可关闭，Info/Warn/Error 必须进入投递，Debug 由开发配置文件控制；删除“体验优化计划”开关并迁移旧配置。强制事件采用有限业务里程碑闭集，普通点击、任意 console 和自由字段不上传；仍待 Privacy/Legal Owner 审核告知与字段白名单。见 ADR-0008。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-A21B37DD3A0377]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **强制远端诊断（已确认，2026-08-27）**：用户已明确远端不可关闭，Info/Warn/Error 必须进入投递，Debug 由开发配置文件控制；删除“体验优化计划”开关并迁移旧配置。强制事件采用有限业务里程碑闭集，普通点击、任意 console 和自由字段不上传；仍待 Privacy/Legal Owner 审核告知与字段白名单。见 ADR-0008。",
+    "FAIL [REQ-68D07C703307E2]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **强制远端诊断（已确认，2026-08-27）**：用户已明确远端不可关闭，Info/Warn/Error 必须进入投递，Debug 由开发配置文件控制；删除“体验优化计划”开关并迁移旧配置。强制事件采用有限业务里程碑闭集，普通点击、任意 console 和自由字段不上传；仍待 Privacy/Legal Owner 审核告知与字段白名单。见 ADR-0008。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-A21B37DD3A0377",
+      "requirement_id": "REQ-68D07C703307E2",
       "type": "database",
       "assertion": "**强制远端诊断（已确认，2026-08-27）**：用户已明确远端不可关闭，Info/Warn/Error 必须进入投递，Debug 由开发配置文件控制；删除“体验优化计划”开关并迁移旧配置。强制事件采用有限业务里程碑闭集，普通点击、任意 console 和自由字段不上传；仍待 Privacy/Legal Owner 审核告知与字段白名单。见 ADR-0008。"
     }
@@ -157,7 +157,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 已确认的产品与架构决策 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe case-owned durable database state after the trigger and assert [REQ-A21B37DD3A0377] exactly: **强制远端诊断（已确认，2026-08-27）**：用户已明确远端不可关闭，Info/Warn/Error 必须进入投递，Debug 由开发配置文件控制；删除“体验优化计划”开关并迁移旧配置。强制事件采用有限业务里程碑闭集，普通点击、任意 console 和自由字段不上传；仍待 Privacy/Legal Owner 审核告知与字段白名单。见 ADR-0008。"
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-68D07C703307E2] exactly: **强制远端诊断（已确认，2026-08-27）**：用户已明确远端不可关闭，Info/Warn/Error 必须进入投递，Debug 由开发配置文件控制；删除“体验优化计划”开关并迁移旧配置。强制事件采用有限业务里程碑闭集，普通点击、任意 console 和自由字段不上传；仍待 Privacy/Legal Owner 审核告知与字段白名单。见 ADR-0008。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -200,7 +200,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-A21B37DD3A0377"
+      "REQ-68D07C703307E2"
     ],
     "categories": [
       "data"
@@ -208,12 +208,12 @@
     "suite_ids": [
       "category:data",
       "full",
-      "requirement:REQ-A21B37DD3A0377"
+      "requirement:REQ-68D07C703307E2"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-A21B37DD3A0377",
+      "requirement_id": "REQ-68D07C703307E2",
       "oracle_type": "database",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 已确认的产品与架构决策 产品契约 exactly once and retain its correlation identity",

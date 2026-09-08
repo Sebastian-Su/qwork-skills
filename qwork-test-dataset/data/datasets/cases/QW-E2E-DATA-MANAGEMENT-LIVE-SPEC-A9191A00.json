@@ -1,0 +1,287 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-DATA-MANAGEMENT-LIVE-SPEC-A9191A00",
+  "title": "@live manages disposable file and task shares from the signed-in desktop",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-data-management-live-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/data-management.live.spec.ts",
+      "locator": "line:15;test:@live manages disposable file and task shares from the signed-in desktop",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:a9191a0097698e1943b6b376247aed09679c0908776d2e3920e29b0452122360",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-533918B80D9346",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-data-management-live-spec-ts:L15:a9191a0097"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "@live manages disposable file and task shares from the signed-in desktop",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-data-management-live-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "@live manages disposable file and task shares from the signed-in desktop"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
+      "action": "settings.getByRole(\"button\", { name: \"数据管理\", exact: true }).click()"
+    },
+    {
+      "action": "entries.getByRole(\"listitem\").filter({ hasText: \"我分享的文件\" }).getByRole(\"button\", { name: \"管理\" }).click()"
+    },
+    {
+      "action": "fileRow.getByRole(\"button\", { name: `${fileName} 更多操作` }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"下载\" }).click()"
+    },
+    {
+      "action": "fileRow.getByRole(\"button\", { name: `${fileName} 更多操作` }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"取消分享\" }).click()"
+    },
+    {
+      "action": "settings.getByRole(\"button\", { name: \"返回数据管理\" }).click()"
+    },
+    {
+      "action": "entries.getByRole(\"listitem\").filter({ hasText: \"我分享的任务\" }).getByRole(\"button\", { name: \"管理\" }).click()"
+    },
+    {
+      "action": "taskRow.getByRole(\"button\", { name: `${taskTitle} 更多操作` }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"取消分享\" }).click()"
+    },
+    {
+      "action": "app.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll( () => page!.evaluate(() => window.workGui?.auth.status()), { timeout: 30_000, message: \"等待现有 QUC 登录会话\" }, ).toMatchObject({ loggedIn: true })",
+    "expect(fileRow).toBeVisible()",
+    "expect.poll(async () => fs.readFile(downloadPath).then((bytes) => sha256(bytes)).catch(() => null)).toBe(expectedDownloadSha256)",
+    "expect(fileRow).toHaveCount(0)",
+    "expect(taskRow).toBeVisible()",
+    "expect(taskRow).toHaveCount(0)",
+    "expect.poll(() => fetch(share.url, { redirect: \"manual\" }).then((response) => response.status), { timeout: 15_000, message: \"等待撤销后的公开分享返回 404\", }).toBe(404)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-533918B80D9346",
+      "type": "return",
+      "assertion": "@live manages disposable file and task shares from the signed-in desktop"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-data-management-live-spec-ts.a9191a0097",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": true,
+      "scopes": [
+        "real external account/service/model route named by the source test"
+      ]
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/data-management.live.spec.ts -g \"@live manages disposable file and task shares from the signed-in desktop\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
+          "action": "settings.getByRole(\"button\", { name: \"数据管理\", exact: true }).click()"
+        },
+        {
+          "action": "entries.getByRole(\"listitem\").filter({ hasText: \"我分享的文件\" }).getByRole(\"button\", { name: \"管理\" }).click()"
+        },
+        {
+          "action": "fileRow.getByRole(\"button\", { name: `${fileName} 更多操作` }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"下载\" }).click()"
+        },
+        {
+          "action": "fileRow.getByRole(\"button\", { name: `${fileName} 更多操作` }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"取消分享\" }).click()"
+        },
+        {
+          "action": "settings.getByRole(\"button\", { name: \"返回数据管理\" }).click()"
+        },
+        {
+          "action": "entries.getByRole(\"listitem\").filter({ hasText: \"我分享的任务\" }).getByRole(\"button\", { name: \"管理\" }).click()"
+        },
+        {
+          "action": "taskRow.getByRole(\"button\", { name: `${taskTitle} 更多操作` }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"取消分享\" }).click()"
+        },
+        {
+          "action": "app.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home plus separately authorized real external fixture",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/data-management.live.spec.ts",
+        "line_start": 15,
+        "line_end": 208,
+        "body_sha256": "sha256:8855866b13679fa3d9a3af95742c8b74d0346503fa0c17f97353dc6720a461a2",
+        "assertion_count": 7,
+        "action_count": 12,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:d71aeec8fee4a3329bca0b34ea2ecd48e77424ccda33e834aabd87bdcf551787"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "independent authorization for real external route pending",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-533918B80D9346"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-533918B80D9346"
+    ]
+  }
+}

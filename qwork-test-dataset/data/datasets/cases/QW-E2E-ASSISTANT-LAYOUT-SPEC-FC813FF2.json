@@ -22,26 +22,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/assistant-layout.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/assistant-layout.spec.ts",
       "locator": "line:4;test:assistant uses one content header and docks the unified composer at the bottom",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:fc813ff25e17c7269f0277c382ce2f7113ed93ad7b74117099f95592a3594699",
-      "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-assistant-layout-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/assistant-layout.spec.ts",
-      "locator": "line:4;test:assistant uses one content header and docks the unified composer at the bottom",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:fc813ff25e17c7269f0277c382ce2f7113ed93ad7b74117099f95592a3594699",
       "redaction_status": "minimized"
     }
@@ -72,32 +58,6 @@
         "reason": "compiled from the user-approved source hierarchy"
       },
       "oracle": "assistant uses one content header and docks the unified composer at the bottom"
-    },
-    {
-      "requirement_id": "REQ-416CC14692D8CA",
-      "source_atom_ids": [
-        "QHEAD-E2E-e2e-assistant-layout-spec-ts:L4:fc813ff25e"
-      ],
-      "content_facets": [
-        "acceptance-criterion"
-      ],
-      "acceptance_categories": [
-        "business"
-      ],
-      "surface": "assistant",
-      "priority": "P0",
-      "rule": "assistant uses one content header and docks the unified composer at the bottom",
-      "authority_domain": "execution",
-      "governing_sources": [
-        "QHEAD-E2E-e2e-assistant-layout-spec-ts"
-      ],
-      "supporting_sources": [],
-      "conflicts": [],
-      "resolution": {
-        "status": "resolved",
-        "reason": "compiled from the user-approved source hierarchy"
-      },
-      "oracle": "assistant uses one content header and docks the unified composer at the bottom"
     }
   ],
   "verification": {
@@ -119,14 +79,13 @@
       "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
     },
     {
-      "action": "expandContext.click()"
+      "action": "page.getByRole(\"button\", { name: \"展开上下文面板\", exact: true }).click()"
     },
     {
       "action": "composer.fill(\"你好\")"
     }
   ],
   "expected_outcomes": [
-    "expect(expandContext).toBeVisible()",
     "expect(assistant).toBeVisible()",
     "expect(page.getByRole(\"heading\", { name: \"本地助理\" })).toHaveCount(1)",
     "expect(page.getByRole(\"toolbar\", { name: \"助理工具栏\" })).toBeVisible()",
@@ -134,7 +93,9 @@
     "expect(page.getByText(\"检查当前项目并建议下一步\")).toHaveCount(0)",
     "expect(page.getByTestId(\"assistant-composer-dock\")).toBeVisible()",
     "expect(composer).toBeEnabled()",
-    "expect(darkStyles).toEqual({ editorBackground: \"rgb(38, 38, 38)\", editorBorder: \"rgb(56, 56, 56)\", textColor: \"rgb(235, 235, 235)\", placeholderColor: \"rgb(122, 122, 122)\", sendBackground: \"rgb(66, 66, 66)\", sendColor: \"rgb(122, 122, 122)\", modelColor: \"rgb(168, 168, 168)\", })",
+    "expect(contextPanel).toHaveCount(0)",
+    "expect(contextPanel).toBeVisible()",
+    "expect(darkStyles).toEqual({ editorBackground: \"rgb(31, 31, 31)\", editorBorder: \"rgba(255, 255, 255, 0.06)\", textColor: \"rgb(235, 235, 235)\", placeholderColor: \"rgb(122, 122, 122)\", sendBackground: \"rgb(58, 58, 58)\", sendColor: \"rgb(122, 122, 122)\", modelColor: \"rgb(168, 168, 168)\", })",
     "expect(assistantBox).not.toBeNull()",
     "expect(headerBox).not.toBeNull()",
     "expect(contextPanelBox).not.toBeNull()",
@@ -146,7 +107,7 @@
     "expect(contextPanelBox!.x + contextPanelBox!.width).toBeLessThanOrEqual( assistantBox!.x + assistantBox!.width, )",
     "expect(composerBox!.y).toBeGreaterThan(headerBox!.y + headerBox!.height)",
     "expect( assistantBox!.y + assistantBox!.height - (composerBox!.y + composerBox!.height), ).toBeLessThanOrEqual(40)",
-    "expect(enabledSendStyles).toEqual({ background: \"rgb(235, 235, 235)\", color: \"rgb(24, 24, 24)\", })"
+    "expect(enabledSendStyles).toEqual({ background: \"rgb(235, 235, 235)\", color: \"rgb(20, 20, 20)\", })"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -156,11 +117,6 @@
   "oracles": [
     {
       "requirement_id": "REQ-3A673C042EDAEA",
-      "type": "ui",
-      "assertion": "assistant uses one content header and docks the unified composer at the bottom"
-    },
-    {
-      "requirement_id": "REQ-416CC14692D8CA",
       "type": "ui",
       "assertion": "assistant uses one content header and docks the unified composer at the bottom"
     }
@@ -229,7 +185,7 @@
           "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
         },
         {
-          "action": "expandContext.click()"
+          "action": "page.getByRole(\"button\", { name: \"展开上下文面板\", exact: true }).click()"
         },
         {
           "action": "composer.fill(\"你好\")"
@@ -256,12 +212,12 @@
       "source_contract": {
         "spec": "e2e/assistant-layout.spec.ts",
         "line_start": 4,
-        "line_end": 102,
-        "body_sha256": "sha256:535303d61b9326a2c19d524c7a8a19b214f08aba2ba92b0e97c2ba7ec28dcf3e",
-        "assertion_count": 21,
+        "line_end": 103,
+        "body_sha256": "sha256:5d847822fb1e59d2f763bff9c23b656a038ab5f51bb7003b728de5a1751bcb98",
+        "assertion_count": 22,
         "action_count": 3,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:ada05782041cd698188794236354e2ef8a095d1c2074532e86a98c685bb90e96"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1f7b7644fb357ab6fa29491a9b07ed0fd36e6b296e7361a0619fdf6c473f167d"
       }
     },
     "reference_run": {
@@ -284,8 +240,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-3A673C042EDAEA",
-      "REQ-416CC14692D8CA"
+      "REQ-3A673C042EDAEA"
     ],
     "categories": [
       "business"
@@ -293,8 +248,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-3A673C042EDAEA",
-      "requirement:REQ-416CC14692D8CA"
+      "requirement:REQ-3A673C042EDAEA"
     ]
   }
 }

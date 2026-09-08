@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-plan.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/projects-plan.spec.ts",
       "locator": "line:43;test:creates a plan item, advances its status and restores it after restart",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:e9171c6860b64a001455b00723ebcaf4687c38ad0c7f92d8f5ee2a1c5af02848",
       "redaction_status": "minimized"
     }
@@ -73,6 +73,21 @@
   "steps": [
     {
       "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+    },
+    {
+      "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
     },
     {
       "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
@@ -184,6 +199,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByText(name, { exact: true }).first()).toBeVisible()",
     "expect(planViews.getByRole(\"tab\", { name: \"列表\", exact: true })).toHaveAttribute( \"aria-selected\", \"true\", )",
     "expect(planViews.getByRole(\"tab\", { name: label, exact: true })).toBeVisible()",
     "expect(page.getByRole(\"menu\")).toBeVisible()",
@@ -271,6 +287,21 @@
       "kind": "ui-route",
       "entrypoint": "projects",
       "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+        },
+        {
+          "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
         {
           "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
         },
@@ -401,10 +432,10 @@
         "line_start": 43,
         "line_end": 175,
         "body_sha256": "sha256:422cdfd6a550e61a5a6751bb490bc766ee110093051d14d092b83ddb1ac7e645",
-        "assertion_count": 19,
-        "action_count": 36,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:39f092a3d14f270b5f9009d6239b9b80edaeca781dbd2ad463f9045f009d1280"
+        "assertion_count": 20,
+        "action_count": 41,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1f4d8f07a67effa331a7be586ff4ec8d0cba065f56cc35559ec20cdc21aa7c48"
       }
     },
     "reference_run": {

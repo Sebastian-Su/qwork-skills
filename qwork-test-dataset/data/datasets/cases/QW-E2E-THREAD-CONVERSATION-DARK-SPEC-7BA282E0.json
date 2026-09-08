@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/thread-conversation-dark.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/thread-conversation-dark.spec.ts",
       "locator": "line:80;test:产物卡片在深色下是深色面板、亮色文字、深色图标底，而非浅底黑字",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:7ba282e088facebb1d75a69aa5bd34b6b26eafa87c448e322539d28ffbdf7892",
       "redaction_status": "minimized"
     }
@@ -75,44 +75,31 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "createTestHome(\"thread-dark-artifact\")"
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
     },
     {
-      "action": "configureWorkspace(configHome)"
+      "action": "page.getByTitle(\"新建空间\").click()"
     },
     {
-      "action": "launchApp(configHome)"
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
     },
     {
-      "action": "app.firstWindow()"
+      "action": "composer.fill(`__E2E_OFFICE_ARTIFACT__:${fileName}`)"
     },
     {
-      "action": "enterOfficeArtifactThread(page, workspace, \"报告.docx\")"
+      "action": "composer.press(\"Enter\")"
     },
     {
-      "action": "page.getByRole(\"button\", { name: /打开产出物 报告\\.docx/ })"
+      "action": "account.click()"
     },
     {
-      "action": "enableDarkTheme(page)"
-    },
-    {
-      "action": "card.evaluate((el) => getComputedStyle(el).backgroundColor)"
-    },
-    {
-      "action": "getComputedStyle(el)"
-    },
-    {
-      "action": "card.getByText(\"报告.docx\", { exact: true })"
-    },
-    {
-      "action": "fileName.evaluate((el) => getComputedStyle(el).color)"
-    },
-    {
-      "action": "getComputedStyle(el)"
+      "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
     "expect(card).toBeVisible({ timeout: 60_000 })",
+    "expect(page.locator(\"html\")).toHaveClass(/dark/)",
+    "expect.poll(async () => relativeLuminance(parseRgb( await card.evaluate((el) => getComputedStyle(el).backgroundColor), ))).toBeLessThan(0.2)",
     "expect(LIGHT_BACKGROUNDS.has(cardBg)).toBe(false)",
     "expect(relativeLuminance(parseRgb(cardBg))).toBeLessThan(0.2)",
     "expect(relativeLuminance(parseRgb(nameColor))).toBeGreaterThan(0.5)",
@@ -187,40 +174,25 @@
       "entrypoint": "assistant",
       "steps": [
         {
-          "action": "createTestHome(\"thread-dark-artifact\")"
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
         },
         {
-          "action": "configureWorkspace(configHome)"
+          "action": "page.getByTitle(\"新建空间\").click()"
         },
         {
-          "action": "launchApp(configHome)"
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
         },
         {
-          "action": "app.firstWindow()"
+          "action": "composer.fill(`__E2E_OFFICE_ARTIFACT__:${fileName}`)"
         },
         {
-          "action": "enterOfficeArtifactThread(page, workspace, \"报告.docx\")"
+          "action": "composer.press(\"Enter\")"
         },
         {
-          "action": "page.getByRole(\"button\", { name: /打开产出物 报告\\.docx/ })"
+          "action": "account.click()"
         },
         {
-          "action": "enableDarkTheme(page)"
-        },
-        {
-          "action": "card.evaluate((el) => getComputedStyle(el).backgroundColor)"
-        },
-        {
-          "action": "getComputedStyle(el)"
-        },
-        {
-          "action": "card.getByText(\"报告.docx\", { exact: true })"
-        },
-        {
-          "action": "fileName.evaluate((el) => getComputedStyle(el).color)"
-        },
-        {
-          "action": "getComputedStyle(el)"
+          "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -242,12 +214,12 @@
       "source_contract": {
         "spec": "e2e/thread-conversation-dark.spec.ts",
         "line_start": 80,
-        "line_end": 116,
-        "body_sha256": "sha256:de31400eaa424837e7feeda5641582a21489b72856d18c39d88aee4ad6dfc0ad",
-        "assertion_count": 6,
-        "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:5c43b7d350504b4f00475b68d095ed27d1c27c2cda3693f14a2ef6fd65d84b24"
+        "line_end": 119,
+        "body_sha256": "sha256:737a171cd179f3c036b879bb02da920d1748d0689e224a8de23c5cd3136718d5",
+        "assertion_count": 8,
+        "action_count": 7,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1a4d7c7bfbc3fa39d679764eaa57bde40ee7d398aff073e025f9a2d191fcef69"
       }
     },
     "reference_run": {

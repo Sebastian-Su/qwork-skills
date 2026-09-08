@@ -1,0 +1,268 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-SHARED-UI-PARITY-SPEC-EC3F2B7C",
+  "title": "自动化时间与日期空态使用实测图标字号且保留选时",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "automations",
+    "journey": "automations",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-shared-ui-parity.spec.ts",
+      "locator": "line:736;test:自动化时间与日期空态使用实测图标字号且保留选时",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:ec3f2b7cdb72c14c63c970557f2239e24051c0a06da775e5224e312ee3e1ef6c",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-543A50FDE85C48",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts:L736:ec3f2b7cdb"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "automations",
+      "priority": "P1",
+      "rule": "自动化时间与日期空态使用实测图标字号且保留选时",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "自动化时间与日期空态使用实测图标字号且保留选时"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"添加自动化\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+    },
+    {
+      "action": "page.mouse.click(800, 80)"
+    },
+    {
+      "action": "time.click()"
+    },
+    {
+      "action": "menu.getByRole(\"menuitemradio\", { name: \"11时\", exact: true }).click()"
+    },
+    {
+      "action": "menu.getByRole(\"menuitemradio\", { name: \"30分\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.soft(value).toHaveCSS(\"font-size\", \"13px\", { timeout: 600 })",
+    "expect.soft(value).toHaveCSS(\"font-family\", \"monospace\", { timeout: 600 })",
+    "expect.soft(value).toHaveCSS(\"line-height\", \"normal\", { timeout: 600 })",
+    "expect.soft(value).toHaveCSS(\"color\", name === \"浅色\" ? \"rgb(0, 0, 0)\" : \"rgb(255, 255, 255)\", { timeout: 600 })",
+    "expect.soft(time.locator(\"svg circle\")).toHaveAttribute(\"cy\", \"13\", { timeout: 600 })",
+    "expect.soft(time.locator(\"svg\")).toHaveCSS(\"color\", name === \"浅色\" ? \"rgba(0, 0, 0, 0.5)\" : \"rgba(255, 255, 255, 0.5)\", { timeout: 600 })",
+    "expect.soft(validity.locator(\"svg\")).toHaveCount(0, { timeout: 600 })",
+    "expect.soft(validity.getByText(\"选择生效日期\")).toHaveCSS(\"font-size\", \"13px\", { timeout: 600 })",
+    "expect(time).toHaveText(\"11:30\")"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-543A50FDE85C48",
+      "type": "return",
+      "assertion": "自动化时间与日期空态使用实测图标字号且保留选时"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-shared-ui-parity-spec-ts.ec3f2b7cdb",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-shared-ui-parity.spec.ts -g \"自动化时间与日期空态使用实测图标字号且保留选时\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "automations",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"自动化\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"添加自动化\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+        },
+        {
+          "action": "page.mouse.click(800, 80)"
+        },
+        {
+          "action": "time.click()"
+        },
+        {
+          "action": "menu.getByRole(\"menuitemradio\", { name: \"11时\", exact: true }).click()"
+        },
+        {
+          "action": "menu.getByRole(\"menuitemradio\", { name: \"30分\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"取消\", exact: true }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-shared-ui-parity.spec.ts",
+        "line_start": 736,
+        "line_end": 759,
+        "body_sha256": "sha256:362245f581b46e5c70ead738df709ac42512503097826e9fbab792632103423e",
+        "assertion_count": 9,
+        "action_count": 9,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:5fdf2c06fef33a49affb73bb6f7f9aef7e267d980e36dc5a294e1eb58459ff79"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-543A50FDE85C48"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-543A50FDE85C48"
+    ]
+  }
+}

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/settings.spec.ts",
-      "locator": "line:274;test:blocks duplicate and system shortcuts and restores one changed row",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/settings.spec.ts",
+      "locator": "line:277;test:blocks duplicate and system shortcuts and restores one changed row",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:9fe43625c80a604ccb327efdf16a393414b87155fea45738522f2ffe8227d6c2",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-599CABAB8F8F0C",
+      "requirement_id": "REQ-92A4DC4347FAD6",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-settings-spec-ts:L274:9fe43625c8"
+        "QDEV-E2E-e2e-settings-spec-ts:L277:9fe43625c8"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:49:08.207148+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -73,6 +73,9 @@
   "steps": [
     {
       "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.keyboard.press(\"Control+,\")"
     },
     {
       "action": "dialog.getByRole(\"button\", { name: \"快捷键\", exact: true }).click()"
@@ -106,6 +109,8 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: newTaskName, exact: true })).toBeVisible()",
+    "expect(dialog).toBeVisible()",
     "expect(dialog.getByRole(\"alert\")).toContainText( `‘${newConversationShortcut}’ 已被 ‘新建对话’ 使用`, )",
     "expect(dialog.getByRole(\"alert\")).toHaveCount(0)",
     "expect(recorder).toHaveText(originalBinding ?? \"\")",
@@ -125,7 +130,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-599CABAB8F8F0C",
+      "requirement_id": "REQ-92A4DC4347FAD6",
       "type": "return",
       "assertion": "blocks duplicate and system shortcuts and restores one changed row"
     }
@@ -186,6 +191,9 @@
       "entrypoint": "settings",
       "steps": [
         {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
           "action": "dialog.getByRole(\"button\", { name: \"快捷键\", exact: true }).click()"
         },
         {
@@ -234,13 +242,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/settings.spec.ts",
-        "line_start": 274,
-        "line_end": 326,
+        "line_start": 277,
+        "line_end": 329,
         "body_sha256": "sha256:bdaeac2024002df559b7bc83a202f72b36b3809a167aad3432d6cdba6ed82609",
-        "assertion_count": 11,
-        "action_count": 10,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:810b9b0eddf7b6308584c421b22da0a5421cc35c2ea9b09cc8cf6def1910ed26"
+        "assertion_count": 13,
+        "action_count": 11,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:06e0bba09de15e5fb387cafbdcf2531fe0882c4c60378ce523f9078d9d6f7732"
       }
     },
     "reference_run": {
@@ -262,7 +270,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-599CABAB8F8F0C"
+      "REQ-92A4DC4347FAD6"
     ],
     "categories": [
       "business"
@@ -270,7 +278,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-599CABAB8F8F0C"
+      "requirement:REQ-92A4DC4347FAD6"
     ]
   }
 }

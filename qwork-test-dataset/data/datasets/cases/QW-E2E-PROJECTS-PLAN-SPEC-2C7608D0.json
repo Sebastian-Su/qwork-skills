@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/projects-plan.spec.ts",
-      "locator": "line:583;test:selects a kanban column and keeps card controls stable",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/projects-plan.spec.ts",
+      "locator": "line:713;test:selects a kanban column and keeps card controls stable",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:2c7608d092dc1791649f3114a642f16d532dc4b89ddd54f070f33265f0d318bb",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-E518E2487A2FA4",
+      "requirement_id": "REQ-6A7C75D96B1F30",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-projects-plan-spec-ts:L583:2c7608d092"
+        "QDEV-E2E-e2e-projects-plan-spec-ts:L713:2c7608d092"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -73,6 +73,21 @@
   "steps": [
     {
       "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+    },
+    {
+      "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
     },
     {
       "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
@@ -115,6 +130,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByText(name, { exact: true }).first()).toBeVisible()",
     "expect(todoColumn.getByRole(\"button\", { name: \"全选待开始\" })).toHaveCount(0)",
     "expect(more).toBeVisible()",
     "expect(addTodo).toBeVisible()",
@@ -136,7 +152,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-E518E2487A2FA4",
+      "requirement_id": "REQ-6A7C75D96B1F30",
       "type": "return",
       "assertion": "selects a kanban column and keeps card controls stable"
     }
@@ -197,6 +213,21 @@
       "entrypoint": "projects",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"项目\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建项目\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByPlaceholder(\"请输入项目名称\").fill(name)"
+        },
+        {
+          "action": "dialog .getByPlaceholder(/说明项目背景|提供当前项目的背景信息/) .fill(\"验证项目计划持久化\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"确定\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"tab\", { name: \"计划\", exact: true }).click()"
         },
         {
@@ -254,13 +285,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/projects-plan.spec.ts",
-        "line_start": 583,
-        "line_end": 647,
+        "line_start": 713,
+        "line_end": 777,
         "body_sha256": "sha256:e97facd0def95513e587fb4817ce330c96b1d195e5e937e8f8020d4d62916727",
-        "assertion_count": 13,
-        "action_count": 13,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:39f092a3d14f270b5f9009d6239b9b80edaeca781dbd2ad463f9045f009d1280"
+        "assertion_count": 14,
+        "action_count": 18,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1f4d8f07a67effa331a7be586ff4ec8d0cba065f56cc35559ec20cdc21aa7c48"
       }
     },
     "reference_run": {
@@ -282,7 +313,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-E518E2487A2FA4"
+      "REQ-6A7C75D96B1F30"
     ],
     "categories": [
       "business"
@@ -290,7 +321,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-E518E2487A2FA4"
+      "requirement:REQ-6A7C75D96B1F30"
     ]
   }
 }

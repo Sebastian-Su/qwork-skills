@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/experts.spec.ts",
-      "locator": "line:608;test:Runtime without SessionStart context capability blocks expert creation and keeps the draft",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/experts.spec.ts",
+      "locator": "line:668;test:Runtime without SessionStart context capability blocks expert creation and keeps the draft",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:cf18e970f9ebffccfe2212b28fe88cc82dd9a0decfb6229de77eb9418111a336",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-038FAB6EA9385E",
+      "requirement_id": "REQ-D756A7D74BB1B7",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-experts-spec-ts:L608:cf18e970f9"
+        "QDEV-E2E-e2e-experts-spec-ts:L668:cf18e970f9"
       ],
       "content_facets": [
         "negative-rule"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-24T11:48:10.573724+00:00",
     "status_reason": "public Playwright reference expert-identity-public-reference-cd8f6717-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -75,6 +75,15 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /高级开发工程师.*从证据出发/ }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"召唤 高级开发工程师\" }).click()"
+    },
+    {
       "action": "composer.fill(\"请在身份上下文可用后继续这个需求\")"
     },
     {
@@ -82,6 +91,8 @@
     }
   ],
   "expected_outcomes": [
+    "expect(detail).toBeVisible()",
+    "expect(page.getByTestId(\"composer-dock\")).toContainText(\"高级开发工程师\")",
     "expect(alert).toContainText(\"无法创建专家会话\")",
     "expect(alert).toContainText(\"SessionStart\")",
     "expect(composer).toHaveValue(\"请在身份上下文可用后继续这个需求\")",
@@ -97,7 +108,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-038FAB6EA9385E",
+      "requirement_id": "REQ-D756A7D74BB1B7",
       "type": "return",
       "assertion": "Runtime without SessionStart context capability blocks expert creation and keeps the draft"
     }
@@ -158,6 +169,15 @@
       "entrypoint": "expert-market",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /高级开发工程师.*从证据出发/ }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"召唤 高级开发工程师\" }).click()"
+        },
+        {
           "action": "composer.fill(\"请在身份上下文可用后继续这个需求\")"
         },
         {
@@ -182,13 +202,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/experts.spec.ts",
-        "line_start": 608,
-        "line_end": 642,
+        "line_start": 668,
+        "line_end": 702,
         "body_sha256": "sha256:ee41101e8187b400e892d3927ab0ddd74e29e362f6241ca1dd51de536c50d104",
-        "assertion_count": 7,
-        "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:c02d81ae7e97edab5454af66429d2c776fcf5699026576cb0822a4a20e494068"
+        "assertion_count": 9,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:e669e23d0d6c2cd6e3018417ca67e0ca249cefdb63f4c6069e8a8184f25d532b"
       }
     },
     "reference_run": {
@@ -210,7 +230,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-038FAB6EA9385E"
+      "REQ-D756A7D74BB1B7"
     ],
     "categories": [
       "negative"
@@ -218,7 +238,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-038FAB6EA9385E"
+      "requirement:REQ-D756A7D74BB1B7"
     ]
   }
 }

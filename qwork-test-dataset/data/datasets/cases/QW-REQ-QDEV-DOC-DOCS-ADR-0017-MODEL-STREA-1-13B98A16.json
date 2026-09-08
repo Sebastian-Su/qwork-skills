@@ -1,0 +1,305 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-ADR-0017-MODEL-STREA-1-13B98A16",
+  "title": "docs/adr/0017-model-stream-recovery-uses-durable-checkpoints-and-managed-replay.md · 1. 从持久检查点续接，不重放整轮 产品契约",
+  "kind": "negative",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-adr-0017-model-stream-recovery-uses-durable-che",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/adr/0017-model-stream-recovery-uses-durable-checkpoints-and-managed-replay.md",
+      "locator": "line:24;heading:1. 从持久检查点续接，不重放整轮",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:daf17d345727d7a7d1941b528a409e8189c6ccaf9fa8ca338e979dede58d430d",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-adr-0017-model-stream-recovery-uses-durable-che",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/adr/0017-model-stream-recovery-uses-durable-checkpoints-and-managed-replay.md",
+      "locator": "line:28;heading:1. 从持久检查点续接，不重放整轮",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:34c06c230b3b52710f279bb016fd36343ddf3d7d92305893dcf5bcb1de51f62d",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-77F9614C5EC7FC",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-adr-0017-model-stream-recovery-uses-durable-che:L24:daf17d3457"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "ZiqDo 会话 JSONL 是客户端执行恢复的唯一持久化真源。工具执行前记录 durable intent，工具返回后记录 durable committed result，模型正文在本地持久化并回读后记录可靠落地。失败尝试中未提交的助手正文和 不完整 `tool_use` 丢弃；已经提交的工具结果继续作为模型上下文，工具不得再次执行。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-adr-0017-model-stream-recovery-uses-durable-che"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "ZiqDo 会话 JSONL 是客户端执行恢复的唯一持久化真源。工具执行前记录 durable intent，工具返回后记录 durable committed result，模型正文在本地持久化并回读后记录可靠落地。失败尝试中未提交的助手正文和 不完整 `tool_use` 丢弃；已经提交的工具结果继续作为模型上下文，工具不得再次执行。"
+    },
+    {
+      "requirement_id": "REQ-2E8CCC632C26FD",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-adr-0017-model-stream-recovery-uses-durable-che:L28:34c06c230b"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "工具已经开始但无法证明结果时进入 Unknown Tool Effect State，禁止自动重放。只有工具幂等键、只读 状态核对或用户决策能够解除该状态；缺少结果记录不等于工具未执行。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-adr-0017-model-stream-recovery-uses-durable-che"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "工具已经开始但无法证明结果时进入 Unknown Tool Effect State，禁止自动重放。只有工具幂等键、只读 状态核对或用户决策能够解除该状态；缺少结果记录不等于工具未执行。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/adr/0017-model-stream-recovery-uses-durable-checkpoints-and-managed-replay.md · 1. 从持久检查点续接，不重放整轮 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-77F9614C5EC7FC] exactly: ZiqDo 会话 JSONL 是客户端执行恢复的唯一持久化真源。工具执行前记录 durable intent，工具返回后记录 durable committed result，模型正文在本地持久化并回读后记录可靠落地。失败尝试中未提交的助手正文和 不完整 `tool_use` 丢弃；已经提交的工具结果继续作为模型上下文，工具不得再次执行。"
+    },
+    {
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-2E8CCC632C26FD] exactly: 工具已经开始但无法证明结果时进入 Unknown Tool Effect State，禁止自动重放。只有工具幂等键、只读 状态核对或用户决策能够解除该状态；缺少结果记录不等于工具未执行。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "ZiqDo 会话 JSONL 是客户端执行恢复的唯一持久化真源。工具执行前记录 durable intent，工具返回后记录 durable committed result，模型正文在本地持久化并回读后记录可靠落地。失败尝试中未提交的助手正文和 不完整 `tool_use` 丢弃；已经提交的工具结果继续作为模型上下文，工具不得再次执行。",
+    "工具已经开始但无法证明结果时进入 Unknown Tool Effect State，禁止自动重放。只有工具幂等键、只读 状态核对或用户决策能够解除该状态；缺少结果记录不等于工具未执行。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-77F9614C5EC7FC]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: ZiqDo 会话 JSONL 是客户端执行恢复的唯一持久化真源。工具执行前记录 durable intent，工具返回后记录 durable committed result，模型正文在本地持久化并回读后记录可靠落地。失败尝试中未提交的助手正文和 不完整 `tool_use` 丢弃；已经提交的工具结果继续作为模型上下文，工具不得再次执行。",
+    "FAIL [REQ-2E8CCC632C26FD]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 工具已经开始但无法证明结果时进入 Unknown Tool Effect State，禁止自动重放。只有工具幂等键、只读 状态核对或用户决策能够解除该状态；缺少结果记录不等于工具未执行。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-77F9614C5EC7FC",
+      "type": "return",
+      "assertion": "ZiqDo 会话 JSONL 是客户端执行恢复的唯一持久化真源。工具执行前记录 durable intent，工具返回后记录 durable committed result，模型正文在本地持久化并回读后记录可靠落地。失败尝试中未提交的助手正文和 不完整 `tool_use` 丢弃；已经提交的工具结果继续作为模型上下文，工具不得再次执行。"
+    },
+    {
+      "requirement_id": "REQ-2E8CCC632C26FD",
+      "type": "ui",
+      "assertion": "工具已经开始但无法证明结果时进入 Unknown Tool Effect State，禁止自动重放。只有工具幂等键、只读 状态核对或用户决策能够解除该状态；缺少结果记录不等于工具未执行。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "entry screenshot",
+    "final-state screenshot",
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "visual-checkpoints",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": [
+      "entry",
+      "final-state"
+    ]
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-adr-0017-model-stream.1-13b98a162a",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "capture the pre-trigger baseline for task-lifecycle at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/adr/0017-model-stream-recovery-uses-durable-checkpoints-and-managed-replay.md · 1. 从持久检查点续接，不重放整轮 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-77F9614C5EC7FC] exactly: ZiqDo 会话 JSONL 是客户端执行恢复的唯一持久化真源。工具执行前记录 durable intent，工具返回后记录 durable committed result，模型正文在本地持久化并回读后记录可靠落地。失败尝试中未提交的助手正文和 不完整 `tool_use` 丢弃；已经提交的工具结果继续作为模型上下文，工具不得再次执行。"
+        },
+        {
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-2E8CCC632C26FD] exactly: 工具已经开始但无法证明结果时进入 Unknown Tool Effect State，禁止自动重放。只有工具幂等键、只读 状态核对或用户决策能够解除该状态；缺少结果记录不等于工具未执行。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "every causal probe has one post-trigger observation, exact Requirement verdict and counterfactual failure check",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "entry.png",
+        "final-state.png",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated QWork UI Oracle runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-2E8CCC632C26FD",
+      "REQ-77F9614C5EC7FC"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-2E8CCC632C26FD",
+      "requirement:REQ-77F9614C5EC7FC"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-77F9614C5EC7FC",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/adr/0017-model-stream-recovery-uses-durable-checkpoints-and-managed-replay.md · 1. 从持久检查点续接，不重放整轮 产品契约 exactly once and retain its correlation identity",
+      "then": "ZiqDo 会话 JSONL 是客户端执行恢复的唯一持久化真源。工具执行前记录 durable intent，工具返回后记录 durable committed result，模型正文在本地持久化并回读后记录可靠落地。失败尝试中未提交的助手正文和 不完整 `tool_use` 丢弃；已经提交的工具结果继续作为模型上下文，工具不得再次执行。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-2E8CCC632C26FD",
+      "oracle_type": "ui",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/adr/0017-model-stream-recovery-uses-durable-checkpoints-and-managed-replay.md · 1. 从持久检查点续接，不重放整轮 产品契约 exactly once and retain its correlation identity",
+      "then": "工具已经开始但无法证明结果时进入 Unknown Tool Effect State，禁止自动重放。只有工具幂等键、只读 状态核对或用户决策能够解除该状态；缺少结果记录不等于工具未执行。",
+      "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

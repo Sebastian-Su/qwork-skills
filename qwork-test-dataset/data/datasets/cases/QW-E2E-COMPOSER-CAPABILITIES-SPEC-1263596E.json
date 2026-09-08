@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/composer-capabilities.spec.ts",
-      "locator": "line:349;test:references only files from the current conversation and preserves the draft",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/composer-capabilities.spec.ts",
+      "locator": "line:368;test:references only files from the current conversation and preserves the draft",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:1263596e8eafdafdfec4da74f63a13ee3ab25ae556e473335b9bdf11cceebf46",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-1688250C2AEBDB",
+      "requirement_id": "REQ-8C09792EBE8098",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L349:1263596e8e"
+        "QDEV-E2E-e2e-composer-capabilities-spec-ts:L368:1263596e8e"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -117,6 +117,12 @@
       "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
     },
     {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByTestId(\"popover-backdrop\").click({ position: { x: 24, y: 24 } })"
+    },
+    {
       "action": "moreButton.click()"
     },
     {
@@ -150,6 +156,8 @@
     "expect(page.getByRole(\"menu\", { name: \"更多操作\" })).toHaveCount(0)",
     "expect(composer).toHaveValue(\"保留这段草稿\")",
     "expect(page.locator(\"html\")).toHaveAttribute(\"data-theme\", \"dark\")",
+    "expect(page.getByTestId(\"popover-backdrop\")).toHaveCount(0)",
+    "expect(page.getByTestId(\"popover-backdrop\")).toHaveCount(0)",
     "expect(darkContrast).toBeGreaterThanOrEqual(4.5)",
     "expect(darkMenuStyle[\"background-color\"]).not.toBe(lightMenuStyle[\"background-color\"])",
     "expect(composer).toHaveValue(\"保留这段草稿\")",
@@ -166,7 +174,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-1688250C2AEBDB",
+      "requirement_id": "REQ-8C09792EBE8098",
       "type": "return",
       "assertion": "references only files from the current conversation and preserves the draft"
     }
@@ -269,6 +277,12 @@
           "action": "page.getByRole(\"button\", { name: \"深色\", exact: true }).click()"
         },
         {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByTestId(\"popover-backdrop\").click({ position: { x: 24, y: 24 } })"
+        },
+        {
           "action": "moreButton.click()"
         },
         {
@@ -308,13 +322,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/composer-capabilities.spec.ts",
-        "line_start": 349,
-        "line_end": 525,
-        "body_sha256": "sha256:ce1f5453496a215a70952abcc4da13f09c2372b4523bebb704f50d25c6a4c1b5",
-        "assertion_count": 19,
-        "action_count": 21,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:6a35800ab5dff917d8c637254eb2a882d7887488452b9a164bd23761648fa7c7"
+        "line_start": 368,
+        "line_end": 549,
+        "body_sha256": "sha256:6b806058e1ceac3b04329ecfad164a5fb7bf40b030c0a4330ce9d9fe9f4821a4",
+        "assertion_count": 21,
+        "action_count": 23,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:325acba44377d5983bf1c8f1347e1c9d011cc16f24bcd580f6e3723fda710df1"
       }
     },
     "reference_run": {
@@ -336,7 +350,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-1688250C2AEBDB"
+      "REQ-8C09792EBE8098"
     ],
     "categories": [
       "business"
@@ -344,7 +358,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-1688250C2AEBDB"
+      "requirement:REQ-8C09792EBE8098"
     ]
   }
 }

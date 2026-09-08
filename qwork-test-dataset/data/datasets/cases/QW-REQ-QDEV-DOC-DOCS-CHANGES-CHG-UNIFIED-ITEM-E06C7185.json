@@ -22,12 +22,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:124;heading:等级语义",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:283;heading:等级语义",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:e728f25b34b8684835156651973e9e03f41110853662a4bf0959c3c96fb6a9b6",
       "redaction_status": "minimized"
     },
@@ -36,21 +36,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:125;heading:等级语义",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:284;heading:等级语义",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:3f3a46c72958eaf99ad7d0169e2b013a0a4904e0444a6ff8e5faff96000c4dbc",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-3F3B8CA795EF39",
+      "requirement_id": "REQ-3C343263D70622",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L124:e728f25b34"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L283:e728f25b34"
       ],
       "content_facets": [
         "state-transition"
@@ -75,9 +75,9 @@
       "oracle": "`warn`：可恢复降级、重试、无订阅者、SLS 丢弃、部分结果；业务仍可能成功。"
     },
     {
-      "requirement_id": "REQ-4A2D9343A7568E",
+      "requirement_id": "REQ-57AC4E7E9B38F8",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L125:3f3a46c729"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L284:3f3a46c729"
       ],
       "content_facets": [
         "negative-rule"
@@ -123,10 +123,10 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 等级语义 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe session/sidecar event stream after the trigger and assert [REQ-3F3B8CA795EF39] exactly: `warn`：可恢复降级、重试、无订阅者、SLS 丢弃、部分结果；业务仍可能成功。"
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-3C343263D70622] exactly: `warn`：可恢复降级、重试、无订阅者、SLS 丢弃、部分结果；业务仍可能成功。"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-4A2D9343A7568E] exactly: `error`：已确认导致目标业务结果无效的失败。SLS 发送失败、日志序列缺口和观察者异常不能升级为业务 `error`。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-57AC4E7E9B38F8] exactly: `error`：已确认导致目标业务结果无效的失败。SLS 发送失败、日志序列缺口和观察者异常不能升级为业务 `error`。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -137,19 +137,19 @@
     "`error`：已确认导致目标业务结果无效的失败。SLS 发送失败、日志序列缺口和观察者异常不能升级为业务 `error`。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-3F3B8CA795EF39]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `warn`：可恢复降级、重试、无订阅者、SLS 丢弃、部分结果；业务仍可能成功。",
-    "FAIL [REQ-4A2D9343A7568E]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `error`：已确认导致目标业务结果无效的失败。SLS 发送失败、日志序列缺口和观察者异常不能升级为业务 `error`。",
+    "FAIL [REQ-3C343263D70622]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `warn`：可恢复降级、重试、无订阅者、SLS 丢弃、部分结果；业务仍可能成功。",
+    "FAIL [REQ-57AC4E7E9B38F8]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `error`：已确认导致目标业务结果无效的失败。SLS 发送失败、日志序列缺口和观察者异常不能升级为业务 `error`。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-3F3B8CA795EF39",
+      "requirement_id": "REQ-3C343263D70622",
       "type": "event",
       "assertion": "`warn`：可恢复降级、重试、无订阅者、SLS 丢弃、部分结果；业务仍可能成功。"
     },
     {
-      "requirement_id": "REQ-4A2D9343A7568E",
+      "requirement_id": "REQ-57AC4E7E9B38F8",
       "type": "return",
       "assertion": "`error`：已确认导致目标业务结果无效的失败。SLS 发送失败、日志序列缺口和观察者异常不能升级为业务 `error`。"
     }
@@ -208,10 +208,10 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 等级语义 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe session/sidecar event stream after the trigger and assert [REQ-3F3B8CA795EF39] exactly: `warn`：可恢复降级、重试、无订阅者、SLS 丢弃、部分结果；业务仍可能成功。"
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-3C343263D70622] exactly: `warn`：可恢复降级、重试、无订阅者、SLS 丢弃、部分结果；业务仍可能成功。"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-4A2D9343A7568E] exactly: `error`：已确认导致目标业务结果无效的失败。SLS 发送失败、日志序列缺口和观察者异常不能升级为业务 `error`。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-57AC4E7E9B38F8] exactly: `error`：已确认导致目标业务结果无效的失败。SLS 发送失败、日志序列缺口和观察者异常不能升级为业务 `error`。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -254,8 +254,8 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-3F3B8CA795EF39",
-      "REQ-4A2D9343A7568E"
+      "REQ-3C343263D70622",
+      "REQ-57AC4E7E9B38F8"
     ],
     "categories": [
       "negative",
@@ -267,13 +267,13 @@
       "category:recovery",
       "category:state",
       "full",
-      "requirement:REQ-3F3B8CA795EF39",
-      "requirement:REQ-4A2D9343A7568E"
+      "requirement:REQ-3C343263D70622",
+      "requirement:REQ-57AC4E7E9B38F8"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-3F3B8CA795EF39",
+      "requirement_id": "REQ-3C343263D70622",
       "oracle_type": "event",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 等级语义 产品契约 exactly once and retain its correlation identity",
@@ -282,7 +282,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-4A2D9343A7568E",
+      "requirement_id": "REQ-57AC4E7E9B38F8",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 等级语义 产品契约 exactly once and retain its correlation identity",

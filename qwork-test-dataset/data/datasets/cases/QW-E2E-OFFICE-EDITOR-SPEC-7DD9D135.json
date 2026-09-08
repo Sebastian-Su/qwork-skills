@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/office-editor.spec.ts",
-      "locator": "line:133;test:历史会话切换时恢复目标会话自己的最新 Office 预览",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/office-editor.spec.ts",
+      "locator": "line:218;test:历史会话切换时恢复目标会话自己的最新 Office 预览",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:7dd9d135c7ff900852f0431d69bdb5d596eac28d2e8671c9c506cd1faa4c4bd1",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-office-editor-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/office-editor.spec.ts",
-      "locator": "line:133;test:历史会话切换时恢复目标会话自己的最新 Office 预览",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:7dd9d135c7ff900852f0431d69bdb5d596eac28d2e8671c9c506cd1faa4c4bd1",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-office-editor-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-9F21195F2B0B64",
+      "requirement_id": "REQ-27AEE4B5F8A4E2",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-office-editor-spec-ts:L133:7dd9d135c7",
-        "QHEAD-E2E-e2e-office-editor-spec-ts:L133:7dd9d135c7"
+        "QDEV-E2E-e2e-office-editor-spec-ts:L218:7dd9d135c7"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-office-editor-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-office-editor-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -95,46 +75,33 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "createTestHome(\"office-session-preview-switch\")"
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
     },
     {
-      "action": "configureWorkspace(configHome)"
+      "action": "page.getByTitle(\"新建空间\").click()"
     },
     {
-      "action": "launchApp(configHome)"
+      "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
     },
     {
-      "action": "app.firstWindow()"
+      "action": "composer.fill(prompt)"
     },
     {
-      "action": "configurePageWorkspace(page, workspace)"
+      "action": "composer.press(\"Enter\")"
     },
     {
-      "action": "createOfficeSession(page, workspace, \"会话 A.docx\")"
-    },
-    {
-      "action": "createOfficeSession(page, workspace, \"会话 B.docx\")"
-    },
-    {
-      "action": "selectSession(page, titleA)"
-    },
-    {
-      "action": "selectSession(page, titleB)"
-    },
-    {
-      "action": "selectSession(page, titleA)"
-    },
-    {
-      "action": "cleanupTestHome(app, configHome)"
+      "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: new RegExp(escapeRegExp(title)) }) .first() .click()"
     }
   ],
   "expected_outcomes": [
-    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByText(\"会话 A.docx\", { exact: true }), ).toHaveCount(1)",
-    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByText(\"会话 B.docx\", { exact: true }), ).toHaveCount(1)",
-    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByText(\"会话 A.docx\", { exact: true }), ).toHaveCount(1)",
+    "expect(page.getByLabel(\"DOCX 编辑器\")).toBeVisible({ timeout: 60_000, })",
+    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByRole(\"heading\", { name: fileName, exact: true }), ).toHaveCount(1)",
+    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByRole(\"heading\", { name: \"会话 A.docx\", exact: true }), ).toHaveCount(1)",
+    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByRole(\"heading\", { name: \"会话 B.docx\", exact: true }), ).toHaveCount(1)",
+    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByRole(\"heading\", { name: \"会话 A.docx\", exact: true }), ).toHaveCount(1)",
     "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByText(\"会话 B.docx\", { exact: true }), ).toHaveCount(0)",
-    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByText(\"会话 B.docx\", { exact: true }), ).toHaveCount(1)",
-    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByText(\"会话 A.docx\", { exact: true }), ).toHaveCount(1)"
+    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByRole(\"heading\", { name: \"会话 B.docx\", exact: true }), ).toHaveCount(1)",
+    "expect( page .getByRole(\"complementary\", { name: \"工件预览\" }) .getByRole(\"heading\", { name: \"会话 A.docx\", exact: true }), ).toHaveCount(1)"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -143,7 +110,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-9F21195F2B0B64",
+      "requirement_id": "REQ-27AEE4B5F8A4E2",
       "type": "return",
       "assertion": "历史会话切换时恢复目标会话自己的最新 Office 预览"
     }
@@ -204,37 +171,22 @@
       "entrypoint": "assistant",
       "steps": [
         {
-          "action": "createTestHome(\"office-session-preview-switch\")"
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
         },
         {
-          "action": "configureWorkspace(configHome)"
+          "action": "page.getByTitle(\"新建空间\").click()"
         },
         {
-          "action": "launchApp(configHome)"
+          "action": "page .getByRole(\"button\", { name: path.basename(workspace), description: uiPathDescription(workspace), exact: true, }) .click()"
         },
         {
-          "action": "app.firstWindow()"
+          "action": "composer.fill(prompt)"
         },
         {
-          "action": "configurePageWorkspace(page, workspace)"
+          "action": "composer.press(\"Enter\")"
         },
         {
-          "action": "createOfficeSession(page, workspace, \"会话 A.docx\")"
-        },
-        {
-          "action": "createOfficeSession(page, workspace, \"会话 B.docx\")"
-        },
-        {
-          "action": "selectSession(page, titleA)"
-        },
-        {
-          "action": "selectSession(page, titleB)"
-        },
-        {
-          "action": "selectSession(page, titleA)"
-        },
-        {
-          "action": "cleanupTestHome(app, configHome)"
+          "action": "page .getByRole(\"complementary\") .getByRole(\"button\", { name: new RegExp(escapeRegExp(title)) }) .first() .click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -255,13 +207,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/office-editor.spec.ts",
-        "line_start": 133,
-        "line_end": 184,
-        "body_sha256": "sha256:7c80a4f85e679d8342ce3d17391cc63e6040bf79554d69fb1c6172a757c2071a",
-        "assertion_count": 6,
-        "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:a783be23b42a4bb7646b5aaa26e4f20fe6deed68d83e8d0e9d514da5b24be01b"
+        "line_start": 218,
+        "line_end": 269,
+        "body_sha256": "sha256:1fecebd820e8d9674aa8ff9c6fd39f3d472611b58b10b0aadd9ffc54f807c115",
+        "assertion_count": 8,
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:7fb55a5a8b1b344204350355cc51e703e1a638768e952a991f2ba6568e2b07c7"
       }
     },
     "reference_run": {
@@ -283,7 +235,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-9F21195F2B0B64"
+      "REQ-27AEE4B5F8A4E2"
     ],
     "categories": [
       "business"
@@ -291,7 +243,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-9F21195F2B0B64"
+      "requirement:REQ-27AEE4B5F8A4E2"
     ]
   }
 }

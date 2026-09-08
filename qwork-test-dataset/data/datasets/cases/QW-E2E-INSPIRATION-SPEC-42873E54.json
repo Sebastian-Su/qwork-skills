@@ -1,0 +1,220 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-INSPIRATION-SPEC-42873E54",
+  "title": "treats MCP as hidden metadata without authorization or sending",
+  "kind": "negative",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "library",
+    "journey": "library",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-inspiration-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/inspiration.spec.ts",
+      "locator": "line:548;test:treats MCP as hidden metadata without authorization or sending",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:42873e5495ce76b34d40160dfb7d4b7bc66f5c0b825b4a262f6936d7a5dca5ee",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-5BE7DF03D673F9",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-inspiration-spec-ts:L548:42873e5495"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "library",
+      "priority": "P1",
+      "rule": "treats MCP as hidden metadata without authorization or sending",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-inspiration-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "treats MCP as hidden metadata without authorization or sending"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"查看 事件因子解读页\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"一键做同款\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: \"任务 (0)\" })).toBeVisible()",
+    "expect(page.getByLabel(\"当前对话连接器\", { exact: true })).toHaveCount(0)",
+    "expect(await (async () => { const raw = await fs.readFile(sidecarLog, \"utf8\").catch(() => \"\"); return raw.split(\"\\n\").filter(Boolean).map((line) => JSON.parse(line) as { type?: string; server?: { name?: string }; }).find((message) => message.type === \"mcp_server_upsert\"); })()).toBeUndefined()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-5BE7DF03D673F9",
+      "type": "return",
+      "assertion": "treats MCP as hidden metadata without authorization or sending"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-inspiration-spec-ts.42873e5495",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/inspiration.spec.ts -g \"treats MCP as hidden metadata without authorization or sending\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "library",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"查看 事件因子解读页\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"一键做同款\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/inspiration.spec.ts",
+        "line_start": 548,
+        "line_end": 563,
+        "body_sha256": "sha256:6cc5ab7cabdfe7b62955e73c0d0a0f678ab9488ba16eff6da4aecdeec8bcbc9e",
+        "assertion_count": 3,
+        "action_count": 2,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:fb657fd338eaa49ca2379b834a87cc6e581af3ec943b05add719e035b3c52f32"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-5BE7DF03D673F9"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-5BE7DF03D673F9"
+    ]
+  }
+}

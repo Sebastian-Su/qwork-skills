@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/experts.spec.ts",
-      "locator": "line:562;test:missing trusted SessionStart Hook blocks creation and keeps the draft",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/experts.spec.ts",
+      "locator": "line:622;test:missing trusted SessionStart Hook blocks creation and keeps the draft",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:32c9502c835cffa123da58274d11d7e1520376433842c9cf637fb339af51c707",
       "redaction_status": "minimized"
     },
@@ -35,12 +35,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/expert-journey-phase2-plan.md",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/expert-journey-phase2-plan.md",
       "locator": "line:44;heading:Slice 1：Draft-first 与安全首次发送",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:b574067cd66a836e5091abdf356c36f14ea03fc5ddb68dd76d118ab0bd289838",
       "redaction_status": "minimized"
     },
@@ -49,21 +49,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/qwork-expert-team-prd.md",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/qwork-expert-team-prd.md",
       "locator": "line:270;heading:FR-SESSION-001 首次真实 Query",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:8ba9c771638433c08c4afde5dfad45821c65729a28a53e4a466f6f635acefaea",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-0B790039059168",
+      "requirement_id": "REQ-6938DCAD3E662B",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-experts-spec-ts:L562:32c9502c83"
+        "QDEV-E2E-e2e-experts-spec-ts:L622:32c9502c83"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -142,7 +142,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-24T11:47:54.664209+00:00",
     "status_reason": "public Playwright reference expert-identity-public-reference-cd8f6717-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -155,6 +155,15 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /高级开发工程师.*从证据出发/ }).click()"
+    },
+    {
+      "action": "detail.getByRole(\"button\", { name: \"召唤 高级开发工程师\" }).click()"
+    },
+    {
       "action": "composer.fill(\"请保留这个需求并允许重试\")"
     },
     {
@@ -165,6 +174,8 @@
     }
   ],
   "expected_outcomes": [
+    "expect(detail).toBeVisible()",
+    "expect(page.getByTestId(\"composer-dock\")).toContainText(\"高级开发工程师\")",
     "expect(alert).toContainText(\"无法创建专家会话\")",
     "expect(composer).toHaveValue(\"请保留这个需求并允许重试\")",
     "expect(page.getByTestId(\"composer-dock\")).toContainText(\"高级开发工程师\")",
@@ -181,7 +192,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-0B790039059168",
+      "requirement_id": "REQ-6938DCAD3E662B",
       "type": "return",
       "assertion": "missing trusted SessionStart Hook blocks creation and keeps the draft"
     },
@@ -252,6 +263,15 @@
       "entrypoint": "expert-market",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /高级开发工程师.*从证据出发/ }).click()"
+        },
+        {
+          "action": "detail.getByRole(\"button\", { name: \"召唤 高级开发工程师\" }).click()"
+        },
+        {
           "action": "composer.fill(\"请保留这个需求并允许重试\")"
         },
         {
@@ -279,13 +299,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/experts.spec.ts",
-        "line_start": 562,
-        "line_end": 606,
+        "line_start": 622,
+        "line_end": 666,
         "body_sha256": "sha256:dc6576ef92cfcbe4c2b74c11d6964578285daeb512fd5adf5466c3832b5780af",
-        "assertion_count": 8,
-        "action_count": 3,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:c02d81ae7e97edab5454af66429d2c776fcf5699026576cb0822a4a20e494068"
+        "assertion_count": 10,
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:e669e23d0d6c2cd6e3018417ca67e0ca249cefdb63f4c6069e8a8184f25d532b"
       }
     },
     "reference_run": {
@@ -308,7 +328,7 @@
   "selection": {
     "requirement_ids": [
       "REQ-0A05394456B07B",
-      "REQ-0B790039059168",
+      "REQ-6938DCAD3E662B",
       "REQ-BEDDA1AE5C9826"
     ],
     "categories": [
@@ -320,7 +340,7 @@
       "category:negative",
       "full",
       "requirement:REQ-0A05394456B07B",
-      "requirement:REQ-0B790039059168",
+      "requirement:REQ-6938DCAD3E662B",
       "requirement:REQ-BEDDA1AE5C9826"
     ]
   }

@@ -21,39 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/assistant.spec.ts",
-      "locator": "line:150;test:dims the assistant status bar behind the settings dialog",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/assistant.spec.ts",
+      "locator": "line:154;test:dims the assistant status bar behind the settings dialog",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:ec0453675762c4fb4b43943bd5cb35ccda92b653b776042cd4befa6c0c019361",
       "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-assistant-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/assistant.spec.ts",
-      "locator": "line:153;test:dims the assistant status bar behind the settings dialog",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:ec0453675762c4fb4b43943bd5cb35ccda92b653b776042cd4befa6c0c019361",
-      "redaction_status": "minimized",
-      "supports": [
-        "QDEV-E2E-e2e-assistant-spec-ts"
-      ]
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-DAC16EB8089EEE",
+      "requirement_id": "REQ-D65FBDE829E94D",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-assistant-spec-ts:L150:ec04536757",
-        "QHEAD-E2E-e2e-assistant-spec-ts:L153:ec04536757"
+        "QDEV-E2E-e2e-assistant-spec-ts:L154:ec04536757"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -68,9 +50,7 @@
       "governing_sources": [
         "QDEV-E2E-e2e-assistant-spec-ts"
       ],
-      "supporting_sources": [
-        "QHEAD-E2E-e2e-assistant-spec-ts"
-      ],
+      "supporting_sources": [],
       "conflicts": [],
       "resolution": {
         "status": "resolved",
@@ -98,7 +78,7 @@
       "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"助理设置\", exact: true }).click()"
+      "action": "page.getByRole(\"toolbar\", { name: \"助理工具栏\", exact: true }).getByRole(\"button\", { name: \"助理设置\", exact: true }).click()"
     },
     {
       "action": "page.keyboard.press(\"Escape\")"
@@ -125,7 +105,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-DAC16EB8089EEE",
+      "requirement_id": "REQ-D65FBDE829E94D",
       "type": "return",
       "assertion": "dims the assistant status bar behind the settings dialog"
     }
@@ -189,7 +169,7 @@
           "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: \"助理设置\", exact: true }).click()"
+          "action": "page.getByRole(\"toolbar\", { name: \"助理工具栏\", exact: true }).getByRole(\"button\", { name: \"助理设置\", exact: true }).click()"
         },
         {
           "action": "page.keyboard.press(\"Escape\")"
@@ -213,13 +193,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/assistant.spec.ts",
-        "line_start": 153,
-        "line_end": 232,
-        "body_sha256": "sha256:503f0e5d4e523e86f0b3ff33496eec0665429f411a5a15c24efd0d06c1b59e83",
+        "line_start": 154,
+        "line_end": 233,
+        "body_sha256": "sha256:92573f217224a22042ac389fd27dd015027b3c2035b37eb7884f755890461971",
         "assertion_count": 12,
         "action_count": 3,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:05b76318b6671ec5f539585947a6d156702b42845f9d0f11b6b30e63eae720e4"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:2b5fc74b419be41d307bb857e5ae57d063a0a6627d9eb108b7347e388edf5ea2"
       }
     },
     "reference_run": {
@@ -241,7 +221,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-DAC16EB8089EEE"
+      "REQ-D65FBDE829E94D"
     ],
     "categories": [
       "business"
@@ -249,7 +229,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-DAC16EB8089EEE"
+      "requirement:REQ-D65FBDE829E94D"
     ]
   }
 }

@@ -22,12 +22,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:65;heading:qwork_server",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:223;heading:qwork_server",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:a72bd2390c58d39db97d1ec16d17a5f71cbe719a9c49961fef5df8776369d253",
       "redaction_status": "minimized"
     },
@@ -36,12 +36,12 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:67;heading:qwork_server",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:226;heading:qwork_server",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:f5f7957abc2fd353429d2ba00452f4addeb2162fe527e2af2e38aaaaac4f0e53",
       "redaction_status": "minimized"
     },
@@ -50,21 +50,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:68;heading:qwork_server",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:227;heading:qwork_server",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:ca31357e0183ae2d7afd504e7a64a7971092c7ae80e68b911872526ab1a2bff4",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-9F65E555C7B277",
+      "requirement_id": "REQ-A28F6DD0579128",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L65:a72bd2390c"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L223:a72bd2390c"
       ],
       "content_facets": [
         "evidence-provenance"
@@ -88,9 +88,9 @@
       "oracle": "`replace`：当前把完整 `traceparent` header 当成 `trace_id`；应按 W3C 解析 trace/span/flags，非法值不传播。"
     },
     {
-      "requirement_id": "REQ-683E1F1434AFBA",
+      "requirement_id": "REQ-36069D1BBA7198",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L67:f5f7957abc"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L226:f5f7957abc"
       ],
       "content_facets": [
         "role-permission"
@@ -114,9 +114,9 @@
       "oracle": "`extend`：当前认证 Principal 只有内部 `UserID/OrganizationID`，虽已有服务端 `QIDResolver` 接缝但并未进入通用日志上下文；观测中间件必须从已认证 Principal 经服务端映射解析真实 `qid`，不得采信客户端自报。"
     },
     {
-      "requirement_id": "REQ-8074CB4B0A64AB",
+      "requirement_id": "REQ-74B3FC5312F37B",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L68:ca31357e01"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L227:ca31357e01"
       ],
       "content_facets": [
         "business-rule"
@@ -162,13 +162,13 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_server 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe case-owned execution trace after the trigger and assert [REQ-9F65E555C7B277] exactly: `replace`：当前把完整 `traceparent` header 当成 `trace_id`；应按 W3C 解析 trace/span/flags，非法值不传播。"
+      "action": "observe case-owned execution trace after the trigger and assert [REQ-A28F6DD0579128] exactly: `replace`：当前把完整 `traceparent` header 当成 `trace_id`；应按 W3C 解析 trace/span/flags，非法值不传播。"
     },
     {
-      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-683E1F1434AFBA] exactly: `extend`：当前认证 Principal 只有内部 `UserID/OrganizationID`，虽已有服务端 `QIDResolver` 接缝但并未进入通用日志上下文；观测中间件必须从已认证 Principal 经服务端映射解析真实 `qid`，不得采信客户端自报。"
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-36069D1BBA7198] exactly: `extend`：当前认证 Principal 只有内部 `UserID/OrganizationID`，虽已有服务端 `QIDResolver` 接缝但并未进入通用日志上下文；观测中间件必须从已认证 Principal 经服务端映射解析真实 `qid`，不得采信客户端自报。"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8074CB4B0A64AB] exactly: `unknown`：生产 stdout 当前是否已采集到 `cn-beijing/qwork/qwork`，必须由部署 Owner 预检；Logstore 本身的保存周期和现有索引已于 2026-08-27 只读核验。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-74B3FC5312F37B] exactly: `unknown`：生产 stdout 当前是否已采集到 `cn-beijing/qwork/qwork`，必须由部署 Owner 预检；Logstore 本身的保存周期和现有索引已于 2026-08-27 只读核验。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -180,25 +180,25 @@
     "`unknown`：生产 stdout 当前是否已采集到 `cn-beijing/qwork/qwork`，必须由部署 Owner 预检；Logstore 本身的保存周期和现有索引已于 2026-08-27 只读核验。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-9F65E555C7B277]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `replace`：当前把完整 `traceparent` header 当成 `trace_id`；应按 W3C 解析 trace/span/flags，非法值不传播。",
-    "FAIL [REQ-683E1F1434AFBA]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `extend`：当前认证 Principal 只有内部 `UserID/OrganizationID`，虽已有服务端 `QIDResolver` 接缝但并未进入通用日志上下文；观测中间件必须从已认证 Principal 经服务端映射解析真实 `qid`，不得采信客户端自报。",
-    "FAIL [REQ-8074CB4B0A64AB]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `unknown`：生产 stdout 当前是否已采集到 `cn-beijing/qwork/qwork`，必须由部署 Owner 预检；Logstore 本身的保存周期和现有索引已于 2026-08-27 只读核验。",
+    "FAIL [REQ-A28F6DD0579128]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `replace`：当前把完整 `traceparent` header 当成 `trace_id`；应按 W3C 解析 trace/span/flags，非法值不传播。",
+    "FAIL [REQ-36069D1BBA7198]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `extend`：当前认证 Principal 只有内部 `UserID/OrganizationID`，虽已有服务端 `QIDResolver` 接缝但并未进入通用日志上下文；观测中间件必须从已认证 Principal 经服务端映射解析真实 `qid`，不得采信客户端自报。",
+    "FAIL [REQ-74B3FC5312F37B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `unknown`：生产 stdout 当前是否已采集到 `cn-beijing/qwork/qwork`，必须由部署 Owner 预检；Logstore 本身的保存周期和现有索引已于 2026-08-27 只读核验。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-9F65E555C7B277",
+      "requirement_id": "REQ-A28F6DD0579128",
       "type": "trace",
       "assertion": "`replace`：当前把完整 `traceparent` header 当成 `trace_id`；应按 W3C 解析 trace/span/flags，非法值不传播。"
     },
     {
-      "requirement_id": "REQ-683E1F1434AFBA",
+      "requirement_id": "REQ-36069D1BBA7198",
       "type": "api",
       "assertion": "`extend`：当前认证 Principal 只有内部 `UserID/OrganizationID`，虽已有服务端 `QIDResolver` 接缝但并未进入通用日志上下文；观测中间件必须从已认证 Principal 经服务端映射解析真实 `qid`，不得采信客户端自报。"
     },
     {
-      "requirement_id": "REQ-8074CB4B0A64AB",
+      "requirement_id": "REQ-74B3FC5312F37B",
       "type": "return",
       "assertion": "`unknown`：生产 stdout 当前是否已采集到 `cn-beijing/qwork/qwork`，必须由部署 Owner 预检；Logstore 本身的保存周期和现有索引已于 2026-08-27 只读核验。"
     }
@@ -257,13 +257,13 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_server 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe case-owned execution trace after the trigger and assert [REQ-9F65E555C7B277] exactly: `replace`：当前把完整 `traceparent` header 当成 `trace_id`；应按 W3C 解析 trace/span/flags，非法值不传播。"
+          "action": "observe case-owned execution trace after the trigger and assert [REQ-A28F6DD0579128] exactly: `replace`：当前把完整 `traceparent` header 当成 `trace_id`；应按 W3C 解析 trace/span/flags，非法值不传播。"
         },
         {
-          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-683E1F1434AFBA] exactly: `extend`：当前认证 Principal 只有内部 `UserID/OrganizationID`，虽已有服务端 `QIDResolver` 接缝但并未进入通用日志上下文；观测中间件必须从已认证 Principal 经服务端映射解析真实 `qid`，不得采信客户端自报。"
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-36069D1BBA7198] exactly: `extend`：当前认证 Principal 只有内部 `UserID/OrganizationID`，虽已有服务端 `QIDResolver` 接缝但并未进入通用日志上下文；观测中间件必须从已认证 Principal 经服务端映射解析真实 `qid`，不得采信客户端自报。"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-8074CB4B0A64AB] exactly: `unknown`：生产 stdout 当前是否已采集到 `cn-beijing/qwork/qwork`，必须由部署 Owner 预检；Logstore 本身的保存周期和现有索引已于 2026-08-27 只读核验。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-74B3FC5312F37B] exactly: `unknown`：生产 stdout 当前是否已采集到 `cn-beijing/qwork/qwork`，必须由部署 Owner 预检；Logstore 本身的保存周期和现有索引已于 2026-08-27 只读核验。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -306,9 +306,9 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-683E1F1434AFBA",
-      "REQ-8074CB4B0A64AB",
-      "REQ-9F65E555C7B277"
+      "REQ-36069D1BBA7198",
+      "REQ-74B3FC5312F37B",
+      "REQ-A28F6DD0579128"
     ],
     "categories": [
       "business",
@@ -320,14 +320,14 @@
       "category:evidence-integrity",
       "category:permission",
       "full",
-      "requirement:REQ-683E1F1434AFBA",
-      "requirement:REQ-8074CB4B0A64AB",
-      "requirement:REQ-9F65E555C7B277"
+      "requirement:REQ-36069D1BBA7198",
+      "requirement:REQ-74B3FC5312F37B",
+      "requirement:REQ-A28F6DD0579128"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-9F65E555C7B277",
+      "requirement_id": "REQ-A28F6DD0579128",
       "oracle_type": "trace",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_server 产品契约 exactly once and retain its correlation identity",
@@ -336,7 +336,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-683E1F1434AFBA",
+      "requirement_id": "REQ-36069D1BBA7198",
       "oracle_type": "api",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_server 产品契约 exactly once and retain its correlation identity",
@@ -345,7 +345,7 @@
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-8074CB4B0A64AB",
+      "requirement_id": "REQ-74B3FC5312F37B",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_server 产品契约 exactly once and retain its correlation identity",

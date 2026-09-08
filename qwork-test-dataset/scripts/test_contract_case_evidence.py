@@ -120,6 +120,28 @@ def main() -> int:
         raise AssertionError("public functional Case fabricated entry/final screenshots")
     if public_functional["coverage"]["states_covered"] != ["interactive-result"]:
         raise AssertionError("public functional Case lost its interactive result")
+    aliased_page = builder.default_case(
+        "QW-E2E-PUBLIC-ALIASED-PAGE",
+        "render an artifact inside the real Chromium viewport",
+        "media-generation",
+        "qwork.playwright.public-aliased-page",
+        "e2e/artifact-quality.spec.ts",
+        ["business"],
+        test_contract={
+            "line_start": 1,
+            "line_end": 5,
+            "body_sha256": "9" * 64,
+            "actions": [{"expression": "renderPage.goto(outputUrl)"}],
+            "helpers": [],
+            "assertions": [{"expression": "expect(canvas).toBeVisible()"}],
+        },
+        execution_revision="revision",
+        spec_sha256="0" * 64,
+    )
+    if aliased_page.get("execution_type") != "desktop":
+        raise AssertionError("aliased Playwright page.goto was not recognized as UI execution")
+    if aliased_page["ui_acceptance"]["acceptance_mode"] != "behavior-only":
+        raise AssertionError("aliased Playwright page.goto fabricated visual checkpoints")
     public_visual = builder.default_case(
         "QW-E2E-PUBLIC-VISUAL",
         "public visual contract",

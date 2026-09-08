@@ -1,0 +1,328 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-DATA-MANAGEMENT-SPEC-F57E6B56",
+  "title": "BUG-1013861 | shared files, shared tasks, and archived tasks follow the WorkBuddy lifecycle",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-data-management-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/data-management.spec.ts",
+      "locator": "line:9;test:BUG-1013861 | shared files, shared tasks, and archived tasks follow the WorkBuddy lifecycle",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:f57e6b56dda7df09f818a68e482557c9de03d17726522fe2354d838cb9d3daa9",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-C75435143B7F0C",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-data-management-spec-ts:L9:f57e6b56dd"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "BUG-1013861 | shared files, shared tasks, and archived tasks follow the WorkBuddy lifecycle",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-data-management-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "BUG-1013861 | shared files, shared tasks, and archived tasks follow the WorkBuddy lifecycle"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.reload()"
+    },
+    {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"数据管理\", exact: true }).click()"
+    },
+    {
+      "action": "entries.getByRole(\"listitem\").filter({ hasText: \"我分享的文件\" }).getByRole(\"button\", { name: \"管理\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"研究报告.txt 更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"下载\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"研究报告.txt 更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"取消分享\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"返回数据管理\" }).click()"
+    },
+    {
+      "action": "entries.getByRole(\"listitem\").filter({ hasText: \"我分享的任务\" }).getByRole(\"button\", { name: \"管理\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"方案任务 更多操作\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"取消分享\" }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"返回数据管理\" }).click()"
+    },
+    {
+      "action": "entries.getByRole(\"listitem\").filter({ hasText: \"已归档任务\" }).getByRole(\"button\", { name: \"管理\" }).click()"
+    },
+    {
+      "action": "restoreCard.getByRole(\"button\", { name: \"取消归档\" }).click()"
+    },
+    {
+      "action": "deleteCard.getByRole(\"button\", { name: \"删除任务\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"确认删除\" }).click()"
+    },
+    {
+      "action": "server.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(entries.getByRole(\"button\", { name: \"管理\", exact: true })).toHaveCount(4)",
+    "expect(await entries.getByRole(\"listitem\").evaluateAll((rows) => rows.map((row) => row.getBoundingClientRect().height))).toEqual([44, 44, 44, 44])",
+    "expect(dialog.getByRole(\"heading\", { name: \"已分享的文件\" })).toBeVisible()",
+    "expect(dialog.getByRole(\"table\", { name: \"已分享文件\" }).getByRole(\"columnheader\")).toHaveText([\"名称\", \"任务\", \"生成分享时间\", \"操作\"])",
+    "expect.poll(async () => fs.readFile(downloadPath, \"utf8\").catch(() => \"\")).toBe(\"downloaded-report\")",
+    "expect(dialog.getByRole(\"status\")).toHaveText(\"已取消分享\")",
+    "expect(revoked).toContain(\"share-file\")",
+    "expect(dialog.getByRole(\"heading\", { name: \"已分享的任务\" })).toBeVisible()",
+    "expect(dialog.getByRole(\"table\", { name: \"已分享任务\" }).getByRole(\"columnheader\")).toHaveText([\"任务名称\", \"分享时间\", \"操作\"])",
+    "expect(page.getByRole(\"menuitem\", { name: \"下载\" })).toHaveCount(0)",
+    "expect(revoked).toContain(\"share-task\")",
+    "expect(dialog.getByRole(\"heading\", { name: \"已归档任务\" })).toBeVisible()",
+    "expect(dialog.getByRole(\"status\")).toHaveText(\"任务已恢复\")",
+    "expect(page.getByRole(\"dialog\", { name: \"删除任务\" })).toContainText(\"确认后将从列表中删除任务，请确认是否删除？\")",
+    "expect.poll(async () => page.evaluate(async (id) => (await window.workGui.sessions.list()).some((item) => { const raw = item.session_id as unknown; return (typeof raw === \"string\" ? raw : (raw as { 0: string })[0]) === id; }), archived[1]!)).toBe(false)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-C75435143B7F0C",
+      "type": "return",
+      "assertion": "BUG-1013861 | shared files, shared tasks, and archived tasks follow the WorkBuddy lifecycle"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-data-management-spec-ts.f57e6b56dd",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/data-management.spec.ts -g \"BUG-1013861 | shared files, shared tasks, and archived tasks follow the WorkBuddy lifecycle\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "page.reload()"
+        },
+        {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"数据管理\", exact: true }).click()"
+        },
+        {
+          "action": "entries.getByRole(\"listitem\").filter({ hasText: \"我分享的文件\" }).getByRole(\"button\", { name: \"管理\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"研究报告.txt 更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"下载\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"研究报告.txt 更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"取消分享\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"返回数据管理\" }).click()"
+        },
+        {
+          "action": "entries.getByRole(\"listitem\").filter({ hasText: \"我分享的任务\" }).getByRole(\"button\", { name: \"管理\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"方案任务 更多操作\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"取消分享\" }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"返回数据管理\" }).click()"
+        },
+        {
+          "action": "entries.getByRole(\"listitem\").filter({ hasText: \"已归档任务\" }).getByRole(\"button\", { name: \"管理\" }).click()"
+        },
+        {
+          "action": "restoreCard.getByRole(\"button\", { name: \"取消归档\" }).click()"
+        },
+        {
+          "action": "deleteCard.getByRole(\"button\", { name: \"删除任务\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"确认删除\" }).click()"
+        },
+        {
+          "action": "server.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/data-management.spec.ts",
+        "line_start": 9,
+        "line_end": 131,
+        "body_sha256": "sha256:11fbbdeb6bce273be5914cba5d5e5c70fd3da3a2cb28a01dad6199f6e8b6bfdb",
+        "assertion_count": 15,
+        "action_count": 18,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:82a31ec0cd53000003e365333c32dc2cf4fba1d5c34332f78f1547f0ce6ecfe0"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-C75435143B7F0C"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-C75435143B7F0C"
+    ]
+  }
+}

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/settings-production.spec.ts",
-      "locator": "line:32;test:SETTINGS-T11/T12/T13/T14 | explicit personalization and global memory persist through the trusted bridge",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/settings-production.spec.ts",
+      "locator": "line:78;test:SETTINGS-T11/T12/T13/T14 | explicit personalization and global memory persist through the trusted bridge",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:6dcd40ac5e3d702671cc6e0badd83bf1d8e104371626bd88f658631ae3e649f4",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-69C697DB124683",
+      "requirement_id": "REQ-0032CF882A798D",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-settings-production-spec-ts:L32:6dcd40ac5e"
+        "QDEV-E2E-e2e-settings-production-spec-ts:L78:6dcd40ac5e"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:48:50.814975+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -75,55 +75,98 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
       "action": "dialog.getByRole(\"button\", { name: \"个性化\", exact: true }).click()"
     },
     {
       "action": "instructions.fill(\"回答先给结论\")"
     },
     {
-      "action": "dialog.getByRole(\"button\", { name: \"保存指令\" }).click()"
+      "action": "dialog.getByRole(\"button\", { name: \"确认\", exact: true }).click()"
     },
     {
       "action": "dialog.getByRole(\"button\", { name: \"记忆\", exact: true }).click()"
     },
     {
-      "action": "dialog.getByRole(\"textbox\", { name: \"记忆标题\" }).fill(\"语言偏好\")"
+      "action": "conversationMemory.click()"
     },
     {
-      "action": "dialog.getByRole(\"textbox\", { name: \"记忆正文\" }).fill(\"默认使用中文\")"
+      "action": "dialog.getByRole(\"button\", { name: \"关闭设置\" }).click()"
     },
     {
-      "action": "dialog.getByRole(\"button\", { name: \"创建记忆\" }).click()"
+      "action": "reopened.getByRole(\"button\", { name: \"记忆\", exact: true }).click()"
     },
     {
-      "action": "dialog.getByRole(\"textbox\", { name: \"粘贴待导入记忆\" }).fill( '[{\"title\":\"服务信息\",\"content\":\"API_KEY=sk-sensitive-test\"}]', )"
+      "action": "reopenedConversationMemory.click()"
     },
     {
-      "action": "dialog.getByRole(\"button\", { name: \"解析预览\" }).click()"
+      "action": "cloudSync.click()"
     },
     {
-      "action": "dialog.getByRole(\"button\", { name: \"确认导入\" }).click()"
+      "action": "reopened.getByRole(\"button\", { name: \"编辑记忆\" }).click()"
     },
     {
-      "action": "dialog.getByRole(\"button\", { name: \"删除语言偏好\" }).click()"
+      "action": "reopened.getByRole(\"textbox\", { name: \"记忆标题\" }).fill(\"语言偏好\")"
     },
     {
-      "action": "dialog.getByRole(\"checkbox\", { name: \"已删除\" }).check()"
+      "action": "reopened.getByRole(\"textbox\", { name: \"记忆正文\" }).fill(\"默认使用中文\")"
     },
     {
-      "action": "dialog.getByRole(\"button\", { name: \"恢复\" }).click()"
+      "action": "reopened.getByRole(\"button\", { name: \"创建记忆\" }).click()"
+    },
+    {
+      "action": "reopened.getByRole(\"button\", { name: \"编辑\" }).click()"
+    },
+    {
+      "action": "reopened.getByRole(\"textbox\", { name: \"记忆正文\" }).fill(\"默认使用中文并先给结论\")"
+    },
+    {
+      "action": "reopened.getByRole(\"button\", { name: \"保存修改\" }).click()"
+    },
+    {
+      "action": "reopened.getByRole(\"textbox\", { name: \"粘贴待导入记忆\" }).fill( '[{\"title\":\"服务信息\",\"content\":\"API_KEY=sk-sensitive-test\"}]', )"
+    },
+    {
+      "action": "reopened.getByRole(\"button\", { name: \"解析预览\" }).click()"
+    },
+    {
+      "action": "reopened.getByRole(\"button\", { name: \"确认导入\" }).click()"
+    },
+    {
+      "action": "reopened.getByRole(\"button\", { name: \"删除语言偏好\" }).click()"
+    },
+    {
+      "action": "reopened.getByRole(\"checkbox\", { name: \"已删除\" }).check()"
+    },
+    {
+      "action": "reopened.getByRole(\"button\", { name: \"恢复\" }).click()"
+    },
+    {
+      "action": "cloudApi.close()"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: \"新建任务\", exact: true })).toBeVisible()",
+    "expect(dialog).toBeVisible()",
     "expect(dialog).toContainText(\"有未保存修改\")",
     "expect(dialog).toContainText(\"已保存 · 后续新会话生效\")",
-    "expect(dialog).toContainText(\"语言偏好\")",
-    "expect(dialog).toContainText(\"已保存 · 后续新会话投射\")",
-    "expect(dialog).toContainText(\"可能包含 API Key\")",
-    "expect(dialog).toContainText(\"服务信息\")",
-    "expect(dialog).not.toContainText(\"语言偏好\")",
-    "expect(dialog).toContainText(\"已软删除\")",
-    "expect(dialog).toContainText(\"已保存 · 后续新会话投射\")"
+    "expect(conversationMemory).toBeChecked()",
+    "expect(conversationMemory).not.toBeChecked()",
+    "expect(reopenedConversationMemory).not.toBeChecked()",
+    "expect(reopenedConversationMemory).toBeChecked()",
+    "expect(cloudSync).not.toBeChecked()",
+    "expect(cloudSync).toBeChecked()",
+    "expect(reopened).toContainText(\"语言偏好\")",
+    "expect(reopened).toContainText(\"已保存 · 后续新会话投射\")",
+    "expect.poll(() => latestMemoryProfile(cloudApi.memoryProfiles())) .toContain(\"默认使用中文\")",
+    "expect.poll(() => latestMemoryProfile(cloudApi.memoryProfiles())) .toContain(\"默认使用中文并先给结论\")",
+    "expect(reopened).toContainText(\"可能包含 API Key\")",
+    "expect(reopened).toContainText(\"服务信息\")",
+    "expect(reopened).not.toContainText(\"语言偏好\")",
+    "expect(reopened).toContainText(\"已软删除\")",
+    "expect(reopened).toContainText(\"已保存 · 后续新会话投射\")"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -132,7 +175,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-69C697DB124683",
+      "requirement_id": "REQ-0032CF882A798D",
       "type": "return",
       "assertion": "SETTINGS-T11/T12/T13/T14 | explicit personalization and global memory persist through the trusted bridge"
     }
@@ -193,43 +236,76 @@
       "entrypoint": "settings",
       "steps": [
         {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
           "action": "dialog.getByRole(\"button\", { name: \"个性化\", exact: true }).click()"
         },
         {
           "action": "instructions.fill(\"回答先给结论\")"
         },
         {
-          "action": "dialog.getByRole(\"button\", { name: \"保存指令\" }).click()"
+          "action": "dialog.getByRole(\"button\", { name: \"确认\", exact: true }).click()"
         },
         {
           "action": "dialog.getByRole(\"button\", { name: \"记忆\", exact: true }).click()"
         },
         {
-          "action": "dialog.getByRole(\"textbox\", { name: \"记忆标题\" }).fill(\"语言偏好\")"
+          "action": "conversationMemory.click()"
         },
         {
-          "action": "dialog.getByRole(\"textbox\", { name: \"记忆正文\" }).fill(\"默认使用中文\")"
+          "action": "dialog.getByRole(\"button\", { name: \"关闭设置\" }).click()"
         },
         {
-          "action": "dialog.getByRole(\"button\", { name: \"创建记忆\" }).click()"
+          "action": "reopened.getByRole(\"button\", { name: \"记忆\", exact: true }).click()"
         },
         {
-          "action": "dialog.getByRole(\"textbox\", { name: \"粘贴待导入记忆\" }).fill( '[{\"title\":\"服务信息\",\"content\":\"API_KEY=sk-sensitive-test\"}]', )"
+          "action": "reopenedConversationMemory.click()"
         },
         {
-          "action": "dialog.getByRole(\"button\", { name: \"解析预览\" }).click()"
+          "action": "cloudSync.click()"
         },
         {
-          "action": "dialog.getByRole(\"button\", { name: \"确认导入\" }).click()"
+          "action": "reopened.getByRole(\"button\", { name: \"编辑记忆\" }).click()"
         },
         {
-          "action": "dialog.getByRole(\"button\", { name: \"删除语言偏好\" }).click()"
+          "action": "reopened.getByRole(\"textbox\", { name: \"记忆标题\" }).fill(\"语言偏好\")"
         },
         {
-          "action": "dialog.getByRole(\"checkbox\", { name: \"已删除\" }).check()"
+          "action": "reopened.getByRole(\"textbox\", { name: \"记忆正文\" }).fill(\"默认使用中文\")"
         },
         {
-          "action": "dialog.getByRole(\"button\", { name: \"恢复\" }).click()"
+          "action": "reopened.getByRole(\"button\", { name: \"创建记忆\" }).click()"
+        },
+        {
+          "action": "reopened.getByRole(\"button\", { name: \"编辑\" }).click()"
+        },
+        {
+          "action": "reopened.getByRole(\"textbox\", { name: \"记忆正文\" }).fill(\"默认使用中文并先给结论\")"
+        },
+        {
+          "action": "reopened.getByRole(\"button\", { name: \"保存修改\" }).click()"
+        },
+        {
+          "action": "reopened.getByRole(\"textbox\", { name: \"粘贴待导入记忆\" }).fill( '[{\"title\":\"服务信息\",\"content\":\"API_KEY=sk-sensitive-test\"}]', )"
+        },
+        {
+          "action": "reopened.getByRole(\"button\", { name: \"解析预览\" }).click()"
+        },
+        {
+          "action": "reopened.getByRole(\"button\", { name: \"确认导入\" }).click()"
+        },
+        {
+          "action": "reopened.getByRole(\"button\", { name: \"删除语言偏好\" }).click()"
+        },
+        {
+          "action": "reopened.getByRole(\"checkbox\", { name: \"已删除\" }).check()"
+        },
+        {
+          "action": "reopened.getByRole(\"button\", { name: \"恢复\" }).click()"
+        },
+        {
+          "action": "cloudApi.close()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -250,13 +326,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/settings-production.spec.ts",
-        "line_start": 32,
-        "line_end": 72,
-        "body_sha256": "sha256:f4097201ac28a5642f1aa1654dd171b5b2970cf58480b0929817aacb57a0ee3a",
-        "assertion_count": 9,
-        "action_count": 13,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:5bbe24e9d488a9430def40811b207564168c2fb876ed57d754e62cfca3d0e0be"
+        "line_start": 78,
+        "line_end": 147,
+        "body_sha256": "sha256:ca60bd575e0d0e3eaf82d9f2449a8f0a7c42096da730069bed4a6c2be84c0368",
+        "assertion_count": 19,
+        "action_count": 24,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:95e337d0f83652dd6190ee79e83dd7802035b99a27549e29e3e04c066cf6d390"
       }
     },
     "reference_run": {
@@ -278,7 +354,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-69C697DB124683"
+      "REQ-0032CF882A798D"
     ],
     "categories": [
       "business"
@@ -286,7 +362,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-69C697DB124683"
+      "requirement:REQ-0032CF882A798D"
     ]
   }
 }

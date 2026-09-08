@@ -1,0 +1,286 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-PUBLISHED-APPS-MANAGEMENT-SPEC-652AA6B4",
+  "title": "PUBLISHED-APPS-T01 | management table and actions match the WorkBuddy CDP contract",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "browser",
+    "journey": "browser",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-published-apps-management-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/published-apps-management.spec.ts",
+      "locator": "line:30;test:PUBLISHED-APPS-T01 | management table and actions match the WorkBuddy CDP contract",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:652aa6b4ffb36ee6ecdfcc91a4348d80d27e2265bd644c03ec7052b497e81be6",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-5D3D4C0A091583",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-published-apps-management-spec-ts:L30:652aa6b4ff"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "browser",
+      "priority": "P1",
+      "rule": "PUBLISHED-APPS-T01 | management table and actions match the WorkBuddy CDP contract",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-published-apps-management-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "PUBLISHED-APPS-T01 | management table and actions match the WorkBuddy CDP contract"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "server.close((error) => error ? reject(error) : resolve())"
+    },
+    {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"数据管理\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"管理\", exact: true }).click()"
+    },
+    {
+      "action": "more.click()"
+    },
+    {
+      "action": "menu.getByRole(\"menuitem\", { name: \"重新发布\" }).click()"
+    },
+    {
+      "action": "republish.getByRole(\"button\", { name: \"取消\" }).click()"
+    },
+    {
+      "action": "more.click()"
+    },
+    {
+      "action": "menu.getByRole(\"menuitem\", { name: \"删除\" }).click()"
+    },
+    {
+      "action": "deletion.getByRole(\"button\", { name: \"取消\" }).click()"
+    },
+    {
+      "action": "cloud.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: \"新建任务\", exact: true })).toBeVisible()",
+    "expect(dialog).toBeVisible()",
+    "expect(dialog.getByRole(\"heading\", { name: \"数据管理\", exact: true })).toBeVisible()",
+    "expect(dialog.getByRole(\"heading\", { name: \"已发布的应用\", exact: true })).toBeVisible()",
+    "expect(table).toBeVisible()",
+    "expect(headers).toHaveCount(5)",
+    "expect(headers).toHaveText([\"名称\", \"任务\", \"发布链接\", \"发布时间\", \"操作\"])",
+    "expect(rows).toHaveCount(3)",
+    "expect(Math.abs(actual - expected)).toBeLessThanOrEqual(2)",
+    "expect(menu).toBeVisible()",
+    "expect(menuItems).toHaveText([\"重新发布\", \"复制链接\", \"删除\"])",
+    "expect(republish).toContainText(\"将使用最新的本地文件重新发布「fe-ai-story」，发布后原链接将更新为新版本内容。\")",
+    "expect(republish.getByRole(\"button\", { name: \"确认发布\" })).toBeVisible()",
+    "expect(deletion).toContainText(\"确认删除「fe-ai-story」？删除后，发布的链接将失效。\")",
+    "expect(deletion.getByRole(\"button\", { name: \"确认删除\" })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-5D3D4C0A091583",
+      "type": "return",
+      "assertion": "PUBLISHED-APPS-T01 | management table and actions match the WorkBuddy CDP contract"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-published-apps-management-spec-ts.652aa6b4ff",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/published-apps-management.spec.ts -g \"PUBLISHED-APPS-T01 | management table and actions match the WorkBuddy CDP contract\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "browser",
+      "steps": [
+        {
+          "action": "server.close((error) => error ? reject(error) : resolve())"
+        },
+        {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"数据管理\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"管理\", exact: true }).click()"
+        },
+        {
+          "action": "more.click()"
+        },
+        {
+          "action": "menu.getByRole(\"menuitem\", { name: \"重新发布\" }).click()"
+        },
+        {
+          "action": "republish.getByRole(\"button\", { name: \"取消\" }).click()"
+        },
+        {
+          "action": "more.click()"
+        },
+        {
+          "action": "menu.getByRole(\"menuitem\", { name: \"删除\" }).click()"
+        },
+        {
+          "action": "deletion.getByRole(\"button\", { name: \"取消\" }).click()"
+        },
+        {
+          "action": "cloud.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/published-apps-management.spec.ts",
+        "line_start": 30,
+        "line_end": 116,
+        "body_sha256": "sha256:d74767cba350e68e18e16e39ac9885aa926f61fabe1e64357b1a839531b886cd",
+        "assertion_count": 15,
+        "action_count": 11,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:e28dac69e07f2055cfe4b0c015312bcc1a68053cc3c01ab50377f5b656b8af6e"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-5D3D4C0A091583"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-5D3D4C0A091583"
+    ]
+  }
+}

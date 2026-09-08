@@ -21,26 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/workbuddy-project-layout.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-project-layout.spec.ts",
       "locator": "line:146;test:matches the WorkBuddy project-home layout without a live project server",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:eb39bdb653330ef3f51a9eaf1ed7d5d19d7142f9909a0ac6850de20de0286923",
-      "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-workbuddy-project-layout-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/workbuddy-project-layout.spec.ts",
-      "locator": "line:146;test:matches the WorkBuddy project-home layout without a live project server",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:eb39bdb653330ef3f51a9eaf1ed7d5d19d7142f9909a0ac6850de20de0286923",
       "redaction_status": "minimized"
     }
@@ -63,32 +49,6 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-workbuddy-project-layout-spec-ts"
-      ],
-      "supporting_sources": [],
-      "conflicts": [],
-      "resolution": {
-        "status": "resolved",
-        "reason": "compiled from the user-approved source hierarchy"
-      },
-      "oracle": "matches the WorkBuddy project-home layout without a live project server"
-    },
-    {
-      "requirement_id": "REQ-053947A97881FE",
-      "source_atom_ids": [
-        "QHEAD-E2E-e2e-workbuddy-project-layout-spec-ts:L146:eb39bdb653"
-      ],
-      "content_facets": [
-        "negative-rule"
-      ],
-      "acceptance_categories": [
-        "negative"
-      ],
-      "surface": "shell-home",
-      "priority": "P1",
-      "rule": "matches the WorkBuddy project-home layout without a live project server",
-      "authority_domain": "execution",
-      "governing_sources": [
-        "QHEAD-E2E-e2e-workbuddy-project-layout-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -269,6 +229,12 @@
     },
     {
       "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "page.getByTestId(\"project-composer-tool-trigger\").click()"
+    },
+    {
+      "action": "page.getByRole(\"menu\", { name: \"更多操作\" }) .getByRole(\"menuitem\", { name, exact: true }) .click()"
     },
     {
       "action": "page.getByTestId(\"project-composer-tool-trigger\").click()"
@@ -522,6 +488,14 @@
     "expect(geometry.art.width).toBeLessThanOrEqual(484)",
     "expect(geometry.hero.width).toBeGreaterThanOrEqual(1_046)",
     "expect(geometry.hero.width).toBeLessThanOrEqual(1_050)",
+    "expect(typeof actual, `${path} should be numeric`).toBe(\"number\")",
+    "expect( Math.abs(actual - expected), `${path}: expected ${expected} ±${GEOMETRY_TOLERANCE_PX}px, received ${actual}`, ).toBeLessThanOrEqual(GEOMETRY_TOLERANCE_PX)",
+    "expect(Array.isArray(actual), `${path} should be an array`).toBe(true)",
+    "expect(actual, `${path} length`).toHaveLength(expected.length)",
+    "expect(actual, `${path} should be an object`).not.toBeNull()",
+    "expect(typeof actual, `${path} should be an object`).toBe(\"object\")",
+    "expect(Object.keys(actualRecord).sort(), `${path} keys`).toEqual( Object.keys(expectedRecord).sort(), )",
+    "expect(actual, path).toBe(expected)",
     "expect(geometry.templateCards).toHaveLength(5)",
     "expect(geometry.templateCards[0]?.width).toBeGreaterThanOrEqual(337)",
     "expect(geometry.templateCards[0]?.width).toBeLessThanOrEqual(341)",
@@ -621,6 +595,8 @@
     "expect(todoEditor).toBeVisible()",
     "expect(Math.abs(actual - expected), `${label}: expected ${expected}, received ${actual}`).toBeLessThanOrEqual(2)",
     "expect(actual, `${label} should have a bounding box`).not.toBeNull()",
+    "expect(Math.abs(actual - expected), `${label}: expected ${expected}, received ${actual}`).toBeLessThanOrEqual(2)",
+    "expect(actual, `${label} should have a bounding box`).not.toBeNull()",
     "expect(statusMenu).toBeHidden()",
     "expect(assigneeMenu).toBeHidden()",
     "expect(priorityMenu).toBeHidden()",
@@ -633,6 +609,7 @@
     "expect(newViewMenu).toBeHidden()",
     "expect(settings).toBeVisible()",
     "expect(Math.abs((settingsBox?.x ?? 0) - (planGeometry.add.right - 290))).toBeLessThanOrEqual(2)",
+    "expect(actual, `${path} should have a bounding box`).not.toBeNull()",
     "expect(showSubtasks).toBeChecked()",
     "expect(page.getByText(\"\\u5b50\\u5f85\\u529e\\u9a8c\\u6536\", { exact: true })).toBeVisible()",
     "expect(showSubtasks).not.toBeChecked()",
@@ -721,11 +698,6 @@
   "oracles": [
     {
       "requirement_id": "REQ-BAC08B102657A7",
-      "type": "return",
-      "assertion": "matches the WorkBuddy project-home layout without a live project server"
-    },
-    {
-      "requirement_id": "REQ-053947A97881FE",
       "type": "return",
       "assertion": "matches the WorkBuddy project-home layout without a live project server"
     }
@@ -940,6 +912,12 @@
         },
         {
           "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "page.getByTestId(\"project-composer-tool-trigger\").click()"
+        },
+        {
+          "action": "page.getByRole(\"menu\", { name: \"更多操作\" }) .getByRole(\"menuitem\", { name, exact: true }) .click()"
         },
         {
           "action": "page.getByTestId(\"project-composer-tool-trigger\").click()"
@@ -1186,12 +1164,12 @@
       "source_contract": {
         "spec": "e2e/workbuddy-project-layout.spec.ts",
         "line_start": 146,
-        "line_end": 2367,
-        "body_sha256": "sha256:5f917b4febac1e1946588cbd15c89729898fcae037ef2a4ab43e3c50c0c8c448",
-        "assertion_count": 215,
-        "action_count": 127,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:2e1b49c24852a35cf2097aeeb5a4f8ec4ef7e168f54fc1f532f479a941e7dade"
+        "line_end": 2357,
+        "body_sha256": "sha256:3c9c44b82e778674bfedaaaa0bc8c49c96d50d0a424ef7653559d87a36d30e1f",
+        "assertion_count": 226,
+        "action_count": 129,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:710e474a9f9c210af95adee529d13bf3270afbf60dba09d4fa2a030d88f18a38"
       }
     },
     "reference_run": {
@@ -1213,7 +1191,6 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-053947A97881FE",
       "REQ-BAC08B102657A7"
     ],
     "categories": [
@@ -1222,7 +1199,6 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-053947A97881FE",
       "requirement:REQ-BAC08B102657A7"
     ]
   }

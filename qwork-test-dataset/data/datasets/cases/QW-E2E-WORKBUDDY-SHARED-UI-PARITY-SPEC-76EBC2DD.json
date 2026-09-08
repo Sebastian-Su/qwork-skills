@@ -1,0 +1,282 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-SHARED-UI-PARITY-SPEC-76EBC2DD",
+  "title": "灵感滚动时标题随内容移动而收藏返回入口保持顶栏位置",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "library",
+    "journey": "library",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-shared-ui-parity.spec.ts",
+      "locator": "line:2267;test:灵感滚动时标题随内容移动而收藏返回入口保持顶栏位置",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:76ebc2ddf97712baca803cdc10da87baf0a73a0c4423e780c1114f573de9c9d8",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-E196B39D3775CA",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts:L2267:76ebc2ddf9"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "library",
+      "priority": "P1",
+      "rule": "灵感滚动时标题随内容移动而收藏返回入口保持顶栏位置",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "灵感滚动时标题随内容移动而收藏返回入口保持顶栏位置"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"灵感\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"article\", { name: \"打工人小账本\", exact: true }).hover()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"我的收藏\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+    },
+    {
+      "action": "page.mouse.click(800, 80)"
+    },
+    {
+      "action": "back.click()"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "cloud.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.soft.poll(async () => (await heading.boundingBox())?.y, { timeout: 1500 }).toBe(-336)",
+    "expect.poll(async () => (await heading.boundingBox())?.y).toBe(84)",
+    "expect.soft(await back.boundingBox()).toEqual({ x: 280, y: 12, width: 66, height: 32 })",
+    "expect.soft((await heading.boundingBox())?.y).toBe(84)",
+    "expect.soft(favorite).toHaveCSS(\"background-color\", background, { timeout: 300 })",
+    "expect.soft((await page.getByText(\"暂无收藏\", { exact: true }).boundingBox())?.y).toBe(229.5)",
+    "expect.poll(() => page.evaluate(() => document.getAnimations().filter(a => a.effect?.getTiming().iterations !== Infinity && ![\"finished\", \"idle\"].includes(a.playState), ).length)).toBe(0)",
+    "expect(await dimensions()).toEqual({ width: 1728, height: 1084, dpr: 2 })",
+    "expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([3456, 2168])",
+    "expect(await dimensions()).toEqual({ width: 1728, height: 1084, dpr: 2 })",
+    "expect(page.getByRole(\"tablist\", { name: \"灵感分类\" })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-E196B39D3775CA",
+      "type": "return",
+      "assertion": "灵感滚动时标题随内容移动而收藏返回入口保持顶栏位置"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-shared-ui-parity-spec-ts.76ebc2ddf9",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-shared-ui-parity.spec.ts -g \"灵感滚动时标题随内容移动而收藏返回入口保持顶栏位置\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "library",
+      "steps": [
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"灵感\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"article\", { name: \"打工人小账本\", exact: true }).hover()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"我的收藏\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+        },
+        {
+          "action": "page.mouse.click(800, 80)"
+        },
+        {
+          "action": "back.click()"
+        },
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "cloud.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-shared-ui-parity.spec.ts",
+        "line_start": 2267,
+        "line_end": 2298,
+        "body_sha256": "sha256:1000b86b47554e592321ed6858813cc01f8b76140160ab8609eac288618624e8",
+        "assertion_count": 11,
+        "action_count": 11,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:5fdf2c06fef33a49affb73bb6f7f9aef7e267d980e36dc5a294e1eb58459ff79"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-E196B39D3775CA"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-E196B39D3775CA"
+    ]
+  }
+}

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/built-in-web-search.spec.ts",
-      "locator": "line:10;test:登录用户的 WebSearch scope 随会话下发并显示可点击来源",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/built-in-web-search.spec.ts",
+      "locator": "line:365;test:登录用户的 WebSearch scope 随会话下发并显示可点击来源",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:20d9b68be97aa29eed6de0a285f066df3b430731ccd629a597a9267f3a2ecc97",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-DAFDC200B6483B",
+      "requirement_id": "REQ-95679C5552C8EC",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-built-in-web-search-spec-ts:L10:20d9b68be9"
+        "QDEV-E2E-e2e-built-in-web-search-spec-ts:L365:20d9b68be9"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -88,12 +88,29 @@
     },
     {
       "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"引用 1 篇资料作为参考\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "sources.getByRole(\"button\", { name: \"关闭引用来源\" }).click()"
     }
   ],
   "expected_outcomes": [
     "expect .poll(() => page.evaluate(() => window.workGui.auth.status().then((status) => status.loggedIn), ), ) .toBe(true)",
     "expect(page.getByRole(\"link\", { name: \"QWork 官方网站\" })).toHaveAttribute( \"href\", \"https://qwork.360.cn/\", )",
     "expect(page.getByText(\"WebSearch\", { exact: true })).toHaveCount(0)",
+    "expect(page.getByRole(\"button\", { name: \"引用 1 篇资料作为参考\" })).toBeVisible()",
+    "expect(sources).toBeVisible()",
+    "expect(sources.getByText(\"回答已引用\")).toHaveCount(0)",
+    "expect(sources.getByText(\"由 QWork 联网搜索提供\")).toHaveCount(0)",
+    "expect(sources.locator('[data-site-favicon=\"qwork.360.cn\"][data-favicon-url]')).toHaveAttribute( \"data-favicon-url\", \"https://cdn-yb.icon.qq.com/zuowei_dir/qwork_360_cn.ico\", )",
+    "expect(sources).toHaveCSS(\"overflow-x\", \"hidden\")",
+    "expect(sources).toBeVisible()",
+    "expect(sources).toHaveCount(0)",
     "expect( controls .filter((message) => message.type === \"create_session\") .map((message) => message.qwork_api), ).toContainEqual({ base_url: server.baseUrl, access_token: \"[REDACTED]\", scopes: [\"media.generate\", \"search.query\"], })",
     "expect(controls).toContainEqual({ type: \"e2e_qwork_search_completed\", result_count: 1, })"
   ],
@@ -104,7 +121,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-DAFDC200B6483B",
+      "requirement_id": "REQ-95679C5552C8EC",
       "type": "ui",
       "assertion": "登录用户的 WebSearch scope 随会话下发并显示可点击来源"
     }
@@ -178,6 +195,15 @@
         },
         {
           "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"引用 1 篇资料作为参考\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "sources.getByRole(\"button\", { name: \"关闭引用来源\" }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -198,13 +224,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/built-in-web-search.spec.ts",
-        "line_start": 10,
-        "line_end": 97,
-        "body_sha256": "sha256:9e3adf5737b108305205fa90cec34acaffcca2e1c132c85cd8d2d467cec78a84",
-        "assertion_count": 5,
-        "action_count": 5,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:ef45f6344ac1b3651b9b431c9a470129d0460f01995e9435706f89693187d8d9"
+        "line_start": 365,
+        "line_end": 467,
+        "body_sha256": "sha256:361b192e9504b7dd766c18bf320605390e45c401301f848e10df2bc3c3d610c0",
+        "assertion_count": 13,
+        "action_count": 8,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:bc6b4d3f56add958b68f61cfeef0c59c95f390cb8ed0ff991bd4281b899bb6b1"
       }
     },
     "reference_run": {
@@ -226,7 +252,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-DAFDC200B6483B"
+      "REQ-95679C5552C8EC"
     ],
     "categories": [
       "business"
@@ -234,7 +260,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-DAFDC200B6483B"
+      "requirement:REQ-95679C5552C8EC"
     ]
   }
 }

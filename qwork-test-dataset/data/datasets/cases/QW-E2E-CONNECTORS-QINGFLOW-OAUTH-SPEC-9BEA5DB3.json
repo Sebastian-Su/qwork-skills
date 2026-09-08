@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-qingflow-oauth.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-qingflow-oauth.spec.ts",
       "locator": "line:177;test:connects bundled Qingflow through one loopback OAuth browser grant",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:9bea5db37a43e98ee16f4dd14e4938e8c7c3920942fb6f744d1f27d9ec4300d0",
       "redaction_status": "minimized"
     }
@@ -73,6 +73,9 @@
   "steps": [
     {
       "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "server.close((error) => (error ? reject(error) : resolve()))"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
@@ -182,6 +185,9 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "server.close((error) => (error ? reject(error) : resolve()))"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
         },
         {
@@ -219,8 +225,8 @@
         "line_end": 257,
         "body_sha256": "sha256:369383d6e9f74d44dfa3c82aa0b6ab9824a1d65ab637bfff196c18ff55da908d",
         "assertion_count": 22,
-        "action_count": 5,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:ada7551adf95f3a66eeb88b0476f2a7137207305e6599125748482ac9284233e"
       }
     },

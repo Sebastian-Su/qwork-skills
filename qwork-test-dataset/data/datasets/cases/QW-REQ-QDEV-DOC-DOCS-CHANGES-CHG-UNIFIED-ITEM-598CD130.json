@@ -22,21 +22,49 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:241;heading:资源依赖与开发硬门禁",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:402;heading:资源依赖与开发硬门禁",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:55c4bd2ea34b1e4df76136e010aa4c5c48f1e04be6786afddb252b7a2aaf7cc8",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:403;heading:资源依赖与开发硬门禁",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:2b585cc9065b7c0ff00b7bcd59ea434e7e6222bc5444d0e91e5e0978c2542d69",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:406;heading:资源依赖与开发硬门禁",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:b83b2f9a0452839d535f0e1d070b1a098b891d2ea4d66d0a98ce1c3845902764",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-69C2C034F29652",
+      "requirement_id": "REQ-81409CDE7187C0",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L241:55c4bd2ea3"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L402:55c4bd2ea3"
       ],
       "content_facets": [
         "role-permission"
@@ -58,6 +86,58 @@
         "reason": "compiled from the user-approved source hierarchy"
       },
       "oracle": "| Accountable 与 exclusive Claim | `single_writer` | 用户于 2026-08-27 明确授权；共享 Claim 后端仍为 `not_evaluated`；已核对活动任务与原工作树差异，无重叠生产代码写者 | codex 串行写三个隔离分支；发现重叠立即停止 |"
+    },
+    {
+      "requirement_id": "REQ-26B199881A550E",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L403:2b585cc906"
+      ],
+      "content_facets": [
+        "data-side-effect"
+      ],
+      "acceptance_categories": [
+        "data"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "| contract/privacy/SLS/deployment Owner | `approved_for_test_scope` | Accountable owner 于 2026-09-01 明确批准最小服务端 metadata 出站、保留既有配置的索引追加、测试环境部署和一次隔离真实模型验收；不包含正文、账号、请求 ID、模型名、路径或凭据 | 仅可执行测试范围；生产启用或扩大字段/目的地必须重新审批 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| contract/privacy/SLS/deployment Owner | `approved_for_test_scope` | Accountable owner 于 2026-09-01 明确批准最小服务端 metadata 出站、保留既有配置的索引追加、测试环境部署和一次隔离真实模型验收；不包含正文、账号、请求 ID、模型名、路径或凭据 | 仅可执行测试范围；生产启用或扩大字段/目的地必须重新审批 |"
+    },
+    {
+      "requirement_id": "REQ-963416B6E54440",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L406:b83b2f9a04"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "| SLS 当前保存周期与索引 | `ready_for_schema_v2_fields` | 2026-09-01 通过官方 UpdateIndex API 在完整现有配置上仅追加 `session_id/mid/tool_call_id/error_category/launch_id/core_version/sequence`，回读字段数由 46 增至 53；前六项为 `text`、`sequence` 为 `long`，均复用既有 `doc_value` 配置 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| SLS 当前保存周期与索引 | `ready_for_schema_v2_fields` | 2026-09-01 通过官方 UpdateIndex API 在完整现有配置上仅追加 `session_id/mid/tool_call_id/error_category/launch_id/core_version/sequence`，回读字段数由 46 增至 53；前六项为 `text`、`sequence` 为 `long`，均复用既有 `doc_value` 配置 |"
     }
   ],
   "verification": {
@@ -82,25 +162,45 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 资源依赖与开发硬门禁 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-69C2C034F29652] exactly: | Accountable 与 exclusive Claim | `single_writer` | 用户于 2026-08-27 明确授权；共享 Claim 后端仍为 `not_evaluated`；已核对活动任务与原工作树差异，无重叠生产代码写者 | codex 串行写三个隔离分支；发现重叠立即停止 |"
+      "action": "observe renderer UI and navigation state after the trigger and assert [REQ-81409CDE7187C0] exactly: | Accountable 与 exclusive Claim | `single_writer` | 用户于 2026-08-27 明确授权；共享 Claim 后端仍为 `not_evaluated`；已核对活动任务与原工作树差异，无重叠生产代码写者 | codex 串行写三个隔离分支；发现重叠立即停止 |"
+    },
+    {
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-26B199881A550E] exactly: | contract/privacy/SLS/deployment Owner | `approved_for_test_scope` | Accountable owner 于 2026-09-01 明确批准最小服务端 metadata 出站、保留既有配置的索引追加、测试环境部署和一次隔离真实模型验收；不包含正文、账号、请求 ID、模型名、路径或凭据 | 仅可执行测试范围；生产启用或扩大字段/目的地必须重新审批 |"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-963416B6E54440] exactly: | SLS 当前保存周期与索引 | `ready_for_schema_v2_fields` | 2026-09-01 通过官方 UpdateIndex API 在完整现有配置上仅追加 `session_id/mid/tool_call_id/error_category/launch_id/core_version/sequence`，回读字段数由 46 增至 53；前六项为 `text`、`sequence` 为 `long`，均复用既有 `doc_value` 配置 |"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
     }
   ],
   "expected_outcomes": [
-    "| Accountable 与 exclusive Claim | `single_writer` | 用户于 2026-08-27 明确授权；共享 Claim 后端仍为 `not_evaluated`；已核对活动任务与原工作树差异，无重叠生产代码写者 | codex 串行写三个隔离分支；发现重叠立即停止 |"
+    "| Accountable 与 exclusive Claim | `single_writer` | 用户于 2026-08-27 明确授权；共享 Claim 后端仍为 `not_evaluated`；已核对活动任务与原工作树差异，无重叠生产代码写者 | codex 串行写三个隔离分支；发现重叠立即停止 |",
+    "| contract/privacy/SLS/deployment Owner | `approved_for_test_scope` | Accountable owner 于 2026-09-01 明确批准最小服务端 metadata 出站、保留既有配置的索引追加、测试环境部署和一次隔离真实模型验收；不包含正文、账号、请求 ID、模型名、路径或凭据 | 仅可执行测试范围；生产启用或扩大字段/目的地必须重新审批 |",
+    "| SLS 当前保存周期与索引 | `ready_for_schema_v2_fields` | 2026-09-01 通过官方 UpdateIndex API 在完整现有配置上仅追加 `session_id/mid/tool_call_id/error_category/launch_id/core_version/sequence`，回读字段数由 46 增至 53；前六项为 `text`、`sequence` 为 `long`，均复用既有 `doc_value` 配置 |"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-69C2C034F29652]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | Accountable 与 exclusive Claim | `single_writer` | 用户于 2026-08-27 明确授权；共享 Claim 后端仍为 `not_evaluated`；已核对活动任务与原工作树差异，无重叠生产代码写者 | codex 串行写三个隔离分支；发现重叠立即停止 |",
+    "FAIL [REQ-81409CDE7187C0]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | Accountable 与 exclusive Claim | `single_writer` | 用户于 2026-08-27 明确授权；共享 Claim 后端仍为 `not_evaluated`；已核对活动任务与原工作树差异，无重叠生产代码写者 | codex 串行写三个隔离分支；发现重叠立即停止 |",
+    "FAIL [REQ-26B199881A550E]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | contract/privacy/SLS/deployment Owner | `approved_for_test_scope` | Accountable owner 于 2026-09-01 明确批准最小服务端 metadata 出站、保留既有配置的索引追加、测试环境部署和一次隔离真实模型验收；不包含正文、账号、请求 ID、模型名、路径或凭据 | 仅可执行测试范围；生产启用或扩大字段/目的地必须重新审批 |",
+    "FAIL [REQ-963416B6E54440]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | SLS 当前保存周期与索引 | `ready_for_schema_v2_fields` | 2026-09-01 通过官方 UpdateIndex API 在完整现有配置上仅追加 `session_id/mid/tool_call_id/error_category/launch_id/core_version/sequence`，回读字段数由 46 增至 53；前六项为 `text`、`sequence` 为 `long`，均复用既有 `doc_value` 配置 |",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-69C2C034F29652",
+      "requirement_id": "REQ-81409CDE7187C0",
       "type": "ui",
       "assertion": "| Accountable 与 exclusive Claim | `single_writer` | 用户于 2026-08-27 明确授权；共享 Claim 后端仍为 `not_evaluated`；已核对活动任务与原工作树差异，无重叠生产代码写者 | codex 串行写三个隔离分支；发现重叠立即停止 |"
+    },
+    {
+      "requirement_id": "REQ-26B199881A550E",
+      "type": "database",
+      "assertion": "| contract/privacy/SLS/deployment Owner | `approved_for_test_scope` | Accountable owner 于 2026-09-01 明确批准最小服务端 metadata 出站、保留既有配置的索引追加、测试环境部署和一次隔离真实模型验收；不包含正文、账号、请求 ID、模型名、路径或凭据 | 仅可执行测试范围；生产启用或扩大字段/目的地必须重新审批 |"
+    },
+    {
+      "requirement_id": "REQ-963416B6E54440",
+      "type": "return",
+      "assertion": "| SLS 当前保存周期与索引 | `ready_for_schema_v2_fields` | 2026-09-01 通过官方 UpdateIndex API 在完整现有配置上仅追加 `session_id/mid/tool_call_id/error_category/launch_id/core_version/sequence`，回读字段数由 46 增至 53；前六项为 `text`、`sequence` 为 `long`，均复用既有 `doc_value` 配置 |"
     }
   ],
   "cleanup": {
@@ -170,7 +270,13 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 资源依赖与开发硬门禁 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-69C2C034F29652] exactly: | Accountable 与 exclusive Claim | `single_writer` | 用户于 2026-08-27 明确授权；共享 Claim 后端仍为 `not_evaluated`；已核对活动任务与原工作树差异，无重叠生产代码写者 | codex 串行写三个隔离分支；发现重叠立即停止 |"
+          "action": "observe renderer UI and navigation state after the trigger and assert [REQ-81409CDE7187C0] exactly: | Accountable 与 exclusive Claim | `single_writer` | 用户于 2026-08-27 明确授权；共享 Claim 后端仍为 `not_evaluated`；已核对活动任务与原工作树差异，无重叠生产代码写者 | codex 串行写三个隔离分支；发现重叠立即停止 |"
+        },
+        {
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-26B199881A550E] exactly: | contract/privacy/SLS/deployment Owner | `approved_for_test_scope` | Accountable owner 于 2026-09-01 明确批准最小服务端 metadata 出站、保留既有配置的索引追加、测试环境部署和一次隔离真实模型验收；不包含正文、账号、请求 ID、模型名、路径或凭据 | 仅可执行测试范围；生产启用或扩大字段/目的地必须重新审批 |"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-963416B6E54440] exactly: | SLS 当前保存周期与索引 | `ready_for_schema_v2_fields` | 2026-09-01 通过官方 UpdateIndex API 在完整现有配置上仅追加 `session_id/mid/tool_call_id/error_category/launch_id/core_version/sequence`，回读字段数由 46 增至 53；前六项为 `text`、`sequence` 为 `long`，均复用既有 `doc_value` 配置 |"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -216,25 +322,51 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-69C2C034F29652"
+      "REQ-26B199881A550E",
+      "REQ-81409CDE7187C0",
+      "REQ-963416B6E54440"
     ],
     "categories": [
+      "business",
+      "data",
       "permission"
     ],
     "suite_ids": [
+      "category:business",
+      "category:data",
       "category:permission",
       "full",
-      "requirement:REQ-69C2C034F29652"
+      "requirement:REQ-26B199881A550E",
+      "requirement:REQ-81409CDE7187C0",
+      "requirement:REQ-963416B6E54440"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-69C2C034F29652",
+      "requirement_id": "REQ-81409CDE7187C0",
       "oracle_type": "ui",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 资源依赖与开发硬门禁 产品契约 exactly once and retain its correlation identity",
       "then": "| Accountable 与 exclusive Claim | `single_writer` | 用户于 2026-08-27 明确授权；共享 Claim 后端仍为 `not_evaluated`；已核对活动任务与原工作树差异，无重叠生产代码写者 | codex 串行写三个隔离分支；发现重叠立即停止 |",
       "observation_boundary": "renderer UI and navigation state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-26B199881A550E",
+      "oracle_type": "database",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 资源依赖与开发硬门禁 产品契约 exactly once and retain its correlation identity",
+      "then": "| contract/privacy/SLS/deployment Owner | `approved_for_test_scope` | Accountable owner 于 2026-09-01 明确批准最小服务端 metadata 出站、保留既有配置的索引追加、测试环境部署和一次隔离真实模型验收；不包含正文、账号、请求 ID、模型名、路径或凭据 | 仅可执行测试范围；生产启用或扩大字段/目的地必须重新审批 |",
+      "observation_boundary": "case-owned durable database state",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-963416B6E54440",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 资源依赖与开发硬门禁 产品契约 exactly once and retain its correlation identity",
+      "then": "| SLS 当前保存周期与索引 | `ready_for_schema_v2_fields` | 2026-09-01 通过官方 UpdateIndex API 在完整现有配置上仅追加 `session_id/mid/tool_call_id/error_category/launch_id/core_version/sequence`，回读字段数由 46 增至 53；前六项为 `text`、`sequence` 为 `long`，均复用既有 `doc_value` 配置 |",
+      "observation_boundary": "typed return value and side-effect ledger",
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     }
   ]

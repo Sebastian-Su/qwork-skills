@@ -1,0 +1,355 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-PUBLISHE-ITEM-9DC80CC5",
+  "title": "docs/changes/CHG-published-static-apps-20260902/implementation-plan.md · 目标 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-published-static-apps-20260902-impl",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-published-static-apps-20260902/implementation-plan.md",
+      "locator": "line:21;heading:目标",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:7cc8561b9f6789de278b6ef4f94cda78c8e4639d8b80308f38ce1489d672b740",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-published-static-apps-20260902-impl",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-published-static-apps-20260902/implementation-plan.md",
+      "locator": "line:22;heading:目标",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:e86685b7449943a0122ae836557c1b5e9dbfc5e0e18aa8b5d359e1638c7bd1ca",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-published-static-apps-20260902-impl",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-published-static-apps-20260902/implementation-plan.md",
+      "locator": "line:24;heading:目标",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:8e843d4483b5cb200fd7f5e04d95724e57774ad7152be2d2661302830f3ebd42",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-E17C73FF5E626A",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-published-static-apps-20260902-impl:L21:7cc8561b9f"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "原样发布包含 24,517,724 字节 MP4 的静态站点，保留 `<video src=\"screenshot.mp4\">` 相对引用。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-published-static-apps-20260902-impl"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "原样发布包含 24,517,724 字节 MP4 的静态站点，保留 `<video src=\"screenshot.mp4\">` 相对引用。"
+    },
+    {
+      "requirement_id": "REQ-34E0EDE15C0E39",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-published-static-apps-20260902-impl:L22:e86685b744"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "视频与其他静态资源共用应用版本、稳定 URL、私有 S3、删除和回滚生命周期。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-published-static-apps-20260902-impl"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "视频与其他静态资源共用应用版本、稳定 URL、私有 S3、删除和回滚生命周期。"
+    },
+    {
+      "requirement_id": "REQ-BB1075DE19FDC1",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-published-static-apps-20260902-impl:L24:8e843d4483"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "MCP 错误明确返回文件类型、实际大小和适用上限，不引导 Agent 删除被引用资源或读取含大段 base64 的 HTML。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-published-static-apps-20260902-impl"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "MCP 错误明确返回文件类型、实际大小和适用上限，不引导 Agent 删除被引用资源或读取含大段 base64 的 HTML。"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-published-static-apps-20260902/implementation-plan.md · 目标 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-E17C73FF5E626A] exactly: 原样发布包含 24,517,724 字节 MP4 的静态站点，保留 `<video src=\"screenshot.mp4\">` 相对引用。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-34E0EDE15C0E39] exactly: 视频与其他静态资源共用应用版本、稳定 URL、私有 S3、删除和回滚生命周期。"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-BB1075DE19FDC1] exactly: MCP 错误明确返回文件类型、实际大小和适用上限，不引导 Agent 删除被引用资源或读取含大段 base64 的 HTML。"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "原样发布包含 24,517,724 字节 MP4 的静态站点，保留 `<video src=\"screenshot.mp4\">` 相对引用。",
+    "视频与其他静态资源共用应用版本、稳定 URL、私有 S3、删除和回滚生命周期。",
+    "MCP 错误明确返回文件类型、实际大小和适用上限，不引导 Agent 删除被引用资源或读取含大段 base64 的 HTML。"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-E17C73FF5E626A]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 原样发布包含 24,517,724 字节 MP4 的静态站点，保留 `<video src=\"screenshot.mp4\">` 相对引用。",
+    "FAIL [REQ-34E0EDE15C0E39]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 视频与其他静态资源共用应用版本、稳定 URL、私有 S3、删除和回滚生命周期。",
+    "FAIL [REQ-BB1075DE19FDC1]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: MCP 错误明确返回文件类型、实际大小和适用上限，不引导 Agent 删除被引用资源或读取含大段 base64 的 HTML。",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-E17C73FF5E626A",
+      "type": "return",
+      "assertion": "原样发布包含 24,517,724 字节 MP4 的静态站点，保留 `<video src=\"screenshot.mp4\">` 相对引用。"
+    },
+    {
+      "requirement_id": "REQ-34E0EDE15C0E39",
+      "type": "return",
+      "assertion": "视频与其他静态资源共用应用版本、稳定 URL、私有 S3、删除和回滚生命周期。"
+    },
+    {
+      "requirement_id": "REQ-BB1075DE19FDC1",
+      "type": "return",
+      "assertion": "MCP 错误明确返回文件类型、实际大小和适用上限，不引导 Agent 删除被引用资源或读取含大段 base64 的 HTML。"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-published.item-9dc80cc558",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-published-static-apps-20260902/implementation-plan.md · 目标 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-E17C73FF5E626A] exactly: 原样发布包含 24,517,724 字节 MP4 的静态站点，保留 `<video src=\"screenshot.mp4\">` 相对引用。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-34E0EDE15C0E39] exactly: 视频与其他静态资源共用应用版本、稳定 URL、私有 S3、删除和回滚生命周期。"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-BB1075DE19FDC1] exactly: MCP 错误明确返回文件类型、实际大小和适用上限，不引导 Agent 删除被引用资源或读取含大段 base64 的 HTML。"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-34E0EDE15C0E39",
+      "REQ-BB1075DE19FDC1",
+      "REQ-E17C73FF5E626A"
+    ],
+    "categories": [
+      "business",
+      "negative"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:negative",
+      "full",
+      "requirement:REQ-34E0EDE15C0E39",
+      "requirement:REQ-BB1075DE19FDC1",
+      "requirement:REQ-E17C73FF5E626A"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-E17C73FF5E626A",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-published-static-apps-20260902/implementation-plan.md · 目标 产品契约 exactly once and retain its correlation identity",
+      "then": "原样发布包含 24,517,724 字节 MP4 的静态站点，保留 `<video src=\"screenshot.mp4\">` 相对引用。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-34E0EDE15C0E39",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-published-static-apps-20260902/implementation-plan.md · 目标 产品契约 exactly once and retain its correlation identity",
+      "then": "视频与其他静态资源共用应用版本、稳定 URL、私有 S3、删除和回滚生命周期。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-BB1075DE19FDC1",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-published-static-apps-20260902/implementation-plan.md · 目标 产品契约 exactly once and retain its correlation identity",
+      "then": "MCP 错误明确返回文件类型、实际大小和适用上限，不引导 Agent 删除被引用资源或读取含大段 base64 的 HTML。",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

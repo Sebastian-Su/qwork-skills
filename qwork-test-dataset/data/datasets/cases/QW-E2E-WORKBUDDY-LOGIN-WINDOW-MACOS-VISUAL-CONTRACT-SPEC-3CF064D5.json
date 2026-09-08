@@ -1,0 +1,232 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-LOGIN-WINDOW-MACOS-VISUAL-CONTRACT-SPEC-3CF064D5",
+  "title": "matches the logged-out macOS window geometry and native-frame ownership",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-login-window-macos-visual-contract-spe",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-login-window-macos-visual-contract.spec.ts",
+      "locator": "line:19;test:matches the logged-out macOS window geometry and native-frame ownership",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:3cf064d52357f62a9b4c93d0111d82f6bae8232f499493a50152d60444726857",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-C824490F3D122D",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-login-window-macos-visual-contract-spe:L19:3cf064d523"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "matches the logged-out macOS window geometry and native-frame ownership",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-login-window-macos-visual-contract-spe"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "matches the logged-out macOS window geometry and native-frame ownership"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "item?.click?.()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"确定\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.poll(() => page.evaluate(() => ({ width: innerWidth, height: innerHeight }))).toEqual({ width: 1300, height: 820, })",
+    "expect(page.getByTestId(\"global-window-chrome\")).toHaveCount(0)",
+    "expect(page.getByTestId(\"window-chrome\")).toHaveCount(0)",
+    "expect(page.getByRole(\"heading\", { name: \"QWork，我帮你\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"登录\", exact: true })).toBeVisible()",
+    "expect(nativeMenu?.map((item) => item.label)).toEqual([\"QWork\", \"编辑\", \"查看\", \"窗口\", \"帮助\"])",
+    "expect(nativeMenu?.[0]?.submenu).toEqual([ \"关于 QWork\", \"检查更新...\", \"separator\", \"服务\", \"separator\", \"隐藏 QWork\", \"隐藏其他\", \"显示全部\", \"separator\", \"退出 QWork\", ])",
+    "expect(nativeMenu?.[4]?.submenu).toEqual([ \"使用文档\", \"诊断工具\", \"打开日志文件夹\", \"意见反馈\", ])",
+    "expect(aboutDialog).toBeVisible()",
+    "expect(aboutDialog).toContainText(\"版本: 0.1.0 (a2a4b6f3)\")",
+    "expect(viewport).toEqual({ width: 1300, height: 820 })",
+    "expect(Math.abs(heading.x + heading.width / 2 - viewport.width / 2)).toBeLessThanOrEqual(2)",
+    "expect(Math.abs((privacy.x + terms.right) / 2 - viewport.width / 2)).toBeLessThanOrEqual(2)",
+    "expect(footerStyle.bottom).toBe(\"88px\")",
+    "expect(privacyStyle[\"text-decoration-line\"]).toBe(\"none\")",
+    "expect(privacyStyle.color).toBe(\"rgb(97, 97, 97)\")",
+    "expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(820)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-C824490F3D122D",
+      "type": "return",
+      "assertion": "matches the logged-out macOS window geometry and native-frame ownership"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-login-window-macos-visual-contract-spe.3cf064d523",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-login-window-macos-visual-contract.spec.ts -g \"matches the logged-out macOS window geometry and native-frame ownership\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "item?.click?.()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"确定\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-login-window-macos-visual-contract.spec.ts",
+        "line_start": 19,
+        "line_end": 167,
+        "body_sha256": "sha256:6042ca764d93788b8161ddd4e8f2c8fe9c9f39e8fe6c33243ad2e0c576ab22c1",
+        "assertion_count": 17,
+        "action_count": 2,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:55f9ba1f6978d71457789841406ef08d3c2df4bb138bcadd76f86558b27318f4"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-C824490F3D122D"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-C824490F3D122D"
+    ]
+  }
+}

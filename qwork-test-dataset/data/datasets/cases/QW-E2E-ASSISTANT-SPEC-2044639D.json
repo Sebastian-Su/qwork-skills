@@ -21,26 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/assistant.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/assistant.spec.ts",
       "locator": "line:15;test:configures an IM assistant, restores it and keeps its secret encrypted",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:2044639d7cd450e994b42582f968a69ff7086c720bd26cd28f45af0c1794ec42",
-      "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-assistant-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/assistant.spec.ts",
-      "locator": "line:15;test:configures an IM assistant, restores it and keeps its secret encrypted",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:2044639d7cd450e994b42582f968a69ff7086c720bd26cd28f45af0c1794ec42",
       "redaction_status": "minimized"
     }
@@ -71,32 +57,6 @@
         "reason": "compiled from the user-approved source hierarchy"
       },
       "oracle": "configures an IM assistant, restores it and keeps its secret encrypted"
-    },
-    {
-      "requirement_id": "REQ-14BBD3776E2EAA",
-      "source_atom_ids": [
-        "QHEAD-E2E-e2e-assistant-spec-ts:L15:2044639d7c"
-      ],
-      "content_facets": [
-        "acceptance-criterion"
-      ],
-      "acceptance_categories": [
-        "business"
-      ],
-      "surface": "im",
-      "priority": "P1",
-      "rule": "configures an IM assistant, restores it and keeps its secret encrypted",
-      "authority_domain": "execution",
-      "governing_sources": [
-        "QHEAD-E2E-e2e-assistant-spec-ts"
-      ],
-      "supporting_sources": [],
-      "conflicts": [],
-      "resolution": {
-        "status": "resolved",
-        "reason": "compiled from the user-approved source hierarchy"
-      },
-      "oracle": "configures an IM assistant, restores it and keeps its secret encrypted"
     }
   ],
   "verification": {
@@ -118,7 +78,7 @@
       "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
     },
     {
-      "action": "expandContext.click()"
+      "action": "page.getByRole(\"button\", { name: \"展开上下文面板\", exact: true }).click()"
     },
     {
       "action": "contextPanel.getByRole(\"button\", { name: \"收起任务进程\" }).click()"
@@ -145,7 +105,7 @@
       "action": "researchMenu.getByRole(\"menuitem\", { name: \"国际金价研究\" }).click()"
     },
     {
-      "action": "page.getByRole(\"button\", { name: \"助理设置\" }).click()"
+      "action": "page.getByRole(\"toolbar\", { name: \"助理工具栏\", exact: true }).getByRole(\"button\", { name: \"助理设置\", exact: true }).click()"
     },
     {
       "action": "dialog.getByRole(\"button\", { name: \"配置QQ\" }).click()"
@@ -188,9 +148,9 @@
     }
   ],
   "expected_outcomes": [
-    "expect(expandContext).toBeVisible()",
     "expect.poll(() => page.evaluate(() => localStorage.getItem(\"ziqdo:assistant-session-id\")), ).not.toBeNull()",
     "expect(page.getByRole(\"heading\", { name: \"本地助理\" })).toBeVisible()",
+    "expect(contextPanel).toHaveCount(0)",
     "expect(contextPanel).toBeVisible()",
     "expect(page.getByRole(\"toolbar\", { name: \"上下文面板工具栏\" })).toBeVisible()",
     "expect(page.getByRole(\"button\", { name: \"切换上下文视图\" })).toContainText(\"概览\")",
@@ -230,7 +190,7 @@
     "expect(dialog.getByText(\"助理设置\", { exact: true }).first()).toBeVisible()",
     "expect(dialog).not.toBeVisible()",
     "expect( page.getByRole(\"heading\", { name: \"本地助理\" }).locator(\"..\").getByText(\"QQ\"), ).toBeVisible()",
-    "expect.poll(() => page.evaluate((id) => window.workGui.sessions.history(id), legacyAssistantId)).not.toEqual([])",
+    "expect.poll(() => page.evaluate(async (id) => ( await window.workGui.sessions.history(id) ).messages, legacyAssistantId)).not.toEqual([])",
     "expect(page.getByText(/E2E 助理消息|收到/).first()).toBeVisible()",
     "expect(page.getByText(\"QQ\", { exact: true })).toBeVisible()",
     "expect( page.getByRole(\"complementary\").getByText(\"本地助理\", { exact: true }), ).toHaveCount(0)",
@@ -244,11 +204,6 @@
   "oracles": [
     {
       "requirement_id": "REQ-9A0F4EA5907D95",
-      "type": "return",
-      "assertion": "configures an IM assistant, restores it and keeps its secret encrypted"
-    },
-    {
-      "requirement_id": "REQ-14BBD3776E2EAA",
       "type": "return",
       "assertion": "configures an IM assistant, restores it and keeps its secret encrypted"
     }
@@ -312,7 +267,7 @@
           "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
         },
         {
-          "action": "expandContext.click()"
+          "action": "page.getByRole(\"button\", { name: \"展开上下文面板\", exact: true }).click()"
         },
         {
           "action": "contextPanel.getByRole(\"button\", { name: \"收起任务进程\" }).click()"
@@ -339,7 +294,7 @@
           "action": "researchMenu.getByRole(\"menuitem\", { name: \"国际金价研究\" }).click()"
         },
         {
-          "action": "page.getByRole(\"button\", { name: \"助理设置\" }).click()"
+          "action": "page.getByRole(\"toolbar\", { name: \"助理工具栏\", exact: true }).getByRole(\"button\", { name: \"助理设置\", exact: true }).click()"
         },
         {
           "action": "dialog.getByRole(\"button\", { name: \"配置QQ\" }).click()"
@@ -400,12 +355,12 @@
       "source_contract": {
         "spec": "e2e/assistant.spec.ts",
         "line_start": 15,
-        "line_end": 151,
-        "body_sha256": "sha256:dfaf4f999eca7b24c19a091586a04b6576b8d616af3e2fde8a5e1119dcf1fdb5",
+        "line_end": 152,
+        "body_sha256": "sha256:8ad37fac40c54a8d71e070eb2c8785f1087f86f84b86d9728f1e9c7846b293d7",
         "assertion_count": 47,
         "action_count": 24,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:05b76318b6671ec5f539585947a6d156702b42845f9d0f11b6b30e63eae720e4"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:2b5fc74b419be41d307bb857e5ae57d063a0a6627d9eb108b7347e388edf5ea2"
       }
     },
     "reference_run": {
@@ -427,7 +382,6 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-14BBD3776E2EAA",
       "REQ-9A0F4EA5907D95"
     ],
     "categories": [
@@ -436,7 +390,6 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-14BBD3776E2EAA",
       "requirement:REQ-9A0F4EA5907D95"
     ]
   }

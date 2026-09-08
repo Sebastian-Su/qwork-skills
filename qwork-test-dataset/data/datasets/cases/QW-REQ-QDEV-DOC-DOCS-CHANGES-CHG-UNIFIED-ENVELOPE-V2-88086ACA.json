@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:112;heading:事件 envelope v2",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:271;heading:事件 envelope v2",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:5d750e9488a47f76d73b941ef873256e11ca55d2587d71a1dd6b9a3f4377827b",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-5645712587546B",
+      "requirement_id": "REQ-7B8C0FC2E638F8",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L112:5d750e9488"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L271:5d750e9488"
       ],
       "content_facets": [
         "business-rule"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 事件 envelope v2 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-5645712587546B] exactly: | `tool_call_id` | ZiqDo 工具调用 ID；与 tool_name/outcome 配合查询 |"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7B8C0FC2E638F8] exactly: | `tool_call_id` | ZiqDo 工具调用 ID；与 tool_name/outcome 配合查询 |"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "| `tool_call_id` | ZiqDo 工具调用 ID；与 tool_name/outcome 配合查询 |"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-5645712587546B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | `tool_call_id` | ZiqDo 工具调用 ID；与 tool_name/outcome 配合查询 |",
+    "FAIL [REQ-7B8C0FC2E638F8]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | `tool_call_id` | ZiqDo 工具调用 ID；与 tool_name/outcome 配合查询 |",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-5645712587546B",
+      "requirement_id": "REQ-7B8C0FC2E638F8",
       "type": "return",
       "assertion": "| `tool_call_id` | ZiqDo 工具调用 ID；与 tool_name/outcome 配合查询 |"
     }
@@ -157,7 +157,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 事件 envelope v2 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-5645712587546B] exactly: | `tool_call_id` | ZiqDo 工具调用 ID；与 tool_name/outcome 配合查询 |"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7B8C0FC2E638F8] exactly: | `tool_call_id` | ZiqDo 工具调用 ID；与 tool_name/outcome 配合查询 |"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -200,7 +200,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-5645712587546B"
+      "REQ-7B8C0FC2E638F8"
     ],
     "categories": [
       "business"
@@ -208,12 +208,12 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-5645712587546B"
+      "requirement:REQ-7B8C0FC2E638F8"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-5645712587546B",
+      "requirement_id": "REQ-7B8C0FC2E638F8",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 事件 envelope v2 产品契约 exactly once and retain its correlation identity",

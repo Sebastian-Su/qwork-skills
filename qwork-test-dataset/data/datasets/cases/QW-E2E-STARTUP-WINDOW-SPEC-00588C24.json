@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/startup-window.spec.ts",
-      "locator": "line:7;test:the main window becomes visible after renderer startup",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/startup-window.spec.ts",
+      "locator": "line:8;test:the main window becomes visible after renderer startup",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:00588c24271c9b6ff00afe5064544ca1dd8116fefe105d4e6a33f45f24066592",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-A5A83B4C8416AC",
+      "requirement_id": "REQ-9DE81586508DAA",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-startup-window-spec-ts:L7:00588c2427"
+        "QDEV-E2E-e2e-startup-window-spec-ts:L8:00588c2427"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:49:18.978168+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -78,43 +78,52 @@
       "action": "createTestHome(\"startup-window\")"
     },
     {
-      "action": "openApp(configHome)"
+      "action": "resolveE2EStartupBudgetMs(process.platform)"
+    },
+    {
+      "action": "process.env.QWORK_STARTUP_METRICS_FILE?.trim()"
+    },
+    {
+      "action": "path.join(configHome, \"startup-metrics.json\")"
+    },
+    {
+      "action": "openApp(configHome, { QWORK_STARTUP_METRICS_FILE: startupMetricsFile, QWORK_STARTUP_BUDGET_MS: String(startupBudgetMs), })"
+    },
+    {
+      "action": "String(startupBudgetMs)"
     },
     {
       "action": "page.locator(\"#qwork-startup-placeholder\")"
     },
     {
-      "action": "process.env.QWORK_E2E_ARTIFACT_DIR?.trim()"
+      "action": "app.evaluate(({ app }) => app.getVersion())"
     },
     {
-      "action": "fs.mkdir(artifactDir, { recursive: true })"
+      "action": "app.getVersion()"
     },
     {
-      "action": "path.join(artifactDir, \"E2E-STARTUP-001-01-entry.png\")"
+      "action": "page.evaluate(() => window.workGui.system.diagnostics(), )"
     },
     {
-      "action": "page.screenshot({ path: entry, fullPage: true })"
+      "action": "window.workGui.system.diagnostics()"
     },
     {
-      "action": "testInfo.attach(\"startup-entry\", { path: entry, contentType: \"image/png\", })"
-    },
-    {
-      "action": "path.join( artifactDir, \"E2E-STARTUP-001-02-final-state.png\", )"
-    },
-    {
-      "action": "page.screenshot({ path: finalState, fullPage: true })"
-    },
-    {
-      "action": "testInfo.attach(\"startup-final-state\", { path: finalState, contentType: \"image/png\", })"
-    },
-    {
-      "action": "cleanupTestHome(app, configHome)"
+      "action": "page .getByTestId(\"sidebar-brand-area\") .getByText(`版本 V${mainVersion}`, { exact: true })"
     }
   ],
   "expected_outcomes": [
     "expect .poll(() => app!.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows().some((window) => window.isVisible()), ), ) .toBe(true)",
     "expect(startupPlaceholder).toBeAttached()",
     "expect(startupPlaceholder).toBeHidden()",
+    "expect.poll(() => page.locator(\"#root > *\").count()).toBeGreaterThan(0)",
+    "expect(page.locator(\"#root > *\").first()).toBeVisible()",
+    "expect(diagnostics.appVersion).toBe(mainVersion)",
+    "expect(versionLabel).toBeVisible()",
+    "expect(versionLabel).toHaveAttribute( \"title\", `版本 V${mainVersion}`, )",
+    "expect.poll(async () => { try { return await fs.readFile(startupMetricsFile, \"utf8\"); } catch { return \"\"; } }).not.toBe(\"\")",
+    "expect( startupMetrics.rendererReadyMs, `startup phases: ${JSON.stringify(startupMetrics.phases)}`, ).toBeLessThanOrEqual(startupBudgetMs)",
+    "expect(startupMetrics.budgetMs).toBe(startupBudgetMs)",
+    "expect(startupMetrics.phases.length).toBeGreaterThan(0)",
     "expect( fs.stat(path.join(configHome, \"work-gui\", \"runtime-data\", \"runtimes\")), ).rejects.toMatchObject({ code: \"ENOENT\" })",
     "expect( fs.stat( path.join( configHome, \"plugins\", \"marketplaces\", \"qwork-builtin\", ), ), ).rejects.toMatchObject({ code: \"ENOENT\" })",
     "expect( fs.stat( path.join(configHome, \"plugins\", \"installed_plugins.json\"), ), ).rejects.toMatchObject({ code: \"ENOENT\" })"
@@ -126,7 +135,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-A5A83B4C8416AC",
+      "requirement_id": "REQ-9DE81586508DAA",
       "type": "return",
       "assertion": "the main window becomes visible after renderer startup"
     }
@@ -190,37 +199,37 @@
           "action": "createTestHome(\"startup-window\")"
         },
         {
-          "action": "openApp(configHome)"
+          "action": "resolveE2EStartupBudgetMs(process.platform)"
+        },
+        {
+          "action": "process.env.QWORK_STARTUP_METRICS_FILE?.trim()"
+        },
+        {
+          "action": "path.join(configHome, \"startup-metrics.json\")"
+        },
+        {
+          "action": "openApp(configHome, { QWORK_STARTUP_METRICS_FILE: startupMetricsFile, QWORK_STARTUP_BUDGET_MS: String(startupBudgetMs), })"
+        },
+        {
+          "action": "String(startupBudgetMs)"
         },
         {
           "action": "page.locator(\"#qwork-startup-placeholder\")"
         },
         {
-          "action": "process.env.QWORK_E2E_ARTIFACT_DIR?.trim()"
+          "action": "app.evaluate(({ app }) => app.getVersion())"
         },
         {
-          "action": "fs.mkdir(artifactDir, { recursive: true })"
+          "action": "app.getVersion()"
         },
         {
-          "action": "path.join(artifactDir, \"E2E-STARTUP-001-01-entry.png\")"
+          "action": "page.evaluate(() => window.workGui.system.diagnostics(), )"
         },
         {
-          "action": "page.screenshot({ path: entry, fullPage: true })"
+          "action": "window.workGui.system.diagnostics()"
         },
         {
-          "action": "testInfo.attach(\"startup-entry\", { path: entry, contentType: \"image/png\", })"
-        },
-        {
-          "action": "path.join( artifactDir, \"E2E-STARTUP-001-02-final-state.png\", )"
-        },
-        {
-          "action": "page.screenshot({ path: finalState, fullPage: true })"
-        },
-        {
-          "action": "testInfo.attach(\"startup-final-state\", { path: finalState, contentType: \"image/png\", })"
-        },
-        {
-          "action": "cleanupTestHome(app, configHome)"
+          "action": "page .getByTestId(\"sidebar-brand-area\") .getByText(`版本 V${mainVersion}`, { exact: true })"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -241,13 +250,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/startup-window.spec.ts",
-        "line_start": 7,
-        "line_end": 65,
-        "body_sha256": "sha256:69ef9fc9faafe9b711dd87ce24698d4339f85de13a72573ff3e7d20dde1da68d",
-        "assertion_count": 6,
+        "line_start": 8,
+        "line_end": 106,
+        "body_sha256": "sha256:edec6b8ca1053371479d822470f492e56bb3cac49311d24661852f056e7c2ae4",
+        "assertion_count": 15,
         "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:266654fadab3fbc3acbff4f4833da18058a389303c2412794f708e89a3358066"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:b1296fd701efa3c005ad069967e98a457dd9b67d33cc7d95b41d4d3ddc899bf3"
       }
     },
     "reference_run": {
@@ -269,7 +278,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-A5A83B4C8416AC"
+      "REQ-9DE81586508DAA"
     ],
     "categories": [
       "business"
@@ -277,7 +286,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-A5A83B4C8416AC"
+      "requirement:REQ-9DE81586508DAA"
     ]
   }
 }

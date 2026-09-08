@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/settings.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/settings.spec.ts",
       "locator": "line:79;test:keeps terminal setting rows at one vertical interval",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:9cb9294e5fd4531cc0a89dfa34976b07ea9d1071c14c7d5f8b3af98341751294",
       "redaction_status": "minimized"
     }
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:49:05.422395+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -75,21 +75,29 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
       "action": "dialog.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"button\", { name: \"QWork 高级设置\", exact: true }).click()"
     },
     {
       "action": "dialog.getByRole(\"button\", { name: \"安全中心\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: newTaskName, exact: true })).toBeVisible()",
+    "expect(dialog).toBeVisible()",
     "expect(notificationStack.getByRole(\"button\", { name: \"发送测试通知\", })).toBeVisible()",
     "expect(notificationStack.getByRole(\"group\")).toHaveCount(3)",
     "expect(box).not.toBeNull()",
     "expect(rowBoxes.map((box) => Math.round(box.height))).toEqual([ 60, 60, 60, 60, ])",
     "expect( rowBoxes.slice(1).map((box, index) => Math.round(box.y - rowBoxes[index].y), ), ).toEqual([68, 68, 68])",
     "expect(box).not.toBeNull()",
-    "expect(securityRowBoxes.map((box) => Math.round(box.height))).toEqual([ 60, 60, 60, ])",
-    "expect( securityRowBoxes.slice(1).map((box, index) => Math.round(box.y - securityRowBoxes[index].y), ), ).toEqual([68, 68])"
+    "expect(securityRowBoxes.map((box) => box.height)).toEqual([ 52.5, 52.5, 52.5, ])",
+    "expect( securityRowBoxes.slice(1).map((box, index) => box.y - securityRowBoxes[index].y, ), ).toEqual([60.5, 60.5])"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -159,7 +167,13 @@
       "entrypoint": "settings",
       "steps": [
         {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
           "action": "dialog.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"button\", { name: \"QWork 高级设置\", exact: true }).click()"
         },
         {
           "action": "dialog.getByRole(\"button\", { name: \"安全中心\", exact: true }).click()"
@@ -184,12 +198,12 @@
       "source_contract": {
         "spec": "e2e/settings.spec.ts",
         "line_start": 79,
-        "line_end": 138,
-        "body_sha256": "sha256:cf057af43d2def492d1dba4dc292b5fdabbea329a3ca49da24baa4bde7812976",
-        "assertion_count": 8,
-        "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:810b9b0eddf7b6308584c421b22da0a5421cc35c2ea9b09cc8cf6def1910ed26"
+        "line_end": 140,
+        "body_sha256": "sha256:aa02a2f144cffc5ef95b5d725e24ad28f5d1760853994aeb6474de91a1cb693c",
+        "assertion_count": 10,
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:06e0bba09de15e5fb387cafbdcf2531fe0882c4c60378ce523f9078d9d6f7732"
       }
     },
     "reference_run": {

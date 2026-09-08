@@ -22,13 +22,13 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
-      "locator": "line:101;heading:最终实施结果",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
+      "locator": "line:102;heading:最终实施结果",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:007ea84264d13cb533ffb83490ad56f91993caaa7869d93731692dc8fba2c678",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:9dc176dbe348c960747ffeda9fca7a14dbf266f0c558d257a33377f0a9df3636",
       "redaction_status": "minimized"
     },
     {
@@ -36,31 +36,45 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
       "locator": "line:103;heading:最终实施结果",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:9573f97c558b6d1ae9e8574f4aff71cd2f86300380dd42fdfd5edbd8e72469f8",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:b3d679af6af7db8eb9d5e7ca6f19ebd9a0848d1e1af6faefe7007564ec1f1d26",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
+      "locator": "line:105;heading:最终实施结果",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:ead92896d5cda4cfec97d75ab840cca79ea95bf01a8a0cd8ff35175f6dab7496",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-3B83CC135FA66B",
+      "requirement_id": "REQ-40E5519AC4460A",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati:L101:007ea84264"
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati:L102:9dc176dbe3"
       ],
       "content_facets": [
-        "business-rule"
+        "role-permission"
       ],
       "acceptance_categories": [
-        "business"
+        "permission"
       ],
       "surface": "window-runtime",
       "priority": "P1",
-      "rule": "最终 macOS 证据：全量 Vitest 617 files / 4608 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、skills/governance 校验和 `git diff --check` 通过。",
+      "rule": "首次 Windows PR CI 在 `2afe2843` 暴露 6 项单测失败：3 项 fixture 创建文件 symlink 时因无开发者权限报 `EPERM`，另 3 项 Sidecar 用例出现 `plugin_discovery_failed` 或超时；构建和 Windows 核心 E2E 通过不抵消单测失败。目标分支 `39e55d5c` 已先引入统一 portable symlink fixture，本跟进让 SkillEdit 测试复用该 helper；最新",
       "authority_domain": "product",
       "governing_sources": [
         "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati"
@@ -71,12 +85,38 @@
         "status": "resolved",
         "reason": "compiled from the user-approved source hierarchy"
       },
-      "oracle": "最终 macOS 证据：全量 Vitest 617 files / 4608 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、skills/governance 校验和 `git diff --check` 通过。"
+      "oracle": "首次 Windows PR CI 在 `2afe2843` 暴露 6 项单测失败：3 项 fixture 创建文件 symlink 时因无开发者权限报 `EPERM`，另 3 项 Sidecar 用例出现 `plugin_discovery_failed` 或超时；构建和 Windows 核心 E2E 通过不抵消单测失败。目标分支 `39e55d5c` 已先引入统一 portable symlink fixture，本跟进让 SkillEdit 测试复用该 helper；最新"
     },
     {
-      "requirement_id": "REQ-19C4AEA3D3751A",
+      "requirement_id": "REQ-726C44D4C479A5",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati:L103:9573f97c55"
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati:L103:b3d679af6a"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "修复后 macOS 证据：冲突同步前全量 Vitest 625 files / 4612 tests 通过；同步最新 develop 并修复 FileCatalogService Windows 夹具后，完整门禁 4710 项测试中 4676 项通过、34 项条件跳过、0 项失败，聚焦链接边界 4 files / 40 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、s",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "修复后 macOS 证据：冲突同步前全量 Vitest 625 files / 4612 tests 通过；同步最新 develop 并修复 FileCatalogService Windows 夹具后，完整门禁 4710 项测试中 4676 项通过、34 项条件跳过、0 项失败，聚焦链接边界 4 files / 40 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、s"
+    },
+    {
+      "requirement_id": "REQ-7E8775C0F3D41F",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati:L105:ead92896d5"
       ],
       "content_facets": [
         "state-transition"
@@ -87,7 +127,7 @@
       ],
       "surface": "window-runtime",
       "priority": "P1",
-      "rule": "尚未声明完成的门禁：第二名具名 filesystem/security Reviewer、Windows/Linux 原生 filesystem/Electron 证据，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。",
+      "rule": "尚未声明完成的门禁：FileCatalogService 夹具修复后的 Windows PR CI 再复验、Linux 原生 filesystem/Electron 证据、第二名具名 filesystem/security Reviewer，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。",
       "authority_domain": "product",
       "governing_sources": [
         "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati"
@@ -98,7 +138,7 @@
         "status": "resolved",
         "reason": "compiled from the user-approved source hierarchy"
       },
-      "oracle": "尚未声明完成的门禁：第二名具名 filesystem/security Reviewer、Windows/Linux 原生 filesystem/Electron 证据，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。"
+      "oracle": "尚未声明完成的门禁：FileCatalogService 夹具修复后的 Windows PR CI 再复验、Linux 原生 filesystem/Electron 证据、第二名具名 filesystem/security Reviewer，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。"
     }
   ],
   "verification": {
@@ -123,35 +163,45 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 最终实施结果 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-3B83CC135FA66B] exactly: 最终 macOS 证据：全量 Vitest 617 files / 4608 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、skills/governance 校验和 `git diff --check` 通过。"
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-40E5519AC4460A] exactly: 首次 Windows PR CI 在 `2afe2843` 暴露 6 项单测失败：3 项 fixture 创建文件 symlink 时因无开发者权限报 `EPERM`，另 3 项 Sidecar 用例出现 `plugin_discovery_failed` 或超时；构建和 Windows 核心 E2E 通过不抵消单测失败。目标分支 `39e55d5c` 已先引入统一 portable symlink fixture，本跟进让 SkillEdit 测试复用该 helper；最新"
     },
     {
-      "action": "observe session/sidecar event stream after the trigger and assert [REQ-19C4AEA3D3751A] exactly: 尚未声明完成的门禁：第二名具名 filesystem/security Reviewer、Windows/Linux 原生 filesystem/Electron 证据，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-726C44D4C479A5] exactly: 修复后 macOS 证据：冲突同步前全量 Vitest 625 files / 4612 tests 通过；同步最新 develop 并修复 FileCatalogService Windows 夹具后，完整门禁 4710 项测试中 4676 项通过、34 项条件跳过、0 项失败，聚焦链接边界 4 files / 40 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、s"
+    },
+    {
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-7E8775C0F3D41F] exactly: 尚未声明完成的门禁：FileCatalogService 夹具修复后的 Windows PR CI 再复验、Linux 原生 filesystem/Electron 证据、第二名具名 filesystem/security Reviewer，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
     }
   ],
   "expected_outcomes": [
-    "最终 macOS 证据：全量 Vitest 617 files / 4608 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、skills/governance 校验和 `git diff --check` 通过。",
-    "尚未声明完成的门禁：第二名具名 filesystem/security Reviewer、Windows/Linux 原生 filesystem/Electron 证据，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。"
+    "首次 Windows PR CI 在 `2afe2843` 暴露 6 项单测失败：3 项 fixture 创建文件 symlink 时因无开发者权限报 `EPERM`，另 3 项 Sidecar 用例出现 `plugin_discovery_failed` 或超时；构建和 Windows 核心 E2E 通过不抵消单测失败。目标分支 `39e55d5c` 已先引入统一 portable symlink fixture，本跟进让 SkillEdit 测试复用该 helper；最新",
+    "修复后 macOS 证据：冲突同步前全量 Vitest 625 files / 4612 tests 通过；同步最新 develop 并修复 FileCatalogService Windows 夹具后，完整门禁 4710 项测试中 4676 项通过、34 项条件跳过、0 项失败，聚焦链接边界 4 files / 40 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、s",
+    "尚未声明完成的门禁：FileCatalogService 夹具修复后的 Windows PR CI 再复验、Linux 原生 filesystem/Electron 证据、第二名具名 filesystem/security Reviewer，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-3B83CC135FA66B]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 最终 macOS 证据：全量 Vitest 617 files / 4608 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、skills/governance 校验和 `git diff --check` 通过。",
-    "FAIL [REQ-19C4AEA3D3751A]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 尚未声明完成的门禁：第二名具名 filesystem/security Reviewer、Windows/Linux 原生 filesystem/Electron 证据，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。",
+    "FAIL [REQ-40E5519AC4460A]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 首次 Windows PR CI 在 `2afe2843` 暴露 6 项单测失败：3 项 fixture 创建文件 symlink 时因无开发者权限报 `EPERM`，另 3 项 Sidecar 用例出现 `plugin_discovery_failed` 或超时；构建和 Windows 核心 E2E 通过不抵消单测失败。目标分支 `39e55d5c` 已先引入统一 portable symlink fixture，本跟进让 SkillEdit 测试复用该 helper；最新",
+    "FAIL [REQ-726C44D4C479A5]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 修复后 macOS 证据：冲突同步前全量 Vitest 625 files / 4612 tests 通过；同步最新 develop 并修复 FileCatalogService Windows 夹具后，完整门禁 4710 项测试中 4676 项通过、34 项条件跳过、0 项失败，聚焦链接边界 4 files / 40 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、s",
+    "FAIL [REQ-7E8775C0F3D41F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 尚未声明完成的门禁：FileCatalogService 夹具修复后的 Windows PR CI 再复验、Linux 原生 filesystem/Electron 证据、第二名具名 filesystem/security Reviewer，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-3B83CC135FA66B",
-      "type": "return",
-      "assertion": "最终 macOS 证据：全量 Vitest 617 files / 4608 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、skills/governance 校验和 `git diff --check` 通过。"
+      "requirement_id": "REQ-40E5519AC4460A",
+      "type": "api",
+      "assertion": "首次 Windows PR CI 在 `2afe2843` 暴露 6 项单测失败：3 项 fixture 创建文件 symlink 时因无开发者权限报 `EPERM`，另 3 项 Sidecar 用例出现 `plugin_discovery_failed` 或超时；构建和 Windows 核心 E2E 通过不抵消单测失败。目标分支 `39e55d5c` 已先引入统一 portable symlink fixture，本跟进让 SkillEdit 测试复用该 helper；最新"
     },
     {
-      "requirement_id": "REQ-19C4AEA3D3751A",
+      "requirement_id": "REQ-726C44D4C479A5",
+      "type": "return",
+      "assertion": "修复后 macOS 证据：冲突同步前全量 Vitest 625 files / 4612 tests 通过；同步最新 develop 并修复 FileCatalogService Windows 夹具后，完整门禁 4710 项测试中 4676 项通过、34 项条件跳过、0 项失败，聚焦链接边界 4 files / 40 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、s"
+    },
+    {
+      "requirement_id": "REQ-7E8775C0F3D41F",
       "type": "event",
-      "assertion": "尚未声明完成的门禁：第二名具名 filesystem/security Reviewer、Windows/Linux 原生 filesystem/Electron 证据，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。"
+      "assertion": "尚未声明完成的门禁：FileCatalogService 夹具修复后的 Windows PR CI 再复验、Linux 原生 filesystem/Electron 证据、第二名具名 filesystem/security Reviewer，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。"
     }
   ],
   "cleanup": {
@@ -208,10 +258,13 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 最终实施结果 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-3B83CC135FA66B] exactly: 最终 macOS 证据：全量 Vitest 617 files / 4608 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、skills/governance 校验和 `git diff --check` 通过。"
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-40E5519AC4460A] exactly: 首次 Windows PR CI 在 `2afe2843` 暴露 6 项单测失败：3 项 fixture 创建文件 symlink 时因无开发者权限报 `EPERM`，另 3 项 Sidecar 用例出现 `plugin_discovery_failed` 或超时；构建和 Windows 核心 E2E 通过不抵消单测失败。目标分支 `39e55d5c` 已先引入统一 portable symlink fixture，本跟进让 SkillEdit 测试复用该 helper；最新"
         },
         {
-          "action": "observe session/sidecar event stream after the trigger and assert [REQ-19C4AEA3D3751A] exactly: 尚未声明完成的门禁：第二名具名 filesystem/security Reviewer、Windows/Linux 原生 filesystem/Electron 证据，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-726C44D4C479A5] exactly: 修复后 macOS 证据：冲突同步前全量 Vitest 625 files / 4612 tests 通过；同步最新 develop 并修复 FileCatalogService Windows 夹具后，完整门禁 4710 项测试中 4676 项通过、34 项条件跳过、0 项失败，聚焦链接边界 4 files / 40 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、s"
+        },
+        {
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-7E8775C0F3D41F] exactly: 尚未声明完成的门禁：FileCatalogService 夹具修复后的 Windows PR CI 再复验、Linux 原生 filesystem/Electron 证据、第二名具名 filesystem/security Reviewer，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -254,39 +307,52 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-19C4AEA3D3751A",
-      "REQ-3B83CC135FA66B"
+      "REQ-40E5519AC4460A",
+      "REQ-726C44D4C479A5",
+      "REQ-7E8775C0F3D41F"
     ],
     "categories": [
-      "business",
+      "negative",
+      "permission",
       "recovery",
       "state"
     ],
     "suite_ids": [
-      "category:business",
+      "category:negative",
+      "category:permission",
       "category:recovery",
       "category:state",
       "full",
-      "requirement:REQ-19C4AEA3D3751A",
-      "requirement:REQ-3B83CC135FA66B"
+      "requirement:REQ-40E5519AC4460A",
+      "requirement:REQ-726C44D4C479A5",
+      "requirement:REQ-7E8775C0F3D41F"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-3B83CC135FA66B",
+      "requirement_id": "REQ-40E5519AC4460A",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 最终实施结果 产品契约 exactly once and retain its correlation identity",
+      "then": "首次 Windows PR CI 在 `2afe2843` 暴露 6 项单测失败：3 项 fixture 创建文件 symlink 时因无开发者权限报 `EPERM`，另 3 项 Sidecar 用例出现 `plugin_discovery_failed` 或超时；构建和 Windows 核心 E2E 通过不抵消单测失败。目标分支 `39e55d5c` 已先引入统一 portable symlink fixture，本跟进让 SkillEdit 测试复用该 helper；最新",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-726C44D4C479A5",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 最终实施结果 产品契约 exactly once and retain its correlation identity",
-      "then": "最终 macOS 证据：全量 Vitest 617 files / 4608 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、skills/governance 校验和 `git diff --check` 通过。",
+      "then": "修复后 macOS 证据：冲突同步前全量 Vitest 625 files / 4612 tests 通过；同步最新 develop 并修复 FileCatalogService Windows 夹具后，完整门禁 4710 项测试中 4676 项通过、34 项条件跳过、0 项失败，聚焦链接边界 4 files / 40 tests 通过，SkillHub E2E 13/13，核心 E2E 8/8（另 1 项 Windows-only 跳过），typecheck、build、s",
       "observation_boundary": "typed return value and side-effect ledger",
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     },
     {
-      "requirement_id": "REQ-19C4AEA3D3751A",
+      "requirement_id": "REQ-7E8775C0F3D41F",
       "oracle_type": "event",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 最终实施结果 产品契约 exactly once and retain its correlation identity",
-      "then": "尚未声明完成的门禁：第二名具名 filesystem/security Reviewer、Windows/Linux 原生 filesystem/Electron 证据，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。",
+      "then": "尚未声明完成的门禁：FileCatalogService 夹具修复后的 Windows PR CI 再复验、Linux 原生 filesystem/Electron 证据、第二名具名 filesystem/security Reviewer，以及受保护 CI 的最小真实模型工具调用验证；已选择的 assignee `zhongtianzhou` 不等于审批通过。",
       "observation_boundary": "session/sidecar event stream",
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     }

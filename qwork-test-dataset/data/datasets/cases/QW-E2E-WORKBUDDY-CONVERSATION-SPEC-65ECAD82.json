@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/workbuddy-conversation.spec.ts",
-      "locator": "line:453;test:groups one assistant turn and makes every reply action observable",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-conversation.spec.ts",
+      "locator": "line:659;test:groups one assistant turn and makes every reply action observable",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:65ecad82f260a1c3cd509d28bdb24cf56ced9a730e25bd17258812b8539ad2c5",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-85D72F3AA322E6",
+      "requirement_id": "REQ-571B4629F9329C",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts:L453:65ecad82f2"
+        "QDEV-E2E-e2e-workbuddy-conversation-spec-ts:L659:65ecad82f2"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -117,7 +117,13 @@
       "action": "turn.getByRole(\"button\", { name: \"踩\" }).click()"
     },
     {
-      "action": "feedbackReasons.getByRole(\"option\", { name: \"回答不清晰\" }).click()"
+      "action": "feedbackReasons.getByRole(\"checkbox\", { name: \"回答不清晰\" }).click()"
+    },
+    {
+      "action": "feedbackReasons.getByRole(\"checkbox\", { name: \"其他\" }).click()"
+    },
+    {
+      "action": "feedbackReasons.getByPlaceholder(\"请描述具体的原因\").fill(\"不会进入 SLS 的原文\")"
     },
     {
       "action": "feedbackReasons.getByRole(\"button\", { name: \"提交反馈\" }).click()"
@@ -132,10 +138,13 @@
       "action": "turn.getByRole(\"button\", { name: \"更多\" }).click()"
     },
     {
-      "action": "moreMenu.getByRole(\"menuitem\", { name: \"复制请求ID\" }).click()"
+      "action": "moreMenu.getByRole(\"menuitem\", { name: \"复制诊断 ID\" }).click()"
     },
     {
       "action": "turn.getByRole(\"button\", { name: \"重试\" }).click()"
+    },
+    {
+      "action": "feedbackSls.close()"
     }
   ],
   "expected_outcomes": [
@@ -165,8 +174,12 @@
     "expect.poll(async () => { observedReadAloudState = await readAloudUiState(); return observedReadAloudState; }).toMatch(/^(active|completed|error)$/)",
     "expect.poll(readAloudUiState).toMatch(/^(stopped|completed|error)$/)",
     "expect(like).toHaveAttribute(\"aria-pressed\", \"true\")",
+    "expect.poll(() => feedbackSls.records.some((record) => ( record.event_name === \"ui.feedback.action\" && record.feedback_action === \"like\" && record.feedback_source === \"assistant_message\" ))).toBe(true)",
     "expect(feedbackReasons).toBeVisible()",
+    "expect(feedbackReasons).toHaveAttribute(\"data-placement\", \"bottom\")",
     "expect(turn.getByRole(\"status\")).toHaveText(\"感谢反馈\")",
+    "expect.poll(() => feedbackSls.records.find((record) => ( record.event_name === \"ui.feedback.action\" && record.feedback_action === \"dislike\" ))).toMatchObject({ attr: \"回答不清晰,其他\", feedback_has_custom_text: \"true\", feedback_custom_text_length_bucket: \"1_50\", })",
+    "expect(JSON.stringify(feedbackSls.records)).not.toContain(\"不会进入 SLS 的原文\")",
     "expect(turn.getByText(\"感谢反馈\", { exact: true })).toHaveCount(0, { timeout: 3_000 })",
     "expect(share).toBeVisible()",
     "expect(share.getByRole(\"checkbox\", { name: \"全选\" })).toBeChecked()",
@@ -174,7 +187,7 @@
     "expect(share.getByRole(\"button\", { name: \"生成二维码\" })).toBeEnabled()",
     "expect(share.getByRole(\"button\", { name: \"浏览器打开\" })).toBeEnabled()",
     "expect(moreMenu.getByRole(\"menuitem\", { name: \"提交反馈\" })).toBeVisible()",
-    "expect.poll(() => page.evaluate(() => window.workGui!.clipboard.readText())).not.toBe(\"\")",
+    "expect.poll(() => page.evaluate(() => window.workGui!.clipboard.readText())) .toMatch(/^[0-9a-f]{32}$/)",
     "expect( page.getByTestId(\"user-message-bubble\").filter({ hasText: \"查询北京天气并验证单轮回复\", }), ).toHaveCount(1)",
     "expect(page.getByTestId(/assistant-turn-/)).toHaveCount(1)",
     "expect(page.getByTestId(/assistant-turn-/).getByRole(\"button\", { name: \"复制\" })).toHaveCount(1)"
@@ -186,7 +199,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-85D72F3AA322E6",
+      "requirement_id": "REQ-571B4629F9329C",
       "type": "return",
       "assertion": "groups one assistant turn and makes every reply action observable"
     }
@@ -289,7 +302,13 @@
           "action": "turn.getByRole(\"button\", { name: \"踩\" }).click()"
         },
         {
-          "action": "feedbackReasons.getByRole(\"option\", { name: \"回答不清晰\" }).click()"
+          "action": "feedbackReasons.getByRole(\"checkbox\", { name: \"回答不清晰\" }).click()"
+        },
+        {
+          "action": "feedbackReasons.getByRole(\"checkbox\", { name: \"其他\" }).click()"
+        },
+        {
+          "action": "feedbackReasons.getByPlaceholder(\"请描述具体的原因\").fill(\"不会进入 SLS 的原文\")"
         },
         {
           "action": "feedbackReasons.getByRole(\"button\", { name: \"提交反馈\" }).click()"
@@ -304,10 +323,13 @@
           "action": "turn.getByRole(\"button\", { name: \"更多\" }).click()"
         },
         {
-          "action": "moreMenu.getByRole(\"menuitem\", { name: \"复制请求ID\" }).click()"
+          "action": "moreMenu.getByRole(\"menuitem\", { name: \"复制诊断 ID\" }).click()"
         },
         {
           "action": "turn.getByRole(\"button\", { name: \"重试\" }).click()"
+        },
+        {
+          "action": "feedbackSls.close()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -328,13 +350,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/workbuddy-conversation.spec.ts",
-        "line_start": 453,
-        "line_end": 648,
-        "body_sha256": "sha256:58afaa7e0a7b0a398ad34d0daf19fc1bc1b8130bfedae7302265e3352ea51f05",
-        "assertion_count": 39,
-        "action_count": 21,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:ca7107bc5e9405b53f88ee94214e10e656189f5bc9b51ff10d4e3ec6cf233468"
+        "line_start": 659,
+        "line_end": 875,
+        "body_sha256": "sha256:8bee55f4f148d9716e20130a6bec71a0dd37477b6947392f2a758d0eb9877eb2",
+        "assertion_count": 43,
+        "action_count": 24,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:6e750858e2e87d9e524f9e4b120554d5d00845f451fc2ecc810e83b32f4f4a1c"
       }
     },
     "reference_run": {
@@ -356,7 +378,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-85D72F3AA322E6"
+      "REQ-571B4629F9329C"
     ],
     "categories": [
       "business"
@@ -364,7 +386,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-85D72F3AA322E6"
+      "requirement:REQ-571B4629F9329C"
     ]
   }
 }

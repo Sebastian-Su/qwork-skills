@@ -1,0 +1,245 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-INSPIRATION-SPEC-A9194521",
+  "title": "runs the complete WorkBuddy 5.4.7 seven-Case matrix into editable unsent drafts",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "library",
+    "journey": "library",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-inspiration-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/inspiration.spec.ts",
+      "locator": "line:565;test:runs the complete WorkBuddy 5.4.7 seven-Case matrix into editable unsent drafts",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:a919452144511994f12cee89d13909d97da1f72de394ae7b2735d9195c10a1f4",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-772BD4AB407248",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-inspiration-spec-ts:L565:a919452144"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "library",
+      "priority": "P1",
+      "rule": "runs the complete WorkBuddy 5.4.7 seven-Case matrix into editable unsent drafts",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-inspiration-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "runs the complete WorkBuddy 5.4.7 seven-Case matrix into editable unsent drafts"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"灵感\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"searchbox\", { name: \"搜索灵感\" }).fill(expectation.title)"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: `查看 ${expectation.title}` }).click()"
+    },
+    {
+      "action": "caseDialog.getByRole(\"button\", { name: \"一键做同款\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByRole(\"heading\", { name: \"灵感\", level: 1 })).toBeVisible()",
+    "expect(caseDialog.locator('[data-capability-icon=\"connector\"]')).toHaveCount(0)",
+    "expect(page.getByRole(\"heading\", { name: \"灵感\", level: 1 })).not.toBeVisible()",
+    "expect(page.getByRole(\"textbox\")).toHaveValue(/^服务端提示词：/)",
+    "expect(page.getByRole(\"button\", { name: \"任务 (0)\" })).toBeVisible()",
+    "expect(page.getByTestId(\"selected-skill-token\")).toHaveCount(expectation.skill ? 1 : 0)",
+    "expect(page.getByRole(\"button\", { name: \"移除腾讯自选股金融分析专家团\" })) .toHaveCount(expectation.expert ? 1 : 0)",
+    "expect(page.getByText(expectation.scene, { exact: true })).toBeVisible()",
+    "expect(messages.filter((message) => message.type === \"create_session\")).toHaveLength(0)",
+    "expect(messages.filter((message) => message.type === \"mcp_server_upsert\")).toHaveLength(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-772BD4AB407248",
+      "type": "return",
+      "assertion": "runs the complete WorkBuddy 5.4.7 seven-Case matrix into editable unsent drafts"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-inspiration-spec-ts.a919452144",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/inspiration.spec.ts -g \"runs the complete WorkBuddy 5.4.7 seven-Case matrix into editable unsent drafts\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "library",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"灵感\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"searchbox\", { name: \"搜索灵感\" }).fill(expectation.title)"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: `查看 ${expectation.title}` }).click()"
+        },
+        {
+          "action": "caseDialog.getByRole(\"button\", { name: \"一键做同款\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/inspiration.spec.ts",
+        "line_start": 565,
+        "line_end": 596,
+        "body_sha256": "sha256:0284bf3e5e3e563517ac574fe38352c4fbd0888c0f9951fc67bd5b3a158963d1",
+        "assertion_count": 10,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:fb657fd338eaa49ca2379b834a87cc6e581af3ec943b05add719e035b3c52f32"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-772BD4AB407248"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-772BD4AB407248"
+    ]
+  }
+}

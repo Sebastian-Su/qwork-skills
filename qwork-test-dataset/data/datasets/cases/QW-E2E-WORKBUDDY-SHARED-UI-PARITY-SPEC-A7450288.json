@@ -1,0 +1,295 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-WORKBUDDY-SHARED-UI-PARITY-SPEC-A7450288",
+  "title": "灵感与知识库授权页分别使用实测浅色层次",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "library",
+    "journey": "library",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/workbuddy-shared-ui-parity.spec.ts",
+      "locator": "line:2300;test:灵感与知识库授权页分别使用实测浅色层次",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:a7450288e66111a1566170fcd3d06edf0e29a5073d967cf0bfd2c6f534369ac0",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-F6DDDAD3B088B9",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts:L2300:a7450288e6"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "library",
+      "priority": "P1",
+      "rule": "灵感与知识库授权页分别使用实测浅色层次",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-workbuddy-shared-ui-parity-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "灵感与知识库授权页分别使用实测浅色层次"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+    },
+    {
+      "action": "page.mouse.click(800, 80)"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"灵感\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"精选\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"ima知识库\", exact: true }).click()"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "cloud.close()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect.soft(page.getByRole(\"heading\", { name: \"灵感\", exact: true }).locator(\"xpath=ancestor::section[1]\")).toHaveCSS(\"background-color\", \"rgb(250, 250, 250)\", { timeout: 1500 })",
+    "expect.soft(heading).toHaveCSS(\"font-weight\", \"700\", { timeout: 1000 })",
+    "expect.soft(heading).toHaveCSS(\"letter-spacing\", \"normal\", { timeout: 1000 })",
+    "expect.soft(favoriteBox.width).toBe(80)",
+    "expect.soft(favorite).toHaveCSS(\"border-width\", \"1px\", { timeout: 1000 })",
+    "expect.soft(favorite).toHaveCSS(\"border-color\", \"rgba(0, 0, 0, 0.08)\", { timeout: 1000 })",
+    "expect.soft(favorite).toHaveCSS(\"padding\", \"0px 13px\", { timeout: 1000 })",
+    "expect.soft(favorite).toHaveCSS(\"line-height\", \"15.6px\", { timeout: 1000 })",
+    "expect.soft(favoriteBox.y + favoriteBox.height / 2).toBe(headingBlock.y + headingBlock.height / 2)",
+    "expect.soft(all).toHaveCSS(\"font-size\", \"12.5px\", { timeout: 1000 })",
+    "expect.soft(all).toHaveCSS(\"padding\", \"4px 12px\", { timeout: 1000 })",
+    "expect.soft(all).toHaveCSS(\"background-color\", \"rgb(242, 242, 242)\", { timeout: 1000 })",
+    "expect.soft(all).toHaveCSS(\"color\", \"rgb(0, 0, 0)\", { timeout: 1000 })",
+    "expect.soft(search).toHaveCSS(\"font-size\", \"13px\", { timeout: 1000 })",
+    "expect.soft(search).toHaveCSS(\"background-color\", \"rgb(247, 247, 247)\", { timeout: 1000 })",
+    "expect.soft(all).toHaveCSS(\"color\", \"rgba(0, 0, 0, 0.5)\", { timeout: 1000 })",
+    "expect.soft(favorite).toHaveCSS(\"border-color\", \"rgba(255, 255, 255, 0.1)\", { timeout: 1000 })",
+    "expect.soft(favorite).toHaveCSS(\"background-color\", \"rgb(36, 36, 36)\", { timeout: 1000 })",
+    "expect.soft(page.getByRole(\"heading\", { name: \"连接 ima 知识库\" })).toHaveCSS(\"color\", \"rgb(0, 0, 0)\", { timeout: 1500 })",
+    "expect.soft(page.getByAltText(\"ima\", { exact: true })).toHaveCSS(\"width\", \"40px\", { timeout: 1000 })",
+    "expect.soft(page.getByAltText(\"ima\", { exact: true }).locator(\"..\")).toHaveCSS(\"background-color\", \"rgb(232, 240, 255)\", { timeout: 1000 })",
+    "expect.soft(page.getByTestId(\"page-surface\")).toHaveCSS(\"background-color\", \"rgb(255, 255, 255)\", { timeout: 1500 })",
+    "expect.soft(page.getByText(\"授权后，QWork 将能够：\").locator(\"..\")).toHaveCSS(\"background-color\", \"rgb(247, 247, 247)\", { timeout: 1500 })",
+    "expect.soft(page.getByRole(\"button\", { name: \"立即前往授权\" })).toHaveCSS(\"background-color\", \"rgb(26, 26, 26)\", { timeout: 1500 })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-F6DDDAD3B088B9",
+      "type": "return",
+      "assertion": "灵感与知识库授权页分别使用实测浅色层次"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-workbuddy-shared-ui-parity-spec-ts.a7450288e6",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/workbuddy-shared-ui-parity.spec.ts -g \"灵感与知识库授权页分别使用实测浅色层次\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "library",
+      "steps": [
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name, exact: true }).click()"
+        },
+        {
+          "action": "page.mouse.click(800, 80)"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"灵感\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"精选\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"ima知识库\", exact: true }).click()"
+        },
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "cloud.close()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/workbuddy-shared-ui-parity.spec.ts",
+        "line_start": 2300,
+        "line_end": 2347,
+        "body_sha256": "sha256:21415b787d35ea3fcaa475a2877182f0974f5133df6dd5d78377ca1c17db964b",
+        "assertion_count": 24,
+        "action_count": 11,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:5fdf2c06fef33a49affb73bb6f7f9aef7e267d980e36dc5a294e1eb58459ff79"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-F6DDDAD3B088B9"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-F6DDDAD3B088B9"
+    ]
+  }
+}

@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/home-scene-capability.spec.ts",
-      "locator": "line:196;test:enables mixed data-analysis plugins without stuffing them into the prompt",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/home-scene-capability.spec.ts",
+      "locator": "line:336;test:enables mixed data-analysis plugins without stuffing them into the prompt",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:1064fd60643d9e233e577aea5fc70e4c95a4e220fd1f11546c7d9c5cd0e7b4f7",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-5BBCC119E102B4",
+      "requirement_id": "REQ-809A3BE5080E34",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-home-scene-capability-spec-ts:L196:1064fd6064"
+        "QDEV-E2E-e2e-home-scene-capability-spec-ts:L336:1064fd6064"
       ],
       "content_facets": [
         "negative-rule"
@@ -85,16 +85,19 @@
     },
     {
       "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+    },
+    {
+      "action": "cloud.close()"
     }
   ],
   "expected_outcomes": [
     "expect(page.getByTestId(\"selected-skill-token\")).toHaveCount(0)",
     "expect.poll(async () => latestUserMessage(sidecarLog)).toContain(\"@scene:daily-03\")",
     "expect(content).not.toContain(\"data-analysis@experts\")",
-    "expect(content).not.toContain(\"excel-generation-editing-tool\")",
-    "expect.poll(async () => createdSessionPlugins(sidecarLog)).toEqual([ \"data-analysis@experts\", \"skill-excel-generation-editing-tool@qwork-builtin\", ])",
-    "expect(await createdSessionSkills(sidecarLog)).toEqual([\"excel-generation-editing-tool\"])",
-    "expect(await createdSessionExpertKey(sidecarLog)).toBeUndefined()"
+    "expect(content).not.toContain(\"xlsx-rs\")",
+    "expect.poll(async () => createdSessionPlugins(sidecarLog)).toEqual([ \"skill-xlsx-rs@qwork-builtin\", ])",
+    "expect(await createdSessionSkills(sidecarLog)).toEqual([\"xlsx-rs\"])",
+    "expect(await createdSessionExpertKey(sidecarLog)).toBe(\"data-analysis@experts\")"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -103,7 +106,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-5BBCC119E102B4",
+      "requirement_id": "REQ-809A3BE5080E34",
       "type": "return",
       "assertion": "enables mixed data-analysis plugins without stuffing them into the prompt"
     }
@@ -174,6 +177,9 @@
         },
         {
           "action": "page.getByRole(\"button\", { name: \"发送\" }).click()"
+        },
+        {
+          "action": "cloud.close()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -194,13 +200,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/home-scene-capability.spec.ts",
-        "line_start": 196,
-        "line_end": 224,
-        "body_sha256": "sha256:3799f7f281b6a051781c08086a8f786e38fd6b08f0ca54e8bfae10a4120c8c01",
+        "line_start": 336,
+        "line_end": 370,
+        "body_sha256": "sha256:b85fb9edc3f746db41a7810d2cc8f36f3e4339a63b0c9bbe4416984c97fca1f2",
         "assertion_count": 7,
-        "action_count": 4,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:8406b8e79d947f93291e6a1e4b428129fdc8706fad8f49ff6db0abb32a575ffd"
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:41b28d265ac8d0e34ed08f291cae5a71caa9c0fb89ce4c916e9ac520ffafbe4c"
       }
     },
     "reference_run": {
@@ -222,7 +228,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-5BBCC119E102B4"
+      "REQ-809A3BE5080E34"
     ],
     "categories": [
       "negative"
@@ -230,7 +236,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-5BBCC119E102B4"
+      "requirement:REQ-809A3BE5080E34"
     ]
   }
 }

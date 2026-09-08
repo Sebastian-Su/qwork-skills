@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:60;heading:qwork_harness/ziqdo",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:218;heading:qwork_harness/ziqdo",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:6de45bf22f616c76f82b966dd6dd82bcc5af210b3ab24ce57575c6f94b27a432",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-746C13DC30A1C8",
+      "requirement_id": "REQ-C8965C67F3CE73",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L60:6de45bf22f"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L218:6de45bf22f"
       ],
       "content_facets": [
         "evidence-provenance"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_harness/ziqdo 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe case-owned execution trace after the trigger and assert [REQ-746C13DC30A1C8] exactly: `new`：`user_message.trace_context` 可选字段与 `observability_event` 出站事件；旧宿主缺失字段时继续兼容。"
+      "action": "observe case-owned execution trace after the trigger and assert [REQ-C8965C67F3CE73] exactly: `new`：`user_message.trace_context` 可选字段与 `observability_event` 出站事件；旧宿主缺失字段时继续兼容。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "`new`：`user_message.trace_context` 可选字段与 `observability_event` 出站事件；旧宿主缺失字段时继续兼容。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-746C13DC30A1C8]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `new`：`user_message.trace_context` 可选字段与 `observability_event` 出站事件；旧宿主缺失字段时继续兼容。",
+    "FAIL [REQ-C8965C67F3CE73]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `new`：`user_message.trace_context` 可选字段与 `observability_event` 出站事件；旧宿主缺失字段时继续兼容。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-746C13DC30A1C8",
+      "requirement_id": "REQ-C8965C67F3CE73",
       "type": "trace",
       "assertion": "`new`：`user_message.trace_context` 可选字段与 `observability_event` 出站事件；旧宿主缺失字段时继续兼容。"
     }
@@ -157,7 +157,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_harness/ziqdo 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe case-owned execution trace after the trigger and assert [REQ-746C13DC30A1C8] exactly: `new`：`user_message.trace_context` 可选字段与 `observability_event` 出站事件；旧宿主缺失字段时继续兼容。"
+          "action": "observe case-owned execution trace after the trigger and assert [REQ-C8965C67F3CE73] exactly: `new`：`user_message.trace_context` 可选字段与 `observability_event` 出站事件；旧宿主缺失字段时继续兼容。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -200,7 +200,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-746C13DC30A1C8"
+      "REQ-C8965C67F3CE73"
     ],
     "categories": [
       "evidence-integrity"
@@ -208,12 +208,12 @@
     "suite_ids": [
       "category:evidence-integrity",
       "full",
-      "requirement:REQ-746C13DC30A1C8"
+      "requirement:REQ-C8965C67F3CE73"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-746C13DC30A1C8",
+      "requirement_id": "REQ-C8965C67F3CE73",
       "oracle_type": "trace",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · qwork_harness/ziqdo 产品契约 exactly once and retain its correlation identity",

@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-remaining-types.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-remaining-types.spec.ts",
       "locator": "line:557;test:connects a newly imported Bugly token connector",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:02ecac6847826b5ca284189568a6ee8e5b48bd867d60848246a7e0d1d9c071b0",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"Bugly 质量概览，未连接\" }).click()"
     },
     {
@@ -88,6 +94,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByLabel(\"搜索连接器\")).toBeVisible()",
     "expect.poll(async () => { const upsert = (await readMcpLog(mcpLog)).find( (entry) => entry.type === \"mcp_server_upsert\" && (entry.server as { name?: string } | undefined)?.name === \"bugly-token\", ); return upsert?.server; }).toMatchObject({ name: \"bugly-token\", transport: \"http\", url: \"https://bugly.tds.qq.com/mcp\", static_headers: { Authorization: `Bearer ${SECRET}` }, })"
   ],
   "forbidden_outcomes": [
@@ -158,6 +165,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page .getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }) .click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"Bugly 质量概览，未连接\" }).click()"
         },
         {
@@ -191,9 +204,9 @@
         "line_start": 557,
         "line_end": 584,
         "body_sha256": "sha256:5f43c1785b9eaa92f160125d7674ef50cc4f22bcd2e939e5e3be4c8ec630fd03",
-        "assertion_count": 1,
-        "action_count": 4,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 2,
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:44edade7183524ded01be4499a9cdadc6e387aea7eebcc674767718eec3e2e3e"
       }
     },

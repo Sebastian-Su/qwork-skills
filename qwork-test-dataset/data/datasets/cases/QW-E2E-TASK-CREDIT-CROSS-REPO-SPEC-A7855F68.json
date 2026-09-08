@@ -1,0 +1,250 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-TASK-CREDIT-CROSS-REPO-SPEC-A7855F68",
+  "title": "real client engine and server aggregate model and image charges in one turn",
+  "kind": "golden",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "task-lifecycle",
+    "journey": "task-lifecycle",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-task-credit-cross-repo-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/task-credit-cross-repo.spec.ts",
+      "locator": "line:8;test:real client engine and server aggregate model and image charges in one turn",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:a7855f68caf21eacd30cd5d0fefa62d6141a0bee4f1274f2a85a896b78263103",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-90910267B67FE3",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-task-credit-cross-repo-spec-ts:L8:a7855f68ca"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "task-lifecycle",
+      "priority": "P0",
+      "rule": "real client engine and server aggregate model and image charges in one turn",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-task-credit-cross-repo-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "real client engine and server aggregate model and image charges in one turn"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "composer.fill(\"CROSS_REPO_IMAGE_PROBE\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "approval.getByRole(\"button\", { name: \"允许\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"complementary\").locator('button[data-qds-layout=\"identity\"][aria-haspopup=\"menu\"]').click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: /可用积分/ }).click()"
+    },
+    {
+      "action": "upstream.close(() => resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(approval).toContainText(\"ImageGen\")",
+    "expect(page.getByTestId(\"assistant-message\").last()).toContainText(\"CROSS_REPO_IMAGE_DONE\", { timeout: 30_000 })",
+    "expect(cookie).toBeDefined()",
+    "expect(turn, \"two real model requests must share one persisted trace\").toBeDefined()",
+    "expect(modelCharge).toBeGreaterThan(0)",
+    "expect(total).toEqual({ traceId: trace, status: \"settled\", requestCount: 3, chargedMicrocredits: modelCharge + 100 })",
+    "expect(page.getByLabel(`共消耗 ${amount} 积分`)).toBeVisible({ timeout: 15_000 })",
+    "expect.poll(async () => { const credits = await page.evaluate(() => window.workGui!.account.credits()); return credits.ledger?.some(entry => entry.type === \"MEDIA\"); }).toBe(true)",
+    "expect(page.getByRole(\"table\", { name: \"积分变动明细\" }).getByRole(\"row\", { name: /媒体生成.*-0\\.01.*bytedance\\/doubao-seedream-4-0.*媒体生成/, })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-90910267B67FE3",
+      "type": "return",
+      "assertion": "real client engine and server aggregate model and image charges in one turn"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-task-credit-cross-repo-spec-ts.a7855f68ca",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/task-credit-cross-repo.spec.ts -g \"real client engine and server aggregate model and image charges in one turn\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "task-lifecycle",
+      "steps": [
+        {
+          "action": "composer.fill(\"CROSS_REPO_IMAGE_PROBE\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "approval.getByRole(\"button\", { name: \"允许\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"complementary\").locator('button[data-qds-layout=\"identity\"][aria-haspopup=\"menu\"]').click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: /可用积分/ }).click()"
+        },
+        {
+          "action": "upstream.close(() => resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/task-credit-cross-repo.spec.ts",
+        "line_start": 8,
+        "line_end": 103,
+        "body_sha256": "sha256:34cb4e29125121d9777ca5cc5e555e6f1c72cd462072142c3da9f1a8655c6b68",
+        "assertion_count": 9,
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:ff6f07e8060acbb110a9b2de95e6a4f5d9f19d4e53d156c266f65fb52ee3a5df"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-90910267B67FE3"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-90910267B67FE3"
+    ]
+  }
+}

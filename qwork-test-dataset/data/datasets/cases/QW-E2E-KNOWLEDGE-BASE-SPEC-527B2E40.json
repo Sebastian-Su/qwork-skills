@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/knowledge-base.spec.ts",
-      "locator": "line:101;test:sidebar upload shows a visible 422 for an exe",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/knowledge-base.spec.ts",
+      "locator": "line:195;test:sidebar upload shows a visible 422 for an exe",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:527b2e402efbd586c7922dbabbe86557467de0a6d97cfe4ab48289425a0e4137",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-58EC615EFC2B98",
+      "requirement_id": "REQ-85C3E2FAE98310",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-knowledge-base-spec-ts:L101:527b2e402e"
+        "QDEV-E2E-e2e-knowledge-base-spec-ts:L195:527b2e402e"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"知识库\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"上传文档\" }).click()"
     },
     {
@@ -92,7 +98,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-58EC615EFC2B98",
+      "requirement_id": "REQ-85C3E2FAE98310",
       "type": "return",
       "assertion": "sidebar upload shows a visible 422 for an exe"
     }
@@ -153,6 +159,12 @@
       "entrypoint": "shell-home",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"知识库\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"上传文档\" }).click()"
         },
         {
@@ -177,13 +189,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/knowledge-base.spec.ts",
-        "line_start": 101,
-        "line_end": 122,
+        "line_start": 195,
+        "line_end": 216,
         "body_sha256": "sha256:2d05e5fe8ba9117d91b32b296c1bdf0ba102b583ef654680f3e45cfac458707a",
         "assertion_count": 2,
-        "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:6b6b2fde89171d2694f2a478323e167ed3e9088bbf7889007660316fcd914d83"
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:ecbd9f21bab511e2895311cfc7897c127872f1e3298344156439d8d68107759a"
       }
     },
     "reference_run": {
@@ -205,7 +217,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-58EC615EFC2B98"
+      "REQ-85C3E2FAE98310"
     ],
     "categories": [
       "business"
@@ -213,7 +225,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-58EC615EFC2B98"
+      "requirement:REQ-85C3E2FAE98310"
     ]
   }
 }

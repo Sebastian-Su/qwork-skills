@@ -22,13 +22,27 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md",
       "locator": "line:24;heading:当前事实与复用",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:d307a8a960ad435fc38d90b2651cf38fd8b59246e6ef86afdf5636cc9be26052",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md",
+      "locator": "line:26;heading:当前事实与复用",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:19069c7790cefb625648656a474d1e19cfc459c84c5bebb91ccbda5ef658300e",
       "redaction_status": "minimized"
     }
   ],
@@ -58,6 +72,32 @@
         "reason": "compiled from the user-approved source hierarchy"
       },
       "oracle": "`qwork_server`：扩展现有 Sidecar JWT、OpenAPI、LLM 运行配置解密、外部 HTTP 安全模式和 Redis lease seam；复用媒体能力已经使用的 Kubernetes 加密字典批量环境变量注入方式，作为测试环境临时启动源。"
+    },
+    {
+      "requirement_id": "REQ-2BB74431F2041F",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem:L26:19069c7790"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "`qwork3`：扩展现有 `QWorkApiCredentialBroker` 和 `SidecarSupervisor`，并复用既有 `resources/bin/<platform>-<arch>/ziqdo` 平台资源入口提交 macOS arm64 与 Windows x64 候选二进制；不增加 Renderer、preload 或 IPC 权限。",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-built-in-web-search-20260830-implem"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "`qwork3`：扩展现有 `QWorkApiCredentialBroker` 和 `SidecarSupervisor`，并复用既有 `resources/bin/<platform>-<arch>/ziqdo` 平台资源入口提交 macOS arm64 与 Windows x64 候选二进制；不增加 Renderer、preload 或 IPC 权限。"
     }
   ],
   "verification": {
@@ -85,14 +125,19 @@
       "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-681CCA6F26F851] exactly: `qwork_server`：扩展现有 Sidecar JWT、OpenAPI、LLM 运行配置解密、外部 HTTP 安全模式和 Redis lease seam；复用媒体能力已经使用的 Kubernetes 加密字典批量环境变量注入方式，作为测试环境临时启动源。"
     },
     {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-2BB74431F2041F] exactly: `qwork3`：扩展现有 `QWorkApiCredentialBroker` 和 `SidecarSupervisor`，并复用既有 `resources/bin/<platform>-<arch>/ziqdo` 平台资源入口提交 macOS arm64 与 Windows x64 候选二进制；不增加 Renderer、preload 或 IPC 权限。"
+    },
+    {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
     }
   ],
   "expected_outcomes": [
-    "`qwork_server`：扩展现有 Sidecar JWT、OpenAPI、LLM 运行配置解密、外部 HTTP 安全模式和 Redis lease seam；复用媒体能力已经使用的 Kubernetes 加密字典批量环境变量注入方式，作为测试环境临时启动源。"
+    "`qwork_server`：扩展现有 Sidecar JWT、OpenAPI、LLM 运行配置解密、外部 HTTP 安全模式和 Redis lease seam；复用媒体能力已经使用的 Kubernetes 加密字典批量环境变量注入方式，作为测试环境临时启动源。",
+    "`qwork3`：扩展现有 `QWorkApiCredentialBroker` 和 `SidecarSupervisor`，并复用既有 `resources/bin/<platform>-<arch>/ziqdo` 平台资源入口提交 macOS arm64 与 Windows x64 候选二进制；不增加 Renderer、preload 或 IPC 权限。"
   ],
   "forbidden_outcomes": [
     "FAIL [REQ-681CCA6F26F851]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `qwork_server`：扩展现有 Sidecar JWT、OpenAPI、LLM 运行配置解密、外部 HTTP 安全模式和 Redis lease seam；复用媒体能力已经使用的 Kubernetes 加密字典批量环境变量注入方式，作为测试环境临时启动源。",
+    "FAIL [REQ-2BB74431F2041F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: `qwork3`：扩展现有 `QWorkApiCredentialBroker` 和 `SidecarSupervisor`，并复用既有 `resources/bin/<platform>-<arch>/ziqdo` 平台资源入口提交 macOS arm64 与 Windows x64 候选二进制；不增加 Renderer、preload 或 IPC 权限。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
@@ -101,6 +146,11 @@
       "requirement_id": "REQ-681CCA6F26F851",
       "type": "return",
       "assertion": "`qwork_server`：扩展现有 Sidecar JWT、OpenAPI、LLM 运行配置解密、外部 HTTP 安全模式和 Redis lease seam；复用媒体能力已经使用的 Kubernetes 加密字典批量环境变量注入方式，作为测试环境临时启动源。"
+    },
+    {
+      "requirement_id": "REQ-2BB74431F2041F",
+      "type": "api",
+      "assertion": "`qwork3`：扩展现有 `QWorkApiCredentialBroker` 和 `SidecarSupervisor`，并复用既有 `resources/bin/<platform>-<arch>/ziqdo` 平台资源入口提交 macOS arm64 与 Windows x64 候选二进制；不增加 Renderer、preload 或 IPC 权限。"
     }
   ],
   "cleanup": {
@@ -160,6 +210,9 @@
           "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-681CCA6F26F851] exactly: `qwork_server`：扩展现有 Sidecar JWT、OpenAPI、LLM 运行配置解密、外部 HTTP 安全模式和 Redis lease seam；复用媒体能力已经使用的 Kubernetes 加密字典批量环境变量注入方式，作为测试环境临时启动源。"
         },
         {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-2BB74431F2041F] exactly: `qwork3`：扩展现有 `QWorkApiCredentialBroker` 和 `SidecarSupervisor`，并复用既有 `resources/bin/<platform>-<arch>/ziqdo` 平台资源入口提交 macOS arm64 与 Windows x64 候选二进制；不增加 Renderer、preload 或 IPC 权限。"
+        },
+        {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
         }
       ],
@@ -200,14 +253,18 @@
   },
   "selection": {
     "requirement_ids": [
+      "REQ-2BB74431F2041F",
       "REQ-681CCA6F26F851"
     ],
     "categories": [
-      "business"
+      "business",
+      "permission"
     ],
     "suite_ids": [
       "category:business",
+      "category:permission",
       "full",
+      "requirement:REQ-2BB74431F2041F",
       "requirement:REQ-681CCA6F26F851"
     ]
   },
@@ -219,6 +276,15 @@
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md · 当前事实与复用 产品契约 exactly once and retain its correlation identity",
       "then": "`qwork_server`：扩展现有 Sidecar JWT、OpenAPI、LLM 运行配置解密、外部 HTTP 安全模式和 Redis lease seam；复用媒体能力已经使用的 Kubernetes 加密字典批量环境变量注入方式，作为测试环境临时启动源。",
       "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-2BB74431F2041F",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-built-in-web-search-20260830/implementation-plan.md · 当前事实与复用 产品契约 exactly once and retain its correlation identity",
+      "then": "`qwork3`：扩展现有 `QWorkApiCredentialBroker` 和 `SidecarSupervisor`，并复用既有 `resources/bin/<platform>-<arch>/ziqdo` 平台资源入口提交 macOS arm64 与 Windows x64 候选二进制；不增加 Renderer、preload 或 IPC 权限。",
+      "observation_boundary": "typed IPC or service API boundary",
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     }
   ]

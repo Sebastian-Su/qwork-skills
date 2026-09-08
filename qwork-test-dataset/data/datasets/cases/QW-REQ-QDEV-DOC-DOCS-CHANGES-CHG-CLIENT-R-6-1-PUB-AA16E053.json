@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-client-release-pub-token-mvp-20260824/qbuild-cd-windows-release-mvp.md",
-      "locator": "line:269;heading:6.1 pub 登记接口",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-client-release-pub-token-mvp-20260824/qbuild-cd-windows-release-mvp.md",
+      "locator": "line:273;heading:6.1 pub 登记接口",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:71978d03f1696307575ac3de715cab43889022b6ebf43d322abe678a42530fd5",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-A8BAE532F1C9B0",
+      "requirement_id": "REQ-A93AEBC065DC08",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-client-release-pub-token-mvp-202608:L269:71978d03f1"
+        "QDEV-DOC-docs-changes-chg-client-release-pub-token-mvp-202608:L273:71978d03f1"
       ],
       "content_facets": [
         "data-side-effect"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-client-release-pub-token-mvp-20260824/qbuild-cd-windows-release-mvp.md · 6.1 pub 登记接口 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe case-owned durable database state after the trigger and assert [REQ-A8BAE532F1C9B0] exactly: 请求以 `objectKey` 为下载路径真源，包含版本、build number、source revision、Windows/x64/exe、 文件名、content type、size 和 SHA-256。`downloadUrl` 不保存到数据库；为兼容现有调用方可暂时允许 请求携带，但新 Skill 不依赖该字段，服务端使用 `QWORK_CLIENT_RELEASE_CDN_BASE_URL=https://res.qwork.360.cn/qwork` 与 o"
+      "action": "observe case-owned durable database state after the trigger and assert [REQ-A93AEBC065DC08] exactly: 请求以 `objectKey` 为下载路径真源，包含版本、build number、source revision、Windows/x64/exe、 文件名、content type、size 和 SHA-256。`downloadUrl` 不保存到数据库；为兼容现有调用方可暂时允许 请求携带，但新 Skill 不依赖该字段，服务端使用 `QWORK_CLIENT_RELEASE_CDN_BASE_URL=https://res.qwork.360.cn/qwork` 与 o"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "请求以 `objectKey` 为下载路径真源，包含版本、build number、source revision、Windows/x64/exe、 文件名、content type、size 和 SHA-256。`downloadUrl` 不保存到数据库；为兼容现有调用方可暂时允许 请求携带，但新 Skill 不依赖该字段，服务端使用 `QWORK_CLIENT_RELEASE_CDN_BASE_URL=https://res.qwork.360.cn/qwork` 与 o"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-A8BAE532F1C9B0]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 请求以 `objectKey` 为下载路径真源，包含版本、build number、source revision、Windows/x64/exe、 文件名、content type、size 和 SHA-256。`downloadUrl` 不保存到数据库；为兼容现有调用方可暂时允许 请求携带，但新 Skill 不依赖该字段，服务端使用 `QWORK_CLIENT_RELEASE_CDN_BASE_URL=https://res.qwork.360.cn/qwork` 与 o",
+    "FAIL [REQ-A93AEBC065DC08]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: 请求以 `objectKey` 为下载路径真源，包含版本、build number、source revision、Windows/x64/exe、 文件名、content type、size 和 SHA-256。`downloadUrl` 不保存到数据库；为兼容现有调用方可暂时允许 请求携带，但新 Skill 不依赖该字段，服务端使用 `QWORK_CLIENT_RELEASE_CDN_BASE_URL=https://res.qwork.360.cn/qwork` 与 o",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-A8BAE532F1C9B0",
+      "requirement_id": "REQ-A93AEBC065DC08",
       "type": "database",
       "assertion": "请求以 `objectKey` 为下载路径真源，包含版本、build number、source revision、Windows/x64/exe、 文件名、content type、size 和 SHA-256。`downloadUrl` 不保存到数据库；为兼容现有调用方可暂时允许 请求携带，但新 Skill 不依赖该字段，服务端使用 `QWORK_CLIENT_RELEASE_CDN_BASE_URL=https://res.qwork.360.cn/qwork` 与 o"
     }
@@ -157,7 +157,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-client-release-pub-token-mvp-20260824/qbuild-cd-windows-release-mvp.md · 6.1 pub 登记接口 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe case-owned durable database state after the trigger and assert [REQ-A8BAE532F1C9B0] exactly: 请求以 `objectKey` 为下载路径真源，包含版本、build number、source revision、Windows/x64/exe、 文件名、content type、size 和 SHA-256。`downloadUrl` 不保存到数据库；为兼容现有调用方可暂时允许 请求携带，但新 Skill 不依赖该字段，服务端使用 `QWORK_CLIENT_RELEASE_CDN_BASE_URL=https://res.qwork.360.cn/qwork` 与 o"
+          "action": "observe case-owned durable database state after the trigger and assert [REQ-A93AEBC065DC08] exactly: 请求以 `objectKey` 为下载路径真源，包含版本、build number、source revision、Windows/x64/exe、 文件名、content type、size 和 SHA-256。`downloadUrl` 不保存到数据库；为兼容现有调用方可暂时允许 请求携带，但新 Skill 不依赖该字段，服务端使用 `QWORK_CLIENT_RELEASE_CDN_BASE_URL=https://res.qwork.360.cn/qwork` 与 o"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -200,7 +200,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-A8BAE532F1C9B0"
+      "REQ-A93AEBC065DC08"
     ],
     "categories": [
       "data"
@@ -208,12 +208,12 @@
     "suite_ids": [
       "category:data",
       "full",
-      "requirement:REQ-A8BAE532F1C9B0"
+      "requirement:REQ-A93AEBC065DC08"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-A8BAE532F1C9B0",
+      "requirement_id": "REQ-A93AEBC065DC08",
       "oracle_type": "database",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-client-release-pub-token-mvp-20260824/qbuild-cd-windows-release-mvp.md · 6.1 pub 登记接口 产品契约 exactly once and retain its correlation identity",

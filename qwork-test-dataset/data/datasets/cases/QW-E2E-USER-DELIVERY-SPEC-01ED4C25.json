@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/user-delivery.spec.ts",
-      "locator": "line:369;test:双 ID 会话完全重启后仍显示并打开原 HTML 产物",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/user-delivery.spec.ts",
+      "locator": "line:427;test:双 ID 会话完全重启后仍显示并打开原 HTML 产物",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:01ed4c252b7b6b81badedd4cb00bbc892baabc9dc2eea41afd1c00ea78939392",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-969909FA7410FB",
+      "requirement_id": "REQ-193DE438FA5D2D",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-user-delivery-spec-ts:L369:01ed4c252b"
+        "QDEV-E2E-e2e-user-delivery-spec-ts:L427:01ed4c252b"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -107,6 +107,8 @@
     "expect(card).toBeVisible()",
     "expect(page.getByRole(\"tab\", { name: fileName, exact: true })).toBeVisible()",
     "expect(page.getByLabel(`动态网页预览 ${fileName}`)).toBeVisible()",
+    "expect.poll(() => app.evaluate(async ({ webContents }) => { for (const preview of webContents .getAllWebContents() .filter((contents) => contents.getURL().startsWith(\"qwork-artifact-preview://\"))) { const title = await preview.executeJavaScript(\"document.title\"); if (title === \"跨重启动态产物\") { return preview.executeJavaScript(\"document.getElementById('value')?.textContent\"); } } return null; })).toBe(initial)",
+    "expect.poll(() => app.evaluate(async ({ webContents }) => { for (const preview of webContents .getAllWebContents() .filter((contents) => contents.getURL().startsWith(\"qwork-artifact-preview://\"))) { const title = await preview.executeJavaScript(\"document.title\"); if (title === \"跨重启动态产物\") { return preview.executeJavaScript( \"document.getElementById('run')?.click(); document.getElementById('value')?.textContent\", ); }…",
     "expect(identityFiles).toHaveLength(1)",
     "expect .poll(() => page.evaluate( async (sessionId) => (await window.workGui.sessions.deliveries(sessionId)).length, identity.canonicalSessionId, ), ) .toBe(1)",
     "expect( page.getByText(`__E2E_RESTART_ARTIFACT__:${fileName}`, { exact: true }), ).toBeVisible()",
@@ -124,7 +126,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-969909FA7410FB",
+      "requirement_id": "REQ-193DE438FA5D2D",
       "type": "ui",
       "assertion": "双 ID 会话完全重启后仍显示并打开原 HTML 产物"
     }
@@ -230,13 +232,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/user-delivery.spec.ts",
-        "line_start": 369,
-        "line_end": 475,
+        "line_start": 427,
+        "line_end": 533,
         "body_sha256": "sha256:751855e0564f9f5d9b7c01f5d1631e756375b2317e4730684a9557d3bcdc27ea",
-        "assertion_count": 13,
+        "assertion_count": 15,
         "action_count": 9,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:0edaea1c58d7ba6d884c8c0f09925d2fd449ccaa68d37cc741b672a4d6aa4599"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:a380a0ec60a836aac2c9bf7941038c29b8f1ed06c63bb4ac050bad2ba3dd28ab"
       }
     },
     "reference_run": {
@@ -258,7 +260,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-969909FA7410FB"
+      "REQ-193DE438FA5D2D"
     ],
     "categories": [
       "business"
@@ -266,7 +268,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-969909FA7410FB"
+      "requirement:REQ-193DE438FA5D2D"
     ]
   }
 }

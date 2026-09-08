@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/sessions.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/sessions.spec.ts",
       "locator": "line:344;test:C10 copies a user message and prefills composer after inline edit",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:83155a3b42863d9e02a3ba00a569f44d7c891d0e4200fc3fb5a653d45382af67",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,15 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(message)"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
       "action": "userMessage.hover()"
     },
     {
@@ -105,6 +114,10 @@
     "expect(Math.abs((editBox?.width ?? 0) - 24)).toBeLessThanOrEqual(2)",
     "expect(Math.abs((editBox?.height ?? 0) - 24)).toBeLessThanOrEqual(2)",
     "expect(bubbleBox).toBeTruthy()",
+    "expect(shortMetrics.clientHeight).toBeLessThan(310)",
+    "expect(shortMetrics.scrollHeight).toBe(shortMetrics.clientHeight)",
+    "expect(shortMetrics.maxHeight).toBe(\"310px\")",
+    "expect(shortMetrics.overflowY).toBe(\"auto\")",
     "expect((editBox?.y ?? 0) + 2).toBeGreaterThan((bubbleBox?.y ?? 0) + (bubbleBox?.height ?? 0) - 2)",
     "expect(userMessage.getByRole(\"button\", { name: \"已复制\" })).toBeVisible()",
     "expect(userMessage.getByText(\"已复制\", { exact: true })).toHaveCount(0)",
@@ -185,6 +198,15 @@
       "entrypoint": "task-lifecycle",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(message)"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
           "action": "userMessage.hover()"
         },
         {
@@ -225,12 +247,12 @@
       "source_contract": {
         "spec": "e2e/sessions.spec.ts",
         "line_start": 344,
-        "line_end": 401,
-        "body_sha256": "sha256:3be4c4aabbe6621bc8e22801608c3c9ecfdd6e96cad334a268499180f30a305c",
-        "assertion_count": 19,
-        "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:a82d1a2a86bc6ba024b51b87d0b9823e60e846cf762ed130b25a668a5b6245d2"
+        "line_end": 415,
+        "body_sha256": "sha256:22283e17136e60e627247d4380741d007c8b18df74ec71f1a7a1b14b4b6f8602",
+        "assertion_count": 23,
+        "action_count": 10,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:afe6b76163a505372d09e5776ef7163235c2043df42dc5e56ee40b21837ef4b8"
       }
     },
     "reference_run": {

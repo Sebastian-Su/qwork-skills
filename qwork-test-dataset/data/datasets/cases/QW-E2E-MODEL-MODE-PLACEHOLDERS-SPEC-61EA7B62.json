@@ -1,0 +1,358 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-MODEL-MODE-PLACEHOLDERS-SPEC-61EA7B62",
+  "title": "model menu persists Max mode for verified platform profiles while Auto remains inert",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "models",
+    "journey": "models",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-model-mode-placeholders-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/model-mode-placeholders.spec.ts",
+      "locator": "line:69;test:model menu persists Max mode for verified platform profiles while Auto remains inert",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:61ea7b62d61bf8044473e6042adcb172e785b8ede1a2e24a152480c669a6277a",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-0B6498144FAD54",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-model-mode-placeholders-spec-ts:L69:61ea7b62d6"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "models",
+      "priority": "P1",
+      "rule": "model menu persists Max mode for verified platform profiles while Auto remains inert",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-model-mode-placeholders-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "model menu persists Max mode for verified platform profiles while Auto remains inert"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "glmRow.hover()"
+    },
+    {
+      "action": "details.getByRole(\"button\", { name: \"思考强度 高\" }).click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "max.click()"
+    },
+    {
+      "action": "page.mouse.click(autoBox.x + autoBox.width / 2, autoBox.y + autoBox.height / 2)"
+    },
+    {
+      "action": "page.reload()"
+    },
+    {
+      "action": "page.getByTestId(\"composer-model-trigger\").click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "composer.fill(\"Reply only max mode fixture\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByTestId(\"composer-model-trigger\").click()"
+    },
+    {
+      "action": "menuAfterReload.focus()"
+    },
+    {
+      "action": "page.keyboard.press(\"ArrowDown\")"
+    },
+    {
+      "action": "menuAfterReload.getByRole(\"menuitemradio\", { name: \"Kimi-K3\" }).click()"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "page.keyboard.press(\"Escape\")"
+    },
+    {
+      "action": "trigger.click()"
+    },
+    {
+      "action": "menu.getByRole(\"menuitem\", { name: \"配置自定义模型\" }).click()"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(catalog.models[0]).toMatchObject({ billing: { pricingVersion: \"retail-fixture\", inputCreditsPerMillion: 40.5, cacheHitCreditsPerMillion: 10.125, outputCreditsPerMillion: 141.75, } })",
+    "expect(trigger).toHaveAccessibleName(\"GLM-5.2\")",
+    "expect(max).toBeEnabled()",
+    "expect(auto).toBeDisabled()",
+    "expect(max).toHaveAttribute(\"aria-checked\", \"false\")",
+    "expect(auto).toHaveAttribute(\"aria-checked\", \"false\")",
+    "expect(stoppedRow).toBeDisabled()",
+    "expect(stoppedRow).toContainText(\"已停用\")",
+    "expect(glmRow).toContainText(\"0.75x\")",
+    "expect(glmRow.getByText(\"GLM-5.2\", { exact: true })).toHaveCSS(\"color\", \"rgb(51, 51, 51)\")",
+    "expect(glmRow.getByText(\"0.75x\", { exact: true })).toHaveCSS(\"font-size\", \"12px\")",
+    "expect(glmRow.getByText(\"0.75x\", { exact: true })).toHaveCSS(\"color\", \"rgba(0, 0, 0, 0.7)\")",
+    "expect(details).toContainText(\"已核验模型说明\")",
+    "expect(details).toContainText(\"0.75x 倍率\")",
+    "expect(details).toContainText(\"消耗速度\")",
+    "expect(page.getByRole(\"menu\", { name: \"思考强度\", exact: true }).getByRole(\"menuitemradio\", { name: \"高\", exact: true })).toBeEnabled()",
+    "expect(page.getByRole(\"menu\", { name: \"思考强度\", exact: true }).getByRole(\"menuitemradio\", { name: \"低\", exact: true })).toHaveCount(0)",
+    "expect(glmRow.locator('[data-model-provider=\"glm\"]')).toBeVisible()",
+    "expect(iconBox.width).toBe(16)",
+    "expect(checkBox.x).toBeGreaterThan(iconBox.x)",
+    "expect((await glmRow.boundingBox())!.height).toBe(38)",
+    "expect(glmRow).toHaveAttribute(\"data-qds-component\", \"menu-item\")",
+    "expect(box!.width).toBeCloseTo(280, 0)",
+    "expect(box!.height).toBeLessThanOrEqual(368)",
+    "expect((await auto.boundingBox())!.height).toBeCloseTo(32, 0)",
+    "expect(await menu.evaluate(el => getComputedStyle(el).borderRadius)).toBe(\"16px\")",
+    "expect(max).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect.poll(() => page.evaluate( (sessionId) => window.workGui.models.getMaxMode(sessionId), preExistingSessionId, )).toBe(false)",
+    "expect(trigger).toHaveAccessibleName(\"GLM-5.2\")",
+    "expect(page.getByRole(\"menu\", { name: \"模型\", exact: true }).getByRole(\"switch\", { name: \"Max 模式\" })).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect.poll(async () => { const raw = await fs.readFile(controlLog, \"utf8\").catch((error) => { if (error.code === \"ENOENT\") return \"\"; throw error; }); const entries = raw.trim().split(\"\\n\").filter(Boolean).map((line) => JSON.parse(line)); const profile = entries.findIndex((entry) => entry.type === \"set_runtime_model_profile\" && entry.profile?.config_revision === 12 && entry.profile?.max_mode_enabled === true && ent…",
+    "expect(maxAfterReload).toHaveAttribute(\"aria-checked\", \"true\")",
+    "expect(maxAfterReload).toBeFocused()",
+    "expect((await footer.boundingBox())!.y).toBeCloseTo(footerBefore.y, 0)",
+    "expect(maxAfterReload).toBeVisible()",
+    "expect(trigger).toHaveAccessibleName(\"Kimi-K3\")",
+    "expect(menu).toBeHidden()",
+    "expect(page.getByRole(\"dialog\", { name: \"设置\" })).toBeVisible()",
+    "expect(maxIsolation).toEqual({ current: true, sibling: false })"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-0B6498144FAD54",
+      "type": "return",
+      "assertion": "model menu persists Max mode for verified platform profiles while Auto remains inert"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-model-mode-placeholders-spec-ts.61ea7b62d6",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/model-mode-placeholders.spec.ts -g \"model menu persists Max mode for verified platform profiles while Auto remains inert\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "models",
+      "steps": [
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "glmRow.hover()"
+        },
+        {
+          "action": "details.getByRole(\"button\", { name: \"思考强度 高\" }).click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "max.click()"
+        },
+        {
+          "action": "page.mouse.click(autoBox.x + autoBox.width / 2, autoBox.y + autoBox.height / 2)"
+        },
+        {
+          "action": "page.reload()"
+        },
+        {
+          "action": "page.getByTestId(\"composer-model-trigger\").click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "composer.fill(\"Reply only max mode fixture\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByTestId(\"composer-model-trigger\").click()"
+        },
+        {
+          "action": "menuAfterReload.focus()"
+        },
+        {
+          "action": "page.keyboard.press(\"ArrowDown\")"
+        },
+        {
+          "action": "menuAfterReload.getByRole(\"menuitemradio\", { name: \"Kimi-K3\" }).click()"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "page.keyboard.press(\"Escape\")"
+        },
+        {
+          "action": "trigger.click()"
+        },
+        {
+          "action": "menu.getByRole(\"menuitem\", { name: \"配置自定义模型\" }).click()"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/model-mode-placeholders.spec.ts",
+        "line_start": 69,
+        "line_end": 211,
+        "body_sha256": "sha256:65c79f68216145b32a11b42ff954379dda6592212addf2792f8b9747a4b2ef9f",
+        "assertion_count": 39,
+        "action_count": 19,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:3ee99f11393843d16a3a178ebd5f2d0eeedde9b8c7d7a1d6f7de4aeb930524ee"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-0B6498144FAD54"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-0B6498144FAD54"
+    ]
+  }
+}

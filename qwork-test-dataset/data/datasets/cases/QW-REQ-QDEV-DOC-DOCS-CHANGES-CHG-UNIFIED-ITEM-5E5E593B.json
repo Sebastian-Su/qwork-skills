@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:375;heading:本地日志生命周期决策",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:561;heading:本地日志生命周期决策",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:94f7c99a546e152894646cd049f8cf450abae5cce0c8f0dc2eca54ad12766576",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-F270264C462ACC",
+      "requirement_id": "REQ-EB6C5C7177247F",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L375:94f7c99a54"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L561:94f7c99a54"
       ],
       "content_facets": [
         "negative-rule"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 本地日志生命周期决策 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-F270264C462ACC] exactly: **资源准备（已确认，2026-08-27）**：发送前建立 `resource.prepare` 父 span，分类记录会话恢复、附件、知识库、工作区、Skill/Plugin/Connector/MCP。实际使用的 opaque 资源 ID 保持真实可查，禁止名称、路径、查询和内容；chunk 按文档去重，无资源也记录零计数完成。见 ADR-0014。"
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-EB6C5C7177247F] exactly: **资源准备（已确认，2026-08-27）**：发送前建立 `resource.prepare` 父 span，分类记录会话恢复、附件、知识库、工作区、Skill/Plugin/Connector/MCP。实际使用的 opaque 资源 ID 保持真实可查，禁止名称、路径、查询和内容；chunk 按文档去重，无资源也记录零计数完成。见 ADR-0014。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "**资源准备（已确认，2026-08-27）**：发送前建立 `resource.prepare` 父 span，分类记录会话恢复、附件、知识库、工作区、Skill/Plugin/Connector/MCP。实际使用的 opaque 资源 ID 保持真实可查，禁止名称、路径、查询和内容；chunk 按文档去重，无资源也记录零计数完成。见 ADR-0014。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-F270264C462ACC]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **资源准备（已确认，2026-08-27）**：发送前建立 `resource.prepare` 父 span，分类记录会话恢复、附件、知识库、工作区、Skill/Plugin/Connector/MCP。实际使用的 opaque 资源 ID 保持真实可查，禁止名称、路径、查询和内容；chunk 按文档去重，无资源也记录零计数完成。见 ADR-0014。",
+    "FAIL [REQ-EB6C5C7177247F]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: **资源准备（已确认，2026-08-27）**：发送前建立 `resource.prepare` 父 span，分类记录会话恢复、附件、知识库、工作区、Skill/Plugin/Connector/MCP。实际使用的 opaque 资源 ID 保持真实可查，禁止名称、路径、查询和内容；chunk 按文档去重，无资源也记录零计数完成。见 ADR-0014。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-F270264C462ACC",
+      "requirement_id": "REQ-EB6C5C7177247F",
       "type": "return",
       "assertion": "**资源准备（已确认，2026-08-27）**：发送前建立 `resource.prepare` 父 span，分类记录会话恢复、附件、知识库、工作区、Skill/Plugin/Connector/MCP。实际使用的 opaque 资源 ID 保持真实可查，禁止名称、路径、查询和内容；chunk 按文档去重，无资源也记录零计数完成。见 ADR-0014。"
     }
@@ -157,7 +157,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 本地日志生命周期决策 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-F270264C462ACC] exactly: **资源准备（已确认，2026-08-27）**：发送前建立 `resource.prepare` 父 span，分类记录会话恢复、附件、知识库、工作区、Skill/Plugin/Connector/MCP。实际使用的 opaque 资源 ID 保持真实可查，禁止名称、路径、查询和内容；chunk 按文档去重，无资源也记录零计数完成。见 ADR-0014。"
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-EB6C5C7177247F] exactly: **资源准备（已确认，2026-08-27）**：发送前建立 `resource.prepare` 父 span，分类记录会话恢复、附件、知识库、工作区、Skill/Plugin/Connector/MCP。实际使用的 opaque 资源 ID 保持真实可查，禁止名称、路径、查询和内容；chunk 按文档去重，无资源也记录零计数完成。见 ADR-0014。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -200,7 +200,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-F270264C462ACC"
+      "REQ-EB6C5C7177247F"
     ],
     "categories": [
       "negative"
@@ -208,12 +208,12 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-F270264C462ACC"
+      "requirement:REQ-EB6C5C7177247F"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-F270264C462ACC",
+      "requirement_id": "REQ-EB6C5C7177247F",
       "oracle_type": "return",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 本地日志生命周期决策 产品契约 exactly once and retain its correlation identity",

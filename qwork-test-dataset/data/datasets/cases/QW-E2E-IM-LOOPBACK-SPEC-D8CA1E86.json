@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/im-loopback.spec.ts",
-      "locator": "line:24;test:injects a QQ message into the assistant and renders the sidecar reply",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/im-loopback.spec.ts",
+      "locator": "line:25;test:injects a QQ message into the assistant and renders the sidecar reply",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:d8ca1e86c329860a39a9b852ef618ee9c9a99fad2c46f31da3b8878ce84c7be0",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-1EB6AB1CE97B83",
+      "requirement_id": "REQ-4618CC2E51B580",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-im-loopback-spec-ts:L24:d8ca1e86c3"
+        "QDEV-E2E-e2e-im-loopback-spec-ts:L25:d8ca1e86c3"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,41 +75,21 @@
       "action": "launch isolated QWork Electron"
     },
     {
-      "action": "createTestHome(\"im-loopback\")"
+      "action": "page.reload()"
     },
     {
-      "action": "createWorkspace(configHome)"
-    },
-    {
-      "action": "seedEnabledQq(configHome)"
-    },
-    {
-      "action": "path.join(configHome, \"im-inbox.json\")"
-    },
-    {
-      "action": "writeInbox( inboxFile, qqMessage({ messageId: \"qq-message-1\", conversationId: \"qq-conversation-1\", content, }), )"
-    },
-    {
-      "action": "qqMessage({ messageId: \"qq-message-1\", conversationId: \"qq-conversation-1\", content, })"
-    },
-    {
-      "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, })"
-    },
-    {
-      "action": "openInjectedConversation(launched.page, \"qq-conversation-1\", content)"
-    },
-    {
-      "action": "expectInboundText(launched.page, content)"
-    },
-    {
-      "action": "expectSidecarReply(launched.page, content)"
-    },
-    {
-      "action": "cleanupTestHome(app, configHome)"
+      "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
     }
   ],
   "expected_outcomes": [
-    "expect( launched.page.getByRole(\"heading\", { name: \"本地助理\" }), ).toBeVisible()"
+    "expect .poll(() => page.evaluate( async (targetConversationId) => (await window.workGui.im.listConversations()).some( (conversation) => conversation.conversationId === targetConversationId, ), conversationId, ), ) .toBe(true)",
+    "expect .poll(() => page.evaluate( async ({ targetSessionId, expectedContent }) => ( await window.workGui.sessions.history(targetSessionId) ).messages.some( (message) => message.role === \"assistant\" && message.text.includes(\"收到：\") && message.text.includes(expectedContent), ), { targetSessionId: sessionId, expectedContent: content }, ), ) .toBe(true)",
+    "expect(page.getByRole(\"heading\", { name: \"本地助理\" })).toBeVisible()",
+    "expect( launched.page.getByRole(\"heading\", { name: \"本地助理\" }), ).toBeVisible()",
+    "expect( page .getByTestId(\"assistant-page\") .getByTestId(\"user-message-bubble\") .filter({ hasText: content }), ).toBeVisible()",
+    "expect( page .getByTestId(\"assistant-page\") .getByTestId(\"assistant-message\") .filter({ hasText: \"收到：\" }) .filter({ hasText: content }), ).toBeVisible()",
+    "expect .poll(async () => { const messages = await readSidecarControlLog(sidecarEventLog); return messages.find( (entry) => entry.type === \"create_session\" && entry.session_id === conversation.sessionId, )?.model; }) .toBe(\"qwen/z-ai/glm-5.2\")",
+    "expect(headerContract).toEqual({ height: 56, paddingLeft: \"24px\", headingFontSize: \"16px\", statusFontSize: \"14px\", channelFontSize: \"13px\", channelIconSize: 16, })"
   ],
   "forbidden_outcomes": [
     "silent failure",
@@ -118,7 +98,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-1EB6AB1CE97B83",
+      "requirement_id": "REQ-4618CC2E51B580",
       "type": "return",
       "assertion": "injects a QQ message into the assistant and renders the sidecar reply"
     }
@@ -179,37 +159,10 @@
       "entrypoint": "im",
       "steps": [
         {
-          "action": "createTestHome(\"im-loopback\")"
+          "action": "page.reload()"
         },
         {
-          "action": "createWorkspace(configHome)"
-        },
-        {
-          "action": "seedEnabledQq(configHome)"
-        },
-        {
-          "action": "path.join(configHome, \"im-inbox.json\")"
-        },
-        {
-          "action": "writeInbox( inboxFile, qqMessage({ messageId: \"qq-message-1\", conversationId: \"qq-conversation-1\", content, }), )"
-        },
-        {
-          "action": "qqMessage({ messageId: \"qq-message-1\", conversationId: \"qq-conversation-1\", content, })"
-        },
-        {
-          "action": "openApp(configHome, { ...loopbackEnv, E2E_IM_INBOX_FILE: inboxFile, })"
-        },
-        {
-          "action": "openInjectedConversation(launched.page, \"qq-conversation-1\", content)"
-        },
-        {
-          "action": "expectInboundText(launched.page, content)"
-        },
-        {
-          "action": "expectSidecarReply(launched.page, content)"
-        },
-        {
-          "action": "cleanupTestHome(app, configHome)"
+          "action": "page.getByRole(\"button\", { name: \"助理\", exact: true }).click()"
         }
       ],
       "locator_strategy": "accessible role/name first; project locator registry fallback",
@@ -230,13 +183,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/im-loopback.spec.ts",
-        "line_start": 24,
-        "line_end": 57,
-        "body_sha256": "sha256:d7769be2415eab3774c0b3d7539133d1193a77b76dd002c0db9cf689ea7b67e4",
-        "assertion_count": 1,
-        "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:7aabc579f5219d106d684b1100adf82f8ab62e33c330bc527fe0db23cfae4b3e"
+        "line_start": 25,
+        "line_end": 143,
+        "body_sha256": "sha256:698076f6579607a50bb2d30cd988be76fe010b1a6e46d8a2c2740532b2b4cacf",
+        "assertion_count": 8,
+        "action_count": 2,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1377d0e7090fd46b88bb74c5ed69b13f431136cab7ad470e2b7ca32155920e27"
       }
     },
     "reference_run": {
@@ -258,7 +211,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-1EB6AB1CE97B83"
+      "REQ-4618CC2E51B580"
     ],
     "categories": [
       "business"
@@ -266,7 +219,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-1EB6AB1CE97B83"
+      "requirement:REQ-4618CC2E51B580"
     ]
   }
 }

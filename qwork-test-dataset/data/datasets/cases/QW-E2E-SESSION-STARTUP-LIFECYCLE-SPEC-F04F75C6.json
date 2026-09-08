@@ -1,0 +1,257 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-SESSION-STARTUP-LIFECYCLE-SPEC-F04F75C6",
+  "title": "keeps the first visible turn continuous while a new session receives its real id",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "window-runtime",
+    "journey": "window-runtime",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-session-startup-lifecycle-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/session-startup-lifecycle.spec.ts",
+      "locator": "line:134;test:keeps the first visible turn continuous while a new session receives its real id",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:f04f75c6680efa7298ca2bf76d7d19eaee6d3f4b802ba98de6a8165285643e2c",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-475441B1AF0373",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-session-startup-lifecycle-spec-ts:L134:f04f75c668"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "window-runtime",
+      "priority": "P1",
+      "rule": "keeps the first visible turn continuous while a new session receives its real id",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-session-startup-lifecycle-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "keeps the first visible turn continuous while a new session receives its real id"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"__E2E_HANG__\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"停止生成\", exact: true }).click()"
+    },
+    {
+      "action": "composer.fill(\"首条会话后续消息\")"
+    },
+    {
+      "action": "composer.press(\"Enter\")"
+    }
+  ],
+  "expected_outcomes": [
+    "expect( page.getByRole(\"complementary\").getByText(\"任务 (0)\", { exact: true }), ).toBeVisible()",
+    "expect( page.getByRole(\"complementary\").getByText(\"空间 (0)\", { exact: true }), ).toBeVisible()",
+    "expect(composer).toHaveValue(\"__E2E_HANG__\")",
+    "expect(waiting).toBeVisible()",
+    "expect(initialWaitingNode).not.toBeNull()",
+    "expect.poll(async () => { const raw = await fs.readFile(controlLog, \"utf8\").catch(() => \"\"); return raw .split(/\\r?\\n/) .filter(Boolean) .map((line) => JSON.parse(line) as { type?: string }) .filter((message) => message.type === \"user_message\") .length; }).toBe(1)",
+    "expect.poll(() => { const event = mainConsoleEvents.find( (values) => values[0] === \"[session-create-debug] sidecar create completed\", ); const summary = event?.[1]; if (!summary || typeof summary !== \"object\") return null; const createAckMs = (summary as { create_ack_ms?: unknown }).create_ack_ms; return typeof createAckMs === \"number\" ? createAckMs : null; }).toBeGreaterThanOrEqual(650)",
+    "expect( mainConsoleEvents.filter( (values) => typeof values[0] === \"string\" && values[0].startsWith(\"[model-debug] prompt dispatch\"), ), ).toHaveLength(1)",
+    "expect(JSON.stringify(mainConsoleEvents)).not.toContain(\"__E2E_HANG__\")",
+    "expect(await initialWaitingNode!.evaluate((node) => node.isConnected)).toBe(true)",
+    "expect(page.getByText(\"等待模型响应\", { exact: true })).toHaveCount(1)",
+    "expect( page.getByRole(\"complementary\").getByText(\"任务 (1)\", { exact: true }), ).toBeVisible()",
+    "expect( page.getByRole(\"complementary\").getByText(\"空间 (0)\", { exact: true }), ).toBeVisible()",
+    "expect.poll(() => page.evaluate(() => ( JSON.parse(localStorage.getItem(\"ziqdo.workspaceCwds\") ?? \"[]\") as string[] ))).toEqual([])",
+    "expect(composer).toBeEnabled()",
+    "expect(page.getByText(\"收到：首条会话后续消息\", { exact: true })).toBeVisible()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-475441B1AF0373",
+      "type": "return",
+      "assertion": "keeps the first visible turn continuous while a new session receives its real id"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-session-startup-lifecycle-spec-ts.f04f75c668",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/session-startup-lifecycle.spec.ts -g \"keeps the first visible turn continuous while a new session receives its real id\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "window-runtime",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"__E2E_HANG__\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"停止生成\", exact: true }).click()"
+        },
+        {
+          "action": "composer.fill(\"首条会话后续消息\")"
+        },
+        {
+          "action": "composer.press(\"Enter\")"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/session-startup-lifecycle.spec.ts",
+        "line_start": 134,
+        "line_end": 222,
+        "body_sha256": "sha256:8dcd102a9b6fe90ff48433c07aac1399a09665c84e4a5fee447e1d80206f25fb",
+        "assertion_count": 16,
+        "action_count": 6,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:06495ea3918133cc34f832fbb7c05aa8b36018ee39a12e8fed07c83552ac14fb"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-475441B1AF0373"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-475441B1AF0373"
+    ]
+  }
+}

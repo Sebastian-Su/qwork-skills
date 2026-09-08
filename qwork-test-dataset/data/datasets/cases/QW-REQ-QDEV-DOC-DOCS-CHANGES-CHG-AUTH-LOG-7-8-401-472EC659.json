@@ -1,0 +1,419 @@
+{
+  "schema_version": 3,
+  "id": "QW-REQ-QDEV-DOC-DOCS-CHANGES-CHG-AUTH-LOG-7-8-401-472EC659",
+  "title": "docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 7.8 登录后 401 恢复与登出 产品契约",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "integration",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "im",
+    "journey": "im",
+    "states_covered": [
+      "entry",
+      "final-state"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:280;heading:7.8 登录后 401 恢复与登出",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:0ede056bf4f6f1fd16661d99e65bce8ff9f56d465590c464243f7494cd62e57d",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:282;heading:7.8 登录后 401 恢复与登出",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:51edaa14b229e57b7801d28e5e4d3c721a787369aad8d7c5a945052d5487e4c8",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:283;heading:7.8 登录后 401 恢复与登出",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:7de62c62e5586fcac400534b9bb20705b4dfad2b5e2e741a9e209243810d7097",
+      "redaction_status": "minimized"
+    },
+    {
+      "source_id": "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i",
+      "type": "git-document",
+      "authority_kind": "normative",
+      "authority_domain": "product",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md",
+      "locator": "line:284;heading:7.8 登录后 401 恢复与登出",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "approved",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:517cce2d27ee32a6d1c7632d710547b9b8ef72d89e8f34b63866eeacb28de857",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-7459199DB87888",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L280:0ede056bf4"
+      ],
+      "content_facets": [
+        "business-rule"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "| 场景 | 事件序列 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 场景 | 事件序列 |"
+    },
+    {
+      "requirement_id": "REQ-7026CFB7275D18",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L282:51edaa14b2"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "| 受保护 API 返回 401 | `auth.recovery stage=started trigger=protected_api_401` |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 受保护 API 返回 401 | `auth.recovery stage=started trigger=protected_api_401` |"
+    },
+    {
+      "requirement_id": "REQ-501DAA17A763A8",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L283:7de62c62e5"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "| 延迟探测 `/auth/status` | 正常中间轮询不逐条发事件；只在状态变化或异常时记录 |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 延迟探测 `/auth/status` | 正常中间轮询不逐条发事件；只在状态变化或异常时记录 |"
+    },
+    {
+      "requirement_id": "REQ-6302F2CC543363",
+      "source_atom_ids": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i:L284:517cce2d27"
+      ],
+      "content_facets": [
+        "role-permission"
+      ],
+      "acceptance_categories": [
+        "permission"
+      ],
+      "surface": "im",
+      "priority": "P1",
+      "rule": "| 会话恢复 | `auth.recovery outcome=recovered poll_count duration_ms` |",
+      "authority_domain": "product",
+      "governing_sources": [
+        "QDEV-DOC-docs-changes-chg-auth-login-observability-20260903-i"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "| 会话恢复 | `auth.recovery outcome=recovered poll_count duration_ms` |"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "start the isolated process, protocol or persistence fixture"
+    },
+    {
+      "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+    },
+    {
+      "action": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 7.8 登录后 401 恢复与登出 产品契约 exactly once; record the action, route and correlation identity"
+    },
+    {
+      "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7459199DB87888] exactly: | 场景 | 事件序列 |"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-7026CFB7275D18] exactly: | 受保护 API 返回 401 | `auth.recovery stage=started trigger=protected_api_401` |"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-501DAA17A763A8] exactly: | 延迟探测 `/auth/status` | 正常中间轮询不逐条发事件；只在状态变化或异常时记录 |"
+    },
+    {
+      "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-6302F2CC543363] exactly: | 会话恢复 | `auth.recovery outcome=recovered poll_count duration_ms` |"
+    },
+    {
+      "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+    }
+  ],
+  "expected_outcomes": [
+    "| 场景 | 事件序列 |",
+    "| 受保护 API 返回 401 | `auth.recovery stage=started trigger=protected_api_401` |",
+    "| 延迟探测 `/auth/status` | 正常中间轮询不逐条发事件；只在状态变化或异常时记录 |",
+    "| 会话恢复 | `auth.recovery outcome=recovered poll_count duration_ms` |"
+  ],
+  "forbidden_outcomes": [
+    "FAIL [REQ-7459199DB87888]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 场景 | 事件序列 |",
+    "FAIL [REQ-7026CFB7275D18]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 受保护 API 返回 401 | `auth.recovery stage=started trigger=protected_api_401` |",
+    "FAIL [REQ-501DAA17A763A8]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 延迟探测 `/auth/status` | 正常中间轮询不逐条发事件；只在状态变化或异常时记录 |",
+    "FAIL [REQ-6302F2CC543363]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: | 会话恢复 | `auth.recovery outcome=recovered poll_count duration_ms` |",
+    "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-7459199DB87888",
+      "type": "return",
+      "assertion": "| 场景 | 事件序列 |"
+    },
+    {
+      "requirement_id": "REQ-7026CFB7275D18",
+      "type": "api",
+      "assertion": "| 受保护 API 返回 401 | `auth.recovery stage=started trigger=protected_api_401` |"
+    },
+    {
+      "requirement_id": "REQ-501DAA17A763A8",
+      "type": "api",
+      "assertion": "| 延迟探测 `/auth/status` | 正常中间轮询不逐条发事件；只在状态变化或异常时记录 |"
+    },
+    {
+      "requirement_id": "REQ-6302F2CC543363",
+      "type": "api",
+      "assertion": "| 会话恢复 | `auth.recovery outcome=recovered poll_count duration_ms` |"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "protocol, process, return-value or durable-state evidence",
+    "machine-readable assertion result"
+  ],
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.requirement.qdev-doc-docs-changes-chg-auth-login.7-8-401-472ec65981",
+    "target": {
+      "kind": "process",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://QWork process/protocol/persistence boundary named by the source"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "manual-blocked",
+      "command_or_tool": null,
+      "success_oracle": "the source-bound non-UI contract is directly observed at its process, protocol or persistence boundary",
+      "failure_action": "implement a source-bound integration runner; do not substitute a screenshot or static text scan"
+    },
+    "navigation": {
+      "kind": "process-protocol",
+      "entrypoint": "im",
+      "steps": [
+        {
+          "action": "start the isolated process, protocol or persistence fixture"
+        },
+        {
+          "action": "capture the pre-trigger baseline for im at every source-bound observation boundary"
+        },
+        {
+          "action": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 7.8 登录后 401 恢复与登出 产品契约 exactly once; record the action, route and correlation identity"
+        },
+        {
+          "action": "observe typed return value and side-effect ledger after the trigger and assert [REQ-7459199DB87888] exactly: | 场景 | 事件序列 |"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-7026CFB7275D18] exactly: | 受保护 API 返回 401 | `auth.recovery stage=started trigger=protected_api_401` |"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-501DAA17A763A8] exactly: | 延迟探测 `/auth/status` | 正常中间轮询不逐条发事件；只在状态变化或异常时记录 |"
+        },
+        {
+          "action": "observe typed IPC or service API boundary after the trigger and assert [REQ-6302F2CC543363] exactly: | 会话恢复 | `auth.recovery outcome=recovered poll_count duration_ms` |"
+        },
+        {
+          "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
+        }
+      ],
+      "locator_strategy": "source-bound process/protocol/persistence identifier",
+      "success_oracle": "every declared non-UI oracle is directly observed",
+      "failure_action": "capture structured boundary evidence and repair the integration runner"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "integration-result.json"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment",
+      "source_contract": null
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "dedicated source-bound non-UI integration runner is not implemented",
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-501DAA17A763A8",
+      "REQ-6302F2CC543363",
+      "REQ-7026CFB7275D18",
+      "REQ-7459199DB87888"
+    ],
+    "categories": [
+      "business",
+      "permission"
+    ],
+    "suite_ids": [
+      "category:business",
+      "category:permission",
+      "full",
+      "requirement:REQ-501DAA17A763A8",
+      "requirement:REQ-6302F2CC543363",
+      "requirement:REQ-7026CFB7275D18",
+      "requirement:REQ-7459199DB87888"
+    ]
+  },
+  "causal_probe_plan": [
+    {
+      "requirement_id": "REQ-7459199DB87888",
+      "oracle_type": "return",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 7.8 登录后 401 恢复与登出 产品契约 exactly once and retain its correlation identity",
+      "then": "| 场景 | 事件序列 |",
+      "observation_boundary": "typed return value and side-effect ledger",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-7026CFB7275D18",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 7.8 登录后 401 恢复与登出 产品契约 exactly once and retain its correlation identity",
+      "then": "| 受保护 API 返回 401 | `auth.recovery stage=started trigger=protected_api_401` |",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-501DAA17A763A8",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 7.8 登录后 401 恢复与登出 产品契约 exactly once and retain its correlation identity",
+      "then": "| 延迟探测 `/auth/status` | 正常中间轮询不逐条发事件；只在状态变化或异常时记录 |",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    },
+    {
+      "requirement_id": "REQ-6302F2CC543363",
+      "oracle_type": "api",
+      "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
+      "when": "perform the source-defined scenario trigger for docs/changes/CHG-auth-login-observability-20260903/implementation-plan.md · 7.8 登录后 401 恢复与登出 产品契约 exactly once and retain its correlation identity",
+      "then": "| 会话恢复 | `auth.recovery outcome=recovered poll_count duration_ms` |",
+      "observation_boundary": "typed IPC or service API boundary",
+      "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
+    }
+  ]
+}

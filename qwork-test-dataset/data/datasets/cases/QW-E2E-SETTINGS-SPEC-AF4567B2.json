@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/settings.spec.ts",
-      "locator": "line:238;test:adds and persists English display language with immediate key-surface localization",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/settings.spec.ts",
+      "locator": "line:240;test:adds and persists English display language with immediate key-surface localization",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:af4567b211cb108bf4f864f29d50d173cd53c4bb4ee3d822829191c7a44be4e6",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-1F2A4F9AFF8CE9",
+      "requirement_id": "REQ-75EB0FA6959DF3",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-settings-spec-ts:L238:af4567b211"
+        "QDEV-E2E-e2e-settings-spec-ts:L240:af4567b211"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,10 +75,16 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
       "action": "dialog.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
     },
     {
-      "action": "dialog.getByRole(\"combobox\", { name: \"显示语言\" }).selectOption(\"en-US\")"
+      "action": "dialog.getByRole(\"button\", { name: \"显示语言\", exact: true }).click()"
+    },
+    {
+      "action": "dialog.getByRole(\"option\", { name: \"English\" }).click()"
     },
     {
       "action": "dialog.getByRole(\"button\", { name: \"Close settings\" }).click()"
@@ -91,12 +97,14 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: newTaskName, exact: true })).toBeVisible()",
+    "expect(dialog).toBeVisible()",
     "expect(dialog).toBeVisible()",
     "expect(dialog.getByRole(\"heading\", { name: \"Settings\", level: 1 })).toBeVisible()",
     "expect(dialog.getByRole(\"button\", { name: \"Shortcuts\", exact: true })).toBeVisible()",
     "expect.poll(() => opened.page.evaluate( async () => (await window.workGui.settings.get()).system.locale, )).toBe(\"en-US\")",
     "expect(opened.page.getByRole(\"button\", { name: \"New task\", exact: true })).toBeVisible()",
-    "expect(dialog.getByRole(\"combobox\", { name: \"Display language\" })) .toHaveValue(\"en-US\")",
+    "expect(dialog.getByRole(\"button\", { name: \"Display language\" })) .toHaveText(\"English\")",
     "expect(opened.page.getByRole(\"button\", { name: \"New task\", exact: true })).toBeVisible()"
   ],
   "forbidden_outcomes": [
@@ -106,7 +114,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-1F2A4F9AFF8CE9",
+      "requirement_id": "REQ-75EB0FA6959DF3",
       "type": "return",
       "assertion": "adds and persists English display language with immediate key-surface localization"
     }
@@ -167,10 +175,16 @@
       "entrypoint": "persistence",
       "steps": [
         {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
           "action": "dialog.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
         },
         {
-          "action": "dialog.getByRole(\"combobox\", { name: \"显示语言\" }).selectOption(\"en-US\")"
+          "action": "dialog.getByRole(\"button\", { name: \"显示语言\", exact: true }).click()"
+        },
+        {
+          "action": "dialog.getByRole(\"option\", { name: \"English\" }).click()"
         },
         {
           "action": "dialog.getByRole(\"button\", { name: \"Close settings\" }).click()"
@@ -200,13 +214,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/settings.spec.ts",
-        "line_start": 238,
-        "line_end": 272,
-        "body_sha256": "sha256:e34030f83b2760442d36d521fc73f75ffac5d419ade5c79500c9149183f8fd3a",
-        "assertion_count": 7,
-        "action_count": 5,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:810b9b0eddf7b6308584c421b22da0a5421cc35c2ea9b09cc8cf6def1910ed26"
+        "line_start": 240,
+        "line_end": 275,
+        "body_sha256": "sha256:71366dca55e4dc4f766aa6b92c89da4cd267cbf23833f5ee36535101b83232ab",
+        "assertion_count": 9,
+        "action_count": 7,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:06e0bba09de15e5fb387cafbdcf2531fe0882c4c60378ce523f9078d9d6f7732"
       }
     },
     "reference_run": {
@@ -228,7 +242,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-1F2A4F9AFF8CE9"
+      "REQ-75EB0FA6959DF3"
     ],
     "categories": [
       "business"
@@ -236,7 +250,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-1F2A4F9AFF8CE9"
+      "requirement:REQ-75EB0FA6959DF3"
     ]
   }
 }

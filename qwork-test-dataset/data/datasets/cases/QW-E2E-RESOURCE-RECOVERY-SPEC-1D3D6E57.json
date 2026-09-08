@@ -1,0 +1,282 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-RESOURCE-RECOVERY-SPEC-1D3D6E57",
+  "title": "removes a stale managed expert reference without blocking the application",
+  "kind": "negative",
+  "priority": "P0",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "expert-market",
+    "journey": "expert-market",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-resource-recovery-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/resource-recovery.spec.ts",
+      "locator": "line:11;test:removes a stale managed expert reference without blocking the application",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:1d3d6e57a306417c176b3af1713a56b390ffe1411f96a56c44dd37bf5d282dc1",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-1A8839C8DE0B12",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-resource-recovery-spec-ts:L11:1d3d6e57a3"
+      ],
+      "content_facets": [
+        "negative-rule"
+      ],
+      "acceptance_categories": [
+        "negative"
+      ],
+      "surface": "expert-market",
+      "priority": "P0",
+      "rule": "removes a stale managed expert reference without blocking the application",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-resource-recovery-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "removes a stale managed expert reference without blocking the application"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "createTestHome(\"resource-recovery\")"
+    },
+    {
+      "action": "createWorkspace(configHome)"
+    },
+    {
+      "action": "path.join( configHome, \"plugins\", \"installed_plugins.json\", )"
+    },
+    {
+      "action": "path.join( configHome, \"plugins\", \"cache\", \"third-party\", \"ordinary-plugin\", )"
+    },
+    {
+      "action": "fs.mkdir(path.dirname(registryPath), { recursive: true })"
+    },
+    {
+      "action": "path.dirname(registryPath)"
+    },
+    {
+      "action": "fs.writeFile( registryPath, `${JSON.stringify({ version: 2, owner: \"keep-root-field\", plugins: { \"missing-expert@experts\": [ { scope: \"user\", version: \"1.0.0\", installPath: path.join( configHome, \"plugins\", \"marketplaces\", \"experts\", \"plugins\", \"missing-expert\", ), installedAt: \"2026-09-01T00:00:00.000Z\", lastUpdated: \"2026-09-01T00:00:00.000Z\", }, ], \"ordinary-plugin@third-party\": [ { scope: \"user\", version: \"2.0.0…"
+    },
+    {
+      "action": "JSON.stringify({ version: 2, owner: \"keep-root-field\", plugins: { \"missing-expert@experts\": [ { scope: \"user\", version: \"1.0.0\", installPath: path.join( configHome, \"plugins\", \"marketplaces\", \"experts\", \"plugins\", \"missing-expert\", ), installedAt: \"2026-09-01T00:00:00.000Z\", lastUpdated: \"2026-09-01T00:00:00.000Z\", }, ], \"ordinary-plugin@third-party\": [ { scope: \"user\", version: \"2.0.0\", installPath: unrelatedInstal…"
+    },
+    {
+      "action": "path.join( configHome, \"plugins\", \"marketplaces\", \"experts\", \"plugins\", \"missing-expert\", )"
+    },
+    {
+      "action": "openApp(configHome)"
+    },
+    {
+      "action": "opened.page.evaluate(() => window.workGui.sessions.create({ cwd: \"\", title: \"普通任务仍可用\", }))"
+    },
+    {
+      "action": "window.workGui.sessions.create({ cwd: \"\", title: \"普通任务仍可用\", })"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(opened.page.getByTestId(\"composer-dock\")).toBeVisible()",
+    "expect(await opened.page.evaluate(() => window.workGui.experts.list())) .toEqual([])",
+    "expect.poll(async () => { const registry = JSON.parse(await fs.readFile(registryPath, \"utf8\")); return registry; }).toEqual({ version: 2, owner: \"keep-root-field\", plugins: { \"ordinary-plugin@third-party\": [ expect.objectContaining({ scope: \"user\", installPath: unrelatedInstallPath, owner: \"keep-entry-field\", }), ], }, })",
+    "expect(opened.page.evaluate(() => window.workGui.sessions.create({ cwd: \"\", title: \"缺失 Skill 隔离\", capability_policy: \"explicit\", selected_skills: [\"missing-runtime-skill\"], }))).rejects.toThrow(\"技能来源不可解析\")",
+    "expect(ordinary.session_id).toBeTruthy()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-1A8839C8DE0B12",
+      "type": "return",
+      "assertion": "removes a stale managed expert reference without blocking the application"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-resource-recovery-spec-ts.1d3d6e57a3",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/resource-recovery.spec.ts -g \"removes a stale managed expert reference without blocking the application\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "expert-market",
+      "steps": [
+        {
+          "action": "createTestHome(\"resource-recovery\")"
+        },
+        {
+          "action": "createWorkspace(configHome)"
+        },
+        {
+          "action": "path.join( configHome, \"plugins\", \"installed_plugins.json\", )"
+        },
+        {
+          "action": "path.join( configHome, \"plugins\", \"cache\", \"third-party\", \"ordinary-plugin\", )"
+        },
+        {
+          "action": "fs.mkdir(path.dirname(registryPath), { recursive: true })"
+        },
+        {
+          "action": "path.dirname(registryPath)"
+        },
+        {
+          "action": "fs.writeFile( registryPath, `${JSON.stringify({ version: 2, owner: \"keep-root-field\", plugins: { \"missing-expert@experts\": [ { scope: \"user\", version: \"1.0.0\", installPath: path.join( configHome, \"plugins\", \"marketplaces\", \"experts\", \"plugins\", \"missing-expert\", ), installedAt: \"2026-09-01T00:00:00.000Z\", lastUpdated: \"2026-09-01T00:00:00.000Z\", }, ], \"ordinary-plugin@third-party\": [ { scope: \"user\", version: \"2.0.0…"
+        },
+        {
+          "action": "JSON.stringify({ version: 2, owner: \"keep-root-field\", plugins: { \"missing-expert@experts\": [ { scope: \"user\", version: \"1.0.0\", installPath: path.join( configHome, \"plugins\", \"marketplaces\", \"experts\", \"plugins\", \"missing-expert\", ), installedAt: \"2026-09-01T00:00:00.000Z\", lastUpdated: \"2026-09-01T00:00:00.000Z\", }, ], \"ordinary-plugin@third-party\": [ { scope: \"user\", version: \"2.0.0\", installPath: unrelatedInstal…"
+        },
+        {
+          "action": "path.join( configHome, \"plugins\", \"marketplaces\", \"experts\", \"plugins\", \"missing-expert\", )"
+        },
+        {
+          "action": "openApp(configHome)"
+        },
+        {
+          "action": "opened.page.evaluate(() => window.workGui.sessions.create({ cwd: \"\", title: \"普通任务仍可用\", }))"
+        },
+        {
+          "action": "window.workGui.sessions.create({ cwd: \"\", title: \"普通任务仍可用\", })"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/resource-recovery.spec.ts",
+        "line_start": 11,
+        "line_end": 99,
+        "body_sha256": "sha256:9fab003b62f0e8f2525a3e5f21c2272254127fc9ddc8e422ab71bb8683202e5e",
+        "assertion_count": 5,
+        "action_count": 0,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:1dbfa3117820b279917065b18d23ff44479bbb0f310923a5fd1a40ef668bb1e6"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-1A8839C8DE0B12"
+    ],
+    "categories": [
+      "negative"
+    ],
+    "suite_ids": [
+      "category:negative",
+      "full",
+      "requirement:REQ-1A8839C8DE0B12"
+    ]
+  }
+}

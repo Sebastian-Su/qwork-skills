@@ -21,35 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/inspiration.spec.ts",
-      "locator": "line:104;test:matches the WorkBuddy list contract and exposes true capability types",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/inspiration.spec.ts",
+      "locator": "line:148;test:matches the WorkBuddy list contract and exposes true capability types",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:50b78ee5484e721cde1854ee482684c662e2683d50a2d6dc6fa4a01b9f393216",
-      "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-inspiration-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/inspiration.spec.ts",
-      "locator": "line:104;test:matches the WorkBuddy list contract and exposes true capability types",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:50b78ee5484e721cde1854ee482684c662e2683d50a2d6dc6fa4a01b9f393216",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-862F7903D44818",
+      "requirement_id": "REQ-5659EE889194F5",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-inspiration-spec-ts:L104:50b78ee548"
+        "QDEV-E2E-e2e-inspiration-spec-ts:L148:50b78ee548"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -63,32 +49,6 @@
       "authority_domain": "execution",
       "governing_sources": [
         "QDEV-E2E-e2e-inspiration-spec-ts"
-      ],
-      "supporting_sources": [],
-      "conflicts": [],
-      "resolution": {
-        "status": "resolved",
-        "reason": "compiled from the user-approved source hierarchy"
-      },
-      "oracle": "matches the WorkBuddy list contract and exposes true capability types"
-    },
-    {
-      "requirement_id": "REQ-4A091E31D5B0EE",
-      "source_atom_ids": [
-        "QHEAD-E2E-e2e-inspiration-spec-ts:L104:50b78ee548"
-      ],
-      "content_facets": [
-        "acceptance-criterion"
-      ],
-      "acceptance_categories": [
-        "business"
-      ],
-      "surface": "library",
-      "priority": "P1",
-      "rule": "matches the WorkBuddy list contract and exposes true capability types",
-      "authority_domain": "execution",
-      "governing_sources": [
-        "QHEAD-E2E-e2e-inspiration-spec-ts"
       ],
       "supporting_sources": [],
       "conflicts": [],
@@ -190,6 +150,12 @@
       "action": "dialog.getByRole(\"button\", { name: \"一键做同款\" }).click()"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: \"灵感\", exact: true }).click()"
+    },
+    {
       "action": "page.getByRole(\"button\", { name: \"查看 事件因子解读页\" }).click()"
     },
     {
@@ -226,6 +192,7 @@
     "expect(page.getByRole(\"button\", { name: \"我的收藏\" })).toBeVisible()",
     "expect(cards).toHaveCount(18)",
     "expect(page.getByText(cloud.pending[0].title, { exact: true })).toHaveCount(0)",
+    "expect.poll(async () => new Set((await readFirstRow()).map((box) => box.y)).size).toBe(1)",
     "expect(new Set(firstRow.map((box) => box.y)).size).toBe(1)",
     "expect(box.width).toBeGreaterThanOrEqual(201.5)",
     "expect(box.width).toBeLessThanOrEqual(205.5)",
@@ -237,8 +204,8 @@
     "expect(page.getByRole(\"tablist\", { name: \"灵感分类\" })).toHaveCount(0)",
     "expect(page.getByRole(\"button\", { name: \"清除筛选\" })).toHaveCount(0)",
     "expect(favoritesButton.locator(\"svg\")).toHaveCount(0)",
-    "expect(favoritesButtonStyle).toMatchObject({ fontSize: \"13px\", color: \"rgb(0, 0, 0)\", backgroundColor: \"rgb(255, 255, 255)\", })",
-    "expect(Math.abs( Number.parseFloat(favoritesButtonStyle.borderTopWidth) * favoritesButtonStyle.devicePixelRatio - 1, )) .toBeLessThanOrEqual(0.25)",
+    "expect.poll(readFavoritesButtonStyle).toMatchObject({ fontSize: \"13px\", color: \"rgb(0, 0, 0)\", backgroundColor: \"color(srgb 0 0 0 / 0.05)\", })",
+    "expect(Number.parseFloat(favoritesButtonStyle.borderTopWidth)).toBe(1)",
     "expect(page.getByRole(\"tab\")).toHaveCount(14)",
     "expect(cards).toHaveCount(18)",
     "expect(cards).toHaveCount(8)",
@@ -252,7 +219,7 @@
     "expect(normalDialogBox.height).toBeGreaterThanOrEqual(642)",
     "expect(normalDialogBox.height).toBeLessThanOrEqual(646)",
     "expect(shoufuDialog.getByTitle(\"首富的记账本 Demo 预览\")).toBeVisible()",
-    "expect(demo.getByRole(\"heading\", { name: \"首页\" })).toBeVisible()",
+    "expect(demo.getByRole(\"heading\", { name: \"首页\" })).toBeVisible({ timeout: 20_000 })",
     "expect(shoufuDialog).toHaveAttribute(\"data-preview-mode\", \"maximized\")",
     "expect(maximizedDialogBox.width).toBeGreaterThanOrEqual(958)",
     "expect(maximizedDialogBox.width).toBeLessThanOrEqual(962)",
@@ -301,24 +268,29 @@
     "expect.poll(() => cards.count()).toBeGreaterThanOrEqual(2)",
     "expect(cards).toHaveCount(18)",
     "expect(dialog).toBeVisible()",
-    "expect(dialog.getByText(\"Skill\", { exact: true })).toBeVisible()",
-    "expect(dialog.getByText(\"Expert\", { exact: true })).toHaveCount(0)",
-    "expect(dialog.getByLabel(\"专家\")).toBeVisible()",
+    "expect(dialog.locator('[data-capability-icon=\"skill\"]')).toBeVisible()",
+    "expect(dialog.locator('[data-capability-icon=\"expert\"]')).toBeVisible()",
     "expect(dialog.getByRole(\"button\", { name: \"一键做同款\" })).toBeEnabled()",
-    "expect(page.getByRole(\"status\", { name: \"灵感回填状态\" })).toContainText(\"已临时跳过\")",
-    "expect(page.getByRole(\"status\", { name: \"灵感回填状态\" })).toContainText(\"NeoData金融搜索服务\")",
+    "expect(page.getByText(\"NeoData金融搜索服务\", { exact: true })).toBeVisible()",
+    "expect(page.getByTestId(\"selected-skill-token\").locator('[data-capability-icon=\"skill\"]')).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"移除腾讯自选股金融分析专家团\" })).toBeVisible()",
+    "expect(page.getByRole(\"button\", { name: \"移除腾讯自选股金融分析专家团\" }).locator(\"..\").locator('[data-capability-icon=\"expert\"]')).toBeVisible()",
     "expect(page.getByRole(\"textbox\")).not.toHaveValue(\"\")",
-    "expect(mcpDialog.getByText(\"MCP\", { exact: true })).toBeVisible()",
-    "expect(mcpDialog.getByText(\"同舟公开 MCP Gateway\", { exact: true })).toBeVisible()",
+    "expect(page.getByRole(\"heading\", { name: \"灵感\", level: 1 })).toBeVisible()",
+    "expect(mcpDialog.locator('[data-capability-icon=\"connector\"]')).toHaveCount(0)",
+    "expect(mcpDialog.getByText(\"同舟公开 MCP Gateway\", { exact: true })).toHaveCount(0)",
     "expect(cards).toHaveCount(1)",
     "expect(cards).toHaveCount(1)",
     "expect(page.getByRole(\"tablist\", { name: \"灵感分类\" })).toHaveCount(0)",
     "expect(cards).toHaveCount(18)",
-    "expect(responsiveCards[0].y).toBe(responsiveCards[1].y)",
-    "expect(responsiveCards[2].y).toBeGreaterThan(responsiveCards[0].bottom)",
+    "expect(columns).toHaveCount(4)",
+    "expect(responsiveFirstRow[0].y).toBe(responsiveFirstRow[1].y)",
+    "expect(responsiveFirstRow[2].y).toBe(responsiveFirstRow[3].y)",
+    "expect(responsiveFirstRow[2].y).toBeGreaterThan(responsiveFirstRow[0].y)",
+    "expect(responsiveFirstRow[2].x).toBe(responsiveFirstRow[0].x)",
+    "expect(responsiveFirstRow[3].x).toBe(responsiveFirstRow[1].x)",
     "expect(page.getByRole(\"heading\", { name: \"灵感\", level: 1 })).not.toBeVisible()",
     "expect(page.getByRole(\"textbox\")).not.toHaveValue(\"\")",
-    "expect(page.getByRole(\"status\", { name: \"灵感回填状态\" })).toContainText(\"来自灵感「仓储管理工作台」\")",
     "expect(instantiateRequests).toHaveLength(2)",
     "expect(instantiateRequests.every((request) => Boolean(request.idempotencyKey))).toBe(true)",
     "expect(new Set(instantiateRequests.map((request) => request.idempotencyKey)).size).toBe(2)"
@@ -330,12 +302,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-862F7903D44818",
-      "type": "return",
-      "assertion": "matches the WorkBuddy list contract and exposes true capability types"
-    },
-    {
-      "requirement_id": "REQ-4A091E31D5B0EE",
+      "requirement_id": "REQ-5659EE889194F5",
       "type": "return",
       "assertion": "matches the WorkBuddy list contract and exposes true capability types"
     }
@@ -471,6 +438,12 @@
           "action": "dialog.getByRole(\"button\", { name: \"一键做同款\" }).click()"
         },
         {
+          "action": "page.getByRole(\"button\", { name: \"更多\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: \"灵感\", exact: true }).click()"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"查看 事件因子解读页\" }).click()"
         },
         {
@@ -519,13 +492,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/inspiration.spec.ts",
-        "line_start": 104,
-        "line_end": 395,
-        "body_sha256": "sha256:f793f77bd4d609ab55b24842cbc42372e32dd0a1e2eb43403ad98be96c19412a",
-        "assertion_count": 101,
-        "action_count": 35,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:faccb30ed5447d2e37f07bb4253ab0220dc43cea99835f498f0329ee8de60bd8"
+        "line_start": 148,
+        "line_end": 450,
+        "body_sha256": "sha256:df46b480590bc865db8b3165f68cc57696fbfb303dc1b23fee0136a3b2b8f128",
+        "assertion_count": 107,
+        "action_count": 37,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:fb657fd338eaa49ca2379b834a87cc6e581af3ec943b05add719e035b3c52f32"
       }
     },
     "reference_run": {
@@ -547,8 +520,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-4A091E31D5B0EE",
-      "REQ-862F7903D44818"
+      "REQ-5659EE889194F5"
     ],
     "categories": [
       "business"
@@ -556,8 +528,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-4A091E31D5B0EE",
-      "requirement:REQ-862F7903D44818"
+      "requirement:REQ-5659EE889194F5"
     ]
   }
 }

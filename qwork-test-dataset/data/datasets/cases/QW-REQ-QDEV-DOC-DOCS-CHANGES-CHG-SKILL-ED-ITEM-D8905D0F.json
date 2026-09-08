@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
-      "locator": "line:102;heading:最终实施结果",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md",
+      "locator": "line:104;heading:最终实施结果",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:30592ed894de8a729af1f21f78427146ef1d1002830e4d1fbf8d3bf1ea47c79c",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:ec8edb06bf8e25404cff3c01136fc81375d047d7407265411d30d4a06ee8440e",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-6487A393F0E82D",
+      "requirement_id": "REQ-10DA4E44D17EBB",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati:L102:30592ed894"
+        "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati:L104:ec8edb06bf"
       ],
       "content_facets": [
         "state-transition"
@@ -47,7 +47,7 @@
       ],
       "surface": "files",
       "priority": "P1",
-      "rule": "Review 证据：普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验，无跳过文件、无遗留已确认缺陷。",
+      "rule": "Review 证据：原实现普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验；本次 Windows CI 跟进最终 preview 为 4 个 reviewable files，delegate 4/4 完成核验，无跳过文件、无遗留已确认缺陷。",
       "authority_domain": "product",
       "governing_sources": [
         "QDEV-DOC-docs-changes-chg-skill-edit-p0-20260831-implementati"
@@ -58,7 +58,7 @@
         "status": "resolved",
         "reason": "compiled from the user-approved source hierarchy"
       },
-      "oracle": "Review 证据：普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验，无跳过文件、无遗留已确认缺陷。"
+      "oracle": "Review 证据：原实现普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验；本次 Windows CI 跟进最终 preview 为 4 个 reviewable files，delegate 4/4 完成核验，无跳过文件、无遗留已确认缺陷。"
     }
   ],
   "verification": {
@@ -83,25 +83,25 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 最终实施结果 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe session/sidecar event stream after the trigger and assert [REQ-6487A393F0E82D] exactly: Review 证据：普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验，无跳过文件、无遗留已确认缺陷。"
+      "action": "observe session/sidecar event stream after the trigger and assert [REQ-10DA4E44D17EBB] exactly: Review 证据：原实现普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验；本次 Windows CI 跟进最终 preview 为 4 个 reviewable files，delegate 4/4 完成核验，无跳过文件、无遗留已确认缺陷。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
     }
   ],
   "expected_outcomes": [
-    "Review 证据：普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验，无跳过文件、无遗留已确认缺陷。"
+    "Review 证据：原实现普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验；本次 Windows CI 跟进最终 preview 为 4 个 reviewable files，delegate 4/4 完成核验，无跳过文件、无遗留已确认缺陷。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-6487A393F0E82D]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Review 证据：普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验，无跳过文件、无遗留已确认缺陷。",
+    "FAIL [REQ-10DA4E44D17EBB]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: Review 证据：原实现普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验；本次 Windows CI 跟进最终 preview 为 4 个 reviewable files，delegate 4/4 完成核验，无跳过文件、无遗留已确认缺陷。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-6487A393F0E82D",
+      "requirement_id": "REQ-10DA4E44D17EBB",
       "type": "event",
-      "assertion": "Review 证据：普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验，无跳过文件、无遗留已确认缺陷。"
+      "assertion": "Review 证据：原实现普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验；本次 Windows CI 跟进最终 preview 为 4 个 reviewable files，delegate 4/4 完成核验，无跳过文件、无遗留已确认缺陷。"
     }
   ],
   "cleanup": {
@@ -158,7 +158,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 最终实施结果 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe session/sidecar event stream after the trigger and assert [REQ-6487A393F0E82D] exactly: Review 证据：普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验，无跳过文件、无遗留已确认缺陷。"
+          "action": "observe session/sidecar event stream after the trigger and assert [REQ-10DA4E44D17EBB] exactly: Review 证据：原实现普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验；本次 Windows CI 跟进最终 preview 为 4 个 reviewable files，delegate 4/4 完成核验，无跳过文件、无遗留已确认缺陷。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -201,7 +201,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-6487A393F0E82D"
+      "REQ-10DA4E44D17EBB"
     ],
     "categories": [
       "recovery",
@@ -211,16 +211,16 @@
       "category:recovery",
       "category:state",
       "full",
-      "requirement:REQ-6487A393F0E82D"
+      "requirement:REQ-10DA4E44D17EBB"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-6487A393F0E82D",
+      "requirement_id": "REQ-10DA4E44D17EBB",
       "oracle_type": "event",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-skill-edit-p0-20260831/implementation-plan.md · 最终实施结果 产品契约 exactly once and retain its correlation identity",
-      "then": "Review 证据：普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验，无跳过文件、无遗留已确认缺陷。",
+      "then": "Review 证据：原实现普通 OCR worker 部分失败后按规则只降级一次到 delegate，28/28 reviewable files 完成核验；本次 Windows CI 跟进最终 preview 为 4 个 reviewable files，delegate 4/4 完成核验，无跳过文件、无遗留已确认缺陷。",
       "observation_boundary": "session/sidecar event stream",
       "failure_if": "the exact assertion is contradicted, omitted, only observed before the trigger, or cannot be causally attributed to this one trigger"
     }

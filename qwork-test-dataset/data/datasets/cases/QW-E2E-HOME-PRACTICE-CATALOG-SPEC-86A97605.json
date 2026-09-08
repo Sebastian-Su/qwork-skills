@@ -21,26 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/home-practice-catalog.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/home-practice-catalog.spec.ts",
       "locator": "line:48;test:loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
-      "content_hash": "sha256:86a9760556dd1f80a6c3e49278d5c63c0f0b835073f757c63b5f50202f4353d4",
-      "redaction_status": "minimized"
-    },
-    {
-      "source_id": "QHEAD-E2E-e2e-home-practice-catalog-spec-ts",
-      "type": "git-e2e",
-      "authority_kind": "evidence",
-      "authority_domain": "execution",
-      "stable_source_id": "git:bd21bac684dabcddde278c0a120b491e64552e92:e2e/home-practice-catalog.spec.ts",
-      "locator": "line:48;test:loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS",
-      "revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-      "version": null,
-      "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:86a9760556dd1f80a6c3e49278d5c63c0f0b835073f757c63b5f50202f4353d4",
       "redaction_status": "minimized"
     }
@@ -71,32 +57,6 @@
         "reason": "compiled from the user-approved source hierarchy"
       },
       "oracle": "loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS"
-    },
-    {
-      "requirement_id": "REQ-57F526F964CA6B",
-      "source_atom_ids": [
-        "QHEAD-E2E-e2e-home-practice-catalog-spec-ts:L48:86a9760556"
-      ],
-      "content_facets": [
-        "acceptance-criterion"
-      ],
-      "acceptance_categories": [
-        "business"
-      ],
-      "surface": "shell-home",
-      "priority": "P1",
-      "rule": "loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS",
-      "authority_domain": "execution",
-      "governing_sources": [
-        "QHEAD-E2E-e2e-home-practice-catalog-spec-ts"
-      ],
-      "supporting_sources": [],
-      "conflicts": [],
-      "resolution": {
-        "status": "resolved",
-        "reason": "compiled from the user-approved source hierarchy"
-      },
-      "oracle": "loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS"
     }
   ],
   "verification": {
@@ -113,6 +73,9 @@
   "steps": [
     {
       "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "server.close(() => resolve())"
     },
     {
       "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
@@ -140,7 +103,7 @@
     "expect(hitsAfterLoad).toBeGreaterThanOrEqual(1)",
     "expect(page.getByRole(\"button\", { name: \"远端案例 6\" })).toBeVisible()",
     "expect(catalog.hits()).toBe(hitsAfterLoad)",
-    "expect(requests.some((url) => /playbook|myqcloud\\.com|cos\\./i.test(url))).toBe(false)",
+    "expect(requests.filter((url) => /^https?:/i.test(url) && /playbook|myqcloud\\.com|workbuddy/i.test(url))).toEqual([])",
     "expect(detail).toBeVisible()",
     "expect(detail).toContainText(\"远端摘要 6\")",
     "expect(page.getByText(\"任务 (0)\", { exact: true })).toBeVisible()",
@@ -154,11 +117,6 @@
   "oracles": [
     {
       "requirement_id": "REQ-6F0DE0728CAE7E",
-      "type": "return",
-      "assertion": "loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS"
-    },
-    {
-      "requirement_id": "REQ-57F526F964CA6B",
       "type": "return",
       "assertion": "loads a local fake catalog, refreshes over IPC, and never hits WorkBuddy COS"
     }
@@ -219,6 +177,9 @@
       "entrypoint": "shell-home",
       "steps": [
         {
+          "action": "server.close(() => resolve())"
+        },
+        {
           "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
         },
         {
@@ -256,12 +217,12 @@
       "source_contract": {
         "spec": "e2e/home-practice-catalog.spec.ts",
         "line_start": 48,
-        "line_end": 87,
-        "body_sha256": "sha256:4988aae86d3bd672073a9e03592d2d98c6985560caca4b88e59132940ad65074",
+        "line_end": 89,
+        "body_sha256": "sha256:eda2fb2133631cee77e3cf577dc41b0dbc8dd0c7e520043b122564cf5bfb83f8",
         "assertion_count": 11,
-        "action_count": 6,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:c2830eba7d1279131a7f0e9291bfc3b28e92ca74afb6786e89d899475915d936"
+        "action_count": 7,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:8add6e145a2a1c20a7717d3ec4f72777799c99a774fa9238758b508fab7024cd"
       }
     },
     "reference_run": {
@@ -283,7 +244,6 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-57F526F964CA6B",
       "REQ-6F0DE0728CAE7E"
     ],
     "categories": [
@@ -292,7 +252,6 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-57F526F964CA6B",
       "requirement:REQ-6F0DE0728CAE7E"
     ]
   }

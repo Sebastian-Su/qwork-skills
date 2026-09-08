@@ -21,12 +21,12 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/connectors-live-limitations.spec.ts",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/connectors-live-limitations.spec.ts",
       "locator": "line:101;test:keeps all 21 cards and connect entries actionable without hiding their limitation",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:9fbceed7d337811346b50b549886307a07d1d3422081309b5dbabd7412517272",
       "redaction_status": "minimized"
     }
@@ -75,6 +75,12 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+    },
+    {
       "action": "card.click()"
     },
     {
@@ -82,6 +88,7 @@
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"searchbox\", { name: \"搜索连接器\" })).toBeVisible()",
     "expect(card, `${contract.id} card`).toBeVisible()",
     "expect(card, `${contract.id} card`).toBeEnabled()",
     "expect(dialog, `${contract.id} detail`).toBeVisible()",
@@ -156,6 +163,12 @@
       "entrypoint": "connectors",
       "steps": [
         {
+          "action": "page.getByRole(\"button\", { name: \"专家·技能·连接器\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByRole(\"tab\", { name: \"连接器\", exact: true }).click()"
+        },
+        {
           "action": "card.click()"
         },
         {
@@ -183,9 +196,9 @@
         "line_start": 101,
         "line_end": 129,
         "body_sha256": "sha256:15191daf6e05dba3c66cbd46215a47473b2d51a8b11c42e1879da94109679390",
-        "assertion_count": 5,
-        "action_count": 2,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+        "assertion_count": 6,
+        "action_count": 4,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
         "spec_sha256": "sha256:52b56dbd4d42bdc8622a24d6f7c94bbdf256835b6f2fc93cf1489cf68b54e460"
       }
     },

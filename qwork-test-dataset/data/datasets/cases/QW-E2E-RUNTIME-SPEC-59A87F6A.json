@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/runtime.spec.ts",
-      "locator": "line:100;test:loads the Windows native terminal and docking dependencies",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/runtime.spec.ts",
+      "locator": "line:174;test:loads the Windows native terminal and docking dependencies",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:59a87f6a00f2c980f8ffecffda2ad425489c5653eb5cbdb5f635eb50f24432e2",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-23608E1DEF9099",
+      "requirement_id": "REQ-0985E405F29896",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-runtime-spec-ts:L100:59a87f6a00"
+        "QDEV-E2E-e2e-runtime-spec-ts:L174:59a87f6a00"
       ],
       "content_facets": [
         "acceptance-criterion"
@@ -75,37 +75,37 @@
       "action": "launchApp()"
     },
     {
+      "action": "fs.mkdtemp(path.join(os.tmpdir(), \"qwork-runtime-e2e-\"))"
+    },
+    {
+      "action": "path.join(os.tmpdir(), \"qwork-runtime-e2e-\")"
+    },
+    {
+      "action": "os.tmpdir()"
+    },
+    {
+      "action": "electron.launch({ ...(executablePath ? { executablePath, args: process.platform === \"linux\" ? [\"--password-store=basic\"] : [], } : { args: process.platform === \"linux\" ? [\"--password-store=basic\", root] : [root], }), env: { ...process.env, ...defaultE2EEnv, ELECTRON_RUN_AS_NODE: undefined, ZIQDO_CONFIG_HOME: configHome, ZIQDO_BIN: process.execPath, ZIQDO_BIN_ARGS_PREFIX: JSON.stringify([fakeSidecar]), }, })"
+    },
+    {
+      "action": "JSON.stringify([fakeSidecar])"
+    },
+    {
+      "action": "waitForE2EWindow(app)"
+    },
+    {
+      "action": "closeE2EApplication(app).catch(() => undefined)"
+    },
+    {
+      "action": "closeE2EApplication(app)"
+    },
+    {
+      "action": "removeE2ETestDirectory(configHome).catch(() => undefined)"
+    },
+    {
+      "action": "removeE2ETestDirectory(configHome)"
+    },
+    {
       "action": "app.evaluate(async ({ app }) => { const path = process.getBuiltinModule(\"node:path\"); const { createRequire } = process.getBuiltinModule(\"node:module\"); const require = createRequire(path.join(app.getAppPath(), \"package.json\")); const pty = require(\"node-pty\") as typeof import(\"node-pty\"); const koffi = require(\"koffi\") as typeof import(\"koffi\"); const terminal = pty.spawn( \"powershell.exe\", [ \"-NoProfile\", \"-NonInt…"
-    },
-    {
-      "action": "process.getBuiltinModule(\"node:path\")"
-    },
-    {
-      "action": "process.getBuiltinModule(\"node:module\")"
-    },
-    {
-      "action": "createRequire(path.join(app.getAppPath(), \"package.json\"))"
-    },
-    {
-      "action": "path.join(app.getAppPath(), \"package.json\")"
-    },
-    {
-      "action": "app.getAppPath()"
-    },
-    {
-      "action": "require(\"node-pty\")"
-    },
-    {
-      "action": "require(\"koffi\")"
-    },
-    {
-      "action": "pty.spawn( \"powershell.exe\", [ \"-NoProfile\", \"-NonInteractive\", \"-Command\", \"Write-Output 'node-pty works'\", ], { name: \"xterm-color\", cols: 80, rows: 24, cwd: app.getPath(\"temp\"), env: { ...process.env }, }, )"
-    },
-    {
-      "action": "app.getPath(\"temp\")"
-    },
-    {
-      "action": "setTimeout(() => { terminal.kill(); reject(new Error(\"node-pty smoke test timed out\")); }, 20_000)"
     }
   ],
   "expected_outcomes": [
@@ -119,7 +119,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-23608E1DEF9099",
+      "requirement_id": "REQ-0985E405F29896",
       "type": "return",
       "assertion": "loads the Windows native terminal and docking dependencies"
     }
@@ -169,37 +169,37 @@
           "action": "launchApp()"
         },
         {
+          "action": "fs.mkdtemp(path.join(os.tmpdir(), \"qwork-runtime-e2e-\"))"
+        },
+        {
+          "action": "path.join(os.tmpdir(), \"qwork-runtime-e2e-\")"
+        },
+        {
+          "action": "os.tmpdir()"
+        },
+        {
+          "action": "electron.launch({ ...(executablePath ? { executablePath, args: process.platform === \"linux\" ? [\"--password-store=basic\"] : [], } : { args: process.platform === \"linux\" ? [\"--password-store=basic\", root] : [root], }), env: { ...process.env, ...defaultE2EEnv, ELECTRON_RUN_AS_NODE: undefined, ZIQDO_CONFIG_HOME: configHome, ZIQDO_BIN: process.execPath, ZIQDO_BIN_ARGS_PREFIX: JSON.stringify([fakeSidecar]), }, })"
+        },
+        {
+          "action": "JSON.stringify([fakeSidecar])"
+        },
+        {
+          "action": "waitForE2EWindow(app)"
+        },
+        {
+          "action": "closeE2EApplication(app).catch(() => undefined)"
+        },
+        {
+          "action": "closeE2EApplication(app)"
+        },
+        {
+          "action": "removeE2ETestDirectory(configHome).catch(() => undefined)"
+        },
+        {
+          "action": "removeE2ETestDirectory(configHome)"
+        },
+        {
           "action": "app.evaluate(async ({ app }) => { const path = process.getBuiltinModule(\"node:path\"); const { createRequire } = process.getBuiltinModule(\"node:module\"); const require = createRequire(path.join(app.getAppPath(), \"package.json\")); const pty = require(\"node-pty\") as typeof import(\"node-pty\"); const koffi = require(\"koffi\") as typeof import(\"koffi\"); const terminal = pty.spawn( \"powershell.exe\", [ \"-NoProfile\", \"-NonInt…"
-        },
-        {
-          "action": "process.getBuiltinModule(\"node:path\")"
-        },
-        {
-          "action": "process.getBuiltinModule(\"node:module\")"
-        },
-        {
-          "action": "createRequire(path.join(app.getAppPath(), \"package.json\"))"
-        },
-        {
-          "action": "path.join(app.getAppPath(), \"package.json\")"
-        },
-        {
-          "action": "app.getAppPath()"
-        },
-        {
-          "action": "require(\"node-pty\")"
-        },
-        {
-          "action": "require(\"koffi\")"
-        },
-        {
-          "action": "pty.spawn( \"powershell.exe\", [ \"-NoProfile\", \"-NonInteractive\", \"-Command\", \"Write-Output 'node-pty works'\", ], { name: \"xterm-color\", cols: 80, rows: 24, cwd: app.getPath(\"temp\"), env: { ...process.env }, }, )"
-        },
-        {
-          "action": "app.getPath(\"temp\")"
-        },
-        {
-          "action": "setTimeout(() => { terminal.kill(); reject(new Error(\"node-pty smoke test timed out\")); }, 20_000)"
         }
       ],
       "locator_strategy": "source-bound process assertion",
@@ -220,13 +220,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/runtime.spec.ts",
-        "line_start": 100,
-        "line_end": 164,
+        "line_start": 174,
+        "line_end": 238,
         "body_sha256": "sha256:06690a4312a725a343fe5e9e31d84aebb7be4e6d5b3e038582264c6a67d3670f",
         "assertion_count": 2,
         "action_count": 0,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:92eb05c4532948def3921e3492d4a3beef5c6165a01e98ddea6b9950a3d13571"
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:709b3e8ee70feedf0187262c13234d65a3d1f859190637da9325100f323db567"
       }
     },
     "reference_run": {
@@ -248,7 +248,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-23608E1DEF9099"
+      "REQ-0985E405F29896"
     ],
     "categories": [
       "business"
@@ -256,7 +256,7 @@
     "suite_ids": [
       "category:business",
       "full",
-      "requirement:REQ-23608E1DEF9099"
+      "requirement:REQ-0985E405F29896"
     ]
   }
 }

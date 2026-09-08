@@ -21,21 +21,21 @@
       "type": "git-e2e",
       "authority_kind": "evidence",
       "authority_domain": "execution",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:e2e/settings-production.spec.ts",
-      "locator": "line:147;test:SETTINGS-T07 | authenticated manual proxy stores no plaintext and verifies without mutating desired state",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/settings-production.spec.ts",
+      "locator": "line:255;test:SETTINGS-T07 | authenticated manual proxy stores no plaintext and verifies without mutating desired state",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "not-applicable",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:a18896072cc27cdfd21cdcb3e143da781a4da0bc7184447276bfca089c33da1c",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-5ADE6F7C530672",
+      "requirement_id": "REQ-DF112CD4395FAD",
       "source_atom_ids": [
-        "QDEV-E2E-e2e-settings-production-spec-ts:L147:a18896072c"
+        "QDEV-E2E-e2e-settings-production-spec-ts:L255:a18896072c"
       ],
       "content_facets": [
         "negative-rule"
@@ -62,7 +62,7 @@
   "verification": {
     "last_outcome": "pending",
     "environment_scope": "stale deterministic public Playwright reference run",
-    "implementation_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
+    "implementation_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
     "last_verified_at": "2026-08-18T17:48:53.956757+00:00",
     "status_reason": "public Playwright reference bug973549-public-reference-643446ff-v1 does not match current implementation/source contract; rerun this exact Case"
   },
@@ -75,28 +75,42 @@
       "action": "launch isolated QWork Electron"
     },
     {
+      "action": "server.close((error) => error ? reject(error) : resolve())"
+    },
+    {
+      "action": "targetServer.close((error) => error ? reject(error) : resolve())"
+    },
+    {
+      "action": "page.keyboard.press(\"Control+,\")"
+    },
+    {
       "action": "dialog.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
     },
     {
-      "action": "dialog.getByRole(\"combobox\", { name: \"代理模式\" }).selectOption(\"manual\")"
+      "action": "advancedSettings.getByRole(\"combobox\", { name: \"代理模式\" }).click()"
     },
     {
-      "action": "dialog.getByRole(\"textbox\", { name: \"手动代理地址\" }).fill(proxy.url)"
+      "action": "dialog.getByRole(\"option\", { name: \"手动配置\", exact: true }).click()"
     },
     {
-      "action": "dialog.getByRole(\"textbox\", { name: \"代理用户名\" }).fill(\"proxy-user\")"
+      "action": "advancedSettings.getByRole(\"textbox\", { name: \"手动代理地址\" }).fill(proxy.url)"
     },
     {
-      "action": "dialog.getByLabel(\"代理密码\").fill(\"proxy-secret\")"
+      "action": "advancedSettings.getByRole(\"textbox\", { name: \"代理用户名\" }).fill(\"proxy-user\")"
     },
     {
-      "action": "dialog.getByRole(\"button\", { name: \"保存代理\" }).click()"
+      "action": "advancedSettings.getByLabel(\"代理密码\").fill(\"proxy-secret\")"
+    },
+    {
+      "action": "advancedSettings.getByRole(\"button\", { name: \"保存代理\" }).click()"
     },
     {
       "action": "dialog.getByRole(\"button\", { name: \"测试连接\" }).click()"
     }
   ],
   "expected_outcomes": [
+    "expect(page.getByRole(\"button\", { name: \"新建任务\", exact: true })).toBeVisible()",
+    "expect(dialog).toBeVisible()",
     "expect(dialog.getByTestId(\"setting-state-system.proxy\")).toContainText(\"sidecar 下次启动生效\")",
     "expect(dialog.getByRole(\"button\", { name: \"清除代理密码\" })).toBeVisible()",
     "expect(dialog.getByTestId(\"setting-state-system.proxy\")).toContainText(\"已验证\")",
@@ -112,7 +126,7 @@
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-5ADE6F7C530672",
+      "requirement_id": "REQ-DF112CD4395FAD",
       "type": "return",
       "assertion": "SETTINGS-T07 | authenticated manual proxy stores no plaintext and verifies without mutating desired state"
     }
@@ -173,22 +187,34 @@
       "entrypoint": "settings",
       "steps": [
         {
+          "action": "server.close((error) => error ? reject(error) : resolve())"
+        },
+        {
+          "action": "targetServer.close((error) => error ? reject(error) : resolve())"
+        },
+        {
+          "action": "page.keyboard.press(\"Control+,\")"
+        },
+        {
           "action": "dialog.getByRole(\"button\", { name: \"系统设置\", exact: true }).click()"
         },
         {
-          "action": "dialog.getByRole(\"combobox\", { name: \"代理模式\" }).selectOption(\"manual\")"
+          "action": "advancedSettings.getByRole(\"combobox\", { name: \"代理模式\" }).click()"
         },
         {
-          "action": "dialog.getByRole(\"textbox\", { name: \"手动代理地址\" }).fill(proxy.url)"
+          "action": "dialog.getByRole(\"option\", { name: \"手动配置\", exact: true }).click()"
         },
         {
-          "action": "dialog.getByRole(\"textbox\", { name: \"代理用户名\" }).fill(\"proxy-user\")"
+          "action": "advancedSettings.getByRole(\"textbox\", { name: \"手动代理地址\" }).fill(proxy.url)"
         },
         {
-          "action": "dialog.getByLabel(\"代理密码\").fill(\"proxy-secret\")"
+          "action": "advancedSettings.getByRole(\"textbox\", { name: \"代理用户名\" }).fill(\"proxy-user\")"
         },
         {
-          "action": "dialog.getByRole(\"button\", { name: \"保存代理\" }).click()"
+          "action": "advancedSettings.getByLabel(\"代理密码\").fill(\"proxy-secret\")"
+        },
+        {
+          "action": "advancedSettings.getByRole(\"button\", { name: \"保存代理\" }).click()"
         },
         {
           "action": "dialog.getByRole(\"button\", { name: \"测试连接\" }).click()"
@@ -212,13 +238,13 @@
       "failure_classification": "product|fixture|route|environment|external",
       "source_contract": {
         "spec": "e2e/settings-production.spec.ts",
-        "line_start": 147,
-        "line_end": 183,
-        "body_sha256": "sha256:fe4bc68d9c25547a6aff8d5470dc5f10987a5557a4f1281934e7bd5e3e620246",
-        "assertion_count": 7,
-        "action_count": 7,
-        "execution_revision": "bd21bac684dabcddde278c0a120b491e64552e92",
-        "spec_sha256": "sha256:5bbe24e9d488a9430def40811b207564168c2fb876ed57d754e62cfca3d0e0be"
+        "line_start": 255,
+        "line_end": 293,
+        "body_sha256": "sha256:156900683580f752604aaafa51443dff65ec43975a59d78797a4f6741a71ad5b",
+        "assertion_count": 9,
+        "action_count": 11,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:95e337d0f83652dd6190ee79e83dd7802035b99a27549e29e3e04c066cf6d390"
       }
     },
     "reference_run": {
@@ -240,7 +266,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-5ADE6F7C530672"
+      "REQ-DF112CD4395FAD"
     ],
     "categories": [
       "negative"
@@ -248,7 +274,7 @@
     "suite_ids": [
       "category:negative",
       "full",
-      "requirement:REQ-5ADE6F7C530672"
+      "requirement:REQ-DF112CD4395FAD"
     ]
   }
 }

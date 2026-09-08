@@ -1,0 +1,335 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-DESKTOP-PET-WORK-SPEC-065D1DB0",
+  "title": "desktop pet guards work, separates petting and persists quiet mode",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "persistence",
+    "journey": "persistence",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-desktop-pet-work-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/desktop-pet-work.spec.ts",
+      "locator": "line:7;test:desktop pet guards work, separates petting and persists quiet mode",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:065d1db05d9d7b93da344f8b79fb64771dbbf62d8d967e38f3894f1a4da94782",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-4BF2EE74F83B63",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-desktop-pet-work-spec-ts:L7:065d1db05d"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "persistence",
+      "priority": "P1",
+      "rule": "desktop pet guards work, separates petting and persists quiet mode",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-desktop-pet-work-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "desktop pet guards work, separates petting and persists quiet mode"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"menuitem\", { name: /成长计划/ }).click()"
+    },
+    {
+      "action": "page.getByRole(\"switch\", { name: \"桌宠常驻桌面\" }).click()"
+    },
+    {
+      "action": "pet.click({ position: { x: 120, y: 170 } })"
+    },
+    {
+      "action": "chatEntry.focus()"
+    },
+    {
+      "action": "petPage.keyboard.press(key)"
+    },
+    {
+      "action": "petPage.getByRole(\"button\", { name: \"收起桌宠对话\" }).click()"
+    },
+    {
+      "action": "pet.dblclick({ position: { x: 120, y: 170 } })"
+    },
+    {
+      "action": "petPage.getByRole(\"button\", { name: \"收起桌宠对话\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"关闭个人中心\" }).click()"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+    },
+    {
+      "action": "page.getByPlaceholder(/今天帮你做些什么/).fill(\"__E2E_PERMISSION__:Bash\")"
+    },
+    {
+      "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+    },
+    {
+      "action": "notice.click()"
+    },
+    {
+      "action": "permission.getByRole(\"button\", { name: \"允许\", exact: true }).click()"
+    },
+    {
+      "action": "pet.click({ button: \"right\", position: { x: 120, y: 170 } })"
+    },
+    {
+      "action": "petPage.getByRole(\"switch\", { name: \"免打扰\" }).click()"
+    },
+    {
+      "action": "app.close()"
+    },
+    {
+      "action": "restored.getByRole(\"button\", { name: \"唤醒被窝团子\" }).click({ button: \"right\", position: { x: 120, y: 170 } })"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(petPage.getByTestId(\"desktop-pet-motion-canvas\")).toHaveAttribute(\"data-frame-ready\", \"true\")",
+    "expect(petPage.getByRole(\"region\", { name: \"桌宠对话\" })).toBeHidden()",
+    "expect(petPage.getByRole(\"status\", { name: \"桌宠回应\" })).toBeVisible()",
+    "expect(chatEntry).toBeFocused()",
+    "expect(petPage.getByRole(\"region\", { name: \"桌宠对话\" })).toBeVisible()",
+    "expect(chatEntry).toBeVisible()",
+    "expect(petPage.getByRole(\"region\", { name: \"桌宠对话\" })).toBeVisible()",
+    "expect(notice).toBeVisible()",
+    "expect(petPage.getByTestId(\"desktop-pet-motion-canvas\")).toHaveAttribute(\"data-response\", \"waiting\")",
+    "expect(permission).toBeVisible()",
+    "expect(petPage.getByRole(\"button\", { name: /查看任务.*任务完成/ })).toBeVisible()",
+    "expect(petPage.getByTestId(\"desktop-pet-motion-canvas\")).toHaveAttribute(\"data-response\", \"done\")",
+    "expect(petPage.getByRole(\"switch\", { name: \"免打扰\" })).toBeChecked()",
+    "expect(petPage.getByRole(\"button\", { name: /查看任务/ })).toBeHidden()",
+    "expect.poll(async () => running!.app.windows().length).toBeGreaterThan(1)",
+    "expect(restored.getByRole(\"switch\", { name: \"免打扰\" })).toBeChecked()"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-4BF2EE74F83B63",
+      "type": "return",
+      "assertion": "desktop pet guards work, separates petting and persists quiet mode"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-desktop-pet-work-spec-ts.065d1db05d",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/desktop-pet-work.spec.ts -g \"desktop pet guards work, separates petting and persists quiet mode\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "persistence",
+      "steps": [
+        {
+          "action": "page.getByRole(\"button\", { name: /Dev User|蓝湖|本地用户/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"menuitem\", { name: /成长计划/ }).click()"
+        },
+        {
+          "action": "page.getByRole(\"switch\", { name: \"桌宠常驻桌面\" }).click()"
+        },
+        {
+          "action": "pet.click({ position: { x: 120, y: 170 } })"
+        },
+        {
+          "action": "chatEntry.focus()"
+        },
+        {
+          "action": "petPage.keyboard.press(key)"
+        },
+        {
+          "action": "petPage.getByRole(\"button\", { name: \"收起桌宠对话\" }).click()"
+        },
+        {
+          "action": "pet.dblclick({ position: { x: 120, y: 170 } })"
+        },
+        {
+          "action": "petPage.getByRole(\"button\", { name: \"收起桌宠对话\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"关闭个人中心\" }).click()"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"新建任务\", exact: true }).click()"
+        },
+        {
+          "action": "page.getByPlaceholder(/今天帮你做些什么/).fill(\"__E2E_PERMISSION__:Bash\")"
+        },
+        {
+          "action": "page.getByRole(\"button\", { name: \"发送\", exact: true }).click()"
+        },
+        {
+          "action": "notice.click()"
+        },
+        {
+          "action": "permission.getByRole(\"button\", { name: \"允许\", exact: true }).click()"
+        },
+        {
+          "action": "pet.click({ button: \"right\", position: { x: 120, y: 170 } })"
+        },
+        {
+          "action": "petPage.getByRole(\"switch\", { name: \"免打扰\" }).click()"
+        },
+        {
+          "action": "app.close()"
+        },
+        {
+          "action": "restored.getByRole(\"button\", { name: \"唤醒被窝团子\" }).click({ button: \"right\", position: { x: 120, y: 170 } })"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/desktop-pet-work.spec.ts",
+        "line_start": 7,
+        "line_end": 73,
+        "body_sha256": "sha256:6cc513d6a0b47a776793ed75c14b107b268a81fe57e47f495ea3b49c54fec9f0",
+        "assertion_count": 16,
+        "action_count": 19,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:a816cc49ac41914967d93831d05835a53d994a31c5d47bf485f7fc46ad9e90e5"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-4BF2EE74F83B63"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-4BF2EE74F83B63"
+    ]
+  }
+}

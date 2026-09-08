@@ -22,21 +22,21 @@
       "type": "git-document",
       "authority_kind": "normative",
       "authority_domain": "product",
-      "stable_source_id": "git:54cffebb4208b07bd7ec243613108f9ac2b9c72f:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
-      "locator": "line:332;heading:失败恢复与回滚",
-      "revision": "54cffebb4208b07bd7ec243613108f9ac2b9c72f",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:docs/changes/CHG-unified-observability-20260827/implementation-plan.md",
+      "locator": "line:518;heading:失败恢复与回滚",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
       "version": null,
       "approval_status": "approved",
-      "retrieved_at": "2026-08-31T17:56:17.071807+00:00",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
       "content_hash": "sha256:94cf659a5c5b06c3f7ff591dc642e2b0dec3bcfeb486204694bc37a1ec6aaea9",
       "redaction_status": "minimized"
     }
   ],
   "derived_requirements": [
     {
-      "requirement_id": "REQ-20226CC573F3EF",
+      "requirement_id": "REQ-FB584F9DF02E56",
       "source_atom_ids": [
-        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L332:94cf659a5c"
+        "QDEV-DOC-docs-changes-chg-unified-observability-20260827-impl:L518:94cf659a5c"
       ],
       "content_facets": [
         "ui-interaction"
@@ -82,7 +82,7 @@
       "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 失败恢复与回滚 产品契约 exactly once; record the action, route and correlation identity"
     },
     {
-      "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-20226CC573F3EF] exactly: qwork_server access/LLM 事件可通过配置关闭输出，但 HTTP/LLM 业务不依赖 logger 成功。"
+      "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-FB584F9DF02E56] exactly: qwork_server access/LLM 事件可通过配置关闭输出，但 HTTP/LLM 业务不依赖 logger 成功。"
     },
     {
       "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -92,13 +92,13 @@
     "qwork_server access/LLM 事件可通过配置关闭输出，但 HTTP/LLM 业务不依赖 logger 成功。"
   ],
   "forbidden_outcomes": [
-    "FAIL [REQ-20226CC573F3EF]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: qwork_server access/LLM 事件可通过配置关闭输出，但 HTTP/LLM 业务不依赖 logger 成功。",
+    "FAIL [REQ-FB584F9DF02E56]: evidence contradicts, omits, or cannot causally attribute the exact Oracle: qwork_server access/LLM 事件可通过配置关闭输出，但 HTTP/LLM 业务不依赖 logger 成功。",
     "false success from pre-existing state, an unrelated event, or evidence captured before the trigger",
     "state leakage outside the isolated fixture"
   ],
   "oracles": [
     {
-      "requirement_id": "REQ-20226CC573F3EF",
+      "requirement_id": "REQ-FB584F9DF02E56",
       "type": "ui-interaction",
       "assertion": "qwork_server access/LLM 事件可通过配置关闭输出，但 HTTP/LLM 业务不依赖 logger 成功。"
     }
@@ -170,7 +170,7 @@
           "action": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 失败恢复与回滚 产品契约 exactly once; record the action, route and correlation identity"
         },
         {
-          "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-20226CC573F3EF] exactly: qwork_server access/LLM 事件可通过配置关闭输出，但 HTTP/LLM 业务不依赖 logger 成功。"
+          "action": "observe renderer input/output interaction boundary after the trigger and assert [REQ-FB584F9DF02E56] exactly: qwork_server access/LLM 事件可通过配置关闭输出，但 HTTP/LLM 业务不依赖 logger 成功。"
         },
         {
           "action": "compare the pre-trigger and post-trigger evidence, reject unrelated prior state, and preserve the per-Requirement causal verdict"
@@ -216,7 +216,7 @@
   },
   "selection": {
     "requirement_ids": [
-      "REQ-20226CC573F3EF"
+      "REQ-FB584F9DF02E56"
     ],
     "categories": [
       "ui-interaction"
@@ -224,12 +224,12 @@
     "suite_ids": [
       "category:ui-interaction",
       "full",
-      "requirement:REQ-20226CC573F3EF"
+      "requirement:REQ-FB584F9DF02E56"
     ]
   },
   "causal_probe_plan": [
     {
-      "requirement_id": "REQ-20226CC573F3EF",
+      "requirement_id": "REQ-FB584F9DF02E56",
       "oracle_type": "ui-interaction",
       "given": "the isolated fixture is at the source-defined entry state and the relevant pre-trigger UI, protocol and durable-state baseline is captured",
       "when": "perform the source-defined scenario trigger for docs/changes/CHG-unified-observability-20260827/implementation-plan.md · 失败恢复与回滚 产品契约 exactly once and retain its correlation identity",

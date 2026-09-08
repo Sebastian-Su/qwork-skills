@@ -1,0 +1,242 @@
+{
+  "schema_version": 3,
+  "id": "QW-E2E-BILLING-AUDIT-CLOSURE-SPEC-F62451AD",
+  "title": "loads more than fifty credit entries through the main process and applies server date filters",
+  "kind": "golden",
+  "priority": "P1",
+  "lifecycle_status": "active",
+  "execution_type": "desktop",
+  "execution_mode": "real-process",
+  "coverage": {
+    "capability_id": "shell-home",
+    "journey": "shell-home",
+    "states_covered": [
+      "interactive-result"
+    ],
+    "risk_ids": []
+  },
+  "sources": [
+    {
+      "source_id": "QDEV-E2E-e2e-billing-audit-closure-spec-ts",
+      "type": "git-e2e",
+      "authority_kind": "evidence",
+      "authority_domain": "execution",
+      "stable_source_id": "git:57fc92fbfced8f63a6e9fe510a7c08d39a09d7db:e2e/billing-audit-closure.spec.ts",
+      "locator": "line:21;test:loads more than fifty credit entries through the main process and applies server date filters",
+      "revision": "57fc92fbfced8f63a6e9fe510a7c08d39a09d7db",
+      "version": null,
+      "approval_status": "not-applicable",
+      "retrieved_at": "2026-09-08T08:33:00+00:00",
+      "content_hash": "sha256:f62451adcfff9e612ecb3c37d7b1eaef87e3b21c046b326b61ae492aec27a548",
+      "redaction_status": "minimized"
+    }
+  ],
+  "derived_requirements": [
+    {
+      "requirement_id": "REQ-5EE17CCA9E2134",
+      "source_atom_ids": [
+        "QDEV-E2E-e2e-billing-audit-closure-spec-ts:L21:f62451adcf"
+      ],
+      "content_facets": [
+        "acceptance-criterion"
+      ],
+      "acceptance_categories": [
+        "business"
+      ],
+      "surface": "shell-home",
+      "priority": "P1",
+      "rule": "loads more than fifty credit entries through the main process and applies server date filters",
+      "authority_domain": "execution",
+      "governing_sources": [
+        "QDEV-E2E-e2e-billing-audit-closure-spec-ts"
+      ],
+      "supporting_sources": [],
+      "conflicts": [],
+      "resolution": {
+        "status": "resolved",
+        "reason": "compiled from the user-approved source hierarchy"
+      },
+      "oracle": "loads more than fifty credit entries through the main process and applies server date filters"
+    }
+  ],
+  "verification": {
+    "last_outcome": "pending",
+    "environment_scope": "isolated Electron fixture",
+    "implementation_revision": null,
+    "last_verified_at": null,
+    "status_reason": "generated baseline has not completed its reference run"
+  },
+  "preconditions": {
+    "repository": "qwork",
+    "isolated_config_home": true
+  },
+  "steps": [
+    {
+      "action": "launch isolated QWork Electron"
+    },
+    {
+      "action": "page.getByRole('button',{name:/Dev User|蓝湖|本地用户/}).click()"
+    },
+    {
+      "action": "page.getByRole('menuitem',{name:/可用积分/}).click()"
+    },
+    {
+      "action": "page.getByRole('button',{name:'加载更多积分记录'}).click()"
+    },
+    {
+      "action": "page.getByRole('button',{name:'今天',exact:true}).click()"
+    },
+    {
+      "action": "server.close(()=>resolve())"
+    }
+  ],
+  "expected_outcomes": [
+    "expect(page.getByText('receipt-50',{exact:true})).toBeVisible()",
+    "expect(page.getByText('90/100积分（可用/累计发放）')).toBeVisible()",
+    "expect(page.getByText('receipt-55',{exact:true})).toBeVisible()",
+    "expect(page.getByRole('table',{name:'积分变动明细'}).getByRole('row')).toHaveCount(56)",
+    "expect(requests.some(url=>url.searchParams.get('cursor')==='page-two')).toBe(true)",
+    "expect.poll(()=>requests.at(-1)?.searchParams.get('from')).toBe(new Date(new Date().setHours(0,0,0,0)).toISOString())",
+    "expect(page.getByText('receipt-55',{exact:true})).toHaveCount(0)"
+  ],
+  "forbidden_outcomes": [
+    "silent failure",
+    "false success",
+    "state leakage outside the isolated fixture"
+  ],
+  "oracles": [
+    {
+      "requirement_id": "REQ-5EE17CCA9E2134",
+      "type": "return",
+      "assertion": "loads more than fifty credit entries through the main process and applies server date filters"
+    }
+  ],
+  "cleanup": {
+    "action": "close Electron and remove the case-owned temporary state"
+  },
+  "evidence": [
+    "trace or durable-state evidence"
+  ],
+  "ui_acceptance": {
+    "acceptance_mode": "behavior-only",
+    "viewport_profiles": [
+      {
+        "id": "darwin-default",
+        "width": 1200,
+        "height": 800,
+        "dpr": 1
+      }
+    ],
+    "required_screenshot_states": []
+  },
+  "execution_contract": {
+    "contract_version": 1,
+    "readiness": "partial",
+    "route_id": "qwork.playwright.e2e-billing-audit-closure-spec-ts.f62451adcf",
+    "target": {
+      "kind": "installed-app",
+      "platforms": [
+        "darwin",
+        "win32",
+        "linux"
+      ],
+      "artifact": "repo://out/main/index.js + Electron"
+    },
+    "authorization": {
+      "required": false,
+      "scopes": []
+    },
+    "preflight": [
+      {
+        "action": "resolve repo revision and dependency lock",
+        "oracle": "revision and lock hashes are recorded"
+      },
+      {
+        "action": "allocate isolated QWork home",
+        "oracle": "fixture path is unique and outside ~/.qwork"
+      }
+    ],
+    "launch": {
+      "strategy": "command",
+      "command_or_tool": "npx playwright test e2e/billing-audit-closure.spec.ts -g \"loads more than fifty credit entries through the main process and applies server date filters\"",
+      "success_oracle": "Electron window and target surface are visible",
+      "failure_action": "repair route or launcher; do not skip"
+    },
+    "navigation": {
+      "kind": "ui-route",
+      "entrypoint": "shell-home",
+      "steps": [
+        {
+          "action": "page.getByRole('button',{name:/Dev User|蓝湖|本地用户/}).click()"
+        },
+        {
+          "action": "page.getByRole('menuitem',{name:/可用积分/}).click()"
+        },
+        {
+          "action": "page.getByRole('button',{name:'加载更多积分记录'}).click()"
+        },
+        {
+          "action": "page.getByRole('button',{name:'今天',exact:true}).click()"
+        },
+        {
+          "action": "server.close(()=>resolve())"
+        }
+      ],
+      "locator_strategy": "accessible role/name first; project locator registry fallback",
+      "success_oracle": "all source-bound assertions pass",
+      "failure_action": "capture screenshot and DOM/IPC evidence, then repair locator"
+    },
+    "fixtures": {
+      "setup": "case-owned temp home and deterministic fake sidecar unless live authority is explicit",
+      "isolation": "no reuse of ~/.qwork, real account, or production data without explicit Case authority",
+      "cleanup": "close app and remove temp home"
+    },
+    "observability": {
+      "artifacts": [
+        "report.json",
+        "trace.zip"
+      ],
+      "correlation": "case_id + run_id + revision",
+      "failure_classification": "product|fixture|route|environment|external",
+      "source_contract": {
+        "spec": "e2e/billing-audit-closure.spec.ts",
+        "line_start": 21,
+        "line_end": 52,
+        "body_sha256": "sha256:06e7b329da2a715acdf70310323438ebae088d87d1de035f2d0472fc8243d128",
+        "assertion_count": 7,
+        "action_count": 5,
+        "execution_revision": "f22d6511c2187b77319ea0d8f989dbd0c0a07cda",
+        "spec_sha256": "sha256:c73bcb48582bb1e3fb9d0feb5514579ae217204ecaaff45a3c4f41f2bacd1bad"
+      }
+    },
+    "reference_run": {
+      "status": "pending",
+      "run_id": null,
+      "verified_at": null,
+      "environment": "not yet independently replayed"
+    },
+    "cleanup": {
+      "actions": [
+        "close Electron application",
+        "remove case-owned temporary directory"
+      ],
+      "success_oracle": "no case-owned process or temporary state remains"
+    },
+    "blockers": [
+      "reference run pending"
+    ]
+  },
+  "selection": {
+    "requirement_ids": [
+      "REQ-5EE17CCA9E2134"
+    ],
+    "categories": [
+      "business"
+    ],
+    "suite_ids": [
+      "category:business",
+      "full",
+      "requirement:REQ-5EE17CCA9E2134"
+    ]
+  }
+}
